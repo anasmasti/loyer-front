@@ -3,9 +3,9 @@
 }
 .navbar {
     width: calc(100vw - (20rem + 2rem));
-    box-shadow: 0px 1px 14px rgb(142 142 142 / 5%);
+    box-shadow: 1px 6px 14px rgb(142 142 142 / 5%);
     border-radius: 22px;
-    height: 6vh;
+    height: 7vh;
     left: auto;
     right: auto;
     background-color: white;
@@ -15,7 +15,7 @@
     background-color: white;
     min-width: 17rem;
     width: 17rem;
-    height: 100vh ;
+    height: 100vh;
     position: fixed;
     left: 1.5rem;
     bottom: auto;
@@ -30,4 +30,13 @@
     margin-left: calc(100vw - (100vw - (17rem + 1.6rem)));
     flex-direction: column;
     transition: all 0.4s;
+}
+
+#sidebar.active {
+    margin-left: -(17rem + 1.6rem);
+  }
+  
+  #content.active {
+    width: 100%;
+    margin: 0;
   }
