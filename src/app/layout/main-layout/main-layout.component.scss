@@ -1,18 +1,22 @@
+@use '../../../assets/style/helpers' as *;
+@use '../../../assets/style/components' as *;
+
 .header-section {
     margin-right: calc(100vw - (100vw - 1.5rem));
 }
+
 .navbar {
     width: calc(100vw - (20rem + 2rem));
-    box-shadow: 1px 6px 14px rgb(142 142 142 / 5%);
-    border-radius: 22px;
+    box-shadow: $card-box-shadow;
+    border-radius: $main-border-radius;
     height: 7vh;
     left: auto;
     right: auto;
-    background-color: white;
+    background: color(light);
 }
 
 .vertical-nav {
-    background-color: white;
+    background: color(light);
     min-width: 17rem;
     width: 17rem;
     height: 100vh;
@@ -20,8 +24,8 @@
     left: 1.5rem;
     bottom: auto;
     top: 2rem;
-    border-radius: 22px;
-    box-shadow: -1px 20px 20px rgb(142 142 142 / 5%);
+    border-radius: $main-border-radius;
+    box-shadow: $card-box-shadow;
     transition: all 0.4s;
 }
 
@@ -34,9 +38,9 @@
 
 #sidebar.active {
     margin-left: -(17rem + 1.6rem);
-  }
-  
-  #content.active {
+}
+
+#content.active {
     width: 100%;
     margin: 0;
-  }
+}

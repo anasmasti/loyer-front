@@ -9,6 +9,7 @@ import { FormControl, FormGroup} from '@angular/forms';
 export class ProprietaireComponent implements OnInit {
 
   // proprietaireForm !: FormGroup;
+  isMand: boolean = false
 
   constructor() { }
 
@@ -45,7 +46,7 @@ export class ProprietaireComponent implements OnInit {
 
   onSubmit()
   {
-    console.log(this.proprietaireForm.value);
+    console.log(this.proprietaireForm?.value);
   }
 
 
