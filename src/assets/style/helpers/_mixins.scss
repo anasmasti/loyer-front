@@ -1,0 +1,8 @@
+@use "./variables";
+
+@mixin mobile($min-screen, $max-screen) {
+    @media only screen and (min-width: $min-screen) and (max-width: $max-screen) {
+        @content;
+    }
+}
+

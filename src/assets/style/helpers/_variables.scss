@@ -1,0 +1,33 @@
+// Global colors
+$colors: (
+    "main-color": #909ef8,
+    "body-color": #fefeff,
+    "danger": #ffa2a2,
+    "success": #25e6bf,
+    "dark": #828282,
+    "light": #ffffff,
+);
+
+// Global border radius
+$main-border-radius: 22px;
+
+// Global box shadow
+$btn-box-shadow: 1px 6px 14px rgb(142 142 142 / 5%);
+$card-box-shadow: 1px 6px 14px rgb(142 142 142 / 5%);
+
+// Global font weights
+$font-weights: (
+    "regular": 400,
+    "bold": 600,
+);
+
+// Global font sizes
+$font-sizes: (
+    "small": 12px,
+    "medium": 15px,
+    "large": 20px,
+);
+
+// Mobile screens 
+$min-screen : 320px;
+$max-screen : 490px;
