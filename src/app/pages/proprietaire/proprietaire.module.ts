@@ -2,6 +2,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProprietaireComponent } from './proprietaire.component';
+import {ReactiveFormsModule} from '@angular/forms'
 
 const route: Routes = [
   { path: '', component: ProprietaireComponent }
@@ -11,7 +12,8 @@ const route: Routes = [
   declarations: [ProprietaireComponent],
   imports: [
     RouterModule.forChild(route),
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ]
 })
 export class ProprietaireModule { }

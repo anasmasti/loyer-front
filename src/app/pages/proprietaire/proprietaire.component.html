@@ -1,4 +1,4 @@
- <div class="row ">
+ <div class="row title">
      <div class="col-lg-12 mt-3">
        <div class=" d-flex justify-content-between">
         <!-- <h3 class="leftborder"></h3> -->
@@ -16,38 +16,38 @@
     <div class="FormBox mt-4">
 
         <!-- Form propriètaire de local Start -->
-      <form action="">
+      <form [formGroup]="proprietaireForm" (ngSubmit)="onSubmit()">
           <!-- First Row Start-->
           <div class="row">
               
                   <div class="col-lg-2 form-group">
                       <label for="">N° CIN du Propriétaire</label>
-                      <input type="text" class="form-control rounded-pill">
+                      <input type="text" class="form-control rounded-pill" formControlName="cinPr">
                   </div>
 
                   <div class="col-lg-2 form-group">
                     <label for="">Passeport Propriétaire</label>
-                    <input type="text" class="form-control rounded-pill">
+                    <input type="text" class="form-control rounded-pill" formControlName="passeportPr" >
                 </div>
 
                 <div class="col-lg-2 form-group">
                     <label for="">Carte séjour Propriétaire</label>
-                    <input type="text" class="form-control rounded-pill">
+                    <input type="text" class="form-control rounded-pill" formControlName="carteSejourPr" >
                 </div>
 
                 <div class="col-lg-2 form-group">
                     <label for="">Raison sociale propriétaire</label>
-                    <input type="text" class="form-control rounded-pill">
+                    <input type="text" class="form-control rounded-pill" formControlName="raisonSocialPr" >
                 </div>
 
                 <div class="col-lg-2 form-group">
                     <label for="">N° de registre du commerce</label>
-                    <input type="text" class="form-control rounded-pill">
+                    <input type="text" class="form-control rounded-pill" formControlName="NregCommercePr" >
                 </div>
 
                 <div class="col-lg-2 form-group">
                     <label for="">Nom et prénom propriétaire</label>
-                    <input type="text" class="form-control rounded-pill">
+                    <input type="text" class="form-control rounded-pill" formControlName="nomprenomPr" >
                 </div>
 
           </div>
@@ -58,41 +58,41 @@
               
                 <div class="col-lg-2 form-group">
                     <label for="">Téléphone du propriétaire</label>
-                    <input type="text" class="form-control rounded-pill">
+                    <input type="text" class="form-control rounded-pill" formControlName="telPr" >
                 </div>
 
                 <div class="col-lg-2 form-group">
                   <label for="">Fax du propriétaire</label>
-                  <input type="text" class="form-control rounded-pill">
+                  <input type="text" class="form-control rounded-pill" formControlName="faxPr" >
               </div>
 
               <div class="col-lg-2 form-group">
                   <label for="">Adresse du propriétaire</label>
-                  <input type="text" class="form-control rounded-pill">
+                  <input type="text" class="form-control rounded-pill" formControlName="adressePr" >
               </div>
 
               <div class="col-lg-2 form-group">
                   <label for="">N° de compte bancaire P</label>
-                  <input type="text" class="form-control rounded-pill">
+                  <input type="text" class="form-control rounded-pill" formControlName="NcptBancPr" >
               </div>
 
               <div class="col-lg-2 form-group">
                   <label for="">Banque</label>
-                  <input type="text" class="form-control rounded-pill">
+                  <input type="text" class="form-control rounded-pill" formControlName="bancPr" >
               </div>
 
               <div class="col-lg-2 form-group">
                   <label for="">Nom de l’Agence bancaire</label>
-                  <input type="text" class="form-control rounded-pill">
+                  <input type="text" class="form-control rounded-pill" formControlName="nomAgencebancPr" >
               </div>
 
 
             <div class="mt-4">Mandataire</div>
               <div class="col-lg-2 form-group d-flex">
                 <label for="">Oui</label>
-                <input type="radio" name="mandataire" class="form-check-input mx-2">
+                <input type="radio" name="isMandataire" [value]="true" class="form-check-input mx-2" formControlName="isMandataire">
                 <label for="">Non</label>
-                <input type="radio" name="mandataire" class="form-check-input mx-2">
+                <input type="radio" name="isMandataire" [value]="false" class="form-check-input mx-2" formControlName="isMandataire">
             </div>
 
         </div>
@@ -106,7 +106,11 @@
 </div>
  <!-- Propriètaire de local container End-->
 
+ <!-- /////////////////////////////////////////////////////////////////////////////////////// -->
 
+
+ <!-- Div Container Mandataire (Title+divForm+Form) Start -->
+<div class="principal">
  <!-- Mandataire Title -->
  <div class="row mt-4">
     <div class="margin-main col-lg-12 mt-3">
@@ -118,6 +122,7 @@
     </div>
 </div>
 
+
 <!-- Mandataire container Start-->
 <div class="mainText mt-4">
     <h5>Remplissage des données</h5>
@@ -126,43 +131,43 @@
     <div class="FormBox mt-4">
 
         <!-- Form Mandataire Start -->
-      <form action="">
+      <form [formGroup]="proprietaireForm" (ngSubmit)="onSubmit()">
           <!-- First Row Start-->
           <div class="row">
               
                   <div class="col-lg-2 form-group">
                       <label for="">N° CIN mandataire</label>
-                      <input type="text" class="form-control rounded-pill">
+                      <input type="text" class="form-control rounded-pill" formControlName="cinM" ngModel>
                   </div>
 
                   <div class="col-lg-2 form-group">
                     <label for="">Raison sociale mandataire</label>
-                    <input type="text" class="form-control rounded-pill">
+                    <input type="text" class="form-control rounded-pill" formControlName="rsocialM" ngModel>
                 </div>
 
                 <div class="col-lg-2 form-group">
                     <label for="">Nom et prénom mandataire</label>
-                    <input type="text" class="form-control rounded-pill">
+                    <input type="text" class="form-control rounded-pill" formControlName="nomprenomM" ngModel>
                 </div>
 
                 <div class="col-lg-2 form-group">
                     <label for="">Téléphone du mandataire</label>
-                    <input type="text" class="form-control rounded-pill">
+                    <input type="text" class="form-control rounded-pill" formControlName="telM" ngModel>
                 </div>
 
                 <div class="col-lg-2 form-group">
                     <label for="">Fax du mandataire</label>
-                    <input type="text" class="form-control rounded-pill">
+                    <input type="text" class="form-control rounded-pill" formControlName="faxM" ngModel>
                 </div>
 
                 <div class="col-lg-2 form-group">
                     <label for="">Adresse du mandataire</label>
-                    <input type="text" class="form-control rounded-pill">
+                    <input type="text" class="form-control rounded-pill" formControlName="adresseM" ngModel>
                 </div>
 
                 <div class="mt-4 col-lg-2 form-group">
                     <label for="">N° de compte bancaire M</label>
-                    <input type="text" class="form-control rounded-pill">
+                    <input type="text" class="form-control rounded-pill" formControlName="ncptBancM" ngModel>
                 </div>
 
           </div>
@@ -177,9 +182,14 @@
 </div>
  <!-- Mandataire container End-->
 
+</div>
+<!-- Div Container Mandataire (Title+divForm+Form) End -->
+
+
  <!-- Button Ajouter -->
  <div class="form-group mt-4 col-lg-2 d-flex" align="center">
-    <a href="#" class="btn btn-ajout rounded-pill form-control" >Ajouter</a>
+    <!-- <a href="#"  (click)="onSubmit()">Ajouter</a> -->
+    <input type="submit" value="Ajouter" class="btn btn-ajout rounded-pill form-control" (click)="onSubmit()">
 </div>
 
 

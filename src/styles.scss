@@ -1,15 +1,6 @@
 /* Global styles */
 
-<<<<<<< HEAD
-:root{
-  --mainColor: #909EF8;
-  --mainText: #828282 ;
-}
-
-html{
-=======
 html {
->>>>>>> 36052585675e59789a9c78682de38e5f36f491ea
     scroll-behavior: smooth !important;
 }
 
@@ -36,4 +27,11 @@ body {
     box-shadow: 1px 6px 14px rgb(142 142 142 / 5%);
 
 }
+
+.mainText{
+  color: #828282;
+}
+
+
+
 
