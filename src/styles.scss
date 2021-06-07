@@ -1,12 +1,29 @@
 /* Global styles */
 
-html{
+html {
     scroll-behavior: smooth !important;
-  }
+}
 
-  
 body {
-margin: 0;
-padding: 0;
+    margin: 0;
+    padding: 0;
+    background-color: #FEFEFF;
+}
+
+.main-btn {
+    background-color: white;
+    box-shadow: 1px 6px 14px rgb(142 142 142 / 5%);
+    color: rgb(61, 61, 61) !important;
+    border-radius: 22px !important;
+
+    &:hover {
+        background-color: #909ef8;
+        color: rgb(255, 255, 255) !important;
+    }
+}
+
+.main-card {
+    border-radius: 22px !important;
+    box-shadow: 1px 6px 14px rgb(142 142 142 / 5%);
 
 }
