@@ -1,5 +1,10 @@
 /* Global styles */
 
+:root{
+  --mainColor: #909EF8;
+  --mainText: #828282 ;
+}
+
 html{
     scroll-behavior: smooth !important;
   }
@@ -10,3 +15,4 @@ margin: 0;
 padding: 0;
 
 }
+

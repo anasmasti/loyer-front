@@ -28,5 +28,6 @@
 .main-content {
     width: calc(100vw - (17rem + 1.6rem));
     margin-left: calc(100vw - (100vw - (17rem + 1.6rem)));
+    flex-direction: column;
     transition: all 0.4s;
   }
