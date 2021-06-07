@@ -1,35 +1,37 @@
-<nav class="navbar navbar-expand-lg navbar-light mt-3">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">Attaoufiq</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">-</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">-</a>
-                </li>
-            </ul>
-            <span class="navbar-text">
-                Ahmad Alaoui
-            </span>
+<div class="d-flex justify-content-lg-end justify-content-sm-center header-section">
+    <nav class="navbar navbar-expand-lg navbar-light mt-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Attaoufiq</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">-</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">-</a>
+                    </li>
+                </ul>
+                <span class="navbar-text">
+                    Ahmad Alaoui
+                </span>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
+</div>
 
 <!-- Vertical navbar -->
-<div class="vertical-nav " id="sidebar">
-    <div class="py-4 px-3 mb-4 bg-light">
+<div class="vertical-nav" id="sidebar">
+    <div class="py-4 px-3 mb-4">
         <div class="media d-flex align-items-center">
             <img src="../../../assets/images/logo/Attawfiq.jpg" alt="Attawfiq Logo" width="auto"
-                class="mr-3  img-thumbnail ">
+                class="mr-3  img-thumbnail border-0">
         </div>
     </div>
 
@@ -65,4 +67,7 @@
 </div>
 <!-- End vertical navbar -->
 
-<ng-content></ng-content>
+<div class="d-flex justify-content-lg-end justify-content-sm-center main-content p-lg-5">
+
+    <ng-content></ng-content>
+</div>
