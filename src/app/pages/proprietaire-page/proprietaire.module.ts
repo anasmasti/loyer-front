@@ -9,8 +9,8 @@ import { ListProprietaireComponent } from './list-proprietaire/list-proprietaire
 
 const route: Routes = [
   { path: '', component: ProprietaireComponent },
-  { path: 'detail-proprietaire', component: ProprietaireComponent },
-  { path: 'list-proprietaire', component: ProprietaireComponent }
+  { path: 'detail-proprietaire', component: DetailsProprietaireComponent },
+  { path: 'list-proprietaire', component: ListProprietaireComponent }
 ];
 
 @NgModule({
@@ -21,7 +21,8 @@ const route: Routes = [
   ],
   imports: [
     RouterModule.forChild(route),
-    CommonModule, ReactiveFormsModule
+    CommonModule,
+    ReactiveFormsModule
   ],
 })
 export class ProprietaireModule { }
