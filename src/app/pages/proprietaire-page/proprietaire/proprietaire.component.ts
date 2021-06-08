@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup} from '@angular/forms';
+import { FormControl, FormGroup, Validators} from '@angular/forms';
+import { ProprietaireService } from 'src/app/services/proprietaire.service';
 
 @Component({
   selector: 'app-proprietaire',
@@ -11,27 +12,28 @@ export class ProprietaireComponent implements OnInit {
   // proprietaireForm !: FormGroup;
   isMand: boolean = false
 
-  constructor() { }
+  constructor(private proprietaire:ProprietaireService) { }
 
   ngOnInit(): void {
+    console.log(this.proprietaire.getProprietaire())
   
   }
 
   proprietaireForm = new FormGroup({
     // Champs du propriètaire
-    cinPr: new FormControl(),
-    passeportPr: new FormControl(),
-    carteSejourPr: new FormControl(),
-    raisonSocialPr: new FormControl(),
-    NregCommercePr: new FormControl(),
-    nomprenomPr: new FormControl(),
-    telPr: new FormControl(),
-    faxPr: new FormControl(),
-    adressePr: new FormControl(),
-    NcptBancPr: new FormControl(),
-    bancPr: new FormControl(),
-    nomAgencebancPr: new FormControl(),
-    isMandataire:new FormControl(),
+    cinPr: new FormControl('',Validators.required),
+    passeportPr: new FormControl('',Validators.required),
+    carteSejourPr: new FormControl('',Validators.required),
+    raisonSocialPr: new FormControl('',Validators.required),
+    NregCommercePr: new FormControl('',Validators.required),
+    nomprenomPr: new FormControl('',Validators.required),
+    telPr: new FormControl('',Validators.required),
+    faxPr: new FormControl('',Validators.required),
+    adressePr: new FormControl('',Validators.required),
+    NcptBancPr: new FormControl('',Validators.required),
+    bancPr: new FormControl('',Validators.required),
+    nomAgencebancPr: new FormControl('',Validators.required),
+    isMandataire:new FormControl('',Validators.required),
     // Champs du mandataire
     cinM: new FormControl(),
     rsocialM: new FormControl(),
@@ -46,7 +48,12 @@ export class ProprietaireComponent implements OnInit {
 
   onSubmit()
   {
-    console.log(this.proprietaireForm?.value);
+    // console.log(this.proprietaireForm?.value);
+
+    this.proprietaire.PostProprietaire(this.proprietaireForm.value).subscribe(data => {
+      console.log(data)
+    }, error => {console.log(error)}
+    )
   }
 
 

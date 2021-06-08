@@ -8,6 +8,7 @@ import {ReactiveFormsModule,FormsModule} from '@angular/forms';
 import { HeaderNavbarComponent } from './components/layout/header-navbar/header-navbar.component';
 import { SideNavbarComponent } from './components/layout/side-navbar/side-navbar.component';
 import { MainContentComponent } from './components/layout/main-content/main-content.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { MainContentComponent } from './components/layout/main-content/main-cont
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
