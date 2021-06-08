@@ -3,7 +3,7 @@
 .main-btn {
     background: color(light);
     box-shadow: $btn-box-shadow;
-    color: color(dark) ;
+    color: color(dark);
     border-radius: $main-border-radius !important;
 
     &:hover {
@@ -21,7 +21,7 @@
     &:hover {
         background: color(light);
         color: color(dark) !important;
-        border: .1em solid color(main-color);
+        border: 0.1em solid color(main-color);
     }
 }
 
@@ -34,5 +34,27 @@
     &:hover {
         background: color(dark);
         color: color(light) !important;
+    }
+}
+
+.success-btn {
+    background: color(success);
+    box-shadow: $btn-box-shadow;
+    color: color(light) !important;
+    border-radius: $main-border-radius !important;
+
+    &:hover {
+        background: color(dark);
+        color: color(light) !important;
+    }
+}
+
+.sub-menu-btn {
+    color: color(dark) !important;
+
+    &::before {
+        content: "❯";
+        margin-right: 5px;
+        color: color(main-color) !important;
     }
 }

@@ -12,6 +12,7 @@ export class MainLayoutComponent implements OnInit {
 
   ngOnInit(): void {
     $(function() {
+      // Toggel side menu
       $('#sidebar-collapse').on('click', function() {
         $('#sidebar, #content').toggleClass('active');
       });

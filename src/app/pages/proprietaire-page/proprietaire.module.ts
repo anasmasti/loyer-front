@@ -9,8 +9,8 @@ import { ListProprietaireComponent } from './list-proprietaire/list-proprietaire
 
 const route: Routes = [
   { path: '', component: ProprietaireComponent },
-  { path: 'detail-proprietaire', component: DetailsProprietaireComponent },
-  { path: 'list-proprietaire', component: ListProprietaireComponent }
+  { path: 'detail', component: DetailsProprietaireComponent },
+  { path: 'list', component: ListProprietaireComponent }
 ];
 
 @NgModule({

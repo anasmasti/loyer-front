@@ -18,3 +18,20 @@
 #sidebar.active {
     margin-left: -(17rem + 1.6rem);
 }
+
+.sub-menu {
+    display: none;
+}
+
+// Submenu items
+.sub-menu#proprietaire.active {
+    display: flex !important;
+}
+
+.sub-menu#contrat.active {
+    display: flex !important;
+}
+
+.sub-menu#fournisseur.active {
+    display: flex !important;
+}
