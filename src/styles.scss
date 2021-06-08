@@ -34,5 +34,6 @@ body {
     @extend .second-btn;
     &:hover {
         border: none !important;
+        background: color(dark) !important;
     }
 }

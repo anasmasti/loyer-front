@@ -2,7 +2,10 @@
     <div class="col-lg-12 mt-3">
         <div class="d-flex justify-content-between">
             <h3 class="main-text">Propriétaire de local</h3>
-            <a href="#" class="btn second-btn"><i class="fal fa-info"></i></a>
+            <div>
+                <a [routerLink]="['/proprietaire/list']"class="btn main-btn">Voir la liste des propriétaires</a>
+                <a href="#" class="btn main-btn ms-3"><i class="fal fa-info"></i></a>
+            </div>
         </div>
     </div>
 </div>
@@ -43,7 +46,7 @@
 
                 <div class="col-lg-3 form-group  mt-4">
                     <label for="">Carte séjour Propriétaire</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="carteSejourPr">
+                    <input type="text" class="form-control rounded-pill" formControlName="carteSejourPr" required>
 
                      <!-- Error Message !! -->
                   <span class="msg-error px-2"
@@ -54,7 +57,7 @@
 
                 <div class="col-lg-3 form-group  mt-4">
                     <label for="">Raison sociale propriétaire</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="raisonSocialPr">
+                    <input type="text" class="form-control rounded-pill" formControlName="raisonSocialPr" required>
 
                      <!-- Error Message !! -->
                   <span class="msg-error px-2"
@@ -65,7 +68,7 @@
 
                 <div class="col-lg-3 form-group  mt-4">
                     <label for="">N° de registre du commerce</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="NregCommercePr">
+                    <input type="text" class="form-control rounded-pill" formControlName="NregCommercePr" required>
 
                         <!-- Error Message !! -->
                   <span class="msg-error px-2"
@@ -75,7 +78,7 @@
 
                 <div class="col-lg-3 form-group  mt-4">
                     <label for="">Nom et prénom propriétaire</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="nomprenomPr">
+                    <input type="text" class="form-control rounded-pill" formControlName="nomprenomPr" required>
 
                        <!-- Error Message !! -->
                   <span class="msg-error px-2"
@@ -85,7 +88,7 @@
 
                 <div class="col-lg-3 form-group mt-4">
                     <label for="">Téléphone du propriétaire</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="telPr">
+                    <input type="text" class="form-control rounded-pill" formControlName="telPr" required>
                            <!-- Error Message !! -->
                   <span class="msg-error px-2"
                   *ngIf="!proprietaireForm.controls['telPr'].valid && proprietaireForm.controls['telPr'].touched">
@@ -94,7 +97,7 @@
 
                 <div class="col-lg-3 form-group mt-4">
                     <label for="">Fax du propriétaire</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="faxPr">
+                    <input type="text" class="form-control rounded-pill" formControlName="faxPr" required>
 
                              <!-- Error Message !! -->
                   <span class="msg-error px-2"
@@ -104,7 +107,7 @@
 
                 <div class="col-lg-3 form-group  mt-4">
                     <label for="">Adresse du propriétaire</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="adressePr">
+                    <input type="text" class="form-control rounded-pill" formControlName="adressePr" required>
 
                               <!-- Error Message !! -->
                   <span class="msg-error px-2"
@@ -114,7 +117,7 @@
 
                 <div class="col-lg-3 form-group mt-4">
                     <label for="">N° de compte bancaire P</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="NcptBancPr">
+                    <input type="text" class="form-control rounded-pill" formControlName="NcptBancPr" required>
 
                     
                               <!-- Error Message !! -->
@@ -125,7 +128,7 @@
 
                 <div class="col-lg-3 form-group mt-4">
                     <label for="">Banque</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="bancPr">
+                    <input type="text" class="form-control rounded-pill" formControlName="bancPr" required>
 
                      <!-- Error Message !! -->
                   <span class="msg-error px-2"
@@ -135,7 +138,7 @@
 
                 <div class="col-lg-3 form-group mt-4">
                     <label for="">Nom de l’Agence bancaire</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="nomAgencebancPr">
+                    <input type="text" class="form-control rounded-pill" formControlName="nomAgencebancPr" required>
 
                      <!-- Error Message !! -->
                   <span class="msg-error px-2"

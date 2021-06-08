@@ -35,21 +35,20 @@ export class ProprietaireComponent implements OnInit {
     nomAgencebancPr: new FormControl('',Validators.required),
     isMandataire:new FormControl('',Validators.required),
     // Champs du mandataire
-    cinM: new FormControl(),
-    rsocialM: new FormControl(),
-    nomprenomM: new FormControl(),
-    telM: new FormControl(),
-    faxM: new FormControl(),
-    adresseM: new FormControl(),
-    ncptBancM: new FormControl(),
+    cinM: new FormControl(''),
+    rsocialM: new FormControl(''),
+    nomprenomM: new FormControl(''),
+    telM: new FormControl(''),
+    faxM: new FormControl(''),
+    adresseM: new FormControl(''),
+    ncptBancM: new FormControl(''),
 
    }) 
 
 
   onSubmit()
   {
-    // console.log(this.proprietaireForm?.value);
-
+    console.log(this.proprietaireForm?.value);
     this.proprietaire.PostProprietaire(this.proprietaireForm.value).subscribe(data => {
       console.log(data)
     }, error => {console.log(error)}

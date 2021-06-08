@@ -19,7 +19,7 @@
     border-radius: $main-border-radius !important;
 
     &:hover {
-        background: color(light);
+        background: color(light) !important;
         color: color(dark) !important;
         border: 0.1em solid color(main-color);
     }
@@ -37,11 +37,9 @@
     }
 }
 
-<<<<<<< HEAD
-
 .msg-error{
-color: color(danger);
-=======
+    color: color(danger);}
+
 .success-btn {
     background: color(success);
     box-shadow: $btn-box-shadow;
@@ -62,5 +60,4 @@ color: color(danger);
         margin-right: 5px;
         color: color(main-color) !important;
     }
->>>>>>> 58aac4caf7b1d49b26e3ee09ac98c4db120eae18
 }

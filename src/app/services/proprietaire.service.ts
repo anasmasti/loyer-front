@@ -1,25 +1,22 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http'
+import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-
+import { Proprietaire } from '../models/proprietaire';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProprietaireService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
- 
-  getProprietaire(){
-
+  getProprietaire(): Observable<Proprietaire> {
     const url: string = 'posts';
-
-   return this.http.get(environment.API_TEST +'/'+url)
+    return this.http.get<Proprietaire>(environment.API_TEST + '/' + url);
   }
 
-  PostProprietaire(data:any){
+  PostProprietaire(data: Proprietaire): Observable<Proprietaire> {
     const url: string = 'posts';
-
-    return this.http.post(environment.API_TEST +'/'+url,data);
+    return this.http.post<Proprietaire>(environment.API_TEST + '/' + url, data);
   }
 }
