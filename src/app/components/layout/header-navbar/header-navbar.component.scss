@@ -1,0 +1,16 @@
+@use '../../../../assets/style/helpers' as *;
+@use '../../../../assets/style/components' as *;
+
+.header-section {
+    margin-right: calc(100vw - (100vw - 1.5rem));
+}
+
+.navbar {
+    width: calc(100vw - (20rem + 2rem));
+    box-shadow: $card-box-shadow;
+    border-radius: $main-border-radius;
+    height: 7vh;
+    left: auto;
+    right: auto;
+    background: color(light);
+}
