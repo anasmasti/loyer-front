@@ -21,27 +21,29 @@ export class ProprietaireComponent implements OnInit {
 
   proprietaireForm = new FormGroup({
     // Champs du propriètaire
-    cinPr: new FormControl('',Validators.required),
-    passeportPr: new FormControl('',Validators.required),
-    carteSejourPr: new FormControl('',Validators.required),
-    raisonSocialPr: new FormControl('',Validators.required),
-    NregCommercePr: new FormControl('',Validators.required),
-    nomprenomPr: new FormControl('',Validators.required),
-    telPr: new FormControl('',Validators.required),
-    faxPr: new FormControl('',Validators.required),
-    adressePr: new FormControl('',Validators.required),
-    NcptBancPr: new FormControl('',Validators.required),
-    bancPr: new FormControl('',Validators.required),
-    nomAgencebancPr: new FormControl('',Validators.required),
-    isMandataire:new FormControl('',Validators.required),
+    cin: new FormControl('',Validators.required),
+    passport: new FormControl('',Validators.required),
+    carte_sejour: new FormControl('',Validators.required),
+    nom_prenom: new FormControl('',Validators.required),
+    raison_social: new FormControl('',Validators.required),
+    n_registre_commerce: new FormControl('',Validators.required),
+    telephone: new FormControl('',Validators.required),
+    fax: new FormControl('',Validators.required),
+    adresse: new FormControl('',Validators.required),
+    n_compte_bancaire: new FormControl('',Validators.required),
+    banque: new FormControl('',Validators.required),
+    nom_agence_bancaire: new FormControl('',Validators.required),
+    has_mandataire: new FormControl('',Validators.required),
+
     // Champs du mandataire
-    cinM: new FormControl(''),
-    rsocialM: new FormControl(''),
-    nomprenomM: new FormControl(''),
-    telM: new FormControl(''),
-    faxM: new FormControl(''),
-    adresseM: new FormControl(''),
-    ncptBancM: new FormControl(''),
+    cin_mandataire: new FormControl(''),
+    nom_prenom_mandataire: new FormControl(''),
+    raison_social_mandataire: new FormControl(''),
+    telephone_mandataire: new FormControl(''),
+    fax_mandataire: new FormControl(''),
+    adresse_mandataire: new FormControl(''),
+    n_compte_bancaire_mandataire: new FormControl(''),
+    
 
    }) 
 
