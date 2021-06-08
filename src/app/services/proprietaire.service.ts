@@ -11,12 +11,10 @@ export class ProprietaireService {
   constructor(private http: HttpClient) {}
 
   getProprietaire(): Observable<Proprietaire> {
-    const url: string = 'posts';
-    return this.http.get<Proprietaire>(environment.API_TEST + '/' + url);
+    return this.http.get<Proprietaire>(environment.API_URL);
   }
 
   PostProprietaire(data: Proprietaire): Observable<Proprietaire> {
-    const url: string = 'posts';
-    return this.http.post<Proprietaire>(environment.API_TEST + '/' + url, data);
+    return this.http.post<Proprietaire>(environment.API_URL, data);
   }
 }
