@@ -1,23 +1,22 @@
 <div class="row title">
     <div class="col-lg-12 mt-3">
         <div class="d-flex justify-content-between">
-            <!-- <h3 class="leftborder"></h3> -->
             <h3 class="main-text">Propriétaire de local</h3>
             <a href="#" class="btn second-btn"><i class="fal fa-info"></i></a>
         </div>
     </div>
 </div>
 
-<!-- Propriètaire de local container Start-->
+<!--Début de conteneur Propriètaire de local  -->
 <div class="mt-4">
     <h6>Remplissage des données</h6>
 
-    <!-- Div form propriètaire de local Start-->
+    <!--Début de Div qui contient le formulaire propriètaire de local-->
     <div class="form-box mt-4">
 
-        <!-- Form propriètaire de local Start -->
+        <!--Début Formulaire propriètaire de local-->
         <form [formGroup]="proprietaireForm" (ngSubmit)="onSubmit()">
-            <!-- First Row Start-->
+            <!--Début 1er Row-->
             <div class="row">
 
                 <div class="col-lg-3 form-group  mt-4">
@@ -91,23 +90,23 @@
                         [(ngModel)]="isMand" formControlName="isMandataire">
                 </div>
 
+                <!-- Condition pour afficher ou cacher le formulaire de mandataire -->
                 <div *ngIf="isMand;then mandataire"></div>
 
 
             </div>
-            <!-- First Row End-->
+            <!--Fin de 1er Row -->
 
-            <!-- Seconde Row -->
+            <!--Début 2éme Row -->
             <div class="row mt-5">
 
                
-                <!-- Div Container Mandataire (Title+divForm+Form) Start -->
+                <!--Début de Div Mandataire Qui contient(Title+divForm+Form)-->
                 <ng-template #mandataire>
-                    <!-- Mandataire Title -->
+                    <!--Grand Titre Mandataire -->
                     <div class="row mt-4">
                         <div class="margin-main col-lg-12 mt-3">
                             <div class=" d-flex justify-content-between">
-                                <!-- <h3 class="leftborder"></h3> -->
                                 <h4 class="main-text">Mandataire</h4>
                                 <a href="#" class="btn second-btn"><i class="fal fa-info"></i></a>
                             </div>
@@ -115,16 +114,15 @@
                     </div>
 
 
-                    <!-- Mandataire container Start-->
+                    <!--Début de Conteneur Mandataire-->
                     <div class=" mt-4">
                         <h6>Remplissage des données</h6>
 
-                        <!-- Div form Mandataire Start-->
+                        <!--Début Div form Mandataire-->
                         <div class="FormBox mt-4">
 
-                            <!-- Form Mandataire Start
-         <form [formGroup]="proprietaireForm"> -->
-                            <!-- First Row Start-->
+            
+                            <!--Début 3éme Row-->
                             <div class="row">
 
                                 <div class="col-lg-3 form-group mt-4">
@@ -163,35 +161,32 @@
                                 </div>
 
                             </div>
-                            <!-- First Row End-->
-
-
-                            <!-- </form>
-         Form Mandataire End -->
+                            <!--Fin de 3éme Row-->
+         
 
                         </div>
                         <!-- Div form Mandataire End-->
                     </div>
-                    <!-- Mandataire container End-->
+                    <!--Fin de Conteneur Mandataire -->
 
                 </ng-template>
-                <!-- Div Container Mandataire (Title+divForm+Form) End -->
+                <!--Fin de Div Mandataire (Title+divForm+Form)-->
 
             </div>
-            <!-- Seconde Row End-->
+            <!-- Fin 2éme Row-->
 
             <!-- Button Ajouter -->
             <div class="form-group mt-4 col-lg-2 d-flex">
-                <!-- <a href="#"  (click)="onSubmit()">Ajouter</a> -->
+
                 <button type="submit" class="btn second-btn form-control">Ajouter</button>
             </div>
 
         </form>
-        <!-- Form propriètaire de local End -->
+        <!-- Fin de formulaire-->
 
     </div>
-    <!-- Div form propriètaire de local End-->
+    <!--Fin Div form propriètaire de local-->
 </div>
-<!-- Propriètaire de local container End-->
+<!--Fin de Conteneur Propriètaire de local-->
 
 <!-- /////////////////////////////////////////////////////////////////////////////////////// -->

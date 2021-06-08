@@ -44,7 +44,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 #################
 
 [] Add Detail page for proprietaire
- [] Add Component DEtailProprietaire
- [] Setup style
+ [*] Add Component DEtailProprietaire
+ [*] Setup style
  [] Get data from the server
   

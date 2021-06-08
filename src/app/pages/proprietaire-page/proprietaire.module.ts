@@ -21,7 +21,8 @@ const route: Routes = [
   ],
   imports: [
     RouterModule.forChild(route),
-    CommonModule, ReactiveFormsModule
+    CommonModule,
+    ReactiveFormsModule
   ],
 })
 export class ProprietaireModule { }
