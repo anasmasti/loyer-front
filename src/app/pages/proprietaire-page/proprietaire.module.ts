@@ -1,3 +1,4 @@
+import { MainModalModule } from './../../shared/modals/main-modal/main-modal.module';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -22,7 +23,8 @@ const route: Routes = [
   imports: [
     RouterModule.forChild(route),
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MainModalModule
   ],
 })
 export class ProprietaireModule { }

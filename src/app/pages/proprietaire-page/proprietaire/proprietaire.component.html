@@ -20,7 +20,8 @@
   <div class="form-box mt-4">
     <!--Début Formulaire propriètaire de local-->
     <form [formGroup]="proprietaireForm" (ngSubmit)="onSubmit()">
-      <div *ngIf="errors" class="alert alert-danger mt-2">{{ errors }}</div>
+      <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
+      <div *ngIf="postDone" class="done-alert p-2 my-2">{{ success }}</div>
       <!--Début 1er Row-->
       <div class="row">
         <div class="col-lg-3 form-group mt-4">

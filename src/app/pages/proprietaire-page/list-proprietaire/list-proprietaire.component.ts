@@ -1,3 +1,4 @@
+import { MainModalService } from './../../../services/main-modal.service';
 import { Proprietaire } from './../../../models/proprietaire';
 import { Component, OnInit } from '@angular/core';
 import { ProprietaireService } from 'src/app/services/proprietaire.service';
@@ -9,7 +10,7 @@ import { ProprietaireService } from 'src/app/services/proprietaire.service';
 })
 export class ListProprietaireComponent implements OnInit {
   proprietaires: Proprietaire[] = []
-  constructor(private proprietaireService: ProprietaireService) { }
+  constructor(private proprietaireService: ProprietaireService, private mainModalService: MainModalService) { }
 
   ngOnInit(): void {
     this.getAllProprietaires()
@@ -19,6 +20,11 @@ export class ListProprietaireComponent implements OnInit {
     this.proprietaireService.getProprietaire().subscribe(data => {
       this.proprietaires = data
     })
+  }
+
+  // Open the contact form 
+  openModal() {
+    this.mainModalService.open()
   }
 
 }
