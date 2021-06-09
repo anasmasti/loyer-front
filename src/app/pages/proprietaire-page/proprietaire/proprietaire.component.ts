@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
+import { Observable } from 'rxjs';
+import { Proprietaire } from 'src/app/models/proprietaire';
 import { ProprietaireService } from 'src/app/services/proprietaire.service';
 
 @Component({
@@ -10,7 +12,8 @@ import { ProprietaireService } from 'src/app/services/proprietaire.service';
 export class ProprietaireComponent implements OnInit {
 
   // proprietaireForm !: FormGroup;
-  isMand: boolean = false
+  isMand: boolean = false;
+  mandataire!:{};
 
   constructor(private proprietaire:ProprietaireService) { }
 
@@ -19,7 +22,7 @@ export class ProprietaireComponent implements OnInit {
   
   }
 
-  proprietaireForm = new FormGroup({
+  proprietaireForm:any = new FormGroup({
     // Champs du propriètaire
     cin: new FormControl('',Validators.required),
     passport: new FormControl('',Validators.required),
@@ -34,18 +37,19 @@ export class ProprietaireComponent implements OnInit {
     banque: new FormControl('',Validators.required),
     nom_agence_bancaire: new FormControl('',Validators.required),
     has_mandataire: new FormControl('',Validators.required),
-
     // Champs du mandataire
+    mandataire: new FormGroup({ 
     cin_mandataire: new FormControl(''),
     nom_prenom_mandataire: new FormControl(''),
     raison_social_mandataire: new FormControl(''),
     telephone_mandataire: new FormControl(''),
     fax_mandataire: new FormControl(''),
     adresse_mandataire: new FormControl(''),
-    n_compte_bancaire_mandataire: new FormControl(''),
+    n_compte_bancaire_mandataire: new FormControl(''),})
+   
     
-
    }) 
+
 
 
   onSubmit()
