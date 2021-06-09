@@ -19,19 +19,23 @@
 
         <!--Début Formulaire propriètaire de local-->
         <form [formGroup]="proprietaireForm" (ngSubmit)="onSubmit()">
+            <div *ngIf="errors" class="alert alert-danger mt-2">{{errors}}</div>
             <!--Début 1er Row-->
             <div class="row">
 
                 <div class="col-lg-3 form-group  mt-4">
                     <label for="">N° CIN du Propriétaire</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="cin" required>
+                    <input type="text" class="form-control rounded-pill" formControlName="cin" required >
 
                     <!-- Error Message !! -->
                   <span class="msg-error px-2"
                   *ngIf="!proprietaireForm.controls['cin'].valid && proprietaireForm.controls['cin'].touched">
                    Veuillez remplir ce champ</span>
+                   <span class="msg-error px-2"
+                  *ngIf="!proprietaireForm.controls['cin'].errors">
+                   CIN doit être 4 caractére minimum</span>
 
-                   <div *ngIf="errors" class="msg-error mt-2">{{errors}}</div>
+                   
 
                 </div>
 

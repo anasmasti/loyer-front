@@ -38,7 +38,13 @@
 }
 
 .msg-error{
-    color: color(danger);}
+    color: color(danger);
+}
+ input.ng-invalid.ng-touched{
+     border: 1px solid color(danger);
+ }
+
+
 
 .success-btn {
     background: color(success);
