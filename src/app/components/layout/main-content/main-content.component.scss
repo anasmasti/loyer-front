@@ -1,7 +1,6 @@
 @use '../../../../assets/style/helpers' as *;
 @use '../../../../assets/style/components' as *;
 
-
 .main-content {
     width: calc(100vw - (17rem + 1.6rem));
     margin-left: calc(100vw - (100vw - (17rem + 1.6rem)));
@@ -12,4 +11,17 @@
 #content.active {
     width: 100%;
     margin: 0;
+}
+
+@include mobile($min-screen, $max-screen) {
+    .main-content {
+        width: 100%;
+        margin: 0;
+    }
+    #content.active {
+        width: calc(100vw - (17rem + 1.6rem));
+        margin-left: calc(100vw - (100vw - (17rem + 1.6rem)));
+        flex-direction: column;
+        transition: all 0.4s;
+    }
 }
