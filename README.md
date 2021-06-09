@@ -1,4 +1,4 @@
-||||| ATTAWFIQ MICRO-FINANCE | Gestion des loyers application |||||
+|||||-------- ATTAWFIQ MICRO-FINANCE | Gestion des loyers application --------|||||
 
 
 
