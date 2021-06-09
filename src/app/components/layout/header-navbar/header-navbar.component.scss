@@ -14,3 +14,12 @@
     right: auto;
     background: color(light);
 }
+
+@include mobile($min-screen, $max-screen) {
+    h5 {
+        display: none;
+    }
+    #user-card {
+        display: none;
+    }
+}

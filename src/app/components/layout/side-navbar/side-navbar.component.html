@@ -1,9 +1,20 @@
 <!-- Vertical navbar -->
 <div class="vertical-nav" id="sidebar">
     <div class="py-4 px-3 mb-4">
+        <a id="sidebar-collapse-mobile" class="btn bg-white border-0">
+            <i class="far fa-chevron-left"></i>
+        </a>
         <div class="media d-flex align-items-center">
-            <img src="../../../assets/images/logo/Attawfiq.jpg" alt="Attawfiq Logo" width="auto" draggable="false" loading="lazy"
-                class="mr-3  img-thumbnail border-0">
+            <img src="../../../assets/images/logo/Attawfiq.jpg" alt="Attawfiq Logo" width="auto" draggable="false"
+                loading="lazy" class="mr-3  img-thumbnail border-0">
+        </div>
+        <div id="user-card-mobile" class="card border-0 mb-0 mt-3 main-card">
+            <div class="card-body">
+                <h6 class="mainText">
+                    Ahmad Alaoui
+                </h6>
+                <span class="badge danger-btn">Administrateur</span>
+            </div>
         </div>
     </div>
 
@@ -23,11 +34,11 @@
                         List
                     </a>
                 </li>
-                <li>
+                <!-- <li>
                     <a [routerLink]="['/proprietaire/detail']" class="nav-link sub-menu-btn">
                         Détails
                     </a>
-                </li>
+                </li> -->
             </ul>
         </li>
         <li class="nav-item">

@@ -1,6 +1,6 @@
 <div class="row title">
     <div class="col-lg-12 mt-3">
-        <div class="d-flex justify-content-between">
+        <div class="d-lg-flex justify-content-lg-between">
             <h3 class="main-text">Propriétaire de local</h3>
             <div>
                 <a [routerLink]="['/proprietaire/list']"class="btn main-btn">Voir la liste des propriétaires</a>
@@ -24,125 +24,127 @@
 
                 <div class="col-lg-3 form-group  mt-4">
                     <label for="">N° CIN du Propriétaire</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="cinPr" required>
+                    <input type="text" class="form-control rounded-pill" formControlName="cin" required>
 
                     <!-- Error Message !! -->
                   <span class="msg-error px-2"
-                  *ngIf="!proprietaireForm.controls['cinPr'].valid && proprietaireForm.controls['cinPr'].touched">
+                  *ngIf="!proprietaireForm.controls['cin'].valid && proprietaireForm.controls['cin'].touched">
                    Veuillez remplir ce champ</span>
+
+                   <div *ngIf="errors" class="msg-error mt-2">{{errors}}</div>
 
                 </div>
 
                 <div class="col-lg-3 form-group  mt-4">
                     <label for="">Passeport Propriétaire</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="passeportPr" required>
+                    <input type="text" class="form-control rounded-pill" formControlName="passport" required>
 
                       <!-- Error Message !! -->
                   <span class="msg-error px-2"
-                  *ngIf="!proprietaireForm.controls['passeportPr'].valid && proprietaireForm.controls['passeportPr'].touched">
+                  *ngIf="!proprietaireForm.controls['passport'].valid && proprietaireForm.controls['passport'].touched">
                    Veuillez remplir ce champ</span>
 
                 </div>
 
                 <div class="col-lg-3 form-group  mt-4">
                     <label for="">Carte séjour Propriétaire</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="carteSejourPr" required>
+                    <input type="text" class="form-control rounded-pill" formControlName="carte_sejour" required>
 
                      <!-- Error Message !! -->
                   <span class="msg-error px-2"
-                  *ngIf="!proprietaireForm.controls['carteSejourPr'].valid && proprietaireForm.controls['carteSejourPr'].touched">
+                  *ngIf="!proprietaireForm.controls['carte_sejour'].valid && proprietaireForm.controls['carte_sejour'].touched">
                    Veuillez remplir ce champ</span>
 
                 </div>
 
                 <div class="col-lg-3 form-group  mt-4">
                     <label for="">Raison sociale propriétaire</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="raisonSocialPr" required>
+                    <input type="text" class="form-control rounded-pill" formControlName="raison_social" required>
 
                      <!-- Error Message !! -->
                   <span class="msg-error px-2"
-                  *ngIf="!proprietaireForm.controls['raisonSocialPr'].valid && proprietaireForm.controls['raisonSocialPr'].touched">
+                  *ngIf="!proprietaireForm.controls['raison_social'].valid && proprietaireForm.controls['raison_social'].touched">
                    Veuillez remplir ce champ</span>
 
                 </div>
 
                 <div class="col-lg-3 form-group  mt-4">
                     <label for="">N° de registre du commerce</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="NregCommercePr" required>
+                    <input type="text" class="form-control rounded-pill" formControlName="n_registre_commerce" required>
 
                         <!-- Error Message !! -->
                   <span class="msg-error px-2"
-                  *ngIf="!proprietaireForm.controls['NregCommercePr'].valid && proprietaireForm.controls['NregCommercePr'].touched">
+                  *ngIf="!proprietaireForm.controls['n_registre_commerce'].valid && proprietaireForm.controls['n_registre_commerce'].touched">
                    Veuillez remplir ce champ</span>
                 </div>
 
                 <div class="col-lg-3 form-group  mt-4">
                     <label for="">Nom et prénom propriétaire</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="nomprenomPr" required>
+                    <input type="text" class="form-control rounded-pill" formControlName="nom_prenom" required>
 
                        <!-- Error Message !! -->
                   <span class="msg-error px-2"
-                  *ngIf="!proprietaireForm.controls['nomprenomPr'].valid && proprietaireForm.controls['nomprenomPr'].touched">
+                  *ngIf="!proprietaireForm.controls['nom_prenom'].valid && proprietaireForm.controls['nom_prenom'].touched">
                    Veuillez remplir ce champ</span>
                 </div>
 
                 <div class="col-lg-3 form-group mt-4">
                     <label for="">Téléphone du propriétaire</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="telPr" required>
+                    <input type="text" class="form-control rounded-pill" formControlName="telephone" required>
                            <!-- Error Message !! -->
                   <span class="msg-error px-2"
-                  *ngIf="!proprietaireForm.controls['telPr'].valid && proprietaireForm.controls['telPr'].touched">
+                  *ngIf="!proprietaireForm.controls['telephone'].valid && proprietaireForm.controls['telephone'].touched">
                    Veuillez remplir ce champ</span>
                 </div>
 
                 <div class="col-lg-3 form-group mt-4">
                     <label for="">Fax du propriétaire</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="faxPr" required>
+                    <input type="text" class="form-control rounded-pill" formControlName="fax" required>
 
                              <!-- Error Message !! -->
                   <span class="msg-error px-2"
-                  *ngIf="!proprietaireForm.controls['faxPr'].valid && proprietaireForm.controls['faxPr'].touched">
+                  *ngIf="!proprietaireForm.controls['fax'].valid && proprietaireForm.controls['fax'].touched">
                    Veuillez remplir ce champ</span>
                 </div>
 
                 <div class="col-lg-3 form-group  mt-4">
                     <label for="">Adresse du propriétaire</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="adressePr" required>
+                    <input type="text" class="form-control rounded-pill" formControlName="adresse" required>
 
                               <!-- Error Message !! -->
                   <span class="msg-error px-2"
-                  *ngIf="!proprietaireForm.controls['adressePr'].valid && proprietaireForm.controls['adressePr'].touched">
+                  *ngIf="!proprietaireForm.controls['adresse'].valid && proprietaireForm.controls['adresse'].touched">
                    Veuillez remplir ce champ</span>
                 </div>
 
                 <div class="col-lg-3 form-group mt-4">
                     <label for="">N° de compte bancaire P</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="NcptBancPr" required>
+                    <input type="text" class="form-control rounded-pill" formControlName="n_compte_bancaire" required>
 
                     
                               <!-- Error Message !! -->
                   <span class="msg-error px-2"
-                  *ngIf="!proprietaireForm.controls['NcptBancPr'].valid && proprietaireForm.controls['NcptBancPr'].touched">
+                  *ngIf="!proprietaireForm.controls['n_compte_bancaire'].valid && proprietaireForm.controls['n_compte_bancaire'].touched">
                    Veuillez remplir ce champ</span>
                 </div>
 
                 <div class="col-lg-3 form-group mt-4">
                     <label for="">Banque</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="bancPr" required>
+                    <input type="text" class="form-control rounded-pill" formControlName="banque" required>
 
                      <!-- Error Message !! -->
                   <span class="msg-error px-2"
-                  *ngIf="!proprietaireForm.controls['bancPr'].valid && proprietaireForm.controls['bancPr'].touched">
+                  *ngIf="!proprietaireForm.controls['banque'].valid && proprietaireForm.controls['banque'].touched">
                    Veuillez remplir ce champ</span>
                 </div>
 
                 <div class="col-lg-3 form-group mt-4">
                     <label for="">Nom de l’Agence bancaire</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="nomAgencebancPr" required>
+                    <input type="text" class="form-control rounded-pill" formControlName="nom_agence_bancaire" required>
 
                      <!-- Error Message !! -->
                   <span class="msg-error px-2"
-                  *ngIf="!proprietaireForm.controls['nomAgencebancPr'].valid && proprietaireForm.controls['nomAgencebancPr'].touched">
+                  *ngIf="!proprietaireForm.controls['nom_agence_bancaire'].valid && proprietaireForm.controls['nom_agence_bancaire'].touched">
                    Veuillez remplir ce champ</span>
                 </div>
 
@@ -150,11 +152,11 @@
                 <div class="mt-4">Mandataire</div>
                 <div class="col-lg-3 form-group d-flex  mt-4">
                     <label for="">Oui</label>
-                    <input type="radio" name="isMandataire" [value]="true" class="form-check-input mx-2"
-                        [(ngModel)]="isMand" formControlName="isMandataire">
+                    <input type="radio" name="has_mandataire" [value]="true" class="form-check-input mx-2"
+                        [(ngModel)]="isMand" formControlName="has_mandataire">
                     <label for="">Non</label>
-                    <input type="radio" name="isMandataire" [value]="false" class="form-check-input mx-2"
-                        [(ngModel)]="isMand" formControlName="isMandataire">
+                    <input type="radio" name="has_mandataire" [value]="false" class="form-check-input mx-2"
+                        [(ngModel)]="isMand" formControlName="has_mandataire">
                 </div>
 
                 <!-- Condition pour afficher ou cacher le formulaire de mandataire -->
@@ -190,41 +192,41 @@
 
             
                             <!--Début 3éme Row-->
-                            <div class="row">
+                            <div class="row" formGroupName="mandataire">
 
                                 <div class="col-lg-3 form-group mt-4">
                                     <label for="">N° CIN mandataire</label>
-                                    <input type="text" class="form-control rounded-pill" formControlName="cinM">
+                                    <input type="text" class="form-control rounded-pill" formControlName="cin_mandataire">
                                 </div>
 
                                 <div class="col-lg-3 form-group mt-4">
                                     <label for="">Raison sociale mandataire</label>
-                                    <input type="text" class="form-control rounded-pill" formControlName="rsocialM">
+                                    <input type="text" class="form-control rounded-pill" formControlName="raison_social_mandataire">
                                 </div>
 
                                 <div class="col-lg-3 form-group mt-4">
                                     <label for="">Nom et prénom mandataire</label>
-                                    <input type="text" class="form-control rounded-pill" formControlName="nomprenomM">
+                                    <input type="text" class="form-control rounded-pill" formControlName="nom_prenom_mandataire">
                                 </div>
 
                                 <div class="col-lg-3 form-group mt-4">
                                     <label for="">Téléphone du mandataire</label>
-                                    <input type="text" class="form-control rounded-pill" formControlName="telM">
+                                    <input type="text" class="form-control rounded-pill" formControlName="telephone_mandataire">
                                 </div>
 
                                 <div class="col-lg-3 form-group mt-4">
                                     <label for="">Fax du mandataire</label>
-                                    <input type="text" class="form-control rounded-pill" formControlName="faxM">
+                                    <input type="text" class="form-control rounded-pill" formControlName="fax_mandataire">
                                 </div>
 
                                 <div class="col-lg-3 form-group mt-4">
                                     <label for="">Adresse du mandataire</label>
-                                    <input type="text" class="form-control rounded-pill" formControlName="adresseM">
+                                    <input type="text" class="form-control rounded-pill" formControlName="adresse_mandataire">
                                 </div>
 
                                 <div class="col-lg-3 form-group mt-4">
                                     <label for="">N° de compte bancaire M</label>
-                                    <input type="text" class="form-control rounded-pill" formControlName="ncptBancM">
+                                    <input type="text" class="form-control rounded-pill" formControlName="n_compte_bancaire_mandataire">
                                 </div>
 
                             </div>

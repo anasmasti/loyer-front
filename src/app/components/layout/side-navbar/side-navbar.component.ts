@@ -10,6 +10,7 @@ export class SideNavbarComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.showAndHideMobileSideBarMenu()
   }
 
   showSubMenu(targetId: string) {
@@ -18,4 +19,14 @@ export class SideNavbarComponent implements OnInit {
     if (targetId == 'fournisseur') $('.sub-menu#fournisseur').toggleClass('active');
     return false
   }
+
+  showAndHideMobileSideBarMenu() {
+    $(function () {
+      // Toggel side menu
+      $('#sidebar-collapse-mobile').on('click', function () {
+        $('#sidebar, #content').toggleClass('active');
+      });
+    });
+  }
+
 }

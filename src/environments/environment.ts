@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API_TEST: 'http://localhost:3000/',
+  API_URL: 'https://loyer-api.herokuapp.com/api/',
   
 };
 
