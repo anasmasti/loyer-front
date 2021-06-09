@@ -52,6 +52,18 @@
     }
 }
 
+.info-btn {
+    background: color(info);
+    box-shadow: $btn-box-shadow;
+    color: color(light) !important;
+    border-radius: $main-border-radius !important;
+
+    &:hover {
+        background: color(dark);
+        color: color(light) !important;
+    }
+}
+
 .sub-menu-btn {
     color: color(dark) !important;
 

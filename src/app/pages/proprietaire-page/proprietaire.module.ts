@@ -9,7 +9,7 @@ import { ListProprietaireComponent } from './list-proprietaire/list-proprietaire
 
 const route: Routes = [
   { path: '', component: ProprietaireComponent },
-  { path: 'detail', component: DetailsProprietaireComponent },
+  { path: 'list/list/:id', component: DetailsProprietaireComponent },
   { path: 'list', component: ListProprietaireComponent }
 ];
 

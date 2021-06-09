@@ -10,8 +10,12 @@ import { Observable } from 'rxjs';
 export class ProprietaireService {
   constructor(private http: HttpClient) {}
 
-  getProprietaire(): Observable<Proprietaire> {
-    return this.http.get<Proprietaire>(environment.API_URL);
+  getProprietaire(): Observable<Proprietaire[]> {
+    return this.http.get<Proprietaire[]>(`${environment.API_URL}proprietaire`);
+  }
+
+  getProprietaireById(id: string): Observable<Proprietaire> {
+    return this.http.get<Proprietaire>(`${environment.API_URL}proprietaire/${id}`);
   }
 
   PostProprietaire(data: Proprietaire): Observable<Proprietaire> {
