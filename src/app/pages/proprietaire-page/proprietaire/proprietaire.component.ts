@@ -150,4 +150,6 @@ export class ProprietaireComponent implements OnInit {
   get n_compte_bancaire_mandataire() {
     return this.proprietaireForm.get('n_compte_bancaire_mandataire');
   }
+
+
 }
