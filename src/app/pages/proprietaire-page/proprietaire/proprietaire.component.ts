@@ -78,7 +78,6 @@ export class ProprietaireComponent implements OnInit {
       (_) => {
         this.postDone = true
         setTimeout(() => {
-          this.hideDoneMessage()
           this.proprietaireForm.reset()
           this.postDone = false
         }, 2000);
@@ -86,24 +85,21 @@ export class ProprietaireComponent implements OnInit {
       (error) => {
         this.errors = error.error.message;
         setTimeout(() => {
-          this.hideErrorMessage()
+          this.showErrorMessage()
         }, 3000);
+        this.hideErrorMessage()
       }
     );
   }
 
+  showErrorMessage() {
+    $('.error-alert').addClass('active');
+  }
+
   hideErrorMessage() {
-    $(function () {
-      $('.error-alert').addClass('active');
-    });
+    $('.error-alert').removeClass('active');
   }
-
-  hideDoneMessage() {
-    $(function () {
-      $('.done-alert').addClass('active');
-    });
-  }
-
+  
   // Check if all inputs has invalid errors
   checkInputsValidation(targetInput: any) {
     return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
