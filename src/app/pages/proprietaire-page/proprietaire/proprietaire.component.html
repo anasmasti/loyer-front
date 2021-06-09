@@ -1,264 +1,430 @@
 <div class="row title">
-    <div class="col-lg-12 mt-3">
-        <div class="d-lg-flex justify-content-lg-between">
-            <h3 class="main-text">Propriétaire de local</h3>
-            <div>
-                <a [routerLink]="['/proprietaire/list']"class="btn main-btn">Voir la liste des propriétaires</a>
-                <a href="#" class="btn main-btn ms-3"><i class="fal fa-info"></i></a>
-            </div>
-        </div>
+  <div class="col-lg-12 mt-3">
+    <div class="d-lg-flex justify-content-lg-between">
+      <h3 class="main-text">Propriétaire de local</h3>
+      <div>
+        <a [routerLink]="['/proprietaire/list']" class="btn main-btn"
+          >Voir la liste des propriétaires</a
+        >
+        <a href="#" class="btn main-btn ms-3"><i class="fal fa-info"></i></a>
+      </div>
     </div>
+  </div>
 </div>
 
 <!--Début de conteneur Propriètaire de local  -->
 <div class="mt-4">
-    <h6>Remplissage des données</h6>
+  <h6>Remplissage des données</h6>
 
-    <!--Début de Div qui contient le formulaire propriètaire de local-->
-    <div class="form-box mt-4">
-
-        <!--Début Formulaire propriètaire de local-->
-        <form [formGroup]="proprietaireForm" (ngSubmit)="onSubmit()">
-            <div *ngIf="errors" class="alert alert-danger mt-2">{{errors}}</div>
-            <!--Début 1er Row-->
-            <div class="row">
-
-                <div class="col-lg-3 form-group  mt-4">
-                    <label for="">N° CIN du Propriétaire</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="cin" required >
-
-                    <!-- Error Message !! -->
-                  <span class="msg-error px-2"
-                  *ngIf="!proprietaireForm.controls['cin'].valid && proprietaireForm.controls['cin'].touched">
-                   Veuillez remplir ce champ</span>
-                   <span class="msg-error px-2"
-                  *ngIf="!proprietaireForm.controls['cin'].errors">
-                   CIN doit être 4 caractére minimum</span>
-
-                   
-
-                </div>
-
-                <div class="col-lg-3 form-group  mt-4">
-                    <label for="">Passeport Propriétaire</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="passport" required>
-
-                      <!-- Error Message !! -->
-                  <span class="msg-error px-2"
-                  *ngIf="!proprietaireForm.controls['passport'].valid && proprietaireForm.controls['passport'].touched">
-                   Veuillez remplir ce champ</span>
-
-                </div>
-
-                <div class="col-lg-3 form-group  mt-4">
-                    <label for="">Carte séjour Propriétaire</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="carte_sejour" required>
-
-                     <!-- Error Message !! -->
-                  <span class="msg-error px-2"
-                  *ngIf="!proprietaireForm.controls['carte_sejour'].valid && proprietaireForm.controls['carte_sejour'].touched">
-                   Veuillez remplir ce champ</span>
-
-                </div>
-
-                <div class="col-lg-3 form-group  mt-4">
-                    <label for="">Raison sociale propriétaire</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="raison_social" required>
-
-                     <!-- Error Message !! -->
-                  <span class="msg-error px-2"
-                  *ngIf="!proprietaireForm.controls['raison_social'].valid && proprietaireForm.controls['raison_social'].touched">
-                   Veuillez remplir ce champ</span>
-
-                </div>
-
-                <div class="col-lg-3 form-group  mt-4">
-                    <label for="">N° de registre du commerce</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="n_registre_commerce" required>
-
-                        <!-- Error Message !! -->
-                  <span class="msg-error px-2"
-                  *ngIf="!proprietaireForm.controls['n_registre_commerce'].valid && proprietaireForm.controls['n_registre_commerce'].touched">
-                   Veuillez remplir ce champ</span>
-                </div>
-
-                <div class="col-lg-3 form-group  mt-4">
-                    <label for="">Nom et prénom propriétaire</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="nom_prenom" required>
-
-                       <!-- Error Message !! -->
-                  <span class="msg-error px-2"
-                  *ngIf="!proprietaireForm.controls['nom_prenom'].valid && proprietaireForm.controls['nom_prenom'].touched">
-                   Veuillez remplir ce champ</span>
-                </div>
-
-                <div class="col-lg-3 form-group mt-4">
-                    <label for="">Téléphone du propriétaire</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="telephone" required>
-                           <!-- Error Message !! -->
-                  <span class="msg-error px-2"
-                  *ngIf="!proprietaireForm.controls['telephone'].valid && proprietaireForm.controls['telephone'].touched">
-                   Veuillez remplir ce champ</span>
-                </div>
-
-                <div class="col-lg-3 form-group mt-4">
-                    <label for="">Fax du propriétaire</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="fax" required>
-
-                             <!-- Error Message !! -->
-                  <span class="msg-error px-2"
-                  *ngIf="!proprietaireForm.controls['fax'].valid && proprietaireForm.controls['fax'].touched">
-                   Veuillez remplir ce champ</span>
-                </div>
-
-                <div class="col-lg-3 form-group  mt-4">
-                    <label for="">Adresse du propriétaire</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="adresse" required>
-
-                              <!-- Error Message !! -->
-                  <span class="msg-error px-2"
-                  *ngIf="!proprietaireForm.controls['adresse'].valid && proprietaireForm.controls['adresse'].touched">
-                   Veuillez remplir ce champ</span>
-                </div>
-
-                <div class="col-lg-3 form-group mt-4">
-                    <label for="">N° de compte bancaire P</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="n_compte_bancaire" required>
-
-                    
-                              <!-- Error Message !! -->
-                  <span class="msg-error px-2"
-                  *ngIf="!proprietaireForm.controls['n_compte_bancaire'].valid && proprietaireForm.controls['n_compte_bancaire'].touched">
-                   Veuillez remplir ce champ</span>
-                </div>
-
-                <div class="col-lg-3 form-group mt-4">
-                    <label for="">Banque</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="banque" required>
-
-                     <!-- Error Message !! -->
-                  <span class="msg-error px-2"
-                  *ngIf="!proprietaireForm.controls['banque'].valid && proprietaireForm.controls['banque'].touched">
-                   Veuillez remplir ce champ</span>
-                </div>
-
-                <div class="col-lg-3 form-group mt-4">
-                    <label for="">Nom de l’Agence bancaire</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="nom_agence_bancaire" required>
-
-                     <!-- Error Message !! -->
-                  <span class="msg-error px-2"
-                  *ngIf="!proprietaireForm.controls['nom_agence_bancaire'].valid && proprietaireForm.controls['nom_agence_bancaire'].touched">
-                   Veuillez remplir ce champ</span>
-                </div>
-
-
-                <div class="mt-4">Mandataire</div>
-                <div class="col-lg-3 form-group d-flex  mt-4">
-                    <label for="">Oui</label>
-                    <input type="radio" name="has_mandataire" [value]="true" class="form-check-input mx-2"
-                        [(ngModel)]="isMand" formControlName="has_mandataire">
-                    <label for="">Non</label>
-                    <input type="radio" name="has_mandataire" [value]="false" class="form-check-input mx-2"
-                        [(ngModel)]="isMand" formControlName="has_mandataire">
-                </div>
-
-                <!-- Condition pour afficher ou cacher le formulaire de mandataire -->
-                <div *ngIf="isMand;then mandataire"></div>
-
-
-            </div>
-            <!--Fin de 1er Row -->
-
-            <!--Début 2éme Row -->
-            <div class="row mt-5">
-
-               
-                <!--Début de Div Mandataire Qui contient(Title+divForm+Form)-->
-                <ng-template #mandataire>
-                    <!--Grand Titre Mandataire -->
-                    <div class="row mt-4">
-                        <div class="margin-main col-lg-12 mt-3">
-                            <div class=" d-flex justify-content-between">
-                                <h4 class="main-text">Mandataire</h4>
-                                <a href="#" class="btn second-btn"><i class="fal fa-info"></i></a>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!--Début de Conteneur Mandataire-->
-                    <div class=" mt-4">
-                        <h6>Remplissage des données</h6>
-
-                        <!--Début Div form Mandataire-->
-                        <div class="FormBox mt-4">
-
+  <!--Début de Div qui contient le formulaire propriètaire de local-->
+  <div class="form-box mt-4">
+    <!--Début Formulaire propriètaire de local-->
+    <form [formGroup]="proprietaireForm" (ngSubmit)="onSubmit()">
+      <div *ngIf="errors" class="alert alert-danger mt-2">{{ errors }}</div>
+      <!--Début 1er Row-->
+      <div class="row">
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">N° CIN du Propriétaire</label>
+          <input
+            type="text"
+            class="form-control rounded-pill"
+            formControlName="cin"
+            required
+            [ngClass]="{'is-invalid': checkInputsValidation(cin), 'is-valid': !cin.invalid }"
             
-                            <!--Début 3éme Row-->
-                            <div class="row" formGroupName="mandataire">
+          />
 
-                                <div class="col-lg-3 form-group mt-4">
-                                    <label for="">N° CIN mandataire</label>
-                                    <input type="text" class="form-control rounded-pill" formControlName="cin_mandataire">
-                                </div>
+          <!-- Error Message  -->
+          <div class="" *ngIf="checkInputsValidation(cin)">
+            <p class="text-danger" *ngIf="cin?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+            <p class="text-danger" *ngIf="cin.errors.minlength">
+              CIN doit être au moins 4 caractéres
+            </p>
+          </div>
 
-                                <div class="col-lg-3 form-group mt-4">
-                                    <label for="">Raison sociale mandataire</label>
-                                    <input type="text" class="form-control rounded-pill" formControlName="raison_social_mandataire">
-                                </div>
+        
+        </div>
 
-                                <div class="col-lg-3 form-group mt-4">
-                                    <label for="">Nom et prénom mandataire</label>
-                                    <input type="text" class="form-control rounded-pill" formControlName="nom_prenom_mandataire">
-                                </div>
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Passeport Propriétaire</label>
+          <input
+            type="text"
+            class="form-control rounded-pill"
+            formControlName="passport"
+            required
+            [ngClass]="{'is-invalid': checkInputsValidation(passport) , 'is-valid': !passport.invalid }"
+          />
 
-                                <div class="col-lg-3 form-group mt-4">
-                                    <label for="">Téléphone du mandataire</label>
-                                    <input type="text" class="form-control rounded-pill" formControlName="telephone_mandataire">
-                                </div>
-
-                                <div class="col-lg-3 form-group mt-4">
-                                    <label for="">Fax du mandataire</label>
-                                    <input type="text" class="form-control rounded-pill" formControlName="fax_mandataire">
-                                </div>
-
-                                <div class="col-lg-3 form-group mt-4">
-                                    <label for="">Adresse du mandataire</label>
-                                    <input type="text" class="form-control rounded-pill" formControlName="adresse_mandataire">
-                                </div>
-
-                                <div class="col-lg-3 form-group mt-4">
-                                    <label for="">N° de compte bancaire M</label>
-                                    <input type="text" class="form-control rounded-pill" formControlName="n_compte_bancaire_mandataire">
-                                </div>
-
-                            </div>
-                            <!--Fin de 3éme Row-->
+           <!-- Error Message  -->
+           <div class="" *ngIf="checkInputsValidation(passport)">
+            <p class="text-danger" *ngIf="passport?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+            <p class="text-danger" *ngIf="passport.errors.minlength">
+              Passeport doit être au moins 4 caractéres
+            </p>
+          </div>
          
+        </div>
 
-                        </div>
-                        <!-- Div form Mandataire End-->
-                    </div>
-                    <!--Fin de Conteneur Mandataire -->
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Carte séjour Propriétaire</label>
+          <input
+            type="text"
+            class="form-control rounded-pill"
+            formControlName="carte_sejour"
+            required
+            [ngClass]="{'is-invalid': checkInputsValidation(carte_sejour), 'is-valid': !carte_sejour.invalid }"
+          />
 
-                </ng-template>
-                <!--Fin de Div Mandataire (Title+divForm+Form)-->
+           <!-- Error Message  -->
+           <div class="" *ngIf="checkInputsValidation(carte_sejour)">
+            <p class="text-danger" *ngIf="carte_sejour?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+            <p class="text-danger" *ngIf="carte_sejour.errors.minlength">
+                Carte séjour doit être au moins 4 caractéres
+            </p>
+          </div>
+          
+        </div>
 
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Raison sociale propriétaire</label>
+          <input
+            type="text"
+            class="form-control rounded-pill"
+            formControlName="raison_social"
+            required
+            [ngClass]="{'is-invalid': checkInputsValidation(raison_social), 'is-valid': !raison_social.invalid }"
+          />
+
+          <!-- Error Message  -->
+          <div class="" *ngIf="checkInputsValidation(raison_social)">
+            <p class="text-danger" *ngIf="raison_social?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+            <!-- <p class="text-danger" *ngIf="raison_social.errors.minlength">
+              Passeport doit être au moins 4 caractéres
+            </p> -->
+          </div>
+          
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">N° de registre du commerce</label>
+          <input
+            type="text"
+            class="form-control rounded-pill"
+            formControlName="n_registre_commerce"
+            required
+            [ngClass]="{'is-invalid': checkInputsValidation(n_registre_commerce), 'is-valid': !n_registre_commerce.invalid }"
+          />
+
+          <!-- Error Message  -->
+          <div class="" *ngIf="checkInputsValidation(n_registre_commerce)">
+            <p class="text-danger" *ngIf="n_registre_commerce?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+            <p class="text-danger" *ngIf="n_registre_commerce.errors.pattern">
+              <!-- Passeport doit être au moins 4 caractéres -->
+            </p>
+          </div>
+        
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Nom et prénom propriétaire</label>
+          <input
+            type="text"
+            class="form-control rounded-pill"
+            formControlName="nom_prenom"
+            required
+            [ngClass]="{'is-invalid': checkInputsValidation(nom_prenom), 'is-valid': !nom_prenom.invalid }"
+          />
+
+          <!-- Error Message  -->
+          <div class="" *ngIf="checkInputsValidation(nom_prenom)">
+            <p class="text-danger" *ngIf="nom_prenom?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+            <p class="text-danger" *ngIf="nom_prenom.errors.pattern">
+              Vous devez entrer seulement des alphabets
+            </p>
+          </div>
+         
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Téléphone du propriétaire</label>
+          <input
+            type="text"
+            class="form-control rounded-pill"
+            formControlName="telephone"
+            required
+            [ngClass]="{'is-invalid': checkInputsValidation(telephone), 'is-valid': !telephone.invalid }"
+          />
+        
+            <!-- Error Message  -->
+            <div class="" *ngIf="checkInputsValidation(telephone)">
+                <p class="text-danger" *ngIf="telephone?.errors?.required">
+                  Veuillez remplir ce champ
+                </p>
+                <p class="text-danger" *ngIf="telephone.errors.pattern">
+                  Vous devez entrer seulement des chiffres
+                </p>
+              </div>
+
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Fax du propriétaire</label>
+          <input
+            type="text"
+            class="form-control rounded-pill"
+            formControlName="fax"
+            required
+            [ngClass]="{'is-invalid': checkInputsValidation(fax), 'is-valid': !fax.invalid }"
+          />
+
+          <!-- Error Message  -->
+          <div class="" *ngIf="checkInputsValidation(fax)">
+            <p class="text-danger" *ngIf="fax?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+            <p class="text-danger" *ngIf="fax.errors.pattern">
+                Vous devez entrer seulement des chiffres
+            </p>
+          </div>
+
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Adresse du propriétaire</label>
+          <input
+            type="text"
+            class="form-control rounded-pill"
+            formControlName="adresse"
+            required
+            [ngClass]="{'is-invalid': checkInputsValidation(adresse), 'is-valid': !adresse.invalid }"
+          />
+
+           <!-- Error Message  -->
+           <div class="" *ngIf="checkInputsValidation(adresse)">
+            <p class="text-danger" *ngIf="adresse?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+            <!-- <p class="text-danger" *ngIf="adresse.errors.minlength">
+              Passeport doit être au moins 4 caractéres
+            </p> -->
+          </div>
+        
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">N° de compte bancaire P</label>
+          <input
+            type="text"
+            class="form-control rounded-pill"
+            formControlName="n_compte_bancaire"
+            required
+            [ngClass]="{'is-invalid': checkInputsValidation(n_compte_bancaire), 'is-valid': !n_compte_bancaire.invalid }"
+          />
+
+           <!-- Error Message  -->
+           <div class="" *ngIf="checkInputsValidation(n_compte_bancaire)">
+            <p class="text-danger" *ngIf="n_compte_bancaire?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+            <p class="text-danger" *ngIf="n_compte_bancaire.errors.pattern">
+                Vous devez entrer seulement des chiffres
+            </p>
+          </div>
+
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Banque</label>
+          <input
+            type="text"
+            class="form-control rounded-pill"
+            formControlName="banque"
+            required
+            [ngClass]="{'is-invalid': checkInputsValidation(banque), 'is-valid': !banque.invalid }"
+          />
+
+         <!-- Error Message  -->
+         <div class="" *ngIf="checkInputsValidation(banque)">
+            <p class="text-danger" *ngIf="banque?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+            <!-- <p class="text-danger" *ngIf="banque.errors.pattern">
+              Passeport doit être au moins 4 caractéres
+            </p> -->
+          </div>
+
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Nom de l’Agence bancaire</label>
+          <input
+            type="text"
+            class="form-control rounded-pill"
+            formControlName="nom_agence_bancaire"
+            required
+            [ngClass]="{'is-invalid': checkInputsValidation(nom_agence_bancaire), 'is-valid': !nom_agence_bancaire.invalid }"
+          />
+
+           <!-- Error Message  -->
+         <div class="" *ngIf="checkInputsValidation(nom_agence_bancaire)">
+            <p class="text-danger" *ngIf="nom_agence_bancaire?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+            <!-- <p class="text-danger" *ngIf="nom_agence_bancaire.errors.minlength">
+              Passeport doit être au moins 4 caractéres
+            </p> -->
+          </div>
+
+        </div>
+
+        <div class="mt-4">Mandataire</div>
+        <div class="col-lg-3 form-group d-flex mt-4">
+          <label for="">Oui</label>
+          <input
+            type="radio"
+            name="has_mandataire"
+            [value]="true"
+            class="form-check-input mx-2"
+            [(ngModel)]="isMand"
+            formControlName="has_mandataire"
+          />
+          <label for="">Non</label>
+          <input
+            type="radio"
+            name="has_mandataire"
+            [value]="false"
+            class="form-check-input mx-2"
+            [(ngModel)]="isMand"
+            formControlName="has_mandataire"
+          />
+        </div>
+
+        <!-- Condition pour afficher ou cacher le formulaire de mandataire -->
+        <div *ngIf="isMand; then mandataire"></div>
+      </div>
+      <!--Fin de 1er Row -->
+
+      <!--Début 2éme Row -->
+      <div class="row mt-5">
+        <!--Début de Div Mandataire Qui contient(Title+divForm+Form)-->
+        <ng-template #mandataire>
+          <!--Grand Titre Mandataire -->
+          <div class="row mt-4">
+            <div class="margin-main col-lg-12 mt-3">
+              <div class="d-flex justify-content-between">
+                <h4 class="main-text">Mandataire</h4>
+                <a href="#" class="btn second-btn"
+                  ><i class="fal fa-info"></i
+                ></a>
+              </div>
             </div>
-            <!-- Fin 2éme Row-->
+          </div>
 
-            <!-- Button Ajouter -->
-            <div class="form-group mt-4 col-lg-2 d-flex">
+          <!--Début de Conteneur Mandataire-->
+          <div class="mt-4">
+            <h6>Remplissage des données</h6>
 
-                <button type="submit" class="btn second-btn form-control">Ajouter</button>
+            <!--Début Div form Mandataire-->
+            <div class="FormBox mt-4">
+              <!--Début 3éme Row-->
+              <div class="row" formGroupName="mandataire">
+                <div class="col-lg-3 form-group mt-4">
+                  <label for="">N° CIN mandataire</label>
+                  <input
+                    type="text"
+                    class="form-control rounded-pill"
+                    formControlName="cin_mandataire"
+                  />
+
+
+                </div>
+
+                <div class="col-lg-3 form-group mt-4">
+                  <label for="">Raison sociale mandataire</label>
+                  <input
+                    type="text"
+                    class="form-control rounded-pill"
+                    formControlName="raison_social_mandataire"
+                  />
+                </div>
+
+                <div class="col-lg-3 form-group mt-4">
+                  <label for="">Nom et prénom mandataire</label>
+                  <input
+                    type="text"
+                    class="form-control rounded-pill"
+                    formControlName="nom_prenom_mandataire"
+                  />
+                </div>
+
+                <div class="col-lg-3 form-group mt-4">
+                  <label for="">Téléphone du mandataire</label>
+                  <input
+                    type="text"
+                    class="form-control rounded-pill"
+                    formControlName="telephone_mandataire"
+                  />
+                </div>
+
+                <div class="col-lg-3 form-group mt-4">
+                  <label for="">Fax du mandataire</label>
+                  <input
+                    type="text"
+                    class="form-control rounded-pill"
+                    formControlName="fax_mandataire"
+                  />
+                </div>
+
+                <div class="col-lg-3 form-group mt-4">
+                  <label for="">Adresse du mandataire</label>
+                  <input
+                    type="text"
+                    class="form-control rounded-pill"
+                    formControlName="adresse_mandataire"
+                  />
+                </div>
+
+                <div class="col-lg-3 form-group mt-4">
+                  <label for="">N° de compte bancaire M</label>
+                  <input
+                    type="text"
+                    class="form-control rounded-pill"
+                    formControlName="n_compte_bancaire_mandataire"
+                  />
+                </div>
+              </div>
+              <!--Fin de 3éme Row-->
             </div>
+            <!-- Div form Mandataire End-->
+          </div>
+          <!--Fin de Conteneur Mandataire -->
+        </ng-template>
+        <!--Fin de Div Mandataire (Title+divForm+Form)-->
+      </div>
+      <!-- Fin 2éme Row-->
 
-        </form>
-        <!-- Fin de formulaire-->
-
-    </div>
-    <!--Fin Div form propriètaire de local-->
+      <!-- Button Ajouter -->
+      <div class="form-group mt-4 col-lg-2 d-flex">
+        <button type="submit" class="btn second-btn form-control">
+          Ajouter
+        </button>
+      </div>
+    </form>
+    <!-- Fin de formulaire-->
+  </div>
+  <!--Fin Div form propriètaire de local-->
 </div>
 <!--Fin de Conteneur Propriètaire de local-->
 
