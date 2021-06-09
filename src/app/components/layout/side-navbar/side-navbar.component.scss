@@ -19,6 +19,10 @@
     margin-left: -(17rem + 1.6rem);
 }
 
+#user-card-mobile {
+    display: none;
+}
+
 .sub-menu {
     display: none;
 }
@@ -34,4 +38,19 @@
 
 .sub-menu#fournisseur.active {
     display: flex !important;
+}
+
+@include mobile($min-screen, $max-screen) {
+    .vertical-nav {
+        margin-left: -(17rem + 1.6rem);
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+    img {
+        display: none;
+    }
+    #user-card-mobile {
+        display: block;
+    }
 }
