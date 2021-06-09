@@ -31,6 +31,8 @@
                   *ngIf="!proprietaireForm.controls['cin'].valid && proprietaireForm.controls['cin'].touched">
                    Veuillez remplir ce champ</span>
 
+                   <div *ngIf="errors" class="msg-error mt-2">{{errors}}</div>
+
                 </div>
 
                 <div class="col-lg-3 form-group  mt-4">
