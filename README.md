@@ -35,4 +35,21 @@
 #################
 
 [*] Show 'proprietaire' details
+
+#################
+
+[*] Add responsive design
     
+#################
+
+[*] Create gobal modal    
+   [*] Generate component
+   [*] Generate service
+   [*] Setup module
+   [*] Make some style
+   [*] Add props
+   [*] Put dynamic content
+
+################# 
+ 
+[*] Add workflow validation to 'proprietaire' post form

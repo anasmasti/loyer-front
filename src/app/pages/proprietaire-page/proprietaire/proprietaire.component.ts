@@ -14,7 +14,9 @@ export class ProprietaireComponent implements OnInit {
   isMand: boolean = false;
   mandataire!: {};
   errors!: any;
-  constructor(private proprietaire: ProprietaireService) {}
+  success: string = 'Propriétaire ajouté avec succés';
+  postDone: boolean = false;
+  constructor(private proprietaire: ProprietaireService) { }
 
   ngOnInit(): void {
     console.log(this.proprietaire.getProprietaire());
@@ -58,8 +60,8 @@ export class ProprietaireComponent implements OnInit {
     has_mandataire: new FormControl('', [Validators.required]),
     // Champs du mandataire
     mandataire: new FormGroup({
-      cin_mandataire: new FormControl('',Validators.minLength(4)),
-      nom_prenom_mandataire: new FormControl('',Validators.pattern('[a-zA-Z]*')),
+      cin_mandataire: new FormControl('', Validators.minLength(4)),
+      nom_prenom_mandataire: new FormControl('', Validators.pattern('[a-zA-Z]*')),
       raison_social_mandataire: new FormControl(''),
       telephone_mandataire: new FormControl('', Validators.pattern('[0-9]*')),
       fax_mandataire: new FormControl('', Validators.pattern('[0-9]*')),
@@ -73,17 +75,31 @@ export class ProprietaireComponent implements OnInit {
 
   onSubmit() {
     this.proprietaire.PostProprietaire(this.proprietaireForm.value).subscribe(
-      (data) => {
-        console.log(data);
+      (_) => {
+        this.postDone = true
+        setTimeout(() => {
+          this.proprietaireForm.reset()
+          this.postDone = false
+        }, 2000);
       },
       (error) => {
         this.errors = error.error.message;
-
-        console.log(error.error.message);
+        setTimeout(() => {
+          this.showErrorMessage()
+        }, 3000);
+        this.hideErrorMessage()
       }
     );
   }
 
+  showErrorMessage() {
+    $('.error-alert').addClass('active');
+  }
+
+  hideErrorMessage() {
+    $('.error-alert').removeClass('active');
+  }
+  
   // Check if all inputs has invalid errors
   checkInputsValidation(targetInput: any) {
     return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
