@@ -22,7 +22,9 @@
   <div class="form-box mt-4">
     <!--Début Formulaire propriètaire de local-->
     <form [formGroup]="proprietaireForm" (ngSubmit)="onSubmit()">
+      <!-- Message d'ERREUR de serveur -->
       <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
+      <!-- Message de succés de serveur -->
       <div *ngIf="postDone" class="done-alert p-2 my-2">{{ success }}</div>
       <!--Début 1er Row-->
       <div class="row">

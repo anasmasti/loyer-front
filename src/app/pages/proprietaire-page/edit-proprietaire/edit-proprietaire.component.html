@@ -21,6 +21,10 @@
     <div class="form-box mt-2">
       <!--Début Formulaire propriètaire de local-->
       <form [formGroup]="proprietaireForm">
+          <!-- Message d'ERREUR de serveur -->
+      <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
+      <!-- Message de succés de serveur -->
+      <div *ngIf="postDone" class="done-alert p-2 my-2">{{ success }}</div>
 
         <!--Début 1er Row-->
         <div class="row">
@@ -31,7 +35,20 @@
               type="text"
               class="form-control rounded-pill"
               formControlName="cin"
+              required
+              [ngClass]="{'is-invalid': checkInputsValidation(cin), 'is-valid': !cin.invalid }"
             />
+
+             <!-- Error Message  -->
+          <div class="" *ngIf="checkInputsValidation(cin)">
+            <p class="text-danger" *ngIf="cin?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+            <p class="text-danger" *ngIf="cin.errors.minlength">
+              CIN doit être au moins 4 caractéres
+            </p>
+          </div>
+
           </div>
 
           <div class="col-lg-3 form-group mt-2">
@@ -39,8 +56,22 @@
             <input
               type="text"
               class="form-control rounded-pill"
-              formControlName="cin"
+              formControlName="passport"
+              required
+              [ngClass]="{'is-invalid': checkInputsValidation(passport), 'is-valid': !passport.invalid }"
             />
+
+             <!-- Error Message  -->
+          <div class="" *ngIf="checkInputsValidation(passport)">
+            <p class="text-danger" *ngIf="passport?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+            <p class="text-danger" *ngIf="passport.errors.minlength">
+              Passeport doit être au moins 4 caractéres
+            </p>
+          </div>
+
+
           </div>
 
           <div class="col-lg-3 form-group mt-2">
@@ -48,8 +79,22 @@
             <input
               type="text"
               class="form-control rounded-pill"
-              formControlName="cin"
+              formControlName="carte_sejour"
+              required
+              [ngClass]="{'is-invalid': checkInputsValidation(carte_sejour), 'is-valid': !carte_sejour.invalid }"
+
             />
+
+              <!-- Error Message  -->
+          <div class="" *ngIf="checkInputsValidation(carte_sejour)">
+            <p class="text-danger" *ngIf="carte_sejour?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+            <p class="text-danger" *ngIf="carte_sejour.errors.minlength">
+              Carte séjour doit être au moins 4 caractéres
+            </p>
+          </div>
+
           </div>
 
           <div class="col-lg-3 form-group mt-2">
@@ -57,8 +102,21 @@
             <input
               type="text"
               class="form-control rounded-pill"
-              formControlName="cin"
+              formControlName="raison_social"
+              required
+              [ngClass]="{'is-invalid': checkInputsValidation(raison_social), 'is-valid': !raison_social.invalid }"
             />
+
+                  <!-- Error Message  -->
+          <div class="" *ngIf="checkInputsValidation(raison_social)">
+            <p class="text-danger" *ngIf="raison_social?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+            <!-- <p class="text-danger" *ngIf="raison_social.errors.minlength">
+              CIN doit être au moins 4 caractéres
+            </p> -->
+          </div>
+
           </div>
 
         </div>
@@ -70,8 +128,21 @@
             <input
               type="text"
               class="form-control rounded-pill"
-              formControlName="cin"
+              formControlName="n_registre_commerce"
+              required
+              [ngClass]="{'is-invalid': checkInputsValidation(n_registre_commerce), 'is-valid': !n_registre_commerce.invalid }"
             />
+
+                       <!-- Error Message  -->
+          <div class="" *ngIf="checkInputsValidation(n_registre_commerce)">
+            <p class="text-danger" *ngIf="n_registre_commerce?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+            <p class="text-danger" *ngIf="n_registre_commerce.errors.pattern">
+             Vous devez entrer des chiffres
+            </p>
+          </div>
+
           </div>
 
           <div class="col-lg-3 form-group mt-2">
@@ -79,8 +150,21 @@
             <input
               type="text"
               class="form-control rounded-pill"
-              formControlName="cin"
+              formControlName="nom_prenom"
+              required
+              [ngClass]="{'is-invalid': checkInputsValidation(nom_prenom), 'is-valid': !nom_prenom.invalid }"
             />
+
+                        <!-- Error Message  -->
+          <div class="" *ngIf="checkInputsValidation(nom_prenom)">
+            <p class="text-danger" *ngIf="nom_prenom?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+            <p class="text-danger" *ngIf="nom_prenom.errors.pattern">
+              Vous devez entrer seulement des alphabets
+            </p>
+          </div>
+
           </div>
 
           <div class="col-lg-3 form-group mt-2">
@@ -88,8 +172,21 @@
             <input
               type="text"
               class="form-control rounded-pill"
-              formControlName="cin"
+              formControlName="telephone"
+              required
+              [ngClass]="{'is-invalid': checkInputsValidation(telephone), 'is-valid': !telephone.invalid }"
             />
+
+                              <!-- Error Message  -->
+          <div class="" *ngIf="checkInputsValidation(telephone)">
+            <p class="text-danger" *ngIf="telephone?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+            <p class="text-danger" *ngIf="telephone.errors.pattern">
+              Vous devez entrer seulement des chiffres
+            </p>
+          </div>
+
           </div>
 
           <div class="col-lg-3 form-group mt-2">
@@ -97,8 +194,21 @@
             <input
               type="text"
               class="form-control rounded-pill"
-              formControlName="cin"
+              formControlName="fax"
+              required
+              [ngClass]="{'is-invalid': checkInputsValidation(fax), 'is-valid': !fax.invalid }"
             />
+
+               <!-- Error Message  -->
+          <div class="" *ngIf="checkInputsValidation(fax)">
+            <p class="text-danger" *ngIf="fax?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+            <p class="text-danger" *ngIf="fax.errors.pattern">
+              Vous devez entrer seulement des chiffres
+            </p>
+          </div>
+
           </div>
           
         </div>
@@ -111,8 +221,21 @@
               <input
                 type="text"
                 class="form-control rounded-pill"
-                formControlName="cin"
+                formControlName="adresse"
+                required
+              [ngClass]="{'is-invalid': checkInputsValidation(adresse), 'is-valid': !adresse.invalid }"
               />
+
+                     <!-- Error Message  -->
+          <div class="" *ngIf="checkInputsValidation(adresse)">
+            <p class="text-danger" *ngIf="adresse?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+            <!-- <p class="text-danger" *ngIf="adresse.errors.minlength">
+              CIN doit être au moins 4 caractéres
+            </p> -->
+          </div>
+
             </div>
   
             <div class="col-lg-3 form-group mt-2">
@@ -120,8 +243,21 @@
               <input
                 type="text"
                 class="form-control rounded-pill"
-                formControlName="cin"
+                formControlName="n_compte_bancaire"
+                required
+                [ngClass]="{'is-invalid': checkInputsValidation(n_compte_bancaire), 'is-valid': !n_compte_bancaire.invalid }"
               />
+
+                <!-- Error Message  -->
+          <div class="" *ngIf="checkInputsValidation(n_compte_bancaire)">
+            <p class="text-danger" *ngIf="n_compte_bancaire?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+            <p class="text-danger" *ngIf="n_compte_bancaire.errors.pattern">
+              Vous devez entrer seulement des chiffres
+            </p>
+          </div>
+
             </div>
   
             <div class="col-lg-3 form-group mt-2">
@@ -129,8 +265,21 @@
               <input
                 type="text"
                 class="form-control rounded-pill"
-                formControlName="cin"
+                formControlName="banque"
+                required
+                [ngClass]="{'is-invalid': checkInputsValidation(banque), 'is-valid': !banque.invalid }"
               />
+
+                    <!-- Error Message  -->
+          <div class="" *ngIf="checkInputsValidation(banque)">
+            <p class="text-danger" *ngIf="banque?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+            <!-- <p class="text-danger" *ngIf="banque.errors.minlength">
+              CIN doit être au moins 4 caractéres
+            </p> -->
+          </div>
+
             </div>
   
             <div class="col-lg-3 form-group mt-2">
@@ -138,8 +287,21 @@
               <input
                 type="text"
                 class="form-control rounded-pill"
-                formControlName="cin"
+                formControlName="nom_agence_bancaire"
+                required
+                [ngClass]="{'is-invalid': checkInputsValidation(nom_agence_bancaire), 'is-valid': !nom_agence_bancaire.invalid }"
               />
+
+                <!-- Error Message  -->
+          <div class="" *ngIf="checkInputsValidation(nom_agence_bancaire)">
+            <p class="text-danger" *ngIf="nom_agence_bancaire?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+            <!-- <p class="text-danger" *ngIf="nom_agence_bancaire.errors.minlength">
+              CIN doit être au moins 4 caractéres
+            </p> -->
+          </div>
+
             </div>
             
 
@@ -182,7 +344,7 @@
           <div class="row mt-2">
             <div class="margin-main col-lg-12 mt-3">
               <div class="d-flex justify-content-between">
-                <h4 class="main-text">Mandataire</h4>
+                <h4 class="main-text">Modifier Mandataire</h4>
                 <a href="#" class="btn second-btn"
                   ><i class="fal fa-info"></i
                 ></a>
