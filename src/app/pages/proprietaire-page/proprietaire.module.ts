@@ -1,3 +1,4 @@
+import { MainModalModule } from './../../shared/modals/main-modal/main-modal.module';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -5,6 +6,7 @@ import { ProprietaireComponent } from './proprietaire/proprietaire.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DetailsProprietaireComponent } from './details-proprietaire/details-proprietaire.component';
 import { ListProprietaireComponent } from './list-proprietaire/list-proprietaire.component';
+import { EditProprietaireComponent } from './edit-proprietaire/edit-proprietaire.component';
 
 
 const route: Routes = [
@@ -17,12 +19,14 @@ const route: Routes = [
   declarations: [
     ProprietaireComponent,
     DetailsProprietaireComponent,
-    ListProprietaireComponent
+    ListProprietaireComponent,
+    EditProprietaireComponent
   ],
   imports: [
     RouterModule.forChild(route),
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MainModalModule
   ],
 })
 export class ProprietaireModule { }

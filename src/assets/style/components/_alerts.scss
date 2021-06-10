@@ -1,0 +1,20 @@
+@use '../helpers' as *;
+
+.error-alert {
+    background: color(danger) !important;
+    color: color(light) !important;
+    border-radius: $main-border-radius;
+    width: 50vw;
+    text-align: center;
+    &.active {
+        display: none;
+    }
+}
+
+.done-alert {
+    background: color(success);
+    color: color(light);
+    border-radius: $main-border-radius;
+    width: 50vw;
+    text-align: center;
+}

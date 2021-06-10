@@ -2,18 +2,18 @@
     <div class="col-lg-12 mt-3">
         <div class="d-flex justify-content-between">
             <!-- <h3 class="leftborder"></h3> -->
-            <h3 class="main-text">List de propriétaire</h3>
+            <h3 class="main-title">List de propriétaires</h3>
             <a href="#" class="btn main-btn"><i class="fal fa-info"></i></a>
         </div>
     </div>
 </div>
 
 
-<div class="mt-4 table-responsive-sm">
-    <table class="table table-striped table-bordered">
+<div class="main-card table-responsive-sm p-lg-3 mt-4">
+    <table class="table">
         <thead>
             <tr>
-                <th>Nom et prénom de proprietaire</th>
+                <th>Nom et prénom de propriétaire</th>
                 <th>Raison sociale</th>
                 <th>N° de registre commerce</th>
                 <th>Actions</th>
@@ -25,12 +25,16 @@
                 <td>{{ proprietaire.raison_social }}</td>
                 <td>{{ proprietaire.n_registre_commerce }} </td>
                 <td>
-                    <a [routerLink]="['list', proprietaire._id]" class="btn main-btn me-3"><i class="fal fa-eye"></i></a>
-                    <a href="" class="btn info-btn me-3"><i class="far fa-user-edit"></i></a>
-                    <a href="" class="btn danger-btn"><i class="far fa-user-minus"></i></a>
+                    <a [routerLink]="['list', proprietaire._id]" class="btn btn-sm main-btn"><i class="fal fa-eye"></i></a>
+                    <a class="btn btn-sm info-btn mx-2" (click)='openModal()'><i class="far fa-user-edit"></i></a>
+                    <a class="btn btn-sm danger-btn"><i class="far fa-user-minus"></i></a>
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
 
+<app-main-modal>
+    <h1>Modifier propriétaire</h1>
+    <app-edit-proprietaire></app-edit-proprietaire>
+</app-main-modal>

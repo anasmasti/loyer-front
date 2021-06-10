@@ -1,0 +1,39 @@
+@use '../../../../assets/style/helpers' as *;
+@use '../../../../assets/style/components' as *;
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: #6363634d;
+    &-content {
+        padding: 50px;
+        width: auto;
+        background-color: color(light);
+        border-radius: 26px;
+    }
+}
+
+.close-icon {
+    color: color(dark);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.close-icon:hover {
+    color: color(main-color);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.open {
+    display: flex;
+    justify-content: center !important;
+}

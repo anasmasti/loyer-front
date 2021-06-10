@@ -1,25 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { Proprietaire } from 'src/app/models/proprietaire';
-import { ProprietaireService } from 'src/app/services/proprietaire.service';
+import {FormGroup,FormControl,Validators} from '@angular/forms'
+import {ProprietaireService} from './../../../services/proprietaire.service'
 
 @Component({
-  selector: 'app-proprietaire',
-  templateUrl: './proprietaire.component.html',
-  styleUrls: ['./proprietaire.component.scss'],
+  selector: 'app-edit-proprietaire',
+  templateUrl: './edit-proprietaire.component.html',
+  styleUrls: ['./edit-proprietaire.component.scss']
 })
-export class ProprietaireComponent implements OnInit {
-  // proprietaireForm !: FormGroup;
+export class EditProprietaireComponent implements OnInit {
   isMand: boolean = false;
-  mandataire!: {};
   errors!: any;
   success: string = 'Propriétaire ajouté avec succés';
   postDone: boolean = false;
   constructor(private proprietaire: ProprietaireService) { }
 
   ngOnInit(): void {
-    console.log(this.proprietaire.getProprietaire());
   }
 
   proprietaireForm: any = new FormGroup({
@@ -40,7 +35,7 @@ export class ProprietaireComponent implements OnInit {
     raison_social: new FormControl('', [Validators.required]),
     n_registre_commerce: new FormControl('', [
       Validators.required,
-      Validators.pattern('[a-zA-Z0-9]*'),
+      Validators.pattern('[0-9]*'),
     ]),
     telephone: new FormControl('', [
       Validators.required,
@@ -73,35 +68,18 @@ export class ProprietaireComponent implements OnInit {
     }),
   });
 
-  onSubmit() {
-    this.proprietaire.PostProprietaire(this.proprietaireForm.value).subscribe(
-      (_) => {
-        this.postDone = true
-        setTimeout(() => {
-          this.proprietaireForm.reset()
-          this.postDone = false
-        }, 2000);
-      },
-      (error) => {
-        this.errors = error.error.message;
-        setTimeout(() => {
-          this.showErrorMessage()
-        }, 3000);
-        this.hideErrorMessage()
-      }
-    );
-  }
-
+  // Afficher le message d'erreur de serveur
   showErrorMessage() {
     $('.error-alert').addClass('active');
   }
 
+  // hide le message d'erreur de serveur
   hideErrorMessage() {
     $('.error-alert').removeClass('active');
   }
-  
-  // Check if all inputs has invalid errors
-  checkInputsValidation(targetInput: any) {
+
+   // Check if all inputs has invalid errors
+   checkInputsValidation(targetInput: any) {
     return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
   }
 
