@@ -6,6 +6,7 @@ import { ProprietaireComponent } from './proprietaire/proprietaire.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DetailsProprietaireComponent } from './details-proprietaire/details-proprietaire.component';
 import { ListProprietaireComponent } from './list-proprietaire/list-proprietaire.component';
+import { EditProprietaireComponent } from './edit-proprietaire/edit-proprietaire.component';
 
 
 const route: Routes = [
@@ -18,7 +19,8 @@ const route: Routes = [
   declarations: [
     ProprietaireComponent,
     DetailsProprietaireComponent,
-    ListProprietaireComponent
+    ListProprietaireComponent,
+    EditProprietaireComponent
   ],
   imports: [
     RouterModule.forChild(route),
