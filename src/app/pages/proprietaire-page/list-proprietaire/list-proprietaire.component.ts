@@ -6,25 +6,34 @@ import { ProprietaireService } from 'src/app/services/proprietaire.service';
 @Component({
   selector: 'app-list-proprietaire',
   templateUrl: './list-proprietaire.component.html',
-  styleUrls: ['./list-proprietaire.component.scss']
+  styleUrls: ['./list-proprietaire.component.scss'],
 })
 export class ListProprietaireComponent implements OnInit {
-  proprietaires: Proprietaire[] = []
-  constructor(private proprietaireService: ProprietaireService, private mainModalService: MainModalService) { }
+  proprietaires: Proprietaire[] = [];
+  targetProprietaire: any = [];
+
+  targetIndex!: number;
+  constructor(
+    private proprietaireService: ProprietaireService,
+    private mainModalService: MainModalService
+  ) {}
 
   ngOnInit(): void {
-    this.getAllProprietaires()
+    this.getAllProprietaires();
   }
 
   getAllProprietaires() {
-    this.proprietaireService.getProprietaire().subscribe(data => {
-      this.proprietaires = data
-    })
+    this.proprietaireService.getProprietaire().subscribe((data) => {
+      this.proprietaires = data;
+    });
   }
 
-  // Open the contact form 
-  openModal() {
-    this.mainModalService.open()
+  // Open the contact form
+  openModalAndFetchProprietaire(myTargetIndex: any, myTargetProprietaire: any) {
+    this.mainModalService.open();
+    
+      this.targetIndex = myTargetIndex;
+      this.targetProprietaire = myTargetProprietaire;
+    
   }
-
 }

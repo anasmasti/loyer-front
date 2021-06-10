@@ -22,4 +22,5 @@ export class ProprietaireService {
     const url : string="proprietaire"
     return this.http.post<Proprietaire>(`${environment.API_URL}proprietaire`, data);
   }
+
 }
