@@ -19,3 +19,12 @@
         margin-right: 7px;
     }
 }
+
+// Go back link
+.goback-link {
+    color: color(dark);
+    text-decoration: none;
+    &:hover {
+        color: color(main-color);
+    }
+}
