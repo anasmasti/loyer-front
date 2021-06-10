@@ -53,3 +53,7 @@
 ################# 
  
 [*] Add workflow validation to 'proprietaire' post form
+
+#### 08/juin/2021 ###
+
+[*] Restyling tables 

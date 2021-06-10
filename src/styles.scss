@@ -19,16 +19,6 @@ body {
     font-weight: weight(bold);
 }
 
-// Main text
-.main-text {
-    color: color(dark) !important;
-    &::before {
-        content: "";
-        border-left: 5px solid color(main-color);
-        margin-right: 5px;
-    }
-}
-
 /* active link */
 .router-link-active {
     @extend .second-btn;
