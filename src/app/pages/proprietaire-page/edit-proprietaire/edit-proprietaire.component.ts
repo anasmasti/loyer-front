@@ -11,7 +11,7 @@ import { ProprietaireService } from 'src/app/services/proprietaire.service';
 export class EditProprietaireComponent implements OnInit, OnChanges {
   isMand: boolean = false;
   errors!: any;
-  success: string = 'Propriétaire ajouté avec succés';
+  success: string = 'Propriétaire modifié avec succés';
   postDone: boolean = false;
   mandataireList: any = [];
   @Input() proprietaire!: any;
@@ -183,16 +183,22 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
           this.updateDone = false;
         }, 2000);
       },
+      
       (error) => {
+       
         this.errors = error.error.message;
         setTimeout(() => {
           this.showErrorMessage();
         }, 4000);
         this.hideErrorMessage();
+
+        console.log('updating error  = ', error.error.message)
       }
     );
 
-    // console.log('This is data  = ', this.proprietaireForm)
+    console.log(this.updateDone)
+
+     
   }
 
   // Afficher le message d'erreur de serveur
