@@ -139,11 +139,15 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
         banque: this.proprietaire.banque,
         nom_agence_bancaire: this.proprietaire.nom_agence_bancaire,
         has_mandataire: this.proprietaire.has_mandataire,
+        cin_mandataire: '',
+        nom_prenom_mandataire: '',
+        raison_social_mandataire: '',
+        telephone_mandataire: '',
+        fax_mandataire: '',
+        adresse_mandataire: '',
+        n_compte_bancaire_mandataire: '',
       });
     }
-
-    //  console.log(this.proprietaire.mandataire)
-    // const old = JSON.stringify(this.proprietaire.cin)
   }
 
   updateProprietaire() {
