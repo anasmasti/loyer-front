@@ -21,7 +21,7 @@ export class ProprietaireService {
   }
   
   // Push the proprietaire data to database
-  PostProprietaire(data: Proprietaire): Observable<Proprietaire> {
+  postProprietaire(data: Proprietaire): Observable<Proprietaire> {
     const url : string="proprietaire"
     return this.http.post<Proprietaire>(`${environment.API_URL}proprietaire`, data);
   }
