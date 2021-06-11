@@ -3,8 +3,16 @@
         <div class="d-flex justify-content-between">
             <!-- <h3 class="leftborder"></h3> -->
             <h3 class="main-title">Liste des propriétaires</h3>
-            <span data-bs-toggle="tooltip" data-bs-placement="top"
-                title="Ici vous pouvez consulter la list des propriétaires"><i class="fal fa-info"></i></span>
+            <div class="d-none d-lg-block">
+                <a class="btn btn-sm second-btn me-3" (click)='refrechPage()'><i class="far fa-undo-alt"></i>
+                    Rafraîchir la liste
+                </a>
+                <span data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Ici vous pouvez consulter la list des propriétaires">
+                    <i class="fal fa-info"></i>
+                </span>
+            </div>
+
         </div>
     </div>
 </div>
@@ -38,13 +46,24 @@
                             class="fal fa-eye"></i></a>
                     <a class="btn btn-sm info-btn mx-2" (click)='openModalAndPushProprietaire(proprietaire)'><i
                             class="far fa-user-edit"></i></a>
-                    <a class="btn btn-sm danger-btn"><i class="far fa-user-minus"></i></a>
+                    <a class="btn btn-sm danger-btn" (click)='openConfirmationModal()'><i
+                            class="far fa-user-minus"></i></a>
                 </td>
             </tr>
-            <app-main-modal>
+
+            <app-main-modal [closeBtn]='true'>
                 <app-edit-proprietaire [proprietaire]="targetProprietaire">
                 </app-edit-proprietaire>
             </app-main-modal>
+
+            <app-confirmation-modal [closeBtn]='true'>
+                <h1 class="main-title">Tu veux vraiment supprimer ce propriétaire?</h1>
+                <div class="d-inline mt-5">
+                    <a class="btn danger-btn me-2" (click)='deleteProprietaire(proprietaire._id)'>Oui</a>
+                    <a class="btn main-btn" (click)='closeConfirmationModal()'>Non</a>
+                </div>
+            </app-confirmation-modal>
+
         </tbody>
     </table>
 </div>
