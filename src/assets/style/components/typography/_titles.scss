@@ -28,3 +28,10 @@
         color: color(main-color);
     }
 }
+
+// User Types
+.user-admin-title {
+    color: color(light);
+    background: color(danger);
+    border-radius: $main-border-radius;
+}
