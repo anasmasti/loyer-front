@@ -106,10 +106,10 @@ export class ProprietaireComponent implements OnInit {
         fax_mandataire: this.proprietaireForm.get('mandataire.fax_mandataire').value,
         adresse_mandataire: this.proprietaireForm.get('mandataire.adresse_mandataire').value,
         n_compte_bancaire_mandataire: this.proprietaireForm.get('mandataire.n_compte_bancaire_mandataire').value,}]
-      }
-    ;
+      }  ;
 
-    console.log(JSON.stringify(data));
+
+    
     
     this.proprietaire.postProprietaire(data).subscribe(
       (_) => {

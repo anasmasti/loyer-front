@@ -1,8 +1,8 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { MainModalService } from 'src/app/services/main-modal.service';
 import { ProprietaireService } from 'src/app/services/proprietaire.service';
-import { Proprietaire } from './../../../models/proprietaire';
+
 @Component({
   selector: 'app-edit-proprietaire',
   templateUrl: './edit-proprietaire.component.html',
@@ -15,6 +15,7 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
   postDone: boolean = false;
   mandataireList: any = [];
   @Input() proprietaire!: any;
+  updateDone: boolean = false;
 
   proprietaireForm: any = new FormGroup({
     // Champs du propriètaire
@@ -66,7 +67,10 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
     ),
   });
 
-  constructor(private proprietaireService : ProprietaireService , private actRoute : ActivatedRoute) {}
+  constructor(
+    private proprietaireService: ProprietaireService,
+    private mainModalService: MainModalService
+  ) {}
 
   ngOnChanges() {
     this.fetchProprietaire();
@@ -132,15 +136,63 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
 
   updateProprietaire() {
     const id = this.proprietaire._id;
+    let data: any = {
+      // _id: this.proprietaireForm.get('_id').value ,
+      cin: this.proprietaireForm.get('cin').value,
+      passport: this.proprietaireForm.get('passport').value,
+      carte_sejour: this.proprietaireForm.get('carte_sejour').value,
+      nom_prenom: this.proprietaireForm.get('nom_prenom').value,
+      raison_social: this.proprietaireForm.get('raison_social').value,
+      n_registre_commerce: this.proprietaireForm.get('n_registre_commerce')
+        .value,
+      telephone: this.proprietaireForm.get('telephone').value,
+      fax: this.proprietaireForm.get('fax').value,
+      adresse: this.proprietaireForm.get('adresse').value,
+      n_compte_bancaire: this.proprietaireForm.get('n_compte_bancaire').value,
+      banque: this.proprietaireForm.get('banque').value,
+      nom_agence_bancaire: this.proprietaireForm.get('nom_agence_bancaire')
+        .value,
+      has_mandataire: this.proprietaireForm.get('has_mandataire').value,
+      mandataire: [
+        {
+          cin_mandataire: this.proprietaireForm.get('cin_mandataire').value,
+          nom_prenom_mandataire: this.proprietaireForm.get(
+            'nom_prenom_mandataire'
+          ).value,
+          raison_social_mandataire: this.proprietaireForm.get(
+            'raison_social_mandataire'
+          ).value,
+          telephone_mandataire: this.proprietaireForm.get(
+            'telephone_mandataire'
+          ).value,
+          fax_mandataire: this.proprietaireForm.get('fax_mandataire').value,
+          adresse_mandataire:
+            this.proprietaireForm.get('adresse_mandataire').value,
+          n_compte_bancaire_mandataire: this.proprietaireForm.get(
+            'n_compte_bancaire_mandataire'
+          ).value,
+        },
+      ],
+    };
 
-    console.log('This is ID = ', id)
-    this.proprietaireService.updateProprietaire(id, this.proprietaireForm ).subscribe(
-      data => {
-        this.proprietaireForm = data
+    this.proprietaireService.updateProprietaire(id, data).subscribe(
+      (_) => {
+        this.updateDone = true;
+        setTimeout(() => {
+          this.mainModalService.close();
+          this.updateDone = false;
+        }, 2000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 4000);
+        this.hideErrorMessage();
       }
     );
 
-    console.log('This is data = ', this.proprietaireForm)
+    // console.log('This is data  = ', this.proprietaireForm)
   }
 
   // Afficher le message d'erreur de serveur
