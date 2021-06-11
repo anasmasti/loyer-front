@@ -66,6 +66,15 @@
 #### 09/juin/2021 ###
 
 [] Push & pull data from the database 
+   [*] Add delete action 
+      [*] Add confirmation modal
+   [*] Add update action
+      [*] update and send data
+      [] handel the server error
+
+################# 
+
+[] Ready to deploy
 
 ################# 
 
