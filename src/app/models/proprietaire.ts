@@ -13,7 +13,7 @@ export interface Proprietaire {
   banque: string;
   nom_agence_bancaire: string;
   has_mandataire: boolean;
-  mandataire: {
+  mandataire: [{
     cin_mandataire: string;
     nom_prenom_mandataire: string;
     raison_social_mandataire: string;
@@ -21,5 +21,5 @@ export interface Proprietaire {
     fax_mandataire: string;
     adresse_mandataire: string;
     n_compte_bancaire_mandataire: string;
-  };
+  }];
 }

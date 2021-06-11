@@ -2,12 +2,15 @@
     <div class="col-lg-12 mt-3">
         <div class="d-flex justify-content-between">
             <!-- <h3 class="leftborder"></h3> -->
-            <h3 class="main-title"><a [routerLink]="['/proprietaire/list']" class="goback-link">List de propriétaires</a> / {{ proprietaire.nom_prenom }}</h3>
+            <h3 class="main-title"><a [routerLink]="['/proprietaire/list']" class="goback-link">List de
+                    propriétaires</a> / {{ proprietaire.nom_prenom }}</h3>
             <div class="d-none d-lg-block">
                 <a [routerLink]="['/proprietaire/list']" class="btn btn-sm second-btn me-3 " data-bs-toggle="tooltip"
-                    data-bs-placement="top" title="Retour à la liste"><i class="far fa-arrow-left"></i> Retour à la liste</a>
+                    data-bs-placement="top" title="Retour à la liste"><i class="far fa-arrow-left"></i> Retour à la
+                    liste</a>
                 <span data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Ici vous pouvez voir les détails de {{ proprietaire.nom_prenom }}"><i class="fal fa-info"></i></span>
+                    title="Ici vous pouvez voir les détails de {{ proprietaire.nom_prenom }}"><i
+                        class="fal fa-info"></i></span>
             </div>
         </div>
     </div>
@@ -73,41 +76,42 @@
                 <td>{{ proprietaire.nom_agence_bancaire }}</td>
             </tr>
 
-            <tr>
-                <th>CIN Mandataire</th>
-                <td>{{ proprietaire.mandataire.cin_mandataire }}</td>
-            </tr>
+            <div *ngIf="mandataire">
+                <tr>
+                    <th>CIN Mandataire</th>
+                    <td>{{ mandataire?.cin_mandataire }}</td>
+                </tr>
 
-            <tr>
-                <th>Raison sociale Mandataire </th>
-                <td>{{ proprietaire.mandataire.raison_social_mandataire }}</td>
-            </tr>
+                <tr>
+                    <th>Raison sociale Mandataire </th>
+                    <td>{{ mandataire?.raison_social_mandataire }}</td>
+                </tr>
 
-            <tr>
-                <th>Nom et prénom de Mandataire</th>
-                <td>{{ proprietaire.mandataire.nom_prenom_mandataire }}</td>
-            </tr>
+                <tr>
+                    <th>Nom et prénom de Mandataire</th>
+                    <td>{{ mandataire?.nom_prenom_mandataire }}</td>
+                </tr>
 
-            <tr>
-                <th>Téléphone de Mandataire</th>
-                <td>{{ proprietaire.mandataire.telephone_mandataire }}</td>
-            </tr>
+                <tr>
+                    <th>Téléphone de Mandataire</th>
+                    <td>{{ mandataire?.telephone_mandataire }}</td>
+                </tr>
 
-            <tr>
-                <th>Fax de Mandataire</th>
-                <td>{{ proprietaire.mandataire.fax_mandataire }}</td>
-            </tr>
+                <tr>
+                    <th>Fax de Mandataire</th>
+                    <td>{{ mandataire?.fax_mandataire }}</td>
+                </tr>
 
-            <tr>
-                <th>Adresse Mandataire</th>
-                <td>{{ proprietaire.mandataire.adresse_mandataire }}</td>
-            </tr>
+                <tr>
+                    <th>Adresse Mandataire</th>
+                    <td>{{ mandataire?.adresse_mandataire }}</td>
+                </tr>
 
-            <tr>
-                <th>N° compte bancaire Mandataire</th>
-                <td>{{ proprietaire.mandataire.n_compte_bancaire_mandataire }}</td>
-            </tr>
-
+                <tr>
+                    <th>N° compte bancaire Mandataire</th>
+                    <td>{{ mandataire?.n_compte_bancaire_mandataire }}</td>
+                </tr>
+            </div>
 
 
         </tbody>

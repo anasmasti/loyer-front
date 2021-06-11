@@ -24,7 +24,7 @@ export class DetailsProprietaireComponent implements OnInit {
     banque: '--',
     nom_agence_bancaire: '--',
     has_mandataire: false,
-    mandataire: {
+    mandataire: [{
       cin_mandataire: '--',
       nom_prenom_mandataire: '--',
       raison_social_mandataire: '--',
@@ -32,7 +32,16 @@ export class DetailsProprietaireComponent implements OnInit {
       fax_mandataire: '--',
       adresse_mandataire: '--',
       n_compte_bancaire_mandataire: '--',
-    }
+    }]
+  }
+  mandataire!: {
+    cin_mandataire: string;
+    nom_prenom_mandataire: string;
+    raison_social_mandataire: string;
+    telephone_mandataire: string;
+    fax_mandataire: string;
+    adresse_mandataire: string;
+    n_compte_bancaire_mandataire: string;
   }
   constructor(private proprietaireService: ProprietaireService, private actRoute: ActivatedRoute) { }
 
@@ -46,6 +55,7 @@ export class DetailsProprietaireComponent implements OnInit {
     this.proprietaireService.getProprietaireById(id).subscribe(data => {
       if (data) {
         this.proprietaire = data
+        this.mandataire = data.mandataire[0]
       }
     })
   }
