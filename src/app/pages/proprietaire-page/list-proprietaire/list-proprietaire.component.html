@@ -17,6 +17,7 @@
                 <th>Nom et prénom de propriétaire</th>
                 <th>Raison sociale</th>
                 <th>N° de registre commerce</th>
+                <th>Mandataire</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -26,6 +27,12 @@
                 <td>{{ proprietaire.nom_prenom }}</td>
                 <td>{{ proprietaire.raison_social }}</td>
                 <td>{{ proprietaire.n_registre_commerce }} </td>
+                <td>
+                    <span class="p-1"
+                        [ngClass]="{'done-alert': proprietaire.has_mandataire, 'error-alert': !proprietaire.has_mandataire}">
+                        {{ checkAndPutText(proprietaire.has_mandataire) }}
+                    </span>
+                </td>
                 <td>
                     <a [routerLink]="['list', proprietaire._id]" class="btn btn-sm main-btn"><i
                             class="fal fa-eye"></i></a>

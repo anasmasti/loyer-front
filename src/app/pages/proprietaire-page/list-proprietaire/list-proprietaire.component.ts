@@ -11,7 +11,7 @@ import { ProprietaireService } from 'src/app/services/proprietaire.service';
 export class ListProprietaireComponent implements OnInit {
   proprietaires: Proprietaire[] = [];
   targetProprietaire: any = [];
-  
+
   constructor(
     private proprietaireService: ProprietaireService,
     private mainModalService: MainModalService
@@ -32,5 +32,11 @@ export class ListProprietaireComponent implements OnInit {
   openModalAndPushProprietaire(myTargetProprietaire: any) {
     this.mainModalService.open(); // Open the update proprietaire form
     this.targetProprietaire = myTargetProprietaire; // Push proprietaire data
+  }
+
+  checkAndPutText(value: boolean) {
+    let text!: string
+    value ? text = 'Oui' : text = 'Non'
+    return text
   }
 }

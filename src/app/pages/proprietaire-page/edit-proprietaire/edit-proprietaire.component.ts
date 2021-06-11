@@ -66,7 +66,7 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
     ),
   });
 
-  constructor(private route: ActivatedRoute , private proprietaireService : ProprietaireService) {}
+  constructor(private proprietaireService : ProprietaireService , private actRoute : ActivatedRoute) {}
 
   ngOnChanges() {
     this.fetchProprietaire();
@@ -92,7 +92,7 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
         banque: this.proprietaire.banque,
         nom_agence_bancaire: this.proprietaire.nom_agence_bancaire,
         has_mandataire: this.proprietaire.has_mandataire,
-
+        // mandataire inputs
         cin_mandataire: this.mandataireList.cin_mandataire,
         nom_prenom_mandataire: this.mandataireList.nom_prenom_mandataire,
         raison_social_mandataire: this.mandataireList.raison_social_mandataire,
@@ -102,7 +102,7 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
         n_compte_bancaire_mandataire:
           this.mandataireList.n_compte_bancaire_mandataire,
       });
-    } else if (!this.proprietaire.has_mandataire) {
+    } else {
       this.isMand = false;
       this.proprietaireForm.patchValue({
         cin: this.proprietaire.cin,
@@ -118,7 +118,7 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
         banque: this.proprietaire.banque,
         nom_agence_bancaire: this.proprietaire.nom_agence_bancaire,
         has_mandataire: this.proprietaire.has_mandataire,
-
+        // mandataire inputs
         cin_mandataire: '',
         nom_prenom_mandataire: '',
         raison_social_mandataire: '',
@@ -131,13 +131,16 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
   }
 
   updateProprietaire() {
-    
-    this.proprietaireService.updateProprietaire(this.proprietaireForm).subscribe((data) =>
-     {
-       
-      this.proprietaireForm = data
-    })
+    const id = this.proprietaire._id;
 
+    console.log('This is ID = ', id)
+    this.proprietaireService.updateProprietaire(id, this.proprietaireForm ).subscribe(
+      data => {
+        this.proprietaireForm = data
+      }
+    );
+
+    console.log('This is data = ', this.proprietaireForm)
   }
 
   // Afficher le message d'erreur de serveur

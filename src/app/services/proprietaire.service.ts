@@ -27,9 +27,9 @@ export class ProprietaireService {
   }
 
   // Update the proprietaire
-  updateProprietaire(data: Proprietaire): Observable<Proprietaire> {
+  updateProprietaire(id: string , data: Proprietaire ): Observable<Proprietaire> {
     const url : string="proprietaire"
-    return this.http.put<Proprietaire>(`${environment.API_URL}proprietaire`, data)
+    return this.http.put<Proprietaire>(`${environment.API_URL}proprietaire/${id}`, data)
      
   }
 
