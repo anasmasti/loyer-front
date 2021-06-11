@@ -13,7 +13,7 @@
     background-color: #6363634d;
     &-content {
         padding: 30px;
-        width: 50%;
+        width: auto;
         height: auto;
         background-color: color(light);
         border-radius: 26px;
@@ -38,4 +38,13 @@
     display: flex;
     justify-content: center !important;
     align-items: center;
+}
+
+@include mobile($min-screen, $max-screen) {
+    .modal {
+        &-content {
+            padding: 20px;
+            width: 100%;
+        }
+    }
 }
