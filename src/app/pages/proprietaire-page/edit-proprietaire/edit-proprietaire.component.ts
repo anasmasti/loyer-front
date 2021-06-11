@@ -14,7 +14,6 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
   postDone: boolean = false;
   mandataireList: any = [];
   @Input() proprietaire!: any;
-  @Input() targetIndex!: number;
 
   proprietaireForm: any = new FormGroup({
     // Champs du propriètaire
@@ -69,17 +68,15 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
   constructor(private route: ActivatedRoute) {}
 
   ngOnChanges() {
-    this.fetchProprietaire(this.targetIndex);
+    this.fetchProprietaire();
   }
 
-  ngOnInit(): void {
- 
-  }
+  ngOnInit(): void {}
 
-  fetchProprietaire(targetIndex: number) {
+  fetchProprietaire() {
     if (this.proprietaire.has_mandataire) {
       this.isMand = true;
-      this.mandataireList = this.proprietaire.mandataire;
+      this.mandataireList = this.proprietaire.mandataire[0];
       this.proprietaireForm.patchValue({
         cin: this.proprietaire.cin,
         passport: this.proprietaire.passport,
@@ -94,19 +91,17 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
         banque: this.proprietaire.banque,
         nom_agence_bancaire: this.proprietaire.nom_agence_bancaire,
         has_mandataire: this.proprietaire.has_mandataire,
-        cin_mandataire: this.mandataireList[targetIndex].cin_mandataire,
-        nom_prenom_mandataire:
-          this.mandataireList[targetIndex].nom_prenom_mandataire,
-        raison_social_mandataire:
-          this.mandataireList[targetIndex].raison_social_mandataire,
-        telephone_mandataire:
-          this.mandataireList[targetIndex].telephone_mandataire,
-        fax_mandataire: this.mandataireList[targetIndex].fax_mandataire,
-        adresse_mandataire: this.mandataireList[targetIndex].adresse_mandataire,
+
+        cin_mandataire: this.mandataireList.cin_mandataire,
+        nom_prenom_mandataire: this.mandataireList.nom_prenom_mandataire,
+        raison_social_mandataire: this.mandataireList.raison_social_mandataire,
+        telephone_mandataire: this.mandataireList.telephone_mandataire,
+        fax_mandataire: this.mandataireList.fax_mandataire,
+        adresse_mandataire: this.mandataireList.adresse_mandataire,
         n_compte_bancaire_mandataire:
-          this.mandataireList[targetIndex].n_compte_bancaire_mandataire,
+          this.mandataireList.n_compte_bancaire_mandataire,
       });
-    } else {
+    } else if (!this.proprietaire.has_mandataire) {
       this.isMand = false;
       this.proprietaireForm.patchValue({
         cin: this.proprietaire.cin,
@@ -122,6 +117,7 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
         banque: this.proprietaire.banque,
         nom_agence_bancaire: this.proprietaire.nom_agence_bancaire,
         has_mandataire: this.proprietaire.has_mandataire,
+
         cin_mandataire: '',
         nom_prenom_mandataire: '',
         raison_social_mandataire: '',
@@ -133,9 +129,7 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
     }
   }
 
-  updateProprietaire() {
-  
-  }
+  updateProprietaire() {}
 
   // Afficher le message d'erreur de serveur
   showErrorMessage() {

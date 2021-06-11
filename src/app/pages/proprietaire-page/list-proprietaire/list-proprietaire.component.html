@@ -29,13 +29,13 @@
                 <td>
                     <a [routerLink]="['list', proprietaire._id]" class="btn btn-sm main-btn"><i
                             class="fal fa-eye"></i></a>
-                    <a class="btn btn-sm info-btn mx-2" (click)='openModalAndFetchProprietaire(i, proprietaire)'><i
+                    <a class="btn btn-sm info-btn mx-2" (click)='openModalAndPushProprietaire(proprietaire)'><i
                             class="far fa-user-edit"></i></a>
                     <a class="btn btn-sm danger-btn"><i class="far fa-user-minus"></i></a>
                 </td>
             </tr>
             <app-main-modal>
-                <app-edit-proprietaire [proprietaire]="targetProprietaire" [targetIndex]="targetIndex">
+                <app-edit-proprietaire [proprietaire]="targetProprietaire">
                 </app-edit-proprietaire>
             </app-main-modal>
         </tbody>

@@ -11,8 +11,7 @@ import { ProprietaireService } from 'src/app/services/proprietaire.service';
 export class ListProprietaireComponent implements OnInit {
   proprietaires: Proprietaire[] = [];
   targetProprietaire: any = [];
-
-  targetIndex!: number;
+  
   constructor(
     private proprietaireService: ProprietaireService,
     private mainModalService: MainModalService
@@ -30,9 +29,8 @@ export class ListProprietaireComponent implements OnInit {
   }
 
   // Open the update proprietaire form and push index and data of proprietaire
-  openModalAndFetchProprietaire(myTargetIndex: any, myTargetProprietaire: any) {
+  openModalAndPushProprietaire(myTargetProprietaire: any) {
     this.mainModalService.open(); // Open the update proprietaire form
-    this.targetIndex = myTargetIndex; // Push the index of the proprietaire
     this.targetProprietaire = myTargetProprietaire; // Push proprietaire data
   }
 }

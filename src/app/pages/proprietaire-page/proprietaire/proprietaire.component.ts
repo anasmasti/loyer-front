@@ -16,7 +16,8 @@ export class ProprietaireComponent implements OnInit {
   errors!: any;
   success: string = 'Propriétaire ajouté avec succés';
   postDone: boolean = false;
-  constructor(private proprietaire: ProprietaireService) { }
+
+  constructor(private proprietaire: ProprietaireService) {}
 
   ngOnInit(): void {
     console.log(this.proprietaire.getProprietaire());
@@ -61,7 +62,10 @@ export class ProprietaireComponent implements OnInit {
     // Champs du mandataire
     mandataire: new FormGroup({
       cin_mandataire: new FormControl('', Validators.minLength(4)),
-      nom_prenom_mandataire: new FormControl('', Validators.pattern('[a-zA-Z]*')),
+      nom_prenom_mandataire: new FormControl(
+        '',
+        Validators.pattern('[a-zA-Z]*')
+      ),
       raison_social_mandataire: new FormControl(''),
       telephone_mandataire: new FormControl('', Validators.pattern('[0-9]*')),
       fax_mandataire: new FormControl('', Validators.pattern('[0-9]*')),
@@ -74,22 +78,57 @@ export class ProprietaireComponent implements OnInit {
   });
 
   onSubmit() {
-    this.proprietaire.PostProprietaire(this.proprietaireForm.value).subscribe(
+
+      
+    let data: any = 
+      {
+        // _id: this.proprietaireForm.get('_id').value ,
+        cin: this.proprietaireForm.get('cin').value,
+        passport: this.proprietaireForm.get('passport').value,
+        carte_sejour: this.proprietaireForm.get('carte_sejour').value,
+        nom_prenom: this.proprietaireForm.get('nom_prenom').value,
+        raison_social: this.proprietaireForm.get('raison_social').value,
+        n_registre_commerce: this.proprietaireForm.get('n_registre_commerce')
+          .value,
+        telephone: this.proprietaireForm.get('telephone').value,
+        fax: this.proprietaireForm.get('fax').value,
+        adresse: this.proprietaireForm.get('adresse').value,
+        n_compte_bancaire: this.proprietaireForm.get('n_compte_bancaire').value,
+        banque: this.proprietaireForm.get('banque').value,
+        nom_agence_bancaire: this.proprietaireForm.get('nom_agence_bancaire')
+          .value,
+        has_mandataire: this.proprietaireForm.get('has_mandataire').value,
+        mandataire: [{
+        cin_mandataire: this.proprietaireForm.get('mandataire.cin_mandataire').value,
+        nom_prenom_mandataire: this.proprietaireForm.get('mandataire.nom_prenom_mandataire').value,
+        raison_social_mandataire: this.proprietaireForm.get('mandataire.raison_social_mandataire').value,
+        telephone_mandataire: this.proprietaireForm.get('mandataire.telephone_mandataire').value,
+        fax_mandataire: this.proprietaireForm.get('mandataire.fax_mandataire').value,
+        adresse_mandataire: this.proprietaireForm.get('mandataire.adresse_mandataire').value,
+        n_compte_bancaire_mandataire: this.proprietaireForm.get('mandataire.n_compte_bancaire_mandataire').value,}]
+      }
+    ;
+
+    console.log(JSON.stringify(data));
+    
+    this.proprietaire.PostProprietaire(data).subscribe(
       (_) => {
-        this.postDone = true
+        this.postDone = true;
         setTimeout(() => {
-          this.proprietaireForm.reset()
-          this.postDone = false
+          this.proprietaireForm.reset();
+          this.postDone = false;
         }, 2000);
       },
       (error) => {
         this.errors = error.error.message;
         setTimeout(() => {
-          this.showErrorMessage()
+          this.showErrorMessage();
         }, 3000);
-        this.hideErrorMessage()
+        this.hideErrorMessage();
       }
     );
+
+
   }
 
   showErrorMessage() {
@@ -99,7 +138,7 @@ export class ProprietaireComponent implements OnInit {
   hideErrorMessage() {
     $('.error-alert').removeClass('active');
   }
-  
+
   // Check if all inputs has invalid errors
   checkInputsValidation(targetInput: any) {
     return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
@@ -166,6 +205,4 @@ export class ProprietaireComponent implements OnInit {
   get n_compte_bancaire_mandataire() {
     return this.proprietaireForm.get('n_compte_bancaire_mandataire');
   }
-
-
 }
