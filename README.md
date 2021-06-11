@@ -57,3 +57,16 @@
 #### 08/juin/2021 ###
 
 [*] Restyling tables 
+
+################# 
+
+[*] Setup 'update' action 
+
+
+#### 09/juin/2021 ###
+
+[*] Push data to the database 
+
+################# 
+
+[*] Deployment to serverless 

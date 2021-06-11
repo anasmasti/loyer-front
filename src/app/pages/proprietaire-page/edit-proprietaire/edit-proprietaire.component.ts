@@ -69,28 +69,11 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
   constructor(private route: ActivatedRoute) {}
 
   ngOnChanges() {
-    console.log('-----', this.targetIndex);
     this.fetchProprietaire(this.targetIndex);
   }
 
   ngOnInit(): void {
-    // this.getProprietaireById();
-    // this.proprietaire.cin = this.proprietaireForm.cin  ;
-    // console.log(`--------- ${this.getProprietaireById()}`)
-    // this.id = this.route.snapshot.params['id'];
-    // this.oldCin = JSON.stringify(this.proprietaire.cin)
-    // console.log('-------------' , this.oldCin );
-    // Récuppérer les données de prorietaire
-    // Récuppérer les données de mandataire
-    // this.proprietaireForm.get('mandataire').patchValue({
-    //   cin_mandataire: this.proprietaire.mandataire.cin_mandataire,
-    //   nom_prenom_mandataire: this.proprietaire.mandataire.nom_prenom_mandataire,
-    //   raison_social_mandataire: this.proprietaire.mandataire.raison_social_mandataire,
-    //   telephone_mandataire: this.proprietaire.mandataire.telephone_mandataire,
-    //   fax_mandataire: this.proprietaire.mandataire.fax_mandataire,
-    //   adresse_mandataire: this.proprietaire.mandataire.adresse_mandataire,
-    //   n_compte_bancaire_mandataire: this.proprietaire.mandataire.n_compte_bancaire_mandataire,
-    // });
+ 
   }
 
   fetchProprietaire(targetIndex: number) {
@@ -151,7 +134,7 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
   }
 
   updateProprietaire() {
-    console.log(this.proprietaireForm.get('cin').value);
+  
   }
 
   // Afficher le message d'erreur de serveur
