@@ -175,7 +175,32 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
       ],
     };
 
+    let dataWithoutMandataire: any = 
+    {
+      // _id: this.proprietaireForm.get('_id').value ,
+      cin: this.proprietaireForm.get('cin').value,
+      passport: this.proprietaireForm.get('passport').value,
+      carte_sejour: this.proprietaireForm.get('carte_sejour').value,
+      nom_prenom: this.proprietaireForm.get('nom_prenom').value,
+      raison_social: this.proprietaireForm.get('raison_social').value,
+      n_registre_commerce: this.proprietaireForm.get('n_registre_commerce')
+        .value,
+      telephone: this.proprietaireForm.get('telephone').value,
+      fax: this.proprietaireForm.get('fax').value,
+      adresse: this.proprietaireForm.get('adresse').value,
+      n_compte_bancaire: this.proprietaireForm.get('n_compte_bancaire').value,
+      banque: this.proprietaireForm.get('banque').value,
+      nom_agence_bancaire: this.proprietaireForm.get('nom_agence_bancaire')
+        .value,
+      has_mandataire: this.proprietaireForm.get('has_mandataire').value,
+      // mandataire: []
+      // deleted:false,
+    
+    };
+
+
     this.proprietaireService.updateProprietaire(id, data).subscribe(
+     
       (_) => {
         this.updateDone = true;
         setTimeout(() => {
