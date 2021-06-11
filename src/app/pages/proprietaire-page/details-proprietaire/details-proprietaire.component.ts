@@ -37,9 +37,10 @@ export class DetailsProprietaireComponent implements OnInit {
   constructor(private proprietaireService: ProprietaireService, private actRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.getProprietaireById()
+    this.getProprietaireById() // Fetching proprietaire on initialisation
   }
 
+  // Get the proprietaire data by id
   getProprietaireById() {
     const id = this.actRoute.snapshot.paramMap.get('id') || '';
     this.proprietaireService.getProprietaireById(id).subscribe(data => {

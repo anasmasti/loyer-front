@@ -16,24 +16,23 @@ export class ListProprietaireComponent implements OnInit {
   constructor(
     private proprietaireService: ProprietaireService,
     private mainModalService: MainModalService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.getAllProprietaires();
+    this.getAllProprietaires(); // Trow the fitching data
   }
 
+  // Get data from proprietaire service
   getAllProprietaires() {
     this.proprietaireService.getProprietaire().subscribe((data) => {
       this.proprietaires = data;
     });
   }
 
-  // Open the contact form
+  // Open the update proprietaire form and push index and data of proprietaire
   openModalAndFetchProprietaire(myTargetIndex: any, myTargetProprietaire: any) {
-    this.mainModalService.open();
-    
-      this.targetIndex = myTargetIndex;
-      this.targetProprietaire = myTargetProprietaire;
-    
+    this.mainModalService.open(); // Open the update proprietaire form
+    this.targetIndex = myTargetIndex; // Push the index of the proprietaire
+    this.targetProprietaire = myTargetProprietaire; // Push proprietaire data
   }
 }

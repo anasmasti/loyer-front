@@ -10,22 +10,21 @@ export class SideNavbarComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.showAndHideMobileSideBarMenu()
+    this.showAndHideMobileSideBarMenu() // Launch toggeling side menu for mobile
   }
 
+  // Toggel sub menu
   showSubMenu(targetId: string) {
-    if (targetId == 'proprietaire') $('.sub-menu#proprietaire').toggleClass('active');
-    if (targetId == 'contrat') $('.sub-menu#contrat').toggleClass('active');
-    if (targetId == 'fournisseur') $('.sub-menu#fournisseur').toggleClass('active');
+    if (targetId == 'proprietaire') $('.sub-menu#proprietaire').toggleClass('active'); // Check if the sub menu is proprietaire
+    if (targetId == 'contrat') $('.sub-menu#contrat').toggleClass('active'); // Check if the sub menu is contrat
+    if (targetId == 'fournisseur') $('.sub-menu#fournisseur').toggleClass('active'); // Check if the sub menu is fournisseur
     return false
   }
 
+  // Toggel side menu for mobile
   showAndHideMobileSideBarMenu() {
-    $(function () {
-      // Toggel side menu
-      $('#sidebar-collapse-mobile').on('click', function () {
-        $('#sidebar, #content').toggleClass('active');
-      });
+    $('#sidebar-collapse-mobile').on('click', function () {
+      $('#sidebar, #content').toggleClass('active');
     });
   }
 
