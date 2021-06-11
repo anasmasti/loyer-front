@@ -65,8 +65,8 @@
 
 #### 09/juin/2021 ###
 
-[*] Push data to the database 
+[] Push & pull data from the database 
 
 ################# 
 
-[*] Deployment to serverless 
+[] Deployment to serverless 

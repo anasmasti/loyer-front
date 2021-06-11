@@ -2,12 +2,12 @@
     <div class="col-lg-12 mt-3">
         <div class="d-flex justify-content-between">
             <!-- <h3 class="leftborder"></h3> -->
-            <h3 class="main-title"><a [routerLink]="['/proprietaire/list']" class="goback-link ">List de propriétaires</a> / {{ proprietaire.nom_prenom }}</h3>
-            <div>
-                <a [routerLink]="['/proprietaire/list']" class="btn second-btn me-2" data-bs-toggle="tooltip"
-                    data-bs-placement="top" title="Retour à la liste"><i class="far fa-undo"></i></a>
-                <a href="#" class="btn main-btn" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Ici vous pouvez voir les détails d'info du propriétaire"><i class="fal fa-info"></i></a>
+            <h3 class="main-title"><a [routerLink]="['/proprietaire/list']" class="goback-link">List de propriétaires</a> / {{ proprietaire.nom_prenom }}</h3>
+            <div class="d-none d-lg-block">
+                <a [routerLink]="['/proprietaire/list']" class="btn btn-sm second-btn me-3 " data-bs-toggle="tooltip"
+                    data-bs-placement="top" title="Retour à la liste"><i class="far fa-arrow-left"></i> Retour à la liste</a>
+                <span data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Ici vous pouvez voir les détails de {{ proprietaire.nom_prenom }}"><i class="fal fa-info"></i></span>
             </div>
         </div>
     </div>
