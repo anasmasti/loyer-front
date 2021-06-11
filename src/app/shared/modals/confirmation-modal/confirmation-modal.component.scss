@@ -12,8 +12,8 @@
     overflow: auto;
     background-color: #6363634d;
     &-content {
-        padding: 50px;
-        width: auto;
+        padding: 30px;
+        width: 50%;
         height: auto;
         background-color: color(light);
         border-radius: 26px;
@@ -37,4 +37,5 @@
 .open {
     display: flex;
     justify-content: center !important;
+    align-items: center;
 }

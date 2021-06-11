@@ -8,29 +8,34 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ProprietaireService {
-  constructor(private http: HttpClient) {}
+  param_url: string = "proprietaire"
+
+  constructor(private http: HttpClient) { }
 
   // Get list of all proprietaires from database
   getProprietaire(): Observable<Proprietaire[]> {
-    return this.http.get<Proprietaire[]>(`${environment.API_URL}proprietaire`);
+    return this.http.get<Proprietaire[]>(`${environment.API_URL}${this.param_url}`);
   }
 
   // Get one proprietaire by id from database
   getProprietaireById(id: string): Observable<Proprietaire> {
-    return this.http.get<Proprietaire>(`${environment.API_URL}proprietaire/${id}`);
+    return this.http.get<Proprietaire>(`${environment.API_URL}${this.param_url}/${id}`);
   }
-  
+
   // Push the proprietaire data to database
   postProprietaire(data: Proprietaire): Observable<Proprietaire> {
-    const url : string="proprietaire"
-    return this.http.post<Proprietaire>(`${environment.API_URL}proprietaire`, data);
+    return this.http.post<Proprietaire>(`${environment.API_URL}${this.param_url}`, data);
   }
 
   // Update the proprietaire
-  updateProprietaire(id: string , data: Proprietaire ): Observable<Proprietaire> {
-    const url : string="proprietaire"
-    return this.http.put<Proprietaire>(`${environment.API_URL}proprietaire/${id}`, data)
-     
+  updateProprietaire(id: string, data: Proprietaire): Observable<Proprietaire> {
+    return this.http.put<Proprietaire>(`${environment.API_URL}${this.param_url}/${id}`, data)
+
+  }
+
+  // Delete the proprietaire
+  deleteProprietaire(id: string, data: any): Observable<Proprietaire> {
+    return this.http.put<Proprietaire>(`${environment.API_URL}${this.param_url}/delete/${id}`, data)
   }
 
 }

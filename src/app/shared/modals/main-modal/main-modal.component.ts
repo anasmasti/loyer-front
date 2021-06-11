@@ -1,5 +1,5 @@
 import { MainModalService } from './../../../services/main-modal.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-main-modal',
@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main-modal.component.scss']
 })
 export class MainModalComponent implements OnInit {
+
+  @Input() closeBtn: boolean = true
 
   constructor(private mainModalService: MainModalService) { }
 

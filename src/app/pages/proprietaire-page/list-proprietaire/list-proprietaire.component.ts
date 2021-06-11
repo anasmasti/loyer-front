@@ -1,3 +1,4 @@
+import { ConfirmationModalService } from './../../../services/confirmation-modal.service';
 import { MainModalService } from './../../../services/main-modal.service';
 import { Proprietaire } from './../../../models/proprietaire';
 import { Component, OnInit } from '@angular/core';
@@ -14,7 +15,8 @@ export class ListProprietaireComponent implements OnInit {
 
   constructor(
     private proprietaireService: ProprietaireService,
-    private mainModalService: MainModalService
+    private mainModalService: MainModalService,
+    private confirmationModalService: ConfirmationModalService
   ) { }
 
   ngOnInit(): void {
@@ -39,4 +41,31 @@ export class ListProprietaireComponent implements OnInit {
     value ? text = 'Oui' : text = 'Non'
     return text
   }
+
+  // Open confirmation modal
+  openConfirmationModal() {
+    this.confirmationModalService.open(); // Open delete confirmation modal
+  }
+
+  // Close confirmation modal
+  closeConfirmationModal() {
+    this.confirmationModalService.close(); // Close delete confirmation modal
+  }
+
+  // Delete proprietaire
+  deleteProprietaire(id: string) {
+    let data = {
+      deleted: true
+    }
+    // Call detele proprietaire function from proprietaire service
+    this.proprietaireService.deleteProprietaire(id, data).subscribe((_) => {
+      this.getAllProprietaires(); // Trow the fitching data
+    })
+  }
+
+  // Refrtech the page
+  refrechPage() {
+    location.reload();
+  }
+
 }
