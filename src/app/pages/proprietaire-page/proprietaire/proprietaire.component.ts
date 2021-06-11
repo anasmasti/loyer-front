@@ -111,7 +111,7 @@ export class ProprietaireComponent implements OnInit {
 
     console.log(JSON.stringify(data));
     
-    this.proprietaire.PostProprietaire(data).subscribe(
+    this.proprietaire.postProprietaire(data).subscribe(
       (_) => {
         this.postDone = true;
         setTimeout(() => {
