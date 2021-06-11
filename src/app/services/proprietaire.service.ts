@@ -26,4 +26,11 @@ export class ProprietaireService {
     return this.http.post<Proprietaire>(`${environment.API_URL}proprietaire`, data);
   }
 
+  // Update the proprietaire
+  updateProprietaire(data: Proprietaire): Observable<Proprietaire> {
+    const url : string="proprietaire"
+    return this.http.put<Proprietaire>(`${environment.API_URL}proprietaire`, data)
+     
+  }
+
 }

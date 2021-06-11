@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ProprietaireService } from 'src/app/services/proprietaire.service';
 import { Proprietaire } from './../../../models/proprietaire';
 @Component({
   selector: 'app-edit-proprietaire',
@@ -65,7 +66,7 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
     ),
   });
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute , private proprietaireService : ProprietaireService) {}
 
   ngOnChanges() {
     this.fetchProprietaire();
@@ -129,7 +130,15 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
     }
   }
 
-  updateProprietaire() {}
+  updateProprietaire() {
+    
+    this.proprietaireService.updateProprietaire(this.proprietaireForm).subscribe((data) =>
+     {
+       
+      this.proprietaireForm = data
+    })
+
+  }
 
   // Afficher le message d'erreur de serveur
   showErrorMessage() {
