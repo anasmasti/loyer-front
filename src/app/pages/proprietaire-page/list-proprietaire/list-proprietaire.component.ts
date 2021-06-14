@@ -1,15 +1,16 @@
 import { ConfirmationModalService } from './../../../services/confirmation-modal.service';
 import { MainModalService } from './../../../services/main-modal.service';
 import { Proprietaire } from './../../../models/proprietaire';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { ProprietaireService } from 'src/app/services/proprietaire.service';
+import { Observable, timer  } from 'rxjs';
 
 @Component({
   selector: 'app-list-proprietaire',
   templateUrl: './list-proprietaire.component.html',
   styleUrls: ['./list-proprietaire.component.scss'],
 })
-export class ListProprietaireComponent implements OnInit {
+export class ListProprietaireComponent implements OnInit, OnChanges {
   proprietaires: Proprietaire[] = [];
   targetProprietaire: any = [];
 
@@ -20,7 +21,11 @@ export class ListProprietaireComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getAllProprietaires(); // Trow the fitching data
+    this.getAllProprietaires() // Trow the fitching data
+  }
+  
+  ngOnChanges() {
+    this.getAllProprietaires(); // Trow the fitching data if anything changes
   }
   
   // Get data from proprietaire service

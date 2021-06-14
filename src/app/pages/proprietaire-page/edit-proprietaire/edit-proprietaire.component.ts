@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MainModalService } from 'src/app/services/main-modal.service';
 import { ProprietaireService } from 'src/app/services/proprietaire.service';
 
@@ -69,7 +70,7 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
 
   constructor(
     private proprietaireService: ProprietaireService,
-    private mainModalService: MainModalService
+    private mainModalService: MainModalService,
   ) {}
 
   ngOnChanges() {
@@ -175,30 +176,6 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
       ],
     };
 
-    let dataWithoutMandataire: any = 
-    {
-      // _id: this.proprietaireForm.get('_id').value ,
-      cin: this.proprietaireForm.get('cin').value,
-      passport: this.proprietaireForm.get('passport').value,
-      carte_sejour: this.proprietaireForm.get('carte_sejour').value,
-      nom_prenom: this.proprietaireForm.get('nom_prenom').value,
-      raison_social: this.proprietaireForm.get('raison_social').value,
-      n_registre_commerce: this.proprietaireForm.get('n_registre_commerce')
-        .value,
-      telephone: this.proprietaireForm.get('telephone').value,
-      fax: this.proprietaireForm.get('fax').value,
-      adresse: this.proprietaireForm.get('adresse').value,
-      n_compte_bancaire: this.proprietaireForm.get('n_compte_bancaire').value,
-      banque: this.proprietaireForm.get('banque').value,
-      nom_agence_bancaire: this.proprietaireForm.get('nom_agence_bancaire')
-        .value,
-      has_mandataire: this.proprietaireForm.get('has_mandataire').value,
-      // mandataire: []
-      // deleted:false,
-    
-    };
-
-
     this.proprietaireService.updateProprietaire(id, data).subscribe(
      
       (_) => {
@@ -206,24 +183,18 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
         setTimeout(() => {
           this.mainModalService.close();
           this.updateDone = false;
-        }, 2000);
+          location.reload()
+        }, 1000);
       },
       
       (error) => {
-       
         this.errors = error.error.message;
         setTimeout(() => {
           this.showErrorMessage();
         }, 4000);
         this.hideErrorMessage();
-
-        console.log('updating error  = ', error.error.message)
       }
     );
-
-    console.log(this.updateDone)
-
-     
   }
 
   // Afficher le message d'erreur de serveur
