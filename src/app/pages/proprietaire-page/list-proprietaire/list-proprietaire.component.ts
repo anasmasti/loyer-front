@@ -12,6 +12,7 @@ import { ProprietaireService } from 'src/app/services/proprietaire.service';
 export class ListProprietaireComponent implements OnInit {
   proprietaires: Proprietaire[] = [];
   targetProprietaire: any = [];
+  selectedId : any;
 
   constructor(
     private proprietaireService: ProprietaireService,
@@ -60,6 +61,7 @@ export class ListProprietaireComponent implements OnInit {
     // Call detele proprietaire function from proprietaire service
     this.proprietaireService.deleteProprietaire(id, data).subscribe((_) => {
       this.getAllProprietaires(); // Trow the fitching data
+
     })
   }
 
