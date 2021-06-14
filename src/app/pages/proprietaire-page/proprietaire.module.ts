@@ -1,3 +1,4 @@
+import { ConfirmationModalModule } from './../../shared/modals/confirmation-modal/confirmation-modal.module';
 import { MainModalModule } from './../../shared/modals/main-modal/main-modal.module';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -26,7 +27,8 @@ const route: Routes = [
     RouterModule.forChild(route),
     CommonModule,
     ReactiveFormsModule,
-    MainModalModule
+    MainModalModule,
+    ConfirmationModalModule
   ],
 })
 export class ProprietaireModule { }

@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   API_URL: 'https://loyer-api.herokuapp.com/api/',
-  
+
 };
 
 /*

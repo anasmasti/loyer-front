@@ -12,7 +12,7 @@
     overflow: auto;
     background-color: #6363634d;
     &-content {
-        padding: 50px;
+        padding: 30px;
         width: auto;
         height: auto;
         background-color: color(light);
@@ -37,4 +37,14 @@
 .open {
     display: flex;
     justify-content: center !important;
+    align-items: center;
+}
+
+@include mobile($min-screen, $max-screen) {
+    .modal {
+        &-content {
+            padding: 20px;
+            width: 100%;
+        }
+    }
 }

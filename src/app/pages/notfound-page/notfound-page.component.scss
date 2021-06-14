@@ -1,0 +1,9 @@
+@use '../../../assets/style/helpers' as *;
+@use '../../../assets/style/components' as *;
+
+h1 {
+    font-size: 60px;
+    @include mobile($min-screen, $max-screen) {
+        font-size: 40px;
+    }
+}
