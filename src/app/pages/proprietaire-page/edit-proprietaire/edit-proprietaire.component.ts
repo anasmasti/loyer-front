@@ -135,7 +135,7 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
   }
 
   updateProprietaire() {
-    const id = this.proprietaire._id;
+    let id = this.proprietaire._id;
     let data: any = {
       // _id: this.proprietaireForm.get('_id').value ,
       cin: this.proprietaireForm.get('cin').value,
