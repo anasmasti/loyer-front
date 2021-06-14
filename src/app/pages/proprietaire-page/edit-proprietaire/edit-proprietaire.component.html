@@ -1,7 +1,7 @@
 <div class="row title">
   <div class="col-lg-12 mt-3">
     <div class="d-lg-flex justify-content-lg-between">
-      <h3 class="main-title">Modifier propriétaire de local</h3>
+      <h3 class="main-title ">Modifier le propriétaire <span class="text-capitalize selected-text">{{ proprietaire.nom_prenom }}</span> </h3>
       <div>
         <!-- <a [routerLink]="['/proprietaire/list']" class="btn main-btn"
             >Voir la liste des propriétaires</a
@@ -10,7 +10,7 @@
           data-bs-toggle="tooltip"
           data-bs-placement="top"
           title="Ici vous pouvez modifier le propriétaire {{
-            this.proprietaire.nom_prenom
+            proprietaire.nom_prenom
           }}"
         >
           <i class="fal fa-info"></i>

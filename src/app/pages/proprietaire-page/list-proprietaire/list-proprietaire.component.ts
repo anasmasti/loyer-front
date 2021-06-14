@@ -3,16 +3,17 @@ import { MainModalService } from './../../../services/main-modal.service';
 import { Proprietaire } from './../../../models/proprietaire';
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { ProprietaireService } from 'src/app/services/proprietaire.service';
-import { Observable, timer  } from 'rxjs';
+import { Observable, timer } from 'rxjs';
 
 @Component({
   selector: 'app-list-proprietaire',
   templateUrl: './list-proprietaire.component.html',
   styleUrls: ['./list-proprietaire.component.scss'],
 })
-export class ListProprietaireComponent implements OnInit, OnChanges {
+export class ListProprietaireComponent implements OnInit {
   proprietaires: Proprietaire[] = [];
   targetProprietaire: any = [];
+  targetProprietaireId: string = '';
 
   constructor(
     private proprietaireService: ProprietaireService,
@@ -23,11 +24,11 @@ export class ListProprietaireComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.getAllProprietaires() // Trow the fitching data
   }
-  
-  ngOnChanges() {
-    this.getAllProprietaires(); // Trow the fitching data if anything changes
-  }
-  
+
+  // ngOnChanges() {
+  //   this.getAllProprietaires(); // Trow the fitching data if anything changes
+  // }
+
   // Get data from proprietaire service
   getAllProprietaires() {
     this.proprietaireService.getProprietaire().subscribe((data) => {
@@ -59,13 +60,20 @@ export class ListProprietaireComponent implements OnInit, OnChanges {
 
   // Delete proprietaire
   deleteProprietaire(id: string) {
+
     let data = {
       deleted: true
     }
+
     // Call detele proprietaire function from proprietaire service
     this.proprietaireService.deleteProprietaire(id, data).subscribe((_) => {
       this.getAllProprietaires(); // Trow the fitching data
     })
+  }
+
+  // Get id of selected proprietaire
+  getProprietaireId(id: string) {
+    this.targetProprietaireId = id
   }
 
   // Refrtech the page

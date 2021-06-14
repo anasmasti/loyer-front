@@ -29,6 +29,11 @@
     }
 }
 
+// Put main application color into selected text
+.selected-text {
+    color: color(main-color);
+}
+
 // User Types
 .user-admin-title {
     color: color(light);
