@@ -22,7 +22,7 @@ export class ListProprietaireComponent implements OnInit {
   ngOnInit(): void {
     this.getAllProprietaires(); // Trow the fitching data
   }
-
+  
   // Get data from proprietaire service
   getAllProprietaires() {
     this.proprietaireService.getProprietaire().subscribe((data) => {

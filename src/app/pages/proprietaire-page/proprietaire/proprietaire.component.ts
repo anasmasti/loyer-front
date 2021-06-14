@@ -41,7 +41,7 @@ export class ProprietaireComponent implements OnInit {
     raison_social: new FormControl('', [Validators.required]),
     n_registre_commerce: new FormControl('', [
       Validators.required,
-      Validators.pattern('[a-zA-Z0-9]*'),
+      Validators.pattern('[0-9]*'),
     ]),
     telephone: new FormControl('', [
       Validators.required,
@@ -165,7 +165,7 @@ if(this.has_mandataire.value == false){
       }, 2000);
     },
     (error) => {
-      this.errors = error.error.message;
+      this.errors = error.error.message   ;
       setTimeout(() => {
         this.showErrorMessage();
       }, 3000);
