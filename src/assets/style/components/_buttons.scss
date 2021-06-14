@@ -1,5 +1,7 @@
 @use '../helpers' as *;
 
+
+//  Main button 
 .main-btn {
     background: color(light);
     box-shadow: $btn-box-shadow;
@@ -12,6 +14,7 @@
     }
 }
 
+// Second button
 .second-btn {
     background: color(main-color) !important;
     box-shadow: $btn-box-shadow;
@@ -25,6 +28,8 @@
     }
 }
 
+
+// Costumize the danger button
 .danger-btn {
     background: color(danger);
     box-shadow: $btn-box-shadow;
@@ -37,6 +42,7 @@
     }
 }
 
+// Costumize the success button
 .success-btn {
     background: color(success);
     box-shadow: $btn-box-shadow;
@@ -49,6 +55,7 @@
     }
 }
 
+// Costumize the info button
 .info-btn {
     background: color(info);
     box-shadow: $btn-box-shadow;
@@ -61,6 +68,7 @@
     }
 }
 
+// Sub menu buttons
 .sub-menu-btn {
     color: color(dark) !important;
 
