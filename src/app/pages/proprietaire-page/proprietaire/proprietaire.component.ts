@@ -17,7 +17,7 @@ export class ProprietaireComponent implements OnInit {
   success: string = 'Propriétaire ajouté avec succés';
   postDone: boolean = false;
 
-  constructor(private proprietaire: ProprietaireService) {}
+  constructor(private proprietaire: ProprietaireService) { }
 
   ngOnInit(): void {
     console.log(this.proprietaire.getProprietaire());
@@ -25,22 +25,16 @@ export class ProprietaireComponent implements OnInit {
 
   proprietaireForm: any = new FormGroup({
     // Champs du propriètaire
-    cin: new FormControl('', [Validators.required, Validators.minLength(4)]),
-    passport: new FormControl('', [
-      Validators.required,
-      Validators.minLength(4),
-    ]),
-    carte_sejour: new FormControl('', [
-      Validators.required,
-      Validators.minLength(4),
-    ]),
+    cin: new FormControl('', []),
+    passport: new FormControl('', []),
+    carte_sejour: new FormControl('', []),
     nom_prenom: new FormControl('', [
       Validators.required,
+      Validators.minLength(6),
       Validators.pattern('[a-zA-Z ]*'),
     ]),
-    raison_social: new FormControl('', [Validators.required]),
+    raison_social: new FormControl('', []),
     n_registre_commerce: new FormControl('', [
-      Validators.required,
       Validators.pattern('[0-9]*'),
     ]),
     telephone: new FormControl('', [
@@ -48,17 +42,16 @@ export class ProprietaireComponent implements OnInit {
       Validators.pattern('[0-9]*'),
     ]),
     fax: new FormControl('', [
-      Validators.required,
       Validators.pattern('[0-9]*'),
     ]),
-    adresse: new FormControl('', [Validators.required]),
+    adresse: new FormControl('', []),
     n_compte_bancaire: new FormControl('', [
       Validators.required,
       Validators.pattern('[0-9]*'),
     ]),
     banque: new FormControl('', [Validators.required]),
-    nom_agence_bancaire: new FormControl('', [Validators.required]),
-    has_mandataire: new FormControl('', [Validators.required]),
+    nom_agence_bancaire: new FormControl('', []),
+    has_mandataire: new FormControl('', []),
     // Champs du mandataire
     mandataire: new FormGroup({
       cin_mandataire: new FormControl('', Validators.minLength(4)),
@@ -79,103 +72,104 @@ export class ProprietaireComponent implements OnInit {
 
   onSubmit() {
 
-      
-    let data: any = 
-      {
-        // _id: this.proprietaireForm.get('_id').value ,
-        cin: this.proprietaireForm.get('cin').value,
-        passport: this.proprietaireForm.get('passport').value,
-        carte_sejour: this.proprietaireForm.get('carte_sejour').value,
-        nom_prenom: this.proprietaireForm.get('nom_prenom').value,
-        raison_social: this.proprietaireForm.get('raison_social').value,
-        n_registre_commerce: this.proprietaireForm.get('n_registre_commerce')
-          .value,
-        telephone: this.proprietaireForm.get('telephone').value,
-        fax: this.proprietaireForm.get('fax').value,
-        adresse: this.proprietaireForm.get('adresse').value,
-        n_compte_bancaire: this.proprietaireForm.get('n_compte_bancaire').value,
-        banque: this.proprietaireForm.get('banque').value,
-        nom_agence_bancaire: this.proprietaireForm.get('nom_agence_bancaire')
-          .value,
-        has_mandataire: this.proprietaireForm.get('has_mandataire').value,
-        mandataire: [{ 
+
+    let data: any =
+    {
+      // _id: this.proprietaireForm.get('_id').value ,
+      cin: this.proprietaireForm.get('cin').value,
+      passport: this.proprietaireForm.get('passport').value,
+      carte_sejour: this.proprietaireForm.get('carte_sejour').value,
+      nom_prenom: this.proprietaireForm.get('nom_prenom').value,
+      raison_social: this.proprietaireForm.get('raison_social').value,
+      n_registre_commerce: this.proprietaireForm.get('n_registre_commerce')
+        .value,
+      telephone: this.proprietaireForm.get('telephone').value,
+      fax: this.proprietaireForm.get('fax').value,
+      adresse: this.proprietaireForm.get('adresse').value,
+      n_compte_bancaire: this.proprietaireForm.get('n_compte_bancaire').value,
+      banque: this.proprietaireForm.get('banque').value,
+      nom_agence_bancaire: this.proprietaireForm.get('nom_agence_bancaire')
+        .value,
+      has_mandataire: this.proprietaireForm.get('has_mandataire').value,
+      mandataire: [{
         cin_mandataire: this.proprietaireForm.get('mandataire.cin_mandataire').value,
         nom_prenom_mandataire: this.proprietaireForm.get('mandataire.nom_prenom_mandataire').value,
         raison_social_mandataire: this.proprietaireForm.get('mandataire.raison_social_mandataire').value,
         telephone_mandataire: this.proprietaireForm.get('mandataire.telephone_mandataire').value,
         fax_mandataire: this.proprietaireForm.get('mandataire.fax_mandataire').value,
         adresse_mandataire: this.proprietaireForm.get('mandataire.adresse_mandataire').value,
-        n_compte_bancaire_mandataire: this.proprietaireForm.get('mandataire.n_compte_bancaire_mandataire').value,}],
-        // deleted:false,
-      }  ;
+        n_compte_bancaire_mandataire: this.proprietaireForm.get('mandataire.n_compte_bancaire_mandataire').value,
+      }],
+      // deleted:false,
+    };
 
-      let dataWithoutMandataire: any = 
-      {
-        // _id: this.proprietaireForm.get('_id').value ,
-        cin: this.proprietaireForm.get('cin').value,
-        passport: this.proprietaireForm.get('passport').value,
-        carte_sejour: this.proprietaireForm.get('carte_sejour').value,
-        nom_prenom: this.proprietaireForm.get('nom_prenom').value,
-        raison_social: this.proprietaireForm.get('raison_social').value,
-        n_registre_commerce: this.proprietaireForm.get('n_registre_commerce')
-          .value,
-        telephone: this.proprietaireForm.get('telephone').value,
-        fax: this.proprietaireForm.get('fax').value,
-        adresse: this.proprietaireForm.get('adresse').value,
-        n_compte_bancaire: this.proprietaireForm.get('n_compte_bancaire').value,
-        banque: this.proprietaireForm.get('banque').value,
-        nom_agence_bancaire: this.proprietaireForm.get('nom_agence_bancaire')
-          .value,
-        has_mandataire: this.proprietaireForm.get('has_mandataire').value,
-        // mandataire: []
-        // deleted:false,
-      
-      };
+    let dataWithoutMandataire: any =
+    {
+      // _id: this.proprietaireForm.get('_id').value ,
+      cin: this.proprietaireForm.get('cin').value,
+      passport: this.proprietaireForm.get('passport').value,
+      carte_sejour: this.proprietaireForm.get('carte_sejour').value,
+      nom_prenom: this.proprietaireForm.get('nom_prenom').value,
+      raison_social: this.proprietaireForm.get('raison_social').value,
+      n_registre_commerce: this.proprietaireForm.get('n_registre_commerce')
+        .value,
+      telephone: this.proprietaireForm.get('telephone').value,
+      fax: this.proprietaireForm.get('fax').value,
+      adresse: this.proprietaireForm.get('adresse').value,
+      n_compte_bancaire: this.proprietaireForm.get('n_compte_bancaire').value,
+      banque: this.proprietaireForm.get('banque').value,
+      nom_agence_bancaire: this.proprietaireForm.get('nom_agence_bancaire')
+        .value,
+      has_mandataire: this.proprietaireForm.get('has_mandataire').value,
+      // mandataire: []
+      // deleted:false,
 
-      console.log(this.has_mandataire.value)
+    };
 
-if(this.has_mandataire.value == true){
+    console.log(this.has_mandataire.value)
 
-    this.proprietaire.postProprietaire(data).subscribe(
-      (_) => {
-        this.postDone = true;
-        setTimeout(() => {
-          this.proprietaireForm.reset();
-          this.postDone = false;
-        }, 2000);
-      },
-      (error) => {
-        this.errors = error.error.message;
-        setTimeout(() => {
-          this.showErrorMessage();
-        }, 3000);
-        this.hideErrorMessage();
-      }
-    );
-}
+    if (this.has_mandataire.value == true) {
 
-if(this.has_mandataire.value == false){
-  
-  this.proprietaire.postProprietaire(dataWithoutMandataire).subscribe(
-    (_) => {
-      this.postDone = true;
-      setTimeout(() => {
-        this.proprietaireForm.reset();
-        this.postDone = false;
-      }, 2000);
-    },
-    (error) => {
-      this.errors = error.error.message   ;
-      setTimeout(() => {
-        this.showErrorMessage();
-      }, 3000);
-      this.hideErrorMessage();
+      this.proprietaire.postProprietaire(data).subscribe(
+        (_) => {
+          this.postDone = true;
+          setTimeout(() => {
+            this.proprietaireForm.reset();
+            this.postDone = false;
+          }, 2000);
+        },
+        (error) => {
+          this.errors = error.error.message;
+          setTimeout(() => {
+            this.showErrorMessage();
+          }, 3000);
+          this.hideErrorMessage();
+        }
+      );
     }
-  );
-}
-    
-    
-  
+
+    if (this.has_mandataire.value == false) {
+
+      this.proprietaire.postProprietaire(dataWithoutMandataire).subscribe(
+        (_) => {
+          this.postDone = true;
+          setTimeout(() => {
+            this.proprietaireForm.reset();
+            this.postDone = false;
+          }, 2000);
+        },
+        (error) => {
+          this.errors = error.error.message;
+          setTimeout(() => {
+            this.showErrorMessage();
+          }, 3000);
+          this.hideErrorMessage();
+        }
+      );
+    }
+
+
+
 
 
   }
