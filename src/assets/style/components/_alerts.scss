@@ -1,5 +1,7 @@
 @use '../helpers' as *;
 
+
+// Error message alert 
 .error-alert {
     background: color(danger) !important;
     color: color(light) !important;
@@ -11,6 +13,7 @@
     }
 }
 
+// successful message 
 .done-alert {
     background: color(success);
     color: color(light);

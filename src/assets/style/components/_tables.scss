@@ -1,6 +1,8 @@
 @use '../helpers' as *;
 @use './typography/titles' as *;
 
+
+// Header of tables
 .header-table {
    @extend .header-title
 }

@@ -20,22 +20,18 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
 
   proprietaireForm: any = new FormGroup({
     // Champs du propriètaire
-    cin: new FormControl('', [Validators.required, Validators.minLength(4)]),
+    cin: new FormControl('', []),
     passport: new FormControl('', [
-      Validators.required,
-      Validators.minLength(4),
     ]),
     carte_sejour: new FormControl('', [
-      Validators.required,
-      Validators.minLength(4),
     ]),
     nom_prenom: new FormControl('', [
       Validators.required,
+      Validators.minLength(6),
       Validators.pattern('[a-zA-Z ]*'),
     ]),
     raison_social: new FormControl('', [Validators.required]),
     n_registre_commerce: new FormControl('', [
-      Validators.required,
       Validators.pattern('[0-9]*'),
     ]),
     telephone: new FormControl('', [
@@ -43,7 +39,6 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
       Validators.pattern('[0-9]*'),
     ]),
     fax: new FormControl('', [
-      Validators.required,
       Validators.pattern('[0-9]*'),
     ]),
     adresse: new FormControl('', [Validators.required]),
@@ -52,8 +47,8 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
       Validators.pattern('[0-9]*'),
     ]),
     banque: new FormControl('', [Validators.required]),
-    nom_agence_bancaire: new FormControl('', [Validators.required]),
-    has_mandataire: new FormControl('', [Validators.required]),
+    nom_agence_bancaire: new FormControl('', []),
+    has_mandataire: new FormControl('', []),
     // Champs du mandataire
 
     cin_mandataire: new FormControl('', Validators.minLength(4)),
@@ -71,13 +66,13 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
   constructor(
     private proprietaireService: ProprietaireService,
     private mainModalService: MainModalService,
-  ) {}
+  ) { }
 
   ngOnChanges() {
     this.fetchProprietaire();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   fetchProprietaire() {
     if (this.proprietaire.has_mandataire) {
@@ -179,7 +174,7 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
 
 
     this.proprietaireService.updateProprietaire(id, data).subscribe(
-     
+
       (_) => {
         this.updateDone = true;
         setTimeout(() => {
@@ -188,7 +183,7 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
           location.reload()
         }, 1000);
       },
-      
+
       (error) => {
         this.errors = error.error.message;
         setTimeout(() => {

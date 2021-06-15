@@ -1,11 +1,14 @@
 @use "./variables";
 
+
+// Launch mobile media dynamicly
 @mixin mobile($min-screen, $max-screen) {
     @media only screen and (min-width: $min-screen) and (max-width: $max-screen) {
         @content;
     }
 }
 
+// Put active into elements
 @mixin active() {
     @extend .main-btn;
 }
