@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MainModalService } from 'src/app/services/main-modal.service';
 import { ProprietaireService } from 'src/app/services/proprietaire.service';
 
@@ -69,7 +70,7 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
 
   constructor(
     private proprietaireService: ProprietaireService,
-    private mainModalService: MainModalService
+    private mainModalService: MainModalService,
   ) {}
 
   ngOnChanges() {
@@ -184,24 +185,18 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
         setTimeout(() => {
           this.mainModalService.close();
           this.updateDone = false;
-        }, 2000);
+          location.reload()
+        }, 1000);
       },
       
       (error) => {
-       
         this.errors = error.error.message;
         setTimeout(() => {
           this.showErrorMessage();
         }, 4000);
         this.hideErrorMessage();
-
-        console.log('updating error  = ', error.error.message)
       }
     );
-
-    console.log(this.updateDone)
-
-     
   }
 
   // Afficher le message d'erreur de serveur

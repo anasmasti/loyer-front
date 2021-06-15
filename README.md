@@ -65,16 +65,17 @@
 
 #### 09/juin/2021 ###
 
-[] Push & pull data from the database 
+[*] Push & pull data from the database 
    [*] Add delete action 
       [*] Add confirmation modal
    [*] Add update action
       [*] update and send data
-      [] handel the server error
+      [*] handel the server error
 
-################# 
+#### 09/juin/2021 ###
 
-[] Ready to deploy
+[*] Fix bugs
+[*] Ready to deploy
 
 ################# 
 
