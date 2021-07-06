@@ -68,6 +68,7 @@ export class ListProprietaireComponent implements OnInit {
     // Call detele proprietaire function from proprietaire service
     this.proprietaireService.deleteProprietaire(id, data).subscribe((_) => {
       this.getAllProprietaires(); // Trow the fitching data
+
     })
   }
 
