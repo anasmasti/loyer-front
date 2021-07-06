@@ -326,7 +326,7 @@ export class FormProprietaireComponent implements OnInit , OnChanges {
     );
   }
 
-  
+   // Get proprietaire inputs
     get cin() {
       return this.proprietaireForm.get('cin');
     }
