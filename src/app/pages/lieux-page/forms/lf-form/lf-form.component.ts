@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-lf-form',
+  selector: 'lf-form',
   templateUrl: './lf-form.component.html',
   styleUrls: ['./lf-form.component.scss']
 })
