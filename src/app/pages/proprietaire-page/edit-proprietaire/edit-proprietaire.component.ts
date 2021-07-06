@@ -171,6 +171,8 @@ export class EditProprietaireComponent implements OnInit, OnChanges {
       ],
     };
 
+
+
     this.proprietaireService.updateProprietaire(id, data).subscribe(
 
       (_) => {
