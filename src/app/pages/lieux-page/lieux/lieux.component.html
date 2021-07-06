@@ -1,27 +1,59 @@
 <div class="row title">
     <div class="col-lg-12 mt-3">
-      <div class="d-lg-flex justify-content-lg-between">
-        <h3 class="main-title">Lieux</h3>
-        <div>
-          <a [routerLink]="['/proprietaire/list']" class="btn main-btn">Voir la liste des lieux</a>
-          <a href="#" class="btn main-btn ms-3" data-bs-toggle="tooltip" data-bs-placement="top"
-            title="Ici vous pouvez ajouter un nouveau lieu"><i class="fal fa-info"></i></a>
+        <div class="d-lg-flex justify-content-lg-between">
+            <h3 class="main-title">Lieux</h3>
+            <div>
+                <a [routerLink]="['/lieux/list']" class="btn main-btn">Voir la liste des lieux</a>
+                <a href="#" class="btn main-btn ms-3" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Ici vous pouvez ajouter un nouveau lieu"><i class="fal fa-info"></i></a>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-  
-  <!--Début de conteneur Propriètaire de local  -->
-  <div class="mt-4">
+</div>
+
+<div class="mt-4">
+    <div class="row col-12" >
+        <div class="col-2" *ngFor="let lieu of lieux">
+            <a (click)='showForm(lieu.name)'>{{ lieu.name }}</a>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
     <h6>Remplissage des données</h6>
-  
-    <!--Début de Div qui contient le formulaire propriètaire de local-->
+
     <div class="form-box mt-4">
-      <!--Début Formulaire propriètaire de local-->
-  
+       <div *ngIf="activeLieux == 'DR'; then DR; else Error"></div>
+       <div *ngIf="activeLieux == 'LF'; then LF"></div>
+       <div *ngIf="activeLieux == 'PV'; then PV"></div>
+       <div *ngIf="activeLieux == 'Siege'; then SIEGE"></div>
+       <div *ngIf="activeLieux == 'SV'; then SV"></div>
     </div>
-    <!--Fin Div form propriètaire de local-->
-  </div>
-  <!--Fin de Conteneur Propriètaire de local-->
-  
-  <!-- /////////////////////////////////////////////////////////////////////////////////////// -->
+
+</div>
+
+<ng-template #DR>
+    <dr-form></dr-form>
+</ng-template>
+
+<ng-template #LF>
+    <lf-form></lf-form>
+</ng-template>
+
+<ng-template #PV>
+    <pv-form></pv-form>
+</ng-template>
+
+<ng-template #SIEGE>
+    <siege-form></siege-form>
+</ng-template>
+
+<ng-template #SV>
+    <sv-form></sv-form>
+</ng-template>
+
+<ng-template #Error>
+    <h4>
+        Choisissez un lieu s'il vous plait.
+    </h4>
+</ng-template>

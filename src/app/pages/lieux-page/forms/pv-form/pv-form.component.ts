@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-pv-form',
+  selector: 'pv-form',
   templateUrl: './pv-form.component.html',
   styleUrls: ['./pv-form.component.scss']
 })

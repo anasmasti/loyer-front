@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-siege-form',
+  selector: 'siege-form',
   templateUrl: './siege-form.component.html',
   styleUrls: ['./siege-form.component.scss']
 })
