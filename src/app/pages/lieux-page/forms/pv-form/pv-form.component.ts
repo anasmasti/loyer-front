@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PvFormComponent implements OnInit {
 
+  isAmenag : boolean = false;
   constructor() { }
 
   ngOnInit(): void {
