@@ -55,6 +55,13 @@
     }
 }
 
+.file-success {
+    background: color(success) !important;
+    box-shadow: $btn-box-shadow;
+    color: color(light) !important;
+    border-radius: $main-border-radius !important;
+}
+
 // Costumize the info button
 .info-btn {
     background: color(info);
