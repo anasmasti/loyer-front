@@ -2,8 +2,10 @@
     <div class="col-lg-12 mt-3">
         <div class="d-flex justify-content-between">
             <!-- <h3 class="leftborder"></h3> -->
-            <h3 class="main-title"><a [routerLink]="['/proprietaire/list']" class="goback-link">Liste de
-                    propriétaires</a>/<span class="selected-text">{{ proprietaire.nom_prenom }}</span> </h3>
+            <h3 class="main-title">
+                <a [routerLink]="['/proprietaire/list']" class="goback-link">Liste de
+                    propriétaires</a>/<span class="selected-text">{{ proprietaire.nom_prenom }}</span> 
+            </h3>
             <div class="d-none d-lg-block">
                 <a [routerLink]="['/proprietaire/list']" class="btn btn-sm second-btn me-3 " data-bs-toggle="tooltip"
                     data-bs-placement="top" title="Retour à la liste"><i class="far fa-arrow-left"></i>
@@ -84,7 +86,7 @@
     <table *ngIf="mandataire" class="table" cellspacing="0" width="100%">
         <tbody>
             <!-- Mandataire inputs -->
-            <h4 class="main-title mt-4">Mandataire :</h4>
+            <h4 class="main-title my-4">Mandataire :</h4>
 
             <tr>
                 <th>CIN Mandataire</th>
