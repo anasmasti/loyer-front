@@ -20,7 +20,8 @@
 
     <ul class="nav flex-column mb-0 p-4">
         <li class="nav-item">
-            <a href="#" class="nav-link main-btn">
+            <a [routerLink]="['']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact: true}"
+                class="nav-link main-btn">
                 Tableau de bord
             </a>
         </li>
