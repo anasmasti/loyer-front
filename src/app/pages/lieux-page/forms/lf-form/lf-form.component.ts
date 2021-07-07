@@ -20,8 +20,9 @@ export class LfFormComponent implements OnInit {
     code_localite : new FormControl(),
     etat_lieux_entree : new FormControl(), 
     descriptif_local : new FormControl(), 
-    images_local_avant_aménagement : new FormControl(),
-    // amenagement : oui/non
+    images_local_avant_amenagement : new FormControl(),
+    has_amenagement : new FormControl(),
+
     nature_travaux_amenagement : new FormControl(),
     montant_travaux_amenagement : new FormControl(),
     valeur_nature_travaux_charge_propriétaire : new FormControl(),
@@ -33,7 +34,7 @@ export class LfFormComponent implements OnInit {
     evaluation_fournisseur : new FormControl(),
     date_fin_travaux : new FormControl(),
     date_livraison_local : new FormControl(),
-    images_local_après_amenagement : new FormControl(),
+    images_local_apres_amenagement : new FormControl(),
     croquis_amenagement_via_imagerie : new FormControl(),
     superficie : new FormControl(),
     telephone : new FormControl(),
