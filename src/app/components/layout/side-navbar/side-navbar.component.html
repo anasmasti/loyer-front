@@ -55,12 +55,12 @@
             </ul>
         </li>
         <li class="nav-item my-4">
-            <a href="#" class="nav-link main-btn ">
+            <a [routerLink]="['/contrat']" routerLinkActive="router-link-active" class="nav-link main-btn ">
                 <span (click)="showSubMenu('contrat')">Contrat de bail</span>
             </a>
             <ul class="sub-menu list-unstyled" id="contrat">
                 <li>
-                    <a href="#" class="nav-link sub-menu-btn">
+                    <a [routerLink]="['/contrat/list']" class="nav-link sub-menu-btn">
                         List
                     </a>
                 </li>

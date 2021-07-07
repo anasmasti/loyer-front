@@ -6,6 +6,7 @@ const routes: Routes = [
   { path: 'proprietaire', loadChildren: () => import('./pages/proprietaire-page/proprietaire.module').then(m => m.ProprietaireModule) },
   { path: 'lieux', loadChildren: () => import('./pages/lieux-page/lieux.module').then(m => m.LieuxModule) },
   { path: 'notification', loadChildren: () => import('./shared/notification/main-notifications/main-notifications.module').then(m => m.MainNotificationsModule) },
+  { path: 'contrat', loadChildren: () => import('./pages/contrat-page/contrat.module').then(m => m.ContratModule) },
   { path: '**', loadChildren: () => import('./pages/notfound-page/notfound-page.module').then(m => m.NotfoundPageModule) },
 ];
 
