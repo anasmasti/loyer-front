@@ -21,7 +21,9 @@ export class SideNavbarComponent implements OnInit {
     if (targetId == 'fournisseur') $('.sub-menu#fournisseur').toggleClass('active'); // Check if the sub menu is fournisseur
     return false
   }
-
+  displayMe(){
+    alert('in') ;
+  }
   // Toggel side menu for mobile
   showAndHideMobileSideBarMenu() {
     $('#sidebar-collapse-mobile').on('click', function () {
