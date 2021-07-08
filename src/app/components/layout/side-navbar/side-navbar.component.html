@@ -87,7 +87,7 @@
     <div>
         <ul class="nav flex-column p-4">
             <li class="nav-item">
-                <a href="#" class="nav-link danger-btn">
+                <a [routerLink]="['/admin']" routerLinkActive="router-link-active" class="nav-link danger-btn">
                     <span (click)="showSubMenu('admin')">Panneau d'administration</span>
                 </a>
                 <ul class="sub-menu list-unstyled" id="admin">
