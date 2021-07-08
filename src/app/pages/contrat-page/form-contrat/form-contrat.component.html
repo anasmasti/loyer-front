@@ -184,9 +184,9 @@
             
                
                 <div class="form-box mt-4">
-                  <div *ngIf="etat == 'avenant'; then AV"></div>
-                  <div *ngIf="etat == 'suspension'; then SUS"></div>
-                  <div *ngIf="etat == 'resiliation'; then RES"></div>
+                  <div *ngIf="'avenant'; then AV"></div>
+                  <div *ngIf="'suspension'; then SUS"></div>
+                  <div *ngIf="'resiliation'; then RES"></div>
               </div>
             
             </div>
