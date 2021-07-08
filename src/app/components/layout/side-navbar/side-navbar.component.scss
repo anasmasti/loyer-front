@@ -44,6 +44,11 @@
     display: flex !important;
 }
 
+.sub-menu#admin.active {
+    display: flex !important;
+}
+
+
 @include mobile($min-screen, $max-screen) {
     .vertical-nav {
         margin-left: -(17rem + 1.6rem);
