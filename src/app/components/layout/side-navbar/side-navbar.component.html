@@ -1,12 +1,12 @@
 <!-- Vertical navbar -->
 <div class="vertical-nav" id="sidebar">
-    <div class="py-4 px-3 mb-4">
+    <div class="px-3">
         <a id="sidebar-collapse-mobile" class="btn bg-white border-0">
             <i class="far fa-chevron-left"></i>
         </a>
-        <div class="media d-flex align-items-center">
+        <div class="">
             <img src="../../../assets/images/logo/Attawfiq.jpg" alt="Attawfiq Logo" width="auto" draggable="false"
-                loading="lazy" class="mr-3  img-thumbnail border-0">
+                loading="lazy" class="mr-3 img-thumbnail border-0">
         </div>
         <div id="user-card-mobile" class="card border-0 mb-0 mt-3 main-card">
             <div class="card-body">
@@ -18,69 +18,87 @@
         </div>
     </div>
 
-    <ul class="nav flex-column mb-0 p-4">
-        <li class="nav-item">
-            <a [routerLink]="['']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact: true}"
-                class="nav-link main-btn">
-                Tableau de bord
-            </a>
-        </li>
-        <li class="nav-item my-4">
-            <a [routerLink]="['/proprietaire']" routerLinkActive="router-link-active" class="nav-link main-btn">
-                <span (click)="showSubMenu('proprietaire')">Propriétaire de locale</span>
-            </a>
-            <ul class="sub-menu list-unstyled" id="proprietaire">
-                <li>
-                    <a [routerLink]="['/proprietaire/list']" class="nav-link sub-menu-btn">
-                        Liste des propriétaires
-                    </a>
-                </li>
-                <!-- <li>
+    <div>
+        <ul class="nav flex-column p-4">
+            <li class="nav-item">
+                <a [routerLink]="['']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact: true}"
+                    class="nav-link main-btn">
+                    Tableau de bord
+                </a>
+            </li>
+            <li class="nav-item my-4">
+                <a [routerLink]="['/proprietaire']" routerLinkActive="router-link-active" class="nav-link main-btn">
+                    <span (click)="showSubMenu('proprietaire')">Propriétaire de locale</span>
+                </a>
+                <ul class="sub-menu list-unstyled" id="proprietaire">
+                    <li>
+                        <a [routerLink]="['/proprietaire/list']" class="nav-link sub-menu-btn">
+                            Liste des propriétaires
+                        </a>
+                    </li>
+                    <!-- <li>
                     <a [routerLink]="['/proprietaire/detail']" class="nav-link sub-menu-btn">
                         Détails
                     </a>
                 </li> -->
-            </ul>
-        </li>
-        <li class="nav-item ">
-            <a [routerLink]="['/lieux']" routerLinkActive="router-link-active" class="nav-link main-btn">
-                <span (click)="showSubMenu('lieux')">Lieux</span>
-            </a>
-            <ul class="sub-menu list-unstyled" id="lieux">
-                <li>
-                    <a [routerLink]="['/lieux/list']" class="nav-link sub-menu-btn">
-                        Liste des lieux
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li class="nav-item my-4">
-            <a [routerLink]="['/contrat']" routerLinkActive="router-link-active" class="nav-link main-btn ">
-                <span (click)="showSubMenu('contrat')">Contrat de bail</span>
-            </a>
-            <ul class="sub-menu list-unstyled" id="contrat">
-                <li>
-                    <a [routerLink]="['/contrat/list']" class="nav-link sub-menu-btn">
-                        List
-                    </a>
-                </li>
+                </ul>
+            </li>
+            <li class="nav-item ">
+                <a [routerLink]="['/lieux']" routerLinkActive="router-link-active" class="nav-link main-btn">
+                    <span (click)="showSubMenu('lieux')">Lieux</span>
+                </a>
+                <ul class="sub-menu list-unstyled" id="lieux">
+                    <li>
+                        <a [routerLink]="['/lieux/list']" class="nav-link sub-menu-btn">
+                            Liste des lieux
+                        </a>
+                    </li>
 
-            </ul>
-        </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link main-btn">
-                <span (click)="showSubMenu('fournisseur')">Fournisseur</span>
-            </a>
-            <ul class="sub-menu list-unstyled" id="fournisseur">
-                <li>
-                    <a href="#" class="nav-link sub-menu-btn">
-                        List
-                    </a>
-                </li>
-            </ul>
-        </li>
-    </ul>
+                </ul>
+            </li>
+            <li class="nav-item my-4">
+                <a [routerLink]="['/contrat']" routerLinkActive="router-link-active" class="nav-link main-btn ">
+                    <span (click)="showSubMenu('contrat')">Contrat de bail</span>
+                </a>
+                <ul class="sub-menu list-unstyled" id="contrat">
+                    <li>
+                        <a [routerLink]="['/contrat/list']" class="nav-link sub-menu-btn">
+                            List
+                        </a>
+                    </li>
 
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link main-btn">
+                    <span (click)="showSubMenu('fournisseur')">Fournisseur</span>
+                </a>
+                <ul class="sub-menu list-unstyled" id="fournisseur">
+                    <li>
+                        <a href="#" class="nav-link sub-menu-btn">
+                            List
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
+        </ul>
+    </div>
+    <div>
+        <ul class="nav flex-column p-4">
+            <li class="nav-item">
+                <a [routerLink]="['/admin']" routerLinkActive="router-link-active" class="nav-link danger-btn">
+                    <span (click)="showSubMenu('admin')">Panneau d'administration</span>
+                </a>
+                <ul class="sub-menu list-unstyled" id="admin">
+                    <li>
+                        <a href="#" class="nav-link sub-menu-btn">
+                            List
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 </div>
 <!-- End vertical navbar -->

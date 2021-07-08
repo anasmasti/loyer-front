@@ -1,1 +1,67 @@
-<p>list-lieux works!</p>
+<div class="row title">
+    <div class="col-lg-12 mt-3">
+        <div class="d-flex justify-content-between">
+            <!-- <h3 class="leftborder"></h3> -->
+            <h3 class="main-title">Liste des lieux</h3>
+            <div class="d-none d-lg-block">
+                <a class="btn btn-sm second-btn me-3" ><i class="far fa-undo-alt"></i>
+                    Rafraîchir la liste
+                </a>
+                <span data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Ici vous pouvez consulter la list des propriétaires">
+                    <i class="fal fa-info"></i>
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="main-card table-responsive-sm p-lg-3 mt-4">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Intitulé de lieu</th>
+                <th>Type de lieu</th>
+                <th>Ville</th>
+                <th>Téléphone</th>
+                <th>Aménagement</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <!-- <td >{{ proprietaire._id }}</td> -->
+                <td></td>
+                <td></td>
+                <td></td>
+             <td></td>
+                <td>
+                    <span class="p-1">
+                    </span>
+                </td>
+                <td>
+                    <a  class="btn btn-sm main-btn"><i
+                            class="fal fa-eye"></i></a>
+                    <a class="btn btn-sm info-btn mx-2"><i
+                            class="far fa-user-edit"></i></a>
+                    <a class="btn btn-sm danger-btn" ><i
+                            class="far fa-user-minus"></i></a>
+                </td>
+            </tr>
+
+          
+
+            <app-confirmation-modal [closeBtn]='true'>
+                <h3 class="main-title">Confirmation de la supression <i class="far fa-exclamation-circle"></i></h3>
+                <p class="mt-3">Voulez vous vraiment supprimer ce propriétaire?</p>
+                <div class="d-inline-flex justify-content-start mt-5">
+                    <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)='deleteProprietaire(targetProprietaireId)'>Oui</a>
+                    <a class="btn btn-lg px-lg-4 main-btn" (click)='closeConfirmationModal()'>Non</a>
+                </div>
+            </app-confirmation-modal>
+
+        </tbody>
+    </table>
+</div>
