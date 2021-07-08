@@ -10,10 +10,6 @@
     left: 1.5rem;
     bottom: auto;
     top: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: space-evenly;
     border-radius: $main-border-radius;
     box-shadow: $card-box-shadow;
     transition: all 0.4s;
@@ -52,10 +48,6 @@
     display: flex !important;
 }
 
-// Logo config
-.logo {
-    width: 10rem;
-}
 
 @include mobile($min-screen, $max-screen) {
     .vertical-nav {
