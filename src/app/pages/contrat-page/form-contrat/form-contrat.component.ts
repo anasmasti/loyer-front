@@ -7,19 +7,20 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./form-contrat.component.scss']
 })
 export class FormContratComponent implements OnInit {
+  etat: string = ''
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  contratForm : FormGroup = new FormGroup({
-    Ncontrat_loyer : new FormControl(),
-    piece_jointe : new FormControl(),
-    date_debut_loyer : new FormControl(),
-    montant_loyer : new FormControl(),
-    taxe_edilite_comprise_loyer : new FormControl(),
-    taxe_edilite_noncomprise_loyer : new FormControl(),
+  contratForm: FormGroup = new FormGroup({
+    Ncontrat_loyer: new FormControl(),
+    piece_jointe: new FormControl(),
+    date_debut_loyer: new FormControl(),
+    montant_loyer: new FormControl(),
+    taxe_edilite_comprise_loyer: new FormControl(),
+    taxe_edilite_noncomprise_loyer: new FormControl(),
     periodicite_paiement: new FormControl(),
     duree_location: new FormControl(),
     date_fin_contrat: new FormControl(),
@@ -44,16 +45,16 @@ export class FormContratComponent implements OnInit {
 
   })
 
-  ShowEtat(){
-    this.contratForm.patchValue({
-     etat: this.contratForm.value.etat_contrat
-  })
+  ShowEtat() {
 
-  console.log("================",this.contratForm.value.etat_contrat);
-  
+    this.etat = this.contratForm.value.etat_contrat
+
+
+    console.log("================", this.contratForm.value.etat_contrat);
+
 
   }
-   
 
-  
+
+
 }
