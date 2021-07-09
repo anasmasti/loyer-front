@@ -1,24 +1,7 @@
-<div class="row title">
-  <div class="col-lg-12 mt-3">
-    <div class="d-lg-flex justify-content-lg-between">
-      <h5 class="main-title">Gestion des contrats de bail</h5>
-      <div>
-        <a [routerLink]="['/lieux/list']" class="btn main-btn">Voir la liste des contrats de bail</a>
-        <a href="#" class="btn main-btn ms-3" data-bs-toggle="tooltip" data-bs-placement="top"
-          title="Ici vous pouvez ajouter une nouvelle direction régionale"><i class="fal fa-info"></i></a>
-      </div>
-    </div>
-  </div>
-</div>
 
-
-<!--Début de conteneur Propriètaire de local  -->
-<div class="mt-4">
-  <h6>Remplissage des données</h6>
-
-  <!--Début de Div qui contient le formulaire propriètaire de local-->
+  <!--Début de Div qui contient le formulaire form-contrat-->
   <div class="form-box mt-4">
-    <!--Début Formulaire propriètaire de local-->
+    <!--Début Formulaire form-contrat-->
     <form [formGroup]="contratForm">
 
       <!--Début 1er Row-->
@@ -30,12 +13,12 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Pièce jointe</label>
-          <input type="file" class="form-control file-success" formControlName="piece_jointe" />
+          <input type="file" class="form-control btn success-btn" formControlName="piece_jointe" />
         </div>
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Date de début du loyer</label>
-          <input type="text" class="form-control rounded-pill" formControlName="date_debut_loyer" />
+          <input type="date" class="form-control rounded-pill" formControlName="date_debut_loyer" />
 
         </div>
 
@@ -69,7 +52,7 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Date fin de contrat de bail</label>
-          <input type="text" class="form-control rounded-pill" formControlName="date_fin_contrat">
+          <input type="date" class="form-control rounded-pill" formControlName="date_fin_contrat">
         </div>
 
         <div class="col-lg-3 form-group mt-4">
@@ -104,7 +87,7 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Date de reprise de la caution</label>
-          <input type="text" class="form-control rounded-pill" formControlName="date_reprise_caution">
+          <input type="date" class="form-control rounded-pill" formControlName="date_reprise_caution">
         </div>
 
         <div class="col-lg-3 form-group mt-4">
@@ -119,12 +102,12 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Date fin de l’avance</label>
-          <input type="text" class="form-control rounded-pill" formControlName="date_fin_avance">
+          <input type="date" class="form-control rounded-pill" formControlName="date_fin_avance">
         </div>
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Date 1er paiement</label>
-          <input type="text" class="form-control rounded-pill" formControlName="date_1er_paiement">
+          <input type="date" class="form-control rounded-pill" formControlName="date_1er_paiement">
         </div>
 
         <div class="col-lg-3 form-group mt-4">
@@ -204,7 +187,7 @@
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Pièce jointe</label>
-            <input type="text" class="form-control rounded-pill" formControlName="piece_joint_av">
+            <input type="file" class="form-control rounded-pill btn success-btn" formControlName="piece_joint_av">
           </div>
 
           <div class="col-lg-3 form-group mt-4">
@@ -239,7 +222,7 @@
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Date de suspension</label>
-            <input type="text" class="form-control rounded-pill" formControlName="date_suspension">
+            <input type="date" class="form-control rounded-pill" formControlName="date_suspension">
           </div>
 
           <div class="col-lg-3 form-group mt-4">
@@ -275,7 +258,7 @@
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Date de résiliation</label>
-            <input type="text" class="form-control rounded-pill" formControlName="date_resiliation">
+            <input type="date" class="form-control rounded-pill" formControlName="date_resiliation">
           </div>
 
           <div class="col-lg-3 form-group mt-4">
@@ -285,7 +268,7 @@
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Images d'état des lieux de sortie</label>
-            <input type="file" class="form-control file-success" formControlName="images_lieux_sortie">
+            <input type="file" class="form-control btn success-btn" formControlName="images_lieux_sortie">
           </div>
 
           <div class="col-lg-3 form-group mt-4">
@@ -295,7 +278,7 @@
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Piéce jointe (la lettre de résiliation scannée)</label>
-            <input type="file" class="form-control file-success" formControlName="lettre_resiliation_scannee">
+            <input type="file" class="form-control btn success-btn" formControlName="lettre_resiliation_scannee">
           </div>
 
           </div>
@@ -306,22 +289,14 @@
         <!-- Template Resiliation end -->
        </form>
 
-
-        <!-- Condition pour afficher ou cacher le formulaire de mandataire -->
-
-      </div>
-      <!--Fin de 1er Row -->
+    </div>
 
 
-      <!-- Button Ajouter -->
-      <div class="form-group mt-4 col-lg-2 d-flex">
-        <button type="submit" class="btn second-btn form-control">
-          Ajouter
-        </button>
-      </div>
-    </form>
-    <!-- Fin de formulaire-->
+  <!-- Button Ajouter -->
+  <div class="form-group mt-4 col-lg-2 d-flex">
+    <button type="submit" class="btn second-btn form-control">
+      Ajouter
+    </button>
   </div>
-  <!--Fin Div form propriètaire de local-->
-</div>
-<!--Fin de Conteneur Propriètaire de local-->
+</form>
+<!-- Fin de formulaire-->
