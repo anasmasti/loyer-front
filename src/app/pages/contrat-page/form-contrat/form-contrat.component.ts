@@ -42,17 +42,35 @@ export class FormContratComponent implements OnInit {
     type_lieu: new FormControl(),
     lieu: new FormControl(),
     etat_contrat: new FormControl(),
+  })
+
+  etatContrat : FormGroup = new FormGroup({
+    //AVENANT
+    N_avenant: new FormControl(),
+    piece_joint_av: new FormControl(),
+    motif: new FormControl(),
+    montant_new_loyer: new FormControl(),
+    signaletique_successeur: new FormControl(),
+    //SUSPENSION
+    intitule_lieu_sus: new FormControl(),
+    date_suspension: new FormControl(),
+    duree_suspension: new FormControl(),
+    motif_suspension: new FormControl(),
+    //RESILIATION
+    intitule_lieu_res: new FormControl(),
+    reprise_caution: new FormControl(),
+    date_resiliation: new FormControl(),
+    etat_lieux_sortie: new FormControl(),
+    images_lieux_sortie: new FormControl(),
+    preavis: new FormControl(),
+    lettre_resiliation_scannee: new FormControl(),
+
 
   })
 
   ShowEtat() {
-
     this.etat = this.contratForm.value.etat_contrat
-
-
     console.log("================", this.contratForm.value.etat_contrat);
-
-
   }
 
 

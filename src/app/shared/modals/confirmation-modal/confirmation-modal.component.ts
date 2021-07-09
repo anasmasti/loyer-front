@@ -1,4 +1,4 @@
-import { ConfirmationModalService } from './../../../services/confirmation-modal.service';
+import { ConfirmationModalService } from '../../../services/confirmation-modal-service/confirmation-modal.service';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
