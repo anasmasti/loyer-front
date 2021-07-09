@@ -17,10 +17,17 @@ export class LieuxService {
   getLieux(){
     return this.http.get('http://localhost:5000/api/v1/Lieu/tout');
   }
+
+  // get specific "lieu" by his id 
   getLieuById(id:any){
     return this.http.get('http://localhost:5000/api/v1/Lieu/'+id);
   }
 
+   // get list of  "Amenagement" by "Lieu"'s id 
+   getAmenagementById(id:any){
+    return this.http.get('http://localhost:5000/api/v1/Amenagement/'+id);
+  }
+  
 
 
 

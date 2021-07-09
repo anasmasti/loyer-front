@@ -9,7 +9,50 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./detail-lieux.component.scss']
 })
 export class DetailLieuxComponent implements OnInit {
-  Lieu:any=[];
+  Lieu={
+    "deleted": false,                                          
+        "_id":"chargement ...",                                          
+        "type_lieu":"chargement ...",                       
+        "intitule_de_lieu":"chargement ...",                           
+        "intitule_direction_regional":"chargement ...",                            
+        "ville":"chargement ...",                        
+        "raison_sociale":"chargement ...",                         
+        "telephone":"chargement ...",                         
+        "fax":"chargement ...",                         
+        "code_localite":"chargement ...",                      
+        "superficie":"chargement ...",                             
+        "etage":"chargement ...",                      
+        "code_Rattachement_DR":"chargement ...",                    
+        "code_Rattachement_SUP":"chargement ...",                    
+        "intitule_Rattachement_supervision_POS":"chargement ...",                          
+        "centre_cout_Siege":"chargement ...",                          
+        "categorie_point_Vente":"chargement ..."                       
+        
+    };
+  Amenagements:any=[
+    {
+      "proprietaire": {
+        "nature": "chargement ...",
+        "valeur": "chargement ..."
+    },
+    "fondation": {
+        "nature": "chargement ...",
+        "valeur": "chargement ..."
+    },
+    "lieu": "chargement ...",
+    "deleted": false,
+    "_id": "chargement ...",
+    "nature": "chargement ...",
+    "montant": "chargement ...",
+    "n_Facture": "chargement ...",
+    "n_bon_Cde": "chargement ...",
+    "date_Passation_Cde": "chargement ...",
+    "evaluation_Fournisseur": "chargement ...",
+    "date_Fin_travaux":"chargement ...",
+    "date_Livraison_local": "chargement ...",
+    "croquis":"chargement ...",
+    }
+  ];
   constructor(
     private lieuxService: LieuxService,
     private mainModalService: MainModalService,
@@ -19,16 +62,23 @@ export class DetailLieuxComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLieuById();
+    this.getAmenagementById();
   }
 // Get the proprietaire data by id
 getLieuById() {
   const id = this.actRoute.snapshot.paramMap.get('id') || '';
   this.lieuxService.getLieuById(id).subscribe((data:any) => {
-    this.Lieu = data;
+    this.Lieu = data[0];
   });
-  console.log(id);
-  console.log(this.Lieu);
+
 
 }
+ getAmenagementById(){
+  const id = this.actRoute.snapshot.paramMap.get('id') || '';
+  this.lieuxService.getAmenagementById(id).subscribe((data:any) => {
+    this.Amenagements = data;
+  });
+
+  }
 
 }
