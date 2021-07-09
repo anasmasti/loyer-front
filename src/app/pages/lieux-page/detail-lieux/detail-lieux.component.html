@@ -104,12 +104,17 @@
         </tbody>
 
     </table>
-
-    <table  class="table" cellspacing="0" width="100%">
-        <tbody>
-            <!-- Mandataire inputs -->
+        <div >
             <h4 class="main-title my-4">Aménagement :</h4>
-
+        </div>
+        <div class="amenagement-container" *ngFor="let amen of  Amenagements">
+            <button class="btn-amenagement" type="button">
+                {{amen.nature}}
+            </button>
+        </div>
+    <!-- <table  class="table" cellspacing="0" width="100%">
+        <tbody>
+        
             <tr>
                 <th>Nature d'aménagement </th>
                 <td> {{ Amenagements[0].nature }} </td>
@@ -117,66 +122,66 @@
 
             <tr>
                 <th>Montant d'Aménagement </th>
-                <td> Aménagement.Montant </td>
+                <td> {{Amenagements[0].montant}} </td>
             </tr>
 
             <tr>
                 <th>Nature d'Aménagement sous charge de propriétaire</th>
-                <td> Aménagement.propriétaire.Nature </td>
+                <td> {{Amenagements[0].proprietaire.nature}} </td>
             </tr>
 
             <tr>
                 <th>Valeur d'Aménagement sous charge de propriétaire</th>
-                <td> Aménagement.propriétaire.Valeur  </td>
+                <td> {{Amenagements[0].proprietaire.valeur}}   </td>
             </tr>
 
             <tr>
                 <th>Nature d'Aménagement sous charge de Fondation</th>
-                <td> Aménagement.Fondation.Nature </td>
+                <td>  {{Amenagements[0].fondation.nature}}</td>
             </tr>
 
             <tr>
                 <th>Valeur d'Aménagement sous charge de Fondation</th>
-                <td> Aménagement.Fondation.Valeur  </td>
+                <td> {{Amenagements[0].fondation.valeur}}  </td>
             </tr>
 
             <tr>
                 <th>N° de facture</th>
-                <td> Aménagement.n_Facture </td>
+                <td> {{Amenagements[0].n_Facture}} </td>
             </tr>
 
             <tr>
                 <th>N° de bon de commande</th>
-                <td> Aménagement.n_Bon_Cde </td>
+                <td> {{Amenagements[0].n_bon_Cde}} </td>
             </tr>
             
             <tr>
                 <th>Date de passation de la commande</th>
-                <td> Aménagement.Date_Passation_Cde </td>
+                <td> {{Amenagements[0].date_Passation_Cde  | date:'dd-MM-yyyy' }} </td>
             </tr>
             
             <tr>
                 <th>Evaluation du fournisseur</th>
-                <td> Aménagement.Evaluation_Fournisseur </td>
+                <td> {{Amenagements[0].evaluation_Fournisseur}} </td>
             </tr>
             
             <tr>
                 <th>Date de fin de travaux</th>
-                <td> Aménagement.Date_Fin_travaux </td>
+                <td>{{Amenagements[0].date_Fin_travaux  | date:'dd-MM-yyyy' }} </td>
             </tr>
              
             <tr>
                 <th>Date de livraison du local</th>
-                <td> Aménagement.Date_Livraison_local </td>
+                <td>{{Amenagements[0].date_Livraison_local  | date:'dd-MM-yyyy' }} </td>
             </tr>
              
             <tr>
                 <th>Croquis d'amenagement via imagerie</th>
-                <td> Aménagement.Croquis </td>
+                <td> {{Amenagements[0].croquis}} </td>
             </tr>
         </tbody>
 
-    </table>
+    </table> -->
 
 
 

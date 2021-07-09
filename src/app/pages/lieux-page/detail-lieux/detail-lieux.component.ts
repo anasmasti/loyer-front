@@ -26,8 +26,8 @@ export class DetailLieuxComponent implements OnInit {
         "code_Rattachement_SUP":"chargement ...",                    
         "intitule_Rattachement_supervision_POS":"chargement ...",                          
         "centre_cout_Siege":"chargement ...",                          
-        "categorie_point_Vente":"chargement ..."                       
-        
+        "categorie_point_Vente":"chargement ..."   ,                    
+        "has_amenagement":"chargement"
     };
   Amenagements:any=[
     {
@@ -39,7 +39,6 @@ export class DetailLieuxComponent implements OnInit {
         "nature": "chargement ...",
         "valeur": "chargement ..."
     },
-    "lieu": "chargement ...",
     "deleted": false,
     "_id": "chargement ...",
     "nature": "chargement ...",
@@ -62,23 +61,19 @@ export class DetailLieuxComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLieuById();
-    this.getAmenagementById();
   }
 // Get the proprietaire data by id
 getLieuById() {
   const id = this.actRoute.snapshot.paramMap.get('id') || '';
   this.lieuxService.getLieuById(id).subscribe((data:any) => {
     this.Lieu = data[0];
+    this.Amenagements= data[0].amenagement;
   });
 
 
 }
- getAmenagementById(){
-  const id = this.actRoute.snapshot.paramMap.get('id') || '';
-  this.lieuxService.getAmenagementById(id).subscribe((data:any) => {
-    this.Amenagements = data;
-  });
 
-  }
+
+  
 
 }
