@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfirmationModalService } from 'src/app/services/confirmation-modal.service';
-import { ContratService } from 'src/app/services/contrat.service';
-import { MainModalService } from 'src/app/services/main-modal.service';
+import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
+import { ContratService } from 'src/app/services/contrat-service/contrat.service';
+import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 
 @Component({
   selector: 'app-list-contrat',

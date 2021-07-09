@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MainModalService } from 'src/app/services/main-modal.service';
-import { ProprietaireService } from 'src/app/services/proprietaire.service';
+import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
+import { ProprietaireService } from 'src/app/services/proprietaire-service/proprietaire.service';
 
 @Component({
   selector: 'app-form-proprietaire',
