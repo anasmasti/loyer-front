@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationModalService } from './../../../services/confirmation-modal.service';
 import { MainModalService } from './../../../services/main-modal.service';
-import { Proprietaire } from './../../../models/proprietaire';
-import { ProprietaireService } from 'src/app/services/proprietaire.service';
+import { LieuxService } from 'src/app/services/lieux.service';
 import { Observable, timer } from 'rxjs';
 
 @Component({
@@ -11,37 +10,26 @@ import { Observable, timer } from 'rxjs';
   styleUrls: ['./list-lieux.component.scss']
 })
 export class ListLieuxComponent implements OnInit {
-  proprietaires: Proprietaire[] = [];
-  targetProprietaire: any = [];
-  targetProprietaireId: string = '';
+  lieux: any = [];
 
   constructor(
-    private proprietaireService: ProprietaireService,
+    private lieuxService: LieuxService,
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService
   ) { }
   ngOnInit(): void {
+   setTimeout(() => {
+      this.getAllLieux();
+   }, 400);
+   
   }
-  // Get data from proprietaire service
-  getAllProprietaires() {
-    this.proprietaireService.getProprietaire().subscribe((data) => {
-      this.proprietaires = data;
+
+  getAllLieux(){
+    this.lieuxService.getLieux().subscribe((data:any) => {
+      this.lieux = data;
     });
+    // console.log('liste des lieux : '+this.lieux);
   }
-
-  // Open the update proprietaire form and push index and data of proprietaire
-  openModalAndPushProprietaire(myTargetProprietaire: any) {
-    this.mainModalService.open(); // Open the update proprietaire form
-    this.targetProprietaire = myTargetProprietaire; // Push proprietaire data
-  }
-
-  checkAndPutText(value: boolean) {
-    let text!: string
-    value ? text = 'Oui' : text = 'Non'
-    return text
-  }
-
-  // Open confirmation modal
   openConfirmationModal() {
     this.confirmationModalService.open(); // Open delete confirmation modal
   }
@@ -51,27 +39,5 @@ export class ListLieuxComponent implements OnInit {
     this.confirmationModalService.close(); // Close delete confirmation modal
   }
 
-  // Delete proprietaire
-  deleteProprietaire(id: string) {
 
-    let data = {
-      deleted: true
-    }
-
-    // Call detele proprietaire function from proprietaire service
-    this.proprietaireService.deleteProprietaire(id, data).subscribe((_) => {
-      this.getAllProprietaires(); // Trow the fitching data
-
-    })
-  }
-
-  // Get id of selected proprietaire
-  getProprietaireId(id: string) {
-    this.targetProprietaireId = id
-  }
-
-  // Refrtech the page
-  refrechPage() {
-    location.reload();
-  }
 }

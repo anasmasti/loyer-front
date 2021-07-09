@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <div class="row title">
     <div class="col-lg-12 mt-3">
         <div class="d-flex justify-content-between">
@@ -27,83 +26,81 @@
         <tbody>
             <tr>
                 <th>Type lieu</th>
-                <td> lieu.Type_lieu </td>
+                <td> {{ Lieu.type_lieu }} </td>
             </tr>
 
             <tr>
                 <th>Intitulé de lieu</th>
-                <td> lieu.intitulé </td>
+                <td> {{ Lieu.intitule_de_lieu }} </td>
             </tr>
 
             <tr>
                 <th>Intitulé de la direction regional</th>
-                <td> lieu.IDR </td>
+                <td> {{ Lieu.intitule_direction_regional }} </td>
             </tr>
 
-            <tr>
-                <th>Adresse</th>
-                <td> lieu.adresse </td>
-            </tr>
 
             <tr>
                 <th>Ville</th>
-                <td> lieu.nom_prenom </td>
+                <td> {{ Lieu.ville }} </td>
             </tr>
 
             <tr>
                 <th>Raison sociale</th>
-                <td> lieu.ville </td>
+                <td> {{ Lieu.raison_sociale }} </td>
             </tr>
 
             <tr>
                 <th>Télephone</th>
-                <td> lieu.telephone </td>
+                <td> {{ Lieu.telephone }} </td>
             </tr>
 
             <tr>
                 <th>Fax</th>
-                <td> lieu.fax </td>
+                <td> {{ Lieu.fax }} </td>
             </tr>
 
             <tr>
                 <th>code localité</th>
-                <td> lieu.code_localité </td>
+                <td>{{ Lieu.code_localite }}</td>
             </tr>
 
             <tr>
                 <th>Superficie</th>
-                <td> lieu.Superficie </td>
+                <td>{{ Lieu.superficie }} </td>
             </tr>
 
             <tr>
                 <th>Etage</th>
-                <td> lieu.Etage </td>
+                <td> {{ Lieu.etage }} </td>
             </tr>
 
             <tr>
                 <th>Code Rattachement DR</th>
-                <td> lieu.Code_Rattachement_DR </td>
+                <td> {{ Lieu.code_Rattachement_DR }} </td>
             </tr>
 
             <tr>
                 <th>Code Rattachement SUP</th>
-                <td> lieu.Code_Rattachement_SUP </td>
+                <td> {{ Lieu.code_Rattachement_SUP }} </td>
             </tr>
 
             <tr>
                 <th>Intitulé Rattachement supervision de POS</th>
-                <td> lieu.Intitulé_R_S_POS </td>
+                <td>{{ Lieu.intitule_Rattachement_supervision_POS }} </td>
             </tr>
 
             <tr>
                 <th>Centre de cout Siege</th>
-                <td> lieu.Centre_Cout_Siege </td>
+                <td> {{ Lieu.centre_cout_Siege }} </td>
             </tr>
 
             <tr>
                 <th>Categorie point de Vente</th>
-                <td> lieu.Categorie_Point_Vente </td>
+                <td> {{ Lieu.categorie_point_Vente }} </td>
             </tr>
+
+            
         </tbody>
 
     </table>
@@ -115,7 +112,7 @@
 
             <tr>
                 <th>Nature d'aménagement </th>
-                <td> Aménagement.Nature </td>
+                <td> {{ Amenagements[0].nature }} </td>
             </tr>
 
             <tr>
@@ -185,6 +182,3 @@
 
 
 </div>
-=======
-
->>>>>>> 932b97e4372ac6fef661f157f9064bd75beb4eef
