@@ -23,11 +23,8 @@ export class LieuxService {
     return this.http.get('http://localhost:5000/api/v1/Lieu/'+id);
   }
 
-   // get list of  "Amenagement" by "Lieu"'s id 
-   getAmenagementById(id:any){
-    return this.http.get('http://localhost:5000/api/v1/Amenagement/'+id);
-  }
-  
+ 
+
 
 
 

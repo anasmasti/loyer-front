@@ -39,5 +39,10 @@ export class ListLieuxComponent implements OnInit {
     this.confirmationModalService.close(); // Close delete confirmation modal
   }
 
+  checkAndPutText(value: boolean) {
+    let text!: string
+    value ? text = 'Oui' : text = 'Non'
+    return text
+  }
 
 }

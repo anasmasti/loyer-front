@@ -33,12 +33,14 @@
         <tbody>
             <tr  *ngFor="let lieu of lieux" >
                 <!-- <td >{{ proprietaire._id }}</td> -->
-                <td>{{ lieu.intitule_de_lieu  }}</td>
-                <td>{{ lieu.type_lieu  }}</td>
-                <td>{{ lieu.ville  }}</td>
-                <td>{{ lieu.intitule_de_lieu  }}</td>
-                <td>
-                    <span class="p-1">
+                <td class="text-center">{{ lieu.intitule_de_lieu  }}</td>
+                <td class="text-center">{{ lieu.type_lieu  }}</td>
+                <td class="text-center">{{ lieu.ville  }}</td>
+                <td class="text-center">{{ lieu.intitule_de_lieu  }}</td>
+                <td class="text-center">
+                    <span class="p-1"
+                        [ngClass]="{'done-alert': lieu.has_amenagement, 'error-alert': !lieu.has_amenagement}">
+                        {{ checkAndPutText(lieu.has_amenagement) }}
                     </span>
                 </td>
                 <td>
