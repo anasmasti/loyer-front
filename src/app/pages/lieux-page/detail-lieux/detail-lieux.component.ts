@@ -52,6 +52,30 @@ export class DetailLieuxComponent implements OnInit {
     "croquis":"chargement ...",
     }
   ];
+  selectedAmenagement:any=[
+    {
+      "proprietaire": {
+        "nature": "chargement ...",
+        "valeur": "chargement ..."
+    },
+    "fondation": {
+        "nature": "chargement ...",
+        "valeur": "chargement ..."
+    },
+    "deleted": false,
+    "_id": "chargement ...",
+    "nature": "chargement ...",
+    "montant": "chargement ...",
+    "n_Facture": "chargement ...",
+    "n_bon_Cde": "chargement ...",
+    "date_Passation_Cde": "chargement ...",
+    "evaluation_Fournisseur": "chargement ...",
+    "date_Fin_travaux":"chargement ...",
+    "date_Livraison_local": "chargement ...",
+    "croquis":"chargement ...",
+    }
+  ];
+  display=false;
   constructor(
     private lieuxService: LieuxService,
     private mainModalService: MainModalService,
@@ -71,6 +95,19 @@ getLieuById() {
   });
 
 
+}
+
+display_Amenagement(id:any){
+    for (let index = 0; index < this.Amenagements.length; index++) {
+      if(this.Amenagements[index]._id==id){
+        this.selectedAmenagement= this.Amenagements[index];
+      }
+      
+    }
+    console.log( this.selectedAmenagement._id);
+    
+   
+ this.display=true;
 }
 
 

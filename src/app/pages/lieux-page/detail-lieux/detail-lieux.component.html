@@ -20,7 +20,7 @@
 </div>
 
 
-<div class="main-card p-lg-4 mt-4 table-responsive">
+<div class="main-card p-lg-4 mt-4 table-responsive"  >
 
     <table class="table" cellspacing="0" width="100%">
         <tbody>
@@ -104,85 +104,91 @@
         </tbody>
 
     </table>
-        <div >
+    <div class="amenagemen-cntr" *ngIf="Lieu.has_amenagement">
+          <div >
             <h4 class="main-title my-4">Aménagement :</h4>
         </div>
         <div class="amenagement-container" *ngFor="let amen of  Amenagements">
-            <button class="btn-amenagement" type="button">
+            <button class="btn-amenagement" type="button" (click)="display_Amenagement(amen._id)">
                 {{amen.nature}}
             </button>
         </div>
-    <!-- <table  class="table" cellspacing="0" width="100%">
-        <tbody>
+        <div class="table-amenagement-container">
+            <table  class="table" *ngIf="display" cellspacing="0" width="100%">
+                <tbody>
+                
+                    <tr>
+                        <th>Nature d'aménagement </th>
+                        <td> {{ selectedAmenagement.nature }} </td>
+                    </tr>
         
-            <tr>
-                <th>Nature d'aménagement </th>
-                <td> {{ Amenagements[0].nature }} </td>
-            </tr>
+                    <tr>
+                        <th>Montant d'Aménagement </th>
+                        <td> {{selectedAmenagement.montant}} </td>
+                    </tr>
+        
+                    <tr>
+                        <th>Nature d'Aménagement sous charge de propriétaire</th>
+                        <td> {{selectedAmenagement.proprietaire.nature}} </td>
+                    </tr>
+        
+                    <tr>
+                        <th>Valeur d'Aménagement sous charge de propriétaire</th>
+                        <td> {{selectedAmenagement.proprietaire.valeur}}   </td>
+                    </tr>
+        
+                    <tr>
+                        <th>Nature d'Aménagement sous charge de Fondation</th>
+                        <td>  {{selectedAmenagement.fondation.nature}}</td>
+                    </tr>
+        
+                    <tr>
+                        <th>Valeur d'Aménagement sous charge de Fondation</th>
+                        <td> {{selectedAmenagement.fondation.valeur}}  </td>
+                    </tr>
+        
+                    <tr>
+                        <th>N° de facture</th>
+                        <td> {{selectedAmenagement.n_Facture}} </td>
+                    </tr>
+        
+                    <tr>
+                        <th>N° de bon de commande</th>
+                        <td> {{selectedAmenagement.n_bon_Cde}} </td>
+                    </tr>
+                    
+                    <tr>
+                        <th>Date de passation de la commande</th>
+                        <td> {{selectedAmenagement.date_Passation_Cde  | date:'dd-MM-yyyy' }} </td>
+                    </tr>
+                    
+                    <tr>
+                        <th>Evaluation du fournisseur</th>
+                        <td> {{selectedAmenagement.evaluation_Fournisseur}} </td>
+                    </tr>
+                    
+                    <tr>
+                        <th>Date de fin de travaux</th>
+                        <td>{{selectedAmenagement.date_Fin_travaux  | date:'dd-MM-yyyy' }} </td>
+                    </tr>
+                     
+                    <tr>
+                        <th>Date de livraison du local</th>
+                        <td>{{selectedAmenagement.date_Livraison_local  | date:'dd-MM-yyyy' }} </td>
+                    </tr>
+                     
+                    <tr>
+                        <th>Croquis d'amenagement via imagerie</th>
+                        <td> {{selectedAmenagement.croquis}} </td>
+                    </tr>
+                </tbody>
+        
+            </table>
+        </div>
+   
 
-            <tr>
-                <th>Montant d'Aménagement </th>
-                <td> {{Amenagements[0].montant}} </td>
-            </tr>
-
-            <tr>
-                <th>Nature d'Aménagement sous charge de propriétaire</th>
-                <td> {{Amenagements[0].proprietaire.nature}} </td>
-            </tr>
-
-            <tr>
-                <th>Valeur d'Aménagement sous charge de propriétaire</th>
-                <td> {{Amenagements[0].proprietaire.valeur}}   </td>
-            </tr>
-
-            <tr>
-                <th>Nature d'Aménagement sous charge de Fondation</th>
-                <td>  {{Amenagements[0].fondation.nature}}</td>
-            </tr>
-
-            <tr>
-                <th>Valeur d'Aménagement sous charge de Fondation</th>
-                <td> {{Amenagements[0].fondation.valeur}}  </td>
-            </tr>
-
-            <tr>
-                <th>N° de facture</th>
-                <td> {{Amenagements[0].n_Facture}} </td>
-            </tr>
-
-            <tr>
-                <th>N° de bon de commande</th>
-                <td> {{Amenagements[0].n_bon_Cde}} </td>
-            </tr>
-            
-            <tr>
-                <th>Date de passation de la commande</th>
-                <td> {{Amenagements[0].date_Passation_Cde  | date:'dd-MM-yyyy' }} </td>
-            </tr>
-            
-            <tr>
-                <th>Evaluation du fournisseur</th>
-                <td> {{Amenagements[0].evaluation_Fournisseur}} </td>
-            </tr>
-            
-            <tr>
-                <th>Date de fin de travaux</th>
-                <td>{{Amenagements[0].date_Fin_travaux  | date:'dd-MM-yyyy' }} </td>
-            </tr>
-             
-            <tr>
-                <th>Date de livraison du local</th>
-                <td>{{Amenagements[0].date_Livraison_local  | date:'dd-MM-yyyy' }} </td>
-            </tr>
-             
-            <tr>
-                <th>Croquis d'amenagement via imagerie</th>
-                <td> {{Amenagements[0].croquis}} </td>
-            </tr>
-        </tbody>
-
-    </table> -->
-
+    </div>
+      
 
 
 
