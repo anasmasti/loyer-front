@@ -6,7 +6,7 @@
                 <a  class="goback-link">Détails de Lieu</a>/<span class="selected-text"> Lieu.intitulé </span> 
             </h3>
             <div class="d-none d-lg-block">
-                <a  class="btn btn-sm second-btn me-3 " data-bs-toggle="tooltip"
+                <a [routerLink]="['/lieux/list']" class="btn btn-sm second-btn me-3 " data-bs-toggle="tooltip"
                     data-bs-placement="top" title="Retour à la liste"><i class="far fa-arrow-left"></i>
                     Retour à la liste des lieux
                 </a>
@@ -109,7 +109,7 @@
             <h4 class="main-title my-4">Aménagement :</h4>
         </div>
         <div class="amenagement-container" *ngFor="let amen of  Amenagements">
-            <button class="btn-amenagement" type="button" (click)="display_Amenagement(amen._id)">
+            <button class="btn-amenagement" type="button" (click)="display_Amenagement(amen._id); ">
                 {{amen.nature}}
             </button>
         </div>

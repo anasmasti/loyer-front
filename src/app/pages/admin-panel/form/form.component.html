@@ -1,1 +1,31 @@
-<p>form works!</p>
+<form>
+ 
+    <div class="row mt-2" >
+      <div class="col-lg-3 form-group mt-2">
+        <label for="">Matricule</label>
+        <input type="text" class="form-control rounded-pill" formControlName="cin"  />
+      </div>
+  
+      <div class="col-lg-3 form-group mt-2">
+        <label for="">Nom & Prénom</label>
+        <input type="text" class="form-control rounded-pill" formControlName="passport"  />
+      </div>
+  
+      <div class="col-lg-3 form-group mt-2">
+        <label for="">Role</label>
+        <select class="form-control rounded-pill" formControlName="carte_sejour" >
+          <option value="1">1</option>
+          <option value="2">2</option>
+        </select>
+      </div>
+  
+     
+      
+    </div>
+
+    <div class="row">
+      <button type="submit" class="btn second-btn form-control btn-submit" >
+        Ajouter
+      </button>
+    </div>
+  </form>

@@ -24,9 +24,7 @@ export class LieuxService {
   }
 
  
-  display_Amenagement(id:any){
-    return this.http.get('http://localhost:5000/api/v1/amenagement/'+id);
-  }
+
 
 
 
