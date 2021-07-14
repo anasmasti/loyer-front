@@ -20,7 +20,7 @@
     <!--Début de Div qui contient le formulaire lf-form-->
     <div class="form-box mt-4">
       <!--Début Formulaire lf-form-->
-      <form [formGroup]="LfForm">
+      <form [formGroup]="LfForm" enctype="multipart/form-data">
         
         <!--Début 1er Row-->
         <div class="row">
@@ -65,7 +65,7 @@
   
           <div class="col-lg-3 form-group mt-4">
             <label for="">Images du local avant aménagement</label>
-            <input type="file" class="form-control btn success-btn" formControlName="images_local_avant_amenagement"/>
+            <input type="file" class="form-control btn success-btn" formControlName="images_local_avant_amenagement" multiple/>
           </div>
   
   
@@ -164,12 +164,12 @@
 
                   <div class="col-lg-3 form-group mt-4">
                     <label for="">Images du local après aménagement</label>
-                    <input type="file" class="form-control btn success-btn" formControlName="images_local_apres_amenagement" />
+                    <input type="file" class="form-control btn success-btn" formControlName="images_local_apres_amenagement" multiple/>
                   </div>
 
                   <div class="col-lg-3 form-group mt-4">
                     <label for="">Croquis d’aménagement via imagerie</label>
-                    <input type="file" class="form-control btn success-btn" formControlName="croquis_amenagement_via_imagerie" />
+                    <input type="file" class="form-control btn success-btn" formControlName="croquis_amenagement_via_imagerie" multiple/>
                   </div>
 
                   <div class="col-lg-3 form-group mt-4">
