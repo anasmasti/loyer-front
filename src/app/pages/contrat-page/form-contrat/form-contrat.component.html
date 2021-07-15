@@ -2,7 +2,7 @@
   <!--Début de Div qui contient le formulaire form-contrat-->
   <div class="form-box mt-4">
     <!--Début Formulaire form-contrat-->
-    <form [formGroup]="contratForm">
+    <form [formGroup]="contratForm" enctype="multipart/form-data">
 
       <!--Début 1er Row-->
       <div class="row">
@@ -13,7 +13,7 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Pièce jointe</label>
-          <input type="file" class="form-control btn success-btn" formControlName="piece_jointe" />
+          <input type="file" class="form-control btn success-btn" formControlName="piece_jointe" multiple />
         </div>
 
         <div class="col-lg-3 form-group mt-4">
@@ -187,7 +187,7 @@
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Pièce jointe</label>
-            <input type="file" class="form-control rounded-pill btn success-btn" formControlName="piece_joint_av">
+            <input type="file" class="form-control rounded-pill btn success-btn" formControlName="piece_joint_av" multiple>
           </div>
 
           <div class="col-lg-3 form-group mt-4">
@@ -268,7 +268,7 @@
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Images d'état des lieux de sortie</label>
-            <input type="file" class="form-control btn success-btn" formControlName="images_lieux_sortie">
+            <input type="file" class="form-control btn success-btn" formControlName="images_lieux_sortie" multiple>
           </div>
 
           <div class="col-lg-3 form-group mt-4">
@@ -278,7 +278,7 @@
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Piéce jointe (la lettre de résiliation scannée)</label>
-            <input type="file" class="form-control btn success-btn" formControlName="lettre_resiliation_scannee">
+            <input type="file" class="form-control btn success-btn" formControlName="lettre_resiliation_scannee" multiple>
           </div>
 
           </div>
