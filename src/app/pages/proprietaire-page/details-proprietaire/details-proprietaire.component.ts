@@ -1,4 +1,4 @@
-import { Proprietaire } from './../../../models/proprietaire';
+import { Proprietaire } from '../../../models/Proprietaire';
 import { Component, OnInit } from '@angular/core';
 import { ProprietaireService } from 'src/app/services/proprietaire-service/proprietaire.service';
 import { ActivatedRoute } from '@angular/router';
@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-details-proprietaire',
   templateUrl: './details-proprietaire.component.html',
-  styleUrls: ['./details-proprietaire.component.scss']
+  styleUrls: ['./details-proprietaire.component.scss'],
 })
 export class DetailsProprietaireComponent implements OnInit {
   proprietaire: Proprietaire = {
@@ -24,16 +24,18 @@ export class DetailsProprietaireComponent implements OnInit {
     banque: 'chargement...',
     nom_agence_bancaire: 'chargement...',
     has_mandataire: false,
-    mandataire: [{
-      cin_mandataire: 'chargement...',
-      nom_prenom_mandataire: 'chargement...',
-      raison_social_mandataire: 'chargement...',
-      telephone_mandataire: 'chargement...',
-      fax_mandataire: 'chargement...',
-      adresse_mandataire: 'chargement...',
-      n_compte_bancaire_mandataire: 'chargement...',
-    }]
-  }
+    mandataire: [
+      {
+        cin_mandataire: 'chargement...',
+        nom_prenom_mandataire: 'chargement...',
+        raison_social_mandataire: 'chargement...',
+        telephone_mandataire: 'chargement...',
+        fax_mandataire: 'chargement...',
+        adresse_mandataire: 'chargement...',
+        n_compte_bancaire_mandataire: 'chargement...',
+      },
+    ],
+  };
   mandataire!: {
     cin_mandataire: string;
     nom_prenom_mandataire: string;
@@ -42,21 +44,24 @@ export class DetailsProprietaireComponent implements OnInit {
     fax_mandataire: string;
     adresse_mandataire: string;
     n_compte_bancaire_mandataire: string;
-  }
-  constructor(private proprietaireService: ProprietaireService, private actRoute: ActivatedRoute) { }
+  };
+  constructor(
+    private proprietaireService: ProprietaireService,
+    private actRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.getProprietaireById() // Fetching proprietaire on initialisation
+    this.getProprietaireById(); // Fetching proprietaire on initialisation
   }
 
   // Get the proprietaire data by id
   getProprietaireById() {
     const id = this.actRoute.snapshot.paramMap.get('id') || '';
-    this.proprietaireService.getProprietaireById(id).subscribe(data => {
+    this.proprietaireService.getProprietaireById(id).subscribe((data) => {
       if (data) {
-        this.proprietaire = data
-        this.mandataire = data.mandataire[0]
+        this.proprietaire = data;
+        this.mandataire = data.mandataire[0];
       }
-    })
+    });
   }
 }

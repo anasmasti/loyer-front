@@ -3,21 +3,21 @@
         <thead>
             <tr>
                 <th>Matricule</th>
-                <th>Nom & Prénom</th>
+                <th>Nom </th>
+                <th>Prénom </th>
                 <th>Role</th>
               
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr *ngFor="let user of users">
                 <!-- <td >{{ proprietaire._id }}</td> -->
-                <td class="text-center"></td>
-                <td class="text-center"></td>
-                <td class="text-center">
-                    <span class="p-1">
-                       
-                    </span>
+                <td class="text-center">{{ user.userMatricul }}</td>
+                <td class="text-center">{{ user.name }}</td>
+                <td class="text-center">{{ user.prenom }}</td>
+                <td class="d-flex justify-content-around ">
+                  <p  *ngFor="let role of user.userRoles"> -{{ role.roleName }}  </p>
                 </td>
                 <td>
                     <a class="btn btn-sm main-btn"><i
