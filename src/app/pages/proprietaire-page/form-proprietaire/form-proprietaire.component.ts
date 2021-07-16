@@ -6,10 +6,9 @@ import { ProprietaireService } from 'src/app/services/proprietaire-service/propr
 @Component({
   selector: 'app-form-proprietaire',
   templateUrl: './form-proprietaire.component.html',
-  styleUrls: ['./form-proprietaire.component.scss']
+  styleUrls: ['./form-proprietaire.component.scss'],
 })
 export class FormProprietaireComponent implements OnInit, OnChanges {
-
   @Input() proprietaire!: any;
   isMand: boolean = false;
   errors!: any;
@@ -22,26 +21,20 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   proprietaireForm: any = new FormGroup({
     // Champs du propriètaire
     cin: new FormControl('', []),
-    passport: new FormControl('', [
-    ]),
-    carte_sejour: new FormControl('', [
-    ]),
+    passport: new FormControl('', []),
+    carte_sejour: new FormControl('', []),
     nom_prenom: new FormControl('', [
       Validators.required,
       Validators.minLength(6),
       Validators.pattern('[a-zA-Z ]*'),
     ]),
     raison_social: new FormControl('', [Validators.required]),
-    n_registre_commerce: new FormControl('', [
-      Validators.pattern('[0-9]*'),
-    ]),
+    n_registre_commerce: new FormControl('', [Validators.pattern('[0-9]*')]),
     telephone: new FormControl('', [
       Validators.required,
       Validators.pattern('[0-9]*'),
     ]),
-    fax: new FormControl('', [
-      Validators.pattern('[0-9]*'),
-    ]),
+    fax: new FormControl('', [Validators.pattern('[0-9]*')]),
     adresse: new FormControl('', [Validators.required]),
     n_compte_bancaire: new FormControl('', [
       Validators.required,
@@ -64,10 +57,10 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     ),
   });
 
-
-  constructor(private proprietaireService: ProprietaireService,
-    private mainModalService: MainModalService,) { }
-
+  constructor(
+    private proprietaireService: ProprietaireService,
+    private mainModalService: MainModalService
+  ) {}
 
   ngOnChanges() {
     if (this.proprietaire != '') {
@@ -80,7 +73,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       this.proprietaireForm.reset();
     }
   }
-
 
   fetchProprietaire() {
     if (this.proprietaire.has_mandataire) {
@@ -138,29 +130,23 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     }
   }
 
-
   // Check if all inputs has invalid errors
   checkInputsValidation(targetInput: any) {
     return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
   }
-
 
   // Afficher le message d'erreur de serveur
   showErrorMessage() {
     $('.error-alert').addClass('active');
   }
 
-
   // hide le message d'erreur de serveur
   hideErrorMessage() {
     $('.error-alert').removeClass('active');
   }
 
-
   AddProprietaire() {
-
-    let data: any =
-    {
+    let data: any = {
       // _id: this.proprietaireForm.get('_id').value ,
       cin: this.proprietaireForm.get('cin').value,
       passport: this.proprietaireForm.get('passport').value,
@@ -177,29 +163,30 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       nom_agence_bancaire: this.proprietaireForm.get('nom_agence_bancaire')
         .value,
       has_mandataire: this.proprietaireForm.get('has_mandataire').value,
-      mandataire: [{
-        cin_mandataire: this.proprietaireForm.get('cin_mandataire').value,
-        nom_prenom_mandataire: this.proprietaireForm.get(
-          'nom_prenom_mandataire'
-        ).value,
-        raison_social_mandataire: this.proprietaireForm.get(
-          'raison_social_mandataire'
-        ).value,
-        telephone_mandataire: this.proprietaireForm.get(
-          'telephone_mandataire'
-        ).value,
-        fax_mandataire: this.proprietaireForm.get('fax_mandataire').value,
-        adresse_mandataire:
-          this.proprietaireForm.get('adresse_mandataire').value,
-        n_compte_bancaire_mandataire: this.proprietaireForm.get(
-          'n_compte_bancaire_mandataire'
-        ).value,
-      }],
+      mandataire: [
+        {
+          cin_mandataire: this.proprietaireForm.get('cin_mandataire').value,
+          nom_prenom_mandataire: this.proprietaireForm.get(
+            'nom_prenom_mandataire'
+          ).value,
+          raison_social_mandataire: this.proprietaireForm.get(
+            'raison_social_mandataire'
+          ).value,
+          telephone_mandataire: this.proprietaireForm.get(
+            'telephone_mandataire'
+          ).value,
+          fax_mandataire: this.proprietaireForm.get('fax_mandataire').value,
+          adresse_mandataire:
+            this.proprietaireForm.get('adresse_mandataire').value,
+          n_compte_bancaire_mandataire: this.proprietaireForm.get(
+            'n_compte_bancaire_mandataire'
+          ).value,
+        },
+      ],
       // deleted:false,
     };
 
-    let dataWithoutMandataire: any =
-    {
+    let dataWithoutMandataire: any = {
       // _id: this.proprietaireForm.get('_id').value ,
       cin: this.proprietaireForm.get('cin').value,
       passport: this.proprietaireForm.get('passport').value,
@@ -218,11 +205,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       has_mandataire: this.proprietaireForm.get('has_mandataire').value,
       // mandataire: []
       // deleted:false,
-
     };
 
     if (this.has_mandataire.value == true) {
-
       this.proprietaireService.postProprietaire(data).subscribe(
         (_) => {
           this.postDone = true;
@@ -242,27 +227,27 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     }
 
     if (this.has_mandataire.value == false) {
-
-      this.proprietaireService.postProprietaire(dataWithoutMandataire).subscribe(
-        (_) => {
-          this.postDone = true;
-          setTimeout(() => {
-            this.proprietaireForm.reset();
-            this.postDone = false;
-          }, 2000);
-          console.log(this.postDone);
-        },
-        (error) => {
-          this.errors = error.error.message;
-          setTimeout(() => {
-            this.showErrorMessage();
-          }, 3000);
-          this.hideErrorMessage();
-        }
-      );
+      this.proprietaireService
+        .postProprietaire(dataWithoutMandataire)
+        .subscribe(
+          (_) => {
+            this.postDone = true;
+            setTimeout(() => {
+              this.proprietaireForm.reset();
+              this.postDone = false;
+            }, 2000);
+            console.log(this.postDone);
+          },
+          (error) => {
+            this.errors = error.error.message;
+            setTimeout(() => {
+              this.showErrorMessage();
+            }, 3000);
+            this.hideErrorMessage();
+          }
+        );
     }
   }
-
 
   updateProprietaire() {
     let id = this.proprietaire._id;
@@ -306,13 +291,12 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     };
 
     this.proprietaireService.updateProprietaire(id, data).subscribe(
-
       (_) => {
         this.updateDone = true;
         setTimeout(() => {
           this.mainModalService.close();
           this.updateDone = false;
-          location.reload()
+          location.reload();
         }, 1000);
       },
 

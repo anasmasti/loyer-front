@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { Proprietaire } from 'src/app/models/proprietaire';
 import { ProprietaireService } from 'src/app/services/proprietaire-service/proprietaire.service';
 
 @Component({

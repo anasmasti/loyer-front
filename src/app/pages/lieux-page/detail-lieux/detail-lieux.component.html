@@ -3,7 +3,8 @@
         <div class="d-flex justify-content-between">
             <!-- <h3 class="leftborder"></h3> -->
             <h3 class="main-title">
-                <a  class="goback-link">Détails de Lieu</a>/<span class="selected-text"> Lieu.intitulé </span> 
+                <a class="goback-link">Détails de Lieu</a>/<span class="selected-text"> {{Lieu.intitule_de_lieu}}
+                </span>
             </h3>
             <div class="d-none d-lg-block">
                 <a [routerLink]="['/lieux/list']" class="btn btn-sm second-btn me-3 " data-bs-toggle="tooltip"
@@ -20,7 +21,7 @@
 </div>
 
 
-<div class="main-card p-lg-4 mt-4 table-responsive"  >
+<div class="main-card p-lg-4 mt-4 table-responsive">
 
     <table class="table" cellspacing="0" width="100%">
         <tbody>
@@ -100,95 +101,96 @@
                 <td> {{ Lieu.categorie_point_Vente }} </td>
             </tr>
 
-            
+
         </tbody>
 
     </table>
-    <div class="amenagemen-cntr" *ngIf="Lieu.has_amenagement">
-          <div >
+    <div class="" *ngIf="Lieu.has_amenagement">
+        <div>
             <h4 class="main-title my-4">Aménagement :</h4>
         </div>
-        <div class="amenagement-container" *ngFor="let amen of  Amenagements">
-            <button class="btn-amenagement" type="button" (click)="display_Amenagement(amen._id); ">
+        <div class="d-inline" *ngFor="let amen of Amenagements ">
+            <button class="btn second-btn me-3" type="button" (click)="displayAmenagement(amen._id); scroll(); ">
                 {{amen.nature}}
             </button>
+
         </div>
-        <div class="table-amenagement-container">
-            <table  class="table" *ngIf="display" cellspacing="0" width="100%">
+        <div class="mt-4">
+            <table class="table" *ngIf="display" cellspacing="0" width="100%">
                 <tbody>
-                
+
                     <tr>
                         <th>Nature d'aménagement </th>
                         <td> {{ selectedAmenagement.nature }} </td>
                     </tr>
-        
+
                     <tr>
                         <th>Montant d'Aménagement </th>
                         <td> {{selectedAmenagement.montant}} </td>
                     </tr>
-        
+
                     <tr>
                         <th>Nature d'Aménagement sous charge de propriétaire</th>
                         <td> {{selectedAmenagement.proprietaire.nature}} </td>
                     </tr>
-        
+
                     <tr>
                         <th>Valeur d'Aménagement sous charge de propriétaire</th>
-                        <td> {{selectedAmenagement.proprietaire.valeur}}   </td>
+                        <td> {{selectedAmenagement.proprietaire.valeur}} </td>
                     </tr>
-        
+
                     <tr>
                         <th>Nature d'Aménagement sous charge de Fondation</th>
-                        <td>  {{selectedAmenagement.fondation.nature}}</td>
+                        <td> {{selectedAmenagement.fondation.nature}}</td>
                     </tr>
-        
+
                     <tr>
                         <th>Valeur d'Aménagement sous charge de Fondation</th>
-                        <td> {{selectedAmenagement.fondation.valeur}}  </td>
+                        <td> {{selectedAmenagement.fondation.valeur}} </td>
                     </tr>
-        
+
                     <tr>
                         <th>N° de facture</th>
                         <td> {{selectedAmenagement.n_Facture}} </td>
                     </tr>
-        
+
                     <tr>
                         <th>N° de bon de commande</th>
                         <td> {{selectedAmenagement.n_bon_Cde}} </td>
                     </tr>
-                    
+
                     <tr>
                         <th>Date de passation de la commande</th>
-                        <td> {{selectedAmenagement.date_Passation_Cde  | date:'dd-MM-yyyy' }} </td>
+                        <td> {{selectedAmenagement.date_Passation_Cde | date:'dd-MM-yyyy' }} </td>
                     </tr>
-                    
+
                     <tr>
                         <th>Evaluation du fournisseur</th>
                         <td> {{selectedAmenagement.evaluation_Fournisseur}} </td>
                     </tr>
-                    
+
                     <tr>
                         <th>Date de fin de travaux</th>
-                        <td>{{selectedAmenagement.date_Fin_travaux  | date:'dd-MM-yyyy' }} </td>
+                        <td>{{selectedAmenagement.date_Fin_travaux | date:'dd-MM-yyyy' }} </td>
                     </tr>
-                     
+
                     <tr>
                         <th>Date de livraison du local</th>
-                        <td>{{selectedAmenagement.date_Livraison_local  | date:'dd-MM-yyyy' }} </td>
+                        <td>{{selectedAmenagement.date_Livraison_local | date:'dd-MM-yyyy' }} </td>
                     </tr>
-                     
+
                     <tr>
                         <th>Croquis d'amenagement via imagerie</th>
                         <td> {{selectedAmenagement.croquis}} </td>
                     </tr>
                 </tbody>
-        
+
             </table>
         </div>
-   
+
 
     </div>
-      
+
 
 
 
