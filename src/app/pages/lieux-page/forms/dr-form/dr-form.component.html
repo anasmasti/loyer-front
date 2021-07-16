@@ -19,23 +19,23 @@
     <!--Début de Div qui contient le formulaire dr-form-->
     <div class="form-box mt-4">
       <!--Début Formulaire dr-form-->
-      <form [formGroup]="drForm" enctype="multipart/form-data">
+      <form [formGroup]="drForm" enctype="multipart/form-data" (ngSubmit)="addDR()">
         
         <!--Début 1er Row-->
         <div class="row">
           <div class="col-lg-3 form-group mt-4">
             <label for="">Code DR</label>
-            <input type="text" class="form-control rounded-pill" formControlName="code_DR"/>  
+            <input type="text" class="form-control rounded-pill" formControlName="code_lieu"/>  
           </div>
   
           <div class="col-lg-3 form-group mt-4">
             <label for="">Direction Régionale</label>
-            <input type="text" class="form-control rounded-pill" formControlName="direction_R"/>
+            <input type="text" class="form-control rounded-pill" formControlName="intitule_lieu"/>
           </div>
   
           <div class="col-lg-3 form-group mt-4">
             <label for="">Adresse de la Direction Régionale</label>
-            <input type="text" class="form-control rounded-pill" formControlName="adresse_DR"/>
+            <input type="text" class="form-control rounded-pill" formControlName="adresse"/>
           
           </div>
   
@@ -58,23 +58,23 @@
   
           <div class="col-lg-3 form-group mt-4">
             <label for="">Descriptif du local</label>
-            <input type="text" class="form-control rounded-pill" formControlName="descriptif_local"/>
+            <input type="text" class="form-control rounded-pill" formControlName="desc_lieu_entrer"/>
           </div>
   
           <div class="col-lg-3 form-group mt-4">
             <label for="">Images du local avant aménagement</label>
-            <input type="file" class="form-control btn success-btn" formControlName="images_local_avant_amenagement" multiple>
+            <input type="file" name="imgs_lieu_entrer" id="imgs_lieu_entrer" (change)="onFileSelected($event)" class="form-control btn success-btn" >
           </div>
   
          
           <div class="mt-4">Aménagement</div>
           <div class="col-lg-3 form-group d-flex mt-4">
             <label for="">Oui</label>
-            <input type="radio" name="has_amenagement" [value]="true" class="form-check-input mx-2" [(ngModel)]="isAmenag"
-              formControlName="has_amenagement" />
+            <input type="radio" name="has_amenagements" [value]="true" class="form-check-input mx-2" [(ngModel)]="isAmenag"
+              formControlName="has_amenagements" />
             <label for="">Non</label>
-            <input type="radio" name="has_amenagement" [value]="false" class="form-check-input mx-2" [(ngModel)]="isAmenag"
-              formControlName="has_amenagement" />
+            <input type="radio" name="has_amenagements" [value]="false" class="form-check-input mx-2" [(ngModel)]="isAmenag"
+              formControlName="has_amenagements" />
           </div>
   
           <!-- Condition pour afficher ou cacher le formulaire d'Aménagement -->
