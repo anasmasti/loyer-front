@@ -48,7 +48,6 @@ export class DrFormComponent implements OnInit, OnDestroy {
     evaluation_fournisseur: new FormControl(''),
     date_fin_travaux: new FormControl(''),
     date_livraison_local: new FormControl(''),
-
   })
 
   ngOnInit(): void {
