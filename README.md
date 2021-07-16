@@ -1,4 +1,4 @@
-![Logo](https://fnam.co.ma/wp-content/uploads/2014/03/TAWFIQ.jpg)
+![Logo](https://www.dreamjob.ma/wp-content/uploads/2019/12/Attawfiq-Micro-Finance-Emploi-Recrutement.png)
 
 # Gestion des loyers application ✨
 
