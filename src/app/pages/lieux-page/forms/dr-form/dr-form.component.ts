@@ -37,7 +37,7 @@ export class DrFormComponent implements OnInit, OnDestroy {
     centre_cout_siege: new FormControl('',),
     categorie_pointVente: new FormControl('',),
     deleted: new FormControl('',),
-   
+
     nature_amenagement: new FormControl(''),
     montant_amenagement: new FormControl(''),
     valeur_nature_chargeProprietaire: new FormControl(''),
@@ -48,7 +48,6 @@ export class DrFormComponent implements OnInit, OnDestroy {
     evaluation_fournisseur: new FormControl(''),
     date_fin_travaux: new FormControl(''),
     date_livraison_local: new FormControl(''),
-    
   })
 
   ngOnInit(): void {
@@ -62,14 +61,14 @@ export class DrFormComponent implements OnInit, OnDestroy {
   onFileSelected(event: any) {
     this.selectedFile = <File>event.target.files[0];
     console.log(this.selectedFile);
-    
+
   }
 
   addDR() {
     // this.$testDrForm = this.drService.postDR(this.drForm)
     // this.$testDrForm.subscribe()
     let formdata = new FormData();
-    formdata.append('imgs_lieu_entrer',this.selectedFile,this.selectedFile.name)
+    formdata.append('imgs_lieu_entrer', this.selectedFile, this.selectedFile.name)
     // let myform = JSON.stringify(this.drForm.value)
     // let myform=JSON.parse(this.drForm.value)
 
