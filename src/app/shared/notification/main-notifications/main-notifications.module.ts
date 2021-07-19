@@ -17,4 +17,5 @@ const route: Routes = [
     MainNotificationsComponent
   ]
 })
+
 export class MainNotificationsModule { }
