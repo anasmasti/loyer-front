@@ -47,8 +47,6 @@ export class DrFormComponent implements OnInit {
 
     });
 
-
-
   }
 
   // FournisseurData
@@ -64,14 +62,6 @@ export class DrFormComponent implements OnInit {
 
   removeFournisseur(index: number) {
     (<FormArray>this.drForm.get('fournisseurData')).removeAt(index)
-  }
-
-  fournisseurSection() {
-    return new FormGroup({
-      nom: new FormControl(''),
-      prenom: new FormControl(''),
-      amenagement_effectue: new FormControl(''),
-    });
   }
 
   // Amenagement
