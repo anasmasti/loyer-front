@@ -1,8 +1,8 @@
 ![Logo](https://www.dreamjob.ma/wp-content/uploads/2019/12/Attawfiq-Micro-Finance-Emploi-Recrutement.png)
 
-# Gestion des loyers application ✨
+## Gestion des loyers | Front-end ✨
 
-### Technology used:
+#### Technology used:
 
 - Angular 12.
 
