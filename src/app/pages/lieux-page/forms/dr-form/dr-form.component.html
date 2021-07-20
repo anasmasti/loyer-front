@@ -145,12 +145,13 @@
 
                 <div class="col-lg-3 form-group mt-4">
                   <label for="">Fournisseur</label>
-                  <button (click)="addFournisseur()">Add</button>
-                  <div formArrayName="fournisseurForm" *ngFor="let item of fournisseurForm.controls; let j = index">
+                  <button (click)="addFournisseur(amenagementForm, i)">Add</button>
+                  <div formArrayName="fournisseurForm"
+                    *ngFor="let item of getFournisseur(amenagementForm, i); let j = index">
                     <div [formGroupName]="j">
-                      <input type="date" class="form-control rounded-pill" formControlName="nom" />
-                      <input type="date" class="form-control rounded-pill" formControlName="prenom" />
-                      <input type="date" class="form-control rounded-pill" formControlName="amenagement_effectue" />
+                      <input type="text" class="form-control rounded-pill" formControlName="nom" />
+                      <input type="text" class="form-control rounded-pill" formControlName="prenom" />
+                      <input type="text" class="form-control rounded-pill" formControlName="amenagement_effectue" />
                     </div>
                   </div>
                 </div>
