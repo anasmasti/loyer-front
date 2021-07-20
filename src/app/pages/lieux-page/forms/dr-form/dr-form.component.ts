@@ -14,7 +14,7 @@ export class DrFormComponent implements OnInit {
   hasAmenagement: boolean = false;
   selectedFile !: File;
   drForm!: FormGroup;
-  
+
   constructor(private drService: LieuxService) { }
 
 
@@ -76,18 +76,18 @@ export class DrFormComponent implements OnInit {
 
 
   // FournisseurData
-  addFournisseur(amenagementForm: any, i: number) {
+  addFournisseur(amenagementForm: any, index: number) {
     let fournisseurData = new FormGroup({
       nom: new FormControl(''),
       prenom: new FormControl(''),
       amenagement_effectue: new FormControl(''),
     });
 
-    (<FormArray>amenagementForm.controls[i].controls.fournisseurForm).push(<FormGroup>fournisseurData)
+    (<FormArray>amenagementForm.controls[index].controls.fournisseurForm).push(<FormGroup>fournisseurData)
   }
 
-  removeFournisseur(index: number) {
-    (<FormArray>this.drForm.get('amenagementForm')).removeAt(index)
+  removeFournisseur(amenagementForm: any, index: number) {
+    (<FormArray>amenagementForm.controls[index].controls.fournisseurForm).removeAt(index)
   }
 
   getFournisseur(amenagementForm: any, i: number) {
