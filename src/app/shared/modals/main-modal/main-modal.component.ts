@@ -9,6 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class MainModalComponent implements OnInit {
 
   @Input() closeBtn: boolean = true
+  @Input() mainHeight!: string;
 
   constructor(private mainModalService: MainModalService) { }
 

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
+import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 
 @Component({
   selector: 'lf-form',
@@ -7,41 +9,77 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./lf-form.component.scss']
 })
 export class LfFormComponent implements OnInit {
-
+  style:string = "40vh"
   isAmenag :boolean = false;
-  constructor() { }
+  etatLogement = '';
+  test1='update';
+  @Input() update!: boolean;
+  constructor(private mainModalService:MainModalService,private confirmationModalService:ConfirmationModalService) { }
 
   LfForm : FormGroup = new FormGroup({
-    matricule_directeur : new FormControl(),
-    nom_prénom_directeur : new FormControl(),
-    code_DR : new FormControl(),
-    adresse : new FormControl(),
-    ville : new FormControl(),
-    code_localite : new FormControl(),
-    etat_lieux_entree : new FormControl(), 
-    descriptif_local : new FormControl(), 
-    images_local_avant_amenagement : new FormControl(),
-    has_amenagement : new FormControl(),
-
-    nature_travaux_amenagement : new FormControl(),
-    montant_travaux_amenagement : new FormControl(),
-    valeur_nature_travaux_charge_propriétaire : new FormControl(),
-    valeur_nature_travaux_charge_fondation : new FormControl(),
-    Nfacture : new FormControl(),
-    Nbon_commande : new FormControl(),
-    date_passation_commande : new FormControl(),
-    fournisseur : new FormControl(),
-    evaluation_fournisseur : new FormControl(),
-    date_fin_travaux : new FormControl(),
-    date_livraison_local : new FormControl(),
-    images_local_apres_amenagement : new FormControl(),
-    croquis_amenagement_via_imagerie : new FormControl(),
-    superficie : new FormControl(),
-    telephone : new FormControl(),
-    fax : new FormControl(),
+    code_lieu: new FormControl(''),
+    intitule_lieu: new FormControl(''),
+    intitule_DR: new FormControl(''),
+    adresse: new FormControl(''),
+    ville: new FormControl(''),
+    code_localite: new FormControl(''),
+    desc_lieu_entrer: new FormControl(''),
+    imgs_lieu_entrer: new FormControl(''),
+    has_amenagements: new FormControl(''),
+    amenagements: new FormControl(''),
+    etat_logement_fonction: new FormControl(''),
+    etage: new FormControl(''),
+    type_lieu: new FormControl(''),
+    code_rattache_DR: new FormControl(''),
+    code_rattahce_SUP: new FormControl(''),
+    intitule_rattache_SUP_PV: new FormControl(''),
+    centre_cout_siege: new FormControl(''),
+    categorie_pointVente: new FormControl(''),
+    //Directeur
+    matricule_directeur: new FormControl(''),
+    nom_directeur: new FormControl(''),
+    prenom_directeur: new FormControl(''),
+      //Aménagement  
+    nature_amenagement: new FormControl(''),
+    montant_amenagement: new FormControl(''),
+    valeur_nature_chargeProprietaire: new FormControl(''),
+    valeur_nature_chargeFondation: new FormControl(''),
+    numero_facture: new FormControl(''),
+    numero_bon_commande: new FormControl(''),
+    date_passation_commande: new FormControl(''),
+    fournisseur: new FormControl(''),
+    evaluation_fournisseur: new FormControl(''),
+    date_fin_travaux: new FormControl(''),
+    date_livraison_local: new FormControl(''),
+    images_apres_travaux: new FormControl(''),
+    images_croquis: new FormControl(''),
+    superficie: new FormControl(''),
+    telephone: new FormControl(''),
+    fax: new FormControl(''),
     })
 
+    showEtatLogement(){
+      this.etatLogement = this.LfForm.value.etat_logement_fonction
+      console.log("================", this.LfForm.value.etat_logement_fonction);
+    }
+
   ngOnInit(): void {
+  }
+
+  openReplaceModal(){
+     this.mainModalService.open();
+  }
+
+  openDeleteModal(){
+    this.confirmationModalService.open();
+  }
+
+  openUpdate(){
+    this.mainModalService.open();
+  }
+
+  closeDeleteModal(){
+    this.confirmationModalService.close();
   }
 
 }

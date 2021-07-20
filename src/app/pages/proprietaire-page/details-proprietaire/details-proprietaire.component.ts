@@ -1,4 +1,4 @@
-import { Proprietaire } from '../../../models/Proprietaire';
+import { Proprietaire } from '../../../models/proprietaire';
 import { Component, OnInit } from '@angular/core';
 import { ProprietaireService } from 'src/app/services/proprietaire-service/proprietaire.service';
 import { ActivatedRoute } from '@angular/router';
