@@ -13,7 +13,8 @@ import { RouterModule, Routes } from '@angular/router';
 const route: Routes = [
   { path: '', component: ContratComponent },
   { path: 'list/list/:id', component: DetailContratComponent },
-  { path: 'list', component: ListContratComponent }
+  { path: 'list', component: ListContratComponent },
+  { path: 'list/edit/:id', component: EditContratComponent }
 ];
 
 @NgModule({

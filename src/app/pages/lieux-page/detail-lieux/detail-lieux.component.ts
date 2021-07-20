@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfirmationModalService } from '../../../services/confirmation-modal-service/confirmation-modal.service';
-import { MainModalService } from '../../../services/main-modal/main-modal.service';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { ActivatedRoute } from '@angular/router';
 import { Lieu } from '../../../models/Lieu';
+
 @Component({
   selector: 'app-detail-lieux',
   templateUrl: './detail-lieux.component.html',
