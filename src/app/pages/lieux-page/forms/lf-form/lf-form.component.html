@@ -99,11 +99,11 @@
                     </div>
                   </td> 
                     <td>
-                        <a class="btn btn-sm btn-primary" (click)='openReplaceModal()'>Remplacer <i
+                        <a class="btn btn-sm btn-primary rounded-pill" (click)='openReplaceModal("remplacer")' >Remplacer <i
                                 class="fal fa-sync"></i></a>
-                        <a class="btn btn-sm btn-info mx-2" (click)='openUpdate()'>Modifier <i
+                        <a class="btn btn-sm btn-info mx-2 rounded-pill" (click)='openReplaceModal("modifier")'>Modifier <i
                                 class="far fa-user-edit"></i></a>
-                        <a class="btn btn-sm btn-danger" (click)='openDeleteModal()'>Supprimer <i
+                        <a class="btn btn-sm btn-danger rounded-pill" (click)='openDeleteModal()'>Supprimer <i
                                 class="far fa-user-minus"></i></a>
                     </td>
                 </tr>
@@ -134,12 +134,15 @@
                   </div>
 
                   <div class="form-group mt-4 col-lg-2 d-flex">
-                    <button type="submit" class="btn second-btn form-control" >
+                    <button type="submit" class="btn second-btn form-control" *ngIf="isReplace == 'remplacer'">
                       Remplacer
                     </button>
-                    <!-- <button type="submit" class="btn second-btn form-control">
+                    <button type="submit" class="btn second-btn form-control" *ngIf="isReplace == 'modifier' ">
                       Modifier
-                    </button> -->
+                    </button>
+                    <button type="submit" (click)='closeReplaceModal(); emitReplace()' class="btn btn-danger rounded-pill form-control mx-3">
+                      Fermer
+                    </button>
                   </div>
       
               </app-main-modal>

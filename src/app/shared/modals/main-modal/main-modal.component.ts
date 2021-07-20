@@ -20,4 +20,10 @@ export class MainModalComponent implements OnInit {
     this.mainModalService.close();
   }
 
+  toggle = [false, true];
+
+  getReplaceValue(event: any) {
+    this.toggle.push(event);
+  }
+
 }

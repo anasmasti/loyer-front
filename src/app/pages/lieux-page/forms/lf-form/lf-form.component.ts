@@ -1,22 +1,34 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output,EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
+// import { EventEmitter } from 'stream';
 
 @Component({
   selector: 'lf-form',
   templateUrl: './lf-form.component.html',
-  styleUrls: ['./lf-form.component.scss']
+  styleUrls: ['./lf-form.component.scss'],
 })
 export class LfFormComponent implements OnInit {
-  style:string = "40vh"
-  isAmenag :boolean = false;
+  style: string = '40vh';
+  isAmenag: boolean = false;
   etatLogement = '';
-  test1='update';
+  test1 = 'update';
+  isReplace!: string;
+  @Output() replaceFunction = new EventEmitter<any>();
   @Input() update!: boolean;
-  constructor(private mainModalService:MainModalService,private confirmationModalService:ConfirmationModalService) { }
+  constructor(
+    private mainModalService: MainModalService,
+    private confirmationModalService: ConfirmationModalService
+  ) {}
 
-  LfForm : FormGroup = new FormGroup({
+  emitReplace(){
+
+    this.replaceFunction.emit(this.isReplace);
+  
+  }
+
+  LfForm: FormGroup = new FormGroup({
     code_lieu: new FormControl(''),
     intitule_lieu: new FormControl(''),
     intitule_DR: new FormControl(''),
@@ -39,7 +51,7 @@ export class LfFormComponent implements OnInit {
     matricule_directeur: new FormControl(''),
     nom_directeur: new FormControl(''),
     prenom_directeur: new FormControl(''),
-      //Aménagement  
+    //Aménagement
     nature_amenagement: new FormControl(''),
     montant_amenagement: new FormControl(''),
     valeur_nature_chargeProprietaire: new FormControl(''),
@@ -56,30 +68,35 @@ export class LfFormComponent implements OnInit {
     superficie: new FormControl(''),
     telephone: new FormControl(''),
     fax: new FormControl(''),
-    })
+  });
 
-    showEtatLogement(){
-      this.etatLogement = this.LfForm.value.etat_logement_fonction
-      console.log("================", this.LfForm.value.etat_logement_fonction);
-    }
+  showEtatLogement() {
+    this.etatLogement = this.LfForm.value.etat_logement_fonction;
+  }
 
   ngOnInit(): void {
+    console.log(this.isReplace)
   }
 
-  openReplaceModal(){
-     this.mainModalService.open();
-  }
-
-  openDeleteModal(){
-    this.confirmationModalService.open();
-  }
-
-  openUpdate(){
+  openReplaceModal(active:any) {
+    this.isReplace = active;
     this.mainModalService.open();
   }
 
-  closeDeleteModal(){
-    this.confirmationModalService.close();
+  closeReplaceModal() {
+    // this.isReplace = false;
+    this.mainModalService.close();
   }
 
+  openDeleteModal() {
+    this.confirmationModalService.open();
+  }
+
+  openUpdate() {
+    this.mainModalService.open();
+  }
+
+  closeDeleteModal() {
+    this.confirmationModalService.close();
+  }
 }
