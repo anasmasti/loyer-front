@@ -11,21 +11,21 @@ export class LieuxComponent implements OnInit {
       id: 'DR',
       name: 'Direction régionale',
     },
-    { 
+    {
       id: 'LF',
-      name: 'Logement de fonction' 
+      name: 'Logement de fonction',
     },
-    { 
+    {
       id: 'PV',
-      name: 'Point de vente' 
+      name: 'Point de vente',
     },
-    { 
+    {
       id: 'Siege',
-      name: 'Siège' 
+      name: 'Siège',
     },
-    { 
+    {
       id: 'SV',
-      name: 'Supervision' 
+      name: 'Supervision',
     },
   ];
   activeLieux = '';
