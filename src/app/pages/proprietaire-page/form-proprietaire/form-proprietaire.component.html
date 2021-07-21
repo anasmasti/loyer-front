@@ -1,4 +1,4 @@
-<form [formGroup]="proprietaireForm" (ngSubmit)="(proprietaire == '') ? AddProprietaire() : updateProprietaire() ">
+<form [formGroup]="proprietaireForm" (ngSubmit)="(proprietaire == '') ? addProprietaire() : updateProprietaire() ">
   <!-- Message d'ERREUR de serveur -->
   <div class="w-100 d-flex justify-content-center">
     <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
@@ -184,6 +184,7 @@
         <div class="margin-main col-lg-12 mt-3">
           <div class="d-flex justify-content-between">
             <h4 class="main-title">Mandataire</h4>
+            <a (click)="addFormMandateire()" class="btn second-btn">Ajouter mandataire</a>
           </div>
         </div>
       </div>
@@ -195,48 +196,53 @@
         <!--Début Div form Mandataire-->
 
         <!--Début 3éme Row-->
+        <div formArrayName="mandataireForm" *ngFor="let mandataireItem of mandataireForm.controls; let i = index">
 
-        <div class="row">
-          <div class="col-lg-3 form-group mt-2">
-            <label for="">N° CIN mandataire</label>
-            <input type="text" class="form-control rounded-pill" formControlName="cin_mandataire" />
-          </div>
+          <div class="main-card mt-4 bg-white p-lg-4" [formGroupName]="i">
+            <a (click)="removeFormMandateire(i)" class="btn btn-sm danger-btn float-end"><i
+                class="fal fa-trash"></i></a>
+            <div class="row">
+              <div class="col-lg-3 form-group mt-2">
+                <label for="">N° CIN mandataire</label>
+                <input type="text" class="form-control rounded-pill" formControlName="cin_mandataire" />
+              </div>
 
-          <div class="col-lg-3 form-group mt-4">
-            <label for="">Raison sociale mandataire</label>
-            <input type="text" class="form-control rounded-pill" formControlName="raison_social_mandataire" />
-          </div>
+              <div class="col-lg-3 form-group mt-4">
+                <label for="">Raison sociale mandataire</label>
+                <input type="text" class="form-control rounded-pill" formControlName="raison_social_mandataire" />
+              </div>
 
-          <div class="col-lg-3 form-group mt-4">
-            <label for="">Nom et prénom mandataire</label>
-            <input type="text" class="form-control rounded-pill" formControlName="nom_prenom_mandataire" />
-          </div>
+              <div class="col-lg-3 form-group mt-4">
+                <label for="">Nom et prénom mandataire</label>
+                <input type="text" class="form-control rounded-pill" formControlName="nom_prenom_mandataire" />
+              </div>
 
-          <div class="col-lg-3 form-group mt-4">
-            <label for="">Téléphone du mandataire</label>
-            <input type="text" class="form-control rounded-pill" formControlName="telephone_mandataire" />
+              <div class="col-lg-3 form-group mt-4">
+                <label for="">Téléphone du mandataire</label>
+                <input type="text" class="form-control rounded-pill" formControlName="telephone_mandataire" />
+              </div>
+
+
+              <div class="row">
+                <div class="col-lg-3 form-group mt-4">
+                  <label for="">Fax du mandataire</label>
+                  <input type="text" class="form-control rounded-pill" formControlName="fax_mandataire" />
+                </div>
+
+                <div class="col-lg-3 form-group mt-4">
+                  <label for="">Adresse du mandataire</label>
+                  <input type="text" class="form-control rounded-pill" formControlName="adresse_mandataire" />
+                </div>
+
+                <div class="col-lg-3 form-group mt-4">
+                  <label for="">N° de compte bancaire M</label>
+                  <input type="text" class="form-control rounded-pill" formControlName="n_compte_bancaire_mandataire" />
+                </div>
+              </div>
+            </div>
           </div>
+          <!--Fin de 3éme Row-->
         </div>
-
-        <div class="row">
-          <div class="col-lg-3 form-group mt-4">
-            <label for="">Fax du mandataire</label>
-            <input type="text" class="form-control rounded-pill" formControlName="fax_mandataire" />
-          </div>
-
-          <div class="col-lg-3 form-group mt-4">
-            <label for="">Adresse du mandataire</label>
-            <input type="text" class="form-control rounded-pill" formControlName="adresse_mandataire" />
-          </div>
-
-          <div class="col-lg-3 form-group mt-4">
-            <label for="">N° de compte bancaire M</label>
-            <input type="text" class="form-control rounded-pill" formControlName="n_compte_bancaire_mandataire" />
-          </div>
-        </div>
-
-        <!--Fin de 3éme Row-->
-
         <!-- Div form Mandataire End-->
       </div>
       <!--Fin de Conteneur Mandataire -->
