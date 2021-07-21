@@ -1,6 +1,8 @@
 <form [formGroup]="proprietaireForm" (ngSubmit)="(proprietaire == '') ? AddProprietaire() : updateProprietaire() ">
   <!-- Message d'ERREUR de serveur -->
-  <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
+  <div class="w-100 d-flex justify-content-center">
+    <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
+  </div>
   <!-- Message de succés de serveur -->
   <div *ngIf="updateDone" class="done-alert p-2 my-2">{{ Updatesuccess }}</div>
   <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
@@ -45,7 +47,7 @@
 
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(n_registre_commerce)">
-        <p class="text-danger" *ngIf="n_registre_commerce.errors.pattern">
+        <p class="text-danger" *ngIf="n_registre_commerce?.errors?.pattern">
           Vous devez entrer des chiffres
         </p>
       </div>
@@ -55,7 +57,7 @@
       <label for="">Nom et prénom propriétaire</label>
       <input type="text" class="form-control rounded-pill" formControlName="nom_prenom" required [ngClass]="{
             'is-invalid': checkInputsValidation(nom_prenom),
-            'is-valid': !nom_prenom.invalid
+            'is-valid': !nom_prenom?.invalid
           }" />
 
       <!-- Error Message  -->
@@ -66,7 +68,7 @@
         <p class="text-danger" *ngIf="nom_prenom?.errors?.minlength">
           Vous devez entrer 6 caractères au moin
         </p>
-        <p class="text-danger" *ngIf="nom_prenom.errors.pattern">
+        <p class="text-danger" *ngIf="nom_prenom?.errors?.pattern">
           Vous devez entrer seulement des alphabets
         </p>
       </div>
@@ -76,7 +78,7 @@
       <label for="">Téléphone du propriétaire</label>
       <input type="text" class="form-control rounded-pill" formControlName="telephone" required [ngClass]="{
             'is-invalid': checkInputsValidation(telephone),
-            'is-valid': !telephone.invalid
+            'is-valid': !telephone?.invalid
           }" />
 
       <!-- Error Message  -->
@@ -84,7 +86,7 @@
         <p class="text-danger" *ngIf="telephone?.errors?.required">
           Veuillez remplir ce champ
         </p>
-        <p class="text-danger" *ngIf="telephone.errors.pattern">
+        <p class="text-danger" *ngIf="telephone?.errors?.pattern">
           Vous devez entrer seulement des chiffres
         </p>
       </div>
@@ -98,7 +100,7 @@
 
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(fax)">
-        <p class="text-danger" *ngIf="fax.errors.pattern">
+        <p class="text-danger" *ngIf="fax?.errors?.pattern">
           Vous devez entrer seulement des chiffres
         </p>
       </div>
@@ -118,7 +120,7 @@
       <label for="">N° de compte bancaire P</label>
       <input type="text" class="form-control rounded-pill" formControlName="n_compte_bancaire" required [ngClass]="{
             'is-invalid': checkInputsValidation(n_compte_bancaire),
-            'is-valid': !n_compte_bancaire.invalid
+            'is-valid': !n_compte_bancaire?.invalid
           }" />
 
       <!-- Error Message  -->
@@ -126,7 +128,7 @@
         <p class="text-danger" *ngIf="n_compte_bancaire?.errors?.required">
           Veuillez remplir ce champ
         </p>
-        <p class="text-danger" *ngIf="n_compte_bancaire.errors.pattern">
+        <p class="text-danger" *ngIf="n_compte_bancaire?.errors?.pattern">
           Vous devez entrer seulement des chiffres
         </p>
       </div>
@@ -136,7 +138,7 @@
       <label for="">Banque</label>
       <input type="text" class="form-control rounded-pill" formControlName="banque" required [ngClass]="{
             'is-invalid': checkInputsValidation(banque),
-            'is-valid': !banque.invalid
+            'is-valid': !banque?.invalid
           }" />
 
       <!-- Error Message  -->

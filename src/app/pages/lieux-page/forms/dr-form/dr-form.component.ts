@@ -1,4 +1,4 @@
-import { Lieu } from './../../../../models/Lieu';
+import { Lieu } from '../../../../models/Lieu';
 
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
