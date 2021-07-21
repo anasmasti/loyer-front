@@ -1,7 +1,7 @@
 <div class="row title">
   <div class="col-lg-12 mt-3">
     <div class="d-lg-flex justify-content-lg-between">
-      <h5 class="main-title">Direction regionale</h5>
+      <h5 class="main-title">Direction régionale</h5>
       <div>
         <a [routerLink]="['/lieux/list']" class="btn main-btn">Voir la liste des directions régionales</a>
         <a class="text-dark ms-5" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -145,22 +145,24 @@
 
                 <div class="col-lg-12 form-group my-4">
                   <label for="">Fournisseur</label>
-                  <a (click)="addFournisseur(amenagementForm, i)" class="btn btn-sm second-btn mx-2 mx-lg-4">Ajouter fournisseur</a>
+                  <a (click)="addFournisseur(amenagementForm, i)" class="btn btn-sm second-btn mx-2 mx-lg-4">Ajouter
+                    fournisseur</a>
                   <div formArrayName="fournisseurForm"
                     *ngFor="let item of getFournisseur(amenagementForm, i); let j = index">
-                    
+
                     <div [formGroupName]="j" class="main-card mt-4 bg-white p-lg-4">
-                      <a (click)="removeFournisseur(amenagementForm, j)" class="btn btn-sm danger-btn float-end"><i class="fal fa-trash"></i></a>
+                      <a (click)="removeFournisseur(amenagementForm, j)" class="btn btn-sm danger-btn float-end"><i
+                          class="fal fa-trash"></i></a>
                       <div class="row">
                         <div class="col-lg-3 form-group">
                           <label for="">Nom</label>
                           <input type="text" class="form-control rounded-pill" formControlName="nom" />
-  
+
                         </div>
                         <div class="col-lg-3 form-group">
                           <label for="">Prénom</label>
                           <input type="text" class="form-control rounded-pill" formControlName="prenom" />
-  
+
                         </div>
                         <div class="col-lg-3 form-group">
                           <label for="">Amenagement éffectué</label>
