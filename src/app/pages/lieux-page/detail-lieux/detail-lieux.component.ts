@@ -4,7 +4,7 @@ import { ConfirmationModalService } from '../../../services/confirmation-modal-s
 import { MainModalService } from '../../../services/main-modal/main-modal.service';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { ActivatedRoute } from '@angular/router';
-import { Lieu } from '../../../models/lieu';
+import { Lieu } from '../../../models/Lieu';
 @Component({
   selector: 'app-detail-lieux',
   templateUrl: './detail-lieux.component.html',
