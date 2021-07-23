@@ -9,6 +9,7 @@ import { HeaderNavbarComponent } from './components/layout/header-navbar/header-
 import { SideNavbarComponent } from './components/layout/side-navbar/side-navbar.component';
 import { MainContentComponent } from './components/layout/main-content/main-content.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FooterComponent } from './components/layout/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
     MainLayoutComponent,
     HeaderNavbarComponent,
     SideNavbarComponent,
-    MainContentComponent
+    MainContentComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
