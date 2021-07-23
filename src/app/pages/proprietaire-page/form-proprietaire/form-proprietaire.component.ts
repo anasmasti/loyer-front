@@ -81,7 +81,7 @@ export class FormProprietaireComponent implements OnInit , OnChanges {
     }
   }
 
-
+  // Display 'proprietaire' data if its update situation
   fetchProprietaire() {
     if (this.proprietaire.has_mandataire) {
       this.isMand = true;
@@ -156,7 +156,7 @@ export class FormProprietaireComponent implements OnInit , OnChanges {
     $('.error-alert').removeClass('active');
   }
 
-
+  // Add 'proprietaire' data if its insert situation
   AddProprietaire() {
 
     let data: any =
@@ -264,6 +264,7 @@ export class FormProprietaireComponent implements OnInit , OnChanges {
   }
 
 
+  // update 'proprietaire' data if its update situation
   updateProprietaire() {
     let id = this.proprietaire._id;
     let data: any = {
@@ -326,66 +327,66 @@ export class FormProprietaireComponent implements OnInit , OnChanges {
     );
   }
 
-   // Get proprietaire elements
-    get cin() {
-      return this.proprietaireForm.get('cin');
-    }
-    get passport() {
-      return this.proprietaireForm.get('passport');
-    }
-    get carte_sejour() {
-      return this.proprietaireForm.get('carte_sejour');
-    }
-    get nom_prenom() {
-      return this.proprietaireForm.get('nom_prenom');
-    }
-    get raison_social() {
-      return this.proprietaireForm.get('raison_social');
-    }
-    get n_registre_commerce() {
-      return this.proprietaireForm.get('n_registre_commerce');
-    }
-    get telephone() {
-      return this.proprietaireForm.get('telephone');
-    }
-    get fax() {
-      return this.proprietaireForm.get('fax');
-    }
-    get adresse() {
-      return this.proprietaireForm.get('adresse');
-    }
-    get n_compte_bancaire() {
-      return this.proprietaireForm.get('n_compte_bancaire');
-    }
-    get banque() {
-      return this.proprietaireForm.get('banque');
-    }
-    get nom_agence_bancaire() {
-      return this.proprietaireForm.get('nom_agence_bancaire');
-    }
-    get has_mandataire() {
-      return this.proprietaireForm.get('has_mandataire');
-    }
-    // Mandataire
-    get cin_mandataire() {
-      return this.proprietaireForm.get('cin_mandataire');
-    }
-    get nom_prenom_mandataire() {
-      return this.proprietaireForm.get('nom_prenom_mandataire');
-    }
-    get raison_social_mandataire() {
-      return this.proprietaireForm.get('raison_social_mandataire');
-    }
-    get telephone_mandataire() {
-      return this.proprietaireForm.get('telephone_mandataire');
-    }
-    get fax_mandataire() {
-      return this.proprietaireForm.get('fax_mandataire');
-    }
-    get adresse_mandataire() {
-      return this.proprietaireForm.get('adresse_mandataire');
-    }
-    get n_compte_bancaire_mandataire() {
-      return this.proprietaireForm.get('n_compte_bancaire_mandataire');
-    }
+  // Get proprietaire elements
+  get cin() {
+    return this.proprietaireForm.get('cin');
+  }
+  get passport() {
+    return this.proprietaireForm.get('passport');
+  }
+  get carte_sejour() {
+    return this.proprietaireForm.get('carte_sejour');
+  }
+  get nom_prenom() {
+    return this.proprietaireForm.get('nom_prenom');
+  }
+  get raison_social() {
+    return this.proprietaireForm.get('raison_social');
+  }
+  get n_registre_commerce() {
+    return this.proprietaireForm.get('n_registre_commerce');
+  }
+  get telephone() {
+    return this.proprietaireForm.get('telephone');
+  }
+  get fax() {
+    return this.proprietaireForm.get('fax');
+  }
+  get adresse() {
+    return this.proprietaireForm.get('adresse');
+  }
+  get n_compte_bancaire() {
+    return this.proprietaireForm.get('n_compte_bancaire');
+  }
+  get banque() {
+    return this.proprietaireForm.get('banque');
+  }
+  get nom_agence_bancaire() {
+    return this.proprietaireForm.get('nom_agence_bancaire');
+  }
+  get has_mandataire() {
+    return this.proprietaireForm.get('has_mandataire');
+  }
+  // Mandataire
+  get cin_mandataire() {
+    return this.proprietaireForm.get('cin_mandataire');
+  }
+  get nom_prenom_mandataire() {
+    return this.proprietaireForm.get('nom_prenom_mandataire');
+  }
+  get raison_social_mandataire() {
+    return this.proprietaireForm.get('raison_social_mandataire');
+  }
+  get telephone_mandataire() {
+    return this.proprietaireForm.get('telephone_mandataire');
+  }
+  get fax_mandataire() {
+    return this.proprietaireForm.get('fax_mandataire');
+  }
+  get adresse_mandataire() {
+    return this.proprietaireForm.get('adresse_mandataire');
+  }
+  get n_compte_bancaire_mandataire() {
+    return this.proprietaireForm.get('n_compte_bancaire_mandataire');
+  }
 }

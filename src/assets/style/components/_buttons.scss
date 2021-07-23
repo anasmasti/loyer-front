@@ -7,7 +7,6 @@
     box-shadow: $btn-box-shadow;
     color: color(dark);
     border-radius: $main-border-radius !important;
-
     &:hover {
         background: color(main-color);
         color: color(light) !important;
@@ -20,7 +19,6 @@
     box-shadow: $btn-box-shadow;
     color: color(light) !important;
     border-radius: $main-border-radius !important;
-
     &:hover {
         background: color(light) !important;
         color: color(dark) !important;
@@ -35,7 +33,6 @@
     box-shadow: $btn-box-shadow;
     color: color(light) !important;
     border-radius: $main-border-radius !important;
-
     &:hover {
         background: color(dark);
         color: color(light) !important;
