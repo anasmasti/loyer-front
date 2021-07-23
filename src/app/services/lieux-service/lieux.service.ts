@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { Lieu } from './../../models/lieu';
+=======
+import { Lieu } from '../../models/Lieu';
+>>>>>>> 67976c41f16915af8bc50c0025ef4794890ca011
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';

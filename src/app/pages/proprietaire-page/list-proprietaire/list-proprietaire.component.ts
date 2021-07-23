@@ -11,7 +11,7 @@ import { ProprietaireService } from 'src/app/services/proprietaire-service/propr
 })
 export class ListProprietaireComponent implements OnInit {
   proprietaires: Proprietaire[] = [];
-  targetProprietaire: any = [];
+  targetProprietaire: Proprietaire[] = [];
   targetProprietaireId: string = '';
 
   constructor(

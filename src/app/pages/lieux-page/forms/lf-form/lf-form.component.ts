@@ -81,6 +81,7 @@ export class LfFormComponent implements OnInit {
   openReplaceModal(active:any) {
     this.isReplace = active;
     this.mainModalService.open();
+    // this.confirmationModalService.open();
   }
 
   closeReplaceModal() {
@@ -88,7 +89,7 @@ export class LfFormComponent implements OnInit {
     this.mainModalService.close();
   }
 
-  openDeleteModal() {
+  openConfirmationModal() {
     this.confirmationModalService.open();
   }
 
@@ -96,7 +97,7 @@ export class LfFormComponent implements OnInit {
     this.mainModalService.open();
   }
 
-  closeDeleteModal() {
+  closeConfirmationModal() {
     this.confirmationModalService.close();
   }
 }

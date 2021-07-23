@@ -1,7 +1,7 @@
 <div class="row title">
   <div class="col-lg-12 mt-3">
     <div class="d-lg-flex justify-content-lg-between">
-      <h5 class="main-title">Direction Régionale</h5>
+      <h5 class="main-title">Direction régionale</h5>
       <div>
         <a [routerLink]="['/lieux/list']" class="btn main-btn">Voir la liste des directions régionales</a>
         <a class="text-dark ms-5" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -101,7 +101,7 @@
           <div formArrayName="amenagementForm" *ngFor="let item of amenagementForm.controls; let i = index">
 
             <div class="main-card mt-4 bg-white p-lg-4" [formGroupName]="i">
-              <a (click)="removeAmenagement(i)" class="btn btn-sm danger-btn">Supprimer</a>
+              <a (click)="removeAmenagement(i)" class="btn btn-sm danger-btn float-end"><i class="fal fa-trash"></i></a>
 
               <div class="row">
                 <div class="col-lg-3 form-group mt-4">
@@ -143,15 +143,32 @@
                   <input type="date" class="form-control rounded-pill" formControlName="date_passation_commande" />
                 </div>
 
-                <div class="col-lg-3 form-group mt-4">
+                <div class="col-lg-12 form-group my-4">
                   <label for="">Fournisseur</label>
-                  <button (click)="addFournisseur(amenagementForm, i)">Add</button>
+                  <a (click)="addFournisseur(amenagementForm, i)" class="btn btn-sm second-btn mx-2 mx-lg-4">Ajouter
+                    fournisseur</a>
                   <div formArrayName="fournisseurForm"
                     *ngFor="let item of getFournisseur(amenagementForm, i); let j = index">
-                    <div [formGroupName]="j">
-                      <input type="text" class="form-control rounded-pill" formControlName="nom" />
-                      <input type="text" class="form-control rounded-pill" formControlName="prenom" />
-                      <input type="text" class="form-control rounded-pill" formControlName="amenagement_effectue" />
+
+                    <div [formGroupName]="j" class="main-card mt-4 bg-white p-lg-4">
+                      <a (click)="removeFournisseur(amenagementForm, j)" class="btn btn-sm danger-btn float-end"><i
+                          class="fal fa-trash"></i></a>
+                      <div class="row">
+                        <div class="col-lg-3 form-group">
+                          <label for="">Nom</label>
+                          <input type="text" class="form-control rounded-pill" formControlName="nom" />
+
+                        </div>
+                        <div class="col-lg-3 form-group">
+                          <label for="">Prénom</label>
+                          <input type="text" class="form-control rounded-pill" formControlName="prenom" />
+
+                        </div>
+                        <div class="col-lg-3 form-group">
+                          <label for="">Amenagement éffectué</label>
+                          <input type="text" class="form-control rounded-pill" formControlName="amenagement_effectue" />
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
