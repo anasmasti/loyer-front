@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
@@ -7,7 +7,12 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./form-contrat.component.scss']
 })
 export class FormContratComponent implements OnInit {
-  etat: string = ''
+  
+  // whitch form to load 
+ 
+  @Input() formType!: any;
+  
+  etat: string = '';
 
   constructor() { }
 

@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./contrat.component.scss']
 })
 export class ContratComponent implements OnInit {
-
+  Ajouter:string="";
   constructor() { }
 
   ngOnInit(): void {

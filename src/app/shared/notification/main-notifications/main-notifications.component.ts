@@ -6,10 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main-notifications.component.scss']
 })
 export class MainNotificationsComponent implements OnInit {
-
+  nomber!: 0
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }
