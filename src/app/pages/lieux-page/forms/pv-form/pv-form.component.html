@@ -1,12 +1,25 @@
+<div class="row title">
+  <div class="col-lg-12 mt-3">
+      <div class="d-lg-flex justify-content-lg-between">
+          <h5 class="main-title">Point de vente</h5>
+          <div>
+              <a [routerLink]="['/lieux/list']" class="btn main-btn">Voir la liste des points de vente</a>
+              <a class="text-dark ms-5" data-bs-toggle="tooltip" data-bs-placement="top"
+                  title="Ici vous pouvez ajouter une nouvelle point de vente"><i class="fal fa-info"></i></a>
+          </div>
+      </div>
+  </div>
+</div>
 
-<!--Début de conteneur Propriètaire de local  -->
+
+<!--Début de conteneur pv-form  -->
 <div class="mt-4">
-    <h6>Remplissage des données</h6>
+    <!-- <h6>Remplissage des données</h6> -->
   
-    <!--Début de Div qui contient le formulaire propriètaire de local-->
+    <!--Début de Div qui contient le formulaire pv-form-->
     <div class="form-box mt-4">
-      <!--Début Formulaire propriètaire de local-->
-      <form>
+      <!--Début Formulaire pv-form-->
+      <form [formGroup]="PvForm" enctype="multipart/form-data">
         
         <!--Début 1er Row-->
         <div class="row">
@@ -17,29 +30,42 @@
   
           <div class="col-lg-3 form-group mt-4">
             <label for="">Point de Vente</label>
-            <input type="text" class="form-control rounded-pill" formControlName="point-vente"/>
+            <input type="text" class="form-control rounded-pill" formControlName="point_vente"/>
           </div>
   
           <div class="col-lg-3 form-group mt-4">
             <label for="">Supervision</label>
-            <input type="text" class="form-control rounded-pill" formControlName="supervision"/>
+            <select class="form-control rounded-pill" formControlName="supervision">
+              <option value="">-----</option>
+            </select>
           
           </div>
   
           <div class="col-lg-3 form-group mt-4">
             <label for="">Code supervision</label>
-            <input type="text" class="form-control rounded-pill" formControlName="Code SUP"/>
+            <select class="form-control rounded-pill" formControlName="code_SUP">
+              <option value="">-----</option>  
+            </select>
           </div>
   
           <div class="col-lg-3 form-group mt-4">
             <label for="">Direction Régionale</label>
-            <input type="text" class="form-control rounded-pill" formControlName="DR"/>
+            <select class="form-control rounded-pill" formControlName="DR">
+              <option value="">-----</option>
+            </select>
+          </div>
+
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Code DR</label>
+            <select class="form-control rounded-pill" formControlName="code_DR">
+              <option value="">-----</option>
+            </select>
           </div>
 
   
           <div class="col-lg-3 form-group mt-4">
             <label for="">Adresse Point de Vente</label>
-            <input type="text" class="form-control rounded-pill" formControlName="AdressePV" />
+            <input type="text" class="form-control rounded-pill" formControlName="adressePV" />
           </div>
 
   
@@ -61,26 +87,21 @@
   
           <div class="col-lg-3 form-group mt-4">
             <label for="">Etage</label>
-            <input type="text" class="form-control rounded-pill" formControlName="Etage" />
+            <input type="text" class="form-control rounded-pill" formControlName="etage" />
           </div>
   
-          <div class="col-lg-3 form-group mt-4">
-            <label for="">Etat des lieux à l’entrée</label>
-            <input type="text" class="form-control rounded-pill" formControlName="etat_lieux_entree" />
-          </div>
-  
+
           <div class="col-lg-3 form-group mt-4">
             <label for="">Descriptif du local</label>
             <input type="text" class="form-control rounded-pill" formControlName="descriptif_local"/>
           </div>
 
           <div class="col-lg-3 form-group mt-4">
-            <label for="">Intégration des images correspondant au local avant aménagement</label>
-            <input type="text" class="form-control rounded-pill" formControlName="images_avant_aménagement"/>
+            <label for="">Images du local avant aménagement</label>
+            <input type="file" class="form-control btn success-btn" formControlName="images_avant_aménagement" multiple/>
           </div>
 
 
-  
           <div class="mt-4">Aménagement</div>
           <div class="col-lg-3 form-group d-flex mt-4">
             <label for="">Oui</label>
@@ -91,16 +112,16 @@
               formControlName="has_amenagement" />
           </div>
   
-          <!-- Condition pour afficher ou cacher le formulaire de mandataire -->
+          <!-- Condition pour afficher ou cacher le formulaire de Aménagement -->
           <div *ngIf="isAmenag; then amenagement"></div>
         </div>
         <!--Fin de 1er Row -->
   
         <!--Début 2éme Row -->
         <div class="row mt-5">
-          <!--Début de Div Mandataire Qui contient(Title+divForm+Form)-->
+          <!--Début de Div Aménagement Qui contient(Title+divForm+Form)-->
           <ng-template #amenagement>
-            <!--Grand Titre Mandataire -->
+            <!--Grand Titre Aménagement -->
             <div class="row mt-4">
               <div class="margin-main col-lg-12 mt-3">
                 <div class="d-flex justify-content-between">
@@ -110,33 +131,33 @@
               </div>
             </div>
   
-            <!--Début de Conteneur Mandataire-->
+            <!--Début de Conteneur Aménagement-->
             <div class="mt-4">
             
-              <!--Début Div form Mandataire-->
+              <!--Début Div form Aménagement-->
               <div class="FormBox mt-4">
                 <!--Début 3éme Row-->
-                <div class="row" formGroupName="amenagement">
+                <div class="row">
                   <div class="col-lg-3 form-group mt-4">
                     <label for="">Nature des travaux d’aménagement</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="nature_aménagement" />
+                    <input type="text" class="form-control rounded-pill" formControlName="nature_travaux_amenagement" />
   
   
                   </div>
   
                   <div class="col-lg-3 form-group mt-4">
                     <label for="">Montant des travaux d’aménagement</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="montant_aménagement" />
+                    <input type="text" class="form-control rounded-pill" formControlName="montant_travaux_amenagement" />
                   </div>
   
                   <div class="col-lg-3 form-group mt-4">
                     <label for="">Valeur et nature des travaux à la charge du propriétaire (facultatif)</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="valeur_nature_charge_propriétaire" />
+                    <input type="text" class="form-control rounded-pill" formControlName="valeur_nature_travaux_charge_proprietaire" />
                   </div>
   
                   <div class="col-lg-3 form-group mt-4">
                     <label for="">Valeur et nature des travaux à la charge de la Fondation</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="valeur_nature_charge_fondation" />
+                    <input type="text" class="form-control rounded-pill" formControlName="valeur_nature_travaux_charge_fondation" />
                   </div>
   
                   <div class="col-lg-3 form-group mt-4">
@@ -151,7 +172,7 @@
   
                   <div class="col-lg-3 form-group mt-4">
                     <label for="">Date de passation de la commande</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="date_passation_commande" />
+                    <input type="date" class="form-control rounded-pill" formControlName="date_passation_commande" />
                   </div>
 
                   <div class="col-lg-3 form-group mt-4">
@@ -166,22 +187,22 @@
 
                   <div class="col-lg-3 form-group mt-4">
                     <label for="">Date de fin des travaux</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="date_fin_travaux" />
+                    <input type="date" class="form-control rounded-pill" formControlName="date_fin_travaux" />
                   </div>
 
                   <div class="col-lg-3 form-group mt-4">
                     <label for="">Date de livraison du local</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="date_livraison_local" />
+                    <input type="date" class="form-control rounded-pill" formControlName="date_livraison_local" />
                   </div>
 
                   <div class="col-lg-3 form-group mt-4">
-                    <label for="">Intégration des images correspondant au local après aménagement</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="images_local_apres_amenagement" />
+                    <label for="">Images du local après aménagement</label>
+                    <input type="file" class="form-control btn success-btn" formControlName="images_local_apres_amenagement" multiple/>
                   </div>
 
                   <div class="col-lg-3 form-group mt-4">
-                    <label for="">Intégration du croquis d’aménagement via imagerie</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="croquis_amenagement_via_imagerie" />
+                    <label for="">Croquis d’aménagement via imagerie</label>
+                    <input type="file" class="form-control btn success-btn" formControlName="croquis_amenagement_via_imagerie" multiple/>
                   </div>
 
                   <div class="col-lg-3 form-group mt-4">
@@ -194,11 +215,7 @@
                     <input type="text" class="form-control rounded-pill" formControlName="telephone" />
                   </div>
 
-                  <div class="col-lg-3 form-group mt-4">
-                    <label for="">Superficie</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="superficie" />
-                  </div>
-
+                  
                   <div class="col-lg-3 form-group mt-4">
                     <label for="">Fax</label>
                     <input type="text" class="form-control rounded-pill" formControlName="fax" />
@@ -211,11 +228,11 @@
 
                 <!--Fin de 3éme Row-->
               </div>
-              <!-- Div form Mandataire End-->
+              <!-- Div form Aménagement End-->
             </div>
-            <!--Fin de Conteneur Mandataire -->
+            <!--Fin de Conteneur Aménagement -->
           </ng-template>
-          <!--Fin de Div Mandataire (Title+divForm+Form)-->
+          <!--Fin de Div Aménagement (Title+divForm+Form)-->
         </div>
         <!-- Fin 2éme Row-->
   
@@ -228,7 +245,7 @@
       </form>
       <!-- Fin de formulaire-->
     </div>
-    <!--Fin Div form propriètaire de local-->
+    <!--Fin Div form pv-form-->
   </div>
-  <!--Fin de Conteneur Propriètaire de local-->
+  <!--Fin de Conteneur pv-form-->
 

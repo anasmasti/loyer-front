@@ -41,16 +41,17 @@
 
 // Costumize the success button
 .success-btn {
-    background: color(success);
+    background: color(success) !important;
     box-shadow: $btn-box-shadow;
     color: color(light) !important;
     border-radius: $main-border-radius !important;
 
     &:hover {
-        background: color(dark);
+        background: color(dark) !important;
         color: color(light) !important;
     }
 }
+
 
 // Costumize the info button
 .info-btn {

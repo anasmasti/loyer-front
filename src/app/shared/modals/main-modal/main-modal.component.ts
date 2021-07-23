@@ -1,4 +1,4 @@
-import { MainModalService } from './../../../services/main-modal.service';
+import { MainModalService } from '../../../services/main-modal/main-modal.service';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({

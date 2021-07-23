@@ -1,7 +1,7 @@
 // Global colors
 $colors: (
     "main-color": #909ef8,
-    "body-color": #fefeff,
+    "body-color": #f9faff,
     "danger": #ffa2a2,
     "success": #25e6bf,
     "dark": #828282,
@@ -13,8 +13,8 @@ $colors: (
 $main-border-radius: 22px;
 
 // Global box shadow
-$btn-box-shadow: 1px 6px 14px rgb(142 142 142 / 5%);
-$card-box-shadow: 1px 6px 14px rgb(142 142 142 / 5%);
+$btn-box-shadow: -1px 20px 15px 1px rgb(142 142 142 / 8%);
+$card-box-shadow: -1px 20px 15px 1px rgb(142 142 142 / 8%);
 
 // Global font weights
 $font-weights: (

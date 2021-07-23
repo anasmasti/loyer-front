@@ -1,9 +1,8 @@
-import { ConfirmationModalService } from './../../../services/confirmation-modal.service';
-import { MainModalService } from './../../../services/main-modal.service';
-import { Proprietaire } from './../../../models/proprietaire';
+import { ConfirmationModalService } from '../../../services/confirmation-modal-service/confirmation-modal.service';
+import { MainModalService } from '../../../services/main-modal/main-modal.service';
+import { Proprietaire } from '../../../models/Proprietaire';
 import { Component, OnInit, OnChanges } from '@angular/core';
-import { ProprietaireService } from 'src/app/services/proprietaire.service';
-import { Observable, timer } from 'rxjs';
+import { ProprietaireService } from 'src/app/services/proprietaire-service/proprietaire.service';
 
 @Component({
   selector: 'app-list-proprietaire',
@@ -12,17 +11,17 @@ import { Observable, timer } from 'rxjs';
 })
 export class ListProprietaireComponent implements OnInit {
   proprietaires: Proprietaire[] = [];
-  targetProprietaire: any = [];
+  targetProprietaire: Proprietaire[] = [];
   targetProprietaireId: string = '';
 
   constructor(
     private proprietaireService: ProprietaireService,
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.getAllProprietaires() // Trow the fitching data
+    this.getAllProprietaires(); // Trow the fitching data
   }
 
   // ngOnChanges() {
@@ -43,9 +42,9 @@ export class ListProprietaireComponent implements OnInit {
   }
 
   checkAndPutText(value: boolean) {
-    let text!: string
-    value ? text = 'Oui' : text = 'Non'
-    return text
+    let text!: string;
+    value ? (text = 'Oui') : (text = 'Non');
+    return text;
   }
 
   // Open confirmation modal
@@ -60,26 +59,23 @@ export class ListProprietaireComponent implements OnInit {
 
   // Delete proprietaire
   deleteProprietaire(id: string) {
-
     let data = {
-      deleted: true
-    }
+      deleted: true,
+    };
 
     // Call detele proprietaire function from proprietaire service
     this.proprietaireService.deleteProprietaire(id, data).subscribe((_) => {
       this.getAllProprietaires(); // Trow the fitching data
-
-    })
+    });
   }
 
   // Get id of selected proprietaire
   getProprietaireId(id: string) {
-    this.targetProprietaireId = id
+    this.targetProprietaireId = id;
   }
 
   // Refrtech the page
   refrechPage() {
     location.reload();
   }
-
 }

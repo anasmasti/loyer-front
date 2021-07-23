@@ -6,10 +6,14 @@ export const environment = {
   production: false,
   // Api url
   API_URL: 'https://loyer-api.herokuapp.com/api/',
+  // Api test url 
+  API_URL_TEST: 'http://192.168.11.124:5000/api/',
   // Api access key
   API_ACCESS_KEY: 'take$the#whole!bull',
   // Api version
-  API_VERSION: 'v1/'
+  API_VERSION: 'v1/',
+  // Application version
+  APP_VERSION: 'Dev Beta 1.1'
 };
 
 /*

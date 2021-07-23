@@ -1,1 +1,197 @@
-<p>detail-lieux works!</p>
+<!-- <div class="row title">
+    <div class="col-lg-12 mt-3">
+        <div class="d-flex justify-content-between"> -->
+            <!-- <h3 class="leftborder"></h3> -->
+            <!-- <h3 class="main-title">
+                <a class="goback-link">Détails de Lieu</a>/<span class="selected-text"> {{Lieu.intitule_de_lieu}}
+                </span>
+            </h3>
+            <div class="d-none d-lg-block">
+                <a [routerLink]="['/lieux/list']" class="btn btn-sm second-btn me-3 " data-bs-toggle="tooltip"
+                    data-bs-placement="top" title="Retour à la liste"><i class="far fa-arrow-left"></i>
+                    Retour à la liste des lieux
+                </a>
+                <span data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Ici vous pouvez voir les détails de  proprietaire.nom_prenom ">
+                    <i class="fal fa-info"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+<!-- <div class="main-card p-lg-4 mt-4 table-responsive">
+
+    <table class="table" cellspacing="0" width="100%">
+        <tbody>
+            <tr>
+                <th>Type lieu</th>
+                <td> {{ Lieu.type_lieu }} </td>
+            </tr>
+
+            <tr>
+                <th>Intitulé de lieu</th>
+                <td> {{ Lieu.intitule_de_lieu }} </td>
+            </tr>
+
+            <tr>
+                <th>Intitulé de la direction regional</th>
+                <td> {{ Lieu.intitule_direction_regional }} </td>
+            </tr>
+
+
+            <tr>
+                <th>Ville</th>
+                <td> {{ Lieu.ville }} </td>
+            </tr>
+
+            <tr>
+                <th>Raison sociale</th>
+                <td> {{ Lieu.raison_sociale }} </td>
+            </tr>
+
+            <tr>
+                <th>Télephone</th>
+                <td> {{ Lieu.telephone }} </td>
+            </tr>
+
+            <tr>
+                <th>Fax</th>
+                <td> {{ Lieu.fax }} </td>
+            </tr>
+
+            <tr>
+                <th>code localité</th>
+                <td>{{ Lieu.code_localite }}</td>
+            </tr>
+
+            <tr>
+                <th>Superficie</th>
+                <td>{{ Lieu.superficie }} </td>
+            </tr>
+
+            <tr>
+                <th>Etage</th>
+                <td> {{ Lieu.etage }} </td>
+            </tr>
+
+            <tr>
+                <th>Code Rattachement DR</th>
+                <td> {{ Lieu.code_Rattachement_DR }} </td>
+            </tr>
+
+            <tr>
+                <th>Code Rattachement SUP</th>
+                <td> {{ Lieu.code_Rattachement_SUP }} </td>
+            </tr>
+
+            <tr>
+                <th>Intitulé Rattachement supervision de POS</th>
+                <td>{{ Lieu.intitule_Rattachement_supervision_POS }} </td>
+            </tr>
+
+            <tr>
+                <th>Centre de cout Siege</th>
+                <td> {{ Lieu.centre_cout_Siege }} </td>
+            </tr>
+
+            <tr>
+                <th>Categorie point de Vente</th>
+                <td> {{ Lieu.categorie_point_Vente }} </td>
+            </tr>
+
+
+        </tbody>
+
+    </table>
+    <div class="" *ngIf="Lieu.has_amenagement">
+        <div>
+            <h4 class="main-title my-4">Aménagement :</h4>
+        </div>
+        <div class="d-inline" *ngFor="let amen of Amenagements ">
+            <button class="btn second-btn me-3" type="button" (click)="displayAmenagement(amen._id); scroll(); ">
+                {{amen.nature}}
+            </button>
+
+        </div>
+        <div class="mt-4">
+            <table class="table" *ngIf="display" cellspacing="0" width="100%">
+                <tbody>
+
+                    <tr>
+                        <th>Nature d'aménagement </th>
+                        <td> {{ selectedAmenagement.nature }} </td>
+                    </tr>
+
+                    <tr>
+                        <th>Montant d'Aménagement </th>
+                        <td> {{selectedAmenagement.montant}} </td>
+                    </tr>
+
+                    <tr>
+                        <th>Nature d'Aménagement sous charge de propriétaire</th>
+                        <td> {{selectedAmenagement.proprietaire.nature}} </td>
+                    </tr>
+
+                    <tr>
+                        <th>Valeur d'Aménagement sous charge de propriétaire</th>
+                        <td> {{selectedAmenagement.proprietaire.valeur}} </td>
+                    </tr>
+
+                    <tr>
+                        <th>Nature d'Aménagement sous charge de Fondation</th>
+                        <td> {{selectedAmenagement.fondation.nature}}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Valeur d'Aménagement sous charge de Fondation</th>
+                        <td> {{selectedAmenagement.fondation.valeur}} </td>
+                    </tr>
+
+                    <tr>
+                        <th>N° de facture</th>
+                        <td> {{selectedAmenagement.n_Facture}} </td>
+                    </tr>
+
+                    <tr>
+                        <th>N° de bon de commande</th>
+                        <td> {{selectedAmenagement.n_bon_Cde}} </td>
+                    </tr>
+
+                    <tr>
+                        <th>Date de passation de la commande</th>
+                        <td> {{selectedAmenagement.date_Passation_Cde | date:'dd-MM-yyyy' }} </td>
+                    </tr>
+
+                    <tr>
+                        <th>Evaluation du fournisseur</th>
+                        <td> {{selectedAmenagement.evaluation_Fournisseur}} </td>
+                    </tr>
+
+                    <tr>
+                        <th>Date de fin de travaux</th>
+                        <td>{{selectedAmenagement.date_Fin_travaux | date:'dd-MM-yyyy' }} </td>
+                    </tr>
+
+                    <tr>
+                        <th>Date de livraison du local</th>
+                        <td>{{selectedAmenagement.date_Livraison_local | date:'dd-MM-yyyy' }} </td>
+                    </tr>
+
+                    <tr>
+                        <th>Croquis d'amenagement via imagerie</th>
+                        <td> {{selectedAmenagement.croquis}} </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+
+    </div>
+
+
+
+
+</div> -->

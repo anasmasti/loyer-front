@@ -1,6 +1,6 @@
 export interface Proprietaire {
-  _id: string;
-  cin?: string;
+  _id?: string;
+  cin: string;
   passport: string;
   carte_sejour: string;
   nom_prenom: string;

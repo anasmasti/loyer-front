@@ -3,24 +3,38 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-lieux',
   templateUrl: './lieux.component.html',
-  styleUrls: ['./lieux.component.scss']
+  styleUrls: ['./lieux.component.scss'],
 })
 export class LieuxComponent implements OnInit {
   lieux = [
-    { 'name': 'DR' },
-    { 'name': 'LF' },
-    { 'name': 'PV' },
-    { 'name': 'Siege' },
-    { 'name': 'SV' },
-  ]
-  activeLieux = ''
+    {
+      id: 'DR',
+      name: 'Direction régionale',
+    },
+    {
+      id: 'LF',
+      name: 'Logement de fonction',
+    },
+    {
+      id: 'PV',
+      name: 'Point de vente',
+    },
+    {
+      id: 'Siege',
+      name: 'Siège',
+    },
+    {
+      id: 'SV',
+      name: 'Supervision',
+    },
+  ];
+  activeLieux = '';
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   showForm(lieu_name: string) {
-    this.activeLieux = lieu_name
+    this.activeLieux = lieu_name;
   }
 }

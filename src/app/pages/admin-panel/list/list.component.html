@@ -1,0 +1,38 @@
+<div class="main-card table-responsive-sm p-lg-3 mt-4">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Matricule</th>
+                <th>Nom </th>
+                <th>Prénom </th>
+                <th>Role</th>
+              
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <!-- <td >{{ proprietaire._id }}</td> -->
+                <td class="text-center">{{ user.userMatricul }}</td>
+                <td class="text-center">{{ user.name }}</td>
+                <td class="text-center">{{ user.prenom }}</td>
+                <td class="d-flex justify-content-around ">
+                  <p  *ngFor="let role of user.userRoles"> -{{ role.roleName }}  </p>
+                </td>
+                <td>
+                    <a class="btn btn-sm main-btn"><i
+                            class="fal fa-eye"></i></a>
+                    <a class="btn btn-sm info-btn mx-2"><i
+                            class="far fa-user-edit"></i></a>
+                    <a class="btn btn-sm danger-btn" ><i
+                            class="far fa-user-minus"></i></a>
+                </td>
+            </tr>
+
+          
+
+    
+
+        </tbody>
+    </table>
+</div>

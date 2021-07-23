@@ -1,8 +1,5 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { MainModalService } from 'src/app/services/main-modal.service';
-import { ProprietaireService } from 'src/app/services/proprietaire.service';
+import { Component, Input, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-edit-proprietaire',
@@ -10,11 +7,9 @@ import { ProprietaireService } from 'src/app/services/proprietaire.service';
   styleUrls: ['./edit-proprietaire.component.scss'],
 })
 export class EditProprietaireComponent implements OnInit {
-  
   @Input() proprietaire!: any;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void { }
-
+  ngOnInit(): void {}
 }
