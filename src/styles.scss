@@ -4,27 +4,34 @@
 /* Global styles */
 
 html {
-    scroll-behavior: smooth !important;
+  scroll-behavior: smooth !important;
 }
 
 body {
+<<<<<<< HEAD
     margin: 0;
     padding: 0;
     background: color(body-color) !important;
     color: color(dark) !important;
     overflow-x: hidden;
+=======
+  margin: 0;
+  padding: 0;
+  background: color(body-color) !important;
+  color: color(dark) !important;
+>>>>>>> 67976c41f16915af8bc50c0025ef4794890ca011
 }
 
 // Glibal font weights
 .bold-font {
-    font-weight: weight(bold);
+  font-weight: weight(bold);
 }
 
 /* active link */
 .router-link-active {
-    @extend .second-btn;
-    &:hover {
-        border: none !important;
-        background: color(dark) !important;
-    }
+  @extend .second-btn;
+  &:hover {
+    border: none !important;
+    background: color(dark) !important;
+  }
 }

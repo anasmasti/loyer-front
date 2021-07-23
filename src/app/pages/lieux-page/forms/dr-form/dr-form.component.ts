@@ -1,4 +1,4 @@
-import { Lieu } from './../../../../models/Lieu';
+import { Lieu } from '../../../../models/Lieu';
 
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
@@ -14,7 +14,7 @@ export class DrFormComponent implements OnInit {
   hasAmenagement: boolean = false;
   selectedFile !: File;
   drForm!: FormGroup;
-  // drForm !: FormGroup;
+
   constructor(private drService: LieuxService) { }
 
 
@@ -43,25 +43,9 @@ export class DrFormComponent implements OnInit {
       deleted: new FormControl('',),
 
       amenagementForm: new FormArray([]),
-      fournisseurForm: new FormArray([]),
 
     });
 
-  }
-
-  // FournisseurData
-  addFournisseur() {
-    const fournisseurData = new FormGroup({
-      nom: new FormControl(''),
-      prenom: new FormControl(''),
-      amenagement_effectue: new FormControl(''),
-    });
-
-    (<FormArray>this.drForm.get('fournisseurForm')).push(<FormGroup>fournisseurData)
-  }
-
-  removeFournisseur(index: number) {
-    (<FormArray>this.drForm.get('fournisseurData')).removeAt(index)
   }
 
   // Amenagement
@@ -82,8 +66,6 @@ export class DrFormComponent implements OnInit {
       croquis_amenagement_via_imagerie: new FormControl(''),
     });
 
-
-
     (<FormArray>this.drForm.get('amenagementForm')).push(<FormGroup>amenagementData)
 
   }
@@ -92,10 +74,30 @@ export class DrFormComponent implements OnInit {
     (<FormArray>this.drForm.get('amenagementForm')).removeAt(index)
   }
 
+
+  // FournisseurData
+  addFournisseur(amenagementForm: any, index: number) {
+    let fournisseurData = new FormGroup({
+      nom: new FormControl(''),
+      prenom: new FormControl(''),
+      amenagement_effectue: new FormControl(''),
+    });
+
+    (<FormArray>amenagementForm.controls[index].controls.fournisseurForm).push(<FormGroup>fournisseurData)
+  }
+
+  removeFournisseur(amenagementForm: any, index: number) {
+    (<FormArray>amenagementForm.controls[index].controls.fournisseurForm).removeAt(index)
+  }
+
+  getFournisseur(amenagementForm: any, i: number) {
+    return (amenagementForm.controls[i].controls.fournisseurForm).controls
+  }
+
+
   onFileSelected(event: any) {
     this.selectedFile = <File>event.target.files[0];
     console.log(this.selectedFile);
-
   }
 
   addDR() {
@@ -147,9 +149,6 @@ export class DrFormComponent implements OnInit {
     return (<FormArray>this.drForm.get('amenagementForm'));
   }
 
-  get fournisseurForm() {
-    return (<FormArray>this.drForm.get('fournisseurForm'));
-  }
 
 }
 

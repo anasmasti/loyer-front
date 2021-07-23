@@ -11,7 +11,9 @@ export const environment = {
   // Api access key
   API_ACCESS_KEY: 'take$the#whole!bull',
   // Api version
-  API_VERSION: 'v1/'
+  API_VERSION: 'v1/',
+  // Application version
+  APP_VERSION: 'Dev Beta 1.1'
 };
 
 /*
