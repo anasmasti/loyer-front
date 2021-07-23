@@ -9,6 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class MainModalComponent implements OnInit {
 
   @Input() closeBtn: boolean = true
+  @Input() mainHeight!: string;
 
   constructor(private mainModalService: MainModalService) { }
 
@@ -17,6 +18,12 @@ export class MainModalComponent implements OnInit {
 
   closeModal() {
     this.mainModalService.close();
+  }
+
+  toggle = [false, true];
+
+  getReplaceValue(event: any) {
+    this.toggle.push(event);
   }
 
 }

@@ -25,17 +25,17 @@
         <div class="row">
           <div class="col-lg-3 form-group mt-4">
             <label for="">Code point de vente</label>
-            <input type="text" class="form-control rounded-pill" formControlName="code_PDV"/>  
+            <input type="text" class="form-control rounded-pill" formControlName="code_lieu"/>  
           </div>
   
           <div class="col-lg-3 form-group mt-4">
             <label for="">Point de Vente</label>
-            <input type="text" class="form-control rounded-pill" formControlName="point_vente"/>
+            <input type="text" class="form-control rounded-pill" formControlName="intitule_lieu"/>
           </div>
   
           <div class="col-lg-3 form-group mt-4">
             <label for="">Supervision</label>
-            <select class="form-control rounded-pill" formControlName="supervision">
+            <select class="form-control rounded-pill" formControlName="intitule_rattache_SUP_PV">
               <option value="">-----</option>
             </select>
           
@@ -43,21 +43,21 @@
   
           <div class="col-lg-3 form-group mt-4">
             <label for="">Code supervision</label>
-            <select class="form-control rounded-pill" formControlName="code_SUP">
+            <select class="form-control rounded-pill" formControlName="code_rattahce_SUP">
               <option value="">-----</option>  
             </select>
           </div>
   
           <div class="col-lg-3 form-group mt-4">
             <label for="">Direction Régionale</label>
-            <select class="form-control rounded-pill" formControlName="DR">
+            <select class="form-control rounded-pill" formControlName="intitule_DR">
               <option value="">-----</option>
             </select>
           </div>
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Code DR</label>
-            <select class="form-control rounded-pill" formControlName="code_DR">
+            <select class="form-control rounded-pill" formControlName="code_rattache_DR">
               <option value="">-----</option>
             </select>
           </div>
@@ -65,7 +65,7 @@
   
           <div class="col-lg-3 form-group mt-4">
             <label for="">Adresse Point de Vente</label>
-            <input type="text" class="form-control rounded-pill" formControlName="adressePV" />
+            <input type="text" class="form-control rounded-pill" formControlName="adresse" />
           </div>
 
   
@@ -77,12 +77,12 @@
   
           <div class="col-lg-3 form-group mt-4">
             <label for="">Catégorie du Point de Vente</label>
-            <input type="text" class="form-control rounded-pill" formControlName="catégoriePV"/>
+            <input type="text" class="form-control rounded-pill" formControlName="categorie_pointVente"/>
           </div>
   
           <div class="col-lg-3 form-group mt-4">
             <label for="">Code localité</label>
-            <input type="text" class="form-control rounded-pill" formControlName="code_localité"/>
+            <input type="text" class="form-control rounded-pill" formControlName="code_localite"/>
           </div>
   
           <div class="col-lg-3 form-group mt-4">
@@ -93,12 +93,12 @@
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Descriptif du local</label>
-            <input type="text" class="form-control rounded-pill" formControlName="descriptif_local"/>
+            <input type="text" class="form-control rounded-pill" formControlName="desc_lieu_entrer"/>
           </div>
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Images du local avant aménagement</label>
-            <input type="file" class="form-control btn success-btn" formControlName="images_avant_aménagement" multiple/>
+            <input type="file" class="form-control btn success-btn" formControlName="imgs_lieu_entrer" multiple/>
           </div>
 
 
@@ -140,34 +140,34 @@
                 <div class="row">
                   <div class="col-lg-3 form-group mt-4">
                     <label for="">Nature des travaux d’aménagement</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="nature_travaux_amenagement" />
+                    <input type="text" class="form-control rounded-pill" formControlName="nature_amenagement" />
   
   
                   </div>
   
                   <div class="col-lg-3 form-group mt-4">
                     <label for="">Montant des travaux d’aménagement</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="montant_travaux_amenagement" />
+                    <input type="text" class="form-control rounded-pill" formControlName="montant_amenagement" />
                   </div>
   
                   <div class="col-lg-3 form-group mt-4">
                     <label for="">Valeur et nature des travaux à la charge du propriétaire (facultatif)</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="valeur_nature_travaux_charge_proprietaire" />
+                    <input type="text" class="form-control rounded-pill" formControlName="valeur_nature_chargeProprietaire" />
                   </div>
   
                   <div class="col-lg-3 form-group mt-4">
                     <label for="">Valeur et nature des travaux à la charge de la Fondation</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="valeur_nature_travaux_charge_fondation" />
+                    <input type="text" class="form-control rounded-pill" formControlName="valeur_nature_chargeFondation" />
                   </div>
   
                   <div class="col-lg-3 form-group mt-4">
                     <label for="">N° de facture</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="Nfacture" />
+                    <input type="text" class="form-control rounded-pill" formControlName="numero_facture" />
                   </div>
   
                   <div class="col-lg-3 form-group mt-4">
                     <label for="">N° de bon de commande</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="Nbon_commande" />
+                    <input type="text" class="form-control rounded-pill" formControlName="numero_bon_commande" />
                   </div>
   
                   <div class="col-lg-3 form-group mt-4">
@@ -202,7 +202,7 @@
 
                   <div class="col-lg-3 form-group mt-4">
                     <label for="">Croquis d’aménagement via imagerie</label>
-                    <input type="file" class="form-control btn success-btn" formControlName="croquis_amenagement_via_imagerie" multiple/>
+                    <input type="file" class="form-control btn success-btn" formControlName="images_croquis" multiple/>
                   </div>
 
                   <div class="col-lg-3 form-group mt-4">
