@@ -1,1 +1,143 @@
-<p>detail-contrat works!</p>
+<div class="row title  ">
+    <div class="col-lg-12 mt-3">
+        <div class="d-flex justify-content-between">
+            <!-- <h3 class="leftborder"></h3> -->
+            <h3 class="main-title">
+                <a class="goback-link">Détails de Contrat de bail</a>/<span class="selected-text"> {{Contrat._id}}
+                </span>
+            </h3>
+            <div class="d-none d-lg-block">
+                <a  [routerLink]="['/contrat/list']" class="btn btn-sm second-btn me-3 " data-bs-toggle="tooltip"
+                    data-bs-placement="top" title="Retour à la liste"><i class="far fa-arrow-left"></i>
+                    Retour à la liste des contras 
+                </a>
+                <span data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Ici vous pouvez voir les détails de   ">
+                    <i class="fal fa-info"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="main-card p-lg-4 mt-4 table-responsive">
+
+    <table class="table" cellspacing="0" width="100%">
+        <tbody>
+            <tr>
+                <th>Etat de contrat</th>
+                <td> {{Contrat.etat}} </td>
+            </tr>
+
+            <tr>
+                <th>Date de debut du loyer</th>
+                <td> {{Contrat.Date_debut_loyer | date :'dd-MM-yyyy'}}</td>
+            </tr>
+
+            <tr>
+                <th>Date fin de contrat de bail</th>
+                <td> {{Contrat.Date_fin_contrat_bail | date :'dd-MM-yyyy'}} </td>
+            </tr>
+
+             <tr>
+                <th>Durée de location</th>
+                <td> {{Contrat.Duree_location}} </td>
+            </tr>
+
+            <tr>
+                <th>Périodicité de paiement</th>
+                <td> {{Contrat.Periodicite_paiement}} </td>
+            </tr>
+            
+            <tr>
+                <th>Montant du loyer</th>
+                <td> {{Contrat.Montant_loyer}} </td>
+            </tr>
+
+            <tr>
+                <th>Taxe d'édilité comprise dans loyer</th>
+                <td> {{Contrat.Taxe_edilite_loyer}} </td>
+            </tr>
+
+
+            <tr>
+                <th>Taxe d'édilité non comprise dans loyer</th>
+                <td> {{Contrat.Taxe_edilite_non_loyer}} </td>
+            </tr>
+
+            <tr>
+                <th>Déclaration d'option </th>
+                <td> {{Contrat.Declaration_option}} </td>
+            </tr>
+
+            <tr>
+                <th>Taux de l'impot</th>
+                <td> {{Contrat.Taux_impot}} </td>
+            </tr>
+
+            <tr>
+                <th>Retenue à la source </th>
+                <td> {{Contrat.Retenue_source}} </td>
+            </tr>
+
+            <tr>
+                <th>Montant après impot</th>
+                <td> {{Contrat.Montant_apres_impot}} </td>
+            </tr>
+
+            <tr>
+                <th>Montant de la caution</th>
+                <td> {{Contrat.Montant_caution}} </td>
+            </tr>
+
+            <tr>
+                <th>Effort de la caution</th>
+                <td> {{Contrat.Effort_caution}} </td>
+            </tr>
+
+            <tr>
+                <th>Date de reprise de la caution </th>
+                <td> {{Contrat.Date_reprise_caution | date: 'dd-MM-yyyy'}} </td>
+            </tr>
+
+            <tr>
+                <th>Statut de la caution</th>
+                <td> {{Contrat.Statut_caution}} </td>
+            </tr>
+            <tr>
+                <th>Montant de l'avance</th>
+                <td> {{Contrat.Montant_lavance}} </td>
+            </tr>
+            <tr>
+                <th>Date fin de l'avance</th>
+                <td> {{Contrat.Date_fin_lavance | date: 'dd-MM-yyyy'}} </td>
+            </tr>
+            <tr>
+                <th>Date 1er paiement</th>
+                <td> {{Contrat.Date_1er_paiement | date: 'dd-MM-yyyy'}} </td>
+            </tr>
+            <tr>
+                <th>Durée de l'avance</th>
+                <td> {{Contrat.Duree_lavance}} </td>
+            </tr>
+            <tr>
+                <th>N° d'engagement de la dépense</th>
+                <td> {{Contrat.N_dengagement_depense}} </td>
+            </tr>
+            <tr>
+                <th>Echéance de révision du loyer</th>
+                <td> </td>
+            </tr>
+           
+
+
+        </tbody>
+
+    </table>
+   
+
+
+
+</div>

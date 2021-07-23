@@ -1,10 +1,9 @@
 
 import { Component, OnInit } from '@angular/core';
-import { ConfirmationModalService } from '../../../services/confirmation-modal-service/confirmation-modal.service';
-import { MainModalService } from '../../../services/main-modal/main-modal.service';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { ActivatedRoute } from '@angular/router';
 import { Lieu } from '../../../models/Lieu';
+
 @Component({
   selector: 'app-detail-lieux',
   templateUrl: './detail-lieux.component.html',
@@ -47,7 +46,7 @@ export class DetailLieuxComponent implements OnInit {
     }]
   };
 
-  selectedAmenagement: any[] = [{
+  selectedAmenagement: any = {
     _id: '',
     nature_amenagement: 'loading....',
     montant_amenagement: 'loading....',
@@ -58,8 +57,8 @@ export class DetailLieuxComponent implements OnInit {
     date_passation_commande: 'loading....',
     evaluation_fournisseur: 'loading....',
     date_fin_travaux: 'loading....',
-    date_livraison_local: 'loading....',
-  }];
+    date_livraison_local: 'loading....'
+  };
   display = false;
   constructor(
     private lieuxService: LieuxService,

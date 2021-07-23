@@ -21,31 +21,34 @@
 <div class="main-card table-responsive-sm p-lg-3 mt-4">
     <table class="table">
         <thead>
-            <tr>
-                <th>Numéro de contrat</th>
+            <tr class="text-truncate">
+                <th>Etat</th>
+                <th>N° contrat</th>
                 <th>Montant de loyer</th>
                 <th>Date de début du loyer</th>
-                <th>Date fin de contrat de bail</th>
+                <th>Date fin de contrat</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            <tr  *ngFor="let contrat of contrats" >
+            <tr class="text-center" >
                 <!-- <td >{{ proprietaire._id }}</td> -->
+                <td class="progress-bar-striped bg-warning text-light">initié </td>
                 <td>------</td>
                 <td>------</td>
                 <td>------</td>
                 <td>------</td>
-                <td>
-                    <span class="p-1">
-                    </span>
-                </td>
-                <td>
-                    <a [routerLink]="['list', contrat._id]"  class="btn btn-sm main-btn"><i
+              
+                <td >
+                    <div class="d-inline">
+                        <a [routerLink]="['list',1]"  class="btn btn-sm main-btn"><i
                             class="fal fa-eye"></i></a>
-                    <a class="btn btn-sm info-btn mx-2"><i
+                    <a [routerLink]="['edit',1]" class="btn btn-sm info-btn mx-2"><i
                             class="far fa-user-edit"></i></a>
                     <a class="btn btn-sm danger-btn" ><i
                             class="far fa-user-minus"></i></a>
+                    </div>
+                  
                 </td>
             </tr>
 

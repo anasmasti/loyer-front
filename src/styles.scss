@@ -8,10 +8,18 @@ html {
 }
 
 body {
+<<<<<<< HEAD
+    margin: 0;
+    padding: 0;
+    background: color(body-color) !important;
+    color: color(dark) !important;
+    overflow-x: hidden;
+=======
   margin: 0;
   padding: 0;
   background: color(body-color) !important;
   color: color(dark) !important;
+>>>>>>> 67976c41f16915af8bc50c0025ef4794890ca011
 }
 
 // Glibal font weights
