@@ -29,44 +29,54 @@
                 <th>Actions</th>
             </tr>
         </thead>
-        <tbody *ngFor="let proprietaire of proprietaires; let i = index">
-            <tr>
-                <!-- <td >{{ proprietaire._id }}</td> -->
-                <td>{{ proprietaire.nom_prenom }}</td>
-                <td>{{ proprietaire.raison_social }}</td>
-                <td>{{ proprietaire.n_registre_commerce }} </td>
-                <td>
-                    <span class="p-1"
-                        [ngClass]="{'done-alert': proprietaire?.has_mandataire, 'error-alert': !proprietaire?.has_mandataire}">
-                        {{ checkAndPutText(proprietaire.has_mandataire) }}
-                    </span>
-                </td>
-                <td>
-                    <a [routerLink]="['list', proprietaire._id]" class="btn btn-sm main-btn"><i
-                            class="fal fa-eye"></i></a>
-                    <a class="btn btn-sm info-btn mx-2" (click)='openModalAndPushProprietaire(proprietaire)'><i
-                            class="far fa-user-edit"></i></a>
-                    <a class="btn btn-sm danger-btn"
-                        (click)="openConfirmationModal();getProprietaireId(proprietaire._id || ' ')"><i
-                            class="far fa-user-minus"></i></a>
-                </td>
-            </tr>
+        <div *ngIf="proprietaires.length">
 
-            <app-main-modal [closeBtn]='true'>
-                <app-edit-proprietaire [proprietaire]="targetProprietaire">
-                </app-edit-proprietaire>
-            </app-main-modal>
+            <tbody *ngFor="let proprietaire of proprietaires; let i = index">
+                <tr>
+                    <!-- <td >{{ proprietaire._id }}</td> -->
+                    <td>{{ proprietaire.nom_prenom }}</td>
+                    <td>{{ proprietaire.raison_social }}</td>
+                    <td>{{ proprietaire.n_registre_commerce }} </td>
+                    <td>
+                        <span class="p-1"
+                            [ngClass]="{'done-alert': proprietaire?.has_mandataire, 'error-alert': !proprietaire?.has_mandataire}">
+                            {{ checkAndPutText(proprietaire.has_mandataire) }}
+                        </span>
+                    </td>
+                    <td>
+                        <a [routerLink]="['list', proprietaire._id]" class="btn btn-sm main-btn"><i
+                                class="fal fa-eye"></i></a>
+                        <a class="btn btn-sm info-btn mx-2" (click)='openModalAndPushProprietaire(proprietaire)'><i
+                                class="far fa-user-edit"></i></a>
+                        <a class="btn btn-sm danger-btn"
+                            (click)="openConfirmationModal();getProprietaireId(proprietaire._id || ' ')"><i
+                                class="far fa-user-minus"></i></a>
+                    </td>
+                </tr>
 
-            <app-confirmation-modal [closeBtn]='true'>
-                <h3 class="main-title">Confirmation de la supression <i class="far fa-exclamation-circle"></i></h3>
-                <p class="mt-3">Voulez vous vraiment supprimer ce propriétaire?</p>
-                <div class="d-inline-flex justify-content-start mt-5">
-                    <a class="btn btn-lg px-lg-4 danger-btn me-2"
-                        (click)='deleteProprietaire(targetProprietaireId)'>Oui</a>
-                    <a class="btn btn-lg px-lg-4 main-btn" (click)='closeConfirmationModal()'>Non</a>
-                </div>
-            </app-confirmation-modal>
+                <app-main-modal [closeBtn]='true'>
+                    <app-edit-proprietaire [proprietaire]="targetProprietaire">
+                    </app-edit-proprietaire>
+                </app-main-modal>
 
-        </tbody>
+                <app-confirmation-modal [closeBtn]='true'>
+                    <h3 class="main-title">Confirmation de la supression <i class="far fa-exclamation-circle"></i></h3>
+                    <p class="mt-3">Voulez vous vraiment supprimer ce propriétaire?</p>
+                    <div class="d-inline-flex justify-content-start mt-5">
+                        <a class="btn btn-lg px-lg-4 danger-btn me-2"
+                            (click)='deleteProprietaire(targetProprietaireId)'>Oui</a>
+                        <a class="btn btn-lg px-lg-4 main-btn" (click)='closeConfirmationModal()'>Non</a>
+                    </div>
+                </app-confirmation-modal>
+
+            </tbody>
+        </div>
+
+        <div *ngIf="!proprietaires.length" class="w-100 d-flex align-items-center">
+            <h5 class="main-muted-text my-4">Aucun proprietaire à afficher</h5>
+            <a class="btn btn-sm second-btn ms-3" [routerLink]="['/proprietaire']">
+                + Nouveau proprietaire
+            </a>
+        </div>
     </table>
 </div>

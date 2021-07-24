@@ -1,12 +1,11 @@
-<<<<<<< HEAD
 @use '../../../../assets/style/helpers' as *;
 @use '../../../../assets/style/components' as *;
 
 th {
-   @extend .header-table
+   @extend .header-table;
 }
 
-a{
+a {
     cursor: pointer;
 }
 
@@ -14,7 +13,3 @@ a{
 
 
 
-=======
-@use '../../../../assets/style/components' as *;
-@use '../../../../assets/style/helpers' as *;
->>>>>>> 67976c41f16915af8bc50c0025ef4794890ca011
