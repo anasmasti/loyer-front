@@ -1,9 +1,11 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, FormArray } from '@angular/forms';
+import { Lieu } from '../../../../models/Lieu';
+
 import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
-import { Lieu } from 'src/app/models/lieu';
+
 
 @Component({
   selector: 'lf-form',
