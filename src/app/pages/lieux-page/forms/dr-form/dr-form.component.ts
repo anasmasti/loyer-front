@@ -124,6 +124,12 @@ export class DrFormComponent implements OnInit {
 
   }
 
+  TestFunction(){
+    
+    console.log(this.drForm.get('amenagementForm')?.value);
+    
+  }
+
 
 
   get code_lieu() {

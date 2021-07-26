@@ -88,25 +88,19 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       <FormGroup>mandataireData
     );
 
-    return <FormGroup>mandataireData
+    return <FormGroup>mandataireData;
   }
 
   removeFormMandateire(index: number) {
-    
-    (<FormArray>this.proprietaireForm.get('mandataireForm')).removeAt(index)
+    (<FormArray>this.proprietaireForm.get('mandataireForm')).removeAt(index);
   }
 
   removeAllMandateires() {
-
-      (<FormArray>this.proprietaireForm.get('mandataireForm')).clear()
-
+    (<FormArray>this.proprietaireForm.get('mandataireForm')).clear();
   }
 
   fetchProprietaire() {
-
-
     this.removeAllMandateires();
-
 
     if (this.proprietaire.has_mandataire) {
       this.isMand = true;
@@ -136,29 +130,38 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         //   this.mandataireList.n_compte_bancaire_mandataire,
       });
 
-        // mandataire inputs
-        for (let control of (this.proprietaire.mandataire) ){
-        
+      // mandataire inputs
+      for (let mandataireControl of this.proprietaire.mandataire) {
+        let formGroup = this.addFormMandateire();
 
-          let formGroup = this.addFormMandateire();
-          
-          formGroup.controls.cin_mandataire.setValue(control.cin_mandataire);
+        formGroup.controls.cin_mandataire.setValue(
+          mandataireControl.cin_mandataire
+        );
 
-          formGroup.controls.nom_prenom_mandataire.setValue(control.nom_prenom_mandataire);
+        formGroup.controls.nom_prenom_mandataire.setValue(
+          mandataireControl.nom_prenom_mandataire
+        );
 
-          formGroup.controls.raison_social_mandataire.setValue(control.raison_social_mandataire);
+        formGroup.controls.raison_social_mandataire.setValue(
+          mandataireControl.raison_social_mandataire
+        );
 
-          formGroup.controls.telephone_mandataire.setValue(control.telephone_mandataire);
+        formGroup.controls.telephone_mandataire.setValue(
+          mandataireControl.telephone_mandataire
+        );
 
-          formGroup.controls.fax_mandataire.setValue(control.fax_mandataire);
+        formGroup.controls.fax_mandataire.setValue(
+          mandataireControl.fax_mandataire
+        );
 
-          formGroup.controls.adresse_mandataire.setValue(control.adresse_mandataire);
+        formGroup.controls.adresse_mandataire.setValue(
+          mandataireControl.adresse_mandataire
+        );
 
-          formGroup.controls.n_compte_bancaire_mandataire.setValue(control.n_compte_bancaire_mandataire);
-  
-
-        }
-
+        formGroup.controls.n_compte_bancaire_mandataire.setValue(
+          mandataireControl.n_compte_bancaire_mandataire
+        );
+      }
     } else {
       this.isMand = false;
       this.proprietaireForm.patchValue({
@@ -185,8 +188,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         n_compte_bancaire_mandataire: '',
       });
 
-      console.log("not has mondataire");
-
+      console.log('not has mondataire');
     }
   }
 
@@ -246,7 +248,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       mandataire: this.proprietaireForm.get('mandataireForm')?.value,
       // deleted:false,
     };
-
 
     let dataWithoutMandataire: any = {
       // _id: this.proprietaireForm.get('_id').value ,
@@ -311,7 +312,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     }
   }
 
-
   updateProprietaire() {
     let id = this.proprietaire._id;
     let proprietaireData: Proprietaire = {
@@ -343,7 +343,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       //   },
       // ],
       mandataire: this.proprietaireForm.get('mandataireForm')?.value,
-
     };
 
     this.proprietaireService.updateProprietaire(id, proprietaireData).subscribe(
@@ -409,7 +408,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
   // Mandataire
   get mandataireForm(): FormArray {
-    return (<FormArray>this.proprietaireForm.get('mandataireForm'));
+    return <FormArray>this.proprietaireForm.get('mandataireForm');
   }
 
   // get cin_mandataire() {

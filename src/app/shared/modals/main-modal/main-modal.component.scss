@@ -9,7 +9,6 @@
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
     background-color: #6363634d;
     &-content {
         padding: 50px;
@@ -18,6 +17,19 @@
         background-color: color(light);
         border-radius: 26px;
     }
+}
+
+.modal-content{
+overflow-y: auto;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    border-radius: 200px;
+
+}
+ 
+.modal-content::-webkit-scrollbar-thumb {
+    border-radius: 200px;
 }
 
 .close-icon {
