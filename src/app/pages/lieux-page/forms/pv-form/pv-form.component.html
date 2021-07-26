@@ -43,7 +43,7 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Code supervision</label>
-          <select class="form-control rounded-pill" formControlName="code_rattahce_SUP">
+          <select class="form-control rounded-pill" formControlName="code_rattache_SUP">
             <option value="">-----</option>
           </select>
         </div>
@@ -181,7 +181,7 @@
                   <label for="">Fournisseur</label>
                   <a (click)="addFournisseur(amenagementForm, i)" class="btn btn-sm second-btn mx-2 mx-lg-4">Ajouter
                     fournisseur</a>
-                  <div formArrayName="fournisseurForm"
+                  <div formArrayName="fournisseur"
                     *ngFor="let item of getFournisseur(amenagementForm, i); let j = index">
 
                     <div [formGroupName]="j" class="main-card mt-4 bg-white p-lg-4">

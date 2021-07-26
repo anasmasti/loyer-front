@@ -1,4 +1,5 @@
-import { Lieu } from './../../../../models/lieu';
+import { Lieu } from 'src/app/models/Lieu';
+
 
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
@@ -10,8 +11,10 @@ import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
   styleUrls: ['./dr-form.component.scss']
 })
 export class DrFormComponent implements OnInit {
-  $testDrForm !: any;
+  $testDrForm!: any;
+  errors!: string;
   hasAmenagement: boolean = false;
+  postDone: boolean = false;
   selectedFile !: File;
   drForm!: FormGroup;
 
@@ -28,7 +31,7 @@ export class DrFormComponent implements OnInit {
       ville: new FormControl('',),
       code_localite: new FormControl('',),
       desc_lieu_entrer: new FormControl('',),
-      // imgs_lieu_entrer: new FormControl('',),
+      imgs_lieu_entrer: new FormControl('',),
       has_amenagements: new FormControl('',),
       superficie: new FormControl('',),
       telephone: new FormControl('',),
@@ -36,7 +39,7 @@ export class DrFormComponent implements OnInit {
       etage: new FormControl('',),
       type_lieu: new FormControl('',),
       code_rattache_DR: new FormControl('',),
-      code_rattahce_SUP: new FormControl('',),
+      code_rattache_SUP: new FormControl('',),
       intitule_rattache_SUP_PV: new FormControl('',),
       centre_cout_siege: new FormControl('',),
       categorie_pointVente: new FormControl('',),
@@ -62,7 +65,7 @@ export class DrFormComponent implements OnInit {
       evaluation_fournisseur: new FormControl(''),
       date_fin_travaux: new FormControl(''),
       date_livraison_local: new FormControl(''),
-      fournisseurForm: new FormArray([]),
+      fournisseur: new FormArray([]),
       images_local_apres_amenagement: new FormControl(''),
       croquis_amenagement_via_imagerie: new FormControl(''),
     });
@@ -84,43 +87,83 @@ export class DrFormComponent implements OnInit {
       amenagement_effectue: new FormControl(''),
     });
 
-    (<FormArray>amenagementForm.controls[index].controls.fournisseurForm).push(<FormGroup>fournisseurData)
+    (<FormArray>amenagementForm.controls[index].controls.fournisseur).push(<FormGroup>fournisseurData)
   }
 
   removeFournisseur(amenagementForm: any, index: number) {
-    (<FormArray>amenagementForm.controls[index].controls.fournisseurForm).removeAt(index)
+    (<FormArray>amenagementForm.controls[index].controls.fournisseur).removeAt(index)
   }
 
   getFournisseur(amenagementForm: any, i: number) {
-    return (amenagementForm.controls[i].controls.fournisseurForm).controls
+    return (amenagementForm.controls[i].controls.fournisseur).controls
   }
 
 
   onFileSelected(event: any) {
     this.selectedFile = <File>event.target.files[0];
-    console.log(this.selectedFile);
+
+    // if (event.target.files.length > 0) {
+    //   this.selectedFile = <File>event.target.files[0];
+    // }
+  }
+
+  // Afficher le message d'erreur de serveur
+  showErrorMessage() {
+    $('.error-alert').addClass('active');
+  }
+
+  // hide le message d'erreur de serveur
+  hideErrorMessage() {
+    $('.error-alert').removeClass('active');
   }
 
   addDR() {
     // this.$testDrForm = this.drService.postDR(this.drForm)
     // this.$testDrForm.subscribe()
-    // let formdata = new FormData();
-    // formdata.append('imgs_lieu_entrer', this.selectedFile, this.selectedFile.name)
-    // let myform = JSON.stringify(this.drForm.value)
-    // let myform=JSON.parse(this.drForm.value)
+    let formdata = new FormData();
+    formdata.append('imgs_lieu_entrer', this.selectedFile)
+    //  let myform = JSON.stringify(this.drForm.value)
+    //  let myform=JSON.parse(this.drForm.value)
 
-    let data: Lieu = {
+    let dr_data: Lieu = {
       code_lieu: this.drForm.get('code_lieu')?.value,
       intitule_lieu: this.drForm.get('intitule_lieu')?.value,
       adresse: this.drForm.get('adresse')?.value,
       ville: this.drForm.get('ville')?.value,
       code_localite: this.drForm.get('code_localite')?.value,
       desc_lieu_entrer: this.drForm.get('desc_lieu_entrer')?.value,
+      has_amenagements: this.drForm.get('has_amenagements')?.value,
+      superficie: this.drForm.get('superficie')?.value,
+      telephone: this.drForm.get('telephone')?.value,
+      fax: this.drForm.get('fax')?.value,
+      etage: this.drForm.get('etage')?.value,
+      type_lieu: this.drForm.get('type_lieu')?.value,
+      code_rattache_DR: this.drForm.get('code_rattache_DR')?.value,
+      code_rattache_SUP: this.drForm.get('code_rattache_SUP')?.value,
+      intitule_rattache_SUP_PV: this.drForm.get('code_lieu')?.value,
+      centre_cout_siege: this.drForm.get('centre_cout_siege')?.value,
+      categorie_pointVente: this.drForm.get('categorie_pointVente')?.value,
+
+      // Amenagment
       amenagement: this.drForm.get('amenagementForm')?.value
     };
-
-    // this.drService.addDR(data).subscribe()
-    console.log(data);
+    
+    this.drService.addLieu(dr_data).subscribe(
+      (_) => {
+        this.postDone = true;
+        setTimeout(() => {
+          this.drForm.reset();
+          this.postDone = false;
+        }, 2000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+    )
 
   }
 

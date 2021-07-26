@@ -6,7 +6,6 @@ import { ConfirmationModalService } from 'src/app/services/confirmation-modal-se
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 
-
 @Component({
   selector: 'lf-form',
   templateUrl: './lf-form.component.html',
@@ -16,8 +15,8 @@ export class LfFormComponent implements OnInit {
   style: string = '40vh';
   hasAmenagement: boolean = false;
   etatLogement = '';
-  test1 = 'update';
-  isReplace!: string;
+  // test1 = 'update';
+  isReplace: string='';
   amenagementList: any = [];
   @Output() replaceFunction = new EventEmitter<any>();
   @Input() update!: boolean;
@@ -58,7 +57,7 @@ export class LfFormComponent implements OnInit {
       etage: new FormControl(''),
       type_lieu: new FormControl(''),
       code_rattache_DR: new FormControl(''),
-      code_rattahce_SUP: new FormControl(''),
+      code_rattache_SUP: new FormControl(''),
       intitule_rattache_SUP_PV: new FormControl(''),
       centre_cout_siege: new FormControl(''),
       categorie_pointVente: new FormControl(''),
@@ -86,7 +85,7 @@ export class LfFormComponent implements OnInit {
       evaluation_fournisseur: new FormControl(''),
       date_fin_travaux: new FormControl(''),
       date_livraison_local: new FormControl(''),
-      fournisseurForm: new FormArray([]),
+      fournisseur: new FormArray([]),
       images_local_apres_amenagement: new FormControl(''),
       croquis_amenagement_via_imagerie: new FormControl(''),
     });
@@ -107,15 +106,15 @@ export class LfFormComponent implements OnInit {
       amenagement_effectue: new FormControl(''),
     });
 
-    (<FormArray>amenagementForm.controls[index].controls.fournisseurForm).push(<FormGroup>fournisseurData)
+    (<FormArray>amenagementForm.controls[index].controls.fournisseur).push(<FormGroup>fournisseurData)
   }
 
   removeFournisseur(amenagementForm: any, index: number) {
-    (<FormArray>amenagementForm.controls[index].controls.fournisseurForm).removeAt(index)
+    (<FormArray>amenagementForm.controls[index].controls.fournisseur).removeAt(index)
   }
 
   getFournisseur(amenagementForm: any, i: number) {
-    return (amenagementForm.controls[i].controls.fournisseurForm).controls
+    return (amenagementForm.controls[i].controls.fournisseur).controls
   }
 
   //////////////////////////////////////////////////////////////////////////////////
@@ -123,6 +122,7 @@ export class LfFormComponent implements OnInit {
     this.isReplace = active;
     this.mainModalService.open();
     // this.confirmationModalService.open();
+    
   }
   //////////////////////////////////////////////////////////////////////////////////
   closeReplaceModal() {
@@ -140,8 +140,13 @@ export class LfFormComponent implements OnInit {
   //////////////////////////////////////////////////////////////////////////////////
   closeConfirmationModal() {
     this.confirmationModalService.close();
+    // this.isReplace='';
   }
   //////////////////////////////////////////////////////////////////////////////////
+  switchIsReplace(){
+    this.isReplace = '';
+  }
+   //////////////////////////////////////////////////////////////////////////////////
   onAddLf() {
     let lfData: Lieu = {
       code_lieu: this.LfForm.get('code_lieu')?.value,
@@ -152,7 +157,7 @@ export class LfFormComponent implements OnInit {
       code_localite: this.LfForm.get('code_localite')?.value,
       desc_lieu_entrer: this.LfForm.get('desc_lieu_entrer')?.value,
       imgs_lieu_entrer: this.LfForm.get('imgs_lieu_entrer')?.value,
-      has_amenagement: this.LfForm.get('has_amenagement')?.value,
+      has_amenagements: this.LfForm.get('has_amenagement')?.value,
       superficie: this.LfForm.get('superficie')?.value,
       telephone: this.LfForm.get('telephone')?.value,
       fax: this.LfForm.get('fax')?.value,
@@ -179,13 +184,13 @@ export class LfFormComponent implements OnInit {
       }]
     }
 
-    this.lieuService.addLieu(lfData).subscribe((_) => {
-      console.log(lfData);
-    })
+    // this.lieuService.addLieu(lfData).subscribe((_) => {
+    //   console.log(lfData);
+    // })
   }
   //////////////////////////////////////////////////////////////////////////////////
   fetchLf() {
-    if (this.lF.has_amenagement) {
+    if (this.lF.has_amenagements) {
       this.hasAmenagement = true;
       this.amenagementList = this.lF.amenagement;
       this.LfForm.patchValue({
@@ -197,7 +202,7 @@ export class LfFormComponent implements OnInit {
         code_localite: this.lF.code_localite,
         desc_lieu_entrer: this.lF.desc_lieu_entrer,
         imgs_lieu_entrer: this.lF.imgs_lieu_entrer,
-        has_amenagement: this.lF.has_amenagement,
+        has_amenagements: this.lF.has_amenagements,
         superficie: this.lF.superficie,
         telephone: this.lF.telephone,
         fax: this.lF.fax,
@@ -232,7 +237,7 @@ export class LfFormComponent implements OnInit {
         code_localite: this.lF.code_localite,
         desc_lieu_entrer: this.lF.desc_lieu_entrer,
         imgs_lieu_entrer: this.lF.imgs_lieu_entrer,
-        has_amenagement: this.lF.has_amenagement,
+        has_amenagements: this.lF.has_amenagements,
         superficie: this.lF.superficie,
         telephone: this.lF.telephone,
         fax: this.lF.fax,
@@ -270,7 +275,7 @@ export class LfFormComponent implements OnInit {
       code_localite: this.LfForm.get('code_localite')?.value,
       desc_lieu_entrer: this.LfForm.get('desc_lieu_entrer')?.value,
       imgs_lieu_entrer: this.LfForm.get('imgs_lieu_entrer')?.value,
-      has_amenagement: this.LfForm.get('has_amenagement')?.value,
+      has_amenagements: this.LfForm.get('has_amenagements')?.value,
       superficie: this.LfForm.get('superficie')?.value,
       telephone: this.LfForm.get('telephone')?.value,
       fax: this.LfForm.get('fax')?.value,
