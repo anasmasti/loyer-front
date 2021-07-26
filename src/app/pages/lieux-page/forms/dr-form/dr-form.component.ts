@@ -42,6 +42,7 @@ export class DrFormComponent implements OnInit {
       categorie_pointVente: new FormControl('',),
       deleted: new FormControl('',),
 
+      //Aménagement
       amenagementForm: new FormArray([]),
 
     });
