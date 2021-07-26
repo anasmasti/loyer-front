@@ -8,7 +8,7 @@ export interface Lieu {
   code_localite?: string,
   desc_lieu_entrer?: string,
   imgs_lieu_entrer?: string,
-  has_amenagement?: boolean,
+  has_amenagements?: boolean,
   superficie?: string,
   telephone?: number,
   fax?: number,

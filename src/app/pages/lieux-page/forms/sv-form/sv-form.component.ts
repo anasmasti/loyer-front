@@ -29,7 +29,7 @@ export class SvFormComponent implements OnInit {
       etage: new FormControl(''),
       type_lieu: new FormControl(''),
       code_rattache_DR: new FormControl(''),
-      code_rattahce_SUP: new FormControl(''),
+      code_rattache_SUP: new FormControl(''),
       intitule_rattache_SUP_PV: new FormControl(''),
       centre_cout_siege: new FormControl(''),
       categorie_pointVente: new FormControl(''),
@@ -52,7 +52,7 @@ export class SvFormComponent implements OnInit {
       evaluation_fournisseur: new FormControl(''),
       date_fin_travaux: new FormControl(''),
       date_livraison_local: new FormControl(''),
-      fournisseurForm: new FormArray([]),
+      fournisseur: new FormArray([]),
       images_local_apres_amenagement: new FormControl(''),
       croquis_amenagement_via_imagerie: new FormControl(''),
     });
@@ -74,15 +74,15 @@ export class SvFormComponent implements OnInit {
       amenagement_effectue: new FormControl(''),
     });
 
-    (<FormArray>amenagementForm.controls[index].controls.fournisseurForm).push(<FormGroup>fournisseurData)
+    (<FormArray>amenagementForm.controls[index].controls.fournisseur).push(<FormGroup>fournisseurData)
   }
 
   removeFournisseur(amenagementForm: any, index: number) {
-    (<FormArray>amenagementForm.controls[index].controls.fournisseurForm).removeAt(index)
+    (<FormArray>amenagementForm.controls[index].controls.fournisseur).removeAt(index)
   }
 
   getFournisseur(amenagementForm: any, i: number) {
-    return (amenagementForm.controls[i].controls.fournisseurForm).controls
+    return (amenagementForm.controls[i].controls.fournisseur).controls
   }
 
   get amenagementForm(): FormArray {
