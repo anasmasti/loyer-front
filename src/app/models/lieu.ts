@@ -12,6 +12,7 @@ export interface Lieu {
   superficie?: string,
   telephone?: number,
   fax?: number,
+  etat_logement_fonction?: string,
   etage?: string,
   type_lieu?: string,
   code_rattache_DR?: string,
@@ -21,7 +22,7 @@ export interface Lieu {
   categorie_pointVente?: string,
 
   amenagement?: [{
-    _id: string,
+    _id?: string,
     nature_amenagement: string,
     montant_amenagement: string,
     valeur_nature_chargeProprietaire: string,
