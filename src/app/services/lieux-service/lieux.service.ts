@@ -1,4 +1,6 @@
-import { Lieu } from '../../models/lieu';
+import { Lieu } from 'src/app/models/lieu';
+
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -8,7 +10,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class LieuxService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   param_url: string = 'lieu';
 
@@ -29,18 +31,18 @@ export class LieuxService {
     return this.http.get<Lieu>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}` + id);
   }
 
-  addLieu(data:Lieu): Observable<Lieu> {
-     return this.http.post<Lieu>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`,data);
+  addLieu(data: Lieu): Observable<Lieu> {
+    return this.http.post<Lieu>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`, data );
   }
 
-   // Update the proprietaire
-   updateLieux(id: string, data: Lieu): Observable<Lieu> {
+  // Update the proprietaire
+  updateLieux(id: string, data: Lieu): Observable<Lieu> {
     return this.http.put<Lieu>(
-      `${environment.API_URL + environment.API_VERSION + this.param_url}/edit/${id}`,data);
+      `${environment.API_URL + environment.API_VERSION + this.param_url}/edit/${id}`, data);
   }
 
 
- 
+
 
 
 
