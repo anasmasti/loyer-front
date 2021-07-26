@@ -1,7 +1,7 @@
-import { Lieu } from '../../../../models/Lieu';
 
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { Lieu } from 'src/app/models/lieu';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 
 @Component({
