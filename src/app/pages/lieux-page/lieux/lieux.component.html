@@ -11,7 +11,7 @@
     </div>
 </div>
 
-<div class="mt-4">
+<div class="my-5">
     <div class="d-flex justify-content-between align-content-center flex-row">
         <div class="" *ngFor="let lieu of lieux">
             <a (click)='showForm(lieu.id)' class="btn second-btn">{{ lieu.name }}</a>
@@ -20,9 +20,8 @@
 </div>
 
 <div class="mt-4">
-    <h6>Remplissage des données</h6>
 
-    <div class="form-box mt-4">
+    <div class="form-box mt-5">
         <div *ngIf="activeLieux == 'DR'; then DR"></div>
         <div *ngIf="activeLieux == 'LF'; then LF"></div>
         <div *ngIf="activeLieux == 'PV'; then PV"></div>
@@ -54,7 +53,7 @@
 </ng-template>
 
 <ng-template #Error>
-    <h5>
+    <h2 class="text-center my-5 main-muted-text">
         Choisissez un lieu s'il vous plait.
-    </h5>
+    </h2>
 </ng-template>

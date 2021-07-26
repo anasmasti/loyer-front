@@ -1,4 +1,4 @@
-import { Lieu } from '../../../../models/Lieu';
+import { Lieu } from './../../../../models/lieu';
 
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
@@ -42,6 +42,7 @@ export class DrFormComponent implements OnInit {
       categorie_pointVente: new FormControl('',),
       deleted: new FormControl('',),
 
+      //Aménagement
       amenagementForm: new FormArray([]),
 
     });

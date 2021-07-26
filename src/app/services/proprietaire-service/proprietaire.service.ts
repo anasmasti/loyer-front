@@ -61,7 +61,7 @@ export class ProprietaireService {
   deleteProprietaire(id: string, data: any): Observable<Proprietaire> {
     return this.http.put<Proprietaire>(
       `${
-        environment.API_URL + environment.API_VERSION + this.param_url
+        environment.API_URL_TEST + environment.API_VERSION + this.param_url
       }/supprimer/${id}`,
       data,
       { headers: this.httpOptions.headers }

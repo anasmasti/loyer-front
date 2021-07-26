@@ -40,3 +40,8 @@
     background: color(danger);
     border-radius: $main-border-radius;
 }
+
+// Muted text
+.main-muted-text {
+    color: color(dark-muted) !important;
+}
