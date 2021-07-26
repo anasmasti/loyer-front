@@ -8,10 +8,11 @@ html {
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  background: color(body-color) !important;
-  color: color(dark) !important;
+    margin: 0;
+    padding: 0;
+    background: color(body-color) !important;
+    color: color(dark) !important;
+    overflow-x: hidden;
 }
 
 // Glibal font weights
@@ -23,7 +24,6 @@ body {
 .router-link-active {
   @extend .second-btn;
   &:hover {
-    border: none !important;
     background: color(dark) !important;
   }
 }
