@@ -22,7 +22,7 @@ export class ProprietaireService {
   // Get list of all proprietaires from database
   getProprietaire(): Observable<Proprietaire[]> {
     return this.http.get<Proprietaire[]>(
-      `${environment.API_URL + environment.API_VERSION + this.param_url}/tous`,
+      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/tous`,
       { headers: this.httpOptions.headers }
     );
   }
@@ -30,7 +30,7 @@ export class ProprietaireService {
   // Get one proprietaire by id from database
   getProprietaireById(id: string): Observable<Proprietaire> {
     return this.http.get<Proprietaire>(
-      `${environment.API_URL + environment.API_VERSION + this.param_url}/${id}`,
+      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/${id}`,
       { headers: this.httpOptions.headers }
     );
   }
@@ -39,7 +39,7 @@ export class ProprietaireService {
   postProprietaire(data: Proprietaire): Observable<Proprietaire> {
     return this.http.post<Proprietaire>(
       `${
-        environment.API_URL + environment.API_VERSION + this.param_url
+        environment.API_URL_TEST + environment.API_VERSION + this.param_url
       }/ajouter`,
       data,
       { headers: this.httpOptions.headers }
@@ -50,7 +50,7 @@ export class ProprietaireService {
   updateProprietaire(id: string, data: Proprietaire): Observable<Proprietaire> {
     return this.http.put<Proprietaire>(
       `${
-        environment.API_URL + environment.API_VERSION + this.param_url
+        environment.API_URL_TEST + environment.API_VERSION + this.param_url
       }/modifier/${id}`,
       data,
       { headers: this.httpOptions.headers }

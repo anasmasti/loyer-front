@@ -20,6 +20,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   updateDone: boolean = false;
   proprietaireForm!: FormGroup;
 
+  formControlName: string = "cin_mandataire"
+
   constructor(
     private proprietaireService: ProprietaireService,
     private mainModalService: MainModalService
@@ -90,6 +92,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
 
   removeFormMandateire(index: number) {
+    console.log(index);
+    
     (<FormArray>this.proprietaireForm.get('mandataireForm')).removeAt(index)
   }
 
@@ -112,15 +116,38 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         nom_agence_bancaire: this.proprietaire.nom_agence_bancaire,
         has_mandataire: this.proprietaire.has_mandataire,
         // mandataire inputs
-        cin_mandataire: this.mandataireList.cin_mandataire,
-        nom_prenom_mandataire: this.mandataireList.nom_prenom_mandataire,
-        raison_social_mandataire: this.mandataireList.raison_social_mandataire,
-        telephone_mandataire: this.mandataireList.telephone_mandataire,
-        fax_mandataire: this.mandataireList.fax_mandataire,
-        adresse_mandataire: this.mandataireList.adresse_mandataire,
-        n_compte_bancaire_mandataire:
-          this.mandataireList.n_compte_bancaire_mandataire,
+        // cin_mandataire: this.mandataireList.cin_mandataire,
+        // nom_prenom_mandataire: this.mandataireList.nom_prenom_mandataire,
+        // raison_social_mandataire: this.mandataireList.raison_social_mandataire,
+        // telephone_mandataire: this.mandataireList.telephone_mandataire,
+        // fax_mandataire: this.mandataireList.fax_mandataire,
+        // adresse_mandataire: this.mandataireList.adresse_mandataire,
+        // n_compte_bancaire_mandataire:
+        //   this.mandataireList.n_compte_bancaire_mandataire,
       });
+
+      for (let control of (this.proprietaire.mandataire) ){
+
+        // console.log(this.proprietaire);
+        
+
+        this.addFormMandateire();
+        console.log(this.proprietaire.mandataire.length);
+        
+        this.proprietaireForm.patchValue({
+
+        //  mandataire : {
+
+          cin_mandataire: "control.value.cin_mandataire",
+
+        // }
+
+        // mandataire : "Test"
+
+      });
+
+    }
+
     } else {
       this.isMand = false;
       this.proprietaireForm.patchValue({
@@ -146,6 +173,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         adresse_mandataire: '',
         n_compte_bancaire_mandataire: '',
       });
+
+      console.log("not has mondataire");
+
     }
   }
 
@@ -182,28 +212,30 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       nom_agence_bancaire: this.proprietaireForm.get('nom_agence_bancaire')
         ?.value,
       has_mandataire: this.proprietaireForm.get('has_mandataire')?.value,
-      mandataire: [
-        {
-          cin_mandataire: this.proprietaireForm.get('cin_mandataire')?.value,
-          nom_prenom_mandataire: this.proprietaireForm.get(
-            'nom_prenom_mandataire'
-          )?.value,
-          raison_social_mandataire: this.proprietaireForm.get(
-            'raison_social_mandataire'
-          )?.value,
-          telephone_mandataire: this.proprietaireForm.get(
-            'telephone_mandataire'
-          )?.value,
-          fax_mandataire: this.proprietaireForm.get('fax_mandataire')?.value,
-          adresse_mandataire:
-            this.proprietaireForm.get('adresse_mandataire')?.value,
-          n_compte_bancaire_mandataire: this.proprietaireForm.get(
-            'n_compte_bancaire_mandataire'
-          )?.value,
-        },
-      ],
+      // mandataire: [
+      //   {
+      //     cin_mandataire: this.proprietaireForm.get('cin_mandataire')?.value,
+      //     nom_prenom_mandataire: this.proprietaireForm.get(
+      //       'nom_prenom_mandataire'
+      //     )?.value,
+      //     raison_social_mandataire: this.proprietaireForm.get(
+      //       'raison_social_mandataire'
+      //     )?.value,
+      //     telephone_mandataire: this.proprietaireForm.get(
+      //       'telephone_mandataire'
+      //     )?.value,
+      //     fax_mandataire: this.proprietaireForm.get('fax_mandataire')?.value,
+      //     adresse_mandataire:
+      //       this.proprietaireForm.get('adresse_mandataire')?.value,
+      //     n_compte_bancaire_mandataire: this.proprietaireForm.get(
+      //       'n_compte_bancaire_mandataire'
+      //     )?.value,
+      //   },
+      // ],
+      mandataire: this.proprietaireForm.get('mandataireForm')?.value,
       // deleted:false,
     };
+
 
     let dataWithoutMandataire: any = {
       // _id: this.proprietaireForm.get('_id').value ,
@@ -266,6 +298,42 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
           }
         );
     }
+  }
+
+  
+  TestFunction(){
+      
+    // this.proprietaireForm.get('mandataireForm')?.value.forEach(element => {
+      
+    // });
+
+    // this.proprietaireForm.get('mandataireForm').forEach( (element: any) => {
+
+      
+      
+      
+    // });
+
+    // console.log(this.proprietaireForm.get('mandataireForm')?.controls.length);
+
+    // for (let control of (this.proprietaireForm.get('mandataireForm') as FormArray ).controls) {
+
+    //   this.proprietaireForm.patchValue({
+        
+    //     cin_mandataire: this.mandataireList.cin_mandataire,
+    //     nom_prenom_mandataire: this.mandataireList.nom_prenom_mandataire,
+    //     raison_social_mandataire: this.mandataireList.raison_social_mandataire,
+    //     telephone_mandataire: this.mandataireList.telephone_mandataire,
+    //     fax_mandataire: this.mandataireList.fax_mandataire,
+    //     adresse_mandataire: this.mandataireList.adresse_mandataire,
+    //     n_compte_bancaire_mandataire:
+    //       this.mandataireList.n_compte_bancaire_mandataire,
+    //   });
+
+    //   console.log( control );
+      
+    // }
+    
   }
 
   updateProprietaire() {
