@@ -13,7 +13,7 @@ import { MainModalService } from 'src/app/services/main-modal/main-modal.service
   styleUrls: ['./lf-form.component.scss'],
 })
 export class LfFormComponent implements OnInit {
-  style: string = '40vh';
+  modalHeight: string = '40vh';
   hasAmenagement: boolean = false;
   etatLogement = '';
   // test1 = 'update';
@@ -24,7 +24,7 @@ export class LfFormComponent implements OnInit {
   LfForm!: FormGroup;
   errors!: string;
   postDone: boolean = false;
-  PostSucces: string = 'Propriétaire ajouté avec succés';
+  PostSucces: string = 'Logement de fonction ajouté avec succés';
 
   constructor(
     private mainModalService: MainModalService,

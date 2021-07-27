@@ -16,7 +16,7 @@ export class PvFormComponent implements OnInit {
   PvForm!: FormGroup;
   errors!: string;
   postDone: boolean = false;
-  PostSucces: string = 'Propriétaire ajouté avec succés';
+  PostSucces: string = 'Point de vente ajouté avec succés';
 
   constructor(
     private mainModalService: MainModalService,
