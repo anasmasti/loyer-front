@@ -1,8 +1,8 @@
+import { Lieu } from 'src/app/models/Lieu';
 
 import { Component, OnInit } from '@angular/core';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { ActivatedRoute } from '@angular/router';
-import { Lieu } from 'src/app/models/Lieu';
 
 @Component({
   selector: 'app-detail-lieux',

@@ -1,6 +1,7 @@
+import { Lieu } from 'src/app/models/Lieu';
+
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, FormArray } from '@angular/forms';
-import { Lieu } from '../../../../models/Lieu';
 
 import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
@@ -16,26 +17,21 @@ export class LfFormComponent implements OnInit {
   hasAmenagement: boolean = false;
   etatLogement = '';
   // test1 = 'update';
-  isReplace: string='';
+  isReplace: string = '';
   amenagementList: any = [];
-  @Output() replaceFunction = new EventEmitter<any>();
   @Input() update!: boolean;
   lF !: Lieu;
   LfForm!: FormGroup;
-  
+  errors!: string;
+  postDone: boolean = false;
+  PostSucces: string = 'Propriétaire ajouté avec succés';
+
   constructor(
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
     private lieuService: LieuxService
   ) { }
 
-
-  //////////////////////////////////////////////////////////////////////////////////
-  emitReplace() {
-
-    this.replaceFunction.emit(this.isReplace);
-
-  }
 
   //////////////////////////////////////////////////////////////////////////////////
   showEtatLogement() {
@@ -53,7 +49,6 @@ export class LfFormComponent implements OnInit {
       desc_lieu_entrer: new FormControl(''),
       imgs_lieu_entrer: new FormControl(''),
       has_amenagements: new FormControl(''),
-      amenagements: new FormControl(''),
       etat_logement_fonction: new FormControl(''),
       etage: new FormControl(''),
       type_lieu: new FormControl(''),
@@ -62,10 +57,12 @@ export class LfFormComponent implements OnInit {
       intitule_rattache_SUP_PV: new FormControl(''),
       centre_cout_siege: new FormControl(''),
       categorie_pointVente: new FormControl(''),
+
       //Directeur
       matricule_directeur: new FormControl(''),
       nom_directeur: new FormControl(''),
       prenom_directeur: new FormControl(''),
+      deleted_directeur: new FormControl(''),
 
       //Aménagement
       amenagementForm: new FormArray([]),
@@ -123,7 +120,7 @@ export class LfFormComponent implements OnInit {
     this.isReplace = active;
     this.mainModalService.open();
     // this.confirmationModalService.open();
-    
+
   }
   //////////////////////////////////////////////////////////////////////////////////
   closeReplaceModal() {
@@ -144,11 +141,23 @@ export class LfFormComponent implements OnInit {
     // this.isReplace='';
   }
   //////////////////////////////////////////////////////////////////////////////////
-  switchIsReplace(){
+  switchIsReplace() {
     this.isReplace = '';
   }
-   //////////////////////////////////////////////////////////////////////////////////
-  onAddLf() {
+
+  // Afficher le message d'erreur de serveur
+  showErrorMessage() {
+    $('.error-alert').addClass('active');
+  }
+
+  // hide le message d'erreur de serveur
+  hideErrorMessage() {
+    $('.error-alert').removeClass('active');
+  }
+
+
+  //////////////////////////////////////////////////////////////////////////////////
+  addLf() {
     let lfData: Lieu = {
       code_lieu: this.LfForm.get('code_lieu')?.value,
       intitule_lieu: this.LfForm.get('intitule_lieu')?.value,
@@ -170,15 +179,35 @@ export class LfFormComponent implements OnInit {
       intitule_rattache_SUP_PV: this.LfForm.get('intitule_rattache_SUP_PV')?.value,
       centre_cout_siege: this.LfForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.LfForm.get('categorie_pointVente')?.value,
+      directeur_regional: [
+        {
+          matricule: this.LfForm.get('matricule_directeur')?.value,
+          nom: this.LfForm.get('nom_directeur')?.value,
+          prenom: this.LfForm.get('prenom_directeur')?.value,
+        }
+      ],
 
       // Amenagement
-      amenagement: this.LfForm.get('amenagement')?.value,
+      amenagement: this.LfForm.get('amenagementForm')?.value,
 
     }
 
-    // this.lieuService.addLieu(lfData).subscribe((_) => {
-    //   console.log(lfData);
-    // })
+    this.lieuService.addLieu(lfData).subscribe(
+      (_) => {
+        this.postDone = true;
+        setTimeout(() => {
+          this.LfForm.reset();
+          this.postDone = false;
+        }, 2000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+    )
   }
   //////////////////////////////////////////////////////////////////////////////////
   fetchLf() {
