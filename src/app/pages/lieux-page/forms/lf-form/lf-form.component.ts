@@ -179,6 +179,8 @@ export class LfFormComponent implements OnInit {
       intitule_rattache_SUP_PV: this.LfForm.get('intitule_rattache_SUP_PV')?.value,
       centre_cout_siege: this.LfForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.LfForm.get('categorie_pointVente')?.value,
+
+      // Directeur
       directeur_regional: [
         {
           matricule: this.LfForm.get('matricule_directeur')?.value,
