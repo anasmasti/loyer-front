@@ -208,7 +208,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
 
   addProprietaire() {
-    let data: any = {
+    let proprietaire_data: any = {
       // _id: this.proprietaireForm.get('_id').value ,
       cin: this.proprietaireForm.get('cin')?.value,
       passport: this.proprietaireForm.get('passport')?.value,
@@ -225,91 +225,27 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       nom_agence_bancaire: this.proprietaireForm.get('nom_agence_bancaire')
         ?.value,
       has_mandataire: this.proprietaireForm.get('has_mandataire')?.value,
-      // mandataire: [
-      //   {
-      //     cin_mandataire: this.proprietaireForm.get('cin_mandataire')?.value,
-      //     nom_prenom_mandataire: this.proprietaireForm.get(
-      //       'nom_prenom_mandataire'
-      //     )?.value,
-      //     raison_social_mandataire: this.proprietaireForm.get(
-      //       'raison_social_mandataire'
-      //     )?.value,
-      //     telephone_mandataire: this.proprietaireForm.get(
-      //       'telephone_mandataire'
-      //     )?.value,
-      //     fax_mandataire: this.proprietaireForm.get('fax_mandataire')?.value,
-      //     adresse_mandataire:
-      //       this.proprietaireForm.get('adresse_mandataire')?.value,
-      //     n_compte_bancaire_mandataire: this.proprietaireForm.get(
-      //       'n_compte_bancaire_mandataire'
-      //     )?.value,
-      //   },
-      // ],
+
       mandataire: this.proprietaireForm.get('mandataireForm')?.value,
       // deleted:false,
     };
 
-    let dataWithoutMandataire: any = {
-      // _id: this.proprietaireForm.get('_id').value ,
-      cin: this.proprietaireForm.get('cin')?.value,
-      passport: this.proprietaireForm.get('passport')?.value,
-      carte_sejour: this.proprietaireForm.get('carte_sejour')?.value,
-      nom_prenom: this.proprietaireForm.get('nom_prenom')?.value,
-      raison_social: this.proprietaireForm.get('raison_social')?.value,
-      n_registre_commerce: this.proprietaireForm.get('n_registre_commerce')
-        ?.value,
-      telephone: this.proprietaireForm.get('telephone')?.value,
-      fax: this.proprietaireForm.get('fax')?.value,
-      adresse: this.proprietaireForm.get('adresse')?.value,
-      n_compte_bancaire: this.proprietaireForm.get('n_compte_bancaire')?.value,
-      banque: this.proprietaireForm.get('banque')?.value,
-      nom_agence_bancaire: this.proprietaireForm.get('nom_agence_bancaire')
-        ?.value,
-      has_mandataire: this.proprietaireForm.get('has_mandataire')?.value,
-      // mandataire: []
-      // deleted:false,
-    };
-
-    if (this.has_mandataire?.value == true) {
-      this.proprietaireService.postProprietaire(data).subscribe(
-        (_) => {
-          this.postDone = true;
-          setTimeout(() => {
-            this.proprietaireForm.reset();
-            this.postDone = false;
-          }, 2000);
-        },
-        (error) => {
-          this.errors = error.error.message;
-          setTimeout(() => {
-            this.showErrorMessage();
-          }, 3000);
-          this.hideErrorMessage();
-        }
-      );
-    }
-
-    if (this.has_mandataire?.value == false) {
-      this.proprietaireService
-        .postProprietaire(dataWithoutMandataire)
-        .subscribe(
-          (_) => {
-            this.postDone = true;
-            setTimeout(() => {
-              this.proprietaireForm.reset();
-              this.postDone = false;
-            }, 2000);
-            console.log(this.postDone);
-          },
-          (error) => {
-            this.errors = error.error.message;
-            setTimeout(() => {
-              this.showErrorMessage();
-            }, 3000);
-            this.hideErrorMessage();
-          }
-        );
-    }
+    this.proprietaireService.postProprietaire(proprietaire_data).subscribe(
+      (_) => {
+        this.postDone = true;
+        setTimeout(() => {
+          this.proprietaireForm.reset();
+          this.postDone = false;
+        }, 2000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+    );
   }
 
   updateProprietaire() {
@@ -331,17 +267,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       nom_agence_bancaire: this.proprietaireForm.get('nom_agence_bancaire')
         ?.value,
       has_mandataire: this.proprietaireForm.get('has_mandataire')?.value,
-      // mandataire: [
-      //   {
-      //     cin_mandataire: this.proprietaireForm.get('cin_mandataire')?.value,
-      //     nom_prenom_mandataire: this.proprietaireForm.get('nom_prenom_mandataire')?.value,
-      //     raison_social_mandataire: this.proprietaireForm.get('raison_social_mandataire')?.value,
-      //     telephone_mandataire: this.proprietaireForm.get('telephone_mandataire')?.value,
-      //     fax_mandataire: this.proprietaireForm.get('fax_mandataire')?.value,
-      //     adresse_mandataire: this.proprietaireForm.get('adresse_mandataire')?.value,
-      //     n_compte_bancaire_mandataire: this.proprietaireForm.get('n_compte_bancaire_mandataire')?.value,
-      //   },
-      // ],
+
       mandataire: this.proprietaireForm.get('mandataireForm')?.value,
     };
 

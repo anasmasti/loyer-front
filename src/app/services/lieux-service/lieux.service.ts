@@ -1,6 +1,4 @@
-import { Lieu } from 'src/app/models/lieu';
-
-
+import { Lieu } from 'src/app/models/Lieu';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -22,8 +20,11 @@ export class LieuxService {
   };
 
   // Get list of all proprietaires from database
-  getLieux() {
-    return this.http.get(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/tous`);
+  getLieux(): Observable<Lieu[]> {
+    return this.http.get<Lieu[]>(
+      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/all-lieu`,
+      { headers: this.httpOptions.headers }
+    );
   }
 
   // get specific "lieu" by his id

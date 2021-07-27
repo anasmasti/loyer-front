@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Lieu } from 'src/app/models/Lieu';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-edit-lieux',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditLieuxComponent implements OnInit {
 
+  @Input() Lieu!: any;
+
   constructor() { }
 
   ngOnInit(): void {
+    console.log("Lieu : " + this.Lieu);
+    
   }
 
 }

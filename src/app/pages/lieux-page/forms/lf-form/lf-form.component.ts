@@ -1,4 +1,4 @@
-import { Lieu } from 'src/app/models/lieu';
+import { Lieu } from 'src/app/models/Lieu';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, FormArray } from '@angular/forms';
 import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
@@ -18,9 +18,14 @@ export class LfFormComponent implements OnInit {
   isReplace!: string;
   amenagementList: any = [];
   @Output() replaceFunction = new EventEmitter<any>();
+
   @Input() update!: boolean;
+  @Input() Lieu!: any;
+
   lF !: Lieu;
   LfForm!: FormGroup;
+
+
   constructor(
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
@@ -92,6 +97,8 @@ export class LfFormComponent implements OnInit {
     (<FormArray>this.LfForm.get('amenagementForm')).push(<FormGroup>amenagementData)
 
   }
+
+
   removeAmenagement(index: number) {
     (<FormArray>this.LfForm.get('amenagementForm')).removeAt(index)
   }
