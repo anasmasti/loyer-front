@@ -1,6 +1,7 @@
+import { Lieu } from 'src/app/models/Lieu';
+
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, FormArray } from '@angular/forms';
-import { Lieu } from '../../../../models/Lieu';
 
 import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
@@ -12,29 +13,25 @@ import { MainModalService } from 'src/app/services/main-modal/main-modal.service
   styleUrls: ['./lf-form.component.scss'],
 })
 export class LfFormComponent implements OnInit {
-  style: string = '40vh';
+  modalHeight: string = '40vh';
   hasAmenagement: boolean = false;
   etatLogement = '';
   // test1 = 'update';
-  isReplace: string='';
+  isReplace: string = '';
   amenagementList: any = [];
-  @Output() replaceFunction = new EventEmitter<any>();
   @Input() update!: boolean;
   lF !: Lieu;
   LfForm!: FormGroup;
+  errors!: string;
+  postDone: boolean = false;
+  PostSucces: string = 'Logement de fonction ajouté avec succés';
+
   constructor(
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
     private lieuService: LieuxService
   ) { }
 
-
-  //////////////////////////////////////////////////////////////////////////////////
-  emitReplace() {
-
-    this.replaceFunction.emit(this.isReplace);
-
-  }
 
   //////////////////////////////////////////////////////////////////////////////////
   showEtatLogement() {
@@ -52,7 +49,6 @@ export class LfFormComponent implements OnInit {
       desc_lieu_entrer: new FormControl(''),
       imgs_lieu_entrer: new FormControl(''),
       has_amenagements: new FormControl(''),
-      amenagements: new FormControl(''),
       etat_logement_fonction: new FormControl(''),
       etage: new FormControl(''),
       type_lieu: new FormControl(''),
@@ -61,10 +57,15 @@ export class LfFormComponent implements OnInit {
       intitule_rattache_SUP_PV: new FormControl(''),
       centre_cout_siege: new FormControl(''),
       categorie_pointVente: new FormControl(''),
+      superficie: new FormControl('',),
+      telephone: new FormControl('',),
+      fax: new FormControl('',),
+
       //Directeur
       matricule_directeur: new FormControl(''),
       nom_directeur: new FormControl(''),
       prenom_directeur: new FormControl(''),
+      deleted_directeur: new FormControl(''),
 
       //Aménagement
       amenagementForm: new FormArray([]),
@@ -122,7 +123,7 @@ export class LfFormComponent implements OnInit {
     this.isReplace = active;
     this.mainModalService.open();
     // this.confirmationModalService.open();
-    
+
   }
   //////////////////////////////////////////////////////////////////////////////////
   closeReplaceModal() {
@@ -143,11 +144,23 @@ export class LfFormComponent implements OnInit {
     // this.isReplace='';
   }
   //////////////////////////////////////////////////////////////////////////////////
-  switchIsReplace(){
+  switchIsReplace() {
     this.isReplace = '';
   }
-   //////////////////////////////////////////////////////////////////////////////////
-  onAddLf() {
+
+  // Afficher le message d'erreur de serveur
+  showErrorMessage() {
+    $('.error-alert').addClass('active');
+  }
+
+  // hide le message d'erreur de serveur
+  hideErrorMessage() {
+    $('.error-alert').removeClass('active');
+  }
+
+
+  //////////////////////////////////////////////////////////////////////////////////
+  addLf() {
     let lfData: Lieu = {
       code_lieu: this.LfForm.get('code_lieu')?.value,
       intitule_lieu: this.LfForm.get('intitule_lieu')?.value,
@@ -157,7 +170,7 @@ export class LfFormComponent implements OnInit {
       code_localite: this.LfForm.get('code_localite')?.value,
       desc_lieu_entrer: this.LfForm.get('desc_lieu_entrer')?.value,
       imgs_lieu_entrer: this.LfForm.get('imgs_lieu_entrer')?.value,
-      has_amenagements: this.LfForm.get('has_amenagement')?.value,
+      has_amenagements: this.LfForm.get('has_amenagements')?.value,
       superficie: this.LfForm.get('superficie')?.value,
       telephone: this.LfForm.get('telephone')?.value,
       fax: this.LfForm.get('fax')?.value,
@@ -170,23 +183,36 @@ export class LfFormComponent implements OnInit {
       centre_cout_siege: this.LfForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.LfForm.get('categorie_pointVente')?.value,
 
-      amenagement: [{
-        nature_amenagement: this.LfForm.get('nature_amenagement')?.value,
-        montant_amenagement: this.LfForm.get('montant_amenagement')?.value,
-        valeur_nature_chargeProprietaire: this.LfForm.get('valeur_nature_chargeProprietaire')?.value,
-        valeur_nature_chargeFondation: this.LfForm.get('valeur_nature_chargeFondation')?.value,
-        numero_facture: this.LfForm.get('numero_facture')?.value,
-        numero_bon_commande: this.LfForm.get('numero_bon_commande')?.value,
-        date_passation_commande: this.LfForm.get('date_passation_commande')?.value,
-        evaluation_fournisseur: this.LfForm.get('evaluation_fournisseur')?.value,
-        date_fin_travaux: this.LfForm.get('date_fin_travaux')?.value,
-        date_livraison_local: this.LfForm.get('date_livraison_local')?.value,
-      }]
+      // Directeur
+      directeur_regional: [
+        {
+          matricule: this.LfForm.get('matricule_directeur')?.value,
+          nom: this.LfForm.get('nom_directeur')?.value,
+          prenom: this.LfForm.get('prenom_directeur')?.value,
+        }
+      ],
+
+      // Amenagement
+      amenagement: this.LfForm.get('amenagementForm')?.value,
+
     }
 
-    // this.lieuService.addLieu(lfData).subscribe((_) => {
-    //   console.log(lfData);
-    // })
+    this.lieuService.addLieu(lfData).subscribe(
+      (_) => {
+        this.postDone = true;
+        setTimeout(() => {
+          this.LfForm.reset();
+          this.postDone = false;
+        }, 2000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+    )
   }
   //////////////////////////////////////////////////////////////////////////////////
   fetchLf() {

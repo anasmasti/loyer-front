@@ -25,6 +25,8 @@
         <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
       </div>
 
+      <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
+
       <!--Début 1er Row-->
       <div class="row">
         <div class="col-lg-3 form-group mt-4">
@@ -69,6 +71,21 @@
           <label for="">Images du local avant aménagement</label>
           <input type="file" name="imgs_lieu_entrer" id="imgs_lieu_entrer" (change)="onFileSelected($event)"
             class="form-control btn success-btn">
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Fax</label>
+          <input type="text" class="form-control rounded-pill" formControlName="fax" />
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Téléphone</label>
+          <input type="text" class="form-control rounded-pill" formControlName="telephone" />
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Superficie</label>
+          <input type="text" class="form-control rounded-pill" formControlName="superficie" />
         </div>
 
 

@@ -21,7 +21,16 @@
   <!--Début de Div qui contient le formulaire lf-form-->
   <div class="form-box mt-4">
     <!--Début Formulaire lf-form-->
-    <form [formGroup]="LfForm" enctype="multipart/form-data">
+    <form [formGroup]="LfForm" enctype="multipart/form-data" (ngSubmit)="addLf()">
+
+
+      <div class="w-100 d-flex justify-content-center">
+        <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
+      </div>
+
+      <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
+
+
       <!--Début 1er Row-->
       <div class="row">
         <div class="col-lg-3 form-group mt-4">
@@ -54,6 +63,21 @@
         <div class="col-lg-3 form-group mt-4">
           <label for="">Images du local avant aménagement</label>
           <input type="file" class="form-control btn success-btn" formControlName="imgs_lieu_entrer" multiple />
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Fax</label>
+          <input type="text" class="form-control rounded-pill" formControlName="fax" />
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Téléphone</label>
+          <input type="text" class="form-control rounded-pill" formControlName="telephone" />
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Superficie</label>
+          <input type="text" class="form-control rounded-pill" formControlName="superficie" />
         </div>
 
         <div class="col-lg-3 form-group mt-4">
@@ -101,14 +125,14 @@
                       <i class="far fa-user-edit"></i>
                     </a>
                     <a class="btn btn-sm danger-btn rounded-pill" (click)='openConfirmationModal();switchIsReplace();'>
-                      Supprimer 
+                      Supprimer
                       <i class="far fa-user-minus"></i>
                     </a>
                   </div>
 
                 </div>
 
-                <app-main-modal [closeBtn]='true' [mainHeight]="style">
+                <app-main-modal [closeBtn]='true' [mainHeight]="modalHeight">
 
                   <div class="row title">
                     <div class="col-lg-12">
@@ -141,7 +165,7 @@
                     <button type="submit" class="btn second-btn form-control" *ngIf="isReplace == 'modifier' ">
                       Modifier
                     </button>
-                    <button type="submit" (click)='closeReplaceModal(); emitReplace()'
+                    <button type="submit" (click)='closeReplaceModal()'
                       class="btn btn-danger rounded-pill form-control mx-3">
                       Fermer
                     </button>
@@ -157,7 +181,8 @@
                     <h3 class="main-title">Confirmation du remplacement <i class="far fa-exclamation-circle"></i>
                     </h3>
                     <p class="mt-3">Ce directeur sera supprimé et remplacé par un nouveau directeur.
-                      <br> <span align='center'>Voulez vous vraiment supprimer ce directeur?</span> </p>
+                      <br> <span align='center'>Voulez vous vraiment supprimer ce directeur?</span>
+                    </p>
                     <div class="d-inline-flex justify-content-start mt-5">
                       <a class="btn btn-lg px-lg-4 danger-btn me-2">Oui</a>
                       <a class="btn btn-lg px-lg-4 main-btn" (click)='closeConfirmationModal()'>Non</a>
@@ -168,8 +193,8 @@
                     <h3 class="main-title">Confirmation de la supression <i class="far fa-exclamation-circle"></i></h3>
                     <p class="mt-3">Voulez vous vraiment supprimer ce directeur?</p>
                     <div class="d-inline-flex justify-content-start mt-5">
-                        <a class="btn btn-lg px-lg-4 danger-btn me-2">Oui</a>
-                        <a class="btn btn-lg px-lg-4 main-btn" (click)='closeConfirmationModal()'>Non</a>
+                      <a class="btn btn-lg px-lg-4 danger-btn me-2">Oui</a>
+                      <a class="btn btn-lg px-lg-4 main-btn" (click)='closeConfirmationModal()'>Non</a>
                     </div>
                   </ng-template>
 

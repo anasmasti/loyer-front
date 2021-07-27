@@ -19,7 +19,13 @@
   <!--Début de Div qui contient le formulaire pv-form-->
   <div class="form-box mt-4">
     <!--Début Formulaire pv-form-->
-    <form [formGroup]="PvForm" enctype="multipart/form-data">
+    <form [formGroup]="PvForm" enctype="multipart/form-data" (ngSubmit)="addPv()">
+
+      <div class="w-100 d-flex justify-content-center">
+        <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
+      </div>
+
+      <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
 
       <!--Début 1er Row-->
       <div class="row">
@@ -101,6 +107,20 @@
           <input type="file" class="form-control btn success-btn" formControlName="imgs_lieu_entrer" multiple />
         </div>
 
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Fax</label>
+          <input type="text" class="form-control rounded-pill" formControlName="fax" />
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Téléphone</label>
+          <input type="text" class="form-control rounded-pill" formControlName="telephone" />
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Superficie</label>
+          <input type="text" class="form-control rounded-pill" formControlName="superficie" />
+        </div>
 
         <div class="mt-4">Aménagement</div>
         <div class="col-lg-3 form-group d-flex mt-4">
