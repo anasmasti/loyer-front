@@ -19,7 +19,15 @@
   <!--Début de Div qui contient le formulaire sv-contrat-->
   <div class="form-box mt-4">
     <!--Début Formulaire sv-contrat-->
-    <form [formGroup]="SvForm" enctype="multipart/form-data">
+    <form [formGroup]="svForm" (ngSubmit)="onAddSv()" enctype="multipart/form-data">
+
+      <!-- Message d'ERREUR de serveur -->
+  <div class="w-100 d-flex justify-content-center">
+    <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
+  </div>
+  <!-- Message de succés de serveur -->
+  <!-- <div *ngIf="updateDone" class="done-alert p-2 my-2">{{ Updatesuccess }}</div> -->
+  <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
 
       <!--Début 1er Row-->
       <div class="row">

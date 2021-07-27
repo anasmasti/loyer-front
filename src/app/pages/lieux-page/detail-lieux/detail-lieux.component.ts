@@ -90,7 +90,6 @@ export class DetailLieuxComponent implements OnInit {
     //     this.selectedAmenagement = this.lieu.amenagement[index];
     //   }
     // }
-
     this.display = true;
   }
 }

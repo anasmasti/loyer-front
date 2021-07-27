@@ -4,6 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 
+
+
 @Injectable({
   providedIn: 'root',
 })
@@ -33,7 +35,7 @@ export class LieuxService {
   }
 
   addLieu(data: Lieu): Observable<Lieu> {
-    return this.http.post<Lieu>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`, data );
+    return this.http.post<Lieu>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`, data);
   }
 
   // Update the proprietaire

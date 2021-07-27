@@ -21,6 +21,15 @@ export interface Lieu {
   centre_cout_siege?: string,
   categorie_pointVente?: string,
 
+  directeur_regional?: [
+    {
+      matricule?: string,
+      nom?: string,
+      prenom?: string,
+      deleted?: boolean
+    }
+  ],
+
   amenagement?: [{
     _id?: string,
     nature_amenagement: string,
@@ -33,6 +42,12 @@ export interface Lieu {
     evaluation_fournisseur: string,
     date_fin_travaux: string,
     date_livraison_local: string,
+    
+    fournisseur?: [{
+      nom: string,
+      prenom: string,
+      amenagement_effectue: string,
+    }]
   }]
 
 }

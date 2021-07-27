@@ -14,6 +14,7 @@ export class DrFormComponent implements OnInit {
   errors!: string;
   hasAmenagement: boolean = false;
   postDone: boolean = false;
+  PostSucces: string = 'Direction régionale ajouté avec succés';
   selectedFile !: File;
   drForm!: FormGroup;
 

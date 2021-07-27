@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray } from '@angular/forms';
+import { Lieu } from 'src/app/models/Lieu';
+import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 
 @Component({
   selector: 'sv-form',
@@ -8,13 +10,17 @@ import { FormControl, FormGroup, FormArray } from '@angular/forms';
 })
 export class SvFormComponent implements OnInit {
 
-  constructor() { }
+  constructor(private svService: LieuxService) { }
 
   hasAmenagement: boolean = false;
-  SvForm!: FormGroup;
+  svForm!: FormGroup;
+  postDone: boolean = false;
+  errors!: any;
+  Updatesuccess: string = 'Supervision modifié avec succés';
+  PostSucces: string = 'Supervision ajouté avec succés';
 
   ngOnInit(): void {
-    this.SvForm = new FormGroup({
+    this.svForm = new FormGroup({
       code_lieu: new FormControl(''),
       intitule_lieu: new FormControl(''),
       intitule_DR: new FormControl(''),
@@ -24,7 +30,6 @@ export class SvFormComponent implements OnInit {
       desc_lieu_entrer: new FormControl(''),
       imgs_lieu_entrer: new FormControl(''),
       has_amenagements: new FormControl(''),
-      amenagements: new FormControl(''),
       etat_logement_fonction: new FormControl(''),
       etage: new FormControl(''),
       type_lieu: new FormControl(''),
@@ -33,6 +38,9 @@ export class SvFormComponent implements OnInit {
       intitule_rattache_SUP_PV: new FormControl(''),
       centre_cout_siege: new FormControl(''),
       categorie_pointVente: new FormControl(''),
+      telephone: new FormControl(''),
+      fax: new FormControl(''),
+      superficie: new FormControl(''),
 
       //Aménagement
       amenagementForm: new FormArray([]),
@@ -57,12 +65,12 @@ export class SvFormComponent implements OnInit {
       croquis_amenagement_via_imagerie: new FormControl(''),
     });
 
-    (<FormArray>this.SvForm.get('amenagementForm')).push(<FormGroup>amenagementData)
+    (<FormArray>this.svForm.get('amenagementForm')).push(<FormGroup>amenagementData)
 
   }
 
   removeAmenagement(index: number) {
-    (<FormArray>this.SvForm.get('amenagementForm')).removeAt(index)
+    (<FormArray>this.svForm.get('amenagementForm')).removeAt(index)
   }
 
 
@@ -85,7 +93,149 @@ export class SvFormComponent implements OnInit {
     return (amenagementForm.controls[i].controls.fournisseur).controls
   }
 
+   // Afficher le message d'erreur de serveur
+   showErrorMessage() {
+    $('.error-alert').addClass('active');
+  }
+
+  // hide le message d'erreur de serveur
+  hideErrorMessage() {
+    $('.error-alert').removeClass('active');
+  }
+  
+  onAddSv() {
+    let svData: Lieu = {
+      code_lieu: this.svForm.get('code_lieu')?.value,
+      intitule_lieu: this.svForm.get('intitule_lieu')?.value,
+      intitule_DR: this.svForm.get('intitule_DR')?.value,
+      adresse: this.svForm.get('adresse')?.value,
+      ville: this.svForm.get('ville')?.value,
+      code_localite: this.svForm.get('code_localite')?.value,
+      desc_lieu_entrer: this.svForm.get('desc_lieu_entrer')?.value,
+      imgs_lieu_entrer: this.svForm.get('imgs_lieu_entrer')?.value,
+      has_amenagements: this.svForm.get('has_amenagements')?.value,
+      superficie: this.svForm.get('superficie')?.value,
+      telephone: this.svForm.get('telephone')?.value,
+      fax: this.svForm.get('fax')?.value,
+      etat_logement_fonction: this.svForm.get('etat_logement_fonction')?.value,
+      etage: this.svForm.get('etage')?.value,
+      type_lieu: this.svForm.get('type_lieu')?.value,
+      code_rattache_DR: this.svForm.get('code_rattache_DR')?.value,
+      code_rattache_SUP: this.svForm.get('code_rattache_SUP')?.value,
+      intitule_rattache_SUP_PV: this.svForm.get('intitule_rattache_SUP_PV')?.value,
+      centre_cout_siege: this.svForm.get('centre_cout_siege')?.value,
+      categorie_pointVente: this.svForm.get('categorie_pointVente')?.value,
+    
+      //Aménagement
+        amenagement: this.svForm.get('amenagementForm')?.value,
+    }
+
+  
+      this.svService.addLieu(svData).subscribe(
+        (_) => {
+          this.postDone = true;
+          setTimeout(() => {
+            this.svForm.reset();
+            this.postDone = false;
+          }, 2000); 
+            console.log(svData)
+        },
+        (error) => {
+          this.errors = error.error.message;
+          setTimeout(() => {
+            this.showErrorMessage();
+          }, 3000);
+          this.hideErrorMessage();
+        }
+      );
+
+  }
+
+  get code_lieu(){
+    return this.svForm.get('code_lieu');
+  }
+
+  get intitule_lieu(){
+    return this.svForm.get('intitule_lieu');
+  }
+
+  get intitule_DR(){
+    return this.svForm.get('intitule_DR');
+  }
+
+  get adresse(){
+    return this.svForm.get('adresse');
+  }
+
+  get ville(){
+    return this.svForm.get('ville');
+  }
+
+  get code_localite(){
+    return this.svForm.get('code_localite');
+  }
+
+  get desc_lieu_entrer(){
+    return this.svForm.get('desc_lieu_entrer');
+  }
+
+  get imgs_lieu_entrer(){
+    return this.svForm.get('imgs_lieu_entrer');
+  }
+
+  get has_amenagements(){
+    return this.svForm.get('has_amenagements');
+  }
+
+  get amenagements(){
+    return this.svForm.get('amenagements');
+  }
+
+  get etat_logement_fonction(){
+    return this.svForm.get('etat_logement_fonction');
+  }
+
+  get etage(){
+    return this.svForm.get('etage');
+  }
+
+  get telephone(){
+    return this.svForm.get('telephone');
+  }
+
+  get fax(){
+    return this.svForm.get('fax');
+  }
+
+  get superficie(){
+    return this.svForm.get('superficie');
+  }
+
+  get type_lieu(){
+    return this.svForm.get('type_lieu');
+  }
+
+  get code_rattache_DR(){
+    return this.svForm.get('code_rattache_DR');
+  }
+
+  get code_rattache_SUP(){
+    return this.svForm.get('code_rattache_SUP');
+  }
+
+  get intitule_rattache_SUP_PV(){
+    return this.svForm.get('intitule_rattache_SUP_PV');
+  }
+
+  get centre_cout_siege(){
+    return this.svForm.get('centre_cout_siege');
+  }
+
+  get categorie_pointVente(){
+    return this.svForm.get('categorie_pointVente');
+  }
+
   get amenagementForm(): FormArray {
-    return (<FormArray>this.SvForm.get('amenagementForm'));
+    return (<FormArray>this.svForm.get('amenagementForm'));
   }
 }

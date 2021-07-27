@@ -1,3 +1,7 @@
+import { MainModalService } from './../../../../services/main-modal/main-modal.service';
+import { ConfirmationModalService } from './../../../../services/confirmation-modal-service/confirmation-modal.service';
+import { Lieu } from './../../../../models/Lieu';
+import { LieuxService } from './../../../../services/lieux-service/lieux.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray } from '@angular/forms';
 
@@ -10,8 +14,15 @@ export class PvFormComponent implements OnInit {
 
   hasAmenagement: boolean = false;
   PvForm!: FormGroup;
+  errors!: string;
+  postDone: boolean = false;
+  PostSucces: string = 'Point de vente ajouté avec succés';
 
-  constructor() { }
+  constructor(
+    private mainModalService: MainModalService,
+    private confirmationModalService: ConfirmationModalService,
+    private lieuService: LieuxService
+  ) { }
 
   ngOnInit(): void {
     this.PvForm = new FormGroup({
@@ -24,7 +35,6 @@ export class PvFormComponent implements OnInit {
       desc_lieu_entrer: new FormControl(''),
       imgs_lieu_entrer: new FormControl(''),
       has_amenagements: new FormControl(''),
-      amenagements: new FormControl(''),
       etat_logement_fonction: new FormControl(''),
       etage: new FormControl(''),
       type_lieu: new FormControl(''),
@@ -33,6 +43,9 @@ export class PvFormComponent implements OnInit {
       intitule_rattache_SUP_PV: new FormControl(''),
       centre_cout_siege: new FormControl(''),
       categorie_pointVente: new FormControl(''),
+      superficie: new FormControl('',),
+      telephone: new FormControl('',),
+      fax: new FormControl('',),
 
       //Aménagement
       amenagementForm: new FormArray([]),
@@ -60,6 +73,7 @@ export class PvFormComponent implements OnInit {
     (<FormArray>this.PvForm.get('amenagementForm')).push(<FormGroup>amenagementData)
 
   }
+
   removeAmenagement(index: number) {
     (<FormArray>this.PvForm.get('amenagementForm')).removeAt(index)
   }
@@ -75,6 +89,63 @@ export class PvFormComponent implements OnInit {
 
     (<FormArray>amenagementForm.controls[index].controls.fournisseur).push(<FormGroup>fournisseurData)
   }
+
+  // Afficher le message d'erreur de serveur
+  showErrorMessage() {
+    $('.error-alert').addClass('active');
+  }
+
+  // hide le message d'erreur de serveur
+  hideErrorMessage() {
+    $('.error-alert').removeClass('active');
+  }
+
+  addPv() {
+    let pvData: Lieu = {
+      code_lieu: this.PvForm.get('code_lieu')?.value,
+      intitule_lieu: this.PvForm.get('intitule_lieu')?.value,
+      intitule_DR: this.PvForm.get('intitule_DR')?.value,
+      adresse: this.PvForm.get('adresse')?.value,
+      ville: this.PvForm.get('ville')?.value,
+      code_localite: this.PvForm.get('code_localite')?.value,
+      desc_lieu_entrer: this.PvForm.get('desc_lieu_entrer')?.value,
+      imgs_lieu_entrer: this.PvForm.get('imgs_lieu_entrer')?.value,
+      has_amenagements: this.PvForm.get('has_amenagements')?.value,
+      superficie: this.PvForm.get('superficie')?.value,
+      telephone: this.PvForm.get('telephone')?.value,
+      fax: this.PvForm.get('fax')?.value,
+      etat_logement_fonction: this.PvForm.get('etat_logement_fonction')?.value,
+      etage: this.PvForm.get('etage')?.value,
+      type_lieu: this.PvForm.get('type_lieu')?.value,
+      code_rattache_DR: this.PvForm.get('code_rattache_DR')?.value,
+      code_rattache_SUP: this.PvForm.get('code_rattache_SUP')?.value,
+      intitule_rattache_SUP_PV: this.PvForm.get('intitule_rattache_SUP_PV')?.value,
+      centre_cout_siege: this.PvForm.get('centre_cout_siege')?.value,
+      categorie_pointVente: this.PvForm.get('categorie_pointVente')?.value,
+
+      // Amenagement
+      amenagement: this.PvForm.get('amenagementForm')?.value,
+
+    }
+
+    this.lieuService.addLieu(pvData).subscribe(
+      (_) => {
+        this.postDone = true;
+        setTimeout(() => {
+          this.PvForm.reset();
+          this.postDone = false;
+        }, 2000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+    )
+  }
+
 
   removeFournisseur(amenagementForm: any, index: number) {
     (<FormArray>amenagementForm.controls[index].controls.fournisseur).removeAt(index)
