@@ -1,4 +1,4 @@
-import { Lieu } from 'src/app/models/lieu';
+import { Lieu } from 'src/app/models/Lieu';
 
 
 import { Component, OnInit } from '@angular/core';

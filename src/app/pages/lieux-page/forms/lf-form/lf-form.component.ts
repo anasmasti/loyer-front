@@ -1,6 +1,7 @@
-import { Lieu } from 'src/app/models/lieu';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, FormArray } from '@angular/forms';
+import { Lieu } from '../../../../models/Lieu';
+
 import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
@@ -14,8 +15,8 @@ export class LfFormComponent implements OnInit {
   style: string = '40vh';
   hasAmenagement: boolean = false;
   etatLogement = '';
-  test1 = 'update';
-  isReplace!: string;
+  // test1 = 'update';
+  isReplace: string='';
   amenagementList: any = [];
   @Output() replaceFunction = new EventEmitter<any>();
   @Input() update!: boolean;
@@ -122,6 +123,7 @@ export class LfFormComponent implements OnInit {
     this.isReplace = active;
     this.mainModalService.open();
     // this.confirmationModalService.open();
+    
   }
   //////////////////////////////////////////////////////////////////////////////////
   closeReplaceModal() {
@@ -139,8 +141,13 @@ export class LfFormComponent implements OnInit {
   //////////////////////////////////////////////////////////////////////////////////
   closeConfirmationModal() {
     this.confirmationModalService.close();
+    // this.isReplace='';
   }
   //////////////////////////////////////////////////////////////////////////////////
+  switchIsReplace(){
+    this.isReplace = '';
+  }
+   //////////////////////////////////////////////////////////////////////////////////
   onAddLf() {
     let lfData: Lieu = {
       code_lieu: this.LfForm.get('code_lieu')?.value,
