@@ -13,7 +13,7 @@ export const environment = {
   // Api version
   API_VERSION: 'v1/',
   // Application version
-  APP_VERSION: 'Dev Beta 1.1'
+  APP_VERSION: 'Beta1.1.2(Dev)'
 };
 
 /*

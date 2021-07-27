@@ -1,251 +1,279 @@
 <div class="row title">
   <div class="col-lg-12 mt-3">
-      <div class="d-lg-flex justify-content-lg-between">
-          <h5 class="main-title">Point de vente</h5>
-          <div>
-              <a [routerLink]="['/lieux/list']" class="btn main-btn">Voir la liste des points de vente</a>
-              <a class="text-dark ms-5" data-bs-toggle="tooltip" data-bs-placement="top"
-                  title="Ici vous pouvez ajouter une nouvelle point de vente"><i class="fal fa-info"></i></a>
-          </div>
+    <div class="d-lg-flex justify-content-lg-between">
+      <h5 class="main-title">Point de vente</h5>
+      <div>
+        <a [routerLink]="['/lieux/list']" class="btn main-btn">Voir la liste des points de vente</a>
+        <a class="text-dark ms-5" data-bs-toggle="tooltip" data-bs-placement="top"
+          title="Ici vous pouvez ajouter une nouvelle point de vente"><i class="fal fa-info"></i></a>
       </div>
+    </div>
   </div>
 </div>
 
 
 <!--Début de conteneur pv-form  -->
 <div class="mt-4">
-    <!-- <h6>Remplissage des données</h6> -->
-  
-    <!--Début de Div qui contient le formulaire pv-form-->
-    <div class="form-box mt-4">
-      <!--Début Formulaire pv-form-->
-      <form [formGroup]="PvForm" enctype="multipart/form-data">
-        
-        <!--Début 1er Row-->
-        <div class="row">
-          <div class="col-lg-3 form-group mt-4">
-            <label for="">Code point de vente</label>
-            <input type="text" class="form-control rounded-pill" formControlName="code_PDV"/>  
-          </div>
-  
-          <div class="col-lg-3 form-group mt-4">
-            <label for="">Point de Vente</label>
-            <input type="text" class="form-control rounded-pill" formControlName="point_vente"/>
-          </div>
-  
-          <div class="col-lg-3 form-group mt-4">
-            <label for="">Supervision</label>
-            <select class="form-control rounded-pill" formControlName="supervision">
-              <option value="">-----</option>
-            </select>
-          
-          </div>
-  
-          <div class="col-lg-3 form-group mt-4">
-            <label for="">Code supervision</label>
-            <select class="form-control rounded-pill" formControlName="code_SUP">
-              <option value="">-----</option>  
-            </select>
-          </div>
-  
-          <div class="col-lg-3 form-group mt-4">
-            <label for="">Direction Régionale</label>
-            <select class="form-control rounded-pill" formControlName="DR">
-              <option value="">-----</option>
-            </select>
-          </div>
+  <!-- <h6>Remplissage des données</h6> -->
 
-          <div class="col-lg-3 form-group mt-4">
-            <label for="">Code DR</label>
-            <select class="form-control rounded-pill" formControlName="code_DR">
-              <option value="">-----</option>
-            </select>
-          </div>
+  <!--Début de Div qui contient le formulaire pv-form-->
+  <div class="form-box mt-4">
+    <!--Début Formulaire pv-form-->
+    <form [formGroup]="PvForm" enctype="multipart/form-data" (ngSubmit)="addPv()">
 
-  
-          <div class="col-lg-3 form-group mt-4">
-            <label for="">Adresse Point de Vente</label>
-            <input type="text" class="form-control rounded-pill" formControlName="adressePV" />
-          </div>
+      <div class="w-100 d-flex justify-content-center">
+        <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
+      </div>
 
-  
-          <div class="col-lg-3 form-group mt-4">
-            <label for="">Ville</label>
-            <input type="text" class="form-control rounded-pill" formControlName="ville" />
-          </div>
+      <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
 
-  
-          <div class="col-lg-3 form-group mt-4">
-            <label for="">Catégorie du Point de Vente</label>
-            <input type="text" class="form-control rounded-pill" formControlName="catégoriePV"/>
-          </div>
-  
-          <div class="col-lg-3 form-group mt-4">
-            <label for="">Code localité</label>
-            <input type="text" class="form-control rounded-pill" formControlName="code_localité"/>
-          </div>
-  
-          <div class="col-lg-3 form-group mt-4">
-            <label for="">Etage</label>
-            <input type="text" class="form-control rounded-pill" formControlName="etage" />
-          </div>
-  
-
-          <div class="col-lg-3 form-group mt-4">
-            <label for="">Descriptif du local</label>
-            <input type="text" class="form-control rounded-pill" formControlName="descriptif_local"/>
-          </div>
-
-          <div class="col-lg-3 form-group mt-4">
-            <label for="">Images du local avant aménagement</label>
-            <input type="file" class="form-control btn success-btn" formControlName="images_avant_aménagement" multiple/>
-          </div>
-
-
-          <div class="mt-4">Aménagement</div>
-          <div class="col-lg-3 form-group d-flex mt-4">
-            <label for="">Oui</label>
-            <input type="radio" name="has_amenagement" [value]="true" class="form-check-input mx-2" [(ngModel)]="isAmenag"
-              formControlName="has_amenagement" />
-            <label for="">Non</label>
-            <input type="radio" name="has_amenagement" [value]="false" class="form-check-input mx-2" [(ngModel)]="isAmenag"
-              formControlName="has_amenagement" />
-          </div>
-  
-          <!-- Condition pour afficher ou cacher le formulaire de Aménagement -->
-          <div *ngIf="isAmenag; then amenagement"></div>
+      <!--Début 1er Row-->
+      <div class="row">
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Code point de vente</label>
+          <input type="text" class="form-control rounded-pill" formControlName="code_lieu" />
         </div>
-        <!--Fin de 1er Row -->
-  
-        <!--Début 2éme Row -->
-        <div class="row mt-5">
-          <!--Début de Div Aménagement Qui contient(Title+divForm+Form)-->
-          <ng-template #amenagement>
-            <!--Grand Titre Aménagement -->
-            <div class="row mt-4">
-              <div class="margin-main col-lg-12 mt-3">
-                <div class="d-flex justify-content-between">
-                  <h4 class="main-text">Aménagement</h4>
-                  <a href="#" class="btn second-btn"><i class="fal fa-info"></i></a>
-                </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Point de Vente</label>
+          <input type="text" class="form-control rounded-pill" formControlName="intitule_lieu" />
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Supervision</label>
+          <select class="form-control rounded-pill" formControlName="intitule_rattache_SUP_PV">
+            <option value="">-----</option>
+          </select>
+
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Code supervision</label>
+          <select class="form-control rounded-pill" formControlName="code_rattache_SUP">
+            <option value="">-----</option>
+          </select>
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Direction Régionale</label>
+          <select class="form-control rounded-pill" formControlName="intitule_DR">
+            <option value="">-----</option>
+          </select>
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Code DR</label>
+          <select class="form-control rounded-pill" formControlName="code_rattache_DR">
+            <option value="">-----</option>
+          </select>
+        </div>
+
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Adresse Point de Vente</label>
+          <input type="text" class="form-control rounded-pill" formControlName="adresse" />
+        </div>
+
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Ville</label>
+          <input type="text" class="form-control rounded-pill" formControlName="ville" />
+        </div>
+
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Catégorie du Point de Vente</label>
+          <input type="text" class="form-control rounded-pill" formControlName="categorie_pointVente" />
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Code localité</label>
+          <input type="text" class="form-control rounded-pill" formControlName="code_localite" />
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Etage</label>
+          <input type="text" class="form-control rounded-pill" formControlName="etage" />
+        </div>
+
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Descriptif du local</label>
+          <input type="text" class="form-control rounded-pill" formControlName="desc_lieu_entrer" />
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Images du local avant aménagement</label>
+          <input type="file" class="form-control btn success-btn" formControlName="imgs_lieu_entrer" multiple />
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Fax</label>
+          <input type="text" class="form-control rounded-pill" formControlName="fax" />
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Téléphone</label>
+          <input type="text" class="form-control rounded-pill" formControlName="telephone" />
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Superficie</label>
+          <input type="text" class="form-control rounded-pill" formControlName="superficie" />
+        </div>
+
+        <div class="mt-4">Aménagement</div>
+        <div class="col-lg-3 form-group d-flex mt-4">
+          <label for="">Oui</label>
+          <input type="radio" name="has_amenagements" [value]="true" class="form-check-input mx-2"
+            [(ngModel)]="hasAmenagement" formControlName="has_amenagements" />
+          <label for="">Non</label>
+          <input type="radio" name="has_amenagements" [value]="false" class="form-check-input mx-2"
+            [(ngModel)]="hasAmenagement" formControlName="has_amenagements" />
+        </div>
+
+        <!-- Condition pour afficher ou cacher le formulaire de Aménagement -->
+        <div *ngIf="hasAmenagement; then amenagement"></div>
+      </div>
+      <!--Fin de 1er Row -->
+
+      <!--Début 2éme Row -->
+      <div class="row mt-5">
+        <!--Début de Div Aménagement Qui contient(Title+divForm+Form)-->
+        <ng-template #amenagement>
+          <!--Grand Titre Aménagement -->
+          <div class="row mt-4">
+            <div class="margin-main col-lg-12 mt-3">
+              <div class="d-flex justify-content-between">
+                <h4 class="main-text">Aménagement</h4>
+                <a (click)="addAmenagement()" class="btn second-btn">Ajouter amenagement</a>
               </div>
             </div>
-  
-            <!--Début de Conteneur Aménagement-->
-            <div class="mt-4">
-            
-              <!--Début Div form Aménagement-->
-              <div class="FormBox mt-4">
-                <!--Début 3éme Row-->
-                <div class="row">
-                  <div class="col-lg-3 form-group mt-4">
-                    <label for="">Nature des travaux d’aménagement</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="nature_travaux_amenagement" />
-  
-  
-                  </div>
-  
-                  <div class="col-lg-3 form-group mt-4">
-                    <label for="">Montant des travaux d’aménagement</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="montant_travaux_amenagement" />
-                  </div>
-  
-                  <div class="col-lg-3 form-group mt-4">
-                    <label for="">Valeur et nature des travaux à la charge du propriétaire (facultatif)</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="valeur_nature_travaux_charge_proprietaire" />
-                  </div>
-  
-                  <div class="col-lg-3 form-group mt-4">
-                    <label for="">Valeur et nature des travaux à la charge de la Fondation</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="valeur_nature_travaux_charge_fondation" />
-                  </div>
-  
-                  <div class="col-lg-3 form-group mt-4">
-                    <label for="">N° de facture</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="Nfacture" />
-                  </div>
-  
-                  <div class="col-lg-3 form-group mt-4">
-                    <label for="">N° de bon de commande</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="Nbon_commande" />
-                  </div>
-  
-                  <div class="col-lg-3 form-group mt-4">
-                    <label for="">Date de passation de la commande</label>
-                    <input type="date" class="form-control rounded-pill" formControlName="date_passation_commande" />
-                  </div>
+          </div>
 
-                  <div class="col-lg-3 form-group mt-4">
-                    <label for="">Fournisseur</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="fournisseur" />
-                  </div>
+          <!--Début de Conteneur Aménagement-->
+          <div formArrayName="amenagementForm" *ngFor="let item of amenagementForm.controls; let i = index">
 
-                  <div class="col-lg-3 form-group mt-4">
-                    <label for="">Evaluation du fournisseur</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="evaluation_fournisseur" />
-                  </div>
+            <div class="main-card mt-4 bg-white p-lg-4" [formGroupName]="i">
+              <a (click)="removeAmenagement(i)" class="btn btn-sm danger-btn float-end"><i class="fal fa-trash"></i></a>
 
-                  <div class="col-lg-3 form-group mt-4">
-                    <label for="">Date de fin des travaux</label>
-                    <input type="date" class="form-control rounded-pill" formControlName="date_fin_travaux" />
-                  </div>
-
-                  <div class="col-lg-3 form-group mt-4">
-                    <label for="">Date de livraison du local</label>
-                    <input type="date" class="form-control rounded-pill" formControlName="date_livraison_local" />
-                  </div>
-
-                  <div class="col-lg-3 form-group mt-4">
-                    <label for="">Images du local après aménagement</label>
-                    <input type="file" class="form-control btn success-btn" formControlName="images_local_apres_amenagement" multiple/>
-                  </div>
-
-                  <div class="col-lg-3 form-group mt-4">
-                    <label for="">Croquis d’aménagement via imagerie</label>
-                    <input type="file" class="form-control btn success-btn" formControlName="croquis_amenagement_via_imagerie" multiple/>
-                  </div>
-
-                  <div class="col-lg-3 form-group mt-4">
-                    <label for="">Superficie</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="superficie" />
-                  </div>
-
-                  <div class="col-lg-3 form-group mt-4">
-                    <label for="">Téléphone</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="telephone" />
-                  </div>
-
-                  
-                  <div class="col-lg-3 form-group mt-4">
-                    <label for="">Fax</label>
-                    <input type="text" class="form-control rounded-pill" formControlName="fax" />
-                  </div>
-
+              <div class="row">
+                <div class="col-lg-3 form-group mt-4">
+                  <label for="">Nature des travaux d’aménagement</label>
+                  <input type="text" class="form-control rounded-pill" formControlName="nature_amenagement" />
 
 
                 </div>
 
+                <div class="col-lg-3 form-group mt-4">
+                  <label for="">Montant des travaux d’aménagement</label>
+                  <input type="text" class="form-control rounded-pill" formControlName="montant_amenagement" />
+                </div>
 
-                <!--Fin de 3éme Row-->
+                <div class="col-lg-3 form-group mt-4">
+                  <label for="">Valeur et nature des travaux à la charge du propriétaire (facultatif)</label>
+                  <input type="text" class="form-control rounded-pill"
+                    formControlName="valeur_nature_chargeProprietaire" />
+                </div>
+
+                <div class="col-lg-3 form-group mt-4">
+                  <label for="">Valeur et nature des travaux à la charge de la Fondation</label>
+                  <input type="text" class="form-control rounded-pill"
+                    formControlName="valeur_nature_chargeFondation" />
+                </div>
+
+                <div class="col-lg-3 form-group mt-4">
+                  <label for="">N° de facture</label>
+                  <input type="text" class="form-control rounded-pill" formControlName="numero_facture" />
+                </div>
+
+                <div class="col-lg-3 form-group mt-4">
+                  <label for="">N° de bon de commande</label>
+                  <input type="text" class="form-control rounded-pill" formControlName="numero_bon_commande" />
+                </div>
+
+                <div class="col-lg-3 form-group mt-4">
+                  <label for="">Date de passation de la commande</label>
+                  <input type="date" class="form-control rounded-pill" formControlName="date_passation_commande" />
+                </div>
+
+                <div class="col-lg-12 form-group my-4">
+                  <label for="">Fournisseur</label>
+                  <a (click)="addFournisseur(amenagementForm, i)" class="btn btn-sm second-btn mx-2 mx-lg-4">Ajouter
+                    fournisseur</a>
+                  <div formArrayName="fournisseur"
+                    *ngFor="let item of getFournisseur(amenagementForm, i); let j = index">
+
+                    <div [formGroupName]="j" class="main-card mt-4 bg-white p-lg-4">
+                      <a (click)="removeFournisseur(amenagementForm, j)" class="btn btn-sm danger-btn float-end"><i
+                          class="fal fa-trash"></i></a>
+                      <div class="row">
+                        <div class="col-lg-3 form-group">
+                          <label for="">Nom</label>
+                          <input type="text" class="form-control rounded-pill" formControlName="nom" />
+
+                        </div>
+                        <div class="col-lg-3 form-group">
+                          <label for="">Prénom</label>
+                          <input type="text" class="form-control rounded-pill" formControlName="prenom" />
+
+                        </div>
+                        <div class="col-lg-3 form-group">
+                          <label for="">Amenagement éffectué</label>
+                          <input type="text" class="form-control rounded-pill" formControlName="amenagement_effectue" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 form-group mt-4">
+                  <label for="">Evaluation du fournisseur</label>
+                  <input type="text" class="form-control rounded-pill" formControlName="evaluation_fournisseur" />
+                </div>
+
+                <div class="col-lg-3 form-group mt-4">
+                  <label for="">Date de fin des travaux</label>
+                  <input type="date" class="form-control rounded-pill" formControlName="date_fin_travaux" />
+                </div>
+
+                <div class="col-lg-3 form-group mt-4">
+                  <label for="">Date de livraison du local</label>
+                  <input type="date" class="form-control rounded-pill" formControlName="date_livraison_local" />
+                </div>
+
+                <div class="col-lg-3 form-group mt-4">
+                  <label for="">Images du local après aménagement</label>
+                  <input type="file" class="form-control btn success-btn"
+                    formControlName="images_local_apres_amenagement" />
+                </div>
+
+                <div class="col-lg-3 form-group mt-4">
+                  <label for="">Croquis d’aménagement via imagerie</label>
+                  <input type="file" class="form-control btn success-btn"
+                    formControlName="croquis_amenagement_via_imagerie" multiple />
+                </div>
+
               </div>
-              <!-- Div form Aménagement End-->
+
             </div>
-            <!--Fin de Conteneur Aménagement -->
-          </ng-template>
-          <!--Fin de Div Aménagement (Title+divForm+Form)-->
-        </div>
-        <!-- Fin 2éme Row-->
-  
-        <!-- Button Ajouter -->
-        <div class="form-group mt-4 col-lg-2 d-flex">
-          <button type="submit" class="btn second-btn form-control">
-            Ajouter
-          </button>
-        </div>
-      </form>
-      <!-- Fin de formulaire-->
-    </div>
-    <!--Fin Div form pv-form-->
+
+          </div>
+          <!--Fin de Conteneur Aménagement -->
+        </ng-template>
+        <!--Fin de Div Aménagement (Title+divForm+Form)-->
+      </div>
+      <!-- Fin 2éme Row-->
+
+      <!-- Button Ajouter -->
+      <div class="form-group mt-4 col-lg-2 d-flex">
+        <button type="submit" class="btn second-btn form-control">
+          Ajouter
+        </button>
+      </div>
+    </form>
+    <!-- Fin de formulaire-->
   </div>
-  <!--Fin de Conteneur pv-form-->
-
+  <!--Fin Div form pv-form-->
+</div>
+<!--Fin de Conteneur pv-form-->

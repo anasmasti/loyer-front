@@ -1,8 +1,8 @@
+import { Lieu } from 'src/app/models/Lieu';
 
 import { Component, OnInit } from '@angular/core';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { ActivatedRoute } from '@angular/router';
-import { Lieu } from '../../../models/Lieu';
 
 @Component({
   selector: 'app-detail-lieux',
@@ -19,7 +19,7 @@ export class DetailLieuxComponent implements OnInit {
     code_localite: 'loading..',
     desc_lieu_entrer: 'loading..',
     imgs_lieu_entrer: 'loading..',
-    has_amenagement: false,
+    has_amenagements: false,
     superficie: 'loading..',
     telephone: 0,
     fax: 0,
@@ -90,7 +90,6 @@ export class DetailLieuxComponent implements OnInit {
     //     this.selectedAmenagement = this.lieu.amenagement[index];
     //   }
     // }
-
     this.display = true;
   }
 }

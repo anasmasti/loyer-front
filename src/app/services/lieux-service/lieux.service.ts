@@ -1,14 +1,16 @@
-import { Lieu } from '../../models/Lieu';
+import { Lieu } from 'src/app/models/Lieu';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 
+
+
 @Injectable({
   providedIn: 'root',
 })
 export class LieuxService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   param_url: string = 'lieu';
 
@@ -20,8 +22,11 @@ export class LieuxService {
   };
 
   // Get list of all proprietaires from database
-  getLieux() {
-    return this.http.get('http://192.168.11.124:5000/api/v1/lieu/all-lieu');
+  getLieux(): Observable<Lieu[]> {
+    return this.http.get<Lieu[]>(
+      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/all-lieu`,
+      { headers: this.httpOptions.headers }
+    );
   }
 
   // get specific "lieu" by his id
@@ -29,11 +34,18 @@ export class LieuxService {
     return this.http.get<Lieu>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}` + id);
   }
 
-  addDR(data:Lieu): Observable<Lieu> {
-     return this.http.post<Lieu>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`,data);
+  addLieu(data: Lieu): Observable<Lieu> {
+    return this.http.post<Lieu>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`, data);
   }
 
- 
+  // Update the proprietaire
+  updateLieux(id: string, data: Lieu): Observable<Lieu> {
+    return this.http.put<Lieu>(
+      `${environment.API_URL + environment.API_VERSION + this.param_url}/edit/${id}`, data);
+  }
+
+
+
 
 
 

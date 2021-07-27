@@ -8,10 +8,11 @@ export interface Lieu {
   code_localite?: string,
   desc_lieu_entrer?: string,
   imgs_lieu_entrer?: string,
-  has_amenagement?: boolean,
+  has_amenagements?: boolean,
   superficie?: string,
   telephone?: number,
   fax?: number,
+  etat_logement_fonction?: string,
   etage?: string,
   type_lieu?: string,
   code_rattache_DR?: string,
@@ -20,8 +21,17 @@ export interface Lieu {
   centre_cout_siege?: string,
   categorie_pointVente?: string,
 
+  directeur_regional?: [
+    {
+      matricule?: string,
+      nom?: string,
+      prenom?: string,
+      deleted?: boolean
+    }
+  ],
+
   amenagement?: [{
-    _id: string,
+    _id?: string,
     nature_amenagement: string,
     montant_amenagement: string,
     valeur_nature_chargeProprietaire: string,
@@ -32,6 +42,12 @@ export interface Lieu {
     evaluation_fournisseur: string,
     date_fin_travaux: string,
     date_livraison_local: string,
+    
+    fournisseur?: [{
+      nom: string,
+      prenom: string,
+      amenagement_effectue: string,
+    }]
   }]
 
 }

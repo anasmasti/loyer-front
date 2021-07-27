@@ -21,6 +21,12 @@
     <!--Début Formulaire dr-form-->
     <form [formGroup]="drForm" enctype="multipart/form-data" (ngSubmit)="addDR()">
 
+      <div class="w-100 d-flex justify-content-center">
+        <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
+      </div>
+
+      <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
+
       <!--Début 1er Row-->
       <div class="row">
         <div class="col-lg-3 form-group mt-4">
@@ -67,15 +73,30 @@
             class="form-control btn success-btn">
         </div>
 
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Fax</label>
+          <input type="text" class="form-control rounded-pill" formControlName="fax" />
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Téléphone</label>
+          <input type="text" class="form-control rounded-pill" formControlName="telephone" />
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Superficie</label>
+          <input type="text" class="form-control rounded-pill" formControlName="superficie" />
+        </div>
+
 
         <div class="mt-4">Aménagement</div>
         <div class="col-lg-3 form-group d-flex mt-4">
           <label for="">Oui</label>
           <input type="radio" name="has_amenagements" [value]="true" class="form-check-input mx-2"
-            [(ngModel)]="hasAmenagement" formControlName="has_amenagements" />
+            [(ngModel)]="hasAmenagement" formControlName="has_amenagements" [(ngModel)]="hasAmenagement" />
           <label for="">Non</label>
           <input type="radio" name="has_amenagements" [value]="false" class="form-check-input mx-2"
-            [(ngModel)]="hasAmenagement" formControlName="has_amenagements" />
+            [(ngModel)]="hasAmenagement" formControlName="has_amenagements" [(ngModel)]="hasAmenagement" />
         </div>
 
         <!-- Condition pour afficher ou cacher le formulaire d'Aménagement -->
@@ -147,7 +168,7 @@
                   <label for="">Fournisseur</label>
                   <a (click)="addFournisseur(amenagementForm, i)" class="btn btn-sm second-btn mx-2 mx-lg-4">Ajouter
                     fournisseur</a>
-                  <div formArrayName="fournisseurForm"
+                  <div formArrayName="fournisseur"
                     *ngFor="let item of getFournisseur(amenagementForm, i); let j = index">
 
                     <div [formGroupName]="j" class="main-card mt-4 bg-white p-lg-4">
