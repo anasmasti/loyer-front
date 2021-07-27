@@ -3,16 +3,16 @@
         <div class="d-flex justify-content-between">
             <!-- <h3 class="leftborder"></h3> -->
             <h3 class="main-title">
-                <a class="goback-link">Détails de Contrat de bail</a>/<span class="selected-text"> {{Contrat._id}}
+                <a class="goback-link">Détails de Contrat de bail</a>/<span class="selected-text">
+                    {{Contrat.numero_contrat}}
                 </span>
             </h3>
             <div class="d-none d-lg-block">
-                <a  [routerLink]="['/contrat/list']" class="btn btn-sm second-btn me-3 " data-bs-toggle="tooltip"
+                <a [routerLink]="['/contrat/list']" class="btn btn-sm second-btn me-3 " data-bs-toggle="tooltip"
                     data-bs-placement="top" title="Retour à la liste"><i class="far fa-arrow-left"></i>
-                    Retour à la liste des contras 
+                    Retour à la liste des contras
                 </a>
-                <span data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Ici vous pouvez voir les détails de   ">
+                <span data-bs-toggle="tooltip" data-bs-placement="top" title="Ici vous pouvez voir les détails de   ">
                     <i class="fal fa-info"></i>
                 </span>
             </div>
@@ -26,31 +26,31 @@
 
     <table class="table" cellspacing="0" width="100%">
         <tbody>
-            <tr>
-                <th>Etat de contrat</th>
-                <td> {{Contrat.etat}} </td>
-            </tr>
 
             <tr>
+                <th>Numero de contrat</th>
+                <td> {{Contrat.numero_contrat}} </td>
+            </tr>
+            <tr>
                 <th>Date de debut du loyer</th>
-                <td> {{Contrat.Date_debut_loyer | date :'dd-MM-yyyy'}}</td>
+                <td> {{Contrat.date_debut_loyer | date :'dd-MM-yyyy'}}</td>
             </tr>
 
             <tr>
                 <th>Date fin de contrat de bail</th>
-                <td> {{Contrat.Date_fin_contrat_bail | date :'dd-MM-yyyy'}} </td>
+                <td> {{Contrat.date_fin_contrat | date :'dd-MM-yyyy'}} </td>
             </tr>
 
-             <tr>
+            <tr>
                 <th>Durée de location</th>
-                <td> {{Contrat.Duree_location}} </td>
+                <td> {{Contrat.duree_location}} </td>
             </tr>
 
             <tr>
                 <th>Périodicité de paiement</th>
-                <td> {{Contrat.Periodicite_paiement}} </td>
+                <td> {{Contrat.periodicite_paiement}} </td>
             </tr>
-            
+
             <tr>
                 <th>Montant du loyer</th>
                 <td> {{Contrat.Montant_loyer}} </td>
@@ -58,86 +58,153 @@
 
             <tr>
                 <th>Taxe d'édilité comprise dans loyer</th>
-                <td> {{Contrat.Taxe_edilite_loyer}} </td>
+                <td> {{Contrat.taxe_edilite_loyer}} </td>
             </tr>
 
 
             <tr>
                 <th>Taxe d'édilité non comprise dans loyer</th>
-                <td> {{Contrat.Taxe_edilite_non_loyer}} </td>
+                <td> {{Contrat.taxe_edilite_non_loyer}} </td>
             </tr>
 
             <tr>
                 <th>Déclaration d'option </th>
-                <td> {{Contrat.Declaration_option}} </td>
+                <td> {{Contrat.declaration_option}} </td>
             </tr>
 
             <tr>
                 <th>Taux de l'impot</th>
-                <td> {{Contrat.Taux_impot}} </td>
+                <td> {{Contrat.taux_impot}} </td>
             </tr>
 
             <tr>
                 <th>Retenue à la source </th>
-                <td> {{Contrat.Retenue_source}} </td>
+                <td> {{Contrat.retenue_source}} </td>
             </tr>
 
             <tr>
                 <th>Montant après impot</th>
-                <td> {{Contrat.Montant_apres_impot}} </td>
+                <td> {{Contrat.montant_apres_impot}} </td>
             </tr>
 
             <tr>
                 <th>Montant de la caution</th>
-                <td> {{Contrat.Montant_caution}} </td>
+                <td> {{Contrat.montant_caution}} </td>
             </tr>
 
             <tr>
                 <th>Effort de la caution</th>
-                <td> {{Contrat.Effort_caution}} </td>
+                <td> {{Contrat.effort_caution}} </td>
             </tr>
 
             <tr>
                 <th>Date de reprise de la caution </th>
-                <td> {{Contrat.Date_reprise_caution | date: 'dd-MM-yyyy'}} </td>
+                <td> {{Contrat.date_reprise_caution | date: 'dd-MM-yyyy'}} </td>
             </tr>
 
             <tr>
                 <th>Statut de la caution</th>
-                <td> {{Contrat.Statut_caution}} </td>
+                <td> {{Contrat.statut_caution}} </td>
             </tr>
             <tr>
                 <th>Montant de l'avance</th>
-                <td> {{Contrat.Montant_lavance}} </td>
+                <td> {{Contrat.montant_avance}} </td>
             </tr>
             <tr>
                 <th>Date fin de l'avance</th>
-                <td> {{Contrat.Date_fin_lavance | date: 'dd-MM-yyyy'}} </td>
+                <td> {{Contrat.date_fin_avance | date: 'dd-MM-yyyy'}} </td>
             </tr>
             <tr>
                 <th>Date 1er paiement</th>
-                <td> {{Contrat.Date_1er_paiement | date: 'dd-MM-yyyy'}} </td>
+                <td> {{Contrat.date_premier_paiement | date: 'dd-MM-yyyy'}} </td>
             </tr>
             <tr>
                 <th>Durée de l'avance</th>
-                <td> {{Contrat.Duree_lavance}} </td>
+                <td> {{Contrat.duree_avance}} </td>
             </tr>
             <tr>
                 <th>N° d'engagement de la dépense</th>
-                <td> {{Contrat.N_dengagement_depense}} </td>
+                <td> {{Contrat.N_engagement_depense}} </td>
             </tr>
             <tr>
                 <th>Echéance de révision du loyer</th>
-                <td> </td>
+                <td> {{Contrat.echeance_revision_loyer}} </td>
             </tr>
-           
-
-
+            <tr>
+                <th>Etat de contrat</th>
+                <td> {{Contrat.etat_contrat.libelle}} </td>
+            </tr>
         </tbody>
 
     </table>
-   
 
 
 
+
+
+
+    <table class="table" cellspacing="0" width="100%" *ngIf="Contrat.etat_contrat.libelle == 'Avenant'">
+        <tbody>
+            <tr>
+                <th class="w-55">N° avenant</th>
+                <td > {{Contrat.etat_contrat.etat.n_avenant}} </td>
+            </tr>
+            <tr>
+                <th>motif</th>
+                <td> {{Contrat.etat_contrat.etat.motif}} </td>
+            </tr>
+            <tr>
+                <th>montant de nouveau loyer</th>
+                <td> {{Contrat.etat_contrat.etat.montant_nouveau_loyer}} </td>
+            </tr>
+            <tr>
+                <th>signaletique successeur</th>
+                <td> {{Contrat.etat_contrat.etat.signaletique_successeur}} </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table" cellspacing="0" width="100%" *ngIf="Contrat.etat_contrat.libelle == 'Suspension'">
+        <tbody>
+            <tr>
+                <th class="w-55">intitulé de lieu</th>
+                <td > {{Contrat.etat_contrat.etat.intitule_lieu}} </td>
+            </tr>
+            <tr>
+                <th>date de suspension</th>
+                <td> {{Contrat.etat_contrat.etat.date_suspension | date: 'dd-MM-yyyy'}} </td>
+            </tr>
+            <tr>
+                <th>duree de suspensiont</th>
+                <td> {{Contrat.etat_contrat.etat.duree_suspension}} </td>
+            </tr>
+            <tr>
+                <th>motif de suspension</th>
+                <td> {{Contrat.etat_contrat.etat.motif_suspension}} </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table" cellspacing="0" width="100%" *ngIf="Contrat.etat_contrat.libelle == 'Résiliation'">
+        <tbody>
+            <tr>
+                <th class="w-55">intitulé de lieu</th>
+                <td > {{Contrat.etat_contrat.etat.intitule_lieu}} </td>
+            </tr>
+            <tr>
+                <th>reprise caution</th>
+                <td> {{Contrat.etat_contrat.etat.reprise_caution}} </td>
+            </tr>
+            <tr>
+                <th>date de resiliation</th>
+                <td> {{Contrat.etat_contrat.etat.date_resiliation | date: 'dd-MM-yyyy'}} </td>
+            </tr>
+            <tr>
+                <th>etat de lieu à la sortie</th>
+                <td> {{Contrat.etat_contrat.etat.etat_lieu_sortie}} </td>
+            </tr>
+            <tr>
+                <th>preavis</th>
+                <td> {{Contrat.etat_contrat.etat.preavis}} </td>
+            </tr>
+        </tbody>
+    </table>
 </div>

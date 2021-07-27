@@ -2,7 +2,8 @@
 @use '../../../../assets/style/components' as *;
 
 th {
-   @extend .header-table
+   @extend .header-table;
+   width:60%
 }
 
 

@@ -21,7 +21,7 @@ export class LieuxService {
 
   // Get list of all proprietaires from database
   getLieux() {
-    return this.http.get(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/tous`);
+    return this.http.get('http://192.168.11.124:5000/api/v1/lieu/all-lieu');
   }
 
   // get specific "lieu" by his id

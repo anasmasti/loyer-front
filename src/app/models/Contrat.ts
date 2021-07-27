@@ -1,26 +1,47 @@
 export interface Contrat {
-    _id: String;
-    etat: String;
-    Date_debut_loyer: Date;
-    Date_fin_contrat_bail: Date;
-    Duree_location: Number;
-    Periodicite_paiement: String;
-    Montant_loyer: Number;
-    Taxe_edilite_loyer: Number;
-    Taxe_edilite_non_loyer: Number;
-    Declaration_option: String;
-    Taux_impot: Number;
-    Retenue_source: String;
-    Montant_apres_impot: Number;
-    Montant_caution: Number;
-    Effort_caution:String;
-    Date_reprise_caution :Date;
-    Statut_caution:String;
-    Montant_lavance:Number;
-    Date_fin_lavance:Date;
-    Date_1er_paiement:Date;
-    Duree_lavance:Number;
-    N_dengagement_depense:Number;
-    Echeance_revision_loyer:String;
+    numero_contrat: String, 
+    date_debut_loyer: Date, 
+    date_fin_contrat: Date, 
+    date_reprise_caution: Date,
+    date_fin_avance: Date, 
+    date_premier_paiement: Date, 
+    Montant_loyer: Number, 
+    taxe_edilite_loyer: String, 
+    taxe_edilite_non_loyer: String, 
+    periodicite_paiement: String,
+    duree_location: Number, 
+    declaration_option: String, 
+    taux_impot: String, 
+    retenue_source: String, 
+    montant_apres_impot: Number, 
+    montant_caution: Number, 
+    effort_caution: String, 
+    statut_caution: String, 
+    montant_avance: Number, 
+    duree_avance: Number, 
+    N_engagement_depense: String, 
+    echeance_revision_loyer: String, 
+    proprietaire: String, 
+    type_lieu: String, 
+    lieu: String,
+    protrietaire: String, 
+    etat_contrat:{
+       libelle: String, 
+       etat: {
+            n_avenant: String,
+            motif: String, 
+            montant_nouveau_loyer: Number, 
+            signaletique_successeur: String,
+            intitule_lieu: String,
+            date_suspension: Date, 
+            duree_suspension:Number, 
+            motif_suspension:String,
+            reprise_caution: String, 
+            date_resiliation:Date, 
+            etat_lieu_sortie:String,
+            preavis: String
+       }
+    } ,
+    deleted:boolean
 }
 
