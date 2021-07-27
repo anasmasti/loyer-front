@@ -42,6 +42,12 @@ export interface Lieu {
     evaluation_fournisseur: string,
     date_fin_travaux: string,
     date_livraison_local: string,
+    
+    fournisseur?: [{
+      nom: string,
+      prenom: string,
+      amenagement_effectue: string,
+    }]
   }]
 
 }
