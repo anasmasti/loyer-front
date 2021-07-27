@@ -20,7 +20,15 @@
   <!--Début de Div qui contient le formulaire siege-form-->
   <div class="form-box mt-4">
     <!--Début Formulaire siege-form-->
-    <form [formGroup]="siegeForm" enctype="multipart/form-data">
+    <form [formGroup]="siegeForm" (ngSubmit)="onAddsiege()" enctype="multipart/form-data">
+
+        <!-- Message d'ERREUR de serveur -->
+  <div class="w-100 d-flex justify-content-center">
+    <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
+  </div>
+  <!-- Message de succés de serveur -->
+  <!-- <div *ngIf="updateDone" class="done-alert p-2 my-2">{{ Updatesuccess }}</div> -->
+  <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
 
       <!--Début 1er Row-->
       <div class="row">
@@ -69,7 +77,7 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Images du local avant aménagement</label>
-          <input type="text" class="form-control rounded-pill" formControlName="imgs_lieu_entrer" />
+          <input type="file" class="form-control btn success-btn" formControlName="imgs_lieu_entrer" multiple/>
         </div>
 
 

@@ -223,28 +223,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       nom_agence_bancaire: this.proprietaireForm.get('nom_agence_bancaire')
         ?.value,
       has_mandataire: this.proprietaireForm.get('has_mandataire')?.value,
-      // mandataire: [
-      //   {
-      //     cin_mandataire: this.proprietaireForm.get('cin_mandataire')?.value,
-      //     nom_prenom_mandataire: this.proprietaireForm.get(
-      //       'nom_prenom_mandataire'
-      //     )?.value,
-      //     raison_social_mandataire: this.proprietaireForm.get(
-      //       'raison_social_mandataire'
-      //     )?.value,
-      //     telephone_mandataire: this.proprietaireForm.get(
-      //       'telephone_mandataire'
-      //     )?.value,
-      //     fax_mandataire: this.proprietaireForm.get('fax_mandataire')?.value,
-      //     adresse_mandataire:
-      //       this.proprietaireForm.get('adresse_mandataire')?.value,
-      //     n_compte_bancaire_mandataire: this.proprietaireForm.get(
-      //       'n_compte_bancaire_mandataire'
-      //     )?.value,
-      //   },
-      // ],
+      //Mandataire
       mandataire: this.proprietaireForm.get('mandataireForm')?.value,
-      // deleted:false,
+     
     };
 
 
