@@ -21,6 +21,7 @@ export class LfFormComponent implements OnInit {
   @Input() update!: boolean;
   lF !: Lieu;
   LfForm!: FormGroup;
+  
   constructor(
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
@@ -163,18 +164,9 @@ export class LfFormComponent implements OnInit {
       centre_cout_siege: this.LfForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.LfForm.get('categorie_pointVente')?.value,
 
-      amenagement: [{
-        nature_amenagement: this.LfForm.get('nature_amenagement')?.value,
-        montant_amenagement: this.LfForm.get('montant_amenagement')?.value,
-        valeur_nature_chargeProprietaire: this.LfForm.get('valeur_nature_chargeProprietaire')?.value,
-        valeur_nature_chargeFondation: this.LfForm.get('valeur_nature_chargeFondation')?.value,
-        numero_facture: this.LfForm.get('numero_facture')?.value,
-        numero_bon_commande: this.LfForm.get('numero_bon_commande')?.value,
-        date_passation_commande: this.LfForm.get('date_passation_commande')?.value,
-        evaluation_fournisseur: this.LfForm.get('evaluation_fournisseur')?.value,
-        date_fin_travaux: this.LfForm.get('date_fin_travaux')?.value,
-        date_livraison_local: this.LfForm.get('date_livraison_local')?.value,
-      }]
+      // Amenagement
+      amenagement: this.LfForm.get('amenagement')?.value,
+
     }
 
     // this.lieuService.addLieu(lfData).subscribe((_) => {
