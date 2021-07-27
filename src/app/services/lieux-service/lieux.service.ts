@@ -23,7 +23,7 @@ export class LieuxService {
 
   // Get list of all proprietaires from database
   getLieux() {
-    return this.http.get(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/tous`);
+    return this.http.get(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/all-lieu`);
   }
 
   // get specific "lieu" by his id
