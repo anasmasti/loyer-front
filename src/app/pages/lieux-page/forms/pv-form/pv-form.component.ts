@@ -110,7 +110,7 @@ export class PvFormComponent implements OnInit {
       code_localite: this.PvForm.get('code_localite')?.value,
       desc_lieu_entrer: this.PvForm.get('desc_lieu_entrer')?.value,
       imgs_lieu_entrer: this.PvForm.get('imgs_lieu_entrer')?.value,
-      has_amenagements: this.PvForm.get('has_amenagement')?.value,
+      has_amenagements: this.PvForm.get('has_amenagements')?.value,
       superficie: this.PvForm.get('superficie')?.value,
       telephone: this.PvForm.get('telephone')?.value,
       fax: this.PvForm.get('fax')?.value,

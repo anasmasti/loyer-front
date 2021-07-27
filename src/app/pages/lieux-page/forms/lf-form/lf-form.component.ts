@@ -170,7 +170,7 @@ export class LfFormComponent implements OnInit {
       code_localite: this.LfForm.get('code_localite')?.value,
       desc_lieu_entrer: this.LfForm.get('desc_lieu_entrer')?.value,
       imgs_lieu_entrer: this.LfForm.get('imgs_lieu_entrer')?.value,
-      has_amenagements: this.LfForm.get('has_amenagement')?.value,
+      has_amenagements: this.LfForm.get('has_amenagements')?.value,
       superficie: this.LfForm.get('superficie')?.value,
       telephone: this.LfForm.get('telephone')?.value,
       fax: this.LfForm.get('fax')?.value,
