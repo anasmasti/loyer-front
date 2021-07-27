@@ -43,6 +43,9 @@ export class PvFormComponent implements OnInit {
       intitule_rattache_SUP_PV: new FormControl(''),
       centre_cout_siege: new FormControl(''),
       categorie_pointVente: new FormControl(''),
+      superficie: new FormControl('',),
+      telephone: new FormControl('',),
+      fax: new FormControl('',),
 
       //Aménagement
       amenagementForm: new FormArray([]),
