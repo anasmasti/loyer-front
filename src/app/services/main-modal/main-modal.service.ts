@@ -12,7 +12,15 @@ export class MainModalService {
   open() {
     let mainModal = this.document.getElementById('mainModal') // Get modal from the DOM by id
     mainModal?.classList.add('open') // Open it by add open class to the selected modal element
-    console.log("Hey from service");
+    console.log(mainModal);
+    
+  }
+
+  openWithId(id : any) {
+    let mainModal = this.document.getElementById(id) // Get modal from the DOM by id
+    // mainModal?.classList.add('open') // Open it by add open class to the selected modal element
+    mainModal?.setAttribute("id", "id_you_like")
+    console.log(mainModal);
     
   }
 

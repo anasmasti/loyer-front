@@ -14,6 +14,7 @@ export class MainModalComponent implements OnInit {
   constructor(private mainModalService: MainModalService) { }
 
   ngOnInit(): void {
+    
   }
 
   closeModal() {

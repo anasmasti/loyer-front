@@ -27,6 +27,10 @@ export class LfFormComponent implements OnInit {
   errors!: string;
   postDone: boolean = false;
   PostSucces: string = 'Logement de fonction ajouté avec succés';
+  UpdateDone: boolean = false;
+  UpdateSucces: string = 'Point de vente modifié avec succés';
+
+
 
   constructor(
     private mainModalService: MainModalService,
@@ -45,10 +49,15 @@ export class LfFormComponent implements OnInit {
     }
   }
 
+
+
   //////////////////////////////////////////////////////////////////////////////////
   showEtatLogement() {
     this.etatLogement = this.LfForm.value.etat_logement_fonction;
   }
+
+
+
   //////////////////////////////////////////////////////////////////////////////////
   ngOnInit(): void {
     this.LfForm = new FormGroup({
@@ -85,6 +94,8 @@ export class LfFormComponent implements OnInit {
     });
   }
 
+
+
   // Amenagement
   addAmenagement() {
     const amenagementData = new FormGroup({
@@ -109,13 +120,19 @@ export class LfFormComponent implements OnInit {
 
   }
 
+
+
   removeAmenagement(index: number) {
     (<FormArray>this.LfForm.get('amenagementForm')).removeAt(index)
   }
 
+
+
   removeAllAmenagement() {
     (<FormArray>this.LfForm.get('amenagementForm')).clear();
   }
+
+
 
   // FournisseurData
   addFournisseur(amenagementForm: any, index: number) {
@@ -128,55 +145,81 @@ export class LfFormComponent implements OnInit {
     (<FormArray>amenagementForm.controls[index].controls.fournisseur).push(<FormGroup>fournisseurData)
   }
 
+
+
   removeFournisseur(amenagementForm: any, index: number) {
     (<FormArray>amenagementForm.controls[index].controls.fournisseur).removeAt(index)
   }
+
+
 
   getFournisseur(amenagementForm: any, i: number) {
     return (amenagementForm.controls[i].controls.fournisseur).controls
   }
 
+
+
   //////////////////////////////////////////////////////////////////////////////////
   openReplaceModal(active: any) {
     this.isReplace = active;
     this.mainModel.open();
-    console.log(active);
-
+ 
     // this.confirmationModalService.open();
 
   }
+
+
+
   //////////////////////////////////////////////////////////////////////////////////
   closeReplaceModal() {
     // this.isReplace = false;
     this.mainModalService.close();
   }
+
+
+
   //////////////////////////////////////////////////////////////////////////////////
   openConfirmationModal() {
     this.confirmationModalService.open();
   }
+
+
+
   //////////////////////////////////////////////////////////////////////////////////
   openUpdate() {
     this.mainModalService.open();
   }
+
+
+
   //////////////////////////////////////////////////////////////////////////////////
   closeConfirmationModal() {
     this.confirmationModalService.close();
     // this.isReplace='';
   }
+
+
+
   //////////////////////////////////////////////////////////////////////////////////
   switchIsReplace() {
     this.isReplace = '';
   }
+
+
 
   // Afficher le message d'erreur de serveur
   showErrorMessage() {
     $('.error-alert').addClass('active');
   }
 
+
+
   // hide le message d'erreur de serveur
   hideErrorMessage() {
     $('.error-alert').removeClass('active');
   }
+
+
 
   //////////////////////////////////////////////////////////////////////////////////
   addLf() {
@@ -233,6 +276,9 @@ export class LfFormComponent implements OnInit {
       }
     )
   }
+
+
+
   //////////////////////////////////////////////////////////////////////////////////
   fetchLf() {
 
@@ -267,37 +313,16 @@ export class LfFormComponent implements OnInit {
         intitule_rattache_SUP_PV: this.Lieu.intitule_rattache_SUP_PV,
         centre_cout_siege: this.Lieu.centre_cout_siege,
         categorie_pointVente: this.Lieu.categorie_pointVente,
-        // directeur_regional: [
-        //   {
-        matricule_directeur: this.Lieu.directeur_regional[0].matricule,
-        nom_directeur: this.Lieu.directeur_regional[0].nom,
-        prenom_directeur: this.Lieu.directeur_regional[0].prenom,
-        // matricule_directeur: this.Lieu.directeur_regional.matricule
-            // nom: this.LfForm.get('nom_directeur')?.value,
-            // prenom: this.LfForm.get('prenom_directeur')?.value,
-          // }
-        // ],
-      // Amenagement
-
-        //amenagement inputs
-
-        //amenagement inputs
-      
-
-        // nature_amenagement: this.amenagementList.nature_amenagement,
-        // montant_amenagement: this.amenagementList.montant_amenagement,
-        // valeur_nature_chargeProprietaire: this.amenagementList.valeur_nature_chargeProprietaire,
-        // valeur_nature_chargeFondation: this.amenagementList.valeur_nature_chargeFondation,
-        // numero_facture: this.amenagementList.numero_facture,
-        // numero_bon_commande: this.amenagementList.numero_bon_commande,
-        // date_passation_commande: this.amenagementList.date_passation_commande,
-        // evaluation_fournisseur: this.amenagementList.evaluation_fournisseur,
-        // date_fin_travaux: this.amenagementList.date_fin_travaux,
-        // date_livraison_local: this.amenagementList.date_livraison_local,
+        
+        
+        // directeur_regional
+        matricule_directeur: this.Lieu.directeur_regional.matricule,
+        nom_directeur: this.Lieu.directeur_regional.nom,
+        prenom_directeur: this.Lieu.directeur_regional.prenom,
       });
       
       
-      
+      // Amenagement
       for (let LieuControl of this.Lieu.amenagements ) {
 
         let formGroupAmenagement = this.addAmenagement();
@@ -397,6 +422,7 @@ export class LfFormComponent implements OnInit {
         intitule_rattache_SUP_PV: this.Lieu.intitule_rattache_SUP_PV,
         centre_cout_siege: this.Lieu.centre_cout_siege,
         categorie_pointVente: this.Lieu.categorie_pointVente,
+        
         // amenagement inputs
         nature_amenagement: '',
         montant_amenagement: '',
@@ -411,6 +437,9 @@ export class LfFormComponent implements OnInit {
       });
     }
   }
+
+
+
   //////////////////////////////////////////////////////////////////////////////////
   updateLf() {
     let idlf = this.Lieu._id;
@@ -435,6 +464,7 @@ export class LfFormComponent implements OnInit {
       intitule_rattache_SUP_PV: this.LfForm.get('intitule_rattache_SUP_PV')?.value,
       centre_cout_siege: this.LfForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.LfForm.get('categorie_pointVente')?.value,
+      
       // Directeur
       directeur_regional: [
         {
@@ -446,27 +476,15 @@ export class LfFormComponent implements OnInit {
 
       // Amenagement
       amenagement: this.LfForm.get('amenagementForm')?.value,
-      // amenagement: [{
-      //   nature_amenagement: this.LfForm.get('nature_amenagement')?.value,
-      //   montant_amenagement: this.LfForm.get('montant_amenagement')?.value,
-      //   valeur_nature_chargeProprietaire: this.LfForm.get('valeur_nature_chargeProprietaire')?.value,
-      //   valeur_nature_chargeFondation: this.LfForm.get('valeur_nature_chargeFondation')?.value,
-      //   numero_facture: this.LfForm.get('numero_facture')?.value,
-      //   numero_bon_commande: this.LfForm.get('numero_bon_commande')?.value,
-      //   date_passation_commande: this.LfForm.get('date_passation_commande')?.value,
-      //   evaluation_fournisseur: this.LfForm.get('evaluation_fournisseur')?.value,
-      //   date_fin_travaux: this.LfForm.get('date_fin_travaux')?.value,
-      //   date_livraison_local: this.LfForm.get('date_livraison_local')?.value,
-      // }]
     }
 
     this.lieuService.updateLieux(idlf , lfData).subscribe(
       (_) => {
-        this.postDone = true;
+        this.UpdateDone = true;
         setTimeout(() => {
           this.mainModalService.close();
           this.LfForm.reset();
-          this.postDone = false;
+          this.UpdateDone = false;
           location.reload();
         }, 2000);
       },
@@ -479,12 +497,13 @@ export class LfFormComponent implements OnInit {
       }
     )
 
-    // this.lieuService.updateLieux('idlf', lfData).subscribe((_) => {
-    //   console.log(this.lF._id)
-
-    // })
   }
+
+
+
   //////////////////////////////////////////////////////////////////////////////////
+
+
 
   get code_lieu() {
     return this.LfForm.get('code_lieu');
