@@ -141,8 +141,6 @@ export class LfFormComponent implements OnInit {
   openReplaceModal(active: any) {
     this.isReplace = active;
     this.mainModel.open();
-    console.log(active);
-
     // this.confirmationModalService.open();
 
   }
@@ -240,8 +238,6 @@ export class LfFormComponent implements OnInit {
     this.removeAllAmenagement();
 
     this.etatLogement = this.Lieu.etat_logement_fonction;
-
-    console.log(this.Lieu.directeur_regional);
 
 
     if (this.Lieu.has_amenagements) {
@@ -347,8 +343,6 @@ export class LfFormComponent implements OnInit {
 
         if (LieuControl.fournisseurs.length !== 0) {
           for (let FourniseurControl of LieuControl.fournisseurs) {
-
-            // console.log(formGroupAmenagement);
 
             let formGroupFournisseur = new FormGroup({
               nom: new FormControl(''),
@@ -481,7 +475,7 @@ export class LfFormComponent implements OnInit {
     )
 
     // this.lieuService.updateLieux('idlf', lfData).subscribe((_) => {
-    //   console.log(this.lF._id)
+    //  
 
     // })
   }

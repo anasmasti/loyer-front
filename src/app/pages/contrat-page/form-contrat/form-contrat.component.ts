@@ -22,7 +22,7 @@ export class FormContratComponent implements OnInit {
     private contratService: ContratService,
     private lieuxService: LieuxService,
     private actRoute: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnChanges() {
     this.fillUpContrat();
@@ -94,7 +94,7 @@ export class FormContratComponent implements OnInit {
     lettre_resiliation_scannee: new FormControl(),
   });
 
-  lieux!:any;
+  lieux!: any;
 
   date_debut_loyer!: Date;
   date_fin_contrat!: Date;
@@ -107,7 +107,6 @@ export class FormContratComponent implements OnInit {
 
   ShowEtat() {
     this.etat_contrat = this.contratForm.value.etat_contrat;
-    console.log('================', this.contratForm.value.etat_contrat);
   }
 
   //objet contrat
@@ -165,7 +164,6 @@ export class FormContratComponent implements OnInit {
       this.contratService.getSelectedContrat(id).subscribe((data: any) => {
         this.Contrat = data;
       });
-      console.log('---' + this.Contrat.numero_contrat);
       setTimeout(() => {
         this.contratForm.patchValue({
           Ncontrat_loyer: this.Contrat.numero_contrat,
@@ -224,7 +222,6 @@ export class FormContratComponent implements OnInit {
 
   updateContrat() {
     this.fillNewValues();
-    console.log(this.Contrat);
     //sending request
     const id = this.actRoute.snapshot.paramMap.get('id') || '';
     this.contratService
@@ -236,7 +233,6 @@ export class FormContratComponent implements OnInit {
 
   addNewContrat() {
     this.fillNewValues();
-    console.log(this.Contrat);
     this.contratService.addContrat(this.Contrat).subscribe((data: any) => {
       this.Contrat = data;
     });
@@ -301,7 +297,7 @@ export class FormContratComponent implements OnInit {
     this.Contrat.etat_contrat.etat.signaletique_successeur =
       this.etatContrat.get('signaletique_successeur')?.value;
     //SUSPENSION
-    
+
     this.Contrat.etat_contrat.etat.date_suspension =
       this.etatContrat.get('date_suspension')?.value;
     this.Contrat.etat_contrat.etat.duree_suspension =
@@ -309,7 +305,7 @@ export class FormContratComponent implements OnInit {
     this.Contrat.etat_contrat.etat.motif_suspension =
       this.etatContrat.get('motif_suspension')?.value;
     //RESILIATION
-    
+
     this.Contrat.etat_contrat.etat.date_resiliation =
       this.etatContrat.get('date_resiliation')?.value;
     this.Contrat.etat_contrat.etat.reprise_caution =
@@ -319,26 +315,22 @@ export class FormContratComponent implements OnInit {
     this.Contrat.etat_contrat.etat.preavis =
       this.etatContrat.get('preavis')?.value;
 
-      if(this.etatContrat.get('intitule_lieu_sus')?.value!=''){
-         this.Contrat.etat_contrat.etat.intitule_lieu =
+    if (this.etatContrat.get('intitule_lieu_sus')?.value != '') {
+      this.Contrat.etat_contrat.etat.intitule_lieu =
         this.etatContrat.get('intitule_lieu_sus')?.value;
-      }else if(this.etatContrat.get('intitule_lieu_res')?.value!=''){
-        this.Contrat.etat_contrat.etat.intitule_lieu =
-      this.etatContrat.get('intitule_lieu_res')?.value;
-      }
+    } else if (this.etatContrat.get('intitule_lieu_res')?.value != '') {
+      this.Contrat.etat_contrat.etat.intitule_lieu =
+        this.etatContrat.get('intitule_lieu_res')?.value;
+    }
 
-     
-      
+
+
   }
 
-  getLieux(){
-    
+  getLieux() {
     this.lieuxService.getLieux().subscribe((data: any) => {
       this.lieux = data;
-      console.log(data);
-      
     });
-  
   }
 
 }

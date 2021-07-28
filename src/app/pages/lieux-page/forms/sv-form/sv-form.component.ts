@@ -138,7 +138,6 @@ export class SvFormComponent implements OnInit {
             this.svForm.reset();
             this.postDone = false;
           }, 2000); 
-            console.log(svData)
         },
         (error) => {
           this.errors = error.error.message;
