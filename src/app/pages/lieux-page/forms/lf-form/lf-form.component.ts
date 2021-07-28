@@ -38,7 +38,7 @@ export class LfFormComponent implements OnInit {
 
 
   ngOnChanges() {
-    if ( this.Lieu !== "") {
+    if (this.Lieu !== "") {
       setTimeout(() => {
         this.fetchLf();
       }, 100);
@@ -241,7 +241,7 @@ export class LfFormComponent implements OnInit {
     this.etatLogement = this.Lieu.etat_logement_fonction;
 
     console.log(this.Lieu.directeur_regional);
-    
+
 
     if (this.Lieu.has_amenagements) {
       this.hasAmenagement = true;
@@ -273,16 +273,16 @@ export class LfFormComponent implements OnInit {
         nom_directeur: this.Lieu.directeur_regional[0].nom,
         prenom_directeur: this.Lieu.directeur_regional[0].prenom,
         // matricule_directeur: this.Lieu.directeur_regional.matricule
-            // nom: this.LfForm.get('nom_directeur')?.value,
-            // prenom: this.LfForm.get('prenom_directeur')?.value,
-          // }
+        // nom: this.LfForm.get('nom_directeur')?.value,
+        // prenom: this.LfForm.get('prenom_directeur')?.value,
+        // }
         // ],
-      // Amenagement
+        // Amenagement
 
         //amenagement inputs
 
         //amenagement inputs
-      
+
 
         // nature_amenagement: this.amenagementList.nature_amenagement,
         // montant_amenagement: this.amenagementList.montant_amenagement,
@@ -295,10 +295,10 @@ export class LfFormComponent implements OnInit {
         // date_fin_travaux: this.amenagementList.date_fin_travaux,
         // date_livraison_local: this.amenagementList.date_livraison_local,
       });
-      
-      
-      
-      for (let LieuControl of this.Lieu.amenagements ) {
+
+
+
+      for (let LieuControl of this.Lieu.amenagements) {
 
         let formGroupAmenagement = this.addAmenagement();
 
@@ -342,37 +342,37 @@ export class LfFormComponent implements OnInit {
           LieuControl.date_livraison_local
         );
 
-        
-        
+
+
         if (LieuControl.fournisseurs.length !== 0) {
-          for (let FourniseurControl of LieuControl.fournisseurs ) {
+          for (let FourniseurControl of LieuControl.fournisseurs) {
 
             // console.log(formGroupAmenagement);
-            
+
             let formGroupFournisseur = new FormGroup({
               nom: new FormControl(''),
               prenom: new FormControl(''),
               amenagement_effectue: new FormControl(''),
             });
-        
+
             (<FormArray>formGroupAmenagement.controls.fournisseur).push(<FormGroup>formGroupFournisseur)
-    
+
             formGroupFournisseur.controls.nom.setValue(
               FourniseurControl.nom
             );
-    
+
             formGroupFournisseur.controls.prenom.setValue(
               FourniseurControl.prenom
             );
-    
+
             formGroupFournisseur.controls.amenagement_effectue.setValue(
               FourniseurControl.amenagement_effectue
             );
-            
-    
+
+
           }
         }
- 
+
       }
     } else {
       this.hasAmenagement = false;
@@ -460,7 +460,7 @@ export class LfFormComponent implements OnInit {
       // }]
     }
 
-    this.lieuService.updateLieux(idlf , lfData).subscribe(
+    this.lieuService.updateLieux(idlf, lfData).subscribe(
       (_) => {
         this.postDone = true;
         setTimeout(() => {
