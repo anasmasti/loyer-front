@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
 import { ContratService } from 'src/app/services/contrat-service/contrat.service';
-import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 
 @Component({
   selector: 'app-list-contrat',
@@ -11,7 +10,7 @@ import { MainModalService } from 'src/app/services/main-modal/main-modal.service
 export class ListContratComponent implements OnInit {
 
   contrats: any = [];
-
+  id!:string;
   constructor(
     private contratService: ContratService,
     private confirmationModalService: ConfirmationModalService
@@ -19,20 +18,20 @@ export class ListContratComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => {
       this.getContrat();
-      console.log(this.contrats);
       
    }, 200);
 
   }
 
 
+
   getContrat(){
     this.contratService.getContrat().subscribe((data:any) => {
       this.contrats = data;
     });
-    // console.log('liste des lieux : '+this.lieux);
   }
-  openConfirmationModal() {
+  openConfirmationModal(id:string) {
+   this.id = id;
     this.confirmationModalService.open(); // Open delete confirmation modal
   }
 
@@ -41,5 +40,19 @@ export class ListContratComponent implements OnInit {
     this.confirmationModalService.close(); // Close delete confirmation modal
   }
 
+  // deleteContrat
+  deleteContrat(){
+    this.contratService
+      .deleteContrat(this.id)
+      .subscribe((data: any) => {
+      
+        
+      });
+  }
+
+  reload(){
+    window.location.reload();
+  }
+  
 
 }

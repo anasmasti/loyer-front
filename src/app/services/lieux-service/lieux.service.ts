@@ -45,7 +45,9 @@ export class LieuxService {
   }
 
 
-
+  listLieux(){
+    return this.http.get('http://localhost:5000/api/v1/lieu/get');
+  }
 
 
 

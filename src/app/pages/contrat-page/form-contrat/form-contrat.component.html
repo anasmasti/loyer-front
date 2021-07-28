@@ -134,7 +134,7 @@
       <div class="col-lg-3 form-group mt-4">
         <label for="">Propriètaire</label>
         <select class="form-control rounded-pill" formControlName="proprietaire">
-          <option value="">----</option>
+          <option *ngFor="let prop of propriataire" [value] = "prop._id" > {{ prop.nom_prenom }} </option>
 
         </select>
       </div>
@@ -142,11 +142,11 @@
       <div class="col-lg-3 form-group mt-4">
         <label for="">Type de lieu</label>
         <select class="form-control rounded-pill" formControlName="type_lieu">
-          <option value=""> direction régional </option>
-          <option value=""> logement de fonction </option>
-          <option value=""> point de vente </option>
-          <option value=""> siege </option>
-          <option value=""> supervision </option>
+          <option value="Direction régional"> direction régional </option>
+          <option value="Logement de fonction"> logement de fonction </option>
+          <option value="Point de vente"> point de vente </option>
+          <option value="Siege"> siege </option>
+          <option value="Supervision"> supervision </option>
 
         </select>
       </div>
@@ -154,7 +154,7 @@
       <div class="col-lg-3 form-group mt-4">
         <label for="">Lieu</label>
         <select class="form-control rounded-pill" formControlName="lieu">
-          <option *ngFor="let lieu of lieux" value=""> {{ lieu.intitule_lieu }} </option>
+          <option *ngFor="let lieu of lieux" [value]="lieu._id"> {{ lieu.intitule_lieu }} </option>
 
         </select>
       </div>

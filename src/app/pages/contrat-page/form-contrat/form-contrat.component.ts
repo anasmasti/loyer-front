@@ -1,10 +1,11 @@
-import { isGeneratedFile } from '@angular/compiler/src/aot/util';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Contrat } from 'src/app/models/Contrat';
 import { ContratService } from 'src/app/services/contrat-service/contrat.service';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
+import { ProprietaireService } from 'src/app/services/proprietaire-service/proprietaire.service';
+
 
 @Component({
   selector: 'app-form-contrat',
@@ -21,7 +22,8 @@ export class FormContratComponent implements OnInit {
   constructor(
     private contratService: ContratService,
     private lieuxService: LieuxService,
-    private actRoute: ActivatedRoute
+    private actRoute: ActivatedRoute,
+    private proprietaireService: ProprietaireService
   ) {}
 
   ngOnChanges() {
@@ -41,6 +43,7 @@ export class FormContratComponent implements OnInit {
   ngOnInit(): void {
     // this.fillUpContrat();
     this.getLieux();
+    this.getProps();
   }
 
   contratForm: FormGroup = new FormGroup({
@@ -95,7 +98,7 @@ export class FormContratComponent implements OnInit {
   });
 
   lieux!:any;
-
+  propriataire!:any;
   date_debut_loyer!: Date;
   date_fin_contrat!: Date;
   date_fin_avance!: Date;
@@ -107,7 +110,6 @@ export class FormContratComponent implements OnInit {
 
   ShowEtat() {
     this.etat_contrat = this.contratForm.value.etat_contrat;
-    console.log('================', this.contratForm.value.etat_contrat);
   }
 
   //objet contrat
@@ -165,7 +167,7 @@ export class FormContratComponent implements OnInit {
       this.contratService.getSelectedContrat(id).subscribe((data: any) => {
         this.Contrat = data;
       });
-      console.log('---' + this.Contrat.numero_contrat);
+    
       setTimeout(() => {
         this.contratForm.patchValue({
           Ncontrat_loyer: this.Contrat.numero_contrat,
@@ -224,7 +226,6 @@ export class FormContratComponent implements OnInit {
 
   updateContrat() {
     this.fillNewValues();
-    console.log(this.Contrat);
     //sending request
     const id = this.actRoute.snapshot.paramMap.get('id') || '';
     this.contratService
@@ -236,7 +237,6 @@ export class FormContratComponent implements OnInit {
 
   addNewContrat() {
     this.fillNewValues();
-    console.log(this.Contrat);
     this.contratService.addContrat(this.Contrat).subscribe((data: any) => {
       this.Contrat = data;
     });
@@ -327,18 +327,27 @@ export class FormContratComponent implements OnInit {
       this.etatContrat.get('intitule_lieu_res')?.value;
       }
 
+      this.Contrat.lieu = this.contratForm.get('lieu')?.value;
+      this.Contrat.proprietaire = this.contratForm.get('proprietaire')?.value;
+
      
       
   }
 
   getLieux(){
     
-    this.lieuxService.getLieux().subscribe((data: any) => {
+    this.lieuxService.listLieux().subscribe((data: any) => {
       this.lieux = data;
-      console.log(data);
       
     });
   
+  }
+  getProps(){
+    
+    this.proprietaireService.getProps().subscribe((data: any) => {
+      this.propriataire = data;
+      
+    });
   }
 
 }

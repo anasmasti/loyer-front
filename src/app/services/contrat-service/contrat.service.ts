@@ -23,8 +23,13 @@ export class ContratService {
   updateContrat(id:String,contrat:Contrat){
     return this.http.put('http://localhost:5000/api/v1/contrat/modifier/'+id,contrat);
   }
+
   addContrat(contrat:Contrat){
     return this.http.post('http://localhost:5000/api/v1/contrat/ajouter/',contrat);
+  }
+
+  deleteContrat(id:String){
+    return this.http.put('http://localhost:5000/api/v1/contrat/supprimer/'+id,{deleted:true});
   }
 
   
