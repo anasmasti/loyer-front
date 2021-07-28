@@ -14,17 +14,19 @@ export class ListContratComponent implements OnInit {
 
   constructor(
     private contratService: ContratService,
-    private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService
   ) { }
   ngOnInit(): void {
-   setTimeout(() => {
-      this.getAllLieux();
-   }, 400);
-   
+    setTimeout(() => {
+      this.getContrat();
+      console.log(this.contrats);
+      
+   }, 200);
+
   }
 
-  getAllLieux(){
+
+  getContrat(){
     this.contratService.getContrat().subscribe((data:any) => {
       this.contrats = data;
     });

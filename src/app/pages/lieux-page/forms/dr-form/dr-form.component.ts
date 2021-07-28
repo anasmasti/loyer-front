@@ -3,6 +3,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'dr-form',
@@ -23,7 +25,10 @@ export class DrFormComponent implements OnInit {
   amenagementList: any = [];
   LfForm!: FormGroup;
 
-  constructor(private drService: LieuxService) { }
+  constructor(
+    private drService: LieuxService ,
+    private mainModalService: MainModalService,
+    ) { }
 
   ngOnChanges() {
     if ( this.Lieu !== "") {
@@ -97,62 +102,89 @@ export class DrFormComponent implements OnInit {
         centre_cout_siege: this.Lieu.centre_cout_siege,
         categorie_pointVente: this.Lieu.categorie_pointVente,
 
-        
-        // nature_amenagement: this.amenagementList.nature_amenagement,
-        // montant_amenagement: this.amenagementList.montant_amenagement,
-        // valeur_nature_chargeProprietaire: this.amenagementList.valeur_nature_chargeProprietaire,
-        // valeur_nature_chargeFondation: this.amenagementList.valeur_nature_chargeFondation,
-        // numero_facture: this.amenagementList.numero_facture,
-        // numero_bon_commande: this.amenagementList.numero_bon_commande,
-        // date_passation_commande: this.amenagementList.date_passation_commande,
-        // evaluation_fournisseur: this.amenagementList.evaluation_fournisseur,
-        // date_fin_travaux: this.amenagementList.date_fin_travaux,
-        // date_livraison_local: this.amenagementList.date_livraison_local,
       });
 
-      //amenagement inputs
-      for (let LieuControl of this.Lieu.amenagements) {
-        let formGroup = this.addAmenagement();
+      let i = 0;
 
-        formGroup.controls.nature_amenagement.setValue(
+      //amenagement inputs
+      for (let LieuControl of this.Lieu.amenagements ) {
+
+        let formGroupAmenagement = this.addAmenagement();
+
+        formGroupAmenagement.controls.nature_amenagement.setValue(
           LieuControl.nature_amenagement
         );
 
-        formGroup.controls.montant_amenagement.setValue(
+        formGroupAmenagement.controls.montant_amenagement.setValue(
           LieuControl.montant_amenagement
         );
 
-        formGroup.controls.valeur_nature_chargeProprietaire.setValue(
+        formGroupAmenagement.controls.valeur_nature_chargeProprietaire.setValue(
           LieuControl.valeur_nature_chargeProprietaire
         );
 
-        formGroup.controls.valeur_nature_chargeFondation.setValue(
+        formGroupAmenagement.controls.valeur_nature_chargeFondation.setValue(
           LieuControl.valeur_nature_chargeFondation
         );
 
-        formGroup.controls.numero_facture.setValue(
+        formGroupAmenagement.controls.numero_facture.setValue(
           LieuControl.numero_facture
         );
 
-        formGroup.controls.numero_bon_commande.setValue(
+        formGroupAmenagement.controls.numero_bon_commande.setValue(
           LieuControl.numero_bon_commande
         );
 
-        formGroup.controls.date_passation_commande.setValue(
+        formGroupAmenagement.controls.date_passation_commande.setValue(
           LieuControl.date_passation_commande
         );
 
-        formGroup.controls.evaluation_fournisseur.setValue(
+        formGroupAmenagement.controls.evaluation_fournisseur.setValue(
           LieuControl.evaluation_fournisseur
         );
 
-        formGroup.controls.date_fin_travaux.setValue(
+        formGroupAmenagement.controls.date_fin_travaux.setValue(
           LieuControl.date_fin_travaux
         );
 
-        formGroup.controls.date_livraison_local.setValue(
+        formGroupAmenagement.controls.date_livraison_local.setValue(
           LieuControl.date_livraison_local
         );
+
+        
+        
+        if (LieuControl.fournisseurs.length !== 0) {
+          for (let FourniseurControl of LieuControl.fournisseurs ) {
+
+            // console.log(formGroupAmenagement);
+            
+            let formGroupFournisseur = new FormGroup({
+              nom: new FormControl(''),
+              prenom: new FormControl(''),
+              amenagement_effectue: new FormControl(''),
+            });
+        
+            (<FormArray>formGroupAmenagement.controls.fournisseur).push(<FormGroup>formGroupFournisseur)
+    
+            formGroupFournisseur.controls.nom.setValue(
+              FourniseurControl.nom
+            );
+    
+            formGroupFournisseur.controls.prenom.setValue(
+              FourniseurControl.prenom
+            );
+    
+            formGroupFournisseur.controls.amenagement_effectue.setValue(
+              FourniseurControl.amenagement_effectue
+            );
+            
+    
+          }
+        }
+      
+        
+
+        i++;
       }
       
 
@@ -225,7 +257,6 @@ export class DrFormComponent implements OnInit {
     (<FormArray>this.drForm.get('amenagementForm')).clear();
   }
 
-
   // FournisseurData
   addFournisseur(amenagementForm: any, index: number) {
     let fournisseurData = new FormGroup({
@@ -235,6 +266,8 @@ export class DrFormComponent implements OnInit {
     });
 
     (<FormArray>amenagementForm.controls[index].controls.fournisseur).push(<FormGroup>fournisseurData)
+
+    return (<FormGroup>fournisseurData)
   }
 
   removeFournisseur(amenagementForm: any, index: number) {
@@ -244,7 +277,6 @@ export class DrFormComponent implements OnInit {
   getFournisseur(amenagementForm: any, i: number) {
     return (amenagementForm.controls[i].controls.fournisseur).controls
   }
-
 
   onFileSelected(event: any) {
     this.selectedFile = <File>event.target.files[0];
@@ -301,6 +333,53 @@ export class DrFormComponent implements OnInit {
         setTimeout(() => {
           this.drForm.reset();
           this.postDone = false;
+        }, 2000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+    )
+
+  }
+
+  updateDR(){
+
+    let id = this.Lieu._id;
+
+    let dr_data: Lieu = {
+      code_lieu: this.drForm.get('code_lieu')?.value,
+      intitule_lieu: this.drForm.get('intitule_lieu')?.value,
+      adresse: this.drForm.get('adresse')?.value,
+      ville: this.drForm.get('ville')?.value,
+      code_localite: this.drForm.get('code_localite')?.value,
+      desc_lieu_entrer: this.drForm.get('desc_lieu_entrer')?.value,
+      has_amenagements: this.drForm.get('has_amenagements')?.value,
+      superficie: this.drForm.get('superficie')?.value,
+      telephone: this.drForm.get('telephone')?.value,
+      fax: this.drForm.get('fax')?.value,
+      etage: this.drForm.get('etage')?.value,
+      type_lieu: this.drForm.get('type_lieu')?.value,
+      code_rattache_DR: this.drForm.get('code_rattache_DR')?.value,
+      code_rattache_SUP: this.drForm.get('code_rattache_SUP')?.value,
+      intitule_rattache_SUP_PV: this.drForm.get('code_lieu')?.value,
+      centre_cout_siege: this.drForm.get('centre_cout_siege')?.value,
+      categorie_pointVente: this.drForm.get('categorie_pointVente')?.value,
+      // Amenagment
+      amenagement: this.drForm.get('amenagementForm')?.value,
+    };
+    
+    this.drService.updateLieux(id , dr_data).subscribe(
+      (_) => {
+        this.postDone = true;
+        setTimeout(() => {
+          this.mainModalService.close();
+          this.drForm.reset();
+          this.postDone = false;
+          location.reload();
         }, 2000);
       },
       (error) => {

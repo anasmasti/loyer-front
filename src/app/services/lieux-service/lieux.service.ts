@@ -40,8 +40,13 @@ export class LieuxService {
 
   // Update the proprietaire
   updateLieux(id: string, data: Lieu): Observable<Lieu> {
-    return this.http.put<Lieu>(
-      `${environment.API_URL + environment.API_VERSION + this.param_url}/edit/${id}`, data);
+      return this.http.put<Lieu>(
+        `${
+          environment.API_URL_TEST + environment.API_VERSION + this.param_url
+        }/modifier/${id}`,
+        data,
+        { headers: this.httpOptions.headers }
+      );
   }
 
 

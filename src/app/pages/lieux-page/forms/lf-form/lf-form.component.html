@@ -21,7 +21,7 @@
   <!--Début de Div qui contient le formulaire lf-form-->
   <div class="form-box mt-4">
     <!--Début Formulaire lf-form-->
-    <form [formGroup]="LfForm" enctype="multipart/form-data" (ngSubmit)="addLf()">
+    <form [formGroup]="LfForm" enctype="multipart/form-data" (ngSubmit)="(Lieu == '') ? addLf() : updateLf()">
 
 
       <div class="w-100 d-flex justify-content-center">
@@ -116,14 +116,14 @@
                     <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
                   </div>
                   <div class="ms-3">
-                    <a class="btn btn-sm success-btn rounded-pill" (click)='openReplaceModal()'>
+                    <a class="btn btn-sm success-btn rounded-pill" (click)='openReplaceModal("remplacer")'>
                       Remplacer
                       <i class="fal fa-sync"></i>
                     </a>
-                    <!-- <a class="btn btn-sm info-btn mx-2 rounded-pill" (click)='openReplaceModal()'>
+                    <a class="btn btn-sm info-btn mx-2 rounded-pill" (click)='openReplaceModal("modifier")'>
                       Modifier
                       <i class="far fa-user-edit"></i>
-                    </a> -->
+                    </a>
                     <a class="btn btn-sm danger-btn rounded-pill" (click)='openConfirmationModal();switchIsReplace();'>
                       Supprimer
                       <i class="far fa-user-minus"></i>
@@ -132,7 +132,7 @@
 
                 </div>
 
-                <app-main-modal [closeBtn]='true' [mainHeight]="modalHeight">
+                <!-- <app-main-modal [closeBtn]='true' [mainHeight]="modalHeight" #LfModal>
 
                   <div class="row title">
                     <div class="col-lg-12">
@@ -158,11 +158,10 @@
                   </div>
 
                   <div class="form-group mt-4 col-lg-2 d-flex">
-                    <button type="submit" class="btn second-btn form-control" *ngIf="isReplace == 'remplacer'"
-                      (click)="openConfirmationModal()">
+                    <button type="submit" class="btn second-btn form-control" *ngIf="isReplace == 'remplacer'">
                       Remplacer
                     </button>
-                    <button type="submit" class="btn second-btn form-control" *ngIf="isReplace == 'modifier' ">
+                    <button type="submit" class="btn second-btn form-control" *ngIf="isReplace == 'modifier'">
                       Modifier
                     </button>
                     <button type="submit" (click)='closeReplaceModal()'
@@ -171,7 +170,82 @@
                     </button>
                   </div>
 
-                </app-main-modal>
+                </app-main-modal> -->
+                
+                <div *ngIf="isReplace == 'remplacer';then remplacer;"></div>
+                <div *ngIf="isReplace == 'modifier';then modifier;"></div>
+                <!-- Form to replace directeur -->
+                <ng-template #remplacer >
+                  <div class="main-card bg-white p-3 mt-3">
+                    <div class="row title">
+                      <div class="col-lg-12">
+                        <h2 class="main-title">Remplacer Directeur</h2>
+                      </div>
+                    </div>
+  
+                    <div class="row">
+                      <div class="col-lg-3 form-group mt-4">
+                        <label for="">Matricule du Directeur</label>
+                        <input type="text" class="form-control rounded-pill" formControlName="matricule_directeur" />
+                      </div>
+  
+                      <div class="col-lg-3 form-group mt-4">
+                        <label for="">Nom du Directeur</label>
+                        <input type="text" class="form-control rounded-pill" formControlName="nom_directeur" />
+                      </div>
+  
+                      <div class="col-lg-3 form-group mt-4">
+                        <label for="">Prénom du Directeur</label>
+                        <input type="text" class="form-control rounded-pill" formControlName="prenom_directeur" />
+                      </div>
+  
+                      <div class="col-lg-3 form-group mt-5">
+                         <button type="submit" class="btn second-btn form-control" (click)="openConfirmationModal()">
+                        Remplacer
+                      </button>
+                      </div>
+                     
+                    </div>
+                  </div>
+                </ng-template>
+                
+                <!-- Form to update directeur -->
+                <ng-template #modifier>
+                  <div class="main-card bg-white p-3 mt-3">
+                    <div class="row title">
+                      <div class="col-lg-12">
+                        <h2 class="main-title">Modifier Directeur</h2>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-3 form-group mt-4">
+                        <label for="">Matricule du Directeur</label>
+                        <input type="text" class="form-control rounded-pill" formControlName="matricule_directeur" />
+                      </div>
+  
+                      <div class="col-lg-3 form-group mt-4">
+                        <label for="">Nom du Directeur</label>
+                        <input type="text" class="form-control rounded-pill" formControlName="nom_directeur" />
+                      </div>
+  
+                      <div class="col-lg-3 form-group mt-4">
+                        <label for="">Prénom du Directeur</label>
+                        <input type="text" class="form-control rounded-pill" formControlName="prenom_directeur" />
+                      </div>
+  
+                      <div class="col-lg-3 form-group mt-5">
+                        <button type="submit" class="btn second-btn form-control" *ngIf="isReplace == 'modifier'">
+                      Modifier
+                    </button>
+                      </div>
+                    
+  
+                    </div>
+                  
+                  </div>
+                  
+                </ng-template>
+
                 
                 <!-- Confirmation modal   -->
                 <app-confirmation-modal [closeBtn]='true'>
@@ -218,17 +292,17 @@
 
             <div class="col-lg-3 form-group mt-4">
               <label for="">Matricule du Directeur Régional</label>
-              <input type="text" class="form-control rounded-pill" formControlName="matricule_directeur" />
+              <input type="text" class="form-control rounded-pill" formControlName="matricule_directeur" readonly/>
             </div>
 
             <div class="col-lg-3 form-group mt-4">
               <label for="">Nom du Directeur Régional</label>
-              <input type="text" class="form-control rounded-pill" formControlName="nom_directeur" />
+              <input type="text" class="form-control rounded-pill" formControlName="nom_directeur" readonly/>
             </div>
 
             <div class="col-lg-3 form-group mt-4">
               <label for="">Prénom du Directeur Régional</label>
-              <input type="text" class="form-control rounded-pill" formControlName="prenom_directeur" />
+              <input type="text" class="form-control rounded-pill" formControlName="prenom_directeur" readonly/>
             </div>
           </ng-template>
         </div>
@@ -378,7 +452,10 @@
 
       <!-- Button Ajouter -->
       <div class="form-group mt-4 col-lg-2 d-flex">
-        <button type="submit" class="btn second-btn form-control">
+        <button type="submit" class="btn second-btn form-control" *ngIf="Lieu != ''">
+          Modifier
+        </button>
+        <button type="submit" class="btn second-btn form-control" *ngIf="Lieu == ''">
           Ajouter
         </button>
       </div>

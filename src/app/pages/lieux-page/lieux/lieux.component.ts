@@ -30,6 +30,8 @@ export class LieuxComponent implements OnInit {
   ];
   activeLieux = '';
 
+  Lieu:any = "";
+
   constructor() {}
 
   ngOnInit(): void {}
