@@ -23,7 +23,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   constructor(
     private proprietaireService: ProprietaireService,
     private mainModalService: MainModalService
-  ) {}
+  ) { }
 
   ngOnChanges() {
     if (this.proprietaire != '') {
@@ -187,8 +187,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         adresse_mandataire: '',
         n_compte_bancaire_mandataire: '',
       });
-
-      console.log('not has mondataire');
     }
   }
 

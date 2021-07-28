@@ -331,7 +331,6 @@ export class SiegeFormComponent implements OnInit {
             this.siegeForm.reset();
             this.postDone = false;
           }, 2000);
-          console.log(siegeData);
           
         },
         (error) => {

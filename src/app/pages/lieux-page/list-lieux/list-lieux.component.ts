@@ -12,7 +12,7 @@ import { Observable, timer } from 'rxjs';
 })
 export class ListLieuxComponent implements OnInit {
 
-  lieux: Lieu[] = [] ;
+  lieux: Lieu[] = [];
   targetlieu: Lieu[] = [];
   targetlieuId: string = '';
 
@@ -23,23 +23,22 @@ export class ListLieuxComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-  //  setTimeout(() => {
-      this.getAllLieux();
-  //  }, 1000);
-   
+    //  setTimeout(() => {
+    this.getAllLieux();
+    //  }, 1000);
+
   }
 
-  getAllLieux(){
+  getAllLieux() {
     this.lieuxService.getLieux().subscribe((data) => {
-      this.lieux = data ;
-      console.log('liste des lieu : ' + this.lieux);
+      this.lieux = data;
     });
   }
   openConfirmationModal() {
     this.confirmationModalService.open(); // Open delete confirmation modal
   }
 
-  openModalAndPushLieu(Lieu : any) {
+  openModalAndPushLieu(Lieu: any) {
     this.targetlieu = Lieu
     this.mainModalService.open(); // Open delete confirmation modal
   }

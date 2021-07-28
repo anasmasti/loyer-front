@@ -22,7 +22,7 @@ export class FormContratComponent implements OnInit {
     private contratService: ContratService,
     private lieuxService: LieuxService,
     private actRoute: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnChanges() {
     this.fillUpContrat();
@@ -94,7 +94,7 @@ export class FormContratComponent implements OnInit {
     lettre_resiliation_scannee: new FormControl(),
   });
 
-  lieux!:any;
+  lieux!: any;
 
   date_debut_loyer!: Date;
   date_fin_contrat!: Date;
@@ -107,52 +107,51 @@ export class FormContratComponent implements OnInit {
 
   ShowEtat() {
     this.etat_contrat = this.contratForm.value.etat_contrat;
-    console.log('================', this.contratForm.value.etat_contrat);
   }
 
   //objet contrat
   Contrat: Contrat = {
-    numero_contrat: 'loading...',
+    numero_contrat: 'Chargement...',
     date_debut_loyer: new Date(),
     date_fin_contrat: new Date(),
     date_fin_avance: new Date(),
     date_reprise_caution: new Date(),
     date_premier_paiement: new Date(),
     Montant_loyer: 0,
-    taxe_edilite_loyer: 'loading...',
-    taxe_edilite_non_loyer: 'loading...',
-    periodicite_paiement: 'loading...',
+    taxe_edilite_loyer: 'Chargement...',
+    taxe_edilite_non_loyer: 'Chargement...',
+    periodicite_paiement: 'Chargement...',
     duree_location: 0,
-    declaration_option: 'loading...',
-    taux_impot: 'loading...',
-    retenue_source: 'loading...',
+    declaration_option: 'Chargement...',
+    taux_impot: 'Chargement...',
+    retenue_source: 'Chargement...',
     montant_apres_impot: 0,
     montant_caution: 0,
-    effort_caution: 'loading...',
-    statut_caution: 'loading...',
+    effort_caution: 'Chargement...',
+    statut_caution: 'Chargement...',
     montant_avance: 0,
     duree_avance: 0,
-    N_engagement_depense: 'loading...',
-    echeance_revision_loyer: 'loading...',
-    proprietaire: 'loading...',
-    type_lieu: 'loading...',
-    lieu: 'loading...',
-    protrietaire: 'loading...',
+    N_engagement_depense: 'Chargement...',
+    echeance_revision_loyer: 'Chargement...',
+    proprietaire: 'Chargement...',
+    type_lieu: 'Chargement...',
+    lieu: 'Chargement...',
+    protrietaire: 'Chargement...',
     etat_contrat: {
-      libelle: 'loading...',
+      libelle: 'Chargement...',
       etat: {
-        n_avenant: 'loading...',
-        motif: 'loading...',
+        n_avenant: 'Chargement...',
+        motif: 'Chargement...',
         montant_nouveau_loyer: 0,
-        signaletique_successeur: 'loading...',
-        intitule_lieu: 'loading...',
+        signaletique_successeur: 'Chargement...',
+        intitule_lieu: 'Chargement...',
         date_suspension: new Date(),
         duree_suspension: 0,
-        motif_suspension: 'loading...',
-        reprise_caution: 'loading...',
+        motif_suspension: 'Chargement...',
+        reprise_caution: 'Chargement...',
         date_resiliation: new Date(),
-        etat_lieu_sortie: 'loading...',
-        preavis: 'loading...',
+        etat_lieu_sortie: 'Chargement...',
+        preavis: 'Chargement...',
       },
     },
     deleted: false,
@@ -165,7 +164,6 @@ export class FormContratComponent implements OnInit {
       this.contratService.getSelectedContrat(id).subscribe((data: any) => {
         this.Contrat = data;
       });
-      console.log('---' + this.Contrat.numero_contrat);
       setTimeout(() => {
         this.contratForm.patchValue({
           Ncontrat_loyer: this.Contrat.numero_contrat,
@@ -224,7 +222,6 @@ export class FormContratComponent implements OnInit {
 
   updateContrat() {
     this.fillNewValues();
-    console.log(this.Contrat);
     //sending request
     const id = this.actRoute.snapshot.paramMap.get('id') || '';
     this.contratService
@@ -236,7 +233,6 @@ export class FormContratComponent implements OnInit {
 
   addNewContrat() {
     this.fillNewValues();
-    console.log(this.Contrat);
     this.contratService.addContrat(this.Contrat).subscribe((data: any) => {
       this.Contrat = data;
     });
@@ -301,7 +297,7 @@ export class FormContratComponent implements OnInit {
     this.Contrat.etat_contrat.etat.signaletique_successeur =
       this.etatContrat.get('signaletique_successeur')?.value;
     //SUSPENSION
-    
+
     this.Contrat.etat_contrat.etat.date_suspension =
       this.etatContrat.get('date_suspension')?.value;
     this.Contrat.etat_contrat.etat.duree_suspension =
@@ -309,7 +305,7 @@ export class FormContratComponent implements OnInit {
     this.Contrat.etat_contrat.etat.motif_suspension =
       this.etatContrat.get('motif_suspension')?.value;
     //RESILIATION
-    
+
     this.Contrat.etat_contrat.etat.date_resiliation =
       this.etatContrat.get('date_resiliation')?.value;
     this.Contrat.etat_contrat.etat.reprise_caution =
@@ -319,26 +315,22 @@ export class FormContratComponent implements OnInit {
     this.Contrat.etat_contrat.etat.preavis =
       this.etatContrat.get('preavis')?.value;
 
-      if(this.etatContrat.get('intitule_lieu_sus')?.value!=''){
-         this.Contrat.etat_contrat.etat.intitule_lieu =
+    if (this.etatContrat.get('intitule_lieu_sus')?.value != '') {
+      this.Contrat.etat_contrat.etat.intitule_lieu =
         this.etatContrat.get('intitule_lieu_sus')?.value;
-      }else if(this.etatContrat.get('intitule_lieu_res')?.value!=''){
-        this.Contrat.etat_contrat.etat.intitule_lieu =
-      this.etatContrat.get('intitule_lieu_res')?.value;
-      }
+    } else if (this.etatContrat.get('intitule_lieu_res')?.value != '') {
+      this.Contrat.etat_contrat.etat.intitule_lieu =
+        this.etatContrat.get('intitule_lieu_res')?.value;
+    }
 
-     
-      
+
+
   }
 
-  getLieux(){
-    
+  getLieux() {
     this.lieuxService.getLieux().subscribe((data: any) => {
       this.lieux = data;
-      console.log(data);
-      
     });
-  
   }
 
 }

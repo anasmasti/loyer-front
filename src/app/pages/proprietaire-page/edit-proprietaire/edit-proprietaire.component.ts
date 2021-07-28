@@ -12,7 +12,6 @@ export class EditProprietaireComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log( "Proprietaire : " + this.proprietaire);
     
   }
 }
