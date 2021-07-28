@@ -17,7 +17,8 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date de début du loyer</label>
-        <input type="date" class="form-control rounded-pill" formControlName="date_debut_loyer" />
+        <input type="date" class="form-control rounded-pill" [ngModel]="date_debut_loyer | date:'yyyy-MM-dd'"
+          formControlName="date_debut_loyer" />
 
       </div>
 
@@ -51,7 +52,8 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date fin de contrat de bail</label>
-        <input type="date" class="form-control rounded-pill" formControlName="date_fin_contrat">
+        <input type="date" class="form-control rounded-pill" [ngModel]="date_fin_contrat | date:'yyyy-MM-dd'"
+          formControlName="date_fin_contrat">
       </div>
 
       <div class="col-lg-3 form-group mt-4">
@@ -86,7 +88,8 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date de reprise de la caution</label>
-        <input type="date" class="form-control rounded-pill" formControlName="date_reprise_caution">
+        <input type="date" class="form-control rounded-pill" [ngModel]="date_reprise_caution | date:'yyyy-MM-dd'"
+          formControlName="date_reprise_caution">
       </div>
 
       <div class="col-lg-3 form-group mt-4">
@@ -101,12 +104,14 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date fin de l’avance</label>
-        <input type="date" class="form-control rounded-pill" formControlName="date_fin_avance">
+        <input type="date" class="form-control rounded-pill" [ngModel]="date_fin_avance | date:'yyyy-MM-dd'"
+          formControlName="date_fin_avance">
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date 1er paiement</label>
-        <input type="date" class="form-control rounded-pill" formControlName="date_1er_paiement">
+        <input type="date" class="form-control rounded-pill" [ngModel]="date_1er_paiement | date:'yyyy-MM-dd'"
+          formControlName="date_1er_paiement">
       </div>
 
       <div class="col-lg-3 form-group mt-4">
@@ -137,7 +142,11 @@
       <div class="col-lg-3 form-group mt-4">
         <label for="">Type de lieu</label>
         <select class="form-control rounded-pill" formControlName="type_lieu">
-          <option value="">----</option>
+          <option value=""> direction régional </option>
+          <option value=""> logement de fonction </option>
+          <option value=""> point de vente </option>
+          <option value=""> siege </option>
+          <option value=""> supervision </option>
 
         </select>
       </div>
@@ -145,7 +154,7 @@
       <div class="col-lg-3 form-group mt-4">
         <label for="">Lieu</label>
         <select class="form-control rounded-pill" formControlName="lieu">
-          <option value="">-----</option>
+          <option *ngFor="let lieu of lieux" value=""> {{ lieu.intitule_lieu }} </option>
 
         </select>
       </div>
@@ -153,9 +162,9 @@
       <div class="col-lg-3 form-group mt-4">
         <label for="">Etat de contrat</label>
         <select class="form-control rounded-pill" formControlName="etat_contrat" (change)="ShowEtat()">
-          <option value="avenant">Avenant</option>
-          <option value="suspension">Suspension</option>
-          <option value="resiliation">Résiliation</option>
+          <option value="Avenant">Avenant</option>
+          <option value="Suspension">Suspension</option>
+          <option value="Résiliation">Résiliation</option>
         </select>
       </div>
 
@@ -164,9 +173,10 @@
 
 
         <div class="form-box mt-4">
-          <div *ngIf="etat == 'avenant'; then AV"></div>
-          <div *ngIf="etat == 'suspension'; then SUS"></div>
-          <div *ngIf="etat == 'resiliation'; then RES"></div>
+          <h6>Etat du contrat</h6>
+          <div *ngIf="etat_contrat == 'Avenant'; then AV"></div>
+          <div *ngIf="etat_contrat == 'Suspension'; then SUS"></div>
+          <div *ngIf="etat_contrat == 'Résiliation'; then RES"></div>
         </div>
 
       </div>
@@ -175,10 +185,10 @@
 
         <!-- Template Avenant start -->
         <ng-template #AV>
-          <h6>Etat du contrat | Avenant</h6>
+          <h6><u>Avenant</u></h6>
           <div class="row">
 
-            <div class="col-lg-3 form-group mt-3">
+            <div class="col-lg-3 form-group mt-4">
               <label for="">N° Avenant</label>
               <input type="text" class="form-control rounded-pill" formControlName="N_avenant">
             </div>
@@ -212,16 +222,17 @@
         <!-- Template Suspension start -->
         <ng-template #SUS>
 
-          <h6>Etat du contrat | Suspension</h6>
+          <h6><u>Suspension</u></h6>
           <div class="row">
-            <div class="col-lg-3 form-group mt-3">
+            <div class="col-lg-3 form-group mt-4">
               <label for="">Intitulé de lieu</label>
               <input type="text" class="form-control rounded-pill" formControlName="intitule_lieu_sus">
             </div>
 
             <div class="col-lg-3 form-group mt-4">
               <label for="">Date de suspension</label>
-              <input type="date" class="form-control rounded-pill" formControlName="date_suspension">
+              <input type="date" class="form-control rounded-pill" [ngModel]="date_suspension | date:'yyyy-MM-dd'"
+                formControlName="date_suspension">
             </div>
 
             <div class="col-lg-3 form-group mt-4">
@@ -242,10 +253,10 @@
         <!-- Template Resiliation start -->
         <ng-template #RES>
 
-          <h6>Etat du contrat | Résiliation</h6>
+          <h6><u>Résiliation</u></h6>
 
           <div class="row">
-            <div class="col-lg-3 form-group mt-3">
+            <div class="col-lg-3 form-group mt-4">
               <label for="">Intitulé de lieu</label>
               <input type="text" class="form-control rounded-pill" formControlName="intitule_lieu_res">
             </div>
@@ -257,7 +268,8 @@
 
             <div class="col-lg-3 form-group mt-4">
               <label for="">Date de résiliation</label>
-              <input type="date" class="form-control rounded-pill" formControlName="date_resiliation">
+              <input type="date" class="form-control rounded-pill" [ngModel]="date_resiliation | date:'yyyy-MM-dd'"
+                formControlName="date_resiliation">
             </div>
 
             <div class="col-lg-3 form-group mt-4">
@@ -292,12 +304,15 @@
     </div>
 
 
+
     <!-- Button Ajouter -->
     <div class="form-group mt-4 col-lg-2 d-flex">
-      <button *ngIf="formType==''" type="submit" id="Ajouter" class="btn second-btn form-control">
+      <button *ngIf="formType==''" type="submit" id="Ajouter" class="btn second-btn form-control"
+        (click)="addNewContrat()">
         Ajouter
       </button>
-      <button *ngIf="formType!=''" type="submit" id="Modifier" class="btn second-btn form-control">
+      <button *ngIf="formType!=''" type="submit" id="Modifier" class="btn second-btn form-control"
+        (click)="updateContrat()">
         Modifier
       </button>
     </div>
