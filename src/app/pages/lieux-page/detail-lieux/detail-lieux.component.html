@@ -2,8 +2,8 @@
     <div class="col-lg-12 mt-3">
         <div class="d-flex justify-content-between">
             <h3 class="main-title">
-                <a class="goback-link">Détails de Lieu</a>/<span class="selected-text">{{lieu?.intitule_lieu}}
-                </span>
+                <a [routerLink]="['/lieu/list']" class="goback-link">Liste des
+                    lieux</a>/<span class="selected-text">{{ lieu?.intitule_lieu }}</span>
             </h3>
             <div class="d-none d-lg-block">
                 <a [routerLink]="['/lieux/list']" class="btn btn-sm second-btn me-3 " data-bs-toggle="tooltip"
@@ -100,10 +100,10 @@
         <div>
             <h4 class="main-title my-4">Aménagement</h4>
         </div>
-     
+
         <div class="d-inline" *ngFor="let selected_amenagement of lieu.amenagement">
 
-          
+
             <!-- <div class="btn-group d-flex justify-content-between" role="group"
                 aria-label="Basic checkbox toggle button group"> 
                 <div >
@@ -113,11 +113,12 @@
                 </div>
             </div> -->
 
-      
-            <button class="btn second-btn me-3" type="button" (click)="displayAmenagement(selected_amenagement._id);scroll();">
+
+            <button class="btn second-btn me-3" type="button"
+                (click)="displayAmenagement(selected_amenagement._id);scroll();">
                 {{selected_amenagement._id}}
             </button>
-         
+
 
         </div>
 
