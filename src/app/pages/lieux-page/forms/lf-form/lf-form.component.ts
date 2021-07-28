@@ -141,10 +141,7 @@ export class LfFormComponent implements OnInit {
   openReplaceModal(active: any) {
     this.isReplace = active;
     this.mainModel.open();
-    console.log(active);
-
     // this.confirmationModalService.open();
-
   }
   //////////////////////////////////////////////////////////////////////////////////
   closeReplaceModal() {
