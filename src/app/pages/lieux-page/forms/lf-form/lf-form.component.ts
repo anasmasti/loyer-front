@@ -18,6 +18,7 @@ export class LfFormComponent implements OnInit {
   // test1 = 'update';
   isReplace: string = '';
   amenagementList: any = [];
+
   @Input() update!: boolean;
   @Input() Lieu!: any;
 
@@ -29,10 +30,20 @@ export class LfFormComponent implements OnInit {
 
   constructor(
     private mainModalService: MainModalService,
+    private mainModel: MainModalService,
     private confirmationModalService: ConfirmationModalService,
     private lieuService: LieuxService
   ) { }
 
+
+
+  ngOnChanges() {
+    if ( this.Lieu !== "") {
+      setTimeout(() => {
+        this.fetchLf();
+      }, 100);
+    }
+  }
 
   //////////////////////////////////////////////////////////////////////////////////
   showEtatLogement() {
@@ -94,13 +105,17 @@ export class LfFormComponent implements OnInit {
 
     (<FormArray>this.LfForm.get('amenagementForm')).push(<FormGroup>amenagementData)
 
-  }
+    return (<FormGroup>amenagementData)
 
+  }
 
   removeAmenagement(index: number) {
     (<FormArray>this.LfForm.get('amenagementForm')).removeAt(index)
   }
 
+  removeAllAmenagement() {
+    (<FormArray>this.LfForm.get('amenagementForm')).clear();
+  }
 
   // FournisseurData
   addFournisseur(amenagementForm: any, index: number) {
@@ -124,7 +139,9 @@ export class LfFormComponent implements OnInit {
   //////////////////////////////////////////////////////////////////////////////////
   openReplaceModal(active: any) {
     this.isReplace = active;
-    this.mainModalService.open();
+    this.mainModel.open();
+    console.log(active);
+
     // this.confirmationModalService.open();
 
   }
@@ -160,7 +177,6 @@ export class LfFormComponent implements OnInit {
   hideErrorMessage() {
     $('.error-alert').removeClass('active');
   }
-
 
   //////////////////////////////////////////////////////////////////////////////////
   addLf() {
@@ -219,65 +235,168 @@ export class LfFormComponent implements OnInit {
   }
   //////////////////////////////////////////////////////////////////////////////////
   fetchLf() {
-    if (this.lF.has_amenagements) {
+
+    this.removeAllAmenagement();
+
+    this.etatLogement = this.Lieu.etat_logement_fonction;
+
+    console.log(this.Lieu.directeur_regional);
+    
+
+    if (this.Lieu.has_amenagements) {
       this.hasAmenagement = true;
-      this.amenagementList = this.lF.amenagement;
+      this.amenagementList = this.Lieu.amenagement;
       this.LfForm.patchValue({
-        code_lieu: this.lF.code_lieu,
-        intitule_lieu: this.lF.intitule_lieu,
-        intitule_DR: this.lF.intitule_DR,
-        adresse: this.lF.adresse,
-        ville: this.lF.ville,
-        code_localite: this.lF.code_localite,
-        desc_lieu_entrer: this.lF.desc_lieu_entrer,
-        imgs_lieu_entrer: this.lF.imgs_lieu_entrer,
-        has_amenagements: this.lF.has_amenagements,
-        superficie: this.lF.superficie,
-        telephone: this.lF.telephone,
-        fax: this.lF.fax,
-        etat_logement_fonction: this.lF.etat_logement_fonction,
-        etage: this.lF.etage,
-        type_lieu: this.lF.type_lieu,
-        code_rattache_DR: this.lF.code_rattache_DR,
-        code_rattache_SUP: this.lF.code_rattache_SUP,
-        intitule_rattache_SUP_PV: this.lF.intitule_rattache_SUP_PV,
-        centre_cout_siege: this.lF.centre_cout_siege,
-        categorie_pointVente: this.lF.categorie_pointVente,
+        code_lieu: this.Lieu.code_lieu,
+        intitule_lieu: this.Lieu.intitule_lieu,
+        intitule_DR: this.Lieu.intitule_DR,
+        adresse: this.Lieu.adresse,
+        ville: this.Lieu.ville,
+        code_localite: this.Lieu.code_localite,
+        desc_lieu_entrer: this.Lieu.desc_lieu_entrer,
+        imgs_lieu_entrer: this.Lieu.imgs_lieu_entrer,
+        has_amenagements: this.Lieu.has_amenagements,
+        superficie: this.Lieu.superficie,
+        telephone: this.Lieu.telephone,
+        fax: this.Lieu.fax,
+        etat_logement_fonction: this.Lieu.etat_logement_fonction,
+        etage: this.Lieu.etage,
+        type_lieu: this.Lieu.type_lieu,
+        code_rattache_DR: this.Lieu.code_rattache_DR,
+        code_rattache_SUP: this.Lieu.code_rattache_SUP,
+        intitule_rattache_SUP_PV: this.Lieu.intitule_rattache_SUP_PV,
+        centre_cout_siege: this.Lieu.centre_cout_siege,
+        categorie_pointVente: this.Lieu.categorie_pointVente,
+        // directeur_regional: [
+        //   {
+        matricule_directeur: this.Lieu.directeur_regional[0].matricule,
+        nom_directeur: this.Lieu.directeur_regional[0].nom,
+        prenom_directeur: this.Lieu.directeur_regional[0].prenom,
+        // matricule_directeur: this.Lieu.directeur_regional.matricule
+            // nom: this.LfForm.get('nom_directeur')?.value,
+            // prenom: this.LfForm.get('prenom_directeur')?.value,
+          // }
+        // ],
+      // Amenagement
+
         //amenagement inputs
-        nature_amenagement: this.amenagementList.nature_amenagement,
-        montant_amenagement: this.amenagementList.montant_amenagement,
-        valeur_nature_chargeProprietaire: this.amenagementList.valeur_nature_chargeProprietaire,
-        valeur_nature_chargeFondation: this.amenagementList.valeur_nature_chargeFondation,
-        numero_facture: this.amenagementList.numero_facture,
-        numero_bon_commande: this.amenagementList.numero_bon_commande,
-        date_passation_commande: this.amenagementList.date_passation_commande,
-        evaluation_fournisseur: this.amenagementList.evaluation_fournisseur,
-        date_fin_travaux: this.amenagementList.date_fin_travaux,
-        date_livraison_local: this.amenagementList.date_livraison_local,
+
+        //amenagement inputs
+      
+
+        // nature_amenagement: this.amenagementList.nature_amenagement,
+        // montant_amenagement: this.amenagementList.montant_amenagement,
+        // valeur_nature_chargeProprietaire: this.amenagementList.valeur_nature_chargeProprietaire,
+        // valeur_nature_chargeFondation: this.amenagementList.valeur_nature_chargeFondation,
+        // numero_facture: this.amenagementList.numero_facture,
+        // numero_bon_commande: this.amenagementList.numero_bon_commande,
+        // date_passation_commande: this.amenagementList.date_passation_commande,
+        // evaluation_fournisseur: this.amenagementList.evaluation_fournisseur,
+        // date_fin_travaux: this.amenagementList.date_fin_travaux,
+        // date_livraison_local: this.amenagementList.date_livraison_local,
       });
+      
+      
+      
+      for (let LieuControl of this.Lieu.amenagements ) {
+
+        let formGroupAmenagement = this.addAmenagement();
+
+        formGroupAmenagement.controls.nature_amenagement.setValue(
+          LieuControl.nature_amenagement
+        );
+
+        formGroupAmenagement.controls.montant_amenagement.setValue(
+          LieuControl.montant_amenagement
+        );
+
+        formGroupAmenagement.controls.valeur_nature_chargeProprietaire.setValue(
+          LieuControl.valeur_nature_chargeProprietaire
+        );
+
+        formGroupAmenagement.controls.valeur_nature_chargeFondation.setValue(
+          LieuControl.valeur_nature_chargeFondation
+        );
+
+        formGroupAmenagement.controls.numero_facture.setValue(
+          LieuControl.numero_facture
+        );
+
+        formGroupAmenagement.controls.numero_bon_commande.setValue(
+          LieuControl.numero_bon_commande
+        );
+
+        formGroupAmenagement.controls.date_passation_commande.setValue(
+          LieuControl.date_passation_commande
+        );
+
+        formGroupAmenagement.controls.evaluation_fournisseur.setValue(
+          LieuControl.evaluation_fournisseur
+        );
+
+        formGroupAmenagement.controls.date_fin_travaux.setValue(
+          LieuControl.date_fin_travaux
+        );
+
+        formGroupAmenagement.controls.date_livraison_local.setValue(
+          LieuControl.date_livraison_local
+        );
+
+        
+        
+        if (LieuControl.fournisseurs.length !== 0) {
+          for (let FourniseurControl of LieuControl.fournisseurs ) {
+
+            // console.log(formGroupAmenagement);
+            
+            let formGroupFournisseur = new FormGroup({
+              nom: new FormControl(''),
+              prenom: new FormControl(''),
+              amenagement_effectue: new FormControl(''),
+            });
+        
+            (<FormArray>formGroupAmenagement.controls.fournisseur).push(<FormGroup>formGroupFournisseur)
+    
+            formGroupFournisseur.controls.nom.setValue(
+              FourniseurControl.nom
+            );
+    
+            formGroupFournisseur.controls.prenom.setValue(
+              FourniseurControl.prenom
+            );
+    
+            formGroupFournisseur.controls.amenagement_effectue.setValue(
+              FourniseurControl.amenagement_effectue
+            );
+            
+    
+          }
+        }
+ 
+      }
     } else {
       this.hasAmenagement = false;
       this.LfForm.patchValue({
-        code_lieu: this.lF.code_lieu,
-        intitule_lieu: this.lF.intitule_lieu,
-        intitule_DR: this.lF.intitule_DR,
-        adresse: this.lF.adresse,
-        ville: this.lF.ville,
-        code_localite: this.lF.code_localite,
-        desc_lieu_entrer: this.lF.desc_lieu_entrer,
-        imgs_lieu_entrer: this.lF.imgs_lieu_entrer,
-        has_amenagements: this.lF.has_amenagements,
-        superficie: this.lF.superficie,
-        telephone: this.lF.telephone,
-        fax: this.lF.fax,
-        etat_logement_fonction: this.lF.etat_logement_fonction,
-        etage: this.lF.etage,
-        type_lieu: this.lF.type_lieu,
-        code_rattache_DR: this.lF.code_rattache_DR,
-        code_rattache_SUP: this.lF.code_rattache_SUP,
-        intitule_rattache_SUP_PV: this.lF.intitule_rattache_SUP_PV,
-        centre_cout_siege: this.lF.centre_cout_siege,
-        categorie_pointVente: this.lF.categorie_pointVente,
+        code_lieu: this.Lieu.code_lieu,
+        intitule_lieu: this.Lieu.intitule_lieu,
+        intitule_DR: this.Lieu.intitule_DR,
+        adresse: this.Lieu.adresse,
+        ville: this.Lieu.ville,
+        code_localite: this.Lieu.code_localite,
+        desc_lieu_entrer: this.Lieu.desc_lieu_entrer,
+        imgs_lieu_entrer: this.Lieu.imgs_lieu_entrer,
+        has_amenagements: this.Lieu.has_amenagements,
+        superficie: this.Lieu.superficie,
+        telephone: this.Lieu.telephone,
+        fax: this.Lieu.fax,
+        etat_logement_fonction: this.Lieu.etat_logement_fonction,
+        etage: this.Lieu.etage,
+        type_lieu: this.Lieu.type_lieu,
+        code_rattache_DR: this.Lieu.code_rattache_DR,
+        code_rattache_SUP: this.Lieu.code_rattache_SUP,
+        intitule_rattache_SUP_PV: this.Lieu.intitule_rattache_SUP_PV,
+        centre_cout_siege: this.Lieu.centre_cout_siege,
+        categorie_pointVente: this.Lieu.categorie_pointVente,
         // amenagement inputs
         nature_amenagement: '',
         montant_amenagement: '',
@@ -293,8 +412,8 @@ export class LfFormComponent implements OnInit {
     }
   }
   //////////////////////////////////////////////////////////////////////////////////
-  onUpdateLf() {
-    let idlf = this.lF._id;
+  updateLf() {
+    let idlf = this.Lieu._id;
     let lfData: Lieu = {
       code_lieu: this.LfForm.get('code_lieu')?.value,
       intitule_lieu: this.LfForm.get('intitule_lieu')?.value,
@@ -316,27 +435,57 @@ export class LfFormComponent implements OnInit {
       intitule_rattache_SUP_PV: this.LfForm.get('intitule_rattache_SUP_PV')?.value,
       centre_cout_siege: this.LfForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.LfForm.get('categorie_pointVente')?.value,
+      // Directeur
+      directeur_regional: [
+        {
+          matricule: this.LfForm.get('matricule_directeur')?.value,
+          nom: this.LfForm.get('nom_directeur')?.value,
+          prenom: this.LfForm.get('prenom_directeur')?.value,
+        }
+      ],
 
-      amenagement: [{
-        nature_amenagement: this.LfForm.get('nature_amenagement')?.value,
-        montant_amenagement: this.LfForm.get('montant_amenagement')?.value,
-        valeur_nature_chargeProprietaire: this.LfForm.get('valeur_nature_chargeProprietaire')?.value,
-        valeur_nature_chargeFondation: this.LfForm.get('valeur_nature_chargeFondation')?.value,
-        numero_facture: this.LfForm.get('numero_facture')?.value,
-        numero_bon_commande: this.LfForm.get('numero_bon_commande')?.value,
-        date_passation_commande: this.LfForm.get('date_passation_commande')?.value,
-        evaluation_fournisseur: this.LfForm.get('evaluation_fournisseur')?.value,
-        date_fin_travaux: this.LfForm.get('date_fin_travaux')?.value,
-        date_livraison_local: this.LfForm.get('date_livraison_local')?.value,
-      }]
+      // Amenagement
+      amenagement: this.LfForm.get('amenagementForm')?.value,
+      // amenagement: [{
+      //   nature_amenagement: this.LfForm.get('nature_amenagement')?.value,
+      //   montant_amenagement: this.LfForm.get('montant_amenagement')?.value,
+      //   valeur_nature_chargeProprietaire: this.LfForm.get('valeur_nature_chargeProprietaire')?.value,
+      //   valeur_nature_chargeFondation: this.LfForm.get('valeur_nature_chargeFondation')?.value,
+      //   numero_facture: this.LfForm.get('numero_facture')?.value,
+      //   numero_bon_commande: this.LfForm.get('numero_bon_commande')?.value,
+      //   date_passation_commande: this.LfForm.get('date_passation_commande')?.value,
+      //   evaluation_fournisseur: this.LfForm.get('evaluation_fournisseur')?.value,
+      //   date_fin_travaux: this.LfForm.get('date_fin_travaux')?.value,
+      //   date_livraison_local: this.LfForm.get('date_livraison_local')?.value,
+      // }]
     }
 
-    this.lieuService.updateLieux('idlf', lfData).subscribe((_) => {
-      console.log(this.lF._id)
+    this.lieuService.updateLieux(idlf , lfData).subscribe(
+      (_) => {
+        this.postDone = true;
+        setTimeout(() => {
+          this.mainModalService.close();
+          this.LfForm.reset();
+          this.postDone = false;
+          location.reload();
+        }, 2000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+    )
 
-    })
+    // this.lieuService.updateLieux('idlf', lfData).subscribe((_) => {
+    //   console.log(this.lF._id)
+
+    // })
   }
   //////////////////////////////////////////////////////////////////////////////////
+
   get code_lieu() {
     return this.LfForm.get('code_lieu');
   }

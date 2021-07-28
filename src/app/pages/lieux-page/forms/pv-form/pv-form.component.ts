@@ -1,6 +1,6 @@
 import { MainModalService } from './../../../../services/main-modal/main-modal.service';
 import { ConfirmationModalService } from './../../../../services/confirmation-modal-service/confirmation-modal.service';
-import { Lieu } from './../../../../models/Lieu';
+import { Lieu } from '../../../../models/Lieu';
 import { LieuxService } from './../../../../services/lieux-service/lieux.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray } from '@angular/forms';

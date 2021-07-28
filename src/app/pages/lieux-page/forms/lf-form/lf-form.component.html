@@ -21,7 +21,7 @@
   <!--Début de Div qui contient le formulaire lf-form-->
   <div class="form-box mt-4">
     <!--Début Formulaire lf-form-->
-    <form [formGroup]="LfForm" enctype="multipart/form-data" (ngSubmit)="addLf()">
+    <form [formGroup]="LfForm" enctype="multipart/form-data" (ngSubmit)="(Lieu == '') ? addLf() : updateLf()">
 
 
       <div class="w-100 d-flex justify-content-center">
@@ -132,7 +132,7 @@
 
                 </div>
 
-                <app-main-modal [closeBtn]='true' [mainHeight]="modalHeight">
+                <app-main-modal [closeBtn]='true' [mainHeight]="modalHeight" #LfModal>
 
                   <div class="row title">
                     <div class="col-lg-12">
@@ -217,17 +217,17 @@
 
             <div class="col-lg-3 form-group mt-4">
               <label for="">Matricule du Directeur Régional</label>
-              <input type="text" class="form-control rounded-pill" formControlName="matricule_directeur" />
+              <input type="text" class="form-control rounded-pill" formControlName="matricule_directeur" readonly/>
             </div>
 
             <div class="col-lg-3 form-group mt-4">
               <label for="">Nom du Directeur Régional</label>
-              <input type="text" class="form-control rounded-pill" formControlName="nom_directeur" />
+              <input type="text" class="form-control rounded-pill" formControlName="nom_directeur" readonly/>
             </div>
 
             <div class="col-lg-3 form-group mt-4">
               <label for="">Prénom du Directeur Régional</label>
-              <input type="text" class="form-control rounded-pill" formControlName="prenom_directeur" />
+              <input type="text" class="form-control rounded-pill" formControlName="prenom_directeur" readonly/>
             </div>
           </ng-template>
         </div>
@@ -377,7 +377,10 @@
 
       <!-- Button Ajouter -->
       <div class="form-group mt-4 col-lg-2 d-flex">
-        <button type="submit" class="btn second-btn form-control">
+        <button type="submit" class="btn second-btn form-control" *ngIf="Lieu != ''">
+          Modifier
+        </button>
+        <button type="submit" class="btn second-btn form-control" *ngIf="Lieu == ''">
           Ajouter
         </button>
       </div>
