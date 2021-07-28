@@ -1,11 +1,11 @@
-import { Lieu } from 'src/app/models/Lieu';
 
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, FormArray } from '@angular/forms';
+import { Lieu } from 'src/app/models/Lieu';
 
 import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
-import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
+import { MainModalService } from '../../../../services/main-modal/main-modal.service';
 
 @Component({
   selector: 'lf-form',
@@ -20,6 +20,8 @@ export class LfFormComponent implements OnInit {
   isReplace: string = '';
   amenagementList: any = [];
   @Input() update!: boolean;
+  @Input() Lieu!: any;
+
   lF !: Lieu;
   LfForm!: FormGroup;
   errors!: string;
@@ -94,6 +96,8 @@ export class LfFormComponent implements OnInit {
     (<FormArray>this.LfForm.get('amenagementForm')).push(<FormGroup>amenagementData)
 
   }
+
+
   removeAmenagement(index: number) {
     (<FormArray>this.LfForm.get('amenagementForm')).removeAt(index)
   }
@@ -119,8 +123,8 @@ export class LfFormComponent implements OnInit {
   }
 
   //////////////////////////////////////////////////////////////////////////////////
-  openReplaceModal(active: any) {
-    this.isReplace = active;
+  openReplaceModal() {
+    // this.isReplace = active;
     this.mainModalService.open();
     // this.confirmationModalService.open();
 

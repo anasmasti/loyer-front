@@ -116,14 +116,14 @@
                     <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
                   </div>
                   <div class="ms-3">
-                    <a class="btn btn-sm success-btn rounded-pill" (click)='openReplaceModal("remplacer")'>
+                    <a class="btn btn-sm success-btn rounded-pill" (click)='openReplaceModal()'>
                       Remplacer
                       <i class="fal fa-sync"></i>
                     </a>
-                    <a class="btn btn-sm info-btn mx-2 rounded-pill" (click)='openReplaceModal("modifier")'>
+                    <!-- <a class="btn btn-sm info-btn mx-2 rounded-pill" (click)='openReplaceModal()'>
                       Modifier
                       <i class="far fa-user-edit"></i>
-                    </a>
+                    </a> -->
                     <a class="btn btn-sm danger-btn rounded-pill" (click)='openConfirmationModal();switchIsReplace();'>
                       Supprimer
                       <i class="far fa-user-minus"></i>
@@ -172,7 +172,8 @@
                   </div>
 
                 </app-main-modal>
-
+                
+                <!-- Confirmation modal   -->
                 <app-confirmation-modal [closeBtn]='true'>
                   <div *ngIf="isReplace == 'remplacer'; then replace;else delete">
                   </div>
