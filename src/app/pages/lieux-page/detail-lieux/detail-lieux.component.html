@@ -114,7 +114,7 @@
             </div> -->
 
 
-            <button class="btn second-btn me-3" type="button"
+            <button *ngIf="!selected_amenagement.deleted" class="btn second-btn me-3" type="button"
                 (click)="displayAmenagement(selected_amenagement._id);scroll();">
                 {{selected_amenagement._id}}
             </button>
@@ -136,8 +136,6 @@
                         <th>Montant d'Aménagement </th>
                         <td> {{selectedAmenagement?.montant_amenagement}} </td>
                     </tr>
-
-
 
                     <tr>
                         <th>N° de facture</th>
@@ -169,7 +167,21 @@
                         <td>{{selectedAmenagement?.date_livraison_local }} </td>
                     </tr>
 
+                    <div>
+                        <h5 class="main-title">Fournisseurs</h5>
+                        <div class="d-flex justify-content-between flex-row">
+                            <div *ngFor="let selected_fournisseur of selectedAmenagement?.fournisseur" class="d-flex">
+                                <div *ngIf="!selected_fournisseur.deleted" class="main-card p-4 ">
+                                    <h6>Nom</h6>
+                                    <p>{{ selected_fournisseur.nom }}</p>
+                                    <h6>Prenom</h6>
+                                    <p>{{ selected_fournisseur.prenom }}</p>
 
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </tbody>
 
             </table>
