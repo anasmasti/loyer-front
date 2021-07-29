@@ -10,6 +10,11 @@ import { SideNavbarComponent } from './components/layout/side-navbar/side-navbar
 import { MainContentComponent } from './components/layout/main-content/main-content.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from './components/layout/footer/footer.component';
+import { environment } from 'src/environments/environment';
+import { appReducer } from './store/app.state';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -25,7 +30,10 @@ import { FooterComponent } from './components/layout/footer/footer.component';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot(appReducer),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]

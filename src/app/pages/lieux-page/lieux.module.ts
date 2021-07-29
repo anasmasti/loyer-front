@@ -13,6 +13,10 @@ import { ListLieuxComponent } from './list-lieux/list-lieux.component';
 import { ConfirmationModalModule } from 'src/app/shared/modals/confirmation-modal/confirmation-modal.module';
 import { MainModalModule } from 'src/app/shared/modals/main-modal/main-modal.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { lieuxReducer } from './lieux-store/lieux.reducer';
+import { LieuxEffects } from './lieux-store/lieux.effect';
 
 
 const route: Routes = [
@@ -39,7 +43,9 @@ const route: Routes = [
     CommonModule,
     ReactiveFormsModule,
     MainModalModule,
-    ConfirmationModalModule
+    ConfirmationModalModule,
+    StoreModule.forFeature('lieux', lieuxReducer),
+    EffectsModule.forFeature([LieuxEffects])
   ]
 })
 export class LieuxModule { }
