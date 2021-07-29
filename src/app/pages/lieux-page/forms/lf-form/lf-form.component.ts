@@ -19,6 +19,7 @@ export class LfFormComponent implements OnInit {
   etatLogement = '';
   isReplace: string = '';
   amenagementList: any = [];
+  codeDr: any;
 
   @Input() update!: boolean;
   @Input() Lieu!: any;
@@ -49,6 +50,67 @@ export class LfFormComponent implements OnInit {
       }, 100);
     }
   }
+
+
+  lieu: Lieu = {
+    _id: 'Chargement...',
+    code_lieu: 'Chargement...',
+    intitule_lieu: 'Chargement...',
+    intitule_DR: 'Chargement...',
+    adresse: 'Chargement...',
+    ville: 'Chargement...',
+    code_localite: 'Chargement...',
+    desc_lieu_entrer: 'Chargement...',
+    imgs_lieu_entrer: 'Chargement...',
+    has_amenagements: false,
+    superficie: 'Chargement...',
+    telephone: 'Chargement...',
+    fax: 'Chargement...',
+    etat_logement_fonction: 'Chargement...',
+    etage: 'Chargement...',
+    type_lieu: 'Chargement...',
+    code_rattache_DR: 'Chargement...',
+    code_rattache_SUP: 'Chargement...',
+    intitule_rattache_SUP_PV: 'Chargement...',
+    centre_cout_siege: 'Chargement...',
+    categorie_pointVente: 'Chargement...',
+    deleted: false,
+
+    directeur_regional: [
+      {
+        matricule: 'Chargement...',
+        nom: 'Chargement...',
+        prenom: 'Chargement...',
+        deleted: false
+      }
+    ],
+
+    amenagement: [
+      {
+        _id: 'Chargement...',
+        nature_amenagement: 'Chargement...',
+        montant_amenagement: 'Chargement...',
+        valeur_nature_chargeProprietaire: 'Chargement...',
+        valeur_nature_chargeFondation: 'Chargement...',
+        numero_facture: 'Chargement...',
+        numero_bon_commande: 'Chargement...',
+        date_passation_commande: 'Chargement...',
+        evaluation_fournisseur: 'Chargement...',
+        date_fin_travaux: 'Chargement...',
+        date_livraison_local: 'Chargement...',
+        deleted: false,
+
+        fournisseur: [{
+          nom: 'Chargement...',
+          prenom: 'Chargement...',
+          amenagement_effectue: 'Chargement...',
+          deleted: false,
+        }]
+      }
+    ]
+
+  };
+
 
 
 
@@ -93,6 +155,7 @@ export class LfFormComponent implements OnInit {
       amenagementForm: new FormArray([]),
 
     });
+
   }
 
 
