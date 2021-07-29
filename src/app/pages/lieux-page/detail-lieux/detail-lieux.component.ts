@@ -33,7 +33,7 @@ export class DetailLieuxComponent implements OnInit {
     intitule_rattache_SUP_PV: 'Chargement...',
     centre_cout_siege: 'Chargement...',
     categorie_pointVente: 'Chargement...',
-    deleted: false, 
+    deleted: false,
 
     directeur_regional: [
       {
@@ -44,27 +44,29 @@ export class DetailLieuxComponent implements OnInit {
       }
     ],
 
-    amenagement: [{
-      _id: 'Chargement...',
-      nature_amenagement: 'Chargement...',
-      montant_amenagement: 'Chargement...',
-      valeur_nature_chargeProprietaire: 'Chargement...',
-      valeur_nature_chargeFondation: 'Chargement...',
-      numero_facture: 'Chargement...',
-      numero_bon_commande: 'Chargement...',
-      date_passation_commande: 'Chargement...',
-      evaluation_fournisseur: 'Chargement...',
-      date_fin_travaux: 'Chargement...',
-      date_livraison_local: 'Chargement...',
-      deleted: false, 
+    amenagement: [
+      {
+        _id: 'Chargement...',
+        nature_amenagement: 'Chargement...',
+        montant_amenagement: 'Chargement...',
+        valeur_nature_chargeProprietaire: 'Chargement...',
+        valeur_nature_chargeFondation: 'Chargement...',
+        numero_facture: 'Chargement...',
+        numero_bon_commande: 'Chargement...',
+        date_passation_commande: 'Chargement...',
+        evaluation_fournisseur: 'Chargement...',
+        date_fin_travaux: 'Chargement...',
+        date_livraison_local: 'Chargement...',
+        deleted: false,
 
-      fournisseur: [{
-        nom: 'Chargement...',
-        prenom: 'Chargement...',
-        amenagement_effectue: 'Chargement...',
-        deleted: false, 
-      }]
-    }]
+        fournisseur: [{
+          nom: 'Chargement...',
+          prenom: 'Chargement...',
+          amenagement_effectue: 'Chargement...',
+          deleted: false,
+        }]
+      }
+    ]
 
   };
 
@@ -80,14 +82,16 @@ export class DetailLieuxComponent implements OnInit {
     evaluation_fournisseur: 'Chargement...',
     date_fin_travaux: 'Chargement...',
     date_livraison_local: 'Chargement...',
-    deleted: false, 
+    deleted: false,
 
-    fournisseur: [{
-      nom: 'Chargement...',
-      prenom: 'Chargement...',
-      amenagement_effectue: 'Chargement...',
-      deleted: false, 
-    }]
+    fournisseur: [
+      {
+        nom: 'Chargement...',
+        prenom: 'Chargement...',
+        amenagement_effectue: 'Chargement...',
+        deleted: false,
+      }
+    ]
   };
 
   displayAmenagementSection: boolean = false;
@@ -107,8 +111,6 @@ export class DetailLieuxComponent implements OnInit {
     this.lieuxService.getLieuById(id).subscribe((data: Lieu) => {
       this.lieu = data;
       this.lieu.amenagement = data.amenagement;
-      console.log(this.lieu.amenagement);
-      
     });
   }
 

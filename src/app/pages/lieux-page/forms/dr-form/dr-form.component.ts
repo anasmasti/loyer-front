@@ -1,10 +1,10 @@
 import { Lieu } from 'src/app/models/Lieu';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
-import { DatePipe } from '@angular/common';
+import { DatePipe, DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'dr-form',
@@ -28,6 +28,7 @@ export class DrFormComponent implements OnInit {
   constructor(
     private drService: LieuxService ,
     private mainModalService: MainModalService,
+    @Inject(DOCUMENT) private document: Document
     ) { }
 
   ngOnChanges() {
@@ -72,12 +73,15 @@ export class DrFormComponent implements OnInit {
 
   fetchLieu() {
 
+    console.log(this.Lieu);
+    
+
     this.removeAllAmenagement();
 
     if (this.Lieu.has_amenagements) {
       this.hasAmenagement = true;
       this.amenagementList = this.Lieu.amenagement;
-      
+
       this.drForm.patchValue({
         code_lieu: this.Lieu.code_lieu,
         intitule_lieu: this.Lieu.intitule_lieu,
@@ -102,10 +106,8 @@ export class DrFormComponent implements OnInit {
 
       });
 
-      let i = 0;
-
       //amenagement inputs
-      for (let LieuControl of this.Lieu.amenagements ) {
+      for (let LieuControl of this.Lieu.amenagement ) {
 
         let formGroupAmenagement = this.addAmenagement();
 
@@ -151,36 +153,45 @@ export class DrFormComponent implements OnInit {
 
         
         
-        if (LieuControl.fournisseurs.length !== 0) {
-          for (let FourniseurControl of LieuControl.fournisseurs ) {
+        if (LieuControl.fournisseur.length !== 0) {
+          
+          for (let FourniseurControl of LieuControl.fournisseur ) {
+            console.log("Fetch test" + FourniseurControl );
             
-            let formGroupFournisseur = new FormGroup({
-              nom: new FormControl(''),
-              prenom: new FormControl(''),
-              amenagement_effectue: new FormControl(''),
-            });
+            if (!FourniseurControl.deleted) {
+
+                let formGroupFournisseur = new FormGroup({
+                  nom: new FormControl(''),
+                  prenom: new FormControl(''),
+                  amenagement_effectue: new FormControl(''),
+                  deleted: new FormControl('Test'),
+                });
+            
+                (<FormArray>formGroupAmenagement.controls.fournisseur).push(<FormGroup>formGroupFournisseur)
+                
+                formGroupFournisseur.controls.nom.setValue(
+                  FourniseurControl.nom
+                );
         
-            (<FormArray>formGroupAmenagement.controls.fournisseur).push(<FormGroup>formGroupFournisseur)
+                formGroupFournisseur.controls.prenom.setValue(
+                  FourniseurControl.prenom
+                );
+        
+                formGroupFournisseur.controls.amenagement_effectue.setValue(
+                  FourniseurControl.amenagement_effectue
+                );
     
-            formGroupFournisseur.controls.nom.setValue(
-              FourniseurControl.nom
-            );
+                formGroupFournisseur.controls.deleted.setValue(
+                  FourniseurControl.deleted
+                );
+                
+              }
     
-            formGroupFournisseur.controls.prenom.setValue(
-              FourniseurControl.prenom
-            );
-    
-            formGroupFournisseur.controls.amenagement_effectue.setValue(
-              FourniseurControl.amenagement_effectue
-            );
-            
     
           }
-        }
-      
-        
 
-        i++;
+        }
+        
       }
       
 
@@ -259,6 +270,7 @@ export class DrFormComponent implements OnInit {
       nom: new FormControl(''),
       prenom: new FormControl(''),
       amenagement_effectue: new FormControl(''),
+      deleted: new FormControl(''),
     });
 
     (<FormArray>amenagementForm.controls[index].controls.fournisseur).push(<FormGroup>fournisseurData)
@@ -266,8 +278,18 @@ export class DrFormComponent implements OnInit {
     return (<FormGroup>fournisseurData)
   }
 
-  removeFournisseur(amenagementForm: any, index: number) {
-    (<FormArray>amenagementForm.controls[index].controls.fournisseur).removeAt(index)
+  removeFournisseur(amenagementForm: any, indexAmng: number ,indexFourn: number ) {
+
+    let fournisseur = <FormArray>amenagementForm.controls[indexAmng].controls.fournisseur ;
+
+    let element = this.document.getElementById('deleted ' + indexAmng + ' ' + indexFourn.toString() ) as HTMLInputElement
+
+    element.value = "True"
+    this.document.getElementById(indexAmng + ' ' + indexFourn.toString())?.classList.add('d-none');
+    fournisseur.value[indexFourn].deleted = "true";
+    // console.log(fournisseur);
+   
+    // (<FormArray>amenagementForm.controls[index].controls.fournisseur).removeAt(index)
   }
 
   getFournisseur(amenagementForm: any, i: number) {
@@ -293,12 +315,9 @@ export class DrFormComponent implements OnInit {
   }
 
   addDR() {
-    // this.$testDrForm = this.drService.postDR(this.drForm)
-    // this.$testDrForm.subscribe()
+    
     let formdata = new FormData();
     formdata.append('imgs_lieu_entrer', this.selectedFile)
-    //  let myform = JSON.stringify(this.drForm.value)
-    //  let myform=JSON.parse(this.drForm.value)
 
     let dr_data: Lieu = {
       code_lieu: this.drForm.get('code_lieu')?.value,
@@ -364,6 +383,7 @@ export class DrFormComponent implements OnInit {
       intitule_rattache_SUP_PV: this.drForm.get('code_lieu')?.value,
       centre_cout_siege: this.drForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.drForm.get('categorie_pointVente')?.value,
+
       // Amenagment
       amenagement: this.drForm.get('amenagementForm')?.value,
     };

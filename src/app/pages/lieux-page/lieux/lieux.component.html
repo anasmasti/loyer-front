@@ -14,7 +14,7 @@
 <div class="my-5">
     <div class="d-flex justify-content-between align-content-center flex-row">
         <div class="" *ngFor="let lieu of lieux">
-            <a (click)='showForm(lieu.id)' class="btn second-btn">{{ lieu.name }}</a>
+            <a (click)='showForm(lieu.id);getLieuName(lieu.name)' class="btn second-btn">{{ lieu.name }}</a>
         </div>
     </div>
 </div>
