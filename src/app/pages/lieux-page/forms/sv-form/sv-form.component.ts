@@ -70,10 +70,6 @@ export class SvFormComponent implements OnInit {
   fetchSv() {
 
     this.removeAllAmenagement();
-
-    // this.etatLogement = this.Lieu.etat_logement_fonction;
-
-    console.log(this.Lieu.directeur_regional);
     
 
     if (this.Lieu.has_amenagements) {
@@ -103,7 +99,7 @@ export class SvFormComponent implements OnInit {
       
       
       // Amenagement
-      for (let LieuControl of this.Lieu.amenagements ) {
+      for (let LieuControl of this.Lieu.amenagement ) {
 
         let formGroupAmenagement = this.addAmenagement();
 
@@ -149,8 +145,8 @@ export class SvFormComponent implements OnInit {
 
         
         
-        if (LieuControl.fournisseurs.length !== 0) {
-          for (let FourniseurControl of LieuControl.fournisseurs ) {
+        if (LieuControl.fournisseur.length !== 0) {
+          for (let FourniseurControl of LieuControl.fournisseur ) {
 
             // console.log(formGroupAmenagement);
             

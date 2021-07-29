@@ -13,14 +13,10 @@
 
 <div class="mt-4">
     <div class="form-box mt-2">
-        <!-- <dr-form [update]='true' [Lieu]="Lieu" ></dr-form> -->
-<<<<<<< HEAD
-        <lf-form [update]='true' [Lieu]="Lieu" ></lf-form>
-        <!-- <pv-form [update]='true' [Lieu]="Lieu" ></pv-form> -->
-        <!-- <siege-form [update]='true' [Lieu]="Lieu" ></siege-form> -->
-        <!-- <sv-form [update]='true' [Lieu]="Lieu" ></sv-form> -->
-=======
-        <lf-form [update]='true' [Lieu]="Lieu"></lf-form>
->>>>>>> 61040f802fec17ab4608d13c11e01ce4830183d8
+        <dr-form [update]='true' [Lieu]="Lieu" *ngIf="Lieu.type_lieu == 'Direction régionale'" ></dr-form>
+        <lf-form [update]='true' [Lieu]="Lieu" *ngIf="Lieu.type_lieu == 'Logement de fonction'" ></lf-form>
+        <pv-form [update]='true' [Lieu]="Lieu" *ngIf="Lieu.type_lieu == 'Point de vente'"></pv-form>
+        <siege-form [update]='true' [Lieu]="Lieu" *ngIf="Lieu.type_lieu == 'Siège'"></siege-form>
+        <sv-form [update]='true' [Lieu]="Lieu" *ngIf="Lieu.type_lieu == 'Supervision'"></sv-form>
     </div>
 </div>
