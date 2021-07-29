@@ -15,6 +15,7 @@ export class ListContratComponent implements OnInit {
     private contratService: ContratService,
     private confirmationModalService: ConfirmationModalService
   ) { }
+
   ngOnInit(): void {
     setTimeout(() => {
       this.getContrat();

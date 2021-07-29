@@ -13,8 +13,7 @@ export class EditLieuxComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log("Lieu : " + this.Lieu);
-    
+
   }
 
 }

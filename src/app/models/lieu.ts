@@ -10,8 +10,8 @@ export interface Lieu {
   imgs_lieu_entrer?: string,
   has_amenagements?: boolean,
   superficie?: string,
-  telephone?: number,
-  fax?: number,
+  telephone?: string,
+  fax?: string,
   etat_logement_fonction?: string,
   etage?: string,
   type_lieu?: string,
@@ -20,6 +20,7 @@ export interface Lieu {
   intitule_rattache_SUP_PV?: string,
   centre_cout_siege?: string,
   categorie_pointVente?: string,
+  deleted?: boolean, 
 
   directeur_regional?: [
     {
@@ -30,7 +31,7 @@ export interface Lieu {
     }
   ],
 
-  amenagement?: [{
+  amenagement: [{
     _id?: string,
     nature_amenagement: string,
     montant_amenagement: string,
@@ -42,11 +43,13 @@ export interface Lieu {
     evaluation_fournisseur: string,
     date_fin_travaux: string,
     date_livraison_local: string,
+    deleted?: boolean, 
     
     fournisseur?: [{
       nom: string,
       prenom: string,
       amenagement_effectue: string,
+      deleted?: boolean, 
     }]
   }]
 

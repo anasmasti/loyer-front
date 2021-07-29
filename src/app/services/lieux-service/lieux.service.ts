@@ -31,7 +31,7 @@ export class LieuxService {
 
   // get specific "lieu" by his id
   getLieuById(id: String): Observable<Lieu> {
-    return this.http.get<Lieu>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}` + id);
+    return this.http.get<Lieu>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/` + id);
   }
 
   addLieu(data: Lieu): Observable<Lieu> {
@@ -40,11 +40,23 @@ export class LieuxService {
 
   // Update the proprietaire
   updateLieux(id: string, data: Lieu): Observable<Lieu> {
-    return this.http.put<Lieu>(
-      `${environment.API_URL + environment.API_VERSION + this.param_url}/edit/${id}`, data);
+      return this.http.put<Lieu>(
+        `${
+          environment.API_URL_TEST + environment.API_VERSION + this.param_url
+        }/modifier/${id}`,
+        data,
+        { headers: this.httpOptions.headers }
+      );
   }
 
 
+
+
+
+
+
+  
+  //get the list of lieux to load the drop down list in contrat component
   listLieux(){
     return this.http.get('http://localhost:5000/api/v1/lieu/get');
   }

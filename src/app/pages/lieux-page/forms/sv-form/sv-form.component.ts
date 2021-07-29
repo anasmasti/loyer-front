@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray } from '@angular/forms';
 import { Lieu } from 'src/app/models/Lieu';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
+import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 
 @Component({
   selector: 'sv-form',
@@ -10,14 +11,30 @@ import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 })
 export class SvFormComponent implements OnInit {
 
-  constructor(private svService: LieuxService) { }
+  constructor(private svService: LieuxService , private lieuService: LieuxService ,private mainModalService: MainModalService) { }
 
   hasAmenagement: boolean = false;
   svForm!: FormGroup;
-  postDone: boolean = false;
   errors!: any;
-  Updatesuccess: string = 'Supervision modifié avec succés';
-  PostSucces: string = 'Supervision ajouté avec succés';
+  postDone: boolean = false;
+  PostSucces: string = 'Point de vente ajouté avec succés';
+  UpdateDone: boolean = false;
+  UpdateSucces: string = 'Point de vente modifié avec succés';
+
+  @Input() update!: boolean;
+  @Input() Lieu!: any;
+
+
+
+  ngOnChanges() {
+    if ( this.Lieu !== "") {
+      setTimeout(() => {
+        this.fetchSv();
+      }, 100);
+    }
+  }
+
+
 
   ngOnInit(): void {
     this.svForm = new FormGroup({
@@ -47,6 +64,161 @@ export class SvFormComponent implements OnInit {
 
     })
   }
+
+
+
+  fetchSv() {
+
+    this.removeAllAmenagement();
+
+    // this.etatLogement = this.Lieu.etat_logement_fonction;
+
+    console.log(this.Lieu.directeur_regional);
+    
+
+    if (this.Lieu.has_amenagements) {
+      this.hasAmenagement = true;
+      this.svForm.patchValue({
+        code_lieu: this.Lieu.code_lieu,
+        intitule_lieu: this.Lieu.intitule_lieu,
+        intitule_DR: this.Lieu.intitule_DR,
+        adresse: this.Lieu.adresse,
+        ville: this.Lieu.ville,
+        code_localite: this.Lieu.code_localite,
+        desc_lieu_entrer: this.Lieu.desc_lieu_entrer,
+        imgs_lieu_entrer: this.Lieu.imgs_lieu_entrer,
+        has_amenagements: this.Lieu.has_amenagements,
+        superficie: this.Lieu.superficie,
+        telephone: this.Lieu.telephone,
+        fax: this.Lieu.fax,
+        etat_logement_fonction: this.Lieu.etat_logement_fonction,
+        etage: this.Lieu.etage,
+        type_lieu: this.Lieu.type_lieu,
+        code_rattache_DR: this.Lieu.code_rattache_DR,
+        code_rattache_SUP: this.Lieu.code_rattache_SUP,
+        intitule_rattache_SUP_PV: this.Lieu.intitule_rattache_SUP_PV,
+        centre_cout_siege: this.Lieu.centre_cout_siege,
+        categorie_pointVente: this.Lieu.categorie_pointVente,
+      });
+      
+      
+      // Amenagement
+      for (let LieuControl of this.Lieu.amenagements ) {
+
+        let formGroupAmenagement = this.addAmenagement();
+
+        formGroupAmenagement.controls.nature_amenagement.setValue(
+          LieuControl.nature_amenagement
+        );
+
+        formGroupAmenagement.controls.montant_amenagement.setValue(
+          LieuControl.montant_amenagement
+        );
+
+        formGroupAmenagement.controls.valeur_nature_chargeProprietaire.setValue(
+          LieuControl.valeur_nature_chargeProprietaire
+        );
+
+        formGroupAmenagement.controls.valeur_nature_chargeFondation.setValue(
+          LieuControl.valeur_nature_chargeFondation
+        );
+
+        formGroupAmenagement.controls.numero_facture.setValue(
+          LieuControl.numero_facture
+        );
+
+        formGroupAmenagement.controls.numero_bon_commande.setValue(
+          LieuControl.numero_bon_commande
+        );
+
+        formGroupAmenagement.controls.date_passation_commande.setValue(
+          LieuControl.date_passation_commande
+        );
+
+        formGroupAmenagement.controls.evaluation_fournisseur.setValue(
+          LieuControl.evaluation_fournisseur
+        );
+
+        formGroupAmenagement.controls.date_fin_travaux.setValue(
+          LieuControl.date_fin_travaux
+        );
+
+        formGroupAmenagement.controls.date_livraison_local.setValue(
+          LieuControl.date_livraison_local
+        );
+
+        
+        
+        if (LieuControl.fournisseurs.length !== 0) {
+          for (let FourniseurControl of LieuControl.fournisseurs ) {
+
+            // console.log(formGroupAmenagement);
+            
+            let formGroupFournisseur = new FormGroup({
+              nom: new FormControl(''),
+              prenom: new FormControl(''),
+              amenagement_effectue: new FormControl(''),
+            });
+        
+            (<FormArray>formGroupAmenagement.controls.fournisseur).push(<FormGroup>formGroupFournisseur)
+    
+            formGroupFournisseur.controls.nom.setValue(
+              FourniseurControl.nom
+            );
+    
+            formGroupFournisseur.controls.prenom.setValue(
+              FourniseurControl.prenom
+            );
+    
+            formGroupFournisseur.controls.amenagement_effectue.setValue(
+              FourniseurControl.amenagement_effectue
+            );
+            
+    
+          }
+        }
+ 
+      }
+    } else {
+      this.hasAmenagement = false;
+      this.svForm.patchValue({
+        code_lieu: this.Lieu.code_lieu,
+        intitule_lieu: this.Lieu.intitule_lieu,
+        intitule_DR: this.Lieu.intitule_DR,
+        adresse: this.Lieu.adresse,
+        ville: this.Lieu.ville,
+        code_localite: this.Lieu.code_localite,
+        desc_lieu_entrer: this.Lieu.desc_lieu_entrer,
+        imgs_lieu_entrer: this.Lieu.imgs_lieu_entrer,
+        has_amenagements: this.Lieu.has_amenagements,
+        superficie: this.Lieu.superficie,
+        telephone: this.Lieu.telephone,
+        fax: this.Lieu.fax,
+        etat_logement_fonction: this.Lieu.etat_logement_fonction,
+        etage: this.Lieu.etage,
+        type_lieu: this.Lieu.type_lieu,
+        code_rattache_DR: this.Lieu.code_rattache_DR,
+        code_rattache_SUP: this.Lieu.code_rattache_SUP,
+        intitule_rattache_SUP_PV: this.Lieu.intitule_rattache_SUP_PV,
+        centre_cout_siege: this.Lieu.centre_cout_siege,
+        categorie_pointVente: this.Lieu.categorie_pointVente,
+        // amenagement inputs
+        nature_amenagement: '',
+        montant_amenagement: '',
+        valeur_nature_chargeP: '',
+        valeur_nature_chargeF: '',
+        numero_facture: '',
+        numero_bon_commande: '',
+        date_passation_commande: '',
+        evaluation_fournisseur: '',
+        date_fin_travaux: '',
+        date_livraison_local: '',
+      });
+    }
+  }
+
+
+
   // Amenagement
   addAmenagement() {
     const amenagementData = new FormGroup({
@@ -67,11 +239,22 @@ export class SvFormComponent implements OnInit {
 
     (<FormArray>this.svForm.get('amenagementForm')).push(<FormGroup>amenagementData)
 
+    return (<FormGroup>amenagementData)
+
   }
+
+
 
   removeAmenagement(index: number) {
     (<FormArray>this.svForm.get('amenagementForm')).removeAt(index)
   }
+
+
+
+  removeAllAmenagement() {
+    (<FormArray>this.svForm.get('amenagementForm')).clear();
+  }
+
 
 
   // FournisseurData
@@ -85,23 +268,33 @@ export class SvFormComponent implements OnInit {
     (<FormArray>amenagementForm.controls[index].controls.fournisseur).push(<FormGroup>fournisseurData)
   }
 
+
+
   removeFournisseur(amenagementForm: any, index: number) {
     (<FormArray>amenagementForm.controls[index].controls.fournisseur).removeAt(index)
   }
 
+
+
   getFournisseur(amenagementForm: any, i: number) {
     return (amenagementForm.controls[i].controls.fournisseur).controls
   }
+
+
 
    // Afficher le message d'erreur de serveur
    showErrorMessage() {
     $('.error-alert').addClass('active');
   }
 
+
+
   // hide le message d'erreur de serveur
   hideErrorMessage() {
     $('.error-alert').removeClass('active');
   }
+
+
   
   onAddSv() {
     let svData: Lieu = {
@@ -138,7 +331,6 @@ export class SvFormComponent implements OnInit {
             this.svForm.reset();
             this.postDone = false;
           }, 2000); 
-            console.log(svData)
         },
         (error) => {
           this.errors = error.error.message;
@@ -150,6 +342,58 @@ export class SvFormComponent implements OnInit {
       );
 
   }
+
+
+
+  updateSv() {
+    let idlf = this.Lieu._id;
+    let lfData: Lieu = {
+      code_lieu: this.svForm.get('code_lieu')?.value,
+      intitule_lieu: this.svForm.get('intitule_lieu')?.value,
+      intitule_DR: this.svForm.get('intitule_DR')?.value,
+      adresse: this.svForm.get('adresse')?.value,
+      ville: this.svForm.get('ville')?.value,
+      code_localite: this.svForm.get('code_localite')?.value,
+      desc_lieu_entrer: this.svForm.get('desc_lieu_entrer')?.value,
+      imgs_lieu_entrer: this.svForm.get('imgs_lieu_entrer')?.value,
+      has_amenagements: this.svForm.get('has_amenagements')?.value,
+      superficie: this.svForm.get('superficie')?.value,
+      telephone: this.svForm.get('telephone')?.value,
+      fax: this.svForm.get('fax')?.value,
+      etat_logement_fonction: this.svForm.get('etat_logement_fonction')?.value,
+      etage: this.svForm.get('etage')?.value,
+      type_lieu: this.svForm.get('type_lieu')?.value,
+      code_rattache_DR: this.svForm.get('code_rattache_DR')?.value,
+      code_rattache_SUP: this.svForm.get('code_rattache_SUP')?.value,
+      intitule_rattache_SUP_PV: this.svForm.get('intitule_rattache_SUP_PV')?.value,
+      centre_cout_siege: this.svForm.get('centre_cout_siege')?.value,
+      categorie_pointVente: this.svForm.get('categorie_pointVente')?.value,
+
+      // Amenagement
+      amenagement: this.svForm.get('amenagementForm')?.value,
+    }
+
+    this.lieuService.updateLieux(idlf , lfData).subscribe(
+      (_) => {
+        this.UpdateDone = true;
+        setTimeout(() => {
+          this.mainModalService.close();
+          this.svForm.reset();
+          this.UpdateDone = false;
+          location.reload();
+        }, 2000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+    )
+  }
+
+
 
   get code_lieu(){
     return this.svForm.get('code_lieu');
