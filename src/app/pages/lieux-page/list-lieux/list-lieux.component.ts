@@ -43,6 +43,7 @@ export class ListLieuxComponent implements OnInit {
 
     this.store.select(getLieux).subscribe((data) => {
       this.ngrx_lieux = data
+
     })
   }
 

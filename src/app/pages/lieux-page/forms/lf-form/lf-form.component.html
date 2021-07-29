@@ -38,6 +38,7 @@
           <label for="">Code DR</label>
           <select class="form-control rounded-pill" formControlName="code_rattache_DR"> 
             <option value="">-----</option>
+            <option *ngFor="let lieu of $lieux">{{lieu.code_lieu}}</option>
             
           </select>
         </div>
@@ -254,17 +255,17 @@
 
             <div class="col-lg-3 form-group mt-4">
               <label for="">Matricule du Directeur Régional</label>
-              <input type="text" class="form-control rounded-pill" formControlName="matricule_directeur" readonly/>
+              <input type="text" class="form-control rounded-pill" formControlName="matricule_directeur" />
             </div>
 
             <div class="col-lg-3 form-group mt-4">
               <label for="">Nom du Directeur Régional</label>
-              <input type="text" class="form-control rounded-pill" formControlName="nom_directeur" readonly/>
+              <input type="text" class="form-control rounded-pill" formControlName="nom_directeur" />
             </div>
 
             <div class="col-lg-3 form-group mt-4">
               <label for="">Prénom du Directeur Régional</label>
-              <input type="text" class="form-control rounded-pill" formControlName="prenom_directeur" readonly/>
+              <input type="text" class="form-control rounded-pill" formControlName="prenom_directeur" />
             </div>
           </ng-template>
         </div>
