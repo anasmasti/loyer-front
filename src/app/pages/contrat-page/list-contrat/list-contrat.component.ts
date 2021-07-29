@@ -16,21 +16,18 @@ export class ListContratComponent implements OnInit {
     private contratService: ContratService,
     private confirmationModalService: ConfirmationModalService
   ) { }
+
   ngOnInit(): void {
     setTimeout(() => {
       this.getContrat();
-      console.log(this.contrats);
-      
-   }, 200);
+    }, 200);
 
   }
 
-
-  getContrat(){
-    this.contratService.getContrat().subscribe((data:any) => {
+  getContrat() {
+    this.contratService.getContrat().subscribe((data: any) => {
       this.contrats = data;
     });
-    // console.log('liste des lieux : '+this.lieux);
   }
   openConfirmationModal() {
     this.confirmationModalService.open(); // Open delete confirmation modal

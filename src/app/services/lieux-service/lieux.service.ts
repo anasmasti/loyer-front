@@ -31,7 +31,7 @@ export class LieuxService {
 
   // get specific "lieu" by his id
   getLieuById(id: String): Observable<Lieu> {
-    return this.http.get<Lieu>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}` + id);
+    return this.http.get<Lieu>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/` + id);
   }
 
   addLieu(data: Lieu): Observable<Lieu> {

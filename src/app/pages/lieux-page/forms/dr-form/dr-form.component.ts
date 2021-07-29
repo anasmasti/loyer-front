@@ -39,7 +39,6 @@ export class DrFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // console.log(this.drForm)
     this.drForm = new FormGroup({
       code_lieu: new FormControl('',),
       intitule_lieu: new FormControl('',),
@@ -78,7 +77,6 @@ export class DrFormComponent implements OnInit {
     if (this.Lieu.has_amenagements) {
       this.hasAmenagement = true;
       this.amenagementList = this.Lieu.amenagement;
-      console.log(this.Lieu);
       
       this.drForm.patchValue({
         code_lieu: this.Lieu.code_lieu,
@@ -155,8 +153,6 @@ export class DrFormComponent implements OnInit {
         
         if (LieuControl.fournisseurs.length !== 0) {
           for (let FourniseurControl of LieuControl.fournisseurs ) {
-
-            // console.log(formGroupAmenagement);
             
             let formGroupFournisseur = new FormGroup({
               nom: new FormControl(''),
