@@ -110,7 +110,7 @@ export class PvFormComponent implements OnInit {
       
       
       // Amenagement
-      for (let LieuControl of this.Lieu.amenagements ) {
+      for (let LieuControl of this.Lieu.amenagement ) {
 
         let formGroupAmenagement = this.addAmenagement();
 
@@ -156,8 +156,8 @@ export class PvFormComponent implements OnInit {
 
         
         
-        if (LieuControl.fournisseurs.length !== 0) {
-          for (let FourniseurControl of LieuControl.fournisseurs ) {
+        if (LieuControl.fournisseur.length !== 0) {
+          for (let FourniseurControl of LieuControl.fournisseur ) {
 
             // console.log(formGroupAmenagement);
             

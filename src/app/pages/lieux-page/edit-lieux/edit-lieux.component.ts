@@ -9,11 +9,15 @@ import { Component, Input, OnInit } from '@angular/core';
 export class EditLieuxComponent implements OnInit {
 
   @Input() Lieu!: any;
+  LF!:boolean;
+  DR!:boolean;
+  SG!:boolean; 
+  SV!:boolean; 
+  PV!:boolean; 
 
   constructor() { }
 
   ngOnInit(): void {
-    
   }
 
 }

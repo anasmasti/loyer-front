@@ -31,6 +31,7 @@ export class LieuxComponent implements OnInit {
   activeLieux = '';
 
   Lieu:any = "";
+  // LieuName:
 
   constructor() {}
 
@@ -38,5 +39,11 @@ export class LieuxComponent implements OnInit {
 
   showForm(lieu_name: string) {
     this.activeLieux = lieu_name;
+  }
+
+
+
+  getLieuName(name : string){
+
   }
 }
