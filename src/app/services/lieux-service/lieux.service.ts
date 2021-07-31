@@ -50,11 +50,6 @@ export class LieuxService {
   }
 
 
-
-
-
-
-
   
   //get the list of lieux to load the drop down list in contrat component
   listLieux(){

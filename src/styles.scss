@@ -38,22 +38,38 @@ html {
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    background: color(body-color) !important;
-    color: color(dark) !important;
-    overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  background: color(body-color) !important;
+  color: color(dark) !important;
+  overflow-x: hidden;
 }
 
-// Glibal font weights
+// Global font weights
 .bold-font {
   font-weight: weight(bold);
 }
 
-/* active link */
+// Active link setup
 .router-link-active {
   @extend .second-btn;
   &:hover {
     background: color(dark) !important;
+  }
+}
+
+// Dark mode setup
+.darkmode-activated {
+  background-color: color(dark-body) !important;
+  color: color(body-color) !important;
+  #sidebar,
+  .navbar,
+  .bg-white,
+  .main-card {
+    background-color: color(dark) !important;
+    color: color(light);
+  }
+  .logo {
+    display: none;
   }
 }
