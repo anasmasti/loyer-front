@@ -31,27 +31,31 @@ export class ListLieuxComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    //  setTimeout(() => {
+
+    // Throw get lieux from server function
     this.getAllLieux();
-    //  }, 1000);
 
-    this.store.dispatch(getLieuxAction())
-
+    // Check data loading status
     this.store.select(getLoading).subscribe(data => {
       this.loading = data
     })
-
-    this.store.select(getLieux).subscribe((data) => {
-      this.ngrx_lieux = data
-
-    })
+    
   }
+
 
   getAllLieux() {
-    this.lieuxService.getLieux().subscribe((data) => {
-      this.lieux = data;
-    });
+    // Select lieux from store
+    this.store.select(getLieux).subscribe((data) => {
+      // Check if leix data is empty then fetch it from server
+      if (data.length === 0) {
+        // Dispatch action to handle the NgRx get lieux from server effect 
+        this.store.dispatch(getLieuxAction())
+      }
+      this.lieux = data
+    })
+
   }
+
   openConfirmationModal() {
     this.confirmationModalService.open(); // Open delete confirmation modal
   }

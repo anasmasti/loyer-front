@@ -66,10 +66,39 @@ body {
   .navbar,
   .bg-white,
   .main-card {
-    background-color: color(dark) !important;
+    background-color: color(main-color) !important;
     color: color(light);
+    filter: brightness(90%);
   }
   .logo {
     display: none;
+  }
+  .main-muted-text,
+  th,
+  td,
+  .main-title {
+    color: color(light) !important;
+  }
+  input[type="text"],
+  textarea {
+    color: color(light);
+    background-color: color(dark-body);
+    border-color: color(dark);
+  }
+  .main-btn {
+    background-color: color(dark-body) !important;
+    color: color(body-color) !important;
+    border-color: color(dark) !important;
+  }
+  .sub-menu-btn {
+    color: color(body-color) !important;
+    &::before {
+      content: "❯";
+      margin-right: 5px;
+      color: color(dark-body) !important;
+    }
+  }
+  .count-number {
+    color: color(danger) !important;
   }
 }
