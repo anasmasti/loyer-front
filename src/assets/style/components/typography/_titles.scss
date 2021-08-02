@@ -2,7 +2,7 @@
 
 // Main Title
 .main-title {
-    color: color(dark) !important;
+    color: color(dark);
     &::before {
         content: "";
         border-left: 5px solid color(main-color);
@@ -12,7 +12,7 @@
 
 // Table header title
 .header-title {
-    color: color(dark) !important;
+    color: color(dark);
     &::before {
         content: "";
         border-left: 3px solid color(main-color);
@@ -43,5 +43,5 @@
 
 // Muted text
 .main-muted-text {
-    color: color(dark-muted) !important;
+    color: color(dark-muted) ;
 }
