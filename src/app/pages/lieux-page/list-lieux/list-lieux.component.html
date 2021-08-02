@@ -28,8 +28,8 @@
       </tr>
     </thead>
 
-    <tbody *ngIf="lieux.length">
-      <tr *ngFor="let lieu of lieux">
+    <tbody *ngIf="lieuEmpty">
+      <tr *ngFor="let lieu of (lieux$ | async)">
         <!-- <td >{{ proprietaire._id }}</td> -->
         <td>{{ lieu.intitule_lieu }}</td>
         <td>{{ lieu.type_lieu }}</td>
@@ -67,7 +67,7 @@
       </app-confirmation-modal>
     </tbody>
 
-    <tbody *ngIf="!lieux.length" class="w-100 d-flex align-items-center">
+    <tbody *ngIf="!lieuEmpty" class="w-100 d-flex align-items-center">
       <h5 class="main-muted-text my-4">Aucun lieu à afficher</h5>
       <a class="btn btn-sm second-btn ms-3" [routerLink]="['/lieux']">
         + Nouveau lieu

@@ -1,11 +1,11 @@
 import { getLoading } from './../../../store/shared/shared.selector';
 import { AppState } from './../../../store/app.state';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ConfirmationModalService } from '../../../services/confirmation-modal-service/confirmation-modal.service';
 import { MainModalService } from '../../../services/main-modal/main-modal.service';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { Lieu } from '../../../models/Lieu'
-import { Observable, timer } from 'rxjs';
+import { Observable, timer, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { getLieux } from '../lieux-store/lieux.selector';
 import { getLieuxAction } from '../lieux-store/lieux.actions';
@@ -15,13 +15,15 @@ import { getLieuxAction } from '../lieux-store/lieux.actions';
   templateUrl: './list-lieux.component.html',
   styleUrls: ['./list-lieux.component.scss']
 })
-export class ListLieuxComponent implements OnInit {
+export class ListLieuxComponent implements OnInit, OnDestroy {
 
-  lieux: Lieu[] = [];
+  lieux$!: Observable<Lieu[]>;
+  lieuEmpty: boolean = true;
   ngrx_lieux: Lieu[] = [];
   targetlieu: Lieu[] = [];
   targetlieuId: string = '';
-  loading: boolean = false
+  loading: boolean = false;
+  lieuxSubsction$!: Subscription;
 
   constructor(
     private lieuxService: LieuxService,
@@ -39,19 +41,21 @@ export class ListLieuxComponent implements OnInit {
     this.store.select(getLoading).subscribe(data => {
       this.loading = data
     })
-    
+
   }
 
 
   getAllLieux() {
     // Select lieux from store
-    this.store.select(getLieux).subscribe((data) => {
+    this.lieux$ = this.store.select(getLieux)
+
+    this.lieuxSubsction$ = this.lieux$.subscribe((data) => {
       // Check if leix data is empty then fetch it from server
       if (data.length === 0) {
+        this.lieuEmpty = true
         // Dispatch action to handle the NgRx get lieux from server effect 
         this.store.dispatch(getLieuxAction())
       }
-      this.lieux = data
     })
 
   }
@@ -81,4 +85,7 @@ export class ListLieuxComponent implements OnInit {
     return text
   }
 
+  ngOnDestroy() {
+    this.lieuxSubsction$.unsubscribe()
+  }
 }

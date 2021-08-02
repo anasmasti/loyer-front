@@ -1,7 +1,7 @@
 import { AppState } from './../../../store/app.state';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { getLieuxAction, getLieuxSuccessAction } from "./lieux.actions";
+import { getDrWithSupAction, getDrWithSupSuccessAction, getLieuxAction, getLieuxSuccessAction } from "./lieux.actions";
 import { Store } from '@ngrx/store';
 import { Lieu } from 'src/app/models/Lieu';
 import { Injectable } from '@angular/core';
@@ -25,6 +25,16 @@ export class LieuxEffects {
         )
     });
 
+    // Create effect for Dr with Sup
+    loadDrWithSup$ = createEffect((): any => {
+        return this.actions$.pipe(
+            ofType(getDrWithSupAction),
+            mergeMap(() => this.loadDrWithSup())
+        )
+    });
+
+    ///////////////////////////////////////////////////////////////////
+
     // Load lieux from service
     loadLieux() {
         return this.lieuxService.getLieux().pipe(
@@ -32,7 +42,17 @@ export class LieuxEffects {
                 (lieux: Lieu[]) => {
                     this.store.dispatch(setLoadingAction({ status: false }))
                     return getLieuxSuccessAction({ lieux });
-                    
+                }
+            )
+        )
+    }
+    // Load lieux from service
+    loadDrWithSup() {
+        return this.lieuxService.getDrSup().pipe(
+            map(
+                (DrWithSup: any) => {
+                    this.store.dispatch(setLoadingAction({ status: false }))
+                    return getDrWithSupSuccessAction({ DrWithSup });
                 }
             )
         )

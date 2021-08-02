@@ -1,16 +1,21 @@
+import { AppState } from './../../../../store/app.state';
 import { MainModalService } from './../../../../services/main-modal/main-modal.service';
 import { ConfirmationModalService } from './../../../../services/confirmation-modal-service/confirmation-modal.service';
 import { Lieu } from '../../../../models/Lieu';
 import { LieuxService } from './../../../../services/lieux-service/lieux.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray } from '@angular/forms';
+import { getDrWithSupAction } from '../../lieux-store/lieux.actions';
+import { getDr, getSup } from '../../lieux-store/lieux.selector';
+import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'pv-form',
   templateUrl: './pv-form.component.html',
   styleUrls: ['./pv-form.component.scss']
 })
-export class PvFormComponent implements OnInit {
+export class PvFormComponent implements OnInit, OnDestroy {
 
   hasAmenagement: boolean = false;
   PvForm!: FormGroup;
@@ -20,22 +25,25 @@ export class PvFormComponent implements OnInit {
   UpdateDone: boolean = false;
   UpdateSucces: string = 'Point de vente modifié avec succés';
   amenagementList: any = [];
+  Dr$!: Observable<any>;
+  Sup$!: Observable<any>;
+  DrSubscription$!: Subscription;
+  SupSubscription$!: Subscription;
 
   @Input() update!: boolean;
   @Input() Lieu!: any;
 
-
-
   constructor(
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
-    private lieuService: LieuxService
+    private lieuService: LieuxService,
+    private store: Store<AppState>
   ) { }
 
 
 
   ngOnChanges() {
-    if ( this.Lieu !== "") {
+    if (this.Lieu !== "") {
       setTimeout(() => {
         this.fetchPv();
       }, 100);
@@ -70,6 +78,9 @@ export class PvFormComponent implements OnInit {
       //Aménagement
       amenagementForm: new FormArray([]),
     })
+
+    this.getDr()
+    this.getSup()
   }
 
 
@@ -78,9 +89,6 @@ export class PvFormComponent implements OnInit {
     this.removeAllAmenagement();
 
     // this.etatLogement = this.Lieu.etat_logement_fonction;
-
-    console.log(this.Lieu.directeur_regional);
-    
 
     if (this.Lieu.has_amenagements) {
       this.hasAmenagement = true;
@@ -107,10 +115,10 @@ export class PvFormComponent implements OnInit {
         centre_cout_siege: this.Lieu.centre_cout_siege,
         categorie_pointVente: this.Lieu.categorie_pointVente,
       });
-      
-      
+
+
       // Amenagement
-      for (let LieuControl of this.Lieu.amenagement ) {
+      for (let LieuControl of this.Lieu.amenagement) {
 
         let formGroupAmenagement = this.addAmenagement();
 
@@ -154,37 +162,37 @@ export class PvFormComponent implements OnInit {
           LieuControl.date_livraison_local
         );
 
-        
-        
+
+
         if (LieuControl.fournisseur.length !== 0) {
-          for (let FourniseurControl of LieuControl.fournisseur ) {
+          for (let FourniseurControl of LieuControl.fournisseur) {
 
             // console.log(formGroupAmenagement);
-            
+
             let formGroupFournisseur = new FormGroup({
               nom: new FormControl(''),
               prenom: new FormControl(''),
               amenagement_effectue: new FormControl(''),
             });
-        
+
             (<FormArray>formGroupAmenagement.controls.fournisseur).push(<FormGroup>formGroupFournisseur)
-    
+
             formGroupFournisseur.controls.nom.setValue(
               FourniseurControl.nom
             );
-    
+
             formGroupFournisseur.controls.prenom.setValue(
               FourniseurControl.prenom
             );
-    
+
             formGroupFournisseur.controls.amenagement_effectue.setValue(
               FourniseurControl.amenagement_effectue
             );
-            
-    
+
+
           }
         }
- 
+
       }
     } else {
       this.hasAmenagement = false;
@@ -271,7 +279,7 @@ export class PvFormComponent implements OnInit {
     (<FormArray>amenagementForm.controls[index].controls.fournisseur).push(<FormGroup>fournisseurData)
   }
 
-  
+
 
   removeFournisseur(amenagementForm: any, index: number) {
     (<FormArray>amenagementForm.controls[index].controls.fournisseur).removeAt(index)
@@ -292,7 +300,7 @@ export class PvFormComponent implements OnInit {
   }
 
 
-  
+
   addPv() {
     let pvData: Lieu = {
       code_lieu: this.PvForm.get('code_lieu')?.value,
@@ -339,7 +347,7 @@ export class PvFormComponent implements OnInit {
     )
   }
 
-  
+
 
   updatePv() {
     let idlf = this.Lieu._id;
@@ -369,7 +377,7 @@ export class PvFormComponent implements OnInit {
       amenagement: this.PvForm.get('amenagementForm')?.value,
     }
 
-    this.lieuService.updateLieux(idlf , lfData).subscribe(
+    this.lieuService.updateLieux(idlf, lfData).subscribe(
       (_) => {
         this.UpdateDone = true;
         setTimeout(() => {
@@ -389,12 +397,35 @@ export class PvFormComponent implements OnInit {
     )
   }
 
+  // Get Dr and Sup from the server
+  getDrSup() {
+    this.store.dispatch(getDrWithSupAction())
+  }
+  // Select Dr
+  getDr() {
+    this.Dr$ = this.store.select(getDr)
+    this.DrSubscription$ = this.Dr$.subscribe(data => {
+      if (!data?.length) this.getDrSup()
+    })
+  }
+  // Select Sup
+  getSup() {
+    this.Sup$ = this.store.select(getSup)
+    this.SupSubscription$ = this.Sup$.subscribe(data => {
+      if (!data?.length) this.getDrSup()
+      console.log(data);
 
+    })
+  }
 
   getFournisseur(amenagementForm: any, i: number) {
     return (amenagementForm.controls[i].controls.fournisseur).controls
   }
 
+  ngOnDestroy() {
+    if (this.DrSubscription$) this.DrSubscription$.unsubscribe()
+    if (this.SupSubscription$) this.SupSubscription$.unsubscribe()
+  }
 
 
   get amenagementForm(): FormArray {

@@ -1,32 +1,28 @@
-
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { getDrWithSupAction } from './../../lieux-store/lieux.actions';
+import { Component, Input, OnInit, OnDestroy, OnChanges } from '@angular/core';
 import { FormControl, FormGroup, FormArray } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 import { Lieu } from 'src/app/models/Lieu';
-
-
 import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { AppState } from 'src/app/store/app.state';
-import { SharedState } from 'src/app/store/shared/shared.state';
 import { MainModalService } from '../../../../services/main-modal/main-modal.service';
-import { getCodeDr } from '../../lieux-store/lieux.selector';
-import { LieuxState } from '../../lieux-store/lieux.state';
+import { getDr } from '../../lieux-store/lieux.selector';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'lf-form',
   templateUrl: './lf-form.component.html',
   styleUrls: ['./lf-form.component.scss'],
 })
-export class LfFormComponent implements OnInit {
+export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
   modalHeight: string = '40vh';
   hasAmenagement: boolean = false;
   etatLogement = '';
   isReplace: string = '';
   amenagementList: any = [];
-  codeDr: any;
+  Dr$!: Observable<any>;
+  DrSubscription$!: Subscription;
   lieux: Lieu[] = [];
 
   @Input() update!: boolean;
@@ -47,8 +43,7 @@ export class LfFormComponent implements OnInit {
     private mainModel: MainModalService,
     private confirmationModalService: ConfirmationModalService,
     private lieuService: LieuxService,
-    // private route: ActivatedRoute,
-     private store: Store<SharedState>,
+    private store: Store<AppState>,
   ) { }
 
 
@@ -166,22 +161,7 @@ export class LfFormComponent implements OnInit {
 
     });
 
-  //  this.store.select(getCodeDr).subscribe((data) => {
-    //  this.codeDr = data.code_rattache_DR
-  //    console.log("Test =====",data)
-  //  })
-
-  // this.$lieux = this.lieuService.getLieux();
-  // const $data = this.store.pipe(select(getCodeDr));
-  // console.log("Test =====",$data);
-  // console.log("Test Lieux =====",this.$lieux)
-
-  // this.store.select(getCodeDr).subscribe((data) => {
-  //   this.$lieux = data
-  //   console.log("Test Lieux =====",this.$lieux)
-  // })
-
-  this.onGetDrSup();
+    this.getDr();
 
   }
 
@@ -399,17 +379,17 @@ export class LfFormComponent implements OnInit {
         intitule_rattache_SUP_PV: this.Lieu.intitule_rattache_SUP_PV,
         centre_cout_siege: this.Lieu.centre_cout_siege,
         categorie_pointVente: this.Lieu.categorie_pointVente,
-        
-        
+
+
         // directeur_regional
         matricule_directeur: this.Lieu.directeur_regional.matricule,
         nom_directeur: this.Lieu.directeur_regional.nom,
         prenom_directeur: this.Lieu.directeur_regional.prenom,
       });
-      
-      
+
+
       // Amenagement
-      for (let LieuControl of this.Lieu.amenagement ) {
+      for (let LieuControl of this.Lieu.amenagement) {
 
         let formGroupAmenagement = this.addAmenagement();
 
@@ -506,7 +486,7 @@ export class LfFormComponent implements OnInit {
         intitule_rattache_SUP_PV: this.Lieu.intitule_rattache_SUP_PV,
         centre_cout_siege: this.Lieu.centre_cout_siege,
         categorie_pointVente: this.Lieu.categorie_pointVente,
-        
+
         // amenagement inputs
         nature_amenagement: '',
         montant_amenagement: '',
@@ -548,7 +528,7 @@ export class LfFormComponent implements OnInit {
       intitule_rattache_SUP_PV: this.LfForm.get('intitule_rattache_SUP_PV')?.value,
       centre_cout_siege: this.LfForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.LfForm.get('categorie_pointVente')?.value,
-      
+
       // Directeur
       directeur_regional: [
         {
@@ -583,16 +563,25 @@ export class LfFormComponent implements OnInit {
 
   }
 
-
-  onGetDrSup(){
-    this.lieuService.getDrSup().subscribe( (data) => {
-      this.lieux = data
-      console.log("lieux ====>",this.lieux);
+  // Get Dr and Sup from the server
+  getDrSup() {
+    return this.store.dispatch(getDrWithSupAction())
+  }
+  // Select Dr
+  getDr() {
+    this.Dr$ = this.store.select(getDr)
+    this.Dr$.subscribe(data => {
+      if (!data?.length) {
+        this.getDrSup()
+      }
     })
   }
 
-  //////////////////////////////////////////////////////////////////////////////////
+  ngOnDestroy() {
+    if (this.DrSubscription$) this.DrSubscription$.unsubscribe()
+  }
 
+  //////////////////////////////////////////////////////////////////////////////////
 
 
   get code_lieu() {

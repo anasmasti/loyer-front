@@ -9,10 +9,12 @@ export const getLieux = createSelector(getLieuxState, (state) => {
   return state.lieux;
 });
 
-// Get code DR from Lieux
-export const getCodeDr = createSelector(getLieuxState, (state: any) => {
-  const codeDr = state.lieux;
+// Get DR from Lieux
+export const getDr = createSelector(getLieuxState, (state: any) => {
+  return state.DrWithSup.DR;
+});
 
-  console.log('This is code dr ===> ', codeDr);
-  return codeDr;
+// Get Sup from Lieux
+export const getSup = createSelector(getLieuxState, (state: any) => {
+  return state.DrWithSup.SUP;
 });

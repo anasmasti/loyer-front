@@ -40,26 +40,25 @@ export class LieuxService {
 
   // Update the proprietaire
   updateLieux(id: string, data: Lieu): Observable<Lieu> {
-      return this.http.put<Lieu>(
-        `${
-          environment.API_URL_TEST + environment.API_VERSION + this.param_url
-        }/modifier/${id}`,
-        data,
-        { headers: this.httpOptions.headers }
-      );
+    return this.http.put<Lieu>(
+      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url
+      }/modifier/${id}`,
+      data,
+      { headers: this.httpOptions.headers }
+    );
   }
 
   //get dr and sup to load dropdown list
-  getDrSup(): Observable<Lieu[]> {
-    return this.http.get<Lieu[]>(
+  getDrSup(): Observable<any> {
+    return this.http.get<any>(
       `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/Dr/Sup`,
       { headers: this.httpOptions.headers }
     );
   }
 
-  
+
   //get the list of lieux to load the drop down list in contrat component
-  listLieux(){
+  listLieux() {
     return this.http.get('http://localhost:5000/api/v1/lieu/get');
   }
 

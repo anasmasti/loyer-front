@@ -1,17 +1,27 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AppState } from './../../../../store/app.state';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
 import { Lieu } from 'src/app/models/Lieu';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
+import { getDrWithSupAction } from '../../lieux-store/lieux.actions';
+import { getDr } from '../../lieux-store/lieux.selector';
 
 @Component({
   selector: 'sv-form',
   templateUrl: './sv-form.component.html',
   styleUrls: ['./sv-form.component.scss']
 })
-export class SvFormComponent implements OnInit {
+export class SvFormComponent implements OnInit, OnDestroy {
 
-  constructor(private svService: LieuxService , private lieuService: LieuxService ,private mainModalService: MainModalService) { }
+  constructor(
+    private svService: LieuxService,
+    private lieuService: LieuxService,
+    private mainModalService: MainModalService,
+    private store: Store<AppState>
+  ) { }
 
   hasAmenagement: boolean = false;
   svForm!: FormGroup;
@@ -20,21 +30,20 @@ export class SvFormComponent implements OnInit {
   PostSucces: string = 'Point de vente ajouté avec succés';
   UpdateDone: boolean = false;
   UpdateSucces: string = 'Point de vente modifié avec succés';
+  Dr$!: Observable<any>;
+  DrSubscription$!: Subscription;
 
   @Input() update!: boolean;
   @Input() Lieu!: any;
 
 
-
   ngOnChanges() {
-    if ( this.Lieu !== "") {
+    if (this.Lieu !== "") {
       setTimeout(() => {
         this.fetchSv();
       }, 100);
     }
   }
-
-
 
   ngOnInit(): void {
     this.svForm = new FormGroup({
@@ -63,6 +72,8 @@ export class SvFormComponent implements OnInit {
       amenagementForm: new FormArray([]),
 
     })
+
+    this.getDr()
   }
 
 
@@ -70,7 +81,7 @@ export class SvFormComponent implements OnInit {
   fetchSv() {
 
     this.removeAllAmenagement();
-    
+
 
     if (this.Lieu.has_amenagements) {
       this.hasAmenagement = true;
@@ -96,10 +107,10 @@ export class SvFormComponent implements OnInit {
         centre_cout_siege: this.Lieu.centre_cout_siege,
         categorie_pointVente: this.Lieu.categorie_pointVente,
       });
-      
-      
+
+
       // Amenagement
-      for (let LieuControl of this.Lieu.amenagement ) {
+      for (let LieuControl of this.Lieu.amenagement) {
 
         let formGroupAmenagement = this.addAmenagement();
 
@@ -143,37 +154,37 @@ export class SvFormComponent implements OnInit {
           LieuControl.date_livraison_local
         );
 
-        
-        
+
+
         if (LieuControl.fournisseur.length !== 0) {
-          for (let FourniseurControl of LieuControl.fournisseur ) {
+          for (let FourniseurControl of LieuControl.fournisseur) {
 
             // console.log(formGroupAmenagement);
-            
+
             let formGroupFournisseur = new FormGroup({
               nom: new FormControl(''),
               prenom: new FormControl(''),
               amenagement_effectue: new FormControl(''),
             });
-        
+
             (<FormArray>formGroupAmenagement.controls.fournisseur).push(<FormGroup>formGroupFournisseur)
-    
+
             formGroupFournisseur.controls.nom.setValue(
               FourniseurControl.nom
             );
-    
+
             formGroupFournisseur.controls.prenom.setValue(
               FourniseurControl.prenom
             );
-    
+
             formGroupFournisseur.controls.amenagement_effectue.setValue(
               FourniseurControl.amenagement_effectue
             );
-            
-    
+
+
           }
         }
- 
+
       }
     } else {
       this.hasAmenagement = false;
@@ -278,8 +289,8 @@ export class SvFormComponent implements OnInit {
 
 
 
-   // Afficher le message d'erreur de serveur
-   showErrorMessage() {
+  // Afficher le message d'erreur de serveur
+  showErrorMessage() {
     $('.error-alert').addClass('active');
   }
 
@@ -291,7 +302,7 @@ export class SvFormComponent implements OnInit {
   }
 
 
-  
+
   onAddSv() {
     let svData: Lieu = {
       code_lieu: this.svForm.get('code_lieu')?.value,
@@ -314,28 +325,28 @@ export class SvFormComponent implements OnInit {
       intitule_rattache_SUP_PV: this.svForm.get('intitule_rattache_SUP_PV')?.value,
       centre_cout_siege: this.svForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.svForm.get('categorie_pointVente')?.value,
-    
+
       //Aménagement
-        amenagement: this.svForm.get('amenagementForm')?.value,
+      amenagement: this.svForm.get('amenagementForm')?.value,
     }
 
-  
-      this.svService.addLieu(svData).subscribe(
-        (_) => {
-          this.postDone = true;
-          setTimeout(() => {
-            this.svForm.reset();
-            this.postDone = false;
-          }, 2000); 
-        },
-        (error) => {
-          this.errors = error.error.message;
-          setTimeout(() => {
-            this.showErrorMessage();
-          }, 3000);
-          this.hideErrorMessage();
-        }
-      );
+
+    this.svService.addLieu(svData).subscribe(
+      (_) => {
+        this.postDone = true;
+        setTimeout(() => {
+          this.svForm.reset();
+          this.postDone = false;
+        }, 2000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+    );
 
   }
 
@@ -369,7 +380,7 @@ export class SvFormComponent implements OnInit {
       amenagement: this.svForm.get('amenagementForm')?.value,
     }
 
-    this.lieuService.updateLieux(idlf , lfData).subscribe(
+    this.lieuService.updateLieux(idlf, lfData).subscribe(
       (_) => {
         this.UpdateDone = true;
         setTimeout(() => {
@@ -389,89 +400,103 @@ export class SvFormComponent implements OnInit {
     )
   }
 
+  // Get Dr and Sup from the server
+  getDrSup() {
+    this.store.dispatch(getDrWithSupAction())
+  }
+  // Select Dr
+  getDr() {
+    this.Dr$ = this.store.select(getDr)
+    this.DrSubscription$ = this.Dr$.subscribe(data => {
+      if (!data?.length) this.getDrSup()
+    })
+  }
 
+  ngOnDestroy() {
+    if (this.DrSubscription$) this.DrSubscription$.unsubscribe()
+  }
 
-  get code_lieu(){
+  get code_lieu() {
     return this.svForm.get('code_lieu');
   }
 
-  get intitule_lieu(){
+  get intitule_lieu() {
     return this.svForm.get('intitule_lieu');
   }
 
-  get intitule_DR(){
+  get intitule_DR() {
     return this.svForm.get('intitule_DR');
   }
 
-  get adresse(){
+  get adresse() {
     return this.svForm.get('adresse');
   }
 
-  get ville(){
+  get ville() {
     return this.svForm.get('ville');
   }
 
-  get code_localite(){
+  get code_localite() {
     return this.svForm.get('code_localite');
   }
 
-  get desc_lieu_entrer(){
+  get desc_lieu_entrer() {
     return this.svForm.get('desc_lieu_entrer');
   }
 
-  get imgs_lieu_entrer(){
+  get imgs_lieu_entrer() {
     return this.svForm.get('imgs_lieu_entrer');
   }
 
-  get has_amenagements(){
+  get has_amenagements() {
     return this.svForm.get('has_amenagements');
   }
 
-  get amenagements(){
+  get amenagements() {
     return this.svForm.get('amenagements');
   }
 
-  get etat_logement_fonction(){
+  get etat_logement_fonction() {
     return this.svForm.get('etat_logement_fonction');
   }
 
-  get etage(){
+  get etage() {
     return this.svForm.get('etage');
   }
 
-  get telephone(){
+  get telephone() {
     return this.svForm.get('telephone');
   }
 
-  get fax(){
+  get fax() {
     return this.svForm.get('fax');
   }
 
-  get superficie(){
+  get superficie() {
     return this.svForm.get('superficie');
   }
 
-  get type_lieu(){
+  get type_lieu() {
     return this.svForm.get('type_lieu');
   }
 
-  get code_rattache_DR(){
+  get code_rattache_DR() {
     return this.svForm.get('code_rattache_DR');
   }
 
-  get code_rattache_SUP(){
+  get code_rattache_SUP() {
     return this.svForm.get('code_rattache_SUP');
   }
 
-  get intitule_rattache_SUP_PV(){
+  get intitule_rattache_SUP_PV() {
     return this.svForm.get('intitule_rattache_SUP_PV');
   }
 
-  get centre_cout_siege(){
+  get centre_cout_siege() {
     return this.svForm.get('centre_cout_siege');
   }
 
-  get categorie_pointVente(){
+  get categorie_pointVente() {
     return this.svForm.get('categorie_pointVente');
   }
 
