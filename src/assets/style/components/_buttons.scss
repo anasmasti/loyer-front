@@ -70,6 +70,19 @@
     }
 }
 
+// Dark button
+.dark-btn {
+    background: color(dark-body);
+    box-shadow: $btn-box-shadow;
+    color: color(light) !important;
+    border-radius: $main-border-radius !important;
+
+    &:hover {
+        background: color(dark);
+        color: color(light) !important;
+    }
+}
+
 // Sub menu buttons
 .sub-menu-btn {
     color: color(dark) !important;
