@@ -5,6 +5,7 @@ import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { DatePipe, DOCUMENT } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'dr-form',
@@ -28,6 +29,7 @@ export class DrFormComponent implements OnInit {
   constructor(
     private drService: LieuxService ,
     private mainModalService: MainModalService,
+    private http: HttpClient,
     @Inject(DOCUMENT) private document: Document
     ) { }
 
@@ -296,14 +298,7 @@ export class DrFormComponent implements OnInit {
     return (amenagementForm.controls[i].controls.fournisseur).controls
   }
 
-  onFileSelected(event: any) {
-    this.selectedFile = <File>event.target.files[0];
-
-    // if (event.target.files.length > 0) {
-    //   this.selectedFile = <File>event.target.files[0];
-    // }
-  }
-
+ 
   // Afficher le message d'erreur de serveur
   showErrorMessage() {
     $('.error-alert').addClass('active');
@@ -314,10 +309,26 @@ export class DrFormComponent implements OnInit {
     $('.error-alert').removeClass('active');
   }
 
+  async onFileSelected(event: any) {
+    if (event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
+      console.log('File ==> ', this.selectedFile);
+    }
+  }
+
+  async onSubmite() {
+    const fd: FormData = new FormData();
+    await fd.append('imgs_lieu_entrer', this.selectedFile);
+    this.http.post<any>('http://192.168.11.124:5000/api/v1/lieu/ajouter', fd).subscribe(
+      (res) => console.log(res),
+      (err) => console.log(err)
+    )
+  }
+
   addDR() {
     
-    let formdata = new FormData();
-    formdata.append('imgs_lieu_entrer', this.selectedFile)
+    // let formdata = new FormData();
+    // formdata.append('imgs_lieu_entrer', this.selectedFile)
 
     let dr_data: Lieu = {
       code_lieu: this.drForm.get('code_lieu')?.value,
