@@ -23,6 +23,7 @@ export class SvFormComponent implements OnInit {
 
   @Input() update!: boolean;
   @Input() Lieu!: any;
+  @Input() LieuName!: string;
 
 
 
@@ -308,7 +309,7 @@ export class SvFormComponent implements OnInit {
       fax: this.svForm.get('fax')?.value,
       etat_logement_fonction: this.svForm.get('etat_logement_fonction')?.value,
       etage: this.svForm.get('etage')?.value,
-      type_lieu: this.svForm.get('type_lieu')?.value,
+      type_lieu: this.LieuName,
       code_rattache_DR: this.svForm.get('code_rattache_DR')?.value,
       code_rattache_SUP: this.svForm.get('code_rattache_SUP')?.value,
       intitule_rattache_SUP_PV: this.svForm.get('intitule_rattache_SUP_PV')?.value,

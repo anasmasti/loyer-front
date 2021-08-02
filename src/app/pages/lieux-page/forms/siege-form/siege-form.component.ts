@@ -21,6 +21,7 @@ export class SiegeFormComponent implements OnInit {
 
   @Input() update!: boolean;
   @Input() Lieu!: any;
+  @Input() LieuName!: string;
 
 
   
@@ -313,7 +314,7 @@ export class SiegeFormComponent implements OnInit {
       fax: this.siegeForm.get('fax')?.value,
       etat_logement_fonction: this.siegeForm.get('etat_logement_fonction')?.value,
       etage: this.siegeForm.get('etage')?.value,
-      type_lieu: this.siegeForm.get('type_lieu')?.value,
+      type_lieu: this.LieuName,
       code_rattache_DR: this.siegeForm.get('code_rattache_DR')?.value,
       code_rattache_SUP: this.siegeForm.get('code_rattache_SUP')?.value,
       intitule_rattache_SUP_PV: this.siegeForm.get('intitule_rattache_SUP_PV')?.value,

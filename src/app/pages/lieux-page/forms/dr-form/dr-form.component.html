@@ -19,7 +19,7 @@
   <!--Début de Div qui contient le formulaire dr-form-->
   <div class="form-box mt-4">
     <!--Début Formulaire dr-form-->
-    <form [formGroup]="drForm" enctype="multipart/form-data" (ngSubmit)="(Lieu == '') ? addDR() : updateDR()">
+    <form [formGroup]="drForm" enctype="multipart/form-data" (ngSubmit)="(Lieu == '') ? addDR() : updateDR()" id="test">
 
       <div class="w-100 d-flex justify-content-center">
         <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
@@ -91,10 +91,10 @@
         <div class="col-lg-3 form-group d-flex mt-4">
           <label for="">Oui</label>
           <input type="radio" name="has_amenagements" [value]="true" class="form-check-input mx-2"
-            [(ngModel)]="hasAmenagement" formControlName="has_amenagements" [(ngModel)]="hasAmenagement" />
+            [(ngModel)]="hasAmenagement" formControlName="has_amenagements" (click)="fetchDr(true)" />
           <label for="">Non</label>
           <input type="radio" name="has_amenagements" [value]="false" class="form-check-input mx-2"
-            [(ngModel)]="hasAmenagement" formControlName="has_amenagements" [(ngModel)]="hasAmenagement" />
+            [(ngModel)]="hasAmenagement" formControlName="has_amenagements" />
         </div>
 
         <!-- Condition pour afficher ou cacher le formulaire d'Aménagement -->
@@ -111,23 +111,20 @@
             <div class="margin-main col-lg-12 mt-3">
               <div class="d-flex justify-content-between">
                 <h4 class="main-text">Aménagement</h4>
-                <a (click)="addAmenagement()" class="btn second-btn">Ajouter amenagement</a>
+                <a (click)="addAmenagement('NewAmng')" class="btn second-btn">Ajouter amenagement</a>
               </div>
             </div>
           </div>
 
           <!--Début de Conteneur Aménagement-->
-          <div formArrayName="amenagementForm" *ngFor="let item of amenagementForm.controls; let i = index">
+          <div formArrayName="amenagementForm" *ngFor="let item of amenagementForm.controls; let i = index"  >
 
-            <div class="main-card mt-4 bg-white p-lg-4" [formGroupName]="i">
+            <div class="main-card mt-4 bg-white p-lg-4 " *ngIf=" !amenagementForm.controls[i].value.deleted " [formGroupName]="i" id="{{ i }}" >
               <a (click)="removeAmenagement(i)" class="btn btn-sm danger-btn float-end"><i class="fal fa-trash"></i></a>
-
               <div class="row">
                 <div class="col-lg-3 form-group mt-4">
                   <label for="">Nature des travaux d’aménagement</label>
                   <input type="text" class="form-control rounded-pill" formControlName="nature_amenagement" />
-
-
                 </div>
 
                 <div class="col-lg-3 form-group mt-4">
@@ -188,7 +185,7 @@
                           <label for="">Amenagement éffectué</label>
                           <input type="text" class="form-control rounded-pill" formControlName="amenagement_effectue" />
                         </div>
-                        <input type="text" id="{{ 'deleted ' + i + ' ' + j }}" formControlName="deleted"  />
+                        <input type="hidden" id="{{ 'deleted ' + i + ' ' + j }}" formControlName="deleted"  />
                       </div>
                     </div>
                   </div>
@@ -198,7 +195,7 @@
                   <label for="">Evaluation du fournisseur</label>
                   <input type="text" class="form-control rounded-pill" formControlName="evaluation_fournisseur" />
                 </div>
-
+                
                 <div class="col-lg-3 form-group mt-4">
                   <label for="">Date de fin des travaux</label>
                   <input type="date" class="form-control rounded-pill" formControlName="date_fin_travaux" />
@@ -208,30 +205,30 @@
                   <label for="">Date de livraison du local</label>
                   <input type="date" class="form-control rounded-pill" formControlName="date_livraison_local" />
                 </div>
-
+                
                 <div class="col-lg-3 form-group mt-4">
                   <label for="">Images du local après aménagement</label>
                   <input type="file" class="form-control btn success-btn"
-                    formControlName="images_local_apres_amenagement" />
+                  formControlName="images_local_apres_amenagement" />
                 </div>
 
                 <div class="col-lg-3 form-group mt-4">
                   <label for="">Croquis d’aménagement via imagerie</label>
                   <input type="file" class="form-control btn success-btn"
-                    formControlName="croquis_amenagement_via_imagerie" multiple />
+                  formControlName="croquis_amenagement_via_imagerie" multiple />
                 </div>
 
               </div>
-
+              <input type="text" id="{{ 'deleted ' + i }}" formControlName="deleted"  />
+              
             </div>
-
           </div>
           <!--Fin de Conteneur Aménagement -->
         </ng-template>
         <!--Fin de Div Aménagement (Title+divForm+Form)-->
       </div>
       <!-- Fin 2éme Row-->
-
+      
       <!-- Button Ajouter -->
       <div class="form-group mt-4 col-lg-2 d-flex">
         <button type="submit" class="btn second-btn form-control" *ngIf="Lieu != ''">

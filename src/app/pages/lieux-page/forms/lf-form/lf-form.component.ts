@@ -22,6 +22,7 @@ export class LfFormComponent implements OnInit {
 
   @Input() update!: boolean;
   @Input() Lieu!: any;
+  @Input() LieuName!: string;
 
   lF !: Lieu;
   LfForm!: FormGroup;
@@ -238,7 +239,7 @@ export class LfFormComponent implements OnInit {
       fax: this.LfForm.get('fax')?.value,
       etat_logement_fonction: this.LfForm.get('etat_logement_fonction')?.value,
       etage: this.LfForm.get('etage')?.value,
-      type_lieu: this.LfForm.get('type_lieu')?.value,
+      type_lieu: this.LieuName,
       code_rattache_DR: this.LfForm.get('code_rattache_DR')?.value,
       code_rattache_SUP: this.LfForm.get('code_rattache_SUP')?.value,
       intitule_rattache_SUP_PV: this.LfForm.get('intitule_rattache_SUP_PV')?.value,

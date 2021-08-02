@@ -19,9 +19,11 @@ export class DrFormComponent implements OnInit {
   PostSucces: string = 'Direction régionale ajouté avec succés';
   selectedFile !: File;
   drForm!: FormGroup;
+  isAmenagementEmpty : boolean = true
 
   @Input() update!: boolean;
   @Input() Lieu!: any;
+  @Input() LieuName!: string;
   amenagementList: any = [];
   LfForm!: FormGroup;
 
@@ -34,7 +36,7 @@ export class DrFormComponent implements OnInit {
   ngOnChanges() {
     if ( this.Lieu !== "") {
       setTimeout(() => {
-        this.fetchLieu();
+        this.fetchDr(false);
       }, 100);
     }
   }
@@ -71,170 +73,226 @@ export class DrFormComponent implements OnInit {
 
   }
 
-  fetchLieu() {
+  fetchDr(rdb : boolean) {
 
     console.log(this.Lieu);
     
 
     this.removeAllAmenagement();
 
+    
+    this.drForm.patchValue({
+      code_lieu: this.Lieu.code_lieu,
+      intitule_lieu: this.Lieu.intitule_lieu,
+      intitule_DR: this.Lieu.intitule_DR,
+      adresse: this.Lieu.adresse,
+      ville: this.Lieu.ville,
+      code_localite: this.Lieu.code_localite,
+      desc_lieu_entrer: this.Lieu.desc_lieu_entrer,
+      imgs_lieu_entrer: this.Lieu.imgs_lieu_entrer,
+      has_amenagements: this.Lieu.has_amenagements,
+      superficie: this.Lieu.superficie,
+      telephone: this.Lieu.telephone,
+      fax: this.Lieu.fax,
+      etat_logement_fonction: this.Lieu.etat_logement_fonction,
+      etage: this.Lieu.etage,
+      type_lieu: this.Lieu.type_lieu,
+      code_rattache_DR: this.Lieu.code_rattache_DR,
+      code_rattache_SUP: this.Lieu.code_rattache_SUP,
+      intitule_rattache_SUP_PV: this.Lieu.intitule_rattache_SUP_PV,
+      centre_cout_siege: this.Lieu.centre_cout_siege,
+      categorie_pointVente: this.Lieu.categorie_pointVente,
+    });
+    
+    
     if (this.Lieu.has_amenagements) {
+      
       this.hasAmenagement = true;
       this.amenagementList = this.Lieu.amenagement;
+    
+      //amenagement inputs
+      this.Lieu.amenagement.forEach( ( LieuControl : any , index : any ) => {
+          
+          console.log("index : " + index );
 
-      this.drForm.patchValue({
-        code_lieu: this.Lieu.code_lieu,
-        intitule_lieu: this.Lieu.intitule_lieu,
-        intitule_DR: this.Lieu.intitule_DR,
-        adresse: this.Lieu.adresse,
-        ville: this.Lieu.ville,
-        code_localite: this.Lieu.code_localite,
-        desc_lieu_entrer: this.Lieu.desc_lieu_entrer,
-        imgs_lieu_entrer: this.Lieu.imgs_lieu_entrer,
-        has_amenagements: this.Lieu.has_amenagements,
-        superficie: this.Lieu.superficie,
-        telephone: this.Lieu.telephone,
-        fax: this.Lieu.fax,
-        etat_logement_fonction: this.Lieu.etat_logement_fonction,
-        etage: this.Lieu.etage,
-        type_lieu: this.Lieu.type_lieu,
-        code_rattache_DR: this.Lieu.code_rattache_DR,
-        code_rattache_SUP: this.Lieu.code_rattache_SUP,
-        intitule_rattache_SUP_PV: this.Lieu.intitule_rattache_SUP_PV,
-        centre_cout_siege: this.Lieu.centre_cout_siege,
-        categorie_pointVente: this.Lieu.categorie_pointVente,
 
+          // this.TestAmng = !LieuControl.deleted
+          let formGroupAmenagement = this.addAmenagement('OldAmng' );
+          
+          formGroupAmenagement.controls.nature_amenagement.setValue(
+            LieuControl.nature_amenagement
+            );
+            
+          formGroupAmenagement.controls.montant_amenagement.setValue(
+            LieuControl.montant_amenagement
+          );
+            
+          formGroupAmenagement.controls.valeur_nature_chargeProprietaire.setValue(
+            LieuControl.valeur_nature_chargeProprietaire
+          );
+              
+          formGroupAmenagement.controls.valeur_nature_chargeFondation.setValue(
+            LieuControl.valeur_nature_chargeFondation
+          );
+                
+          formGroupAmenagement.controls.numero_facture.setValue(
+            LieuControl.numero_facture
+          );
+                  
+          formGroupAmenagement.controls.numero_bon_commande.setValue(
+            LieuControl.numero_bon_commande
+          );
+                    
+          formGroupAmenagement.controls.date_passation_commande.setValue(
+            LieuControl.date_passation_commande
+          );
+          
+          formGroupAmenagement.controls.evaluation_fournisseur.setValue(
+            LieuControl.evaluation_fournisseur
+          );
+            
+          formGroupAmenagement.controls.date_fin_travaux.setValue(
+            LieuControl.date_fin_travaux
+          );
+            
+          formGroupAmenagement.controls.date_livraison_local.setValue(
+            LieuControl.date_livraison_local
+          );
+              
+          formGroupAmenagement.controls.deleted.setValue(
+            LieuControl.deleted
+          );
+                
+                
+            if (LieuControl.fournisseur.length !== 0) {
+                  
+              for (let  FourniseurControl  of LieuControl.fournisseur ) {
+                    
+                if (!FourniseurControl.deleted) {
+                      
+                  let formGroupFournisseur = new FormGroup({
+                    nom: new FormControl(''),
+                    prenom: new FormControl(''),
+                    amenagement_effectue: new FormControl(''),
+                    deleted: new FormControl('Test'),
+                  });
+                      
+                  (<FormArray>formGroupAmenagement.controls.fournisseur).push(<FormGroup>formGroupFournisseur)
+                  
+                  formGroupFournisseur.controls.nom.setValue(
+                    FourniseurControl.nom
+                  );
+                        
+                  formGroupFournisseur.controls.prenom.setValue(
+                    FourniseurControl.prenom
+                  );
+          
+                  formGroupFournisseur.controls.amenagement_effectue.setValue(
+                    FourniseurControl.amenagement_effectue
+                  );
+                            
+                  formGroupFournisseur.controls.deleted.setValue(
+                    FourniseurControl.deleted
+                  );
+                    
+                }
+    
+              }
+
+            }
+              
+              // setTimeout(() => {
+                // if (LieuControl.deleted) {
+                  
+                //     let element = this.document.getElementById(index) as HTMLInputElement
+                  
+                //     // console.log(element);
+                //     element.style.display = "none";
+                  
+                // }
+                // else 
+                  this.isAmenagementEmpty = false
+              // }, 100);
+              
+              
+            
       });
 
-      //amenagement inputs
-      for (let LieuControl of this.Lieu.amenagement ) {
+      setTimeout(() => {
 
-        let formGroupAmenagement = this.addAmenagement();
+            if (this.isAmenagementEmpty && !rdb ) {
 
-        formGroupAmenagement.controls.nature_amenagement.setValue(
-          LieuControl.nature_amenagement
-        );
+                this.drForm.patchValue({
 
-        formGroupAmenagement.controls.montant_amenagement.setValue(
-          LieuControl.montant_amenagement
-        );
+                  has_amenagements: false,
 
-        formGroupAmenagement.controls.valeur_nature_chargeProprietaire.setValue(
-          LieuControl.valeur_nature_chargeProprietaire
-        );
-
-        formGroupAmenagement.controls.valeur_nature_chargeFondation.setValue(
-          LieuControl.valeur_nature_chargeFondation
-        );
-
-        formGroupAmenagement.controls.numero_facture.setValue(
-          LieuControl.numero_facture
-        );
-
-        formGroupAmenagement.controls.numero_bon_commande.setValue(
-          LieuControl.numero_bon_commande
-        );
-
-        formGroupAmenagement.controls.date_passation_commande.setValue(
-          LieuControl.date_passation_commande
-        );
-
-        formGroupAmenagement.controls.evaluation_fournisseur.setValue(
-          LieuControl.evaluation_fournisseur
-        );
-
-        formGroupAmenagement.controls.date_fin_travaux.setValue(
-          LieuControl.date_fin_travaux
-        );
-
-        formGroupAmenagement.controls.date_livraison_local.setValue(
-          LieuControl.date_livraison_local
-        );
-
-        
-        
-        if (LieuControl.fournisseur.length !== 0) {
-          
-          for (let FourniseurControl of LieuControl.fournisseur ) {
-            console.log("Fetch test" + FourniseurControl );
-            
-            if (!FourniseurControl.deleted) {
-
-                let formGroupFournisseur = new FormGroup({
-                  nom: new FormControl(''),
-                  prenom: new FormControl(''),
-                  amenagement_effectue: new FormControl(''),
-                  deleted: new FormControl('Test'),
                 });
-            
-                (<FormArray>formGroupAmenagement.controls.fournisseur).push(<FormGroup>formGroupFournisseur)
-                
-                formGroupFournisseur.controls.nom.setValue(
-                  FourniseurControl.nom
-                );
-        
-                formGroupFournisseur.controls.prenom.setValue(
-                  FourniseurControl.prenom
-                );
-        
-                formGroupFournisseur.controls.amenagement_effectue.setValue(
-                  FourniseurControl.amenagement_effectue
-                );
-    
-                formGroupFournisseur.controls.deleted.setValue(
-                  FourniseurControl.deleted
-                );
-                
-              }
-    
-    
-          }
 
-        }
-        
-      }
-      
+                this.hasAmenagement = false;
+                console.log(this.drForm.get('has_amenagements'));
+                
+
+            }
+      }, 200);
 
     } else {
-      this.hasAmenagement = false;
-      this.drForm.patchValue({
-        code_lieu: this.Lieu.code_lieu,
-        intitule_lieu: this.Lieu.intitule_lieu,
-        intitule_DR: this.Lieu.intitule_DR,
-        adresse: this.Lieu.adresse,
-        ville: this.Lieu.ville,
-        code_localite: this.Lieu.code_localite,
-        desc_lieu_entrer: this.Lieu.desc_lieu_entrer,
-        imgs_lieu_entrer: this.Lieu.imgs_lieu_entrer,
-        has_amenagements: this.Lieu.has_amenagements,
-        superficie: this.Lieu.superficie,
-        telephone: this.Lieu.telephone,
-        fax: this.Lieu.fax,
-        etat_logement_fonction: this.Lieu.etat_logement_fonction,
-        etage: this.Lieu.etage,
-        type_lieu: this.Lieu.type_lieu,
-        code_rattache_DR: this.Lieu.code_rattache_DR,
-        code_rattache_SUP: this.Lieu.code_rattache_SUP,
-        intitule_rattache_SUP_PV: this.Lieu.intitule_rattache_SUP_PV,
-        centre_cout_siege: this.Lieu.centre_cout_siege,
-        categorie_pointVente: this.Lieu.categorie_pointVente,
-        // amenagement inputs
-        nature_amenagement: '',
-        montant_amenagement: '',
-        valeur_nature_chargeP: '',
-        valeur_nature_chargeF: '',
-        numero_facture: '',
-        numero_bon_commande: '',
-        date_passation_commande: '',
-        evaluation_fournisseur: '',
-        date_fin_travaux: '',
-        date_livraison_local: '',
-      });
+
+        if (rdb) {
+
+          this.hasAmenagement = true;
+          this.drForm.patchValue({
+            has_amenagements: this.hasAmenagement
+          })
+          
+        }
+        else{
+
+          this.hasAmenagement = false;
+          this.drForm.patchValue({
+            has_amenagements: this.hasAmenagement
+          })
+
+        }
+
     }
+      
+      // this.drForm.patchValue({
+      //   code_lieu: this.Lieu.code_lieu,
+      //   intitule_lieu: this.Lieu.intitule_lieu,
+      //   intitule_DR: this.Lieu.intitule_DR,
+      //   adresse: this.Lieu.adresse,
+      //   ville: this.Lieu.ville,
+      //   code_localite: this.Lieu.code_localite,
+      //   desc_lieu_entrer: this.Lieu.desc_lieu_entrer,
+      //   imgs_lieu_entrer: this.Lieu.imgs_lieu_entrer,
+      //   // has_amenagements: this.Lieu.has_amenagements,
+      //   superficie: this.Lieu.superficie,
+      //   telephone: this.Lieu.telephone,
+      //   fax: this.Lieu.fax,
+      //   etat_logement_fonction: this.Lieu.etat_logement_fonction,
+      //   etage: this.Lieu.etage,
+      //   type_lieu: this.Lieu.type_lieu,
+      //   code_rattache_DR: this.Lieu.code_rattache_DR,
+      //   code_rattache_SUP: this.Lieu.code_rattache_SUP,
+      //   intitule_rattache_SUP_PV: this.Lieu.intitule_rattache_SUP_PV,
+      //   centre_cout_siege: this.Lieu.centre_cout_siege,
+      //   categorie_pointVente: this.Lieu.categorie_pointVente,
+      //   // amenagement inputs
+      //   nature_amenagement: '',
+      //   montant_amenagement: '',
+      //   valeur_nature_chargeP: '',
+      //   valeur_nature_chargeF: '',
+      //   numero_facture: '',
+      //   numero_bon_commande: '',
+      //   date_passation_commande: '',
+      //   evaluation_fournisseur: '',
+      //   date_fin_travaux: '',
+      //   date_livraison_local: '',
+      // });
   }
 
   // Amenagement
-  addAmenagement() {
+  addAmenagement(NewOrOld : string ) {
     const amenagementData = new FormGroup({
       nature_amenagement: new FormControl(''),
       montant_amenagement: new FormControl(''),
@@ -249,6 +307,8 @@ export class DrFormComponent implements OnInit {
       fournisseur: new FormArray([]),
       images_local_apres_amenagement: new FormControl(''),
       croquis_amenagement_via_imagerie: new FormControl(''),
+      deleted: new FormControl(false,),
+      NewOrOld : new FormControl(NewOrOld,) ,
     });
 
     (<FormArray>this.drForm.get('amenagementForm')).push(<FormGroup>amenagementData)
@@ -257,7 +317,27 @@ export class DrFormComponent implements OnInit {
   }
 
   removeAmenagement(index: number) {
-    (<FormArray>this.drForm.get('amenagementForm')).removeAt(index)
+
+    // (<FormArray>this.drForm.get('amenagementForm')).removeAt(index)
+
+    let Amenagement = <FormArray>this.drForm.get('amenagementForm');
+    
+    if (Amenagement.value[index].NewOrOld == "NewAmng") {
+      (<FormArray>this.drForm.get('amenagementForm')).removeAt(index)
+      // console.log(Amenagement);
+
+    }
+    else{
+
+    let element = this.document.getElementById('deleted ' + index ) as HTMLInputElement
+
+    element.value = "True"
+    this.document.getElementById( index.toString() )?.classList.add('d-none');
+    Amenagement.value[index].deleted = true ;
+    // Amenagement.controls[index].value.deleted = "true"
+    console.log(Amenagement);
+    }
+
   }
 
   removeAllAmenagement() {
@@ -285,7 +365,7 @@ export class DrFormComponent implements OnInit {
     let element = this.document.getElementById('deleted ' + indexAmng + ' ' + indexFourn.toString() ) as HTMLInputElement
 
     element.value = "True"
-    this.document.getElementById(indexAmng + ' ' + indexFourn.toString())?.classList.add('d-none');
+    // this.document.getElementById(indexAmng + ' ' + indexFourn.toString())?.classList.add('d-none');
     fournisseur.value[indexFourn].deleted = "true";
     // console.log(fournisseur);
    
@@ -331,7 +411,8 @@ export class DrFormComponent implements OnInit {
       telephone: this.drForm.get('telephone')?.value,
       fax: this.drForm.get('fax')?.value,
       etage: this.drForm.get('etage')?.value,
-      type_lieu: this.drForm.get('type_lieu')?.value,
+      // type_lieu: this.drForm.get('type_lieu')?.value,
+      type_lieu: this.LieuName,
       code_rattache_DR: this.drForm.get('code_rattache_DR')?.value,
       code_rattache_SUP: this.drForm.get('code_rattache_SUP')?.value,
       intitule_rattache_SUP_PV: this.drForm.get('code_lieu')?.value,
@@ -365,6 +446,19 @@ export class DrFormComponent implements OnInit {
 
     let id = this.Lieu._id;
 
+    this.isAmenagementEmpty = false;
+
+    this.drForm.get('amenagementForm')?.value.forEach((element : any) => {
+
+      if (!element.deleted) {
+
+        this.isAmenagementEmpty = true;
+        
+      }
+      
+      
+    });  
+
     let dr_data: Lieu = {
       code_lieu: this.drForm.get('code_lieu')?.value,
       intitule_lieu: this.drForm.get('intitule_lieu')?.value,
@@ -372,7 +466,7 @@ export class DrFormComponent implements OnInit {
       ville: this.drForm.get('ville')?.value,
       code_localite: this.drForm.get('code_localite')?.value,
       desc_lieu_entrer: this.drForm.get('desc_lieu_entrer')?.value,
-      has_amenagements: this.drForm.get('has_amenagements')?.value,
+      has_amenagements: this.isAmenagementEmpty,
       superficie: this.drForm.get('superficie')?.value,
       telephone: this.drForm.get('telephone')?.value,
       fax: this.drForm.get('fax')?.value,
@@ -387,15 +481,19 @@ export class DrFormComponent implements OnInit {
       // Amenagment
       amenagement: this.drForm.get('amenagementForm')?.value,
     };
+
+    console.log(dr_data);
     
+
     this.drService.updateLieux(id , dr_data).subscribe(
       (_) => {
         this.postDone = true;
         setTimeout(() => {
-          this.mainModalService.close();
-          this.drForm.reset();
-          this.postDone = false;
-          location.reload();
+          // this.drForm.controls
+          // this.mainModalService.close();
+          // this.drForm.reset();
+          // this.postDone = false;
+          // location.reload();
         }, 2000);
       },
       (error) => {

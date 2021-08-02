@@ -45,7 +45,10 @@ export class ListLieuxComponent implements OnInit {
 
   openModalAndPushLieuId(id:any) {
       // this.targetlieu = Lieu
-      this.mainModalService.open(); // Open delete confirmation modal
+      // setTimeout(() => {
+        
+        this.mainModalService.open(); // Open delete confirmation modal
+      // }, 100);
     }
 
   // Close confirmation modal

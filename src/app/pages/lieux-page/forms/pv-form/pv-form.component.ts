@@ -23,6 +23,7 @@ export class PvFormComponent implements OnInit {
 
   @Input() update!: boolean;
   @Input() Lieu!: any;
+  @Input() LieuName!: string;
 
 
 
@@ -309,7 +310,7 @@ export class PvFormComponent implements OnInit {
       fax: this.PvForm.get('fax')?.value,
       etat_logement_fonction: this.PvForm.get('etat_logement_fonction')?.value,
       etage: this.PvForm.get('etage')?.value,
-      type_lieu: this.PvForm.get('type_lieu')?.value,
+      type_lieu: this.LieuName,
       code_rattache_DR: this.PvForm.get('code_rattache_DR')?.value,
       code_rattache_SUP: this.PvForm.get('code_rattache_SUP')?.value,
       intitule_rattache_SUP_PV: this.PvForm.get('intitule_rattache_SUP_PV')?.value,
