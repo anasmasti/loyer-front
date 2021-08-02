@@ -68,6 +68,7 @@ body {
   .main-card {
     background-color: color(main-color) !important;
     color: color(light);
+    filter: brightness(90%);
   }
   .logo {
     display: none;
