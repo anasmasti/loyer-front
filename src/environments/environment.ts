@@ -13,7 +13,9 @@ export const environment = {
   // Api version
   API_VERSION: 'v1/',
   // Application version
-  APP_VERSION: 'Beta1.1.2(Dev)'
+  APP_VERSION: 'Beta1.1.2(Dev)',
+  //Route to get DR and SUP
+  // API_GET_DR_SUP: 'http://192.168.11.124:5000/api/'
 };
 
 /*

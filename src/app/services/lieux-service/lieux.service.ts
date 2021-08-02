@@ -49,6 +49,13 @@ export class LieuxService {
       );
   }
 
+  //get dr and sup to load dropdown list
+  getDrSup(): Observable<Lieu[]> {
+    return this.http.get<Lieu[]>(
+      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/Dr/Sup`,
+      { headers: this.httpOptions.headers }
+    );
+  }
 
   
   //get the list of lieux to load the drop down list in contrat component

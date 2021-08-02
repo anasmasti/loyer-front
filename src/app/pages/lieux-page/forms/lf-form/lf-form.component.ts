@@ -27,7 +27,7 @@ export class LfFormComponent implements OnInit {
   isReplace: string = '';
   amenagementList: any = [];
   codeDr: any;
-  $lieux: Lieu[] = [];
+  lieux: Lieu[] = [];
 
   @Input() update!: boolean;
   @Input() Lieu!: any;
@@ -176,10 +176,12 @@ export class LfFormComponent implements OnInit {
   // console.log("Test =====",$data);
   // console.log("Test Lieux =====",this.$lieux)
 
-  this.store.select(getCodeDr).subscribe((data) => {
-    this.$lieux = data
-    console.log("Test Lieux =====",this.$lieux)
-  })
+  // this.store.select(getCodeDr).subscribe((data) => {
+  //   this.$lieux = data
+  //   console.log("Test Lieux =====",this.$lieux)
+  // })
+
+  this.onGetDrSup();
 
   }
 
@@ -343,7 +345,6 @@ export class LfFormComponent implements OnInit {
 
       // Amenagement
       amenagement: this.LfForm.get('amenagementForm')?.value,
-
     }
 
     this.lieuService.addLieu(lfData).subscribe(
@@ -583,6 +584,12 @@ export class LfFormComponent implements OnInit {
   }
 
 
+  onGetDrSup(){
+    this.lieuService.getDrSup().subscribe( (data) => {
+      this.lieux = data
+      console.log("lieux ====>",this.lieux);
+    })
+  }
 
   //////////////////////////////////////////////////////////////////////////////////
 
