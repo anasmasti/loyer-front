@@ -66,7 +66,7 @@ export class ListContratComponent implements OnInit {
   reload(){
     setTimeout(() => {
       this.getContrat();
-    }, 500);
+    }, 300);
     
   }
   

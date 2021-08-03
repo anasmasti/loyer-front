@@ -91,6 +91,7 @@ export class FormComponent implements OnInit {
         this.postDone = true;
         setTimeout(() => {
           this.adminForm.reset();
+          this.clearCH();
           this.postDone = false;
         }, 2000);
       },
@@ -102,7 +103,15 @@ export class FormComponent implements OnInit {
         this.hideErrorMessage();
       }
     );
-  }
 
+  }
+   clearCH(){
+    let rolesCH = document.getElementsByClassName('roles');
+    for (let index = 0; index < rolesCH.length; index++) {
+      if ((rolesCH[index] as HTMLInputElement).checked) {
+        (rolesCH[index] as HTMLInputElement).checked=false;
+      }
+    }
+   }
 
 }

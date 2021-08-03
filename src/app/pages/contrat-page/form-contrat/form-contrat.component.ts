@@ -65,7 +65,7 @@ export class FormContratComponent implements OnInit {
     ],
     deleted: false,
   };
-  @Input() contrat: any;
+  @Input() contrat?: any;
   idContrat: String = '';
   etat: string = '';
   success: boolean = false;
@@ -82,9 +82,11 @@ export class FormContratComponent implements OnInit {
   ) {}
 
   ngOnChanges() {
-    
-    if(this.contrat.length != 0){
-      if (this.formType != '') {
+
+     if (this.formType != '') {
+    if(this.contrat.length != 0  ){
+      
+     
         setTimeout(() => {
         
           this.idContrat = this.contrat._id;
