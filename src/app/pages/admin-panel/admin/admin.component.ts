@@ -1,3 +1,4 @@
+import { HelperService } from './../../../services/helpers/helper.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
-  constructor() { }
+  constructor(private helperService: HelperService) { }
 
   ngOnInit(): void {
+  }
+
+  // Refrtech the page
+  refrechPage() {
+    this.helperService.refrechPage();
   }
 
 }

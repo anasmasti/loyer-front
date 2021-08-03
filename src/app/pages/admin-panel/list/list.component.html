@@ -1,4 +1,4 @@
-<div class="main-card table-responsive-sm p-lg-3 mt-4">
+<div class="main-card bg-white table-responsive-sm p-lg-3 mt-4">
     <table class="table">
         <thead>
             <tr>
@@ -6,32 +6,45 @@
                 <th>Nom </th>
                 <th>Prénom </th>
                 <th>Role</th>
-              
+
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let user of users">
+            <tr *ngFor="let user of users | paginate: { itemsPerPage: tableSize, currentPage: listUsersPage, id: 'listUsersPagination', totalItems: count }">
                 <!-- <td >{{ proprietaire._id }}</td> -->
                 <td class="text-center">{{ user.userMatricul }}</td>
-                <td class="text-center">{{ user.name }}</td>
+                <td class="text-center">{{ user.nom }}</td>
                 <td class="text-center">{{ user.prenom }}</td>
                 <td class="d-flex justify-content-around ">
-                  <p  *ngFor="let role of user.userRoles"> -{{ role.roleName }}  </p>
+                    <p *ngFor="let role of user.userRoles"> -{{ role.roleName }} </p>
                 </td>
                 <td>
-                    <a class="btn btn-sm main-btn"><i
-                            class="fal fa-eye"></i></a>
-                    <a class="btn btn-sm info-btn mx-2"><i
+                    <a [routerLink]="['list', user._id]" class="btn btn-sm main-btn"><i class="fal fa-eye"></i></a>
+                    <a class="btn btn-sm info-btn mx-2" (click)="openModalAndPushUser(user)"><i
                             class="far fa-user-edit"></i></a>
-                    <a class="btn btn-sm danger-btn" ><i
+                    <a class="btn btn-sm danger-btn" (click)="openConfirmationModal()"><i
                             class="far fa-user-minus"></i></a>
                 </td>
             </tr>
 
-          
+            <pagination-controls id="listUsersPagination" (pageChange)="listUsersPage = $event"></pagination-controls>
 
-    
+            <app-main-modal [closeBtn]="true">
+                <user-edit [User]="targetUser"></user-edit>
+            </app-main-modal>
+
+            <app-confirmation-modal [closeBtn]="true">
+                <h3 class="main-title">
+                    Confirmation de la supression
+                    <i class="far fa-exclamation-circle"></i>
+                </h3>
+                <p class="mt-3">Voulez vous vraiment supprimer cet utilisateur?</p>
+                <div class="d-inline-flex justify-content-start mt-5">
+                    <a class="btn btn-lg px-lg-4 danger-btn me-2">Oui</a>
+                    <a class="btn btn-lg px-lg-4 main-btn" (click)="closeConfirmationModal()">Non</a>
+                </div>
+            </app-confirmation-modal>
 
         </tbody>
     </table>

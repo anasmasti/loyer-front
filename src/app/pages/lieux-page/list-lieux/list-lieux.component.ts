@@ -1,4 +1,5 @@
 import { Lieu } from './../../../models/Lieu';
+import { HelperService } from './../../../services/helpers/helper.service';
 import { getLoading } from './../../../store/shared/shared.selector';
 import { AppState } from './../../../store/app.state';
 import { Component, OnDestroy, OnInit } from '@angular/core';
@@ -25,6 +26,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
   loading: boolean = false;
   lieuxSubscription$!: Subscription;
 
+  // Pagination options
   listLieuxPage: number = 1;
   count: number = 0;
   tableSize: number = 10;
@@ -33,6 +35,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     private lieuxService: LieuxService,
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
+    private helperService: HelperService,
     private store: Store<AppState>
   ) { }
 
@@ -51,7 +54,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
   getAllLieux() {
     // Select lieux from store
     this.lieuxSubscription$ = this.store.select(getLieux).subscribe((data) => {
-      // Check if leix data is empty then fetch it from server
+      // Check if lieux data is empty then fetch it from server
       if (data.length === 0) {
         // Dispatch action to handle the NgRx get lieux from server effect 
         this.store.dispatch(getLieuxAction())
@@ -89,6 +92,11 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     let text!: string
     value ? text = 'Oui' : text = 'Non'
     return text
+  }
+
+  // Refrtech the page
+  refrechPage() {
+    this.helperService.refrechPage();
   }
 
   ngOnDestroy() {

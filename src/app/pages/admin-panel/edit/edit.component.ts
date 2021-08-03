@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { User } from './../../../models/User';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-edit',
+  selector: 'user-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss']
 })
 export class EditComponent implements OnInit {
 
+  @Input() User!: User[];
+
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
 }

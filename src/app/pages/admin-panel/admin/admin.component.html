@@ -3,18 +3,22 @@
         <div class="d-lg-flex justify-content-lg-between">
             <h3 class="main-title">Affecter les rôles</h3>
             <div>
-                <a [routerLink]="['/lieux/list']" class="btn main-btn">Utilisateurs</a>
-                <a class="text-dark ms-5" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Ici vous pouvez consulter les Utilisateus"><i class="fal fa-info"></i></a>
+                <a class="btn btn-sm second-btn me-3" (click)='refrechPage()'><i class="far fa-undo-alt"></i>
+                    Rafraîchir la liste
+                  </a>
+                  <span data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Ici vous pouvez consulter la list des utilisateurs">
+                    <i class="fal fa-info"></i>
+                  </span>
             </div>
         </div>
         <div class="form-container mb-5">
-            <app-form></app-form>
+            <admin-form></admin-form>
         </div>
         <div class="mt-5">
             <h3 class="main-title">Liste des utilisateurs</h3>
             <div class="list">
-                <app-list></app-list>
+                <user-list></user-list>
             </div>
         </div>
     </div>

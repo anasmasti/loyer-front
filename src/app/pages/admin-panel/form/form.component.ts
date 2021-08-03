@@ -1,10 +1,10 @@
-import { stringify } from '@angular/compiler/src/util';
+
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { User } from '../../../models/user';
+import { FormControl, FormGroup } from '@angular/forms';
+import { User } from '../../../models/User';
 import { AdminService } from 'src/app/services/admin-service/admin.service';
 @Component({
-  selector: 'app-form',
+  selector: 'admin-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
@@ -18,30 +18,19 @@ export class FormComponent implements OnInit {
     userRoles: []
   };
 
-  adminForm: any = new FormGroup({
-    // Champs du propriètaire
-    Matricule: new FormControl('', []),
-    Nom: new FormControl('', [
-    ]),
-    Prenom: new FormControl('', [
-    ]),
-
-
-  });
+  adminForm!: FormGroup;
 
   constructor(
     private adminService: AdminService,
   ) { }
 
   ngOnInit(): void {
-
-
-
-
+    this.adminForm = new FormGroup({
+      Matricule: new FormControl('', []),
+      Nom: new FormControl('', []),
+      Prenom: new FormControl('', []),
+    });
   }
-
-
-
 
   CheckedRoles(name: any) {
     let roles = [];
@@ -60,6 +49,7 @@ export class FormComponent implements OnInit {
     return roles;
 
   }
+
   listeRoles() {
     let roles = [];
     let rolesCH = document.getElementsByClassName('roles');
@@ -86,22 +76,12 @@ export class FormComponent implements OnInit {
 
     }
 
+    this.user.nom = this.adminForm.get('Nom')?.value;
+    this.user.prenom = this.adminForm.get('Prenom')?.value;
+    this.user.userMatricul = this.adminForm.get('Matricule')?.value;
 
-    this.user.nom = this.adminForm.get('Nom').value;
-    this.user.prenom = this.adminForm.get('Prenom').value;
-    this.user.userMatricul = this.adminForm.get('Matricule').value;
-
-    this.adminService.postUserRole(this.user).subscribe();
+    this.adminService.addUser(this.user).subscribe();
   }
-
-  redir() {
-    setTimeout(() => {
-      location.reload();
-    }, 400);
-
-  }
-
-
 
 
 }
