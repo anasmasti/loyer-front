@@ -2,9 +2,6 @@
 
 ## Gestion des loyers | Front-end ✨
 
-##### Technology used:
-
-- Angular 12.
 
 
 

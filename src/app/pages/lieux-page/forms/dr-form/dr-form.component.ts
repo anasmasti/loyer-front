@@ -15,6 +15,7 @@ export class DrFormComponent implements OnInit {
   $testDrForm!: any;
   errors!: string;
   hasAmenagement: boolean = false;
+  hasAmenagementCheck: string = "";
   postDone: boolean = false;
   PostSucces: string = 'Direction régionale ajouté avec succés';
   selectedFile !: File;
@@ -36,7 +37,7 @@ export class DrFormComponent implements OnInit {
   ngOnChanges() {
     if ( this.Lieu !== "") {
       setTimeout(() => {
-        this.fetchDr(false);
+        this.fetchDr("Default");
       }, 100);
     }
   }
@@ -73,9 +74,7 @@ export class DrFormComponent implements OnInit {
 
   }
 
-  fetchDr(rdb : boolean) {
-
-    console.log(this.Lieu);
+  fetchDr(HasAmenagement : string) {
     
 
     this.removeAllAmenagement();
@@ -105,19 +104,13 @@ export class DrFormComponent implements OnInit {
     });
     
     
-    if (this.Lieu.has_amenagements) {
-      
-      this.hasAmenagement = true;
       this.amenagementList = this.Lieu.amenagement;
     
       //amenagement inputs
       this.Lieu.amenagement.forEach( ( LieuControl : any , index : any ) => {
-          
-          console.log("index : " + index );
 
 
-          // this.TestAmng = !LieuControl.deleted
-          let formGroupAmenagement = this.addAmenagement('OldAmng' );
+          let formGroupAmenagement = this.addAmenagement('OldAmng' , LieuControl.deleted );
           
           formGroupAmenagement.controls.nature_amenagement.setValue(
             LieuControl.nature_amenagement
@@ -168,13 +161,14 @@ export class DrFormComponent implements OnInit {
                   
               for (let  FourniseurControl  of LieuControl.fournisseur ) {
                     
-                if (!FourniseurControl.deleted) {
+                // if (!FourniseurControl.deleted) {
                       
                   let formGroupFournisseur = new FormGroup({
                     nom: new FormControl(''),
                     prenom: new FormControl(''),
                     amenagement_effectue: new FormControl(''),
-                    deleted: new FormControl('Test'),
+                    deleted: new FormControl(''),
+                    NewOrOld : new FormControl('old',) ,
                   });
                       
                   (<FormArray>formGroupAmenagement.controls.fournisseur).push(<FormGroup>formGroupFournisseur)
@@ -195,104 +189,44 @@ export class DrFormComponent implements OnInit {
                     FourniseurControl.deleted
                   );
                     
-                }
+                // }
     
               }
 
             }
               
-              // setTimeout(() => {
-                // if (LieuControl.deleted) {
+                if (!LieuControl.deleted) {
                   
-                //     let element = this.document.getElementById(index) as HTMLInputElement
+                  this.hasAmenagement = true
                   
-                //     // console.log(element);
-                //     element.style.display = "none";
-                  
-                // }
-                // else 
-                  this.isAmenagementEmpty = false
-              // }, 100);
+                }
               
-              
-            
       });
 
-      setTimeout(() => {
-
-            if (this.isAmenagementEmpty && !rdb ) {
-
-                this.drForm.patchValue({
-
-                  has_amenagements: false,
-
-                });
-
-                this.hasAmenagement = false;
-                console.log(this.drForm.get('has_amenagements'));
-                
-
-            }
-      }, 200);
-
-    } else {
-
-        if (rdb) {
+        if ( HasAmenagement == "Oui" ) {
 
           this.hasAmenagement = true;
+          this.hasAmenagementCheck = ""
           this.drForm.patchValue({
             has_amenagements: this.hasAmenagement
           })
           
         }
         else{
+          if ( HasAmenagement != "Default" ) {
 
-          this.hasAmenagement = false;
-          this.drForm.patchValue({
-            has_amenagements: this.hasAmenagement
-          })
+            this.hasAmenagement = false;
+            this.hasAmenagementCheck = "ButtonNon"            
+            this.drForm.patchValue({
+              has_amenagements: this.hasAmenagement
+            })
 
+          }
         }
-
-    }
-      
-      // this.drForm.patchValue({
-      //   code_lieu: this.Lieu.code_lieu,
-      //   intitule_lieu: this.Lieu.intitule_lieu,
-      //   intitule_DR: this.Lieu.intitule_DR,
-      //   adresse: this.Lieu.adresse,
-      //   ville: this.Lieu.ville,
-      //   code_localite: this.Lieu.code_localite,
-      //   desc_lieu_entrer: this.Lieu.desc_lieu_entrer,
-      //   imgs_lieu_entrer: this.Lieu.imgs_lieu_entrer,
-      //   // has_amenagements: this.Lieu.has_amenagements,
-      //   superficie: this.Lieu.superficie,
-      //   telephone: this.Lieu.telephone,
-      //   fax: this.Lieu.fax,
-      //   etat_logement_fonction: this.Lieu.etat_logement_fonction,
-      //   etage: this.Lieu.etage,
-      //   type_lieu: this.Lieu.type_lieu,
-      //   code_rattache_DR: this.Lieu.code_rattache_DR,
-      //   code_rattache_SUP: this.Lieu.code_rattache_SUP,
-      //   intitule_rattache_SUP_PV: this.Lieu.intitule_rattache_SUP_PV,
-      //   centre_cout_siege: this.Lieu.centre_cout_siege,
-      //   categorie_pointVente: this.Lieu.categorie_pointVente,
-      //   // amenagement inputs
-      //   nature_amenagement: '',
-      //   montant_amenagement: '',
-      //   valeur_nature_chargeP: '',
-      //   valeur_nature_chargeF: '',
-      //   numero_facture: '',
-      //   numero_bon_commande: '',
-      //   date_passation_commande: '',
-      //   evaluation_fournisseur: '',
-      //   date_fin_travaux: '',
-      //   date_livraison_local: '',
-      // });
   }
 
   // Amenagement
-  addAmenagement(NewOrOld : string ) {
+  addAmenagement(NewOrOld : string , deleted : boolean ) {
     const amenagementData = new FormGroup({
       nature_amenagement: new FormControl(''),
       montant_amenagement: new FormControl(''),
@@ -307,7 +241,7 @@ export class DrFormComponent implements OnInit {
       fournisseur: new FormArray([]),
       images_local_apres_amenagement: new FormControl(''),
       croquis_amenagement_via_imagerie: new FormControl(''),
-      deleted: new FormControl(false,),
+      deleted: new FormControl(deleted,),
       NewOrOld : new FormControl(NewOrOld,) ,
     });
 
@@ -345,12 +279,13 @@ export class DrFormComponent implements OnInit {
   }
 
   // FournisseurData
-  addFournisseur(amenagementForm: any, index: number) {
+  addFournisseur(amenagementForm: any, index: number,NewOrOld : string) {
     let fournisseurData = new FormGroup({
       nom: new FormControl(''),
       prenom: new FormControl(''),
       amenagement_effectue: new FormControl(''),
       deleted: new FormControl(''),
+      NewOrOld : new FormControl(NewOrOld,) ,
     });
 
     (<FormArray>amenagementForm.controls[index].controls.fournisseur).push(<FormGroup>fournisseurData)
@@ -362,14 +297,20 @@ export class DrFormComponent implements OnInit {
 
     let fournisseur = <FormArray>amenagementForm.controls[indexAmng].controls.fournisseur ;
 
-    let element = this.document.getElementById('deleted ' + indexAmng + ' ' + indexFourn.toString() ) as HTMLInputElement
+    if (fournisseur.value[indexFourn].NewOrOld == 'New') {
 
-    element.value = "True"
-    // this.document.getElementById(indexAmng + ' ' + indexFourn.toString())?.classList.add('d-none');
-    fournisseur.value[indexFourn].deleted = "true";
-    // console.log(fournisseur);
+      (<FormArray>amenagementForm.controls[indexAmng].controls.fournisseur).removeAt(indexFourn)
+      
+    }
+    else{
+
+      let element = this.document.getElementById('deleted ' + indexAmng + ' ' + indexFourn.toString() ) as HTMLInputElement
+      element.value = "True"
+      fournisseur.value[indexFourn].deleted = "true";
+
+    }
+
    
-    // (<FormArray>amenagementForm.controls[index].controls.fournisseur).removeAt(index)
   }
 
   getFournisseur(amenagementForm: any, i: number) {
@@ -392,6 +333,17 @@ export class DrFormComponent implements OnInit {
   // hide le message d'erreur de serveur
   hideErrorMessage() {
     $('.error-alert').removeClass('active');
+  }
+
+  hasAmengmnt(HasAmng : string){
+    if (HasAmng == 'Oui') {
+      this.hasAmenagement = true;
+      this.hasAmenagementCheck = ''
+    }
+    else{
+      this.hasAmenagement = false;
+      this.hasAmenagementCheck = 'ButtonNon'
+    }
   }
 
   addDR() {
@@ -448,7 +400,14 @@ export class DrFormComponent implements OnInit {
 
     this.isAmenagementEmpty = false;
 
-    this.drForm.get('amenagementForm')?.value.forEach((element : any) => {
+    if (this.hasAmenagementCheck == "ButtonNon" ) {
+
+      this.isAmenagementEmpty = false;
+      
+    }
+    else{
+
+      this.drForm.get('amenagementForm')?.value.forEach((element : any) => {
 
       if (!element.deleted) {
 
@@ -457,7 +416,9 @@ export class DrFormComponent implements OnInit {
       }
       
       
-    });  
+      }); 
+
+    }
 
     let dr_data: Lieu = {
       code_lieu: this.drForm.get('code_lieu')?.value,
@@ -490,9 +451,9 @@ export class DrFormComponent implements OnInit {
         this.postDone = true;
         setTimeout(() => {
           // this.drForm.controls
-          // this.mainModalService.close();
-          // this.drForm.reset();
-          // this.postDone = false;
+          this.mainModalService.close();
+          this.drForm.reset();
+          this.postDone = false;
           // location.reload();
         }, 2000);
       },

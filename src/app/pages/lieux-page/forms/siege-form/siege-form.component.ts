@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray } from '@angular/forms';
 import { Lieu } from 'src/app/models/Lieu';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
@@ -11,13 +12,16 @@ import { MainModalService } from './../../../../services/main-modal/main-modal.s
 })
 export class SiegeFormComponent implements OnInit {
 
-  hasAmenagement: boolean = false;
   siegeForm!: FormGroup;
   postDone: boolean = false;
   PostSucces: string = 'Point de vente ajouté avec succés';
   UpdateDone: boolean = false;
   UpdateSucces: string = 'Point de vente modifié avec succés';
   errors!: any;
+  hasAmenagement: boolean = false;
+  hasAmenagementCheck: string = "";
+  isAmenagementEmpty : boolean = true
+  amenagementList: any = [];
 
   @Input() update!: boolean;
   @Input() Lieu!: any;
@@ -25,7 +29,11 @@ export class SiegeFormComponent implements OnInit {
 
 
   
-    constructor(private siegeService: LieuxService ,private lieuService: LieuxService ,private mainModalService: MainModalService,
+    constructor(
+      private siegeService: LieuxService ,
+      private lieuService: LieuxService ,
+      private mainModalService: MainModalService,
+      @Inject(DOCUMENT) private document: Document
     ) { }
 
 
@@ -33,7 +41,7 @@ export class SiegeFormComponent implements OnInit {
   ngOnChanges() {
     if ( this.Lieu !== "") {
       setTimeout(() => {
-        this.fetchSg();
+        this.fetchSg('Default');
       }, 100);
     }
   }
@@ -70,160 +78,157 @@ export class SiegeFormComponent implements OnInit {
   }
 
 
-  fetchSg() {
+  fetchSg(HasAmenagement : string) {
+    
 
     this.removeAllAmenagement();
 
-    // this.etatLogement = this.Lieu.etat_logement_fonction;
-
-    console.log(this.Lieu.directeur_regional);
+    this.siegeForm.patchValue({
+      code_lieu: this.Lieu.code_lieu,
+      intitule_lieu: this.Lieu.intitule_lieu,
+      intitule_DR: this.Lieu.intitule_DR,
+      adresse: this.Lieu.adresse,
+      ville: this.Lieu.ville,
+      code_localite: this.Lieu.code_localite,
+      desc_lieu_entrer: this.Lieu.desc_lieu_entrer,
+      imgs_lieu_entrer: this.Lieu.imgs_lieu_entrer,
+      has_amenagements: this.Lieu.has_amenagements,
+      superficie: this.Lieu.superficie,
+      telephone: this.Lieu.telephone,
+      fax: this.Lieu.fax,
+      etat_logement_fonction: this.Lieu.etat_logement_fonction,
+      etage: this.Lieu.etage,
+      type_lieu: this.Lieu.type_lieu,
+      code_rattache_DR: this.Lieu.code_rattache_DR,
+      code_rattache_SUP: this.Lieu.code_rattache_SUP,
+      intitule_rattache_SUP_PV: this.Lieu.intitule_rattache_SUP_PV,
+      centre_cout_siege: this.Lieu.centre_cout_siege,
+      categorie_pointVente: this.Lieu.categorie_pointVente,
+    });
     
+    
+      this.amenagementList = this.Lieu.amenagement;
+    
+      //amenagement inputs
+      this.Lieu.amenagement.forEach( ( LieuControl : any , index : any ) => {
 
-    if (this.Lieu.has_amenagements) {
-      this.hasAmenagement = true;
-      this.siegeForm.patchValue({
-        code_lieu: this.Lieu.code_lieu,
-        intitule_lieu: this.Lieu.intitule_lieu,
-        intitule_DR: this.Lieu.intitule_DR,
-        adresse: this.Lieu.adresse,
-        ville: this.Lieu.ville,
-        code_localite: this.Lieu.code_localite,
-        desc_lieu_entrer: this.Lieu.desc_lieu_entrer,
-        imgs_lieu_entrer: this.Lieu.imgs_lieu_entrer,
-        has_amenagements: this.Lieu.has_amenagements,
-        superficie: this.Lieu.superficie,
-        telephone: this.Lieu.telephone,
-        fax: this.Lieu.fax,
-        etat_logement_fonction: this.Lieu.etat_logement_fonction,
-        etage: this.Lieu.etage,
-        type_lieu: this.Lieu.type_lieu,
-        code_rattache_DR: this.Lieu.code_rattache_DR,
-        code_rattache_SUP: this.Lieu.code_rattache_SUP,
-        intitule_rattache_SUP_PV: this.Lieu.intitule_rattache_SUP_PV,
-        centre_cout_siege: this.Lieu.centre_cout_siege,
-        categorie_pointVente: this.Lieu.categorie_pointVente,
+
+          let formGroupAmenagement = this.addAmenagement('OldAmng' , LieuControl.deleted );
+          
+          formGroupAmenagement.controls.nature_amenagement.setValue(
+            LieuControl.nature_amenagement
+            );
+            
+          formGroupAmenagement.controls.montant_amenagement.setValue(
+            LieuControl.montant_amenagement
+          );
+            
+          formGroupAmenagement.controls.valeur_nature_chargeProprietaire.setValue(
+            LieuControl.valeur_nature_chargeProprietaire
+          );
+              
+          formGroupAmenagement.controls.valeur_nature_chargeFondation.setValue(
+            LieuControl.valeur_nature_chargeFondation
+          );
+                
+          formGroupAmenagement.controls.numero_facture.setValue(
+            LieuControl.numero_facture
+          );
+                  
+          formGroupAmenagement.controls.numero_bon_commande.setValue(
+            LieuControl.numero_bon_commande
+          );
+                    
+          formGroupAmenagement.controls.date_passation_commande.setValue(
+            LieuControl.date_passation_commande
+          );
+          
+          formGroupAmenagement.controls.evaluation_fournisseur.setValue(
+            LieuControl.evaluation_fournisseur
+          );
+            
+          formGroupAmenagement.controls.date_fin_travaux.setValue(
+            LieuControl.date_fin_travaux
+          );
+            
+          formGroupAmenagement.controls.date_livraison_local.setValue(
+            LieuControl.date_livraison_local
+          );
+              
+          formGroupAmenagement.controls.deleted.setValue(
+            LieuControl.deleted
+          );
+                
+                
+            if (LieuControl.fournisseur.length !== 0) {
+                  
+              for (let  FourniseurControl  of LieuControl.fournisseur ) {
+                    
+                      
+                  let formGroupFournisseur = new FormGroup({
+                    nom: new FormControl(''),
+                    prenom: new FormControl(''),
+                    amenagement_effectue: new FormControl(''),
+                    deleted: new FormControl('Test'),
+                    NewOrOld : new FormControl('old',) ,
+                  });
+                      
+                  (<FormArray>formGroupAmenagement.controls.fournisseur).push(<FormGroup>formGroupFournisseur)
+                  
+                  formGroupFournisseur.controls.nom.setValue(
+                    FourniseurControl.nom
+                  );
+                        
+                  formGroupFournisseur.controls.prenom.setValue(
+                    FourniseurControl.prenom
+                  );
+          
+                  formGroupFournisseur.controls.amenagement_effectue.setValue(
+                    FourniseurControl.amenagement_effectue
+                  );
+                            
+                  formGroupFournisseur.controls.deleted.setValue(
+                    FourniseurControl.deleted
+                  );
+                        
+              }
+
+            }
+              
+                if (!LieuControl.deleted) {
+                  
+                  this.hasAmenagement = true
+                  
+                }
+              
       });
-      
-      
-      // Amenagement
-      for (let LieuControl of this.Lieu.amenagement ) {
 
-        let formGroupAmenagement = this.addAmenagement();
+        if ( HasAmenagement == "Oui" ) {
 
-        formGroupAmenagement.controls.nature_amenagement.setValue(
-          LieuControl.nature_amenagement
-        );
+          this.hasAmenagement = true;
+          this.hasAmenagementCheck = ""
+          this.siegeForm.patchValue({
+            has_amenagements: this.hasAmenagement
+          })
+          
+        }
+        else{
+          if ( HasAmenagement != "Default" ) {
 
-        formGroupAmenagement.controls.montant_amenagement.setValue(
-          LieuControl.montant_amenagement
-        );
+            this.hasAmenagement = false;
+            this.hasAmenagementCheck = "ButtonNon"            
+            this.siegeForm.patchValue({
+              has_amenagements: this.hasAmenagement
+            })
 
-        formGroupAmenagement.controls.valeur_nature_chargeProprietaire.setValue(
-          LieuControl.valeur_nature_chargeProprietaire
-        );
-
-        formGroupAmenagement.controls.valeur_nature_chargeFondation.setValue(
-          LieuControl.valeur_nature_chargeFondation
-        );
-
-        formGroupAmenagement.controls.numero_facture.setValue(
-          LieuControl.numero_facture
-        );
-
-        formGroupAmenagement.controls.numero_bon_commande.setValue(
-          LieuControl.numero_bon_commande
-        );
-
-        formGroupAmenagement.controls.date_passation_commande.setValue(
-          LieuControl.date_passation_commande
-        );
-
-        formGroupAmenagement.controls.evaluation_fournisseur.setValue(
-          LieuControl.evaluation_fournisseur
-        );
-
-        formGroupAmenagement.controls.date_fin_travaux.setValue(
-          LieuControl.date_fin_travaux
-        );
-
-        formGroupAmenagement.controls.date_livraison_local.setValue(
-          LieuControl.date_livraison_local
-        );
-
-        
-        
-        if (LieuControl.fournisseur.length !== 0) {
-          for (let FourniseurControl of LieuControl.fournisseur ) {
-
-            // console.log(formGroupAmenagement);
-            
-            let formGroupFournisseur = new FormGroup({
-              nom: new FormControl(''),
-              prenom: new FormControl(''),
-              amenagement_effectue: new FormControl(''),
-            });
-        
-            (<FormArray>formGroupAmenagement.controls.fournisseur).push(<FormGroup>formGroupFournisseur)
-    
-            formGroupFournisseur.controls.nom.setValue(
-              FourniseurControl.nom
-            );
-    
-            formGroupFournisseur.controls.prenom.setValue(
-              FourniseurControl.prenom
-            );
-    
-            formGroupFournisseur.controls.amenagement_effectue.setValue(
-              FourniseurControl.amenagement_effectue
-            );
-            
-    
           }
         }
- 
-      }
-    } else {
-      this.hasAmenagement = false;
-      this.siegeForm.patchValue({
-        code_lieu: this.Lieu.code_lieu,
-        intitule_lieu: this.Lieu.intitule_lieu,
-        intitule_DR: this.Lieu.intitule_DR,
-        adresse: this.Lieu.adresse,
-        ville: this.Lieu.ville,
-        code_localite: this.Lieu.code_localite,
-        desc_lieu_entrer: this.Lieu.desc_lieu_entrer,
-        imgs_lieu_entrer: this.Lieu.imgs_lieu_entrer,
-        has_amenagements: this.Lieu.has_amenagements,
-        superficie: this.Lieu.superficie,
-        telephone: this.Lieu.telephone,
-        fax: this.Lieu.fax,
-        etat_logement_fonction: this.Lieu.etat_logement_fonction,
-        etage: this.Lieu.etage,
-        type_lieu: this.Lieu.type_lieu,
-        code_rattache_DR: this.Lieu.code_rattache_DR,
-        code_rattache_SUP: this.Lieu.code_rattache_SUP,
-        intitule_rattache_SUP_PV: this.Lieu.intitule_rattache_SUP_PV,
-        centre_cout_siege: this.Lieu.centre_cout_siege,
-        categorie_pointVente: this.Lieu.categorie_pointVente,
-        // amenagement inputs
-        nature_amenagement: '',
-        montant_amenagement: '',
-        valeur_nature_chargeP: '',
-        valeur_nature_chargeF: '',
-        numero_facture: '',
-        numero_bon_commande: '',
-        date_passation_commande: '',
-        evaluation_fournisseur: '',
-        date_fin_travaux: '',
-        date_livraison_local: '',
-      });
-    }
   }
 
 
 
   // Amenagement
-  addAmenagement() {
+  addAmenagement(NewOrOld : string , deleted : boolean) {
     const amenagementData = new FormGroup({
       nature_amenagement: new FormControl(''),
       montant_amenagement: new FormControl(''),
@@ -238,6 +243,8 @@ export class SiegeFormComponent implements OnInit {
       fournisseur: new FormArray([]),
       images_local_apres_amenagement: new FormControl(''),
       croquis_amenagement_via_imagerie: new FormControl(''),
+      deleted: new FormControl(deleted,),
+      NewOrOld : new FormControl(NewOrOld,) ,
     });
 
     (<FormArray>this.siegeForm.get('amenagementForm')).push(<FormGroup>amenagementData)
@@ -249,7 +256,25 @@ export class SiegeFormComponent implements OnInit {
 
 
   removeAmenagement(index: number) {
-    (<FormArray>this.siegeForm.get('amenagementForm')).removeAt(index)
+    // (<FormArray>this.siegeForm.get('amenagementForm')).removeAt(index)
+
+    let Amenagement = <FormArray>this.siegeForm.get('amenagementForm');
+    
+    if (Amenagement.value[index].NewOrOld == "NewAmng") {
+      (<FormArray>this.siegeForm.get('amenagementForm')).removeAt(index)
+      // console.log(Amenagement);
+
+    }
+    else{
+
+    let element = this.document.getElementById('deleted ' + index ) as HTMLInputElement
+
+    element.value = "True"
+    this.document.getElementById( index.toString() )?.classList.add('d-none');
+    Amenagement.value[index].deleted = true ;
+    // Amenagement.controls[index].value.deleted = "true"
+    console.log(Amenagement);
+    }
   }
 
 
@@ -260,11 +285,13 @@ export class SiegeFormComponent implements OnInit {
 
 
   // FournisseurData
-  addFournisseur(amenagementForm: any, index: number) {
+  addFournisseur(amenagementForm: any, index: number,NewOrOld:string) {
     let fournisseurData = new FormGroup({
       nom: new FormControl(''),
       prenom: new FormControl(''),
       amenagement_effectue: new FormControl(''),
+      deleted: new FormControl(''),
+      NewOrOld : new FormControl(NewOrOld,) ,
     });
 
     (<FormArray>amenagementForm.controls[index].controls.fournisseur).push(<FormGroup>fournisseurData)
@@ -272,8 +299,37 @@ export class SiegeFormComponent implements OnInit {
 
 
 
-  removeFournisseur(amenagementForm: any, index: number) {
-    (<FormArray>amenagementForm.controls[index].controls.fournisseur).removeAt(index)
+  removeFournisseur(amenagementForm: any, indexAmng: number ,indexFourn: number) {
+    
+    let fournisseur = <FormArray>amenagementForm.controls[indexAmng].controls.fournisseur ;
+
+    if (fournisseur.value[indexFourn].NewOrOld == 'New') {
+
+      (<FormArray>amenagementForm.controls[indexAmng].controls.fournisseur).removeAt(indexFourn)
+      
+    }
+    else{
+
+      let element = this.document.getElementById('deleted ' + indexAmng + ' ' + indexFourn.toString() ) as HTMLInputElement
+      element.value = "True"
+      fournisseur.value[indexFourn].deleted = "true";
+
+    }
+
+
+  }
+
+
+
+  hasAmengmnt(HasAmng : string){
+    if (HasAmng == 'Oui') {
+      this.hasAmenagement = true;
+      this.hasAmenagementCheck = ''
+    }
+    else{
+      this.hasAmenagement = false;
+      this.hasAmenagementCheck = 'ButtonNon'
+    }
   }
 
 
@@ -348,7 +404,31 @@ export class SiegeFormComponent implements OnInit {
 
 
   updateSg() {
-    let idlf = this.Lieu._id;
+
+    let id = this.Lieu._id;
+
+    this.isAmenagementEmpty = false;
+
+    if (this.hasAmenagementCheck == "ButtonNon" ) {
+
+      this.isAmenagementEmpty = false;
+      
+    }
+    else{
+
+      this.siegeForm.get('amenagementForm')?.value.forEach((element : any) => {
+
+      if (!element.deleted) {
+
+        this.isAmenagementEmpty = true;
+        
+      }
+      
+      
+      }); 
+
+    }
+
     let lfData: Lieu = {
       code_lieu: this.siegeForm.get('code_lieu')?.value,
       intitule_lieu: this.siegeForm.get('intitule_lieu')?.value,
@@ -358,7 +438,7 @@ export class SiegeFormComponent implements OnInit {
       code_localite: this.siegeForm.get('code_localite')?.value,
       desc_lieu_entrer: this.siegeForm.get('desc_lieu_entrer')?.value,
       imgs_lieu_entrer: this.siegeForm.get('imgs_lieu_entrer')?.value,
-      has_amenagements: this.siegeForm.get('has_amenagements')?.value,
+      has_amenagements: this.isAmenagementEmpty,
       superficie: this.siegeForm.get('superficie')?.value,
       telephone: this.siegeForm.get('telephone')?.value,
       fax: this.siegeForm.get('fax')?.value,
@@ -375,14 +455,17 @@ export class SiegeFormComponent implements OnInit {
       amenagement: this.siegeForm.get('amenagementForm')?.value,
     }
 
-    this.lieuService.updateLieux(idlf , lfData).subscribe(
+    console.log(lfData);
+    
+
+    this.lieuService.updateLieux(id , lfData).subscribe(
       (_) => {
         this.UpdateDone = true;
         setTimeout(() => {
           this.mainModalService.close();
           this.siegeForm.reset();
           this.UpdateDone = false;
-          location.reload();
+          // location.reload();
         }, 2000);
       },
       (error) => {
