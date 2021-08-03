@@ -17,14 +17,17 @@ import { getLieuxAction } from '../lieux-store/lieux.actions';
 })
 export class ListLieuxComponent implements OnInit, OnDestroy {
 
-  lieux$!: Observable<Lieu[]>;
+  lieux!: Lieu[];
   lieuEmpty: boolean = true;
-  ngrx_lieux: Lieu[] = [];
   targetlieu: Lieu[] = [];
   targetlieuId: string = '';
   deletedLieu!: Lieu   ;
   loading: boolean = false;
-  lieuxSubsction$!: Subscription;
+  lieuxSubscription$!: Subscription;
+
+  listLieuxPage: number = 1;
+  count: number = 0;
+  tableSize: number = 10;
 
   constructor(
     private lieuxService: LieuxService,
@@ -47,15 +50,14 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
 
   getAllLieux() {
     // Select lieux from store
-    this.lieux$ = this.store.select(getLieux)
-
-    this.lieuxSubsction$ = this.lieux$.subscribe((data) => {
+    this.lieuxSubscription$ = this.store.select(getLieux).subscribe((data) => {
       // Check if leix data is empty then fetch it from server
       if (data.length === 0) {
-        this.lieuEmpty = true
         // Dispatch action to handle the NgRx get lieux from server effect 
         this.store.dispatch(getLieuxAction())
       }
+      this.lieux = data
+
     })
 
   }
@@ -90,7 +92,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.lieuxSubsction$.unsubscribe()
+    this.lieuxSubscription$.unsubscribe()
   }
 
   showErrorMessage() {

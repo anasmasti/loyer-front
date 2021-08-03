@@ -234,7 +234,7 @@
         <button type="submit" class="btn second-btn form-control" *ngIf="Lieu != ''">
           Modifier
         </button>
-        <button type="submit" class="btn second-btn form-control" *ngIf="Lieu == ''">
+        <button type="submit" (click)='onSubmite()' class="btn second-btn form-control" *ngIf="Lieu == ''">
           Ajouter
         </button>
       </div>
