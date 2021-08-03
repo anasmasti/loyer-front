@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { User } from '../../models/user';
+import { User } from '../../models/User';
 
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
@@ -10,6 +10,9 @@ import { Observable } from 'rxjs';
 export class AdminService {
 
   constructor(private http: HttpClient) { }
+
+  param_url: string = 'user';
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -17,32 +20,26 @@ export class AdminService {
     })
   };
 
-  
   // Post new UserRole
-  postUserRole(data:any){
-    return this.http.post(environment.API_URL+environment.API_VERSION+'userRoles/ajouter' , 
-    {
-      userMatricul:data.userMatricul ,
-      nom:data.nom ,  
-      prenom:data.prenom ,
-      userRoles : data.userRoles
-      }, 
-
+  addUser(data: User): Observable<User> {
+    return this.http.post<User>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`, data,
       { 'headers': this.httpOptions.headers }
-      );
+    );
   }
 
   //getUsers list 
-   getUserstList()  {
-    return this.http.get(`${environment.API_URL + environment.API_VERSION}/userRoles/all-userRoles `, { 'headers': this.httpOptions.headers });
+  getUsersList(): Observable<User[]> {
+    return this.http.get<User[]>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/all `, { 'headers': this.httpOptions.headers });
+  }
+
+   // Get user by id 
+   getUserById(id: String): Observable<User> {
+    return this.http.get<User>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/detail/${id} `, { 'headers': this.httpOptions.headers });
   }
 
   //delete user 
-  //https://loyer-api.herokuapp.com/api/v1/userRoles/delete-userRoles/:id 
-  deleteUserById(id:String)  {
-    return this.http.get(`${environment.API_URL + environment.API_VERSION}/userRoles/delete-userRoles/${id}`, { 'headers': this.httpOptions.headers });
+  deleteUserById(id: String) {
+    return this.http.get(`${environment.API_URL_TEST + environment.API_VERSION + + this.param_url}/delete/${id}`, { 'headers': this.httpOptions.headers });
   }
-
- 
 
 }

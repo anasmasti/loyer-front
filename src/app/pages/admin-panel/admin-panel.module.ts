@@ -8,10 +8,16 @@ import { ConfirmationModalModule } from 'src/app/shared/modals/confirmation-moda
 import { MainModalModule } from 'src/app/shared/modals/main-modal/main-modal.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { usersReducer } from './admin-store/admin.reducer';
+import { UsersEffects } from './admin-store/admin.effect';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { EditComponent } from './edit/edit.component';
 
 const route: Routes = [
   { path: '', component: AdminComponent },
-  { path: 'list/list/:id', component: DetailComponent },
+  { path: 'list/:id', component: DetailComponent },
   { path: 'list', component: ListComponent }
 ];
 
@@ -20,14 +26,18 @@ const route: Routes = [
     ListComponent,
     FormComponent,
     AdminComponent,
-    DetailComponent
+    DetailComponent,
+    EditComponent
   ],
   imports: [
     RouterModule.forChild(route),
     CommonModule,
     ReactiveFormsModule,
     MainModalModule,
-    ConfirmationModalModule
+    ConfirmationModalModule,
+    StoreModule.forFeature('users', usersReducer),
+    EffectsModule.forFeature([UsersEffects]),
+    NgxPaginationModule
   ]
 })
 export class AdminPanelModule { }

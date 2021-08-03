@@ -1,3 +1,6 @@
+import { ActivatedRoute } from '@angular/router';
+import { User } from './../../../models/User';
+import { AdminService } from 'src/app/services/admin-service/admin.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +10,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userService: AdminService, private actRoute: ActivatedRoute) { }
+
+  user: User = {
+    userMatricul: "",
+    nom: "",
+    prenom: "",
+    userRoles: []
+  };
 
   ngOnInit(): void {
   }
 
+  // Get the user data by id
+  getUserById() {
+    const id = this.actRoute.snapshot.paramMap.get('id') || '';
+    this.userService.getUserById(id).subscribe((data: User) => {
+      this.user = data;
+    });
+  }
 }
