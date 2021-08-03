@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Contrat } from 'src/app/models/Contrat';
 import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
 import { ContratService } from 'src/app/services/contrat-service/contrat.service';
+import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 
 @Component({
   selector: 'app-list-contrat',
@@ -10,9 +12,12 @@ import { ContratService } from 'src/app/services/contrat-service/contrat.service
 export class ListContratComponent implements OnInit {
 
   contrats: any = [];
-  id!:string;
+  id:string='0';
+  targetContrat: Contrat[] = [];
+
   constructor(
     private contratService: ContratService,
+    private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService
   ) { }
 
@@ -31,6 +36,13 @@ export class ListContratComponent implements OnInit {
       this.contrats = data;
     });
   }
+
+  openEditModal(SelectedContrat:any){
+    
+    this.mainModalService.open();
+    this.targetContrat= SelectedContrat;
+  }
+
   openConfirmationModal(id:string) {
    this.id = id;
     this.confirmationModalService.open(); // Open delete confirmation modal
@@ -52,7 +64,10 @@ export class ListContratComponent implements OnInit {
   }
 
   reload(){
-    window.location.reload();
+    setTimeout(() => {
+      this.getContrat();
+    }, 500);
+    
   }
   
 

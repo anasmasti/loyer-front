@@ -58,7 +58,7 @@ export class LieuxService {
   
   //get the list of lieux to load the drop down list in contrat component
   listLieux(){
-    return this.http.get('http://localhost:5000/api/v1/lieu/get');
+    return this.http.get( `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/all-lieu`);
   }
 
 
