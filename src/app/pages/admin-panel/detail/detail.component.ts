@@ -20,6 +20,7 @@ export class DetailComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    this.getUserById()
   }
 
   // Get the user data by id

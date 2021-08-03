@@ -2,9 +2,8 @@ import { Lieu } from 'src/app/models/Lieu';
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
-import { DatePipe, DOCUMENT } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 
 @Component({

@@ -3,21 +3,18 @@
         <thead>
             <tr>
                 <th>Matricule</th>
-                <th>Nom </th>
-                <th>Prénom </th>
+                <th>Nom et Prénom</th>
                 <th>Role</th>
-
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let user of users | paginate: { itemsPerPage: tableSize, currentPage: listUsersPage, id: 'listUsersPagination', totalItems: count }">
                 <!-- <td >{{ proprietaire._id }}</td> -->
-                <td class="text-center">{{ user.userMatricul }}</td>
-                <td class="text-center">{{ user.nom }}</td>
-                <td class="text-center">{{ user.prenom }}</td>
+                <td>{{ user.userMatricul }}</td>
+                <td>{{ user.nom }} {{ user.prenom }}</td>
                 <td class="d-flex justify-content-around ">
-                    <p *ngFor="let role of user.userRoles"> -{{ role.roleName }} </p>
+                    <p *ngFor="let role of user.userRoles" class="success-btn px-2"><small>{{ role.roleName }}</small> </p>
                 </td>
                 <td>
                     <a [routerLink]="['list', user._id]" class="btn btn-sm main-btn"><i class="fal fa-eye"></i></a>

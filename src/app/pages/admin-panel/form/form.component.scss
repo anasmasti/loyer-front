@@ -2,35 +2,32 @@
 @use '../../../../assets/style/components' as *;
 
 th {
-   @extend .header-table
-}
-.btn-submit{
-    width: 100px;
-    margin-top: 50px;
-    margin-left: 20px;
+  @extend .header-table;
 }
 
-.checkbox-list-btns:focus{
-  border: none !important ;
-  box-shadow: none  !important;
-}
-
-.checkbox-list-btns{
-    background-color: white;
-    color: color(main-color);
-    border: solid 1px color(main-color);
-    box-shadow: none;
+.checkbox-list-btns {
+  background-color: white;
+  color: color(main-color);
+  border: solid 1px color(main-color);
+  box-shadow: none;
   outline: none;
-}
-.roles:checked ~ .checkbox-list-btns{
-    background-color: color(main-color);
-    color: white;
-    // border: solid 1px white;
-    box-shadow: none;
-  outline: none;
-}
+  cursor: pointer !important;
 
-input[checked=false]{
+  &:focus {
+    border: none !important ;
     box-shadow: none !important;
-    border-style: none;
+  }
+}
+
+.roles:checked ~ .checkbox-list-btns {
+  background-color: color(main-color);
+  color: white;
+  // border: solid 1px white;
+  box-shadow: none;
+  outline: none;
+}
+
+input[checked="false"] {
+  box-shadow: none !important;
+  border-style: none;
 }
