@@ -1,5 +1,11 @@
-<form [formGroup]="adminForm">
+<form [formGroup]="adminForm" (ngSubmit)="postUserRole()">
 
+  <div class="w-100 d-flex justify-content-center">
+    <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
+  </div>
+
+  <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
+  
   <div class="row mt-2">
     <div class="col-lg-4 form-group mt-2">
       <label for="">Matricule</label>
@@ -51,19 +57,11 @@
           <label class="px-5 py-1 rounded-pill checkbox-list-btns" for="role5">role 5</label>
         </div>
       </div>
-      <!-- <div class="checkbox-list">
-       <label class="roles_label" for="role1">role1</label> <input class="roles" type="checkbox" name="role1" id="role1" value="role1" (change)="CheckedRoles('role1')"/>
-       <label class="roles_label" for="role2">role2</label> <input class="roles" type="checkbox" name="role2" id="role2" value="role2" (change)="CheckedRoles('role2')"/>
-       <label class="roles_label" for="role3">role3</label> <input class="roles" type="checkbox" name="role3" id="role3" value="role3" (change)="CheckedRoles('role3')"/>
-       <label class="roles_label" for="role4">role4</label> <input class="roles" type="checkbox" name="role4" id="role4" value="role4" (change)="CheckedRoles('role4')"/>
-       <label class="roles_label" for="role5">role5</label> <input class="roles" type="checkbox" name="role5" id="role5" value="role5" (change)="CheckedRoles('role5')"/>
-       
-    </div> -->
 
     </div>
   </div>
-  <div class="row">
-    <button type="submit" class="btn second-btn form-control btn-submit" (click)="postUserRole(); redir();">
+  <div class="form-group my-5">
+    <button type="submit" class="btn second-btn">
       Ajouter
     </button>
   </div>

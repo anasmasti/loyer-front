@@ -1,3 +1,4 @@
+import { HelperService } from './../../../services/helpers/helper.service';
 import { ConfirmationModalService } from '../../../services/confirmation-modal-service/confirmation-modal.service';
 import { MainModalService } from '../../../services/main-modal/main-modal.service';
 import { Proprietaire } from '../../../models/Proprietaire';
@@ -17,8 +18,9 @@ export class ListProprietaireComponent implements OnInit {
   constructor(
     private proprietaireService: ProprietaireService,
     private mainModalService: MainModalService,
-    private confirmationModalService: ConfirmationModalService
-  ) {}
+    private confirmationModalService: ConfirmationModalService,
+    private helperService: HelperService
+  ) { }
 
   ngOnInit(): void {
     this.getAllProprietaires(); // Trow the fitching data
@@ -76,6 +78,6 @@ export class ListProprietaireComponent implements OnInit {
 
   // Refrtech the page
   refrechPage() {
-    location.reload();
+    this.helperService.refrechPage();
   }
 }

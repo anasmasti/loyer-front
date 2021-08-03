@@ -7,7 +7,7 @@
     box-shadow: $btn-box-shadow;
     color: color(dark);
     border-radius: $main-border-radius !important;
-    border: 0.1em solid color(light) !important;
+    border: 0.1em solid color(light) ;
 
     &:hover {
         background: color(main-color);
@@ -70,13 +70,26 @@
     }
 }
 
+// Dark button
+.dark-btn {
+    background: color(dark-body);
+    box-shadow: $btn-box-shadow;
+    color: color(light) !important;
+    border-radius: $main-border-radius !important;
+
+    &:hover {
+        background: color(dark);
+        color: color(light) !important;
+    }
+}
+
 // Sub menu buttons
 .sub-menu-btn {
-    color: color(dark) !important;
+    color: color(dark);
 
     &::before {
         content: "❯";
         margin-right: 5px;
-        color: color(main-color) !important;
+        color: color(main-color);
     }
 }

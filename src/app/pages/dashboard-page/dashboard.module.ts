@@ -1,3 +1,4 @@
+import { ComingSoonModule } from './../../shared/coming-soon/coming-soon.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -11,7 +12,8 @@ const route: Routes = [
   declarations: [DashboardComponent],
   imports: [
     RouterModule.forChild(route),
-    CommonModule
+    CommonModule,
+    ComingSoonModule
   ]
 })
 export class DashboardModule { }

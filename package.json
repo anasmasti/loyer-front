@@ -18,9 +18,13 @@
     "@angular/platform-browser": "~12.0.3",
     "@angular/platform-browser-dynamic": "~12.0.3",
     "@angular/router": "~12.0.3",
+    "@ngrx/effects": "^12.3.0",
+    "@ngrx/store": "^12.3.0",
+    "@ngrx/store-devtools": "^12.3.0",
     "bootstrap": "^5.0.1",
     "jquery": "^3.6.0",
     "json-server": "^0.16.3",
+    "ngx-pagination": "^5.1.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
     "zone.js": "~0.11.4"

@@ -30,7 +30,8 @@
                         <span class="badge user-admin-title">Administrateur</span>
                     </div>
                 </div>
-                <a [routerLink]="['/notification']" routerLinkActive="router-link-active" class="btn main-btn me-2"><i
+                <a class="btn dark-btn" (click)='doDarkMode()' title="Mode sombre"><i class="fal fa-moon"></i></a>
+                <a [routerLink]="['/notification']" routerLinkActive="router-link-active" class="btn main-btn mx-2"><i
                         class="fal fa-bell"></i></a>
                 <a class="btn danger-btn me-2" href="#"><i class="far fa-sign-out"></i></a>
             </div>

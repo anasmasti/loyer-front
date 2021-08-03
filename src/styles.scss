@@ -38,22 +38,87 @@ html {
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    background: color(body-color) !important;
-    color: color(dark) !important;
-    overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  background: color(body-color) !important;
+  color: color(dark) !important;
+  overflow-x: hidden;
 }
 
-// Glibal font weights
+// Global font weights
 .bold-font {
   font-weight: weight(bold);
 }
 
-/* active link */
+// Active link setup
 .router-link-active {
   @extend .second-btn;
   &:hover {
     background: color(dark) !important;
+  }
+}
+
+// Dark mode setup
+.darkmode-activated {
+  background-color: color(dark-body) !important;
+  color: color(body-color) !important;
+  #sidebar,
+  .navbar,
+  .bg-white,
+  .main-card {
+    background-color: color(main-color) !important;
+    color: color(light);
+    filter: brightness(90%);
+  }
+  .logo {
+    display: none;
+  }
+  .main-muted-text,
+  th,
+  td,
+  .main-title {
+    color: color(light) !important;
+  }
+  input[type="text"],
+  textarea {
+    color: color(light);
+    background-color: color(dark-body);
+    border-color: color(dark);
+  }
+  .main-btn {
+    background-color: color(dark-body) !important;
+    color: color(body-color) !important;
+    border-color: color(dark) !important;
+  }
+  .sub-menu-btn {
+    color: color(body-color) !important;
+    &::before {
+      content: "❯";
+      margin-right: 5px;
+      color: color(dark-body) !important;
+    }
+  }
+  .count-number {
+    color: color(danger) !important;
+  }
+  .modal-content {
+    background-color: color(dark-body) !important;
+  }
+}
+
+// Setup pagination
+.ngx-pagination {
+  padding-left: 0px !important;
+  & .current,
+  .btn-info {
+    @extend .main-btn;
+    background-color: color(main-color) !important;
+    &:hover {
+      @extend .main-btn;
+    }
+  }
+
+  & a button {
+    @extend .main-btn;
   }
 }

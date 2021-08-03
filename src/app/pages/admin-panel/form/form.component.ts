@@ -1,10 +1,10 @@
-import { stringify } from '@angular/compiler/src/util';
+
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { User } from '../../../models/user';
+import { FormControl, FormGroup } from '@angular/forms';
+import { User } from '../../../models/User';
 import { AdminService } from 'src/app/services/admin-service/admin.service';
 @Component({
-  selector: 'app-form',
+  selector: 'admin-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
@@ -17,31 +17,22 @@ export class FormComponent implements OnInit {
     prenom: "",
     userRoles: []
   };
-
-  adminForm: any = new FormGroup({
-    // Champs du propriètaire
-    Matricule: new FormControl('', []),
-    Nom: new FormControl('', [
-    ]),
-    Prenom: new FormControl('', [
-    ]),
-
-
-  });
+  errors!: string;
+  postDone: boolean = false;
+  adminForm!: FormGroup;
+  PostSucces: string = 'Utilisateur ajouté avec succés';
 
   constructor(
     private adminService: AdminService,
   ) { }
 
   ngOnInit(): void {
-
-
-
-
+    this.adminForm = new FormGroup({
+      Matricule: new FormControl('', []),
+      Nom: new FormControl('', []),
+      Prenom: new FormControl('', []),
+    });
   }
-
-
-
 
   CheckedRoles(name: any) {
     let roles = [];
@@ -52,14 +43,13 @@ export class FormComponent implements OnInit {
         roles.push({
           roleName: (rolesCH[index] as HTMLInputElement).value
         });
-
       }
-
     }
 
     return roles;
 
   }
+
   listeRoles() {
     let roles = [];
     let rolesCH = document.getElementsByClassName('roles');
@@ -69,39 +59,50 @@ export class FormComponent implements OnInit {
         roles.push({
           roleName: (rolesCH[index] as HTMLInputElement).value
         });
-
       }
-
     }
 
     return roles;
 
   }
 
+  // Afficher le message d'erreur de serveur
+  showErrorMessage() {
+    $('.error-alert').addClass('active');
+  }
+
+  // hide le message d'erreur de serveur
+  hideErrorMessage() {
+    $('.error-alert').removeClass('active');
+  }
 
   postUserRole() {
     let rolesArray: any = this.listeRoles();
     for (let index = 0; index < rolesArray.length; index++) {
       this.user.userRoles.push(rolesArray[index]);
-
     }
 
+    this.user.nom = this.adminForm.get('Nom')?.value;
+    this.user.prenom = this.adminForm.get('Prenom')?.value;
+    this.user.userMatricul = this.adminForm.get('Matricule')?.value;
 
-    this.user.nom = this.adminForm.get('Nom').value;
-    this.user.prenom = this.adminForm.get('Prenom').value;
-    this.user.userMatricul = this.adminForm.get('Matricule').value;
-
-    this.adminService.postUserRole(this.user).subscribe();
+    this.adminService.addUser(this.user).subscribe(
+      (_) => {
+        this.postDone = true;
+        setTimeout(() => {
+          this.adminForm.reset();
+          this.postDone = false;
+        }, 2000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+    );
   }
-
-  redir() {
-    setTimeout(() => {
-      location.reload();
-    }, 400);
-
-  }
-
-
 
 
 }
