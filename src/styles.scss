@@ -101,4 +101,24 @@ body {
   .count-number {
     color: color(danger) !important;
   }
+  .modal-content {
+    background-color: color(dark-body) !important;
+  }
+}
+
+// Setup pagination
+.ngx-pagination {
+  padding-left: 0px !important;
+  & .current,
+  .btn-info {
+    @extend .main-btn;
+    background-color: color(main-color) !important;
+    &:hover {
+      @extend .main-btn;
+    }
+  }
+
+  & a button {
+    @extend .main-btn;
+  }
 }

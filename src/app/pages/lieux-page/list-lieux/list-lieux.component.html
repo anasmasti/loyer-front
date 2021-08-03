@@ -28,8 +28,9 @@
       </tr>
     </thead>
 
-    <tbody *ngIf="lieuEmpty">
-      <tr *ngFor="let lieu of (lieux$ | async)">
+    <tbody *ngIf="lieux.length">
+      <tr
+        *ngFor="let lieu of lieux | paginate: { itemsPerPage: tableSize, currentPage: listLieuxPage, id: 'listLieuxPagination', totalItems: count }">
         <!-- <td >{{ proprietaire._id }}</td> -->
         <td>{{ lieu.intitule_lieu }}</td>
         <td>{{ lieu.type_lieu }}</td>
@@ -50,6 +51,8 @@
         </td>
       </tr>
 
+      <pagination-controls id="listLieuxPagination" (pageChange)="listLieuxPage = $event"></pagination-controls>
+
       <app-main-modal [closeBtn]="true">
         <app-edit-lieux [Lieu]="targetlieu"></app-edit-lieux>
       </app-main-modal>
@@ -67,7 +70,7 @@
       </app-confirmation-modal>
     </tbody>
 
-    <tbody *ngIf="!lieuEmpty" class="w-100 d-flex align-items-center">
+    <tbody *ngIf="!lieux.length" class="w-100 d-flex align-items-center">
       <h5 class="main-muted-text my-4">Aucun lieu à afficher</h5>
       <a class="btn btn-sm second-btn ms-3" [routerLink]="['/lieux']">
         + Nouveau lieu
