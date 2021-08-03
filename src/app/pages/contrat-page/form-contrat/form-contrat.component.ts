@@ -333,11 +333,12 @@ export class FormContratComponent implements OnInit {
         this.etatContrat.get('etat_lieux_sortie')?.value;
       this.Contrat.etat_contrat[0].etat.preavis =
         this.etatContrat.get('preavis')?.value;
-  
-      if (this.etatContrat.get('intitule_lieu_sus')?.value != '') {
+       console.log(this.contratForm.get('etat_contrat')?.value);
+       
+      if (this.contratForm.get('etat_contrat')?.value == 'Suspension') {
         this.Contrat.etat_contrat[0].etat.intitule_lieu =
           this.etatContrat.get('intitule_lieu_sus')?.value;
-      } else if (this.etatContrat.get('intitule_lieu_res')?.value != '') {
+      } else if (this.contratForm.get('etat_contrat')?.value == 'Résiliation') {
         this.Contrat.etat_contrat[0].etat.intitule_lieu =
           this.etatContrat.get('intitule_lieu_res')?.value;
       }
@@ -545,6 +546,7 @@ updateContrat() {
     this.contratForm.get('etat_contrat')?.value
   ) {
     this.fillNewValues();
+   console.log(this.Contrat);
    
     this.contratService
       .updateContrat(id, this.Contrat)
