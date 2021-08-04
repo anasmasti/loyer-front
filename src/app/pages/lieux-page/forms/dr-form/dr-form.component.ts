@@ -359,7 +359,7 @@ export class DrFormComponent implements OnInit {
       // for(let i of ) {
       //   this.fd
       // }
-      console.log("Append ====>", this.fd);
+      // console.log("Append ====>", this.fd);
       
    }
     
@@ -369,10 +369,11 @@ export class DrFormComponent implements OnInit {
 
   async addFiles() {
     
-   await this.http.post<any>('http://192.168.11.124:5000/api/v1/lieu/ajouter', this.fd).subscribe(
+   await this.drService.uploadFile(this.fd).subscribe(
       (res) => console.log(res),
       (err) => console.log(err)
     )
+    console.log("Uploaded Succesfully !!")
   }
 
   addDR() {
@@ -404,7 +405,7 @@ export class DrFormComponent implements OnInit {
       amenagement: this.drForm.get('amenagementForm')?.value
     };
 
-    console.log('Amenagement ===> ',this.drForm.get('amenagementForm')?.value)
+    // console.log('Amenagement ===> ',this.drForm.get('amenagementForm')?.value)
     
     this.drService.addLieu(dr_data).subscribe(
       (_) => {
