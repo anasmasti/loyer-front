@@ -12,7 +12,7 @@ import { MainModalService } from 'src/app/services/main-modal/main-modal.service
 export class ListContratComponent implements OnInit {
 
   contrats: any = [];
-  id:string='0';
+  id: string = '0';
   targetContrat: Contrat[] = [];
 
   constructor(
@@ -24,27 +24,27 @@ export class ListContratComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => {
       this.getContrat();
-      
-   }, 200);
+
+    }, 200);
 
   }
 
 
 
-  getContrat(){
-    this.contratService.getContrat().subscribe((data:any) => {
+  getContrat() {
+    this.contratService.getContrat().subscribe((data: any) => {
       this.contrats = data;
     });
   }
 
-  openEditModal(SelectedContrat:any){
-    
+  openEditModal(SelectedContrat: any) {
+
     this.mainModalService.open();
-    this.targetContrat= SelectedContrat;
+    this.targetContrat = SelectedContrat;
   }
 
-  openConfirmationModal(id:string) {
-   this.id = id;
+  openConfirmationModal(id: string) {
+    this.id = id;
     this.confirmationModalService.open(); // Open delete confirmation modal
   }
 
@@ -54,21 +54,21 @@ export class ListContratComponent implements OnInit {
   }
 
   // deleteContrat
-  deleteContrat(){
+  deleteContrat() {
     this.contratService
       .deleteContrat(this.id)
       .subscribe((data: any) => {
-      
-        
+
+
       });
   }
 
-  reload(){
+  reload() {
     setTimeout(() => {
       this.getContrat();
     }, 300);
-    
+
   }
-  
+
 
 }

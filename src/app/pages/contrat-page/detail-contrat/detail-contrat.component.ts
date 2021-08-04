@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DetailContratComponent implements OnInit {
   Contrat: Contrat = {
-    _id:'Chargement...',
+    _id: 'Chargement...',
     numero_contrat: 'Chargement...',
     date_debut_loyer: new Date(),
     date_fin_contrat: new Date(),
@@ -60,7 +60,7 @@ export class DetailContratComponent implements OnInit {
   constructor(
     private contratService: ContratService,
     private actRoute: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getSelectedContrat();

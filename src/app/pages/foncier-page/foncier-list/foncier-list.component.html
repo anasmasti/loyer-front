@@ -1,1 +1,70 @@
-<p>foncier-list works!</p>
+<div class="row title">
+    <div class="col-lg-12 mt-3">
+        <div class="d-flex justify-content-between">
+            <!-- <h3 class=""></h3> -->
+            <h3 class="main-title">Liste des fonciers</h3>
+            <div class="d-none d-lg-block">
+                <a class="btn btn-sm second-btn me-3" (click)="reload()"><i class="far fa-undo-alt"></i>
+                    Rafraîchir la liste
+                </a>
+                <span data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Ici vous pouvez consulter la list des propriétaires">
+                    <i class="fal fa-info"></i>
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="main-card bg-white table-responsive-sm p-lg-3 mt-4">
+    <table class="table">
+        <thead>
+            <tr class="text-truncate">
+                <th>Etat</th>
+                <th>N° foncier</th>
+                <th>Montant loyer</th>
+                <th>Date début du loyer</th>
+                <th>Date fin de foncier</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="text-center" *ngFor="let foncier of fonciers">
+                <td class="progress-bar progress-bar-striped  text-light font-weight-bold"
+                    [ngClass]="{'bg-success': foncier.etat_foncier[foncier.etat_foncier.length-1].libelle == 'Avenant', 'bg-danger': foncier.etat_foncier[foncier.etat_foncier.length-1].libelle == 'Suspension', 'bg-warning': foncier.etat_foncier[foncier.etat_foncier.length-1].libelle == 'Résiliation'}">{{ foncier.etat_foncier[foncier.etat_foncier.length-1].libelle }} </td>
+                <td> {{ foncier.numero_foncier }}</td>
+                <td> {{ foncier.Montant_loyer }} </td>
+                <td> {{ foncier.date_debut_loyer | date : 'dd-MM-yyyy' }} </td>
+                <td> {{ foncier.date_fin_foncier | date : 'dd-MM-yyyy' }} </td>
+
+                <td>
+                    <div class="d-inline">
+                        <a [routerLink]="['list',foncier._id]" class="btn btn-sm main-btn"><i class="fal fa-eye"></i></a>
+                        <a (click)="openEditModal(foncier);"class="btn btn-sm info-btn mx-2"><i
+                                class="far fa-user-edit"></i></a>
+                        <a class="btn btn-sm danger-btn" (click)="openConfirmationModal(foncier._id);"><i class="far fa-user-minus"></i></a>
+                    </div>
+               
+                </td>
+            </tr>
+
+
+            <app-main-modal [closeBtn]='true'>
+                <edit-foncier [foncier]="targetFoncier">
+                </edit-foncier>
+            </app-main-modal>
+            
+            <app-confirmation-modal [closeBtn]='true'>
+                <h3 class="main-title">Confirmation de la supression <i class="far fa-exclamation-circle"></i></h3>
+                <p class="mt-3">Voulez vous vraiment supprimer ce foncier?</p>
+                <div class="d-inline-flex justify-content-start mt-5">
+                    <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)="deleteFoncier();closeConfirmationModal();reload();">Oui</a>
+                    <a class="btn btn-lg px-lg-4 main-btn" (click)='closeConfirmationModal();'>Non</a>
+                </div>
+            </app-confirmation-modal>
+
+        </tbody>
+    </table>
+</div>
