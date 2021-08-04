@@ -69,6 +69,11 @@ export class LieuxService {
     );
   }
 
+  // post formdata file
+  uploadFile(formdata: FormData){
+    return this.http.post<any>( `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`, formdata)
+  }
+
   //get the list of lieux to load the drop down list in contrat component
   listLieux(){
     return this.http.get( `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/all-lieu`);

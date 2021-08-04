@@ -316,13 +316,13 @@
                 <div class="col-lg-3 form-group mt-4">
                   <label for="">Images du local après aménagement</label>
                   <input type="file" class="form-control btn success-btn"
-                  formControlName="images_local_apres_amenagement" />
+                  formControlName="images_local_apres_amenagement" (change)='onFileSelected($event,i)'/>
                 </div>
 
                 <div class="col-lg-3 form-group mt-4">
                   <label for="">Croquis d’aménagement via imagerie</label>
                   <input type="file" class="form-control btn success-btn"
-                  formControlName="croquis_amenagement_via_imagerie" multiple />
+                  formControlName="croquis_amenagement_via_imagerie" (change)='onFileSelected($event,i)' />
                 </div>
               </div>
               <input type="hidden" id="{{ 'deleted ' + i }}" formControlName="deleted"  />
