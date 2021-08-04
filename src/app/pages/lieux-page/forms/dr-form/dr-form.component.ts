@@ -6,6 +6,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { DatePipe, DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { event } from 'jquery';
 
 @Component({
   selector: 'dr-form',
@@ -20,6 +21,9 @@ export class DrFormComponent implements OnInit {
   PostSucces: string = 'Direction régionale ajouté avec succés';
   selectedFile !: File;
   drForm!: FormGroup;
+  file!: string;
+  fd: FormData = new FormData();
+  idm !: string; 
 
   @Input() update!: boolean;
   @Input() Lieu!: any;
@@ -70,6 +74,7 @@ export class DrFormComponent implements OnInit {
     });
 
     // this.fetchLieu();
+
 
   }
 
@@ -238,6 +243,7 @@ export class DrFormComponent implements OnInit {
   // Amenagement
   addAmenagement() {
     const amenagementData = new FormGroup({
+      idm: new FormControl(''),
       nature_amenagement: new FormControl(''),
       montant_amenagement: new FormControl(''),
       valeur_nature_chargeProprietaire: new FormControl(''),
@@ -303,23 +309,36 @@ export class DrFormComponent implements OnInit {
   showErrorMessage() {
     $('.error-alert').addClass('active');
   }
-
   // hide le message d'erreur de serveur
   hideErrorMessage() {
     $('.error-alert').removeClass('active');
   }
 
-  async onFileSelected(event: any) {
-    if (event.target.files.length > 0) {
+  async onFileSelected(event: any, index: number) {
+    //  for (let index = 0; index <this.amenagementForm.controls.length; index++) {
+    //  let index = this.amenagementForm.controls.length
+     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
-      console.log('File ==> ', this.selectedFile);
-    }
+      //  index = this.amenagementForm.controls.length
+      console.log('File ==> ', this.selectedFile,' Index ==> ',index);
+      this.idm = JSON.stringify(Math.random())
+      this.file = this.idm + JSON.stringify(index)  
+      console.log('File Object ==> ',this.file);
+      await this.fd.append('imgs_amenagement', this.selectedFile, this.file);
+      // for(let i of ) {
+      //   this.fd
+      // }
+      console.log("Append ====>", this.fd);
+      
+   }
+    
+  //  }
+
   }
 
-  async onSubmite() {
-    const fd: FormData = new FormData();
-    await fd.append('imgs_lieu_entrer', this.selectedFile);
-    this.http.post<any>('http://192.168.11.124:5000/api/v1/lieu/ajouter', fd).subscribe(
+  async addFiles() {
+    
+   await this.http.post<any>('http://192.168.11.124:5000/api/v1/lieu/ajouter', this.fd).subscribe(
       (res) => console.log(res),
       (err) => console.log(err)
     )
@@ -352,6 +371,8 @@ export class DrFormComponent implements OnInit {
       // Amenagment
       amenagement: this.drForm.get('amenagementForm')?.value
     };
+
+    console.log('Amenagement ===> ',this.drForm.get('amenagementForm')?.value)
     
     this.drService.addLieu(dr_data).subscribe(
       (_) => {
