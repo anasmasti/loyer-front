@@ -1,4 +1,4 @@
-import { Lieu } from './../../../models/Lieu';
+import { Lieu } from '../../../models/Lieu';
 import { HelperService } from './../../../services/helpers/helper.service';
 import { getLoading } from './../../../store/shared/shared.selector';
 import { AppState } from './../../../store/app.state';

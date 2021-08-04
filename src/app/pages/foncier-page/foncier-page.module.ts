@@ -8,6 +8,7 @@ import { FoncierListComponent } from './foncier-list/foncier-list.component';
 import { FoncierEditComponent } from './foncier-edit/foncier-edit.component';
 import { FoncierDetailComponent } from './foncier-detail/foncier-detail.component';
 import { FoncierComponent } from './foncier/foncier.component';
+import { FoncierFormComponent } from './foncier-form/foncier-form.component';
 
 
 const route: Routes = [
@@ -19,9 +20,14 @@ const route: Routes = [
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    FoncierComponent,
+    FoncierDetailComponent,
+    FoncierListComponent,
+    FoncierEditComponent,
+    FoncierFormComponent
+  ],
   imports: [
-    CommonModule,
     RouterModule.forChild(route),
     CommonModule,
     ReactiveFormsModule,
