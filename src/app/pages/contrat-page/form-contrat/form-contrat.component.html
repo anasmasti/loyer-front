@@ -175,7 +175,7 @@
 
 
         <div class="form-box mt-4">
-          <h6>Etat du contrat</h6>
+        
           <div *ngIf="etat_contrat == 'Avenant'; then AV"></div>
           <div *ngIf="etat_contrat == 'Suspension'; then SUS"></div>
           <div *ngIf="etat_contrat == 'Résiliation'; then RES"></div>
@@ -187,7 +187,7 @@
 
         <!-- Template Avenant start -->
         <ng-template #AV>
-          <h6><u>Avenant</u></h6>
+          <h6><u>Etat du contrat: Avenant</u></h6>
           <div class="row">
 
             <div class="col-lg-3 form-group mt-4">
@@ -224,7 +224,7 @@
         <!-- Template Suspension start -->
         <ng-template #SUS>
 
-          <h6><u>Suspension</u></h6>
+          <h6><u>Etat du contrat: Suspension</u></h6>
           <div class="row">
             <div class="col-lg-3 form-group mt-4">
               <label for="">Intitulé de lieu</label>
@@ -255,7 +255,7 @@
         <!-- Template Resiliation start -->
         <ng-template #RES>
 
-          <h6><u>Résiliation</u></h6>
+          <h6><u>Etat du contrat: Résiliation</u></h6>
 
           <div class="row">
             <div class="col-lg-3 form-group mt-4">
