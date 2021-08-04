@@ -1,4 +1,4 @@
-import { Component,Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-edit-contrat',
@@ -6,13 +6,14 @@ import { Component,Input, OnInit } from '@angular/core';
   styleUrls: ['./edit-contrat.component.scss']
 })
 export class EditContratComponent implements OnInit {
-  Modifier:string="Modifier";
+  
+  Modifier: string = "Modifier";
   @Input() contrat!: any;
- 
+
   constructor() { }
 
   ngOnInit(): void {
-  
+
   }
 
   ngOnChanges() {
