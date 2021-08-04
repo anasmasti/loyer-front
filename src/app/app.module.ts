@@ -15,6 +15,11 @@ import { appReducer } from './store/app.state';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { FoncierComponent } from './pages/foncier-page/foncier/foncier.component';
+import { FoncierFormComponent } from './pages/foncier-page/foncier-form/foncier-form.component';
+import { FoncierListComponent } from './pages/foncier-page/foncier-list/foncier-list.component';
+import { FoncierDetailComponent } from './pages/foncier-page/foncier-detail/foncier-detail.component';
+import { FoncierEditComponent } from './pages/foncier-page/foncier-edit/foncier-edit.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +28,12 @@ import { StoreModule } from '@ngrx/store';
     HeaderNavbarComponent,
     SideNavbarComponent,
     MainContentComponent,
-    FooterComponent
+    FooterComponent,
+    FoncierComponent,
+    FoncierFormComponent,
+    FoncierListComponent,
+    FoncierDetailComponent,
+    FoncierEditComponent
   ],
   imports: [
     BrowserModule,
