@@ -18,10 +18,10 @@ export class FoncierEffects {
     ) { }
 
     // Create effect for fonciers
-    loadLieux$ = createEffect((): any => {
+    loadFonciers$ = createEffect((): any => {
         return this.actions$.pipe(
             ofType(getFoncierAction),
-            mergeMap(() => this.loadFoncier())
+            mergeMap(() => this.loadFonciers())
         )
     });
 
@@ -29,7 +29,7 @@ export class FoncierEffects {
     ///////////////////////////////////////////////////////////////////
 
     // Load fonciers from service
-    loadFoncier() {
+    loadFonciers() {
         return this.foncierService.getFonciers().pipe(
             map(
                 (fonciers: Foncier[]) => {
