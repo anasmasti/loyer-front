@@ -19,11 +19,7 @@
     </div>
 
     <ul class="nav flex-column mb-0 p-4">
-        <li class="nav-item">
-            <a href="#" class="nav-link main-btn">
-                Tableau de bord
-            </a>
-        </li>
+
         <li class="nav-item my-4">
             <a [routerLink]="['/proprietaire']" routerLinkActive="router-link-active" class="nav-link main-btn">
                 <span (click)="showSubMenu('proprietaire')">Propriétaire de locale</span>
@@ -41,31 +37,7 @@
                 </li> -->
             </ul>
         </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link main-btn ">
-                <span (click)="showSubMenu('contrat')">Contrat de bail</span>
-            </a>
-            <ul class="sub-menu list-unstyled" id="contrat">
-                <li>
-                    <a href="#" class="nav-link sub-menu-btn">
-                        List
-                    </a>
-                </li>
 
-            </ul>
-        </li>
-        <li class="nav-item my-4">
-            <a href="#" class="nav-link main-btn">
-                <span (click)="showSubMenu('fournisseur')">Fournisseur</span>
-            </a>
-            <ul class="sub-menu list-unstyled" id="fournisseur">
-                <li>
-                    <a href="#" class="nav-link sub-menu-btn">
-                        List
-                    </a>
-                </li>
-            </ul>
-        </li>
     </ul>
 
 
