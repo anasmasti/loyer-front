@@ -57,6 +57,19 @@
                 </ul>
             </li>
             <li class="nav-item my-4">
+                <a [routerLink]="['/foncier']" routerLinkActive="router-link-active" class="nav-link main-btn ">
+                    <span (click)="showSubMenu('foncier')">Foncier</span>
+                </a>
+                <ul class="sub-menu list-unstyled" id="foncier">
+                    <li>
+                        <a [routerLink]="['/foncier/list']" class="nav-link sub-menu-btn">
+                            List des fonciers
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="nav-item my-4">
                 <a [routerLink]="['/contrat']" routerLinkActive="router-link-active" class="nav-link main-btn ">
                     <span (click)="showSubMenu('contrat')">Contrat de bail</span>
                 </a>
