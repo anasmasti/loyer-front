@@ -3,12 +3,13 @@ import { MainModalService } from './../../../../services/main-modal/main-modal.s
 import { ConfirmationModalService } from './../../../../services/confirmation-modal-service/confirmation-modal.service';
 import { Lieu } from '../../../../models/Lieu';
 import { LieuxService } from './../../../../services/lieux-service/lieux.service';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray } from '@angular/forms';
 import { getDrWithSupAction } from '../../lieux-store/lieux.actions';
 import { getDr, getSup } from '../../lieux-store/lieux.selector';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'pv-form',
@@ -29,15 +30,19 @@ export class PvFormComponent implements OnInit, OnDestroy {
   Sup$!: Observable<any>;
   DrSubscription$!: Subscription;
   SupSubscription$!: Subscription;
+  hasAmenagementCheck: string = "";
+  isAmenagementEmpty : boolean = true
 
   @Input() update!: boolean;
   @Input() Lieu!: any;
+  @Input() LieuName!: string;
 
   constructor(
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
     private lieuService: LieuxService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    @Inject(DOCUMENT) private document: Document
   ) { }
 
 
@@ -45,7 +50,7 @@ export class PvFormComponent implements OnInit, OnDestroy {
   ngOnChanges() {
     if (this.Lieu !== "") {
       setTimeout(() => {
-        this.fetchPv();
+        this.fetchPv('Default');
       }, 100);
     }
   }
@@ -84,157 +89,155 @@ export class PvFormComponent implements OnInit, OnDestroy {
   }
 
 
-  fetchPv() {
+  fetchPv(HasAmenagement : string) {
 
     this.removeAllAmenagement();
 
-    // this.etatLogement = this.Lieu.etat_logement_fonction;
-
-    if (this.Lieu.has_amenagements) {
-      this.hasAmenagement = true;
+    this.PvForm.patchValue({
+      code_lieu: this.Lieu.code_lieu,
+      intitule_lieu: this.Lieu.intitule_lieu,
+      intitule_DR: this.Lieu.intitule_DR,
+      adresse: this.Lieu.adresse,
+      ville: this.Lieu.ville,
+      code_localite: this.Lieu.code_localite,
+      desc_lieu_entrer: this.Lieu.desc_lieu_entrer,
+      imgs_lieu_entrer: this.Lieu.imgs_lieu_entrer,
+      has_amenagements: this.Lieu.has_amenagements,
+      superficie: this.Lieu.superficie,
+      telephone: this.Lieu.telephone,
+      fax: this.Lieu.fax,
+      etat_logement_fonction: this.Lieu.etat_logement_fonction,
+      etage: this.Lieu.etage,
+      type_lieu: this.Lieu.type_lieu,
+      code_rattache_DR: this.Lieu.code_rattache_DR,
+      code_rattache_SUP: this.Lieu.code_rattache_SUP,
+      intitule_rattache_SUP_PV: this.Lieu.intitule_rattache_SUP_PV,
+      centre_cout_siege: this.Lieu.centre_cout_siege,
+      categorie_pointVente: this.Lieu.categorie_pointVente,
+    });
+    
+    
       this.amenagementList = this.Lieu.amenagement;
-      this.PvForm.patchValue({
-        code_lieu: this.Lieu.code_lieu,
-        intitule_lieu: this.Lieu.intitule_lieu,
-        intitule_DR: this.Lieu.intitule_DR,
-        adresse: this.Lieu.adresse,
-        ville: this.Lieu.ville,
-        code_localite: this.Lieu.code_localite,
-        desc_lieu_entrer: this.Lieu.desc_lieu_entrer,
-        imgs_lieu_entrer: this.Lieu.imgs_lieu_entrer,
-        has_amenagements: this.Lieu.has_amenagements,
-        superficie: this.Lieu.superficie,
-        telephone: this.Lieu.telephone,
-        fax: this.Lieu.fax,
-        etat_logement_fonction: this.Lieu.etat_logement_fonction,
-        etage: this.Lieu.etage,
-        type_lieu: this.Lieu.type_lieu,
-        code_rattache_DR: this.Lieu.code_rattache_DR,
-        code_rattache_SUP: this.Lieu.code_rattache_SUP,
-        intitule_rattache_SUP_PV: this.Lieu.intitule_rattache_SUP_PV,
-        centre_cout_siege: this.Lieu.centre_cout_siege,
-        categorie_pointVente: this.Lieu.categorie_pointVente,
+    
+      //amenagement inputs
+      this.Lieu.amenagement.forEach( ( LieuControl : any , index : any ) => {
+
+
+          let formGroupAmenagement = this.addAmenagement('OldAmng' , LieuControl.deleted );
+          
+          formGroupAmenagement.controls.nature_amenagement.setValue(
+            LieuControl.nature_amenagement
+            );
+            
+          formGroupAmenagement.controls.montant_amenagement.setValue(
+            LieuControl.montant_amenagement
+          );
+            
+          formGroupAmenagement.controls.valeur_nature_chargeProprietaire.setValue(
+            LieuControl.valeur_nature_chargeProprietaire
+          );
+              
+          formGroupAmenagement.controls.valeur_nature_chargeFondation.setValue(
+            LieuControl.valeur_nature_chargeFondation
+          );
+                
+          formGroupAmenagement.controls.numero_facture.setValue(
+            LieuControl.numero_facture
+          );
+                  
+          formGroupAmenagement.controls.numero_bon_commande.setValue(
+            LieuControl.numero_bon_commande
+          );
+                    
+          formGroupAmenagement.controls.date_passation_commande.setValue(
+            LieuControl.date_passation_commande
+          );
+          
+          formGroupAmenagement.controls.evaluation_fournisseur.setValue(
+            LieuControl.evaluation_fournisseur
+          );
+            
+          formGroupAmenagement.controls.date_fin_travaux.setValue(
+            LieuControl.date_fin_travaux
+          );
+            
+          formGroupAmenagement.controls.date_livraison_local.setValue(
+            LieuControl.date_livraison_local
+          );
+              
+          formGroupAmenagement.controls.deleted.setValue(
+            LieuControl.deleted
+          );
+                
+                
+            if (LieuControl.fournisseur.length !== 0) {
+                  
+              for (let  FourniseurControl  of LieuControl.fournisseur ) {
+                    
+                      
+                  let formGroupFournisseur = new FormGroup({
+                    nom: new FormControl(''),
+                    prenom: new FormControl(''),
+                    amenagement_effectue: new FormControl(''),
+                    deleted: new FormControl('Test'),
+                    NewOrOld : new FormControl('old',) ,
+                  });
+                      
+                  (<FormArray>formGroupAmenagement.controls.fournisseur).push(<FormGroup>formGroupFournisseur)
+                  
+                  formGroupFournisseur.controls.nom.setValue(
+                    FourniseurControl.nom
+                  );
+                        
+                  formGroupFournisseur.controls.prenom.setValue(
+                    FourniseurControl.prenom
+                  );
+          
+                  formGroupFournisseur.controls.amenagement_effectue.setValue(
+                    FourniseurControl.amenagement_effectue
+                  );
+                            
+                  formGroupFournisseur.controls.deleted.setValue(
+                    FourniseurControl.deleted
+                  );
+    
+              }
+
+            }
+              
+                if (!LieuControl.deleted) {
+                  
+                  this.hasAmenagement = true
+                  
+                }
+              
       });
 
+        if ( HasAmenagement == "Oui" ) {
 
-      // Amenagement
-      for (let LieuControl of this.Lieu.amenagement) {
+          this.hasAmenagement = true;
+          this.hasAmenagementCheck = ""
+          this.PvForm.patchValue({
+            has_amenagements: this.hasAmenagement
+          })
+          
+        }
+        else{
+          if ( HasAmenagement != "Default" ) {
 
-        let formGroupAmenagement = this.addAmenagement();
-
-        formGroupAmenagement.controls.nature_amenagement.setValue(
-          LieuControl.nature_amenagement
-        );
-
-        formGroupAmenagement.controls.montant_amenagement.setValue(
-          LieuControl.montant_amenagement
-        );
-
-        formGroupAmenagement.controls.valeur_nature_chargeProprietaire.setValue(
-          LieuControl.valeur_nature_chargeProprietaire
-        );
-
-        formGroupAmenagement.controls.valeur_nature_chargeFondation.setValue(
-          LieuControl.valeur_nature_chargeFondation
-        );
-
-        formGroupAmenagement.controls.numero_facture.setValue(
-          LieuControl.numero_facture
-        );
-
-        formGroupAmenagement.controls.numero_bon_commande.setValue(
-          LieuControl.numero_bon_commande
-        );
-
-        formGroupAmenagement.controls.date_passation_commande.setValue(
-          LieuControl.date_passation_commande
-        );
-
-        formGroupAmenagement.controls.evaluation_fournisseur.setValue(
-          LieuControl.evaluation_fournisseur
-        );
-
-        formGroupAmenagement.controls.date_fin_travaux.setValue(
-          LieuControl.date_fin_travaux
-        );
-
-        formGroupAmenagement.controls.date_livraison_local.setValue(
-          LieuControl.date_livraison_local
-        );
-
-
-
-        if (LieuControl.fournisseur.length !== 0) {
-          for (let FourniseurControl of LieuControl.fournisseur) {
-
-            // console.log(formGroupAmenagement);
-
-            let formGroupFournisseur = new FormGroup({
-              nom: new FormControl(''),
-              prenom: new FormControl(''),
-              amenagement_effectue: new FormControl(''),
-            });
-
-            (<FormArray>formGroupAmenagement.controls.fournisseur).push(<FormGroup>formGroupFournisseur)
-
-            formGroupFournisseur.controls.nom.setValue(
-              FourniseurControl.nom
-            );
-
-            formGroupFournisseur.controls.prenom.setValue(
-              FourniseurControl.prenom
-            );
-
-            formGroupFournisseur.controls.amenagement_effectue.setValue(
-              FourniseurControl.amenagement_effectue
-            );
-
+            this.hasAmenagement = false;
+            this.hasAmenagementCheck = "ButtonNon"            
+            this.PvForm.patchValue({
+              has_amenagements: this.hasAmenagement
+            })
 
           }
         }
-
-      }
-    } else {
-      this.hasAmenagement = false;
-      this.PvForm.patchValue({
-        code_lieu: this.Lieu.code_lieu,
-        intitule_lieu: this.Lieu.intitule_lieu,
-        intitule_DR: this.Lieu.intitule_DR,
-        adresse: this.Lieu.adresse,
-        ville: this.Lieu.ville,
-        code_localite: this.Lieu.code_localite,
-        desc_lieu_entrer: this.Lieu.desc_lieu_entrer,
-        imgs_lieu_entrer: this.Lieu.imgs_lieu_entrer,
-        has_amenagements: this.Lieu.has_amenagements,
-        superficie: this.Lieu.superficie,
-        telephone: this.Lieu.telephone,
-        fax: this.Lieu.fax,
-        etat_logement_fonction: this.Lieu.etat_logement_fonction,
-        etage: this.Lieu.etage,
-        type_lieu: this.Lieu.type_lieu,
-        code_rattache_DR: this.Lieu.code_rattache_DR,
-        code_rattache_SUP: this.Lieu.code_rattache_SUP,
-        intitule_rattache_SUP_PV: this.Lieu.intitule_rattache_SUP_PV,
-        centre_cout_siege: this.Lieu.centre_cout_siege,
-        categorie_pointVente: this.Lieu.categorie_pointVente,
-        // amenagement inputs
-        nature_amenagement: '',
-        montant_amenagement: '',
-        valeur_nature_chargeP: '',
-        valeur_nature_chargeF: '',
-        numero_facture: '',
-        numero_bon_commande: '',
-        date_passation_commande: '',
-        evaluation_fournisseur: '',
-        date_fin_travaux: '',
-        date_livraison_local: '',
-      });
-    }
   }
 
 
   // Amenagement
-  addAmenagement() {
+  addAmenagement(NewOrOld : string , deleted : boolean ) {
     const amenagementData = new FormGroup({
       nature_amenagement: new FormControl(''),
       montant_amenagement: new FormControl(''),
@@ -249,6 +252,8 @@ export class PvFormComponent implements OnInit, OnDestroy {
       fournisseur: new FormArray([]),
       images_local_apres_amenagement: new FormControl(''),
       croquis_amenagement_via_imagerie: new FormControl(''),
+      deleted: new FormControl(deleted,),
+      NewOrOld : new FormControl(NewOrOld,) ,
     });
 
     (<FormArray>this.PvForm.get('amenagementForm')).push(<FormGroup>amenagementData)
@@ -259,7 +264,23 @@ export class PvFormComponent implements OnInit, OnDestroy {
 
 
   removeAmenagement(index: number) {
-    (<FormArray>this.PvForm.get('amenagementForm')).removeAt(index)
+    // (<FormArray>this.PvForm.get('amenagementForm')).removeAt(index)
+     let Amenagement = <FormArray>this.PvForm.get('amenagementForm');
+    
+    if (Amenagement.value[index].NewOrOld == "NewAmng") {
+      (<FormArray>this.PvForm.get('amenagementForm')).removeAt(index)
+      // console.log(Amenagement);
+
+    }
+    else{
+
+    let element = this.document.getElementById('deleted ' + index ) as HTMLInputElement
+
+    element.value = "True"
+    this.document.getElementById( index.toString() )?.classList.add('d-none');
+    Amenagement.value[index].deleted = true ;
+    // Amenagement.controls[index].value.deleted = "true"
+    }
   }
 
 
@@ -269,11 +290,13 @@ export class PvFormComponent implements OnInit, OnDestroy {
 
 
   // FournisseurData
-  addFournisseur(amenagementForm: any, index: number) {
+  addFournisseur(amenagementForm: any, index: number, NewOrOld:string) {
     let fournisseurData = new FormGroup({
       nom: new FormControl(''),
       prenom: new FormControl(''),
       amenagement_effectue: new FormControl(''),
+      deleted: new FormControl(''),
+      NewOrOld : new FormControl(NewOrOld,) ,
     });
 
     (<FormArray>amenagementForm.controls[index].controls.fournisseur).push(<FormGroup>fournisseurData)
@@ -281,8 +304,23 @@ export class PvFormComponent implements OnInit, OnDestroy {
 
 
 
-  removeFournisseur(amenagementForm: any, index: number) {
-    (<FormArray>amenagementForm.controls[index].controls.fournisseur).removeAt(index)
+  removeFournisseur(amenagementForm: any, indexAmng: number ,indexFourn: number ) {
+
+    let fournisseur = <FormArray>amenagementForm.controls[indexAmng].controls.fournisseur ;
+
+    if (fournisseur.value[indexFourn].NewOrOld == 'New') {
+
+      (<FormArray>amenagementForm.controls[indexAmng].controls.fournisseur).removeAt(indexFourn)
+      
+    }
+    else{
+
+      let element = this.document.getElementById('deleted ' + indexAmng + ' ' + indexFourn.toString() ) as HTMLInputElement
+      element.value = "True"
+      fournisseur.value[indexFourn].deleted = "true";
+
+    }
+    
   }
 
 
@@ -299,7 +337,16 @@ export class PvFormComponent implements OnInit, OnDestroy {
     $('.error-alert').removeClass('active');
   }
 
-
+  hasAmengmnt(HasAmng : string){
+    if (HasAmng == 'Oui') {
+      this.hasAmenagement = true;
+      this.hasAmenagementCheck = ''
+    }
+    else{
+      this.hasAmenagement = false;
+      this.hasAmenagementCheck = 'ButtonNon'
+    }
+  }
 
   addPv() {
     let pvData: Lieu = {
@@ -317,7 +364,7 @@ export class PvFormComponent implements OnInit, OnDestroy {
       fax: this.PvForm.get('fax')?.value,
       etat_logement_fonction: this.PvForm.get('etat_logement_fonction')?.value,
       etage: this.PvForm.get('etage')?.value,
-      type_lieu: this.PvForm.get('type_lieu')?.value,
+      type_lieu: this.LieuName,
       code_rattache_DR: this.PvForm.get('code_rattache_DR')?.value,
       code_rattache_SUP: this.PvForm.get('code_rattache_SUP')?.value,
       intitule_rattache_SUP_PV: this.PvForm.get('intitule_rattache_SUP_PV')?.value,
@@ -347,10 +394,32 @@ export class PvFormComponent implements OnInit, OnDestroy {
     )
   }
 
-
-
   updatePv() {
-    let idlf = this.Lieu._id;
+
+    let id = this.Lieu._id;
+
+    this.isAmenagementEmpty = false;
+
+    if (this.hasAmenagementCheck == "ButtonNon" ) {
+
+      this.isAmenagementEmpty = false;
+      
+    }
+    else{
+
+      this.PvForm.get('amenagementForm')?.value.forEach((element : any) => {
+
+      if (!element.deleted) {
+
+        this.isAmenagementEmpty = true;
+        
+      }
+      
+      
+      }); 
+
+    }
+
     let lfData: Lieu = {
       code_lieu: this.PvForm.get('code_lieu')?.value,
       intitule_lieu: this.PvForm.get('intitule_lieu')?.value,
@@ -360,7 +429,7 @@ export class PvFormComponent implements OnInit, OnDestroy {
       code_localite: this.PvForm.get('code_localite')?.value,
       desc_lieu_entrer: this.PvForm.get('desc_lieu_entrer')?.value,
       imgs_lieu_entrer: this.PvForm.get('imgs_lieu_entrer')?.value,
-      has_amenagements: this.PvForm.get('has_amenagements')?.value,
+      has_amenagements: this.isAmenagementEmpty,
       superficie: this.PvForm.get('superficie')?.value,
       telephone: this.PvForm.get('telephone')?.value,
       fax: this.PvForm.get('fax')?.value,
@@ -377,14 +446,16 @@ export class PvFormComponent implements OnInit, OnDestroy {
       amenagement: this.PvForm.get('amenagementForm')?.value,
     }
 
-    this.lieuService.updateLieux(idlf, lfData).subscribe(
+    console.log(lfData);
+
+    this.lieuService.updateLieux(id , lfData).subscribe(
       (_) => {
         this.UpdateDone = true;
         setTimeout(() => {
           this.mainModalService.close();
           this.PvForm.reset();
           this.UpdateDone = false;
-          location.reload();
+          // location.reload();
         }, 2000);
       },
       (error) => {
@@ -413,7 +484,6 @@ export class PvFormComponent implements OnInit, OnDestroy {
     this.Sup$ = this.store.select(getSup)
     this.SupSubscription$ = this.Sup$.subscribe(data => {
       if (!data?.length) this.getDrSup()
-      console.log(data);
 
     })
   }

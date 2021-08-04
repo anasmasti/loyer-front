@@ -1,5 +1,5 @@
 import { getDrWithSupAction } from './../../lieux-store/lieux.actions';
-import { Component, Input, OnInit, OnDestroy, OnChanges } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, OnChanges, Inject } from '@angular/core';
 import { FormControl, FormGroup, FormArray } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Lieu } from 'src/app/models/Lieu';
@@ -9,6 +9,7 @@ import { AppState } from 'src/app/store/app.state';
 import { MainModalService } from '../../../../services/main-modal/main-modal.service';
 import { getDr } from '../../lieux-store/lieux.selector';
 import { Observable, Subscription } from 'rxjs';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'lf-form',
@@ -18,16 +19,20 @@ import { Observable, Subscription } from 'rxjs';
 export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
   modalHeight: string = '40vh';
   hasAmenagement: boolean = false;
+  hasAmenagementCheck: string = "";
   etatLogement = '';
   isReplace: string = '';
   amenagementList: any = [];
   Dr$!: Observable<any>;
   DrSubscription$!: Subscription;
   lieux: Lieu[] = [];
-
+  isAmenagementEmpty : boolean = true
+  
+  
   @Input() update!: boolean;
   @Input() Lieu!: any;
-
+  @Input() LieuName!: string;
+  
   lF !: Lieu;
   LfForm!: FormGroup;
   errors!: string;
@@ -35,28 +40,29 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
   PostSucces: string = 'Logement de fonction ajouté avec succés';
   UpdateDone: boolean = false;
   UpdateSucces: string = 'Point de vente modifié avec succés';
-
-
-
+  
+  
+  
   constructor(
     private mainModalService: MainModalService,
     private mainModel: MainModalService,
     private confirmationModalService: ConfirmationModalService,
     private lieuService: LieuxService,
     private store: Store<AppState>,
-  ) { }
-
-
-
-  ngOnChanges() {
-    if (this.Lieu !== "") {
-      setTimeout(() => {
-        this.fetchLf();
-      }, 100);
+    @Inject(DOCUMENT) private document: Document
+    ) { }
+    
+    
+    
+    ngOnChanges() {
+      if (this.Lieu !== "") {
+        setTimeout(() => {
+          this.fetchLf('Default');
+        }, 100);
     }
   }
 
-
+  
   lieu: Lieu = {
     _id: 'Chargement...',
     code_lieu: 'Chargement...',
@@ -80,7 +86,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
     centre_cout_siege: 'Chargement...',
     categorie_pointVente: 'Chargement...',
     deleted: false,
-
+    
     directeur_regional: [
       {
         matricule: 'Chargement...',
@@ -104,7 +110,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
         date_fin_travaux: 'Chargement...',
         date_livraison_local: 'Chargement...',
         deleted: false,
-
+        
         fournisseur: [{
           nom: 'Chargement...',
           prenom: 'Chargement...',
@@ -115,17 +121,12 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
     ]
 
   };
-
-
-
-
+   
   //////////////////////////////////////////////////////////////////////////////////
   showEtatLogement() {
     this.etatLogement = this.LfForm.value.etat_logement_fonction;
   }
-
-
-
+  
   //////////////////////////////////////////////////////////////////////////////////
   ngOnInit(): void {
     this.LfForm = new FormGroup({
@@ -149,26 +150,186 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
       superficie: new FormControl('',),
       telephone: new FormControl('',),
       fax: new FormControl('',),
-
+      
       //Directeur
       matricule_directeur: new FormControl(''),
       nom_directeur: new FormControl(''),
       prenom_directeur: new FormControl(''),
       deleted_directeur: new FormControl(''),
-
+      
       //Aménagement
       amenagementForm: new FormArray([]),
-
+      
     });
-
+    
     this.getDr();
-
+    
   }
+  
+  fetchLf(HasAmenagement : string) {
 
+    console.log(this.Lieu);
+    
+    
+    this.removeAllAmenagement();
+  
+    this.etatLogement = this.Lieu.etat_logement_fonction;
+  
+  
+      this.hasAmenagement = true;
+      this.amenagementList = this.Lieu.amenagement;
+      this.LfForm.patchValue({
+        code_lieu: this.Lieu.code_lieu,
+        intitule_lieu: this.Lieu.intitule_lieu,
+        intitule_DR: this.Lieu.intitule_DR,
+        adresse: this.Lieu.adresse,
+        ville: this.Lieu.ville,
+        code_localite: this.Lieu.code_localite,
+        desc_lieu_entrer: this.Lieu.desc_lieu_entrer,
+        imgs_lieu_entrer: this.Lieu.imgs_lieu_entrer,
+        has_amenagements: this.Lieu.has_amenagements,
+        superficie: this.Lieu.superficie,
+        telephone: this.Lieu.telephone,
+        fax: this.Lieu.fax,
+        etat_logement_fonction: this.Lieu.etat_logement_fonction,
+        etage: this.Lieu.etage,
+        type_lieu: this.Lieu.type_lieu,
+        code_rattache_DR: this.Lieu.code_rattache_DR,
+        code_rattache_SUP: this.Lieu.code_rattache_SUP,
+        intitule_rattache_SUP_PV: this.Lieu.intitule_rattache_SUP_PV,
+        centre_cout_siege: this.Lieu.centre_cout_siege,
+        categorie_pointVente: this.Lieu.categorie_pointVente,
+  
+  
+        // directeur_regional
+        matricule_directeur: this.Lieu.directeur_regional.matricule,
+        nom_directeur: this.Lieu.directeur_regional.nom,
+        prenom_directeur: this.Lieu.directeur_regional.prenom,
+      });
+  
+  
+        // Amenagement 
+        this.amenagementList = this.Lieu.amenagement;
+    
+        //amenagement inputs
+        this.Lieu.amenagement.forEach( ( LieuControl : any , index : any ) => {
 
+          let formGroupAmenagement = this.addAmenagement('OldAmng' , LieuControl.deleted );
+          
+          formGroupAmenagement.controls.nature_amenagement.setValue(
+            LieuControl.nature_amenagement
+            );
+            
+          formGroupAmenagement.controls.montant_amenagement.setValue(
+            LieuControl.montant_amenagement
+          );
+            
+          formGroupAmenagement.controls.valeur_nature_chargeProprietaire.setValue(
+            LieuControl.valeur_nature_chargeProprietaire
+          );
+              
+          formGroupAmenagement.controls.valeur_nature_chargeFondation.setValue(
+            LieuControl.valeur_nature_chargeFondation
+          );
+                
+          formGroupAmenagement.controls.numero_facture.setValue(
+            LieuControl.numero_facture
+          );
+                  
+          formGroupAmenagement.controls.numero_bon_commande.setValue(
+            LieuControl.numero_bon_commande
+          );
+                    
+          formGroupAmenagement.controls.date_passation_commande.setValue(
+            LieuControl.date_passation_commande
+          );
+          
+          formGroupAmenagement.controls.evaluation_fournisseur.setValue(
+            LieuControl.evaluation_fournisseur
+          );
+            
+          formGroupAmenagement.controls.date_fin_travaux.setValue(
+            LieuControl.date_fin_travaux
+          );
+            
+          formGroupAmenagement.controls.date_livraison_local.setValue(
+            LieuControl.date_livraison_local
+          );
+              
+          formGroupAmenagement.controls.deleted.setValue(
+            LieuControl.deleted
+          );
+                
+                
+            if (LieuControl.fournisseur.length !== 0) {
+                  
+              for (let  FourniseurControl  of LieuControl.fournisseur ) {
+                    
+                      
+                  let formGroupFournisseur = new FormGroup({
+                    nom: new FormControl(''),
+                    prenom: new FormControl(''),
+                    amenagement_effectue: new FormControl(''),
+                    deleted: new FormControl('Test'),
+                      NewOrOld : new FormControl('old',) ,
+                    });
+                      
+                  (<FormArray>formGroupAmenagement.controls.fournisseur).push(<FormGroup>formGroupFournisseur)
+                  
+                  formGroupFournisseur.controls.nom.setValue(
+                    FourniseurControl.nom
+                  );
+                        
+                  formGroupFournisseur.controls.prenom.setValue(
+                    FourniseurControl.prenom
+                  );
+          
+                  formGroupFournisseur.controls.amenagement_effectue.setValue(
+                    FourniseurControl.amenagement_effectue
+                  );
+                            
+                  formGroupFournisseur.controls.deleted.setValue(
+                    FourniseurControl.deleted
+                  );
+                    
+    
+              }
 
+            }
+              
+                if (!LieuControl.deleted) {
+                  
+                  this.hasAmenagement = true
+                  
+                }
+              
+      });
+
+        if ( HasAmenagement == "Oui" ) {
+
+          this.hasAmenagement = true;
+          this.hasAmenagementCheck = ""
+          this.LfForm.patchValue({
+            has_amenagements: this.hasAmenagement
+          })
+          
+        }
+        else{
+          if ( HasAmenagement != "Default" ) {
+
+            this.hasAmenagement = false;
+            this.hasAmenagementCheck = "ButtonNon"            
+            this.LfForm.patchValue({
+              has_amenagements: this.hasAmenagement
+            })
+            console.log("Test");
+            
+          }
+        }
+  }
+  
   // Amenagement
-  addAmenagement() {
+  addAmenagement(NewOrOld : string , deleted : boolean) {
     const amenagementData = new FormGroup({
       nature_amenagement: new FormControl(''),
       montant_amenagement: new FormControl(''),
@@ -183,6 +344,8 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
       fournisseur: new FormArray([]),
       images_local_apres_amenagement: new FormControl(''),
       croquis_amenagement_via_imagerie: new FormControl(''),
+      deleted: new FormControl(deleted,),
+      NewOrOld : new FormControl(NewOrOld,) ,
     });
 
     (<FormArray>this.LfForm.get('amenagementForm')).push(<FormGroup>amenagementData)
@@ -191,44 +354,78 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
 
   }
 
-
-
   removeAmenagement(index: number) {
-    (<FormArray>this.LfForm.get('amenagementForm')).removeAt(index)
+    // (<FormArray>this.LfForm.get('amenagementForm')).removeAt(index)
+    let Amenagement = <FormArray>this.LfForm.get('amenagementForm');
+    
+    if (Amenagement.value[index].NewOrOld == "NewAmng") {
+      (<FormArray>this.LfForm.get('amenagementForm')).removeAt(index)
+      // console.log(Amenagement);
+
+    }
+    else{
+
+    let element = this.document.getElementById('deleted ' + index ) as HTMLInputElement
+
+    element.value = "True"
+    this.document.getElementById( index.toString() )?.classList.add('d-none');
+    Amenagement.value[index].deleted = true ;
+    // Amenagement.controls[index].value.deleted = "true"
+    console.log(Amenagement);
+    }
+
   }
-
-
 
   removeAllAmenagement() {
     (<FormArray>this.LfForm.get('amenagementForm')).clear();
   }
 
-
-
   // FournisseurData
-  addFournisseur(amenagementForm: any, index: number) {
+  addFournisseur(amenagementForm: any, index: number , NewOrOld:string) {
     let fournisseurData = new FormGroup({
       nom: new FormControl(''),
       prenom: new FormControl(''),
       amenagement_effectue: new FormControl(''),
+      deleted: new FormControl(''),
+      NewOrOld : new FormControl(NewOrOld,) ,
     });
 
     (<FormArray>amenagementForm.controls[index].controls.fournisseur).push(<FormGroup>fournisseurData)
+
+    return (<FormGroup>fournisseurData)
   }
 
+  removeFournisseur(amenagementForm: any, indexAmng: number ,indexFourn: number) {
+    let fournisseur = <FormArray>amenagementForm.controls[indexAmng].controls.fournisseur ;
 
+    if (fournisseur.value[indexFourn].NewOrOld == 'New') {
 
-  removeFournisseur(amenagementForm: any, index: number) {
-    (<FormArray>amenagementForm.controls[index].controls.fournisseur).removeAt(index)
+      (<FormArray>amenagementForm.controls[indexAmng].controls.fournisseur).removeAt(indexFourn)
+      
+    }
+    else{
+
+      let element = this.document.getElementById('deleted ' + indexAmng + ' ' + indexFourn.toString() ) as HTMLInputElement
+      element.value = "True"
+      fournisseur.value[indexFourn].deleted = "true";
+
+    }
   }
-
-
 
   getFournisseur(amenagementForm: any, i: number) {
     return (amenagementForm.controls[i].controls.fournisseur).controls
   }
 
-
+  hasAmengmnt(HasAmng : string){
+    if (HasAmng == 'Oui') {
+      this.hasAmenagement = true;
+      this.hasAmenagementCheck = ''
+    }
+    else{
+      this.hasAmenagement = false;
+      this.hasAmenagementCheck = 'ButtonNon'
+    }
+  }
 
   //////////////////////////////////////////////////////////////////////////////////
   openReplaceModal(active: any) {
@@ -237,29 +434,21 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
     // this.confirmationModalService.open();
   }
 
-
-
   //////////////////////////////////////////////////////////////////////////////////
   closeReplaceModal() {
     // this.isReplace = false;
     this.mainModalService.close();
   }
 
-
-
   //////////////////////////////////////////////////////////////////////////////////
   openConfirmationModal() {
     this.confirmationModalService.open();
   }
 
-
-
   //////////////////////////////////////////////////////////////////////////////////
   openUpdate() {
     this.mainModalService.open();
   }
-
-
 
   //////////////////////////////////////////////////////////////////////////////////
   closeConfirmationModal() {
@@ -267,28 +456,20 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
     // this.isReplace='';
   }
 
-
-
   //////////////////////////////////////////////////////////////////////////////////
   switchIsReplace() {
     this.isReplace = '';
   }
-
-
 
   // Afficher le message d'erreur de serveur
   showErrorMessage() {
     $('.error-alert').addClass('active');
   }
 
-
-
   // hide le message d'erreur de serveur
   hideErrorMessage() {
     $('.error-alert').removeClass('active');
   }
-
-
 
   //////////////////////////////////////////////////////////////////////////////////
   addLf() {
@@ -307,7 +488,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
       fax: this.LfForm.get('fax')?.value,
       etat_logement_fonction: this.LfForm.get('etat_logement_fonction')?.value,
       etage: this.LfForm.get('etage')?.value,
-      type_lieu: this.LfForm.get('type_lieu')?.value,
+      type_lieu: this.LieuName,
       code_rattache_DR: this.LfForm.get('code_rattache_DR')?.value,
       code_rattache_SUP: this.LfForm.get('code_rattache_SUP')?.value,
       intitule_rattache_SUP_PV: this.LfForm.get('intitule_rattache_SUP_PV')?.value,
@@ -345,168 +526,34 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
     )
   }
 
-
-
   //////////////////////////////////////////////////////////////////////////////////
-  fetchLf() {
 
-    this.removeAllAmenagement();
-
-    this.etatLogement = this.Lieu.etat_logement_fonction;
-
-
-    if (this.Lieu.has_amenagements) {
-      this.hasAmenagement = true;
-      this.amenagementList = this.Lieu.amenagement;
-      this.LfForm.patchValue({
-        code_lieu: this.Lieu.code_lieu,
-        intitule_lieu: this.Lieu.intitule_lieu,
-        intitule_DR: this.Lieu.intitule_DR,
-        adresse: this.Lieu.adresse,
-        ville: this.Lieu.ville,
-        code_localite: this.Lieu.code_localite,
-        desc_lieu_entrer: this.Lieu.desc_lieu_entrer,
-        imgs_lieu_entrer: this.Lieu.imgs_lieu_entrer,
-        has_amenagements: this.Lieu.has_amenagements,
-        superficie: this.Lieu.superficie,
-        telephone: this.Lieu.telephone,
-        fax: this.Lieu.fax,
-        etat_logement_fonction: this.Lieu.etat_logement_fonction,
-        etage: this.Lieu.etage,
-        type_lieu: this.Lieu.type_lieu,
-        code_rattache_DR: this.Lieu.code_rattache_DR,
-        code_rattache_SUP: this.Lieu.code_rattache_SUP,
-        intitule_rattache_SUP_PV: this.Lieu.intitule_rattache_SUP_PV,
-        centre_cout_siege: this.Lieu.centre_cout_siege,
-        categorie_pointVente: this.Lieu.categorie_pointVente,
-
-
-        // directeur_regional
-        matricule_directeur: this.Lieu.directeur_regional.matricule,
-        nom_directeur: this.Lieu.directeur_regional.nom,
-        prenom_directeur: this.Lieu.directeur_regional.prenom,
-      });
-
-
-      // Amenagement
-      for (let LieuControl of this.Lieu.amenagement) {
-
-        let formGroupAmenagement = this.addAmenagement();
-
-        formGroupAmenagement.controls.nature_amenagement.setValue(
-          LieuControl.nature_amenagement
-        );
-
-        formGroupAmenagement.controls.montant_amenagement.setValue(
-          LieuControl.montant_amenagement
-        );
-
-        formGroupAmenagement.controls.valeur_nature_chargeProprietaire.setValue(
-          LieuControl.valeur_nature_chargeProprietaire
-        );
-
-        formGroupAmenagement.controls.valeur_nature_chargeFondation.setValue(
-          LieuControl.valeur_nature_chargeFondation
-        );
-
-        formGroupAmenagement.controls.numero_facture.setValue(
-          LieuControl.numero_facture
-        );
-
-        formGroupAmenagement.controls.numero_bon_commande.setValue(
-          LieuControl.numero_bon_commande
-        );
-
-        formGroupAmenagement.controls.date_passation_commande.setValue(
-          LieuControl.date_passation_commande
-        );
-
-        formGroupAmenagement.controls.evaluation_fournisseur.setValue(
-          LieuControl.evaluation_fournisseur
-        );
-
-        formGroupAmenagement.controls.date_fin_travaux.setValue(
-          LieuControl.date_fin_travaux
-        );
-
-        formGroupAmenagement.controls.date_livraison_local.setValue(
-          LieuControl.date_livraison_local
-        );
-
-
-
-        if (LieuControl.fournisseur.length !== 0) {
-          for (let FourniseurControl of LieuControl.fournisseur) {
-
-            let formGroupFournisseur = new FormGroup({
-              nom: new FormControl(''),
-              prenom: new FormControl(''),
-              amenagement_effectue: new FormControl(''),
-            });
-
-            (<FormArray>formGroupAmenagement.controls.fournisseur).push(<FormGroup>formGroupFournisseur)
-
-            formGroupFournisseur.controls.nom.setValue(
-              FourniseurControl.nom
-            );
-
-            formGroupFournisseur.controls.prenom.setValue(
-              FourniseurControl.prenom
-            );
-
-            formGroupFournisseur.controls.amenagement_effectue.setValue(
-              FourniseurControl.amenagement_effectue
-            );
-
-
-          }
-        }
-
-      }
-    } else {
-      this.hasAmenagement = false;
-      this.LfForm.patchValue({
-        code_lieu: this.Lieu.code_lieu,
-        intitule_lieu: this.Lieu.intitule_lieu,
-        intitule_DR: this.Lieu.intitule_DR,
-        adresse: this.Lieu.adresse,
-        ville: this.Lieu.ville,
-        code_localite: this.Lieu.code_localite,
-        desc_lieu_entrer: this.Lieu.desc_lieu_entrer,
-        imgs_lieu_entrer: this.Lieu.imgs_lieu_entrer,
-        has_amenagements: this.Lieu.has_amenagements,
-        superficie: this.Lieu.superficie,
-        telephone: this.Lieu.telephone,
-        fax: this.Lieu.fax,
-        etat_logement_fonction: this.Lieu.etat_logement_fonction,
-        etage: this.Lieu.etage,
-        type_lieu: this.Lieu.type_lieu,
-        code_rattache_DR: this.Lieu.code_rattache_DR,
-        code_rattache_SUP: this.Lieu.code_rattache_SUP,
-        intitule_rattache_SUP_PV: this.Lieu.intitule_rattache_SUP_PV,
-        centre_cout_siege: this.Lieu.centre_cout_siege,
-        categorie_pointVente: this.Lieu.categorie_pointVente,
-
-        // amenagement inputs
-        nature_amenagement: '',
-        montant_amenagement: '',
-        valeur_nature_chargeP: '',
-        valeur_nature_chargeF: '',
-        numero_facture: '',
-        numero_bon_commande: '',
-        date_passation_commande: '',
-        evaluation_fournisseur: '',
-        date_fin_travaux: '',
-        date_livraison_local: '',
-      });
-    }
-  }
-
-
-
-  //////////////////////////////////////////////////////////////////////////////////
   updateLf() {
     let idlf = this.Lieu._id;
+
+    this.isAmenagementEmpty = false;
+
+    if (this.hasAmenagementCheck == "ButtonNon" ) {
+
+      this.isAmenagementEmpty = false;
+      
+    }
+    else{
+
+      this.LfForm.get('amenagementForm')?.value.forEach((element : any) => {
+
+      if (!element.deleted) {
+
+        this.isAmenagementEmpty = true;
+        
+      }
+      
+      
+      }); 
+
+    }
+
+
     let lfData: Lieu = {
       code_lieu: this.LfForm.get('code_lieu')?.value,
       intitule_lieu: this.LfForm.get('intitule_lieu')?.value,
@@ -516,7 +563,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
       code_localite: this.LfForm.get('code_localite')?.value,
       desc_lieu_entrer: this.LfForm.get('desc_lieu_entrer')?.value,
       imgs_lieu_entrer: this.LfForm.get('imgs_lieu_entrer')?.value,
-      has_amenagements: this.LfForm.get('has_amenagements')?.value,
+      has_amenagements: this.isAmenagementEmpty,
       superficie: this.LfForm.get('superficie')?.value,
       telephone: this.LfForm.get('telephone')?.value,
       fax: this.LfForm.get('fax')?.value,
@@ -542,14 +589,17 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
       amenagement: this.LfForm.get('amenagementForm')?.value,
     }
 
+    console.log(lfData);
+
+
     this.lieuService.updateLieux(idlf, lfData).subscribe(
       (_) => {
         this.UpdateDone = true;
         setTimeout(() => {
-          this.mainModalService.close();
-          this.LfForm.reset();
+          // this.mainModalService.close();
+          // this.LfForm.reset();
           this.UpdateDone = false;
-          location.reload();
+          // location.reload();
         }, 2000);
       },
       (error) => {
@@ -567,6 +617,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
   getDrSup() {
     return this.store.dispatch(getDrWithSupAction())
   }
+
   // Select Dr
   getDr() {
     this.Dr$ = this.store.select(getDr)
@@ -582,7 +633,6 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   //////////////////////////////////////////////////////////////////////////////////
-
 
   get code_lieu() {
     return this.LfForm.get('code_lieu');

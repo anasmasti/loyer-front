@@ -9,7 +9,9 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
+
 export class LieuxService {
+
   constructor(private http: HttpClient) { }
 
   param_url: string = 'lieu';
@@ -39,10 +41,21 @@ export class LieuxService {
   }
 
   // Update the proprietaire
-  updateLieux(id: string, data: Lieu): Observable<Lieu> {
-    return this.http.put<Lieu>(
-      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url
-      }/modifier/${id}`,
+  updateLieux(id: any, data: Lieu): Observable<Lieu> {
+      return this.http.patch<Lieu>(
+        `${
+          environment.API_URL_TEST + environment.API_VERSION + this.param_url
+        }/modifier/${id}`,
+        data,
+        { headers: this.httpOptions.headers }
+      );
+  }
+
+  deleteLieu(id: any, data: any): Observable<Lieu> {
+    return this.http.patch<Lieu>(
+      `${
+        environment.API_URL_TEST + environment.API_VERSION + this.param_url
+      }/delete/${id}`,
       data,
       { headers: this.httpOptions.headers }
     );
@@ -56,13 +69,10 @@ export class LieuxService {
     );
   }
 
-
   //get the list of lieux to load the drop down list in contrat component
-  listLieux() {
-    return this.http.get('http://localhost:5000/api/v1/lieu/get');
+  listLieux(){
+    return this.http.get( `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/all-lieu`);
   }
-
-
 
 
 }

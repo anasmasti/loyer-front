@@ -128,10 +128,10 @@
         <div class="col-lg-3 form-group d-flex mt-4">
           <label for="">Oui</label>
           <input type="radio" name="has_amenagements" [value]="true" class="form-check-input mx-2"
-            [(ngModel)]="hasAmenagement" formControlName="has_amenagements" />
+            [(ngModel)]="hasAmenagement" formControlName="has_amenagements" (click)="hasAmengmnt('Oui')" />
           <label for="">Non</label>
           <input type="radio" name="has_amenagements" [value]="false" class="form-check-input mx-2"
-            [(ngModel)]="hasAmenagement" formControlName="has_amenagements" />
+            [(ngModel)]="hasAmenagement" formControlName="has_amenagements" (click)="hasAmengmnt('Non')" />
         </div>
 
         <!-- Condition pour afficher ou cacher le formulaire de Aménagement -->
@@ -148,7 +148,7 @@
             <div class="margin-main col-lg-12 mt-3">
               <div class="d-flex justify-content-between">
                 <h4 class="main-text">Aménagement</h4>
-                <a (click)="addAmenagement()" class="btn second-btn">Ajouter amenagement</a>
+                <a (click)="addAmenagement('NewAmng' , false)" class="btn second-btn">Ajouter amenagement</a>
               </div>
             </div>
           </div>
@@ -156,7 +156,7 @@
           <!--Début de Conteneur Aménagement-->
           <div formArrayName="amenagementForm" *ngFor="let item of amenagementForm.controls; let i = index">
 
-            <div class="main-card mt-4 bg-white p-lg-4" [formGroupName]="i">
+            <div class="main-card mt-4 bg-white p-lg-4" *ngIf=" !amenagementForm.controls[i].value.deleted " [formGroupName]="i" id="{{ i }}">
               <a (click)="removeAmenagement(i)" class="btn btn-sm danger-btn float-end"><i class="fal fa-trash"></i></a>
 
               <div class="row">
@@ -201,13 +201,13 @@
 
                 <div class="col-lg-12 form-group my-4">
                   <label for="">Fournisseur</label>
-                  <a (click)="addFournisseur(amenagementForm, i)" class="btn btn-sm second-btn mx-2 mx-lg-4">Ajouter
+                  <a (click)="addFournisseur(amenagementForm, i, 'New')" class="btn btn-sm second-btn mx-2 mx-lg-4">Ajouter
                     fournisseur</a>
                   <div formArrayName="fournisseur"
                     *ngFor="let item of getFournisseur(amenagementForm, i); let j = index">
 
-                    <div [formGroupName]="j" class="main-card mt-4 bg-white p-lg-4">
-                      <a (click)="removeFournisseur(amenagementForm, j)" class="btn btn-sm danger-btn float-end"><i
+                    <div [formGroupName]="j" *ngIf="!amenagementForm.controls[i].value.fournisseur[j].deleted" class="main-card mt-4 bg-white p-lg-4">
+                      <a (click)="removeFournisseur( amenagementForm, i , j )" class="btn btn-sm danger-btn float-end"><i
                           class="fal fa-trash"></i></a>
                       <div class="row">
                         <div class="col-lg-3 form-group">
@@ -224,6 +224,7 @@
                           <label for="">Amenagement éffectué</label>
                           <input type="text" class="form-control rounded-pill" formControlName="amenagement_effectue" />
                         </div>
+                        <input type="hidden" id="{{ 'deleted ' + i + ' ' + j }}" formControlName="deleted"  />
                       </div>
                     </div>
                   </div>
@@ -257,6 +258,8 @@
                 </div>
 
               </div>
+
+              <input type="hidden" id="{{ 'deleted ' + i }}" formControlName="deleted"  />
 
             </div>
 

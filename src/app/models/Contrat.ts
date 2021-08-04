@@ -1,4 +1,5 @@
 export interface Contrat {
+    _id:String,
     numero_contrat: String, 
     date_debut_loyer: Date, 
     date_fin_contrat: Date, 
@@ -25,7 +26,7 @@ export interface Contrat {
     type_lieu: String, 
     lieu: String,
     protrietaire: String, 
-    etat_contrat:{
+    etat_contrat:[{
        libelle: String, 
        etat: {
             n_avenant: String,
@@ -41,7 +42,7 @@ export interface Contrat {
             etat_lieu_sortie:String,
             preavis: String
        }
-    } ,
+    } ],
     deleted:boolean
 }
 

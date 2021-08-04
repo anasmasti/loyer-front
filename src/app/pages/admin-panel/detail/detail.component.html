@@ -1,0 +1,42 @@
+<div class="row title  ">
+    <div class="col-lg-12 mt-3">
+        <div class="d-flex justify-content-between">
+            <h3 class="main-title">
+                <a [routerLink]="['/admin']" class="goback-link">Liste des
+                    users</a>/<span class="selected-text">{{ user?.nom }}</span>
+            </h3>
+            <div class="d-none d-lg-block">
+                <a [routerLink]="['/admin']" class="btn btn-sm second-btn me-3 " data-bs-toggle="tooltip"
+                    data-bs-placement="top" title="Retour à la liste"><i class="far fa-arrow-left"></i>
+                    Retour à la liste des utilisateurs
+                </a>
+                <span data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Ici vous pouvez voir les détails de  proprietaire.nom_prenom ">
+                    <i class="fal fa-info"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-card p-lg-4 mt-4 table-responsive bg-white">
+
+    <table class="table" cellspacing="0" width="100%">
+        <tbody>
+            <tr>
+                <th>Nom</th>
+                <td>{{user?.nom}}</td>
+            </tr>
+            <tr>
+                <th>Prenon</th>
+                <td>{{user?.prenom}}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+</div>

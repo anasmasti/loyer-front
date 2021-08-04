@@ -29,9 +29,8 @@ export class LieuxComponent implements OnInit {
     },
   ];
   activeLieux = '';
-
   Lieu:any = "";
-  // LieuName:
+  LieuName!:string;
 
   constructor() {}
 
@@ -44,6 +43,6 @@ export class LieuxComponent implements OnInit {
 
 
   getLieuName(name : string){
-
+    this.LieuName = name;
   }
 }
