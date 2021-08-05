@@ -32,7 +32,7 @@ export class ListContratComponent implements OnInit {
   }
 
   getContrat() {
-    this.contratService.getContrat().subscribe((data: any) => {
+    this.contratService.getContrat().subscribe((data:any) => {
       this.contrats = data;
     });
   }

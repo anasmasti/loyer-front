@@ -20,7 +20,7 @@ export class ProprietaireService {
   constructor(private http: HttpClient) {}
 
   getProps(){
-    return this.http.get('http://192.168.11.129:5000/api/v1/proprietaire/tous');
+    return this.http.get('http://192.168.11.118:5000/api/v1/proprietaire/tous');
   }
 
   // Get list of all proprietaires from database
