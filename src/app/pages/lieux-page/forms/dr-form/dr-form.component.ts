@@ -438,11 +438,11 @@ export class DrFormComponent implements OnInit {
       (_) => {
         this.postDone = true;
         setTimeout(() => {
-          // this.drForm.controls
+          this.drForm.controls
           this.mainModalService.close();
           this.drForm.reset();
           this.postDone = false;
-          // location.reload();
+          location.reload();
         }, 2000);
       },
       (error) => {

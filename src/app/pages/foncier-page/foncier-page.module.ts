@@ -9,6 +9,11 @@ import { FoncierEditComponent } from './foncier-edit/foncier-edit.component';
 import { FoncierDetailComponent } from './foncier-detail/foncier-detail.component';
 import { FoncierComponent } from './foncier/foncier.component';
 import { FoncierFormComponent } from './foncier-form/foncier-form.component';
+import { foncierReducer } from './foncier-store/foncier.reducer';
+import { FoncierEffects } from './foncier-store/foncier.effect';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 
 
 const route: Routes = [
@@ -33,6 +38,9 @@ const route: Routes = [
     ReactiveFormsModule,
     MainModalModule,
     ConfirmationModalModule,
+    StoreModule.forFeature('foncier', foncierReducer),
+    EffectsModule.forFeature([FoncierEffects]),
+    NgxPaginationModule
   ]
 })
 export class FoncierPageModule { }

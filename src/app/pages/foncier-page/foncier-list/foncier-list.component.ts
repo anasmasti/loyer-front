@@ -1,8 +1,14 @@
-import { FoncierService } from './../../../service/foncier-service/foncier.service';
+import { HelperService } from './../../../services/helpers/helper.service';
+import { Subscription } from 'rxjs';
+import { AppState } from 'src/app/store/app.state';
+import { FoncierService } from '../../../services/foncier-service/foncier.service';
 import { MainModalService } from './../../../services/main-modal/main-modal.service';
 import { ConfirmationModalService } from './../../../services/confirmation-modal-service/confirmation-modal.service';
 import { Foncier } from './../../../models/Foncier';
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { getFoncierAction } from '../foncier-store/foncier.actions';
+import { getFonciers } from '../foncier-store/foncier.selector';
 
 @Component({
   selector: 'app-foncier-list',
@@ -14,17 +20,29 @@ export class FoncierListComponent implements OnInit {
   fonciers: any = [];
   id: string = '0';
   targetFoncier!: Foncier;
+  foncierSubscription$!: Subscription
 
   constructor(
-    private foncierService: FoncierService,
+    private helperService: HelperService,
     private mainModalService: MainModalService,
-    private confirmationModalService: ConfirmationModalService
+    private confirmationModalService: ConfirmationModalService,
+    private store: Store<AppState>
   ) { }
 
   ngOnInit(): void {
   }
 
-  getContrat() {
+  getFoncier() {
+    // Select foncier from store
+    this.foncierSubscription$ = this.store.select(getFonciers).subscribe((data) => {
+      // Check if foncier data is empty then fetch it from server
+      if (data.length === 0) {
+        // Dispatch action to handle the NgRx get foncier from server effect 
+        this.store.dispatch(getFoncierAction())
+      }
+      this.fonciers = data
+
+    })
 
   }
 
@@ -49,9 +67,6 @@ export class FoncierListComponent implements OnInit {
   }
 
   reload() {
-    setTimeout(() => {
-      this.getContrat();
-    }, 300);
-
+    this.helperService.refrechPage()
   }
 }
