@@ -63,7 +63,7 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Images du local avant aménagement</label>
-          <input type="file" class="form-control btn success-btn" formControlName="imgs_lieu_entrer" multiple />
+          <input type="file" class="form-control btn success-btn" formControlName="imgs_lieu_entrer"/>
         </div>
 
         <div class="col-lg-3 form-group mt-4">
@@ -304,6 +304,9 @@
               <a (click)="removeAmenagement(i)" class="btn btn-sm danger-btn float-end"><i class="fal fa-trash"></i></a>
 
               <div class="row">
+
+                <input type="hidden" ngModel="{{idm + i +'.zip'}}" class="form-control rounded-pill" formControlName="idm"/>
+
                 <div class="col-lg-3 form-group mt-4">
                   <label for="">Nature des travaux d’aménagement</label>
                   <input type="text" class="form-control rounded-pill" formControlName="nature_amenagement" />
@@ -399,7 +402,7 @@
                 <div class="col-lg-3 form-group mt-4">
                   <label for="">Croquis d’aménagement via imagerie</label>
                   <input type="file" class="form-control btn success-btn"
-                    formControlName="croquis_amenagement_via_imagerie" multiple />
+                    formControlName="croquis_amenagement_via_imagerie" />
                 </div>
 
               </div>
@@ -420,7 +423,7 @@
         <button type="submit" class="btn second-btn form-control" *ngIf="Lieu != ''">
           Modifier
         </button>
-        <button type="submit" class="btn second-btn form-control" *ngIf="Lieu == ''">
+        <button type="submit" class="btn second-btn form-control" *ngIf="Lieu == ''" (click)='addFiles()'>
           Ajouter
         </button>
       </div>

@@ -21,10 +21,10 @@ export class DrFormComponent implements OnInit {
   drForm!: FormGroup;
   file!: string;
   fd: FormData = new FormData();
-  fdata: FormData = new FormData();
   idm: any = JSON.stringify(Math.random());
   isAmenagementEmpty: boolean = true;
   i: any = 0;
+  extension: string ='.zip';
 
   @Input() update!: boolean;
   @Input() Lieu!: any;
@@ -33,7 +33,7 @@ export class DrFormComponent implements OnInit {
   LfForm!: FormGroup;
 
   constructor(
-    private drService: LieuxService,
+    private lieuService: LieuxService,
     private mainModalService: MainModalService,
     @Inject(DOCUMENT) private document: Document
   ) {}
@@ -324,24 +324,27 @@ export class DrFormComponent implements OnInit {
     $('.error-alert').removeClass('active');
   }
 
+  //Upload Image amenagement après amenagement
   async onFileSelectedAmenagement(event: any, index: number) {
     
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
-      this.file = this.idm + index;
+      this.file = (this.idm + index) + this.extension;
       await this.fd.append('imgs_amenagement', this.selectedFile, this.file);
     }
   }
 
+  //Upload Croquis
   async onFileSelectedCroquis(event: any, index: number) {
     
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
-      this.file = this.idm + index;
+      this.file = (this.idm + index) + this.extension;
       await this.fd.append('imgs_croquis', this.selectedFile, this.file);
     }
   }
 
+  //Upload Image amenagement avant amenagement
   async onFileSelected(event: any) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
@@ -349,8 +352,9 @@ export class DrFormComponent implements OnInit {
     }
   }
 
+  //Post files
   async addFiles() {
-     await this.drService.uploadFile(this.fd).subscribe(
+     await this.lieuService.uploadFile(this.fd).subscribe(
         (res) => console.log(res),
         (err) => console.log(err)
       )
@@ -381,7 +385,7 @@ export class DrFormComponent implements OnInit {
       amenagement: this.drForm.get('amenagementForm')?.value,
     };
 
-    this.drService.addLieu(dr_data).subscribe(
+    this.lieuService.addLieu(dr_data).subscribe(
       (_) => {
         this.postDone = true;
         setTimeout(() => {
@@ -439,7 +443,7 @@ export class DrFormComponent implements OnInit {
 
     console.log(dr_data);
 
-    this.drService.updateLieux(id, dr_data).subscribe(
+    this.lieuService.updateLieux(id, dr_data).subscribe(
       (_) => {
         this.postDone = true;
         setTimeout(() => {

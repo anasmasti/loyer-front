@@ -33,6 +33,14 @@ export class PvFormComponent implements OnInit, OnDestroy {
   hasAmenagementCheck: string = "";
   isAmenagementEmpty : boolean = true
 
+  selectedFile!: File;
+  file!: string;
+  fd: FormData = new FormData();
+  idm: any = JSON.stringify(Math.random());
+  i: any = 0;
+  extension: string ='.zip';
+
+
   @Input() update!: boolean;
   @Input() Lieu!: any;
   @Input() LieuName!: string;
@@ -239,6 +247,7 @@ export class PvFormComponent implements OnInit, OnDestroy {
   // Amenagement
   addAmenagement(NewOrOld : string , deleted : boolean ) {
     const amenagementData = new FormGroup({
+      idm: new FormControl(''),
       nature_amenagement: new FormControl(''),
       montant_amenagement: new FormControl(''),
       valeur_nature_chargeProprietaire: new FormControl(''),
@@ -323,14 +332,10 @@ export class PvFormComponent implements OnInit, OnDestroy {
     
   }
 
-
-
   // Afficher le message d'erreur de serveur
   showErrorMessage() {
     $('.error-alert').addClass('active');
   }
-
-
 
   // hide le message d'erreur de serveur
   hideErrorMessage() {
@@ -347,6 +352,42 @@ export class PvFormComponent implements OnInit, OnDestroy {
       this.hasAmenagementCheck = 'ButtonNon'
     }
   }
+
+    //Upload Image amenagement après amenagement
+    async onFileSelectedAmenagement(event: any, index: number) {
+    
+      if (event.target.files.length > 0) {
+        this.selectedFile = event.target.files[0];
+        this.file = (this.idm + index) + this.extension;
+        await this.fd.append('imgs_amenagement', this.selectedFile, this.file);
+      }
+    }
+  
+    //Upload Croquis
+    async onFileSelectedCroquis(event: any, index: number) {
+      
+      if (event.target.files.length > 0) {
+        this.selectedFile = event.target.files[0];
+        this.file = (this.idm + index) + this.extension;
+        await this.fd.append('imgs_croquis', this.selectedFile, this.file);
+      }
+    }
+  
+    //Upload Image amenagement avant amenagement
+    async onFileSelected(event: any) {
+      if (event.target.files.length > 0) {
+        this.selectedFile = event.target.files[0];
+        await this.fd.append('imgs_lieu_entrer', this.selectedFile);
+      }
+    }
+  
+    //Post files
+    async addFiles() {
+       await this.lieuService.uploadFile(this.fd).subscribe(
+          (res) => console.log(res),
+          (err) => console.log(err)
+        )
+    }
 
   addPv() {
     let pvData: Lieu = {
