@@ -84,9 +84,9 @@
         <div class="col-lg-3 form-group mt-4">
           <label for="">Etat logement de fonction</label>
           <select class="form-control rounded-pill" formControlName="etat_logement_fonction"
-            (change)="showEtatLogement()">
-            <option value="disponible">Disponible</option>
-            <option value="occupe">Occupé</option>
+            (change)="showEtatLogement()" >
+            <option value="disponible" [disabled]="(Lieu != '') ? 'disabled' : false" >Disponible</option>
+            <option value="occupe" [disabled]="(Lieu != '') ? 'disabled' : false" >Occupé</option>
           </select>
         </div>
 
@@ -112,20 +112,20 @@
 
 
                 <div class="d-flex justify-content-start main-card bg-white p-3 ">
-                  <div>
-                    <h5 class="card-title">Ahmad Alaoui</h5>
+                  <div *ngIf="etatLogement == 'occupe'">
+                    <h5 class="card-title">{{ FullNameDerct }}</h5>
                     <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
                   </div>
                   <div class="ms-3">
-                    <a class="btn btn-sm success-btn rounded-pill" (click)='openReplaceModal("remplacer")'>
-                      Remplacer
-                      <i class="fal fa-sync"></i>
+                    <a class="btn btn-sm success-btn rounded-pill" (click)='openReplaceModal("remplacer");' >
+                      <span *ngIf="etatLogement == 'occupe'">Remplacer <i [class]=" 'fal fa-sync' "></i></span>
+                      <span class="mx-3" *ngIf="etatLogement != 'occupe'">Ajoute <i [class]=" 'fal fa-plus' "></i></span>
                     </a>
-                    <a class="btn btn-sm info-btn mx-2 rounded-pill" (click)='openReplaceModal("modifier")'>
+                    <a class="btn btn-sm info-btn mx-2 rounded-pill" *ngIf="etatLogement == 'occupe'" (click)=" openReplaceModal('modifier') " >
                       Modifier
                       <i class="far fa-user-edit"></i>
                     </a>
-                    <a class="btn btn-sm danger-btn rounded-pill" (click)='openConfirmationModal();switchIsReplace();'>
+                    <a class="btn btn-sm danger-btn rounded-pill" *ngIf="etatLogement == 'occupe'" (click)='openConfirmationModal();switchIsReplace();'>
                       Supprimer
                       <i class="far fa-user-minus"></i>
                     </a>
@@ -148,23 +148,23 @@
                     <div class="row">
                       <div class="col-lg-3 form-group mt-4">
                         <label for="">Matricule du Directeur</label>
-                        <input type="text" class="form-control rounded-pill" formControlName="matricule_directeur"/>
+                        <input type="text" class="form-control rounded-pill" id="Mat_directeur" />
                       </div>
   
                       <div class="col-lg-3 form-group mt-4">
                         <label for="">Nom du Directeur</label>
-                        <input type="text" class="form-control rounded-pill" formControlName="nom_directeur"/>
+                        <input type="text" class="form-control rounded-pill" id="Nom_directeur" />
                       </div>
   
                       <div class="col-lg-3 form-group mt-4">
                         <label for="">Prénom du Directeur</label>
-                        <input type="text" class="form-control rounded-pill" formControlName="prenom_directeur" />
+                        <input type="text" class="form-control rounded-pill" id="Prenom_directeur" />
                       </div>
   
                       <div class="col-lg-3 form-group mt-5">
                          <a class="btn second-btn form-control" (click)="openConfirmationModal()">
-                        Remplacer
-                      </a>
+                          Remplacer
+                         </a>
                       </div>
                      
                     </div>
@@ -196,7 +196,7 @@
                       </div>
   
                       <div class="col-lg-3 form-group mt-5">
-                        <a class="btn second-btn form-control" *ngIf="isReplace == 'modifier'">
+                        <a class="btn second-btn form-control" *ngIf="isReplace == 'modifier'" (click)='ModifierDirecteur()'>
                       Modifier
                         </a>
                       </div>
@@ -220,7 +220,7 @@
                       <br> <span align='center'>Voulez vous vraiment supprimer ce directeur?</span>
                     </p>
                     <div class="d-inline-flex justify-content-start mt-5">
-                      <a class="btn btn-lg px-lg-4 danger-btn me-2">Oui</a>
+                      <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)="RemplacerDirecteur()">Oui</a>
                       <a class="btn btn-lg px-lg-4 main-btn" (click)='closeConfirmationModal()'>Non</a>
                     </div>
                   </ng-template>
@@ -229,7 +229,7 @@
                     <h3 class="main-title">Confirmation de la supression <i class="far fa-exclamation-circle"></i></h3>
                     <p class="mt-3">Voulez vous vraiment supprimer ce directeur?</p>
                     <div class="d-inline-flex justify-content-start mt-5">
-                      <a class="btn btn-lg px-lg-4 danger-btn me-2">Oui</a>
+                      <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)="SupprimerDirecteur()">Oui</a>
                       <a class="btn btn-lg px-lg-4 main-btn" (click)='closeConfirmationModal()'>Non</a>
                     </div>
                   </ng-template>
@@ -253,17 +253,17 @@
 
             <div class="col-lg-3 form-group mt-4">
               <label for="">Matricule du Directeur Régional</label>
-              <input type="text" class="form-control rounded-pill" formControlName="matricule_directeur" />
+              <input type="text" class="form-control rounded-pill " formControlName="matricule_directeur" [readOnly]="Lieu != ''" />
             </div>
 
             <div class="col-lg-3 form-group mt-4">
               <label for="">Nom du Directeur Régional</label>
-              <input type="text" class="form-control rounded-pill" formControlName="nom_directeur" />
+              <input type="text" class="form-control rounded-pill " formControlName="nom_directeur" [readOnly]="Lieu != ''" />
             </div>
 
             <div class="col-lg-3 form-group mt-4">
               <label for="">Prénom du Directeur Régional</label>
-              <input type="text" class="form-control rounded-pill" formControlName="prenom_directeur" />
+              <input type="text" class="form-control rounded-pill " formControlName="prenom_directeur" [readOnly]="Lieu != ''" />
             </div>
           </ng-template>
         </div>
@@ -275,7 +275,7 @@
             [(ngModel)]="hasAmenagement" formControlName="has_amenagements" (click)="hasAmengmnt('Oui')" />
           <label for="">Non</label>
           <input type="radio" name="has_amenagements" [value]="false" class="form-check-input mx-2"
-            [(ngModel)]="hasAmenagement" formControlName="has_amenagements" (click)="hasAmengmnt('Oui')" />
+            [(ngModel)]="hasAmenagement" formControlName="has_amenagements" (click)="hasAmengmnt('Non')" />
         </div>
 
         <!-- Condition pour afficher ou cacher le formulaire de Aménagement -->

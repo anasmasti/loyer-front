@@ -474,7 +474,7 @@ export class SvFormComponent implements OnInit, OnDestroy {
           this.mainModalService.close();
           this.svForm.reset();
           this.UpdateDone = false;
-          // location.reload();
+          location.reload();
         }, 2000);
       },
       (error) => {
