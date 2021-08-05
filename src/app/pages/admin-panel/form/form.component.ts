@@ -21,6 +21,12 @@ export class FormComponent implements OnInit {
   postDone: boolean = false;
   adminForm!: FormGroup;
   PostSucces: string = 'Utilisateur ajouté avec succés';
+  SubmitForm: string = 'Ajouter';
+  Role1: boolean = false
+  Role2: boolean = false
+  Role3: boolean = false
+  Role4: boolean = false
+  Role5: boolean = false
 
   @Input() userR !: any;
   userIsEmpty: boolean = true;
@@ -35,10 +41,18 @@ export class FormComponent implements OnInit {
 
       this.fetchUser();
       this.userIsEmpty = false;
+      this.SubmitForm = 'Modifier'
 
     }
-    else
-    this.userIsEmpty = true;
+    else{
+      this.userIsEmpty = true;
+      this.SubmitForm = 'Ajouter'
+      this.Role1 = false;
+      this.Role2 = false;
+      this.Role3 = false;
+      this.Role4 = false;
+      this.Role5 = false;
+    }
 
   }
 
@@ -53,20 +67,59 @@ export class FormComponent implements OnInit {
   }
 
   fetchUser(){
+    // console.log(this.userR);
 
-    console.log('User Data--------------');
     console.log(this.userR);
-    console.log('user array-------------');
-    console.log(this.user);
+    
+    
     
 
+    this.Role1 = false;
+    this.Role2 = false;
+    this.Role3 = false;
+    this.Role4 = false;
+    this.Role5 = false;
+    
+    // Fetch Info 
     this.adminForm.patchValue({
 
       Matricule: this.userR.userMatricul,
-      Nom: this.userR.name,
+      Nom: this.userR.nom,
       Prenom: this.userR.prenom,
 
     });
+
+    // Fetch Roles
+    this.userR.userRoles.forEach((Role : any) => {
+
+      console.log(Role.roleName);
+      
+      switch (Role.roleName) {
+
+        case "role1": this.Role1 = true ;console.log(Role.roleName);
+        break;
+
+        case "role2": this.Role2 = true ; console.log(Role.roleName);
+        break;
+
+        case "role3": this.Role3 = true ; console.log(Role.roleName);
+        break;
+
+        case "role4": this.Role4 = true ; console.log(Role.roleName);
+        break;
+
+        case "role5": this.Role5 = true ; console.log(Role.roleName);
+        break;
+      
+      }
+      
+    }); 
+
+    console.log("1 : " + this.Role1);
+    console.log("2 : " + this.Role2);
+    console.log("3 : " + this.Role3);
+    console.log("4 : " + this.Role4);
+    console.log("5 : " + this.Role5);
 
   }
 
@@ -86,6 +139,9 @@ export class FormComponent implements OnInit {
         });
       }
     }
+
+    console.log(roles);
+    
 
     return roles;
 
@@ -127,6 +183,9 @@ export class FormComponent implements OnInit {
     this.user.prenom = this.adminForm.get('Prenom')?.value;
     this.user.userMatricul = this.adminForm.get('Matricule')?.value;
 
+    console.log(this.user);
+    
+
     this.adminService.addUser(this.user).subscribe(
       (_) => {
         this.postDone = true;
@@ -134,6 +193,7 @@ export class FormComponent implements OnInit {
           this.adminForm.reset();
           this.clearCH();
           this.postDone = false;
+          location.reload();
         }, 1000);
       },
       (error) => {
@@ -146,6 +206,40 @@ export class FormComponent implements OnInit {
     );
 
   }
+
+  updateUserRole() {
+    let rolesArray: any = this.listeRoles();
+    for (let index = 0; index < rolesArray.length; index++) {
+      this.user.userRoles.push(rolesArray[index]);
+    }
+
+    this.user.nom = this.adminForm.get('Nom')?.value;
+    this.user.prenom = this.adminForm.get('Prenom')?.value;
+    this.user.userMatricul = this.adminForm.get('Matricule')?.value;
+
+    console.log(this.user);
+    
+
+    this.adminService.updateUser( this.user , this.userR._id ).subscribe(
+      (_) => {
+        this.postDone = true;
+        setTimeout(() => {
+          this.adminForm.reset();
+          this.clearCH();
+          this.postDone = false;
+          location.reload();
+        }, 1000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 2000);
+        this.hideErrorMessage();
+      }
+    );
+
+}
    clearCH(){
     let rolesCH = document.getElementsByClassName('roles');
     for (let index = 0; index < rolesCH.length; index++) {
