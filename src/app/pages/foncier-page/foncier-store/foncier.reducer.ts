@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { getFoncierAction, getFoncierSuccessAction } from "./foncier.actions";
+import { getFoncierAction, getFoncierSuccessAction, getPropWithLieuxAction, getPropWithLieuxSuccessAction } from "./foncier.actions";
 import { initialState } from "./foncier.state";
 
 
@@ -17,6 +17,24 @@ const _foncierReducer = createReducer(initialState,
     return {
       ...state,
       fonciers: action.fonciers,
+    }
+  }),
+
+  /////////////////////////////////////////////
+
+  // Get Proprietaie With Lieux IDs
+  on(getPropWithLieuxAction, (state) => {
+    return {
+      ...state,
+      propWithLieux: state.propWithLieux
+    }
+  }),
+
+  // Get Proprietaie With Lieux IDs success
+  on(getPropWithLieuxSuccessAction, (state, action) => {
+    return {
+      ...state,
+      propWithLieux: action.propWithLieux,
     }
   }),
 

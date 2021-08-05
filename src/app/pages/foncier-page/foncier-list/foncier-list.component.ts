@@ -22,6 +22,11 @@ export class FoncierListComponent implements OnInit {
   targetFoncier!: Foncier;
   foncierSubscription$!: Subscription
 
+  // Pagination options
+  listFoncierPage: number = 1;
+  count: number = 0;
+  tableSize: number = 10;
+
   constructor(
     private helperService: HelperService,
     private mainModalService: MainModalService,
@@ -30,6 +35,7 @@ export class FoncierListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getFoncier()
   }
 
   getFoncier() {
@@ -41,9 +47,7 @@ export class FoncierListComponent implements OnInit {
         this.store.dispatch(getFoncierAction())
       }
       this.fonciers = data
-
     })
-
   }
 
   openEditModal(SelectedFoncier: any) {

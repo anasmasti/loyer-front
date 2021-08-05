@@ -30,7 +30,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="text-center" *ngFor="let foncier of fonciers">
+            <tr class="text-center"
+                *ngFor="let foncier of fonciers | paginate: { itemsPerPage: tableSize, currentPage: listFoncierPage, id: 'listFoncierPagination', totalItems: count }">
                 <td> {{ foncier.type_foncier }}</td>
                 <td> {{ foncier.pays }} </td>
                 <td> {{ foncier.ville }} </td>
@@ -48,6 +49,8 @@
 
                 </td>
             </tr>
+
+            <pagination-controls id="listFoncierPagination" (pageChange)="listFoncierPage = $event"></pagination-controls>
 
 
             <app-main-modal [closeBtn]='true'>
