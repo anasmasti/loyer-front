@@ -21,6 +21,7 @@ export class DrFormComponent implements OnInit {
   drForm!: FormGroup;
   file!: string;
   fd: FormData = new FormData();
+  fdata: FormData = new FormData();
   idm: any = JSON.stringify(Math.random());
   isAmenagementEmpty: boolean = true;
   i: any = 0;
@@ -323,18 +324,28 @@ export class DrFormComponent implements OnInit {
     $('.error-alert').removeClass('active');
   }
 
-  async onFileSelected(event: any, index: number) {
+  async onFileSelectedAmenagement(event: any, index: number) {
+    
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
-      
-      // console.log('File ==> ', this.selectedFile, ' Index ==> ', index);
-      // console.log("idm -->", this.idm);
-      
       this.file = this.idm + index;
-      // console.log('File Object ==> ', this.file);
-      // console.log('test stringify', JSON.stringify(this.file));
-      
       await this.fd.append('imgs_amenagement', this.selectedFile, this.file);
+    }
+  }
+
+  async onFileSelectedCroquis(event: any, index: number) {
+    
+    if (event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
+      this.file = this.idm + index;
+      await this.fd.append('imgs_croquis', this.selectedFile, this.file);
+    }
+  }
+
+  async onFileSelected(event: any) {
+    if (event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
+      await this.fd.append('imgs_lieu_entrer', this.selectedFile);
     }
   }
 
@@ -343,13 +354,9 @@ export class DrFormComponent implements OnInit {
         (res) => console.log(res),
         (err) => console.log(err)
       )
-      // console.log("Uploaded Succesfully !!")
   }
 
   addDR() {
-    // let formdata = new FormData();
-    // formdata.append('imgs_lieu_entrer', this.selectedFile)
-
     let dr_data: Lieu = {
       code_lieu: this.drForm.get('code_lieu')?.value,
       intitule_lieu: this.drForm.get('intitule_lieu')?.value,
@@ -373,8 +380,6 @@ export class DrFormComponent implements OnInit {
       // Amenagment
       amenagement: this.drForm.get('amenagementForm')?.value,
     };
-
-    // console.log('Amenagement ===> ',this.drForm.get('amenagementForm')?.value)
 
     this.drService.addLieu(dr_data).subscribe(
       (_) => {

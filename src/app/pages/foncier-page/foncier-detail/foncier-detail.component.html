@@ -1,1 +1,67 @@
-<p>foncier-detail works!</p>
+<div class="row title  ">
+    <div class="col-lg-12 mt-3">
+        <div class="d-flex justify-content-between">
+            <h3 class="main-title">
+                <a [routerLink]="['/lieux/list']" class="goback-link">Liste des
+                    fonciers</a>/<span class="selected-text">{{ foncier?.code_postal }}</span>
+            </h3>
+            <div class="d-none d-lg-block">
+                <a [routerLink]="['/foncier/list']" class="btn btn-sm second-btn me-3 " data-bs-toggle="tooltip"
+                    data-bs-placement="top" title="Retour à la liste"><i class="far fa-arrow-left"></i>
+                    Retour à la liste des fonciers
+                </a>
+                <span data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Ici vous pouvez voir les détails du foncier">
+                    <i class="fal fa-info"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="main-card p-lg-4 mt-4 table-responsive bg-white">
+
+    <table class="table" cellspacing="0" width="100%">
+        <tbody>
+            <tr>
+                <th>Description</th>
+                <td>{{foncier?.description}}</td>
+            </tr>
+            <tr>
+                <th>Etat du bien</th>
+                <td>{{foncier?.etat_du_bien}}</td>
+            </tr>
+            <tr>
+                <th>Code postal</th>
+                <td>{{foncier?.code_postal}}</td>
+            </tr>
+            <tr>
+                <th>Pays</th>
+                <td>{{foncier?.pays}}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{foncier?.ville}}</td>
+            </tr>
+            <tr>
+                <th>Montant loyer</th>
+                <td>{{foncier?.montant_loyer}}</td>
+            </tr>
+            <tr>
+                <th>Proprietaire</th>
+                <td>{{foncier?.proprietaire}}</td>
+            </tr>
+            <tr>
+                <th>Lieu</th>
+                <td>{{foncier?.lieu}}</td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+
+
+</div>

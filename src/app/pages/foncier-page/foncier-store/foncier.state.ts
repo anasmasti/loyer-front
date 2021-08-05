@@ -1,9 +1,11 @@
 import { Foncier } from './../../../models/Foncier';
 
 export interface FoncierState {
-    fonciers: Foncier[]
+    fonciers: Foncier[],
+    propWithLieux: any
 }
 
 export const initialState: FoncierState = {
     fonciers: [],
+    propWithLieux: []
 }

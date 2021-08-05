@@ -10,6 +10,6 @@ export interface Foncier {
     ville: string,
     code_postal: string,
     pays: string,
-    montant_loyer: number,
+    montant_loyer: Number,
     meuble_equipe: boolean,
 }
