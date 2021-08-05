@@ -465,7 +465,7 @@ export class SiegeFormComponent implements OnInit {
           this.mainModalService.close();
           this.siegeForm.reset();
           this.UpdateDone = false;
-          // location.reload();
+          location.reload();
         }, 2000);
       },
       (error) => {

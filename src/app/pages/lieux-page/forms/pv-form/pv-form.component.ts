@@ -455,7 +455,7 @@ export class PvFormComponent implements OnInit, OnDestroy {
           this.mainModalService.close();
           this.PvForm.reset();
           this.UpdateDone = false;
-          // location.reload();
+          location.reload();
         }, 2000);
       },
       (error) => {

@@ -26,13 +26,14 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
   Dr$!: Observable<any>;
   DrSubscription$!: Subscription;
   lieux: Lieu[] = [];
-  isAmenagementEmpty : boolean = true
-  
-  
+  isAmenagementEmpty : boolean = true;
+  FullNameDerct : string = ''
+
   @Input() update!: boolean;
   @Input() Lieu!: any;
   @Input() LieuName!: string;
   
+  DirecteurForm!: FormGroup;
   lF !: Lieu;
   LfForm!: FormGroup;
   errors!: string;
@@ -40,6 +41,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
   PostSucces: string = 'Logement de fonction ajouté avec succés';
   UpdateDone: boolean = false;
   UpdateSucces: string = 'Point de vente modifié avec succés';
+
   
   
   
@@ -87,14 +89,14 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
     categorie_pointVente: 'Chargement...',
     deleted: false,
     
-    directeur_regional: [
-      {
-        matricule: 'Chargement...',
-        nom: 'Chargement...',
-        prenom: 'Chargement...',
-        deleted: false
-      }
-    ],
+    // directeur_regional: [
+    //   {
+    //     matricule: 'Chargement...',
+    //     nom: 'Chargement...',
+    //     prenom: 'Chargement...',
+    //     deleted: false
+    //   }
+    // ],
 
     amenagement: [
       {
@@ -152,10 +154,12 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
       fax: new FormControl('',),
       
       //Directeur
-      matricule_directeur: new FormControl(''),
-      nom_directeur: new FormControl(''),
-      prenom_directeur: new FormControl(''),
-      deleted_directeur: new FormControl(''),
+      matricule_directeur: new FormControl('',),
+      nom_directeur: new FormControl('',),
+      prenom_directeur: new FormControl('',),
+      deleted_directeur: new FormControl('',),
+
+      directeur_regional: new FormArray([]),
       
       //Aménagement
       amenagementForm: new FormArray([]),
@@ -164,17 +168,18 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
     
     this.getDr();
     
+    
+    
   }
   
   fetchLf(HasAmenagement : string) {
 
     console.log(this.Lieu);
     
-    
     this.removeAllAmenagement();
+    this.RemoveAllDericteurs();
   
     this.etatLogement = this.Lieu.etat_logement_fonction;
-  
   
       this.hasAmenagement = true;
       this.amenagementList = this.Lieu.amenagement;
@@ -200,17 +205,47 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
         centre_cout_siege: this.Lieu.centre_cout_siege,
         categorie_pointVente: this.Lieu.categorie_pointVente,
   
-  
-        // directeur_regional
-        matricule_directeur: this.Lieu.directeur_regional.matricule,
-        nom_directeur: this.Lieu.directeur_regional.nom,
-        prenom_directeur: this.Lieu.directeur_regional.prenom,
       });
-  
-  
+
+        // Directeur
+        this.Lieu.directeur_regional.forEach((directeur : any) => {
+
+          let NewDirecteur = this.addDirecteur();
+
+          NewDirecteur.controls.matricule.setValue(directeur.matricule);
+          NewDirecteur.controls.nom.setValue(directeur.nom);
+          NewDirecteur.controls.prenom.setValue(directeur.prenom);
+          NewDirecteur.controls.deleted_directeur.setValue(directeur.deleted_directeur);
+
+
+          if (!directeur.deleted_directeur) {
+
+            this.LfForm.patchValue({
+
+
+              // directeur_regional
+              matricule_directeur: directeur.matricule,
+              nom_directeur: directeur.nom,
+              prenom_directeur: directeur.prenom,
+              deleted_directeur: false
+            });
+
+            this.FullNameDerct =  directeur.nom + ' ' +  directeur.prenom
+
+            // (<FormGroup>DirecteurData).controls.matricule_directeur.setValue(directeur.matricule)
+
+          }
+
+        });
+        console.log("Test");
+        
+        
+        console.log(this.LfForm.controls.directeur_regional);
+        
+
+
         // Amenagement 
         this.amenagementList = this.Lieu.amenagement;
-    
         //amenagement inputs
         this.Lieu.amenagement.forEach( ( LieuControl : any , index : any ) => {
 
@@ -322,10 +357,26 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
             this.LfForm.patchValue({
               has_amenagements: this.hasAmenagement
             })
-            console.log("Test");
             
           }
         }
+  }
+
+  addDirecteur(){
+    const DirecteurData = new FormGroup({
+      matricule: new FormControl('',),
+      nom: new FormControl('',),
+      prenom: new FormControl('',),
+      deleted_directeur: new FormControl('',),
+    });
+
+    (<FormArray>this.LfForm.get('directeur_regional')).push(<FormGroup>DirecteurData)
+
+    return <FormGroup>DirecteurData
+  }
+
+  RemoveAllDericteurs(){
+    (<FormArray>this.LfForm.get('directeur_regional')).clear();
   }
   
   // Amenagement
@@ -345,7 +396,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
       images_local_apres_amenagement: new FormControl(''),
       croquis_amenagement_via_imagerie: new FormControl(''),
       deleted: new FormControl(deleted,),
-      NewOrOld : new FormControl(NewOrOld,) ,
+      NewOrOld : new FormControl(NewOrOld,),
     });
 
     (<FormArray>this.LfForm.get('amenagementForm')).push(<FormGroup>amenagementData)
@@ -427,10 +478,112 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
+  RemplacerDirecteur(){
+
+    let Matricule = (document.getElementById('Mat_directeur') as HTMLInputElement).value ;
+    let Nom = (document.getElementById('Nom_directeur') as HTMLInputElement).value ;
+    let Prenom = (document.getElementById('Prenom_directeur') as HTMLInputElement).value ;
+
+    
+    this.LfForm.patchValue({
+
+      etat_logement_fonction: 'occupe',
+      // directeur_regional
+      matricule_directeur: Matricule ,
+      nom_directeur: Nom,
+      prenom_directeur: Prenom,
+      deleted_directeur: false
+
+    });
+
+    this.etatLogement = 'occupe';
+
+    this.LfForm.get('directeur_regional')?.value.forEach( ( directeur : any ) => {
+
+      directeur.deleted_directeur = true;
+      
+    });
+
+    let NewDirecteur = this.addDirecteur();
+
+    NewDirecteur.controls.matricule.setValue(Matricule);
+    NewDirecteur.controls.nom.setValue(Nom);
+    NewDirecteur.controls.prenom.setValue(Prenom) ;
+    NewDirecteur.controls.deleted_directeur.setValue(false);
+
+
+    this.confirmationModalService.close()
+
+    this.isReplace = '';
+
+    this.FullNameDerct = Nom + ' ' + Prenom
+
+    console.log(this.LfForm.get('directeur_regional')?.value);
+    
+
+  }
+
+  ModifierDirecteur(){
+
+    this.LfForm.get('directeur_regional')?.value.forEach( ( directeur : any ) => {
+
+      if ( !directeur.deleted_directeur ) {
+        
+        directeur.matricule = this.LfForm.get('matricule_directeur')?.value
+        directeur.nom = this.LfForm.get('nom_directeur')?.value
+        directeur.prenom = this.LfForm.get('prenom_directeur')?.value
+
+        this.LfForm.patchValue({
+        
+          // directeur_regional
+          matricule_directeur: directeur.matricule ,
+          nom_directeur: directeur.nom,
+          prenom_directeur: directeur.prenom,
+    
+        });
+
+        this.FullNameDerct = directeur.nom + ' ' + directeur.prenom
+
+      }
+      
+    });
+
+    this.isReplace = '';
+
+    console.log(this.LfForm.get('directeur_regional')?.value);
+  }
+
+  SupprimerDirecteur(){
+
+    this.LfForm.get('directeur_regional')?.value.forEach( ( directeur : any ) => {
+
+      if ( !directeur.deleted_directeur ) {
+        
+        directeur.deleted_directeur = true;
+
+      }
+
+      this.LfForm.patchValue({
+        etat_logement_fonction: 'disponible',
+        matricule_directeur:'',
+        nom_directeur: '',
+        prenom_directeur:'',
+        deleted_directeur: false
+      });
+
+      
+    });
+
+    this.etatLogement = 'disponible';
+    
+    this.confirmationModalService.close();
+  
+  }
+
   //////////////////////////////////////////////////////////////////////////////////
   openReplaceModal(active: any) {
     this.isReplace = active;
-    this.mainModel.open();
+    // this.mainModel.open();
     // this.confirmationModalService.open();
   }
 
@@ -577,13 +730,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
       categorie_pointVente: this.LfForm.get('categorie_pointVente')?.value,
 
       // Directeur
-      directeur_regional: [
-        {
-          matricule: this.LfForm.get('matricule_directeur')?.value,
-          nom: this.LfForm.get('nom_directeur')?.value,
-          prenom: this.LfForm.get('prenom_directeur')?.value,
-        }
-      ],
+      directeur_regional: this.LfForm.get('directeur_regional')?.value,
 
       // Amenagement
       amenagement: this.LfForm.get('amenagementForm')?.value,
@@ -596,10 +743,10 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
       (_) => {
         this.UpdateDone = true;
         setTimeout(() => {
-          // this.mainModalService.close();
-          // this.LfForm.reset();
+          this.mainModalService.close();
+          this.LfForm.reset();
           this.UpdateDone = false;
-          // location.reload();
+          location.reload();
         }, 2000);
       },
       (error) => {
