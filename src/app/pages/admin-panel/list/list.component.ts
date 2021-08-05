@@ -16,7 +16,7 @@ import { getUsersAction } from '../admin-store/admin.actions';
 export class ListComponent implements OnInit, OnDestroy {
 
   users!: User[];
-  targetUser: User[] = [];
+  targetUser!: User;
   usersSubscription$!: Subscription;
 
   // Pagination options

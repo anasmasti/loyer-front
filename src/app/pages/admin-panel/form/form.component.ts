@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { User } from '../../../models/User';
 import { AdminService } from 'src/app/services/admin-service/admin.service';
@@ -22,16 +22,57 @@ export class FormComponent implements OnInit {
   adminForm!: FormGroup;
   PostSucces: string = 'Utilisateur ajouté avec succés';
 
+  @Input() userR !: any;
+  userIsEmpty: boolean = true;
+
   constructor(
     private adminService: AdminService,
   ) { }
 
+  ngOnChanges() {
+
+    if ((this.userR != 'Ajouter') && (this.userR != null) ) {
+
+      this.fetchUser();
+      this.userIsEmpty = false;
+
+    }
+    else
+    this.userIsEmpty = true;
+
+  }
+
   ngOnInit(): void {
+
     this.adminForm = new FormGroup({
       Matricule: new FormControl('', []),
       Nom: new FormControl('', []),
       Prenom: new FormControl('', []),
     });
+
+  }
+
+  fetchUser(){
+
+    console.log('User Data--------------');
+    console.log(this.userR);
+    console.log('user array-------------');
+    console.log(this.user);
+    
+
+    this.adminForm.patchValue({
+
+      Matricule: this.userR.userMatricul,
+      Nom: this.userR.name,
+      Prenom: this.userR.prenom,
+
+    });
+
+  }
+
+  fetchTest(){
+    console.log('user array-------------');
+    console.log(this.user);
   }
 
   CheckedRoles(name: any) {

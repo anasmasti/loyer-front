@@ -26,9 +26,10 @@
 
 
   </div>
-  <div class="row">
+  <div class="row"*ngIf="!userIsEmpty">
     <div class="mt-5">
-      <h3 class="main-title">Rôles</h3><br>
+      <!-- <h1>{{ userR._id }}</h1> -->
+      <h3 class="main-title">Rôles NotEmpty</h3><br>
       <div class="btn-group d-flex justify-content-between" role="group"
         aria-label="Basic checkbox toggle button group">
         <div>
@@ -60,8 +61,43 @@
 
     </div>
   </div>
+  <div class="row" *ngIf="userIsEmpty">
+    <div class="mt-5">
+      <!-- <h1>{{ userR._id }}</h1> -->
+      <h3 class="main-title">Rôles Empty</h3><br>
+      <div class="btn-group d-flex justify-content-between" role="group"
+        aria-label="Basic checkbox toggle button group">
+        <div>
+          <input type="checkbox" name="chk1" class="btn-check roles" id="Update-role1" autocomplete="off" value="role1"
+            (change)="CheckedRoles('role1')">
+          <label class="px-5 py-1 rounded-pill checkbox-list-btns" for="Update-role1">role 1</label>
+        </div>
+        <div>
+          <input type="checkbox" name="chk2" class="btn-check roles" id="Update-role2" autocomplete="off" value="role2"
+            (change)="CheckedRoles('role2')">
+          <label class="px-5 py-1 rounded-pill checkbox-list-btns" for="Update-role2">role 2</label>
+        </div>
+        <div>
+          <input type="checkbox" name="chk3" class="btn-check roles" id="Update-role3" autocomplete="off" value="role3"
+            (change)="CheckedRoles('role3')">
+          <label class="px-5 py-1 rounded-pill checkbox-list-btns" for="Update-role3">role 3</label>
+        </div>
+        <div>
+          <input type="checkbox" name="chk4" class="btn-check roles" id="Update-role4" autocomplete="off" value="role4"
+            (change)="CheckedRoles('role4')">
+          <label class="px-5 py-1 rounded-pill checkbox-list-btns" for="Update-role4">role 4</label>
+        </div>
+        <div>
+          <input type="checkbox" name="chk5" class="btn-check roles" id="Update-role5" autocomplete="off" value="role5"
+            (change)="CheckedRoles('role5')">
+          <label class="px-5 py-1 rounded-pill checkbox-list-btns" for="Update-role5">role 5</label>
+        </div>
+      </div>
+
+    </div>
+  </div>
   <div class="form-group my-5">
-    <button type="submit" class="btn second-btn">
+    <button type="button" class="btn second-btn" (click)="fetchTest()">
       Ajouter
     </button>
   </div>
