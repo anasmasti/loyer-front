@@ -29,7 +29,7 @@ export class FoncierService {
   }
 
   // Get proprietaire and lieux ids 
-  getProprietaieWithLieuxIDs(): Observable<any> {
+  getPropWithLieux(): Observable<any> {
     return this.http.get<any>(
       `${environment.API_URL_TEST + environment.API_VERSION}/proprietaire-lieu`,
       { headers: this.httpOptions.headers }

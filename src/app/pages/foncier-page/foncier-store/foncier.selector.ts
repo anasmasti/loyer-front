@@ -10,12 +10,12 @@ export const getFonciers = createSelector(getFonciersState, (state) => {
 });
 
 // Create selector to get proprietaires ids
-export const getProprietairesIds = createSelector(getFonciersState, (state) => {
-  return state.proprietaireWithLieuxIds.proprietaire;
+export const getProprietaires = createSelector(getFonciersState, (state) => {
+  return state.propWithLieux.proprietaire;
 });
 
 // Create selector to get lieux ids
-export const getLieuxIds = createSelector(getFonciersState, (state) => {
-  return state.proprietaireWithLieuxIds.lieu;
+export const getLieux = createSelector(getFonciersState, (state) => {
+  return state.propWithLieux.lieu;
 });
 

@@ -1,12 +1,12 @@
 import { Foncier } from './../../../models/Foncier';
 import { FoncierService } from './../../../services/foncier-service/foncier.service';
-import { getProprietaireWithLieuxIdsAction } from './../foncier-store/foncier.actions';
+import { getPropWithLieuxAction } from './../foncier-store/foncier.actions';
 import { AppState } from 'src/app/store/app.state';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { getLieuxIds, getProprietairesIds } from '../foncier-store/foncier.selector';
+import { getLieux, getProprietaires } from '../foncier-store/foncier.selector';
 import { debounceTime } from 'rxjs/operators';
 
 @Component({
@@ -21,10 +21,10 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   postDone: boolean = false;
   PostSucces: string = 'Foncier ajouté avec succés';
   foncierForm!: FormGroup;
-  proprietaireIds$!: Observable<any>
-  lieuxIds$!: Observable<any>
-  lieuxIdsSubscription$!: Subscription
-  proprietaireIdsSubscription$!: Subscription
+  proprietaires$!: Observable<any>
+  lieux$!: Observable<any>
+  lieuxSubscription$!: Subscription
+  proprietairesSubscription$!: Subscription
 
   constructor(
     private foncierService: FoncierService,
@@ -46,8 +46,8 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       meuble_equipe: new FormControl(),
     });
 
-    this.getProprietaireIds()
-    this.getLieuxIds()
+    this.getProprietaires()
+    this.getLieux()
   }
 
   // Afficher le message d'erreur de serveur
@@ -94,28 +94,28 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   }
 
   // Get Proprietaire With Lieux Ids from the server
-  getProprietaireWithLieuxIds() {
-    this.store.dispatch(getProprietaireWithLieuxIdsAction())
+  getPropWithLieux() {
+    this.store.dispatch(getPropWithLieuxAction())
   }
 
   // Select Proprietaire ids
-  getProprietaireIds() {
-    this.proprietaireIds$ = this.store.select(getProprietairesIds)
-    this.proprietaireIdsSubscription$ = this.proprietaireIds$.pipe(debounceTime(500)).subscribe(data => {
-      if (!data?.length) this.getProprietaireWithLieuxIds()
+  getProprietaires() {
+    this.proprietaires$ = this.store.select(getProprietaires)
+    this.proprietairesSubscription$ = this.proprietaires$.pipe(debounceTime(500)).subscribe(data => {
+      if (!data?.length) this.getPropWithLieux()
     })
   }
 
   // Select Lieux ids
-  getLieuxIds() {
-    this.lieuxIds$ = this.store.select(getLieuxIds)
-    this.lieuxIdsSubscription$ = this.lieuxIds$.subscribe(data => {
-      if (!data?.length) this.getProprietaireWithLieuxIds()
+  getLieux() {
+    this.lieux$ = this.store.select(getLieux)
+    this.lieuxSubscription$ = this.lieux$.subscribe(data => {
+      if (!data?.length) this.getPropWithLieux()
     })
   }
 
   ngOnDestroy() {
-    if (this.lieuxIdsSubscription$) this.lieuxIdsSubscription$.unsubscribe()
-    if (this.proprietaireIdsSubscription$) this.proprietaireIdsSubscription$.unsubscribe()
+    if (this.lieuxSubscription$) this.lieuxSubscription$.unsubscribe()
+    if (this.proprietairesSubscription$) this.proprietairesSubscription$.unsubscribe()
   }
 }
