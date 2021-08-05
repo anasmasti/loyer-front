@@ -1,5 +1,11 @@
 <form [formGroup]="adminForm" (ngSubmit)="postUserRole()">
 
+  <div class="w-100 d-flex justify-content-center">
+    <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
+  </div>
+
+  <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
+  
   <div class="row mt-2">
     <div class="col-lg-4 form-group mt-2">
       <label for="">Matricule</label>
@@ -54,8 +60,8 @@
 
     </div>
   </div>
-  <div class="row">
-    <button type="submit" class="btn second-btn form-control btn-submit">
+  <div class="form-group my-5">
+    <button type="submit" class="btn second-btn">
       Ajouter
     </button>
   </div>

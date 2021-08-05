@@ -132,7 +132,7 @@
             </tr>
             <tr>
                 <th>Etat de contrat</th>
-                <td> {{Contrat.etat_contrat.libelle}} </td>
+                <td> {{Contrat.etat_contrat[Contrat.etat_contrat.length-1].libelle}} </td>
             </tr>
         </tbody>
 
@@ -143,67 +143,67 @@
 
 
 
-    <table class="table" cellspacing="0" width="100%" *ngIf="Contrat.etat_contrat.libelle == 'Avenant'">
+    <table class="table" cellspacing="0" width="100%" *ngIf="Contrat.etat_contrat[Contrat.etat_contrat.length-1].libelle == 'Avenant' ">
         <tbody>
             <tr>
                 <th class="w-55">N° avenant</th>
-                <td> {{Contrat.etat_contrat.etat.n_avenant}} </td>
+                <td> {{Contrat.etat_contrat[Contrat.etat_contrat.length-1].etat.n_avenant}} </td>
             </tr>
             <tr>
                 <th>motif</th>
-                <td> {{Contrat.etat_contrat.etat.motif}} </td>
+                <td> {{Contrat.etat_contrat[Contrat.etat_contrat.length-1].etat.motif}} </td>
             </tr>
             <tr>
                 <th>montant de nouveau loyer</th>
-                <td> {{Contrat.etat_contrat.etat.montant_nouveau_loyer}} </td>
+                <td> {{Contrat.etat_contrat[Contrat.etat_contrat.length-1].etat.montant_nouveau_loyer}} </td>
             </tr>
             <tr>
                 <th>signaletique successeur</th>
-                <td> {{Contrat.etat_contrat.etat.signaletique_successeur}} </td>
+                <td> {{Contrat.etat_contrat[Contrat.etat_contrat.length-1].etat.signaletique_successeur}} </td>
             </tr>
         </tbody>
     </table>
-    <table class="table" cellspacing="0" width="100%" *ngIf="Contrat.etat_contrat.libelle == 'Suspension'">
+    <table class="table" cellspacing="0" width="100%" *ngIf="Contrat.etat_contrat[Contrat.etat_contrat.length-1].libelle == 'Suspension'">
         <tbody>
             <tr>
                 <th class="w-55">intitulé de lieu</th>
-                <td> {{Contrat.etat_contrat.etat.intitule_lieu}} </td>
+                <td> {{Contrat.etat_contrat[Contrat.etat_contrat.length-1].etat.intitule_lieu}} </td>
             </tr>
             <tr>
                 <th>date de suspension</th>
-                <td> {{Contrat.etat_contrat.etat.date_suspension | date: 'dd-MM-yyyy'}} </td>
+                <td> {{Contrat.etat_contrat[Contrat.etat_contrat.length-1].etat.date_suspension | date: 'dd-MM-yyyy'}} </td>
             </tr>
             <tr>
                 <th>duree de suspensiont</th>
-                <td> {{Contrat.etat_contrat.etat.duree_suspension}} </td>
+                <td> {{Contrat.etat_contrat[Contrat.etat_contrat.length-1].etat.duree_suspension}} </td>
             </tr>
             <tr>
                 <th>motif de suspension</th>
-                <td> {{Contrat.etat_contrat.etat.motif_suspension}} </td>
+                <td> {{Contrat.etat_contrat[Contrat.etat_contrat.length-1].etat.motif_suspension}} </td>
             </tr>
         </tbody>
     </table>
-    <table class="table" cellspacing="0" width="100%" *ngIf="Contrat.etat_contrat.libelle == 'Résiliation'">
+    <table class="table" cellspacing="0" width="100%" *ngIf="Contrat.etat_contrat[Contrat.etat_contrat.length-1].libelle == 'Résiliation'">
         <tbody>
             <tr>
                 <th class="w-55">intitulé de lieu</th>
-                <td> {{Contrat.etat_contrat.etat.intitule_lieu}} </td>
+                <td> {{Contrat.etat_contrat[Contrat.etat_contrat.length-1].etat.intitule_lieu}} </td>
             </tr>
             <tr>
                 <th>reprise caution</th>
-                <td> {{Contrat.etat_contrat.etat.reprise_caution}} </td>
+                <td> {{Contrat.etat_contrat[Contrat.etat_contrat.length-1].etat.reprise_caution}} </td>
             </tr>
             <tr>
                 <th>date de resiliation</th>
-                <td> {{Contrat.etat_contrat.etat.date_resiliation | date: 'dd-MM-yyyy'}} </td>
+                <td> {{Contrat.etat_contrat[Contrat.etat_contrat.length-1].etat.date_resiliation | date: 'dd-MM-yyyy'}} </td>
             </tr>
             <tr>
                 <th>etat de lieu à la sortie</th>
-                <td> {{Contrat.etat_contrat.etat.etat_lieu_sortie}} </td>
+                <td> {{Contrat.etat_contrat[Contrat.etat_contrat.length-1].etat.etat_lieu_sortie}} </td>
             </tr>
             <tr>
                 <th>preavis</th>
-                <td> {{Contrat.etat_contrat.etat.preavis}} </td>
+                <td> {{Contrat.etat_contrat[Contrat.etat_contrat.length-1].etat.preavis}} </td>
             </tr>
         </tbody>
     </table>

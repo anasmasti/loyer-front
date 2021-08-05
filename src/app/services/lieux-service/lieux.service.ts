@@ -23,7 +23,7 @@ export class LieuxService {
     }),
   };
 
-  // Get list of all proprietaires from database
+  // Get list of all lieux from database
   getLieux(): Observable<Lieu[]> {
     return this.http.get<Lieu[]>(
       `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/all-lieu`,
@@ -69,9 +69,14 @@ export class LieuxService {
     );
   }
 
+  // post formdata file
+  uploadFile(formdata: FormData){
+    return this.http.post<any>( `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`, formdata)
+  }
+
   //get the list of lieux to load the drop down list in contrat component
-  listLieux() {
-    return this.http.get('http://localhost:5000/api/v1/lieu/get');
+  listLieux(){
+    return this.http.get( `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/all-lieu`);
   }
 
 

@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DetailContratComponent implements OnInit {
   Contrat: Contrat = {
+    _id: 'Chargement...',
     numero_contrat: 'Chargement...',
     date_debut_loyer: new Date(),
     date_fin_contrat: new Date(),
@@ -36,7 +37,7 @@ export class DetailContratComponent implements OnInit {
     type_lieu: 'Chargement...',
     lieu: 'Chargement...',
     protrietaire: 'Chargement...',
-    etat_contrat: {
+    etat_contrat: [{
       libelle: 'Chargement...',
       etat: {
         n_avenant: 'Chargement...',
@@ -52,14 +53,14 @@ export class DetailContratComponent implements OnInit {
         etat_lieu_sortie: 'Chargement...',
         preavis: 'Chargement...',
       },
-    },
+    }],
     deleted: false,
   };
 
   constructor(
     private contratService: ContratService,
     private actRoute: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getSelectedContrat();

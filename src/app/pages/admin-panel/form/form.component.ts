@@ -17,8 +17,10 @@ export class FormComponent implements OnInit {
     prenom: "",
     userRoles: []
   };
-
+  errors!: string;
+  postDone: boolean = false;
   adminForm!: FormGroup;
+  PostSucces: string = 'Utilisateur ajouté avec succés';
 
   constructor(
     private adminService: AdminService,
@@ -41,9 +43,7 @@ export class FormComponent implements OnInit {
         roles.push({
           roleName: (rolesCH[index] as HTMLInputElement).value
         });
-
       }
-
     }
 
     return roles;
@@ -59,29 +59,59 @@ export class FormComponent implements OnInit {
         roles.push({
           roleName: (rolesCH[index] as HTMLInputElement).value
         });
-
       }
-
     }
 
     return roles;
 
   }
 
+  // Afficher le message d'erreur de serveur
+  showErrorMessage() {
+    $('.error-alert').addClass('active');
+  }
+
+  // hide le message d'erreur de serveur
+  hideErrorMessage() {
+    $('.error-alert').removeClass('active');
+  }
 
   postUserRole() {
     let rolesArray: any = this.listeRoles();
     for (let index = 0; index < rolesArray.length; index++) {
       this.user.userRoles.push(rolesArray[index]);
-
     }
 
     this.user.nom = this.adminForm.get('Nom')?.value;
     this.user.prenom = this.adminForm.get('Prenom')?.value;
     this.user.userMatricul = this.adminForm.get('Matricule')?.value;
 
-    this.adminService.addUser(this.user).subscribe();
-  }
+    this.adminService.addUser(this.user).subscribe(
+      (_) => {
+        this.postDone = true;
+        setTimeout(() => {
+          this.adminForm.reset();
+          this.clearCH();
+          this.postDone = false;
+        }, 2000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+    );
 
+  }
+   clearCH(){
+    let rolesCH = document.getElementsByClassName('roles');
+    for (let index = 0; index < rolesCH.length; index++) {
+      if ((rolesCH[index] as HTMLInputElement).checked) {
+        (rolesCH[index] as HTMLInputElement).checked=false;
+      }
+    }
+   }
 
 }
