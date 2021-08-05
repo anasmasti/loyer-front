@@ -314,7 +314,7 @@
         Ajouter
       </button>
       <button *ngIf="formType!=''" type="submit" id="Modifier" class="btn second-btn form-control"
-        (click)="updateContrat();alertOn('update');">
+        (click)="updateContrat();alertOn('update'); closeModal()">
         Modifier
       </button>
     </div>

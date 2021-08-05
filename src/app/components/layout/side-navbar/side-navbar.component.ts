@@ -18,6 +18,7 @@ export class SideNavbarComponent implements OnInit {
     if (targetId == 'proprietaire') $('.sub-menu#proprietaire').toggleClass('active'); // Check if the sub menu is proprietaire
     if (targetId == 'lieux') $('.sub-menu#lieux').toggleClass('active'); // Check if the sub menu is lieux
     if (targetId == 'contrat') $('.sub-menu#contrat').toggleClass('active'); // Check if the sub menu is contrat
+    if (targetId == 'foncier') $('.sub-menu#foncier').toggleClass('active'); // Check if the sub menu is foncier
     return false
   }
   displayMe(){

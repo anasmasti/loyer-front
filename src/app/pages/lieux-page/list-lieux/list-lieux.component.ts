@@ -1,4 +1,4 @@
-import { Lieu } from './../../../models/Lieu';
+import { Lieu } from '../../../models/Lieu';
 import { HelperService } from './../../../services/helpers/helper.service';
 import { getLoading } from './../../../store/shared/shared.selector';
 import { AppState } from './../../../store/app.state';
@@ -22,7 +22,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
   lieuEmpty: boolean = true;
   targetlieu: Lieu[] = [];
   targetlieuId: string = '';
-  deletedLieu!: Lieu   ;
+  deletedLieu!: Lieu;
   loading: boolean = false;
   lieuxSubscription$!: Subscription;
 
@@ -65,7 +65,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
 
   }
 
-  openConfirmationModal(Lieu : any) {
+  openConfirmationModal(Lieu: any) {
     this.confirmationModalService.open(); // Open delete confirmation modal
     this.deletedLieu = Lieu
   }
@@ -75,13 +75,13 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     this.mainModalService.open(); // Open delete confirmation modal
   }
 
-  openModalAndPushLieuId(id:any) {
-      // this.targetlieu = Lieu
-      // setTimeout(() => {
-        
-        this.mainModalService.open(); // Open delete confirmation modal
-      // }, 100);
-    }
+  openModalAndPushLieuId(id: any) {
+    // this.targetlieu = Lieu
+    // setTimeout(() => {
+
+    this.mainModalService.open(); // Open delete confirmation modal
+    // }, 100);
+  }
 
   // Close confirmation modal
   closeConfirmationModal() {
@@ -112,7 +112,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     $('.error-alert').removeClass('active');
   }
 
-  deleteLieu(){
+  deleteLieu() {
 
     // this.deletedLieu.deleted = true
 
@@ -145,28 +145,28 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     //   // Amenagment
     //   amenagement: this.deletedLieu.amenagement,
     // };
-    
 
 
-    
-    if(this.lieuxService.deleteLieu( this.deletedLieu._id , {deleted:true} ).subscribe()){
+
+
+    if (this.lieuxService.deleteLieu(this.deletedLieu._id, { deleted: true }).subscribe()) {
       this.confirmationModalService.close();
       location.reload();
     }
-    else{
+    else {
       console.log("baaaaaaaaaaaad");
-      
+
     }
-    
+
     //   (_) => {
     //     console.log("Teeeeeeeeeeeeeeest");
-        
+
     //     setTimeout(() => {
     //       // this.drForm.controls
     //       // this.confirmationModalService.close();
     //       location.reload();
     //       console.log("dr_data");
-          
+
     //     }, 2000);
     //   },
     //   (error) => {
@@ -178,7 +178,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     //   }
     // )
 
-    
+
 
   }
 

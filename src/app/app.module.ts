@@ -23,7 +23,7 @@ import { StoreModule } from '@ngrx/store';
     HeaderNavbarComponent,
     SideNavbarComponent,
     MainContentComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

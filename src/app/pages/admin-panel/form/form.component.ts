@@ -93,13 +93,13 @@ export class FormComponent implements OnInit {
           this.adminForm.reset();
           this.clearCH();
           this.postDone = false;
-        }, 2000);
+        }, 1000);
       },
       (error) => {
         this.errors = error.error.message;
         setTimeout(() => {
           this.showErrorMessage();
-        }, 3000);
+        }, 2000);
         this.hideErrorMessage();
       }
     );
@@ -112,6 +112,7 @@ export class FormComponent implements OnInit {
         (rolesCH[index] as HTMLInputElement).checked=false;
       }
     }
+    this.user.userRoles = [];
    }
 
 }

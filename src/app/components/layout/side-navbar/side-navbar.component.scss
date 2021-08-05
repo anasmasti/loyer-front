@@ -40,10 +40,13 @@
     display: flex !important;
 }
 
-.sub-menu#admin.active {
+.sub-menu#foncier.active {
     display: flex !important;
 }
 
+.sub-menu#admin.active {
+    display: flex !important;
+}
 
 @include mobile($min-screen, $max-screen) {
     .vertical-nav {

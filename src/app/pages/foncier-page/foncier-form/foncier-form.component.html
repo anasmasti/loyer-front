@@ -1,0 +1,27 @@
+<!-- alert de reussite -->
+<div *ngIf="success" class="done-alert p-2 my-2 w-100">{{msg}}</div>
+<!--Début de Div qui contient le formulaire form-contrat-->
+<div class="form-box mt-4">
+  <!--Début Formulaire form-contrat-->
+  <form [formGroup]="foncierForm" enctype="multipart/form-data">
+
+    <!--Début 1er Row-->
+    <div class="row">
+     
+    </div>
+
+
+
+    <!-- Button Ajouter -->
+    <div class="form-group mt-4 col-lg-2 d-flex">
+      <button *ngIf="formType==''" type="submit" id="Ajouter" class="btn second-btn form-control"
+        >
+        Ajouter
+      </button>
+      <button *ngIf="formType!=''" type="submit" id="Modifier" class="btn second-btn form-control"
+        >
+        Modifier
+      </button>
+    </div>
+  </form>
+  <!-- Fin de formulaire-->
