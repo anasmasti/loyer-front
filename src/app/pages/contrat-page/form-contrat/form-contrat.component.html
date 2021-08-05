@@ -309,11 +309,11 @@
 
     <!-- Button Ajouter -->
     <div class="form-group mt-4 col-lg-2 d-flex">
-      <button *ngIf="formType==''" type="submit" id="Ajouter" class="btn second-btn form-control"
+      <button *ngIf="!formType" type="submit" id="Ajouter" class="btn second-btn form-control"
         (click)="addNewContrat(); alertOn('add');">
         Ajouter
       </button>
-      <button *ngIf="formType!=''" type="submit" id="Modifier" class="btn second-btn form-control"
+      <button *ngIf="formType" type="submit" id="Modifier" class="btn second-btn form-control"
         (click)="updateContrat();alertOn('update');">
         Modifier
       </button>

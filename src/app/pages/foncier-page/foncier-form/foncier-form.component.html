@@ -1,83 +1,102 @@
-<!-- alert de reussite -->
-<div *ngIf="success" class="done-alert p-2 my-2 w-100">{{msg}}</div>
 <!--Début de Div qui contient le formulaire form-contrat-->
 <div class="form-box mt-4">
   <!--Début Formulaire form-contrat-->
-  <form [formGroup]="foncierForm" enctype="multipart/form-data">
+  <form [formGroup]="foncierForm" (ngSubmit)="addFoncier()">
+
+    <div class="w-100 d-flex justify-content-center">
+      <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
+    </div>
+
+    <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
 
     <!--Début 1er Row-->
     <div class="row">
+
       <div class="col-lg-3 form-group mt-4">
         <label for="">Proprietaire</label>
-        <input type="text" class="form-control" formControlName="proprietaire" multiple />
+        <select class="form-control rounded-pill" formControlName="proprietaire">
+          <option [value]="proprietaireId._id" *ngFor="let proprietaireId of (proprietaireIds$ | async)">{{
+            proprietaireId.cin }}</option>
+
+        </select>
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Type du foncier</label>
-        <input type="text" class="form-control" formControlName="type_foncier" multiple />
+        <input type="text" class="form-control rounded-pill" formControlName="type_foncier" multiple />
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Adresse</label>
-        <input type="text" class="form-control" formControlName="adresse" multiple />
+        <input type="text" class="form-control rounded-pill" formControlName="adresse" multiple />
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Description</label>
-        <input type="text" class="form-control" formControlName="description" multiple />
+        <input type="text" class="form-control rounded-pill" formControlName="description" multiple />
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Lieu</label>
-        <input type="text" class="form-control" formControlName="lieu" multiple />
-      </div>
+        <select class="form-control rounded-pill" formControlName="lieu">
+          <option [value]="lieuxId._id" *ngFor="let lieuxId of (lieuxIds$ | async)">{{ lieuxId.code_lieu }}</option>
 
-      <div class="col-lg-3 form-group mt-4">
-        <label for="">Assure</label>
-        <input type="text" class="form-control" formControlName="assure" multiple />
+        </select>
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Etat du bien</label>
-        <input type="text" class="form-control" formControlName="etat_du_bien" multiple />
+        <input type="text" class="form-control rounded-pill" formControlName="etat_du_bien" multiple />
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Ville</label>
-        <input type="text" class="form-control" formControlName="ville" multiple />
+        <input type="text" class="form-control rounded-pill" formControlName="ville" multiple />
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Type du foncier</label>
-        <input type="text" class="form-control" formControlName="code_postal" multiple />
+        <input type="text" class="form-control rounded-pill" formControlName="code_postal" multiple />
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Pays</label>
-        <input type="text" class="form-control" formControlName="pays" multiple />
+        <input type="text" class="form-control rounded-pill" formControlName="pays" multiple />
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Montant loyer</label>
-        <input type="text" class="form-control" formControlName="montant_loyer" multiple />
+        <input type="number" class="form-control rounded-pill" formControlName="montant_loyer" multiple />
       </div>
 
-      <div class="col-lg-3 form-group mt-4">
-        <label for="">Meuble equipe</label>
-        <input type="text" class="form-control" formControlName="meuble_equipe" multiple />
+      <div class="mt-4">Assure</div>
+      <div class="col-lg-3 form-group d-flex mt-2">
+        <label for="">Oui</label>
+        <input type="radio" name="assure" [value]="true" class="form-check-input mx-2" formControlName="assure" />
+        <label for="">Non</label>
+        <input type="radio" name="assure" [value]="false" class="form-check-input mx-2" formControlName="assure" />
       </div>
+
+      <div class="mt-4">Meuble equipe</div>
+      <div class="col-lg-3 form-group d-flex mt-2">
+        <label for="Oui">Oui</label>
+        <input type="radio" name="meuble_equipe" [value]="true" class="form-check-input mx-2"
+          formControlName="meuble_equipe" id="Oui" />
+        <label for="Non">Non</label>
+        <input type="radio" name="meuble_equipe" [value]="false" class="form-check-input mx-2"
+          formControlName="meuble_equipe" id="Non" />
+      </div>
+
     </div>
 
 
 
     <!-- Button Ajouter -->
-    <div class="form-group mt-4 col-lg-2 d-flex">
-      <button *ngIf="formType==''" type="submit" id="Ajouter" class="btn second-btn form-control"
-        >
+    <div class="form-group mt-5 col-lg-2 d-flex">
+      <button *ngIf="formType==''" type="submit" id="Ajouter" class="btn second-btn form-control">
         Ajouter
       </button>
-      <button *ngIf="formType!=''" type="submit" id="Modifier" class="btn second-btn form-control"
-        >
+      <button *ngIf="formType!=''" type="submit" id="Modifier" class="btn second-btn form-control">
         Modifier
       </button>
     </div>

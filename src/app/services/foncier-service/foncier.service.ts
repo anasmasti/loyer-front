@@ -27,4 +27,20 @@ export class FoncierService {
       { headers: this.httpOptions.headers }
     );
   }
+
+  // Get proprietaire and lieux ids 
+  getProprietaieWithLieuxIDs(): Observable<any> {
+    return this.http.get<any>(
+      `${environment.API_URL_TEST + environment.API_VERSION}/proprietaire-lieu`,
+      { headers: this.httpOptions.headers }
+    );
+  }
+
+  // Post foncier
+  addFoncier(data: Foncier): Observable<Foncier> {
+    return this.http.post<Foncier>(
+      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`, data,
+      { headers: this.httpOptions.headers }
+    );
+  }
 }

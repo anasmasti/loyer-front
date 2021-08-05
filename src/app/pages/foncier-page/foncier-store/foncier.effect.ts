@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import { setLoadingAction } from 'src/app/store/shared/shared.action';
 import { map, mergeMap } from 'rxjs/operators';
-import { getFoncierSuccessAction, getFoncierAction } from './foncier.actions';
+import { getFoncierSuccessAction, getFoncierAction, getProprietaireWithLieuxIdsSuccessAction, getProprietaireWithLieuxIdsAction } from './foncier.actions';
 
 @Injectable()
 export class FoncierEffects {
@@ -25,6 +25,13 @@ export class FoncierEffects {
         )
     });
 
+    // Create effect to get proprietait and lieux ids
+    loadProprietaireWithLieuxIds$ = createEffect((): any => {
+        return this.actions$.pipe(
+            ofType(getProprietaireWithLieuxIdsAction),
+            mergeMap(() => this.loadProprietaireWithLieuxIds())
+        )
+    });
 
     ///////////////////////////////////////////////////////////////////
 
@@ -35,6 +42,18 @@ export class FoncierEffects {
                 (fonciers: Foncier[]) => {
                     this.store.dispatch(setLoadingAction({ status: false }))
                     return getFoncierSuccessAction({ fonciers });
+                }
+            )
+        )
+    }
+
+    // Load Proprietaie With Lieux IDs
+    loadProprietaireWithLieuxIds() {
+        return this.foncierService.getProprietaieWithLieuxIDs().pipe(
+            map(
+                (proprietaireWithLieuxIds: any) => {
+                    this.store.dispatch(setLoadingAction({ status: false }))
+                    return getProprietaireWithLieuxIdsSuccessAction({ proprietaireWithLieuxIds });
                 }
             )
         )
