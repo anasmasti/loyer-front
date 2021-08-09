@@ -10,6 +10,7 @@ import { getDr, getSup } from '../../lieux-store/lieux.selector';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
+import { HelperService } from 'src/app/services/helpers/helper.service';
 
 @Component({
   selector: 'pv-form',
@@ -48,6 +49,7 @@ export class PvFormComponent implements OnInit, OnDestroy {
   constructor(
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
+    private help: HelperService,
     private lieuService: LieuxService,
     private store: Store<AppState>,
     @Inject(DOCUMENT) private document: Document
@@ -426,6 +428,7 @@ export class PvFormComponent implements OnInit, OnDestroy {
         setTimeout(() => {
           this.PvForm.reset();
           this.postDone = false;
+          this.help.refrechPage();
         }, 2000);
       },
       (error) => {

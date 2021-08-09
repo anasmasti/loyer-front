@@ -13,6 +13,7 @@ export const getLieux = createSelector(getLieuxState, (state) => {
 export const getDr = createSelector(getLieuxState, (state: any) => {
   return state.DrWithSup.DR;
 });
+  
 
 // Get Sup from Lieux data
 export const getSup = createSelector(getLieuxState, (state: any) => {

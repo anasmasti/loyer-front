@@ -2,6 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray } from '@angular/forms';
 import { Lieu } from 'src/app/models/Lieu';
+import { HelperService } from 'src/app/services/helpers/helper.service';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { MainModalService } from './../../../../services/main-modal/main-modal.service';
 
@@ -14,9 +15,9 @@ export class SiegeFormComponent implements OnInit {
 
   siegeForm!: FormGroup;
   postDone: boolean = false;
-  PostSucces: string = 'Point de vente ajouté avec succés';
+  PostSucces: string = 'Siège ajouté avec succés';
   UpdateDone: boolean = false;
-  UpdateSucces: string = 'Point de vente modifié avec succés';
+  UpdateSucces: string = 'Siège modifié avec succés';
   errors!: any;
   hasAmenagement: boolean = false;
   hasAmenagementCheck: string = "";
@@ -40,6 +41,7 @@ export class SiegeFormComponent implements OnInit {
       private siegeService: LieuxService ,
       private lieuService: LieuxService ,
       private mainModalService: MainModalService,
+      private help: HelperService,
       @Inject(DOCUMENT) private document: Document
     ) { }
 
@@ -426,6 +428,7 @@ export class SiegeFormComponent implements OnInit {
           setTimeout(() => {
             this.siegeForm.reset();
             this.postDone = false;
+            this.help.refrechPage();
           }, 2000);
           
         },

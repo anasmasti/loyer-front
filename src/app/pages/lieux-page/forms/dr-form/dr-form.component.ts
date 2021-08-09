@@ -4,6 +4,7 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { DOCUMENT } from '@angular/common';
+import { HelperService } from 'src/app/services/helpers/helper.service';
 
 @Component({
   selector: 'dr-form',
@@ -35,7 +36,8 @@ export class DrFormComponent implements OnInit {
   constructor(
     private lieuService: LieuxService,
     private mainModalService: MainModalService,
-    @Inject(DOCUMENT) private document: Document
+    private help: HelperService,
+    @Inject(DOCUMENT) private document: Document,
   ) {}
 
   ngOnChanges() {
@@ -393,7 +395,10 @@ export class DrFormComponent implements OnInit {
         setTimeout(() => {
           this.drForm.reset();
           this.postDone = false;
+          this.help.refrechPage(); 
         }, 2000);
+        
+      
         console.log("Response ====> ",data);
         
       },
@@ -404,7 +409,9 @@ export class DrFormComponent implements OnInit {
         }, 3000);
         this.hideErrorMessage();
       }
-    );
+      );
+      
+   
   }
 
   updateDR() {

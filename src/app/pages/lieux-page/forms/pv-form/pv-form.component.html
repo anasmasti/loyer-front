@@ -43,7 +43,7 @@
         <div class="col-lg-3 form-group mt-4">
           <label for="">Supervision</label>
           <select class="form-control rounded-pill" formControlName="intitule_rattache_SUP_PV">
-            <option [value]="supItem.code_lieu" *ngFor="let supItem of (Sup$ | async)">{{ supItem.intitule_lieu }}</option>
+            <option [value]="supItem._id" *ngFor="let supItem of (Sup$ | async)">{{ supItem.intitule_lieu }}</option>
           </select>
 
         </div>
@@ -51,7 +51,7 @@
         <div class="col-lg-3 form-group mt-4">
           <label for="">Code supervision</label>
           <select class="form-control rounded-pill" formControlName="code_rattache_SUP">
-            <option [value]="supItem.code_lieu" *ngFor="let supItem of (Sup$ | async)">{{ supItem.code_lieu }}</option>
+            <option [value]="supItem._id" *ngFor="let supItem of (Sup$ | async)">{{ supItem.code_lieu }}</option>
 
           </select>
         </div>
@@ -59,14 +59,14 @@
         <div class="col-lg-3 form-group mt-4">
           <label for="">Direction Régionale</label>
           <select class="form-control rounded-pill" formControlName="intitule_DR">
-            <option [value]="drItem.code_lieu" *ngFor="let drItem of (Dr$ | async)">{{ drItem.intitule_lieu }}</option>
+            <option [value]="drItem._id" *ngFor="let drItem of (Dr$ | async)">{{ drItem.intitule_lieu }}</option>
           </select>
         </div>
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Code DR</label>
           <select class="form-control rounded-pill" formControlName="code_rattache_DR">
-            <option [value]="drItem.code_lieu" *ngFor="let drItem of (Dr$ | async)">{{ drItem.code_lieu }}</option>
+            <option [value]="drItem._id" *ngFor="let drItem of (Dr$ | async)">{{ drItem.code_lieu }}</option>
           </select>
         </div>
 

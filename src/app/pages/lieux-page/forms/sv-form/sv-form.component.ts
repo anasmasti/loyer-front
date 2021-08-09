@@ -9,6 +9,7 @@ import { MainModalService } from 'src/app/services/main-modal/main-modal.service
 import { getDrWithSupAction } from '../../lieux-store/lieux.actions';
 import { getDr } from '../../lieux-store/lieux.selector';
 import { DOCUMENT } from '@angular/common';
+import { HelperService } from 'src/app/services/helpers/helper.service';
 
 @Component({
   selector: 'sv-form',
@@ -21,9 +22,9 @@ export class SvFormComponent implements OnInit, OnDestroy {
   svForm!: FormGroup;
   errors!: any;
   postDone: boolean = false;
-  PostSucces: string = 'Point de vente ajouté avec succés';
+  PostSucces: string = 'Supervision ajouté avec succés';
   UpdateDone: boolean = false;
-  UpdateSucces: string = 'Point de vente modifié avec succés';
+  UpdateSucces: string = 'Supervision modifié avec succés';
   Dr$!: Observable<any>;
   DrSubscription$!: Subscription;
   isAmenagementEmpty : boolean = true
@@ -45,6 +46,7 @@ export class SvFormComponent implements OnInit, OnDestroy {
     private svService: LieuxService,
     private lieuService: LieuxService,
     private mainModalService: MainModalService,
+    private help: HelperService,
     private store: Store<AppState>,
     @Inject(DOCUMENT) private document: Document
   ) { }
@@ -436,6 +438,7 @@ export class SvFormComponent implements OnInit, OnDestroy {
         setTimeout(() => {
           this.svForm.reset();
           this.postDone = false;
+          this.help.refrechPage();
         }, 2000);
       },
       (error) => {

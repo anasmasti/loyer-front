@@ -17,6 +17,7 @@ import { MainModalService } from '../../../../services/main-modal/main-modal.ser
 import { getDr } from '../../lieux-store/lieux.selector';
 import { Observable, Subscription } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
+import { HelperService } from 'src/app/services/helpers/helper.service';
 
 @Component({
   selector: 'lf-form',
@@ -48,7 +49,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
   postDone: boolean = false;
   PostSucces: string = 'Logement de fonction ajouté avec succés';
   UpdateDone: boolean = false;
-  UpdateSucces: string = 'Point de vente modifié avec succés';
+  UpdateSucces: string = 'Logement de fonction modifié avec succés';
 
   selectedFile!: File;
   file!: string;
@@ -59,6 +60,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
     private mainModalService: MainModalService,
     private mainModel: MainModalService,
     private confirmationModalService: ConfirmationModalService,
+    private help: HelperService,
     private lieuService: LieuxService,
     private store: Store<AppState>,
     @Inject(DOCUMENT) private document: Document
@@ -676,6 +678,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
         setTimeout(() => {
           this.LfForm.reset();
           this.postDone = false;
+          this.help.refrechPage();
         }, 2000);
       },
       (error) => {
