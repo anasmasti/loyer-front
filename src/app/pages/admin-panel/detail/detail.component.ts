@@ -16,7 +16,8 @@ export class DetailComponent implements OnInit {
     userMatricul: "",
     nom: "",
     prenom: "",
-    userRoles: []
+    userRoles: [],
+    deleted: false,
   };
 
   ngOnInit(): void {

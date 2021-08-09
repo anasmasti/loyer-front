@@ -28,6 +28,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
   lieux: Lieu[] = [];
   isAmenagementEmpty : boolean = true;
   FullNameDerct : string = ''
+  fd: FormData = new FormData();
 
   @Input() update!: boolean;
   @Input() Lieu!: any;
@@ -661,7 +662,13 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
       amenagement: this.LfForm.get('amenagementForm')?.value,
     }
 
-    this.lieuService.addLieu(lfData).subscribe(
+    console.log(lfData);
+
+    this.fd.append('data',JSON.stringify(lfData));
+    console.log(lfData);
+    
+
+    this.lieuService.addLieu(this.fd).subscribe(
       (_) => {
         this.postDone = true;
         setTimeout(() => {
@@ -707,7 +714,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
     }
 
 
-    let lfData: Lieu = {
+    let lfData: any = {
       code_lieu: this.LfForm.get('code_lieu')?.value,
       intitule_lieu: this.LfForm.get('intitule_lieu')?.value,
       intitule_DR: this.LfForm.get('intitule_DR')?.value,
@@ -736,17 +743,18 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
       amenagement: this.LfForm.get('amenagementForm')?.value,
     }
 
-    console.log(lfData);
+    this.fd.append("data", JSON.stringify(lfData));
+    console.log(JSON.stringify(lfData));
 
 
-    this.lieuService.updateLieux(idlf, lfData).subscribe(
+    this.lieuService.updateLieux(idlf, this.fd).subscribe(
       (_) => {
         this.UpdateDone = true;
         setTimeout(() => {
           this.mainModalService.close();
           this.LfForm.reset();
           this.UpdateDone = false;
-          location.reload();
+          // location.reload();
         }, 2000);
       },
       (error) => {
