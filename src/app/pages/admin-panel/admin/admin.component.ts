@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
+  user : string = 'Ajouter';
+
   constructor(private helperService: HelperService) { }
 
   ngOnInit(): void {

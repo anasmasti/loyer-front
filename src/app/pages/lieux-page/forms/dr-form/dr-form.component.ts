@@ -387,7 +387,7 @@ export class DrFormComponent implements OnInit {
     this.fd.append('data', JSON.stringify(dr_data))
     console.log((dr_data));
     
-     this.lieuService.addLieu(dr_data,this.fd).subscribe(
+     this.lieuService.addLieu(this.fd).subscribe(
       (data) => {
         this.postDone = true;
         setTimeout(() => {
@@ -409,9 +409,9 @@ export class DrFormComponent implements OnInit {
 
   updateDR() {
     let id = this.Lieu._id;
-
+    
     this.isAmenagementEmpty = false;
-
+    
     if (this.hasAmenagementCheck == 'ButtonNon') {
       this.isAmenagementEmpty = false;
     } else {
@@ -421,8 +421,8 @@ export class DrFormComponent implements OnInit {
         }
       });
     }
-
-    let dr_data: Lieu = {
+    
+    let dr_data: any = {
       code_lieu: this.drForm.get('code_lieu')?.value,
       intitule_lieu: this.drForm.get('intitule_lieu')?.value,
       adresse: this.drForm.get('adresse')?.value,
@@ -440,11 +440,12 @@ export class DrFormComponent implements OnInit {
       intitule_rattache_SUP_PV: this.drForm.get('code_lieu')?.value,
       centre_cout_siege: this.drForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.drForm.get('categorie_pointVente')?.value,
-
+      
       // Amenagment
       amenagement: this.drForm.get('amenagementForm')?.value,
     };
-
+    
+    this.fd.append('data',JSON.stringify(dr_data));
     console.log(dr_data);
 
     this.lieuService.updateLieux(id, dr_data).subscribe(

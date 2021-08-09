@@ -417,22 +417,25 @@ export class PvFormComponent implements OnInit, OnDestroy {
 
     }
 
-    // this.lieuService.addLieu(pvData).subscribe(
-    //   (_) => {
-    //     this.postDone = true;
-    //     setTimeout(() => {
-    //       this.PvForm.reset();
-    //       this.postDone = false;
-    //     }, 2000);
-    //   },
-    //   (error) => {
-    //     this.errors = error.error.message;
-    //     setTimeout(() => {
-    //       this.showErrorMessage();
-    //     }, 3000);
-    //     this.hideErrorMessage();
-    //   }
-    // )
+    this.fd.append('data', JSON.stringify(pvData));
+    console.log(pvData);
+
+    this.lieuService.addLieu(this.fd).subscribe(
+      (_) => {
+        this.postDone = true;
+        setTimeout(() => {
+          this.PvForm.reset();
+          this.postDone = false;
+        }, 2000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+    )
   }
 
   updatePv() {

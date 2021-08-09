@@ -8,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class EditComponent implements OnInit {
 
-  @Input() User!: User[];
+  @Input() User!: User;
 
   constructor() { }
 

@@ -417,23 +417,26 @@ export class SiegeFormComponent implements OnInit {
         amenagement: this.siegeForm.get('amenagementForm')?.value,
     }
 
-      // this.siegeService.addLieu(siegeData).subscribe(
-      //   (_) => {
-      //     this.postDone = true;
-      //     setTimeout(() => {
-      //       this.siegeForm.reset();
-      //       this.postDone = false;
-      //     }, 2000);
+    this.fd.append('data', JSON.stringify(siegeData));
+    console.log(siegeData);
+
+      this.siegeService.addLieu(this.fd).subscribe(
+        (_) => {
+          this.postDone = true;
+          setTimeout(() => {
+            this.siegeForm.reset();
+            this.postDone = false;
+          }, 2000);
           
-      //   },
-      //   (error) => {
-      //     this.errors = error.error.message;
-      //     setTimeout(() => {
-      //       this.showErrorMessage();
-      //     }, 3000);
-      //     this.hideErrorMessage();
-      //   }
-      // );
+        },
+        (error) => {
+          this.errors = error.error.message;
+          setTimeout(() => {
+            this.showErrorMessage();
+          }, 3000);
+          this.hideErrorMessage();
+        }
+      );
    
   }
 

@@ -36,19 +36,17 @@ export class LieuxService {
     return this.http.get<Lieu>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/lieu-by-id/` + id);
   }
 
-  addLieu(data: Lieu, formdata: any): Observable<any>{
+  addLieu(formdata: any): Observable<any>{
     return this.http.post<any>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`, formdata);
   }
 
   // Update the proprietaire
-  updateLieux(id: any, data: Lieu): Observable<Lieu> {
-      return this.http.patch<Lieu>(
+  updateLieux(id: any, data: any): Observable<any> {
+      return this.http.put<any>(
         `${
           environment.API_URL_TEST + environment.API_VERSION + this.param_url
         }/modifier/${id}`,
-        data,
-        { headers: this.httpOptions.headers }
-      );
+        data);
   }
 
   deleteLieu(id: any, data: any): Observable<Lieu> {

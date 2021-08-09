@@ -1,4 +1,4 @@
-<form [formGroup]="adminForm" (ngSubmit)="postUserRole()">
+<form [formGroup]="adminForm" (ngSubmit)="SubmitForm != 'Ajouter' ? updateUserRole() : postUserRole()">
 
   <div class="w-100 d-flex justify-content-center">
     <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
@@ -26,9 +26,10 @@
 
 
   </div>
-  <div class="row">
+  <div class="row"*ngIf="userIsEmpty">
     <div class="mt-5">
-      <h3 class="main-title">Rôles</h3><br>
+      <!-- <h1>{{ userR._id }}</h1> -->
+      <h3 class="main-title">Rôles Empty</h3><br>
       <div class="btn-group d-flex justify-content-between" role="group"
         aria-label="Basic checkbox toggle button group">
         <div>
@@ -60,9 +61,47 @@
 
     </div>
   </div>
+  <div class="row" *ngIf="!userIsEmpty">
+    <div class="mt-5">
+      <!-- <h1>{{ userR._id }}</h1> -->
+      <h3 class="main-title">Rôles NotEmpty</h3><br>
+      <div class="btn-group d-flex justify-content-between" role="group"
+        aria-label="Basic checkbox toggle button group">
+        <div>
+          <input type="checkbox" name="chk1" class="btn-check roles" id="Update-role1" autocomplete="off" value="role1"
+            (change)="CheckedRoles('Update-role1')" [checked]="Role1">
+          <label class="px-5 py-1 rounded-pill checkbox-list-btns" for="Update-role1">role 1</label>
+        </div>
+        <div>
+          <input type="checkbox" name="chk2" class="btn-check roles" id="Update-role2" autocomplete="off" value="role2"
+            (change)="CheckedRoles('Update-role2')" [checked]="Role2">
+          <label class="px-5 py-1 rounded-pill checkbox-list-btns" for="Update-role2">role 2</label>
+        </div>
+        <div>
+          <input type="checkbox" name="chk3" class="btn-check roles" id="Update-role3" autocomplete="off" value="role3"
+            (change)="CheckedRoles('Update-role3')" [checked]="Role3">
+          <label class="px-5 py-1 rounded-pill checkbox-list-btns" for="Update-role3">role 3</label>
+        </div>
+        <div>
+          <input type="checkbox" name="chk4" class="btn-check roles" id="Update-role4" autocomplete="off" value="role4"
+            (change)="CheckedRoles('Update-role4')" [checked]="Role4">
+          <label class="px-5 py-1 rounded-pill checkbox-list-btns" for="Update-role4">role 4</label>
+        </div>
+        <div>
+          <input type="checkbox" name="chk5" class="btn-check roles" id="Update-role5" autocomplete="off" value="role5"
+            (change)="CheckedRoles('Update-role5')" [checked]="Role5"> 
+          <label class="px-5 py-1 rounded-pill checkbox-list-btns" for="Update-role5">role 5</label>
+        </div>
+      </div>
+
+    </div>
+  </div>
   <div class="form-group my-5">
-    <button type="submit" class="btn second-btn">
+    <button type="submit" class="btn second-btn" *ngIf="SubmitForm == 'Ajouter'">
       Ajouter
+    </button>
+    <button type="submit" class="btn second-btn" *ngIf="SubmitForm == 'Modifier'">
+      Modifier
     </button>
   </div>
 </form>

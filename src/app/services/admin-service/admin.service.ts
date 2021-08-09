@@ -27,6 +27,13 @@ export class AdminService {
     );
   }
 
+  // Update new UserRole
+  updateUser(data: User , id : any): Observable<User> {
+    return this.http.put<User>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/update/${id}`, data,
+      { 'headers': this.httpOptions.headers }
+    );
+  }
+
   //getUsers list 
   getUsersList(): Observable<User[]> {
     return this.http.get<User[]>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/all `, { 'headers': this.httpOptions.headers });
@@ -39,7 +46,7 @@ export class AdminService {
 
   //delete user 
   deleteUserById(id: String) {
-    return this.http.get(`${environment.API_URL_TEST + environment.API_VERSION + + this.param_url}/delete/${id}`, { 'headers': this.httpOptions.headers });
+    return this.http.put(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/delete/${id}`, { 'headers': this.httpOptions.headers });
   }
 
 }
