@@ -70,7 +70,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
     if (this.Lieu !== '') {
       setTimeout(() => {
         this.fetchLf('Default');
-      }, 100);
+      }, 500);
     }
   }
 
@@ -179,6 +179,9 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   fetchLf(HasAmenagement: string) {
+   let img_enter: File = this.Lieu.imgs_lieu_entrer[0].image.replace("uploads\\", "")
+   console.log(img_enter);
+   
     console.log(this.Lieu);
 
     this.removeAllAmenagement();
@@ -196,7 +199,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
       ville: this.Lieu.ville,
       code_localite: this.Lieu.code_localite,
       desc_lieu_entrer: this.Lieu.desc_lieu_entrer,
-      imgs_lieu_entrer: this.Lieu.imgs_lieu_entrer,
+      // imgs_lieu_entrer: img_enter,
       has_amenagements: this.Lieu.has_amenagements,
       superficie: this.Lieu.superficie,
       telephone: this.Lieu.telephone,
@@ -236,8 +239,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
         // (<FormGroup>DirecteurData).controls.matricule_directeur.setValue(directeur.matricule)
       }
     });
-    console.log('Test');
-
+  
     console.log(this.LfForm.controls.directeur_regional);
 
     // Amenagement
@@ -600,7 +602,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
   //Upload Image amenagement après amenagement
   async onFileSelectedAmenagement(event: any, index: number) {
     if (event.target.files.length > 0) {
-      this.selectedFile = event.target.files[0];
+      this.selectedFile = event.target.files[0];      
       this.file = this.idm + index + this.extension;
       await this.fd.append('imgs_amenagement', this.selectedFile, this.file);
     }
@@ -623,17 +625,9 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  //Post files
-  async addFiles() {
-    await this.lieuService.uploadFile(this.fd).subscribe(
-      (res) => console.log(res),
-      (err) => console.log(err)
-    );
-  }
-
   //////////////////////////////////////////////////////////////////////////////////
   addLf() {
-    let lfData: Lieu = {
+    let lfData: any = {
       code_lieu: this.LfForm.get('code_lieu')?.value,
       intitule_lieu: this.LfForm.get('intitule_lieu')?.value,
       intitule_DR: this.LfForm.get('intitule_DR')?.value,
@@ -670,7 +664,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
     };
 
     this.fd.append('data', JSON.stringify(lfData));
-    console.log('lfData ==> ',lfData);
+    console.log('lfData ==> ', lfData);
 
     this.lieuService.addLieu(this.fd).subscribe(
       (_) => {
@@ -748,7 +742,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
           this.mainModalService.close();
           this.LfForm.reset();
           this.UpdateDone = false;
-          // location.reload();
+          location.reload();
         }, 2000);
       },
       (error) => {

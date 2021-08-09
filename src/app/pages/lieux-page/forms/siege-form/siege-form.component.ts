@@ -383,15 +383,7 @@ export class SiegeFormComponent implements OnInit {
       await this.fd.append('imgs_lieu_entrer', this.selectedFile);
     }
   }
-
-  //Post files
-  async addFiles() {
-     await this.lieuService.uploadFile(this.fd).subscribe(
-        (res) => console.log(res),
-        (err) => console.log(err)
-      )
-  }
-
+  
   onAddsiege() {
     let siegeData: Lieu = {
       code_lieu: this.siegeForm.get('code_lieu')?.value,

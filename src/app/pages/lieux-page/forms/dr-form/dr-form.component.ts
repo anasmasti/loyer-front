@@ -25,7 +25,7 @@ export class DrFormComponent implements OnInit {
   idm: any = JSON.stringify(Math.random());
   isAmenagementEmpty: boolean = true;
   i: any = 0;
-  extension: string ='.zip';
+  extension: string = '.zip';
 
   @Input() update!: boolean;
   @Input() Lieu!: any;
@@ -37,7 +37,7 @@ export class DrFormComponent implements OnInit {
     private lieuService: LieuxService,
     private mainModalService: MainModalService,
     private help: HelperService,
-    @Inject(DOCUMENT) private document: Document,
+    @Inject(DOCUMENT) private document: Document
   ) {}
 
   ngOnChanges() {
@@ -328,20 +328,18 @@ export class DrFormComponent implements OnInit {
 
   //Upload Image amenagement après amenagement
   async onFileSelectedAmenagement(event: any, index: number) {
-    
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
-      this.file = (this.idm + index) + this.extension;
+      this.file = this.idm + index + this.extension;
       await this.fd.append('imgs_amenagement', this.selectedFile, this.file);
     }
   }
 
   //Upload Croquis
   async onFileSelectedCroquis(event: any, index: number) {
-    
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
-      this.file = (this.idm + index) + this.extension;
+      this.file = this.idm + index + this.extension;
       await this.fd.append('imgs_croquis', this.selectedFile, this.file);
     }
   }
@@ -354,15 +352,7 @@ export class DrFormComponent implements OnInit {
     }
   }
 
-  // //Post files
-  // addFiles() {
-  //    this.lieuService.uploadFile(this.fd).subscribe(
-  //     (res) => console.log(res),
-  //     (err) => console.log(err)
-  //   )
-  // }
-
- async addDR() {
+  async addDR() {
     let dr_data: any = {
       code_lieu: this.drForm.get('code_lieu')?.value,
       intitule_lieu: this.drForm.get('intitule_lieu')?.value,
@@ -386,21 +376,19 @@ export class DrFormComponent implements OnInit {
       // Amenagment
       amenagement: this.drForm.get('amenagementForm')?.value,
     };
-    this.fd.append('data', JSON.stringify(dr_data))
-    console.log((dr_data));
-    
-     this.lieuService.addLieu(this.fd).subscribe(
+    this.fd.append('data', JSON.stringify(dr_data));
+    console.log(dr_data);
+
+    this.lieuService.addLieu(this.fd).subscribe(
       (data) => {
         this.postDone = true;
         setTimeout(() => {
           this.drForm.reset();
           this.postDone = false;
-          this.help.refrechPage(); 
+          this.help.refrechPage();
         }, 2000);
-        
-      
-        console.log("Response ====> ",data);
-        
+
+        console.log('Response ====> ', data);
       },
       (error) => {
         this.errors = error.error.message;
@@ -409,16 +397,14 @@ export class DrFormComponent implements OnInit {
         }, 3000);
         this.hideErrorMessage();
       }
-      );
-      
-   
+    );
   }
 
   updateDR() {
     let id = this.Lieu._id;
-    
+
     this.isAmenagementEmpty = false;
-    
+
     if (this.hasAmenagementCheck == 'ButtonNon') {
       this.isAmenagementEmpty = false;
     } else {
@@ -428,7 +414,7 @@ export class DrFormComponent implements OnInit {
         }
       });
     }
-    
+
     let dr_data: any = {
       code_lieu: this.drForm.get('code_lieu')?.value,
       intitule_lieu: this.drForm.get('intitule_lieu')?.value,
@@ -447,19 +433,19 @@ export class DrFormComponent implements OnInit {
       intitule_rattache_SUP_PV: this.drForm.get('code_lieu')?.value,
       centre_cout_siege: this.drForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.drForm.get('categorie_pointVente')?.value,
-      
+
       // Amenagment
       amenagement: this.drForm.get('amenagementForm')?.value,
     };
-    
-    this.fd.append('data',JSON.stringify(dr_data));
+
+    this.fd.append('data', JSON.stringify(dr_data));
     console.log(dr_data);
 
-    this.lieuService.updateLieux(id, dr_data).subscribe(
+    this.lieuService.updateLieux(id, this.fd).subscribe(
       (_) => {
         this.postDone = true;
         setTimeout(() => {
-          this.drForm.controls
+          this.drForm.controls;
           this.mainModalService.close();
           this.drForm.reset();
           this.postDone = false;

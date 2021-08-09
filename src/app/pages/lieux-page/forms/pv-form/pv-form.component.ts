@@ -383,14 +383,6 @@ export class PvFormComponent implements OnInit, OnDestroy {
       }
     }
   
-    //Post files
-    async addFiles() {
-       await this.lieuService.uploadFile(this.fd).subscribe(
-          (res) => console.log(res),
-          (err) => console.log(err)
-        )
-    }
-
   addPv() {
     let pvData: Lieu = {
       code_lieu: this.PvForm.get('code_lieu')?.value,
