@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class FoncierService {
 
+
   constructor(private http: HttpClient) { }
 
   param_url: string = 'foncier';
@@ -41,15 +42,15 @@ export class FoncierService {
     return this.http.post<Foncier>(
       `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`, data,
       { headers: this.httpOptions.headers }
-    );
-  }
-
-  // Get foncier by id
-  getFoncierById(id: string): Observable<Foncier> {
-    return this.http.get<Foncier>(
-      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/${id}`,
-      { headers: this.httpOptions.headers }
-    );
-  }
-
+      );
+    }
+    
+    // Get foncier by id
+    getFoncierById(id: string): Observable<Foncier> {
+      return this.http.get<Foncier>(
+        `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/${id}`,
+        { headers: this.httpOptions.headers }
+      );
+    }
+    
 }

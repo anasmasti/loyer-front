@@ -706,7 +706,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
       amenagement: this.LfForm.get('amenagementForm')?.value,
     }
 
-    this.lieuService.addLieu(lfData).subscribe(
+    this.lieuService.addLieu(lfData,this.fd).subscribe(
       (_) => {
         this.postDone = true;
         setTimeout(() => {

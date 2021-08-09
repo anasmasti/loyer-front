@@ -36,8 +36,8 @@ export class LieuxService {
     return this.http.get<Lieu>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/lieu-by-id/` + id);
   }
 
-  addLieu(data: Lieu): Observable<Lieu> {
-    return this.http.post<Lieu>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`, data);
+  addLieu(data: Lieu, formdata: any): Observable<any>{
+    return this.http.post<any>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`, formdata);
   }
 
   // Update the proprietaire

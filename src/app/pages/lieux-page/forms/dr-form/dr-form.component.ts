@@ -352,16 +352,16 @@ export class DrFormComponent implements OnInit {
     }
   }
 
-  //Post files
-  async addFiles() {
-     await this.lieuService.uploadFile(this.fd).subscribe(
-        (res) => console.log(res),
-        (err) => console.log(err)
-      )
-  }
+  // //Post files
+  // addFiles() {
+  //    this.lieuService.uploadFile(this.fd).subscribe(
+  //     (res) => console.log(res),
+  //     (err) => console.log(err)
+  //   )
+  // }
 
-  addDR() {
-    let dr_data: Lieu = {
+ async addDR() {
+    let dr_data: any = {
       code_lieu: this.drForm.get('code_lieu')?.value,
       intitule_lieu: this.drForm.get('intitule_lieu')?.value,
       adresse: this.drForm.get('adresse')?.value,
@@ -384,14 +384,18 @@ export class DrFormComponent implements OnInit {
       // Amenagment
       amenagement: this.drForm.get('amenagementForm')?.value,
     };
-
-    this.lieuService.addLieu(dr_data).subscribe(
-      (_) => {
+    this.fd.append('data', JSON.stringify(dr_data))
+    console.log((dr_data));
+    
+     this.lieuService.addLieu(dr_data,this.fd).subscribe(
+      (data) => {
         this.postDone = true;
         setTimeout(() => {
           this.drForm.reset();
           this.postDone = false;
         }, 2000);
+        console.log("Response ====> ",data);
+        
       },
       (error) => {
         this.errors = error.error.message;
