@@ -10,20 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FoncierDetailComponent implements OnInit {
 
-  foncier: Foncier = {
-    proprietaire: 'Chargement...',
-    type_foncier: 'Chargement...',
-    adresse: 'Chargement...',
-    description: 'Chargement...',
-    lieu: 'Chargement...',
-    assure: false,
-    etat_du_bien: 'Chargement...',
-    ville: 'Chargement...',
-    code_postal: 'Chargement...',
-    pays: 'Chargement...',
-    montant_loyer: 0,
-    meuble_equipe: false,
-  };
+  foncier!: Foncier;
 
   constructor(
     private foncierService: FoncierService,

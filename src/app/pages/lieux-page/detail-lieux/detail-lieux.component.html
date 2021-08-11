@@ -20,7 +20,7 @@
 </div>
 
 
-<div class="row">
+<div class="row d-flex justify-content-around">
     <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-5">
         <div class="row">
             <div class="col-lg-6">
@@ -83,7 +83,7 @@
 
     </div>
 
-    <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-6 ms-5">
+    <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-6">
 
         <div class="row">
             <div class="col-lg-6">
@@ -132,30 +132,17 @@
 </div>
 
 
-<div *ngIf="lieu?.amenagement" class="main-card p-lg-4 mt-4 table-responsive bg-white">
-    <div>
-        <h4 class="main-title my-4">Aménagement</h4>
-    </div>
+
+
+<div *ngIf="lieu?.amenagement" class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white">
+
+    <h4 class="main-title my-4">Aménagement</h4>
 
     <div class="d-inline" *ngFor="let selected_amenagement of lieu.amenagement">
-
-
-        <!-- <div class="btn-group d-flex justify-content-between" role="group"
-                aria-label="Basic checkbox toggle button group"> 
-                <div >
-                    <input type="checkbox" name="chk1" class="btn-check roles" id="role1" autocomplete="off"
-                        value="role1" (change)="displayAmenagement(amen._id); scroll();">
-                    <label class="px-5 py-1 rounded-pill checkbox-list-btns" for="role1">{{amen.nature}}</label>
-                </div>
-            </div> -->
-
-
         <button *ngIf="!selected_amenagement.deleted" class="btn second-btn me-3" type="button"
             (click)="displayAmenagement(selected_amenagement._id);scroll();">
             {{ selected_amenagement._id }}
         </button>
-
-
     </div>
 
     <!-- fin de division -->
@@ -163,10 +150,8 @@
 
         <div class="row">
             <div class="col-lg-4">
-
                 <h5>Nature d'aménagement </h5>
                 <p> {{ selectedAmenagement?.nature_amenagement }} </p>
-
             </div>
             <div class="col-lg-4">
                 <h5>Montant d'Aménagement </h5>
@@ -216,10 +201,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
-
-
 </div>

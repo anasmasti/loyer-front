@@ -4,7 +4,7 @@
             <!-- <h3 class=""></h3> -->
             <h3 class="main-title">
                 <a [routerLink]="['/proprietaire/list']" class="goback-link">Liste des
-                    propriétaires</a>/<span class="selected-text">{{ proprietaire.nom_prenom }}</span>
+                    propriétaires</a>/<span class="selected-text">{{ proprietaire?.nom_prenom }}</span>
             </h3>
             <div class="d-none d-lg-block">
                 <a [routerLink]="['/proprietaire/list']" class="btn btn-sm second-btn me-3 " data-bs-toggle="tooltip"
@@ -12,7 +12,7 @@
                     Retour à la liste des propriétaires
                 </a>
                 <span data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Ici vous pouvez voir les détails de {{ proprietaire.nom_prenom }}">
+                    title="Ici vous pouvez voir les détails de {{ proprietaire?.nom_prenom }}">
                     <i class="fal fa-info"></i>
                 </span>
             </div>
@@ -20,34 +20,34 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row d-flex justify-content-around">
     <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-4">
         <div class="row">
             <div class="col-lg-6">
                 <h5>Nom et prénom de proprietaire</h5>
-                <p>{{ proprietaire.nom_prenom }}</p>
+                <p>{{ proprietaire?.nom_prenom }}</p>
             </div>
             <div class="col-lg-6">
                 <h5>CIN de propriétaire</h5>
-                <p>{{ proprietaire.cin }}</p>
+                <p>{{ proprietaire?.cin }}</p>
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-6">
                 <h5>Passeport de propriétaire</h5>
-                <p>{{ proprietaire.passport }}</p>
+                <p>{{ proprietaire?.passport }}</p>
             </div>
             <div class="col-lg-6">
                 <h5>Carte séjour de propriétaire</h5>
-                <p>{{ proprietaire.carte_sejour }}</p>
+                <p>{{ proprietaire?.carte_sejour }}</p>
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-6">
                 <h5>Adresse</h5>
-                <p>{{ proprietaire.adresse }}</p>
+                <p>{{ proprietaire?.adresse }}</p>
             </div>
             <div class="col-lg-6"></div>
         </div>
@@ -56,39 +56,39 @@
         <div class="row">
             <div class="col-lg-4">
                 <h5>Télephone</h5>
-                <p>{{ proprietaire.telephone }}</p>
+                <p>{{ proprietaire?.telephone }}</p>
             </div>
             <div class="col-lg-4">
                 <h5>Fax</h5>
-                <p>{{ proprietaire.fax }}</p>
+                <p>{{ proprietaire?.fax }}</p>
             </div>
             <div class="col-lg-4">
                 <h5>Raison sociale</h5>
-                <p>{{ proprietaire.raison_social }}</p>
+                <p>{{ proprietaire?.raison_social }}</p>
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-4">
                 <h5>N° compte bancaire</h5>
-                <p>{{ proprietaire.n_compte_bancaire }}</p>
+                <p>{{ proprietaire?.n_compte_bancaire }}</p>
             </div>
             <div class="col-lg-4">
                 <h5>Banque</h5>
-                <p>{{ proprietaire.banque }}</p>
+                <p>{{ proprietaire?.banque }}</p>
             </div>
             <div class="col-lg-4">
                 <h5>Nom de l'agence bancaire</h5>
-                <p>{{ proprietaire.nom_agence_bancaire }}</p>
+                <p>{{ proprietaire?.nom_agence_bancaire }}</p>
             </div>
         </div>
     </div>
 </div>
 
-<div *ngIf="mandataire" class="row">
+<div *ngIf="mandataire">
     <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-12">
         <!-- Mandataire inputs -->
-        <h4 class="main-title my-4">Mandataire :</h4>
+        <h4 class="main-title my-4">Mandataire</h4>
         <div class="row">
             <div class="col-lg-4">
                 <h5>CIN Mandataire</h5>
