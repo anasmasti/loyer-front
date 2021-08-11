@@ -20,7 +20,12 @@ export class DetailLieuxComponent implements OnInit {
     ville: 'Chargement...',
     code_localite: 'Chargement...',
     desc_lieu_entrer: 'Chargement...',
-    imgs_lieu_entrer: 'Chargement...',
+    imgs_lieu_entrer: [
+      {
+        _id: 'Chargement...',
+        image: 'Chargement...'
+      }
+    ],
     has_amenagements: false,
     superficie: 'Chargement...',
     telephone: 'Chargement...',
@@ -96,6 +101,13 @@ export class DetailLieuxComponent implements OnInit {
 
   displayAmenagementSection: boolean = false;
 
+  selectedImageEntrer: any = [
+    {
+      _id: 'Chargement...',
+      image: 'Chargement...'
+    }
+  ]
+
   constructor(
     private lieuxService: LieuxService,
     private actRoute: ActivatedRoute
@@ -111,6 +123,12 @@ export class DetailLieuxComponent implements OnInit {
     this.lieuxService.getLieuById(id).subscribe((data: Lieu) => {
       this.lieu = data;
       this.lieu.amenagement = data.amenagement;
+      this.lieu.imgs_lieu_entrer = data.imgs_lieu_entrer;
+
+      for (let index = 0; index < this.lieu.imgs_lieu_entrer.length; index++) {
+        this.selectedImageEntrer = this.lieu.imgs_lieu_entrer[index];
+      }
+
     });
   }
 

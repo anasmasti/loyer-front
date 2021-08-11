@@ -83,7 +83,12 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
     ville: 'Chargement...',
     code_localite: 'Chargement...',
     desc_lieu_entrer: 'Chargement...',
-    imgs_lieu_entrer: 'Chargement...',
+    imgs_lieu_entrer: [
+      {
+        _id: 'Chargement...',
+        image: 'Chargement...'
+      }
+    ],
     has_amenagements: false,
     superficie: 'Chargement...',
     telephone: 'Chargement...',
