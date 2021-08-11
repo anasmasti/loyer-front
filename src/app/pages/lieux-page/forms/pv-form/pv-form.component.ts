@@ -384,7 +384,7 @@ export class PvFormComponent implements OnInit, OnDestroy {
     }
   
   addPv() {
-    let pvData: Lieu = {
+    let pvData: any = {
       code_lieu: this.PvForm.get('code_lieu')?.value,
       intitule_lieu: this.PvForm.get('intitule_lieu')?.value,
       intitule_DR: this.PvForm.get('intitule_DR')?.value,
