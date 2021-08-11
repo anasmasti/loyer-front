@@ -1,14 +1,6 @@
 @use '../../../../assets/style/helpers' as *;
 @use '../../../../assets/style/components' as *;
 
-th {
-   @extend .header-table
-}
-
-.main-card {
-   background: color(body-color);
-}
-
 
 
 
