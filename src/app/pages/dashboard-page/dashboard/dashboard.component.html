@@ -9,20 +9,25 @@
         </div>
     </div>
     <div class="mt-5">
-        <div class="row">
-            <div class="col-3 main-card bg-white p-4">
+        <div class="row d-flex justify-content-between">
+            <div class="col-lg-3 main-card bg-white p-4 count-card">
                 <h3>
-                    <span class="count-number">6</span> Proprietaires
+                    <span class="count-number">{{allCount.countProprietaire}}</span> Proprietaires
                 </h3>
             </div>
-            <div class="col-3 main-card bg-white p-4 mx-5">
+            <div class="col-lg-3 main-card bg-white p-4 count-card">
                 <h3>
-                    <span class="count-number">55</span> Lieux
+                    <span class="count-number">{{allCount.countLieu}}</span> Lieux
                 </h3>
             </div>
-            <div class="col-3 main-card bg-white p-4">
+            <div class="col-lg-3 main-card bg-white p-4 count-card">
                 <h3>
-                    <span class="count-number">67</span> Contrats
+                    <span class="count-number">{{allCount.countContrat}}</span> Contrats
+                </h3>
+            </div>
+            <div class="col-lg-3 main-card bg-white p-4 count-card">
+                <h3>
+                    <span class="count-number">{{allCount.countFoncier}}</span> Foncieres
                 </h3>
             </div>
         </div>
