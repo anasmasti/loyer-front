@@ -32,6 +32,7 @@ export class DrFormComponent implements OnInit {
   @Input() LieuName!: string;
   amenagementList: any = [];
   LfForm!: FormGroup;
+  image_lieu_entrer!: any;
 
   constructor(
     private lieuService: LieuxService,
@@ -76,6 +77,7 @@ export class DrFormComponent implements OnInit {
     });
 
     // this.fetchLieu();
+    console.log('Lieu ==> ', this.Lieu);
   }
 
   fetchDr(HasAmenagement: string) {
@@ -89,7 +91,7 @@ export class DrFormComponent implements OnInit {
       ville: this.Lieu.ville,
       code_localite: this.Lieu.code_localite,
       desc_lieu_entrer: this.Lieu.desc_lieu_entrer,
-      imgs_lieu_entrer: this.Lieu.imgs_lieu_entrer,
+      //imgs_lieu_entrer: this.Lieu.imgs_lieu_entrer,
       has_amenagements: this.Lieu.has_amenagements,
       superficie: this.Lieu.superficie,
       telephone: this.Lieu.telephone,
@@ -327,28 +329,28 @@ export class DrFormComponent implements OnInit {
   }
 
   //Upload Image amenagement après amenagement
-  async onFileSelectedAmenagement(event: any, index: number) {
+  onFileSelectedAmenagement(event: any, index: number) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
       this.file = this.idm + index + this.extension;
-      await this.fd.append('imgs_amenagement', this.selectedFile, this.file);
+      this.fd.append('imgs_amenagement', this.selectedFile, this.file);
     }
   }
 
   //Upload Croquis
-  async onFileSelectedCroquis(event: any, index: number) {
+  onFileSelectedCroquis(event: any, index: number) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
       this.file = this.idm + index + this.extension;
-      await this.fd.append('imgs_croquis', this.selectedFile, this.file);
+      this.fd.append('imgs_croquis', this.selectedFile, this.file);
     }
   }
 
   //Upload Image amenagement avant amenagement
-  async onFileSelected(event: any) {
+  onFileSelected(event: any) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
-      await this.fd.append('imgs_lieu_entrer', this.selectedFile);
+      this.fd.append('imgs_lieu_entrer', this.selectedFile);
     }
   }
 
@@ -415,6 +417,10 @@ export class DrFormComponent implements OnInit {
       });
     }
 
+    if (this.drForm.get('imgs_lieu_entrer')?.value == null) {
+      this.image_lieu_entrer = this.Lieu.imgs_lieu_entrer;
+    }
+
     let dr_data: any = {
       code_lieu: this.drForm.get('code_lieu')?.value,
       intitule_lieu: this.drForm.get('intitule_lieu')?.value,
@@ -433,16 +439,20 @@ export class DrFormComponent implements OnInit {
       intitule_rattache_SUP_PV: this.drForm.get('code_lieu')?.value,
       centre_cout_siege: this.drForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.drForm.get('categorie_pointVente')?.value,
+      // imgs_lieu_entrer:this.image_lieu_entrer,
 
       // Amenagment
       amenagement: this.drForm.get('amenagementForm')?.value,
     };
 
+    console.log('imgs test ==>', this.image_lieu_entrer);
+    console.log('Value !! ', this.drForm.get('imgs_lieu_entrer')?.value);
+
     this.fd.append('data', JSON.stringify(dr_data));
     console.log(dr_data);
 
     this.lieuService.updateLieux(id, this.fd).subscribe(
-      (_) => {
+      (data) => {
         this.postDone = true;
         setTimeout(() => {
           this.drForm.controls;
@@ -451,6 +461,7 @@ export class DrFormComponent implements OnInit {
           this.postDone = false;
           location.reload();
         }, 2000);
+        console.log('response ==> ', data);
       },
       (error) => {
         this.errors = error.error.message;

@@ -98,7 +98,7 @@ export class SvFormComponent implements OnInit, OnDestroy {
       ville: this.Lieu.ville,
       code_localite: this.Lieu.code_localite,
       desc_lieu_entrer: this.Lieu.desc_lieu_entrer,
-      imgs_lieu_entrer: this.Lieu.imgs_lieu_entrer,
+      // imgs_lieu_entrer: this.Lieu.imgs_lieu_entrer,
       has_amenagements: this.Lieu.has_amenagements,
       superficie: this.Lieu.superficie,
       telephone: this.Lieu.telephone,
@@ -330,33 +330,37 @@ export class SvFormComponent implements OnInit, OnDestroy {
   }
 
   //Upload Image amenagement après amenagement
-  async onFileSelectedAmenagement(event: any, index: number) {
+   onFileSelectedAmenagement(event: any, index: number) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
       this.file = this.idm + index + this.extension;
-      await this.fd.append('imgs_amenagement', this.selectedFile, this.file);
+      console.log(this.file);
+      
+     this.fd.append('imgs_amenagement', this.selectedFile, this.file);
     }
   }
 
   //Upload Croquis
-  async onFileSelectedCroquis(event: any, index: number) {
+   onFileSelectedCroquis(event: any, index: number) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
       this.file = this.idm + index + this.extension;
-      await this.fd.append('imgs_croquis', this.selectedFile, this.file);
+      this.fd.append('imgs_croquis', this.selectedFile, this.file);
+      console.log(this.file);
     }
   }
 
   //Upload Image amenagement avant amenagement
-  async onFileSelected(event: any) {
+   onFileSelected(event: any) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
-      await this.fd.append('imgs_lieu_entrer', this.selectedFile);
+      this.fd.append('imgs_lieu_entrer', this.selectedFile);
+      console.log(this.selectedFile.name);
     }
   }
 
   onAddSv() {
-    let svData: Lieu = {
+    let svData: any = {
       code_lieu: this.svForm.get('code_lieu')?.value,
       intitule_lieu: this.svForm.get('intitule_lieu')?.value,
       intitule_DR: this.svForm.get('intitule_DR')?.value,
@@ -364,7 +368,7 @@ export class SvFormComponent implements OnInit, OnDestroy {
       ville: this.svForm.get('ville')?.value,
       code_localite: this.svForm.get('code_localite')?.value,
       desc_lieu_entrer: this.svForm.get('desc_lieu_entrer')?.value,
-      imgs_lieu_entrer: this.svForm.get('imgs_lieu_entrer')?.value,
+      // imgs_lieu_entrer: this.svForm.get('imgs_lieu_entrer')?.value,
       has_amenagements: this.svForm.get('has_amenagements')?.value,
       superficie: this.svForm.get('superficie')?.value,
       telephone: this.svForm.get('telephone')?.value,
@@ -420,7 +424,7 @@ export class SvFormComponent implements OnInit, OnDestroy {
       });
     }
 
-    let SvData: Lieu = {
+    let SvData: any = {
       code_lieu: this.svForm.get('code_lieu')?.value,
       intitule_lieu: this.svForm.get('intitule_lieu')?.value,
       intitule_DR: this.svForm.get('intitule_DR')?.value,
@@ -448,8 +452,9 @@ export class SvFormComponent implements OnInit, OnDestroy {
     };
 
     console.log(SvData);
+    this.fd.append('data', JSON.stringify(SvData))
 
-    this.lieuService.updateLieux(id, SvData).subscribe(
+    this.lieuService.updateLieux(id, this.fd).subscribe(
       (_) => {
         this.UpdateDone = true;
         setTimeout(() => {
