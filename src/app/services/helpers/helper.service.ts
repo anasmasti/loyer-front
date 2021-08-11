@@ -15,13 +15,14 @@ export class HelperService {
       'Api-Key-Access': environment.API_ACCESS_KEY,
     }),
   };
-  
 
+  // Reload page
   refrechPage() {
     location.reload();
   }
-
-  getAllCount() {
+  
+  // Get all counts from server
+  getAllCounts() {
     return this.http.get(
       `${environment.API_URL_TEST + environment.API_VERSION}/count-all`,
       { headers: this.httpOptions.headers }
