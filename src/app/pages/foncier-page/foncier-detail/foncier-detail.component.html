@@ -19,49 +19,53 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-7">
+        <div class="row">
 
+            <div class="col-lg-6">
+                <h5>Proprietaire</h5>
+                <p>{{foncier?.proprietaire}}</p>
+            </div>
+            <div class="col-lg-6">
+                <h5>Lieu</h5>
+                <p>{{foncier?.lieu}}</p>
+            </div>
+        </div>
 
-<div class="main-card p-lg-4 mt-4 table-responsive bg-white">
+        <div class="row">
+            <div class="col-lg-6">
+                <h5>Code postal</h5>
+                <p>{{foncier?.code_postal}}</p>
+            </div>
+            <div class="col-lg-6">
+                <h5>Montant loyer</h5>
+                <p>{{foncier?.montant_loyer}}</p>
+            </div>
+        </div>
+    </div>
 
-    <table class="table" cellspacing="0" width="100%">
-        <tbody>
-            <tr>
-                <th>Description</th>
-                <td>{{foncier?.description}}</td>
-            </tr>
-            <tr>
-                <th>Etat du bien</th>
-                <td>{{foncier?.etat_du_bien}}</td>
-            </tr>
-            <tr>
-                <th>Code postal</th>
-                <td>{{foncier?.code_postal}}</td>
-            </tr>
-            <tr>
-                <th>Pays</th>
-                <td>{{foncier?.pays}}</td>
-            </tr>
-            <tr>
-                <th>Ville</th>
-                <td>{{foncier?.ville}}</td>
-            </tr>
-            <tr>
-                <th>Montant loyer</th>
-                <td>{{foncier?.montant_loyer}}</td>
-            </tr>
-            <tr>
-                <th>Proprietaire</th>
-                <td>{{foncier?.proprietaire}}</td>
-            </tr>
-            <tr>
-                <th>Lieu</th>
-                <td>{{foncier?.lieu}}</td>
-            </tr>
+    <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-4 ms-5">
+        <div class="row">
+            <div class="col-lg-6">
+                <h5>Pays</h5>
+                <p>{{foncier?.pays}}</p>
+            </div>
+            <div class="col-lg-6">
+                <h5>Ville</h5>
+                <p>{{foncier?.ville}}</p>
+            </div>
+        </div>
 
-        </tbody>
-
-    </table>
-
-
-
+        <div class="row">
+            <div class="col-lg-6">
+                <h5>Description</h5>
+                <p>{{foncier?.description}}</p>
+            </div>
+            <div class="col-lg-6">
+                <h5>Etat du bien</h5>
+                <p>{{foncier?.etat_du_bien}}</p>
+            </div>
+        </div>
+    </div>
 </div>
