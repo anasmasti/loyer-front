@@ -75,13 +75,6 @@ export class ListComponent implements OnInit, OnDestroy {
             this.store.dispatch(getUsersAction())
             this.confirmationModalService.close();
           }, 500);
-        },
-        (error) => {
-          console.log(error.error.message);
-          setTimeout(() => {
-            // this.showErrorMessage();
-          }, 3000);
-          // this.hideErrorMessage();
         }
       );
     

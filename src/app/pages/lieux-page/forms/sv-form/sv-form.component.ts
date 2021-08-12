@@ -34,7 +34,8 @@ export class SvFormComponent implements OnInit, OnDestroy {
   file!: string;
   fd: FormData = new FormData();
   idm: any = JSON.stringify(Math.random());
-  extension: string = '.zip';
+  imageExtension: string = '.zip';
+  selectedImagesLieuEntrer!: [];
 
   @Input() update!: boolean;
   @Input() Lieu!: any;
@@ -47,7 +48,7 @@ export class SvFormComponent implements OnInit, OnDestroy {
     private help: HelperService,
     private store: Store<AppState>,
     @Inject(DOCUMENT) private document: Document
-  ) {}
+  ) { }
 
   ngOnChanges() {
     if (this.Lieu !== '') {
@@ -330,32 +331,28 @@ export class SvFormComponent implements OnInit, OnDestroy {
   }
 
   //Upload Image amenagement après amenagement
-   onFileSelectedAmenagement(event: any, index: number) {
+  onFileSelectedAmenagement(event: any, index: number) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
-      this.file = this.idm + index + this.extension;
-      console.log(this.file);
-      
-     this.fd.append('imgs_amenagement', this.selectedFile, this.file);
+      this.file = this.idm + index + this.imageExtension;
+      this.fd.append('imgs_amenagement', this.selectedFile, this.file);
     }
   }
 
   //Upload Croquis
-   onFileSelectedCroquis(event: any, index: number) {
+  onFileSelectedCroquis(event: any, index: number) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
-      this.file = this.idm + index + this.extension;
+      this.file = this.idm + index + this.imageExtension;
       this.fd.append('imgs_croquis', this.selectedFile, this.file);
-      console.log(this.file);
     }
   }
 
   //Upload Image amenagement avant amenagement
-   onFileSelected(event: any) {
+  onFileSelected(event: any) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
       this.fd.append('imgs_lieu_entrer', this.selectedFile);
-      console.log(this.selectedFile.name);
     }
   }
 
@@ -388,7 +385,6 @@ export class SvFormComponent implements OnInit, OnDestroy {
     };
 
     this.fd.append('data', JSON.stringify(svData));
-    console.log(svData);
 
     this.svService.addLieu(this.fd).subscribe(
       (_) => {
@@ -424,6 +420,8 @@ export class SvFormComponent implements OnInit, OnDestroy {
       });
     }
 
+    this.selectedImagesLieuEntrer = this.Lieu.imgs_lieu_entrer;
+
     let SvData: any = {
       code_lieu: this.svForm.get('code_lieu')?.value,
       intitule_lieu: this.svForm.get('intitule_lieu')?.value,
@@ -432,7 +430,7 @@ export class SvFormComponent implements OnInit, OnDestroy {
       ville: this.svForm.get('ville')?.value,
       code_localite: this.svForm.get('code_localite')?.value,
       desc_lieu_entrer: this.svForm.get('desc_lieu_entrer')?.value,
-      imgs_lieu_entrer: this.svForm.get('imgs_lieu_entrer')?.value,
+      imgs_lieu_entrer: this.selectedImagesLieuEntrer,
       has_amenagements: this.isAmenagementEmpty,
       superficie: this.svForm.get('superficie')?.value,
       telephone: this.svForm.get('telephone')?.value,
@@ -451,7 +449,6 @@ export class SvFormComponent implements OnInit, OnDestroy {
       amenagement: this.svForm.get('amenagementForm')?.value,
     };
 
-    console.log(SvData);
     this.fd.append('data', JSON.stringify(SvData))
 
     this.lieuService.updateLieux(id, this.fd).subscribe(
