@@ -31,8 +31,8 @@ export class DrFormComponent implements OnInit {
   amenagementList: any = [];
   LfForm!: FormGroup;
   selectedImagesLieuEntrer!: [];
-  selectedImagesAmenagement!: [];
-  selectedImagesCroquis!:[];
+  selectedImagesAmenagement: any[] = [];
+  selectedImagesCroquis!: [];
 
   constructor(
     private lieuService: LieuxService,
@@ -50,7 +50,7 @@ export class DrFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
     this.drForm = new FormGroup({
       code_lieu: new FormControl(''),
       intitule_lieu: new FormControl(''),
@@ -116,6 +116,14 @@ export class DrFormComponent implements OnInit {
 
       formGroupAmenagement.controls.idm.setValue(
         amenagementControl.idm
+      );
+
+      formGroupAmenagement.controls.images_apres_travaux.setValue(
+        amenagementControl.images_apres_travaux
+      );
+
+      formGroupAmenagement.controls.croquis_travaux.setValue(
+        amenagementControl.croquis_travaux
       );
 
       formGroupAmenagement.controls.nature_amenagement.setValue(
@@ -229,8 +237,10 @@ export class DrFormComponent implements OnInit {
       date_fin_travaux: new FormControl(''),
       date_livraison_local: new FormControl(''),
       fournisseur: new FormArray([]),
-      images_local_apres_amenagement: new FormControl(''),
-      croquis_amenagement_via_imagerie: new FormControl(''),
+      images_apres_travaux_files: new FormControl(''),
+      images_apres_travaux: new FormControl(''),
+      croquis_travaux_files: new FormControl(''),
+      croquis_travaux: new FormControl(''),
       deleted: new FormControl(deleted),
       NewOrOld: new FormControl(NewOrOld),
     });
@@ -448,7 +458,7 @@ export class DrFormComponent implements OnInit {
       // Amenagment
       amenagement: this.drForm.get('amenagementForm')?.value,
     };
-    
+
     this.fd.append('data', JSON.stringify(dr_data));
 
     this.lieuService.updateLieux(id, this.fd).subscribe(

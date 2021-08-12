@@ -213,15 +213,18 @@
                 <div class="col-lg-3 form-group mt-4">
                   <label for="">Images du local après aménagement</label>
                   <input type="file" class="form-control btn success-btn"
-                    formControlName="images_local_apres_amenagement" (change)='onFileSelectedAmenagement($event,i)'
-                    accept=".zip" name="imgs_amenagement" id="imgs_amenagement" />
+                     (change)='onFileSelectedAmenagement($event,i)'
+                    accept=".zip" formControlName="images_apres_travaux_files" name="imgs_amenagement" id="imgs_amenagement" />
                 </div>
+
+                <input type="text" class="form-control rounded-pill" formControlName="images_apres_travaux" />
+                <input type="text" class="form-control rounded-pill" formControlName="croquis_travaux" />
 
                 <div class="col-lg-3 form-group mt-4">
                   <label for="">Croquis d’aménagement via imagerie</label>
                   <input type="file" class="form-control btn success-btn"
-                    formControlName="croquis_amenagement_via_imagerie" (change)='onFileSelectedCroquis($event,i)'
-                    accept=".zip" name="imgs_croquis" id="imgs_croquis" />
+                    (change)='onFileSelectedCroquis($event,i)'
+                    accept=".zip" name="imgs_croquis" formControlName="croquis_travaux_files" id="imgs_croquis" />
                 </div>
               </div>
               <input type="hidden" id="{{ 'deleted ' + i }}" formControlName="deleted" />
