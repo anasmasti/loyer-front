@@ -51,7 +51,8 @@ export interface Lieu {
       date_fin_travaux: string;
       date_livraison_local: string;
       deleted?: boolean;
-
+      images_apres_travaux: [];
+      croquis_travaux: [];
       fournisseur?: [
         {
           nom: string;

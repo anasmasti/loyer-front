@@ -31,6 +31,8 @@ export class DrFormComponent implements OnInit {
   amenagementList: any = [];
   LfForm!: FormGroup;
   selectedImagesLieuEntrer!: [];
+  selectedImagesAmenagement!: [];
+  selectedImagesCroquis!:[];
 
   constructor(
     private lieuService: LieuxService,
@@ -48,7 +50,7 @@ export class DrFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    
     this.drForm = new FormGroup({
       code_lieu: new FormControl(''),
       intitule_lieu: new FormControl(''),
@@ -106,57 +108,61 @@ export class DrFormComponent implements OnInit {
     this.amenagementList = this.Lieu.amenagement;
 
     //amenagement inputs
-    this.Lieu.amenagement.forEach((LieuControl: any, index: any) => {
+    this.Lieu.amenagement.forEach((amenagementControl: any) => {
       let formGroupAmenagement = this.addAmenagement(
         'OldAmng',
-        LieuControl.deleted
+        amenagementControl.deleted
+      );
+
+      formGroupAmenagement.controls.idm.setValue(
+        amenagementControl.idm
       );
 
       formGroupAmenagement.controls.nature_amenagement.setValue(
-        LieuControl.nature_amenagement
+        amenagementControl.nature_amenagement
       );
 
       formGroupAmenagement.controls.montant_amenagement.setValue(
-        LieuControl.montant_amenagement
+        amenagementControl.montant_amenagement
       );
 
       formGroupAmenagement.controls.valeur_nature_chargeProprietaire.setValue(
-        LieuControl.valeur_nature_chargeProprietaire
+        amenagementControl.valeur_nature_chargeProprietaire
       );
 
       formGroupAmenagement.controls.valeur_nature_chargeFondation.setValue(
-        LieuControl.valeur_nature_chargeFondation
+        amenagementControl.valeur_nature_chargeFondation
       );
 
       formGroupAmenagement.controls.numero_facture.setValue(
-        LieuControl.numero_facture
+        amenagementControl.numero_facture
       );
 
       formGroupAmenagement.controls.numero_bon_commande.setValue(
-        LieuControl.numero_bon_commande
+        amenagementControl.numero_bon_commande
       );
 
       formGroupAmenagement.controls.date_passation_commande.setValue(
-        LieuControl.date_passation_commande
+        amenagementControl.date_passation_commande
       );
 
       formGroupAmenagement.controls.evaluation_fournisseur.setValue(
-        LieuControl.evaluation_fournisseur
+        amenagementControl.evaluation_fournisseur
       );
 
       formGroupAmenagement.controls.date_fin_travaux.setValue(
-        LieuControl.date_fin_travaux
+        amenagementControl.date_fin_travaux
       );
 
       formGroupAmenagement.controls.date_livraison_local.setValue(
-        LieuControl.date_livraison_local
+        amenagementControl.date_livraison_local
       );
 
-      formGroupAmenagement.controls.deleted.setValue(LieuControl.deleted);
 
-      if (LieuControl.fournisseur.length !== 0) {
-        for (let FourniseurControl of LieuControl.fournisseur) {
-          // if (!FourniseurControl.deleted) {
+      formGroupAmenagement.controls.deleted.setValue(amenagementControl.deleted);
+
+      if (amenagementControl.fournisseur.length !== 0) {
+        for (let FourniseurControl of amenagementControl.fournisseur) {
 
           let formGroupFournisseur = new FormGroup({
             nom: new FormControl(''),
@@ -183,12 +189,10 @@ export class DrFormComponent implements OnInit {
           formGroupFournisseur.controls.deleted.setValue(
             FourniseurControl.deleted
           );
-
-          // }
         }
       }
 
-      if (!LieuControl.deleted) {
+      if (!amenagementControl.deleted) {
         this.hasAmenagement = true;
       }
     });
@@ -386,7 +390,7 @@ export class DrFormComponent implements OnInit {
     this.fd.append('data', JSON.stringify(dr_data));
 
     this.lieuService.addLieu(this.fd).subscribe(
-      (data) => {
+      (_) => {
         this.postDone = true;
         setTimeout(() => {
           this.drForm.reset();
@@ -419,9 +423,7 @@ export class DrFormComponent implements OnInit {
       });
     }
 
-
     this.selectedImagesLieuEntrer = this.Lieu.imgs_lieu_entrer;
-
 
     let dr_data: any = {
       code_lieu: this.drForm.get('code_lieu')?.value,
@@ -446,7 +448,7 @@ export class DrFormComponent implements OnInit {
       // Amenagment
       amenagement: this.drForm.get('amenagementForm')?.value,
     };
-
+    
     this.fd.append('data', JSON.stringify(dr_data));
 
     this.lieuService.updateLieux(id, this.fd).subscribe(
