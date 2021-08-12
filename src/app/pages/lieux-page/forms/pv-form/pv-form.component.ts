@@ -389,7 +389,6 @@ export class PvFormComponent implements OnInit, OnDestroy {
     }
 
     this.fd.append('data', JSON.stringify(pvData));
-    console.log(pvData);
 
     this.lieuService.addLieu(this.fd).subscribe(
       (_) => {

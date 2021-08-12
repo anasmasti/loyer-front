@@ -266,18 +266,13 @@ export class SiegeFormComponent implements OnInit {
 
     if (Amenagement.value[index].NewOrOld == "NewAmng") {
       (<FormArray>this.siegeForm.get('amenagementForm')).removeAt(index)
-      // console.log(Amenagement);
-
     }
     else {
-
       let element = this.document.getElementById('deleted ' + index) as HTMLInputElement
 
       element.value = "True"
       this.document.getElementById(index.toString())?.classList.add('d-none');
       Amenagement.value[index].deleted = true;
-      // Amenagement.controls[index].value.deleted = "true"
-      console.log(Amenagement);
     }
   }
 
@@ -406,7 +401,6 @@ export class SiegeFormComponent implements OnInit {
     }
 
     this.fd.append('data', JSON.stringify(siegeData));
-    console.log(siegeData);
 
     this.siegeService.addLieu(this.fd).subscribe(
       (_) => {

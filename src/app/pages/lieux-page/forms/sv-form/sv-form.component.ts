@@ -335,8 +335,6 @@ export class SvFormComponent implements OnInit, OnDestroy {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
       this.file = this.idm + index + this.imageExtension;
-      console.log(this.file);
-
       this.fd.append('imgs_amenagement', this.selectedFile, this.file);
     }
   }
@@ -347,7 +345,6 @@ export class SvFormComponent implements OnInit, OnDestroy {
       this.selectedFile = event.target.files[0];
       this.file = this.idm + index + this.imageExtension;
       this.fd.append('imgs_croquis', this.selectedFile, this.file);
-      console.log(this.file);
     }
   }
 
@@ -356,7 +353,6 @@ export class SvFormComponent implements OnInit, OnDestroy {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
       this.fd.append('imgs_lieu_entrer', this.selectedFile);
-      console.log(this.selectedFile.name);
     }
   }
 
@@ -389,7 +385,6 @@ export class SvFormComponent implements OnInit, OnDestroy {
     };
 
     this.fd.append('data', JSON.stringify(svData));
-    console.log(svData);
 
     this.svService.addLieu(this.fd).subscribe(
       (_) => {
@@ -454,7 +449,6 @@ export class SvFormComponent implements OnInit, OnDestroy {
       amenagement: this.svForm.get('amenagementForm')?.value,
     };
 
-    console.log(SvData);
     this.fd.append('data', JSON.stringify(SvData))
 
     this.lieuService.updateLieux(id, this.fd).subscribe(

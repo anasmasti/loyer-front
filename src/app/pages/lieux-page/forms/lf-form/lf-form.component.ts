@@ -122,11 +122,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   fetchLf(HasAmenagement: string) {
-   let img_enter: File = this.Lieu.imgs_lieu_entrer[0].image.replace("uploads\\", "")
-   console.log(img_enter);
-   
-    console.log(this.Lieu);
-
+ 
     this.removeAllAmenagement();
     this.RemoveAllDericteurs();
 
@@ -179,11 +175,8 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
 
         this.FullNameDerct = directeur.nom + ' ' + directeur.prenom;
 
-        // (<FormGroup>DirecteurData).controls.matricule_directeur.setValue(directeur.matricule)
       }
     });
-  
-    console.log(this.LfForm.controls.directeur_regional);
 
     // Amenagement
     this.amenagementList = this.Lieu.amenagement;
@@ -341,7 +334,6 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
 
     if (Amenagement.value[index].NewOrOld == 'NewAmng') {
       (<FormArray>this.LfForm.get('amenagementForm')).removeAt(index);
-      // console.log(Amenagement);
     } else {
       let element = this.document.getElementById(
         'deleted ' + index
@@ -350,8 +342,6 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
       element.value = 'True';
       this.document.getElementById(index.toString())?.classList.add('d-none');
       Amenagement.value[index].deleted = true;
-      // Amenagement.controls[index].value.deleted = "true"
-      console.log(Amenagement);
     }
   }
 
@@ -424,7 +414,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
 
     this.LfForm.patchValue({
       etat_logement_fonction: 'occupe',
-      // directeur_regional
+      // Directeur regional
       matricule_directeur: Matricule,
       nom_directeur: Nom,
       prenom_directeur: Prenom,
@@ -445,12 +435,9 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
     NewDirecteur.controls.deleted_directeur.setValue(false);
 
     this.confirmationModalService.close();
-
     this.isReplace = '';
-
     this.FullNameDerct = Nom + ' ' + Prenom;
 
-    console.log(this.LfForm.get('directeur_regional')?.value);
   }
 
   ModifierDirecteur() {
@@ -472,8 +459,6 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
     });
 
     this.isReplace = '';
-
-    console.log(this.LfForm.get('directeur_regional')?.value);
   }
 
   SupprimerDirecteur() {
@@ -607,7 +592,6 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
     };
 
     this.fd.append('data', JSON.stringify(lfData));
-    console.log('lfData ==> ', lfData);
 
     this.lieuService.addLieu(this.fd).subscribe(
       (_) => {
@@ -677,7 +661,6 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
     };
 
     this.fd.append('data', JSON.stringify(lfData));
-    console.log(JSON.stringify(lfData));
 
     this.lieuService.updateLieux(idlf, this.fd).subscribe(
       (_) => {

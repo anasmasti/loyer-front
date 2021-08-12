@@ -36,7 +36,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     private confirmationModalService: ConfirmationModalService,
     private helperService: HelperService,
     private store: Store<AppState>
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // Throw get lieux from server function
@@ -120,7 +120,6 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
           }, 500);
         },
         (error) => {
-          console.log(error.error.message);
           setTimeout(() => {
             this.showErrorMessage();
           }, 3000);

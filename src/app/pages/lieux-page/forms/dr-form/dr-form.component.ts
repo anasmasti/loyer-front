@@ -245,7 +245,6 @@ export class DrFormComponent implements OnInit {
 
     if (Amenagement.value[index].NewOrOld == 'NewAmng') {
       (<FormArray>this.drForm.get('amenagementForm')).removeAt(index);
-      // console.log(Amenagement);
     } else {
       let element = this.document.getElementById(
         'deleted ' + index
@@ -254,8 +253,6 @@ export class DrFormComponent implements OnInit {
       element.value = 'True';
       this.document.getElementById(index.toString())?.classList.add('d-none');
       Amenagement.value[index].deleted = true;
-      // Amenagement.controls[index].value.deleted = "true"
-      console.log(Amenagement);
     }
   }
 
@@ -449,8 +446,6 @@ export class DrFormComponent implements OnInit {
       // Amenagment
       amenagement: this.drForm.get('amenagementForm')?.value,
     };
-
-    console.log(dr_data, this.selectedImagesLieuEntrer);
 
     this.fd.append('data', JSON.stringify(dr_data));
 
