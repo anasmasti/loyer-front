@@ -39,7 +39,7 @@ export class PvFormComponent implements OnInit, OnDestroy {
   fd: FormData = new FormData();
   idm: any = JSON.stringify(Math.random());
   i: any = 0;
-  extension: string = '.zip';
+  imageExtension: string = '.zip';
   selectedImagesLieuEntrer!: [];
 
 
@@ -337,7 +337,7 @@ export class PvFormComponent implements OnInit, OnDestroy {
 
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
-      this.file = (this.idm + index) + this.extension;
+      this.file = (this.idm + index) + this.imageExtension;
       await this.fd.append('imgs_amenagement', this.selectedFile, this.file);
     }
   }
@@ -347,7 +347,7 @@ export class PvFormComponent implements OnInit, OnDestroy {
 
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
-      this.file = (this.idm + index) + this.extension;
+      this.file = (this.idm + index) + this.imageExtension;
       await this.fd.append('imgs_croquis', this.selectedFile, this.file);
     }
   }

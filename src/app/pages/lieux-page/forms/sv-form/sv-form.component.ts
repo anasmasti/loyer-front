@@ -34,7 +34,7 @@ export class SvFormComponent implements OnInit, OnDestroy {
   file!: string;
   fd: FormData = new FormData();
   idm: any = JSON.stringify(Math.random());
-  extension: string = '.zip';
+  imageExtension: string = '.zip';
   selectedImagesLieuEntrer!: [];
 
   @Input() update!: boolean;
@@ -334,7 +334,7 @@ export class SvFormComponent implements OnInit, OnDestroy {
   onFileSelectedAmenagement(event: any, index: number) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
-      this.file = this.idm + index + this.extension;
+      this.file = this.idm + index + this.imageExtension;
       console.log(this.file);
 
       this.fd.append('imgs_amenagement', this.selectedFile, this.file);
@@ -345,7 +345,7 @@ export class SvFormComponent implements OnInit, OnDestroy {
   onFileSelectedCroquis(event: any, index: number) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
-      this.file = this.idm + index + this.extension;
+      this.file = this.idm + index + this.imageExtension;
       this.fd.append('imgs_croquis', this.selectedFile, this.file);
       console.log(this.file);
     }

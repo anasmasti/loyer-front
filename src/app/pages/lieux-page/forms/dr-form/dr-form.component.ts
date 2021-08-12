@@ -23,7 +23,7 @@ export class DrFormComponent implements OnInit {
   fd: FormData = new FormData();
   idm: any = JSON.stringify(Math.random());
   isAmenagementEmpty: boolean = true;
-  extension: string = '.zip';
+  imageExtension: string = '.zip';
 
   @Input() update!: boolean;
   @Input() Lieu!: any;
@@ -48,6 +48,7 @@ export class DrFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.drForm = new FormGroup({
       code_lieu: new FormControl(''),
       intitule_lieu: new FormControl(''),
@@ -328,7 +329,13 @@ export class DrFormComponent implements OnInit {
   onFileSelectedAmenagement(event: any, index: number) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
-      this.file = this.idm + index + this.extension;
+      this.file = this.idm + index + this.imageExtension;
+      if (!this.update) {
+        this.file = this.idm + index + this.imageExtension;
+      }
+      if (this.update) {
+        this.file = this.Lieu.amenagement[index].idm + this.imageExtension;
+      }
       this.fd.append('imgs_amenagement', this.selectedFile, this.file);
     }
   }
@@ -337,7 +344,12 @@ export class DrFormComponent implements OnInit {
   onFileSelectedCroquis(event: any, index: number) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
-      this.file = this.idm + index + this.extension;
+      if (!this.update) {
+        this.file = this.idm + index + this.imageExtension;
+      }
+      if (this.update) {
+        this.file = this.Lieu.amenagement[index].idm + this.imageExtension;
+      }
       this.fd.append('imgs_croquis', this.selectedFile, this.file);
     }
   }
@@ -439,7 +451,7 @@ export class DrFormComponent implements OnInit {
     };
 
     console.log(dr_data, this.selectedImagesLieuEntrer);
-    
+
     this.fd.append('data', JSON.stringify(dr_data));
 
     this.lieuService.updateLieux(id, this.fd).subscribe(

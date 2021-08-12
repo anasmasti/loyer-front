@@ -55,7 +55,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
   selectedFile!: File;
   file!: string;
   idm: any = JSON.stringify(Math.random());
-  extension: string = '.zip';
+  imageExtension: string = '.zip';
   selectedImagesLieuEntrer!: [];
 
   constructor(
@@ -546,7 +546,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
   async onFileSelectedAmenagement(event: any, index: number) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];      
-      this.file = this.idm + index + this.extension;
+      this.file = this.idm + index + this.imageExtension;
       await this.fd.append('imgs_amenagement', this.selectedFile, this.file);
     }
   }
@@ -555,7 +555,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
   async onFileSelectedCroquis(event: any, index: number) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
-      this.file = this.idm + index + this.extension;
+      this.file = this.idm + index + this.imageExtension;
       await this.fd.append('imgs_croquis', this.selectedFile, this.file);
     }
   }
