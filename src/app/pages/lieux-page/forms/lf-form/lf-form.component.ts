@@ -25,6 +25,7 @@ import { HelperService } from 'src/app/services/helpers/helper.service';
   styleUrls: ['./lf-form.component.scss'],
 })
 export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
+
   modalHeight: string = '40vh';
   hasAmenagement: boolean = false;
   hasAmenagementCheck: string = '';
@@ -55,6 +56,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
   file!: string;
   idm: any = JSON.stringify(Math.random());
   extension: string = '.zip';
+  selectedImagesLieuEntrer!: [];
 
   constructor(
     private mainModalService: MainModalService,
@@ -74,70 +76,6 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  lieu: Lieu = {
-    _id: 'Chargement...',
-    code_lieu: 'Chargement...',
-    intitule_lieu: 'Chargement...',
-    intitule_DR: 'Chargement...',
-    adresse: 'Chargement...',
-    ville: 'Chargement...',
-    code_localite: 'Chargement...',
-    desc_lieu_entrer: 'Chargement...',
-    imgs_lieu_entrer: [
-      {
-        _id: 'Chargement...',
-        image: 'Chargement...'
-      }
-    ],
-    has_amenagements: false,
-    superficie: 'Chargement...',
-    telephone: 'Chargement...',
-    fax: 'Chargement...',
-    etat_logement_fonction: 'Chargement...',
-    etage: 'Chargement...',
-    type_lieu: 'Chargement...',
-    code_rattache_DR: 'Chargement...',
-    code_rattache_SUP: 'Chargement...',
-    intitule_rattache_SUP_PV: 'Chargement...',
-    centre_cout_siege: 'Chargement...',
-    categorie_pointVente: 'Chargement...',
-    deleted: false,
-
-    // directeur_regional: [
-    //   {
-    //     matricule: 'Chargement...',
-    //     nom: 'Chargement...',
-    //     prenom: 'Chargement...',
-    //     deleted: false
-    //   }
-    // ],
-
-    amenagement: [
-      {
-        _id: 'Chargement...',
-        nature_amenagement: 'Chargement...',
-        montant_amenagement: 'Chargement...',
-        valeur_nature_chargeProprietaire: 'Chargement...',
-        valeur_nature_chargeFondation: 'Chargement...',
-        numero_facture: 'Chargement...',
-        numero_bon_commande: 'Chargement...',
-        date_passation_commande: 'Chargement...',
-        evaluation_fournisseur: 'Chargement...',
-        date_fin_travaux: 'Chargement...',
-        date_livraison_local: 'Chargement...',
-        deleted: false,
-
-        fournisseur: [
-          {
-            nom: 'Chargement...',
-            prenom: 'Chargement...',
-            amenagement_effectue: 'Chargement...',
-            deleted: false,
-          },
-        ],
-      },
-    ],
-  };
 
   //////////////////////////////////////////////////////////////////////////////////
   showEtatLogement() {
@@ -707,6 +645,8 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
       });
     }
 
+    this.selectedImagesLieuEntrer = this.Lieu.imgs_lieu_entrer;
+
     let lfData: any = {
       code_lieu: this.LfForm.get('code_lieu')?.value,
       intitule_lieu: this.LfForm.get('intitule_lieu')?.value,
@@ -715,7 +655,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
       ville: this.LfForm.get('ville')?.value,
       code_localite: this.LfForm.get('code_localite')?.value,
       desc_lieu_entrer: this.LfForm.get('desc_lieu_entrer')?.value,
-      imgs_lieu_entrer: this.LfForm.get('imgs_lieu_entrer')?.value,
+      imgs_lieu_entrer: this.selectedImagesLieuEntrer,
       has_amenagements: this.isAmenagementEmpty,
       superficie: this.LfForm.get('superficie')?.value,
       telephone: this.LfForm.get('telephone')?.value,
@@ -725,8 +665,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
       type_lieu: this.LfForm.get('type_lieu')?.value,
       code_rattache_DR: this.LfForm.get('code_rattache_DR')?.value,
       code_rattache_SUP: this.LfForm.get('code_rattache_SUP')?.value,
-      intitule_rattache_SUP_PV: this.LfForm.get('intitule_rattache_SUP_PV')
-        ?.value,
+      intitule_rattache_SUP_PV: this.LfForm.get('intitule_rattache_SUP_PV')?.value,
       centre_cout_siege: this.LfForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.LfForm.get('categorie_pointVente')?.value,
 

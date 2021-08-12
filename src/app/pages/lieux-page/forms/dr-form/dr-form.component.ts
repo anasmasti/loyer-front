@@ -12,7 +12,6 @@ import { HelperService } from 'src/app/services/helpers/helper.service';
   styleUrls: ['./dr-form.component.scss'],
 })
 export class DrFormComponent implements OnInit {
-  $testDrForm!: any;
   errors!: string;
   hasAmenagement: boolean = false;
   hasAmenagementCheck: string = '';
@@ -24,7 +23,6 @@ export class DrFormComponent implements OnInit {
   fd: FormData = new FormData();
   idm: any = JSON.stringify(Math.random());
   isAmenagementEmpty: boolean = true;
-  i: any = 0;
   extension: string = '.zip';
 
   @Input() update!: boolean;
@@ -32,14 +30,14 @@ export class DrFormComponent implements OnInit {
   @Input() LieuName!: string;
   amenagementList: any = [];
   LfForm!: FormGroup;
-  image_lieu_entrer!: any;
+  selectedImagesLieuEntrer!: [];
 
   constructor(
     private lieuService: LieuxService,
     private mainModalService: MainModalService,
     private help: HelperService,
     @Inject(DOCUMENT) private document: Document
-  ) {}
+  ) { }
 
   ngOnChanges() {
     if (this.Lieu !== '') {
@@ -76,8 +74,6 @@ export class DrFormComponent implements OnInit {
       amenagementForm: new FormArray([]),
     });
 
-    // this.fetchLieu();
-    console.log('Lieu ==> ', this.Lieu);
   }
 
   fetchDr(HasAmenagement: string) {
@@ -91,7 +87,7 @@ export class DrFormComponent implements OnInit {
       ville: this.Lieu.ville,
       code_localite: this.Lieu.code_localite,
       desc_lieu_entrer: this.Lieu.desc_lieu_entrer,
-      //imgs_lieu_entrer: this.Lieu.imgs_lieu_entrer,
+      imgs_lieu_entrer: this.Lieu.imgs_lieu_entrer,
       has_amenagements: this.Lieu.has_amenagements,
       superficie: this.Lieu.superficie,
       telephone: this.Lieu.telephone,
@@ -379,7 +375,6 @@ export class DrFormComponent implements OnInit {
       amenagement: this.drForm.get('amenagementForm')?.value,
     };
     this.fd.append('data', JSON.stringify(dr_data));
-    console.log(dr_data);
 
     this.lieuService.addLieu(this.fd).subscribe(
       (data) => {
@@ -389,8 +384,6 @@ export class DrFormComponent implements OnInit {
           this.postDone = false;
           this.help.refrechPage();
         }, 2000);
-
-        console.log('Response ====> ', data);
       },
       (error) => {
         this.errors = error.error.message;
@@ -417,9 +410,9 @@ export class DrFormComponent implements OnInit {
       });
     }
 
-    if (this.drForm.get('imgs_lieu_entrer')?.value == null) {
-      this.image_lieu_entrer = this.Lieu.imgs_lieu_entrer;
-    }
+
+    this.selectedImagesLieuEntrer = this.Lieu.imgs_lieu_entrer;
+
 
     let dr_data: any = {
       code_lieu: this.drForm.get('code_lieu')?.value,
@@ -439,29 +432,26 @@ export class DrFormComponent implements OnInit {
       intitule_rattache_SUP_PV: this.drForm.get('code_lieu')?.value,
       centre_cout_siege: this.drForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.drForm.get('categorie_pointVente')?.value,
-      // imgs_lieu_entrer:this.image_lieu_entrer,
+      imgs_lieu_entrer: this.selectedImagesLieuEntrer,
 
       // Amenagment
       amenagement: this.drForm.get('amenagementForm')?.value,
     };
 
-    console.log('imgs test ==>', this.image_lieu_entrer);
-    console.log('Value !! ', this.drForm.get('imgs_lieu_entrer')?.value);
-
+    console.log(dr_data, this.selectedImagesLieuEntrer);
+    
     this.fd.append('data', JSON.stringify(dr_data));
-    console.log(dr_data);
 
     this.lieuService.updateLieux(id, this.fd).subscribe(
-      (data) => {
+      (_) => {
         this.postDone = true;
         setTimeout(() => {
           this.drForm.controls;
           this.mainModalService.close();
           this.drForm.reset();
           this.postDone = false;
-          location.reload();
+          this.help.refrechPage();
         }, 2000);
-        console.log('response ==> ', data);
       },
       (error) => {
         this.errors = error.error.message;

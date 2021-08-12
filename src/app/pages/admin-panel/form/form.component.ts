@@ -71,7 +71,6 @@ export class FormComponent implements OnInit {
   }
 
   fetchUser(){
-    console.log(this.userR);
 
     
     
@@ -81,7 +80,6 @@ export class FormComponent implements OnInit {
             control.removeAt(i)
     }
 
-    // console.log(this.adminForm);
     
     
     
