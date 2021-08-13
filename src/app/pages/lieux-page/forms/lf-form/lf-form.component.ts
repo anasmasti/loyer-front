@@ -32,7 +32,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
   etatLogement = '';
   isReplace: string = '';
   amenagementList: any = [];
-  Dr$!: Observable<any>;
+  Dr!: any;
   DrSubscription$!: Subscription;
   lieux: Lieu[] = [];
   isAmenagementEmpty: boolean = true;
@@ -74,11 +74,6 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
         this.fetchLf('Default');
       }, 500);
     }
-    this.getDrSup()
-    console.log(this.getDrSup());
-    
-    
-    this.getDr()
   }
 
 
@@ -122,10 +117,11 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
       //Aménagement
       amenagementForm: new FormArray([]),
     });
+    this.getDr()
   }
 
   fetchLf(HasAmenagement: string) {
- 
+
     this.removeAllAmenagement();
     this.RemoveAllDericteurs();
 
@@ -716,8 +712,10 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
 
   // Select Dr
   getDr() {
-    this.Dr$ = this.store.select(getDr);
-    this.Dr$.subscribe();
+   this.DrSubscription$ = this.store.select(getDr).subscribe(data => {
+      if (data) this.Dr = data;
+      if (!data) this.getDrSup()
+    });
   }
 
   ngOnDestroy() {

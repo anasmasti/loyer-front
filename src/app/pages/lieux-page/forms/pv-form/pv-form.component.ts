@@ -27,8 +27,8 @@ export class PvFormComponent implements OnInit, OnDestroy {
   UpdateDone: boolean = false;
   UpdateSucces: string = 'Point de vente modifié avec succés';
   amenagementList: any = [];
-  Dr$!: Observable<any>;
-  Sup$!: Observable<any>;
+  Dr!: any;
+  Sup!: any;
   DrSubscription$!: Subscription;
   SupSubscription$!: Subscription;
   hasAmenagementCheck: string = "";
@@ -480,17 +480,16 @@ export class PvFormComponent implements OnInit, OnDestroy {
   }
   // Select Dr
   getDr() {
-    this.Dr$ = this.store.select(getDr)
-    this.DrSubscription$ = this.Dr$.subscribe(data => {
-      if (!data?.length) this.getDrSup()
+    this.DrSubscription$ = this.store.select(getDr).subscribe(data => {
+      if (data) this.Dr = data;
+      if (!data) this.getDrSup()
     })
   }
   // Select Sup
   getSup() {
-    this.Sup$ = this.store.select(getSup)
-    this.SupSubscription$ = this.Sup$.subscribe(data => {
-      if (!data?.length) this.getDrSup()
-
+    this.SupSubscription$ = this.store.select(getSup).subscribe(data => {
+      if (data) this.Sup = data;
+      if (!data) this.getDrSup()
     })
   }
 
