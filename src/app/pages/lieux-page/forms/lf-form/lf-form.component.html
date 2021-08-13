@@ -119,7 +119,7 @@
                   <div class="ms-3">
                     <a class="btn btn-sm success-btn rounded-pill" (click)='openReplaceModal("remplacer");' >
                       <span *ngIf="etatLogement == 'occupe'">Remplacer <i [class]=" 'fal fa-sync' "></i></span>
-                      <span class="mx-3" *ngIf="etatLogement != 'occupe'">Ajoute <i [class]=" 'fal fa-plus' "></i></span>
+                      <span class="mx-3" *ngIf="etatLogement != 'occupe'">Ajouter <i [class]=" 'fal fa-plus' "></i></span>
                     </a>
                     <a class="btn btn-sm info-btn mx-2 rounded-pill" *ngIf="etatLogement == 'occupe'" (click)=" openReplaceModal('modifier') " >
                       Modifier
@@ -141,7 +141,8 @@
                   <div class="main-card bg-white p-3 mt-3">
                     <div class="row title">
                       <div class="col-lg-12">
-                        <h2 class="main-title">Remplacer Directeur</h2>
+                        <h2 class="main-title" *ngIf="etatLogement == 'occupe'">Remplacer Directeur</h2>
+                        <h2 class="main-title" *ngIf="etatLogement != 'occupe'">Ajouter Directeur</h2>
                       </div>
                     </div>
   
@@ -162,8 +163,11 @@
                       </div>
   
                       <div class="col-lg-3 form-group mt-5">
-                         <a class="btn second-btn form-control" (click)="openConfirmationModal()">
+                         <a class="btn second-btn form-control" *ngIf="etatLogement == 'occupe'" (click)="openConfirmationModal()">
                           Remplacer
+                         </a>
+                         <a class="btn second-btn form-control" *ngIf="etatLogement != 'occupe'" (click)="RemplacerDirecteur()" >
+                          Ajouter
                          </a>
                       </div>
                      

@@ -122,6 +122,9 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   fetchLf(HasAmenagement: string) {
+
+    console.log(this.Lieu);
+    
  
     this.removeAllAmenagement();
     this.RemoveAllDericteurs();
