@@ -66,7 +66,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
     private lieuService: LieuxService,
     private store: Store<AppState>,
     @Inject(DOCUMENT) private document: Document
-  ) {}
+  ) { }
 
   ngOnChanges() {
     if (this.Lieu !== '') {
@@ -122,7 +122,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   fetchLf(HasAmenagement: string) {
- 
+
     this.removeAllAmenagement();
     this.RemoveAllDericteurs();
 
@@ -181,56 +181,68 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
     // Amenagement
     this.amenagementList = this.Lieu.amenagement;
     //amenagement inputs
-    this.Lieu.amenagement.forEach((LieuControl: any, index: any) => {
+    this.Lieu.amenagement.forEach((amenagementControl: any, index: any) => {
       let formGroupAmenagement = this.addAmenagement(
         'OldAmng',
-        LieuControl.deleted
+        amenagementControl.deleted
+      );
+
+      formGroupAmenagement.controls.idm.setValue(
+        amenagementControl.idm
+      );
+
+      formGroupAmenagement.controls.images_apres_travaux.setValue(
+        amenagementControl.images_apres_travaux
+      );
+
+      formGroupAmenagement.controls.croquis_travaux.setValue(
+        amenagementControl.croquis_travaux
       );
 
       formGroupAmenagement.controls.nature_amenagement.setValue(
-        LieuControl.nature_amenagement
+        amenagementControl.nature_amenagement
       );
 
       formGroupAmenagement.controls.montant_amenagement.setValue(
-        LieuControl.montant_amenagement
+        amenagementControl.montant_amenagement
       );
 
       formGroupAmenagement.controls.valeur_nature_chargeProprietaire.setValue(
-        LieuControl.valeur_nature_chargeProprietaire
+        amenagementControl.valeur_nature_chargeProprietaire
       );
 
       formGroupAmenagement.controls.valeur_nature_chargeFondation.setValue(
-        LieuControl.valeur_nature_chargeFondation
+        amenagementControl.valeur_nature_chargeFondation
       );
 
       formGroupAmenagement.controls.numero_facture.setValue(
-        LieuControl.numero_facture
+        amenagementControl.numero_facture
       );
 
       formGroupAmenagement.controls.numero_bon_commande.setValue(
-        LieuControl.numero_bon_commande
+        amenagementControl.numero_bon_commande
       );
 
       formGroupAmenagement.controls.date_passation_commande.setValue(
-        LieuControl.date_passation_commande
+        amenagementControl.date_passation_commande
       );
 
       formGroupAmenagement.controls.evaluation_fournisseur.setValue(
-        LieuControl.evaluation_fournisseur
+        amenagementControl.evaluation_fournisseur
       );
 
       formGroupAmenagement.controls.date_fin_travaux.setValue(
-        LieuControl.date_fin_travaux
+        amenagementControl.date_fin_travaux
       );
 
       formGroupAmenagement.controls.date_livraison_local.setValue(
-        LieuControl.date_livraison_local
+        amenagementControl.date_livraison_local
       );
 
-      formGroupAmenagement.controls.deleted.setValue(LieuControl.deleted);
+      formGroupAmenagement.controls.deleted.setValue(amenagementControl.deleted);
 
-      if (LieuControl.fournisseur.length !== 0) {
-        for (let FourniseurControl of LieuControl.fournisseur) {
+      if (amenagementControl.fournisseur.length !== 0) {
+        for (let FourniseurControl of amenagementControl.fournisseur) {
           let formGroupFournisseur = new FormGroup({
             nom: new FormControl(''),
             prenom: new FormControl(''),
@@ -259,7 +271,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
         }
       }
 
-      if (!LieuControl.deleted) {
+      if (!amenagementControl.deleted) {
         this.hasAmenagement = true;
       }
     });
@@ -315,8 +327,10 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
       date_fin_travaux: new FormControl(''),
       date_livraison_local: new FormControl(''),
       fournisseur: new FormArray([]),
-      images_local_apres_amenagement: new FormControl(''),
-      croquis_amenagement_via_imagerie: new FormControl(''),
+      images_apres_travaux_files: new FormControl(''),
+      images_apres_travaux: new FormControl(''),
+      croquis_travaux_files: new FormControl(''),
+      croquis_travaux: new FormControl(''),
       deleted: new FormControl(deleted),
       NewOrOld: new FormControl(NewOrOld),
     });
@@ -528,28 +542,38 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
   //////////////////////////////////////////////////////////////////////////////////
 
   //Upload Image amenagement après amenagement
-  async onFileSelectedAmenagement(event: any, index: number) {
+  onFileSelectedAmenagement(event: any, index: number) {
     if (event.target.files.length > 0) {
-      this.selectedFile = event.target.files[0];      
-      this.file = this.idm + index + this.imageExtension;
-      await this.fd.append('imgs_amenagement', this.selectedFile, this.file);
+      this.selectedFile = event.target.files[0];
+      if (!this.update) {
+        this.file = this.idm + index + this.imageExtension;
+      }
+      if (this.update) {
+        this.file = this.Lieu.amenagement[index].idm + this.imageExtension;
+      }
+      this.fd.append('imgs_amenagement', this.selectedFile, this.file);
     }
   }
 
   //Upload Croquis
-  async onFileSelectedCroquis(event: any, index: number) {
+  onFileSelectedCroquis(event: any, index: number) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
-      this.file = this.idm + index + this.imageExtension;
-      await this.fd.append('imgs_croquis', this.selectedFile, this.file);
+      if (!this.update) {
+        this.file = this.idm + index + this.imageExtension;
+      }
+      if (this.update) {
+        this.file = this.Lieu.amenagement[index].idm + this.imageExtension;
+      }
+      this.fd.append('imgs_croquis', this.selectedFile, this.file);
     }
   }
 
   //Upload Image amenagement avant amenagement
-  async onFileSelected(event: any) {
+  onFileSelected(event: any) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
-      await this.fd.append('imgs_lieu_entrer', this.selectedFile);
+      this.fd.append('imgs_lieu_entrer', this.selectedFile);
     }
   }
 
@@ -691,6 +715,8 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
   getDr() {
     this.Dr$ = this.store.select(getDr);
     this.Dr$.subscribe((data) => {
+      console.log(!data?.length);
+      
       if (!data?.length) {
         this.getDrSup();
       }

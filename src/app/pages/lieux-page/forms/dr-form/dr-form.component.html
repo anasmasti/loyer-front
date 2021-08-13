@@ -120,7 +120,7 @@
               [formGroupName]="i" id="{{ i }}">
               <a (click)="removeAmenagement(i)" class="btn btn-sm danger-btn float-end"><i class="fal fa-trash"></i></a>
               <div class="row">
-                <input type="text"
+                <input type="hidden"
                   ngModel="{{update ? amenagementForm.controls[i].value.idm : (idm + i + imageExtension)}}"
                   class="form-control rounded-pill" formControlName="idm" />
 
@@ -212,18 +212,17 @@
 
                 <div class="col-lg-3 form-group mt-4">
                   <label for="">Images du local après aménagement</label>
-                  <input type="file" class="form-control btn success-btn"
-                     (change)='onFileSelectedAmenagement($event,i)'
-                    accept=".zip" formControlName="images_apres_travaux_files" name="imgs_amenagement" id="imgs_amenagement" />
+                  <input type="file" class="form-control btn success-btn" (change)='onFileSelectedAmenagement($event,i)'
+                    accept=".zip" formControlName="images_apres_travaux_files" name="imgs_amenagement"
+                    id="imgs_amenagement" />
                 </div>
 
-                <input type="text" class="form-control rounded-pill" formControlName="images_apres_travaux" />
-                <input type="text" class="form-control rounded-pill" formControlName="croquis_travaux" />
+                <input type="hidden" class="form-control rounded-pill" formControlName="images_apres_travaux" />
+                <input type="hidden" class="form-control rounded-pill" formControlName="croquis_travaux" />
 
                 <div class="col-lg-3 form-group mt-4">
                   <label for="">Croquis d’aménagement via imagerie</label>
-                  <input type="file" class="form-control btn success-btn"
-                    (change)='onFileSelectedCroquis($event,i)'
+                  <input type="file" class="form-control btn success-btn" (change)='onFileSelectedCroquis($event,i)'
                     accept=".zip" name="imgs_croquis" formControlName="croquis_travaux_files" id="imgs_croquis" />
                 </div>
               </div>
