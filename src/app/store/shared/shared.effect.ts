@@ -31,8 +31,12 @@ export class SharedEffects {
         return this.helperervice.getAllCounts().pipe(
             map(
                 (all_counts: any) => {
-                    this.store.dispatch(setLoadingAction({ status: false }))
-                    return getAllCountsSuccessAction({ all_counts });
+                    if (all_counts.length !== 0) {
+                        this.store.dispatch(setLoadingAction({ status: false }))
+                        return getAllCountsSuccessAction({ all_counts });
+                    } else {
+                        throw new Error("Il y'a aucun Lieu")
+                    }
                 }
             )
         )

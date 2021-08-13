@@ -41,8 +41,8 @@ export class LieuxEffects {
             map(
                 (lieux: Lieu[]) => {
                     if (lieux.length !== 0) {
-                    this.store.dispatch(setLoadingAction({ status: false }))
-                    return getLieuxSuccessAction({ lieux });
+                        this.store.dispatch(setLoadingAction({ status: false }))
+                        return getLieuxSuccessAction({ lieux });
                     } else {
                         throw new Error("Il y'a aucun Lieu")
                     }

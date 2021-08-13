@@ -15,7 +15,7 @@ import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { AppState } from 'src/app/store/app.state';
 import { MainModalService } from '../../../../services/main-modal/main-modal.service';
 import { getDr } from '../../lieux-store/lieux.selector';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { HelperService } from 'src/app/services/helpers/helper.service';
 
