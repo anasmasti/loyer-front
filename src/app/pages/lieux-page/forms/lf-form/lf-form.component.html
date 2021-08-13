@@ -36,8 +36,8 @@
       <div class="row">
         <div class="col-lg-3 form-group mt-4">
           <label for="">Code DR</label>
-          <select class="form-control rounded-pill" formControlName="code_rattache_DR"> 
-            <option [value]="drItem._id" *ngFor="let drItem of (Dr$ | async)" >{{ drItem.code_lieu }}</option>
+          <select class="form-control rounded-pill" formControlName="code_rattache_DR">
+            <option [value]="drItem._id" *ngFor="let drItem of (Dr$ | async)">{{ drItem.code_lieu }}</option>
           </select>
         </div>
 
@@ -63,7 +63,8 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Images du local avant aménagement</label>
-          <input type="file" class="form-control btn success-btn" formControlName="imgs_lieu_entrer" accept=".zip" (change)='onFileSelected($event)'/>
+          <input type="file" class="form-control btn success-btn" formControlName="imgs_lieu_entrer" accept=".zip"
+            (change)='onFileSelected($event)' />
         </div>
 
         <div class="col-lg-3 form-group mt-4">
@@ -84,9 +85,9 @@
         <div class="col-lg-3 form-group mt-4">
           <label for="">Etat logement de fonction</label>
           <select class="form-control rounded-pill" formControlName="etat_logement_fonction"
-            (change)="showEtatLogement()" >
-            <option value="disponible" [disabled]="(Lieu != '') ? 'disabled' : false" >Disponible</option>
-            <option value="occupe" [disabled]="(Lieu != '') ? 'disabled' : false" >Occupé</option>
+            (change)="showEtatLogement()">
+            <option value="disponible" [disabled]="(Lieu != '') ? 'disabled' : false">Disponible</option>
+            <option value="occupe" [disabled]="(Lieu != '') ? 'disabled' : false">Occupé</option>
           </select>
         </div>
 
@@ -117,15 +118,17 @@
                     <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
                   </div>
                   <div class="ms-3">
-                    <a class="btn btn-sm success-btn rounded-pill" (click)='openReplaceModal("remplacer");' >
+                    <a class="btn btn-sm success-btn rounded-pill" (click)='openReplaceModal("remplacer");'>
                       <span *ngIf="etatLogement == 'occupe'">Remplacer <i [class]=" 'fal fa-sync' "></i></span>
                       <span class="mx-3" *ngIf="etatLogement != 'occupe'">Ajouter <i [class]=" 'fal fa-plus' "></i></span>
                     </a>
-                    <a class="btn btn-sm info-btn mx-2 rounded-pill" *ngIf="etatLogement == 'occupe'" (click)=" openReplaceModal('modifier') " >
+                    <a class="btn btn-sm info-btn mx-2 rounded-pill" *ngIf="etatLogement == 'occupe'"
+                      (click)=" openReplaceModal('modifier') ">
                       Modifier
                       <i class="far fa-user-edit"></i>
                     </a>
-                    <a class="btn btn-sm danger-btn rounded-pill" *ngIf="etatLogement == 'occupe'" (click)='openConfirmationModal();switchIsReplace();'>
+                    <a class="btn btn-sm danger-btn rounded-pill" *ngIf="etatLogement == 'occupe'"
+                      (click)='openConfirmationModal();switchIsReplace();'>
                       Supprimer
                       <i class="far fa-user-minus"></i>
                     </a>
@@ -133,11 +136,11 @@
 
                 </div>
 
-                
+
                 <div *ngIf="isReplace == 'remplacer';then remplacer;"></div>
                 <div *ngIf="isReplace == 'modifier';then modifier;"></div>
                 <!-- Form to replace directeur -->
-                <ng-template #remplacer >
+                <ng-template #remplacer>
                   <div class="main-card bg-white p-3 mt-3">
                     <div class="row title">
                       <div class="col-lg-12">
@@ -145,23 +148,23 @@
                         <h2 class="main-title" *ngIf="etatLogement != 'occupe'">Ajouter Directeur</h2>
                       </div>
                     </div>
-  
+
                     <div class="row">
                       <div class="col-lg-3 form-group mt-4">
                         <label for="">Matricule du Directeur</label>
                         <input type="text" class="form-control rounded-pill" id="Mat_directeur" />
                       </div>
-  
+
                       <div class="col-lg-3 form-group mt-4">
                         <label for="">Nom du Directeur</label>
                         <input type="text" class="form-control rounded-pill" id="Nom_directeur" />
                       </div>
-  
+
                       <div class="col-lg-3 form-group mt-4">
                         <label for="">Prénom du Directeur</label>
                         <input type="text" class="form-control rounded-pill" id="Prenom_directeur" />
                       </div>
-  
+
                       <div class="col-lg-3 form-group mt-5">
                          <a class="btn second-btn form-control" *ngIf="etatLogement == 'occupe'" (click)="openConfirmationModal()">
                           Remplacer
@@ -170,11 +173,11 @@
                           Ajouter
                          </a>
                       </div>
-                     
+
                     </div>
                   </div>
                 </ng-template>
-                
+
                 <!-- Form to update directeur -->
                 <ng-template #modifier>
                   <div class="main-card bg-white p-3 mt-3">
@@ -188,30 +191,31 @@
                         <label for="">Matricule du Directeur</label>
                         <input type="text" class="form-control rounded-pill" formControlName="matricule_directeur" />
                       </div>
-  
+
                       <div class="col-lg-3 form-group mt-4">
                         <label for="">Nom du Directeur</label>
                         <input type="text" class="form-control rounded-pill" formControlName="nom_directeur" />
                       </div>
-  
+
                       <div class="col-lg-3 form-group mt-4">
                         <label for="">Prénom du Directeur</label>
                         <input type="text" class="form-control rounded-pill" formControlName="prenom_directeur" />
                       </div>
-  
+
                       <div class="col-lg-3 form-group mt-5">
-                        <a class="btn second-btn form-control" *ngIf="isReplace == 'modifier'" (click)='ModifierDirecteur()'>
-                      Modifier
+                        <a class="btn second-btn form-control" *ngIf="isReplace == 'modifier'"
+                          (click)='ModifierDirecteur()'>
+                          Modifier
                         </a>
                       </div>
-                    
+
                     </div>
-                  
+
                   </div>
-                  
+
                 </ng-template>
 
-                
+
                 <!-- Confirmation modal   -->
                 <app-confirmation-modal [closeBtn]='true'>
                   <div *ngIf="isReplace == 'remplacer'; then replace;else delete">
@@ -257,17 +261,20 @@
 
             <div class="col-lg-3 form-group mt-4">
               <label for="">Matricule du Directeur Régional</label>
-              <input type="text" class="form-control rounded-pill " formControlName="matricule_directeur" [readOnly]="Lieu != ''" />
+              <input type="text" class="form-control rounded-pill " formControlName="matricule_directeur"
+                [readOnly]="Lieu != ''" />
             </div>
 
             <div class="col-lg-3 form-group mt-4">
               <label for="">Nom du Directeur Régional</label>
-              <input type="text" class="form-control rounded-pill " formControlName="nom_directeur" [readOnly]="Lieu != ''" />
+              <input type="text" class="form-control rounded-pill " formControlName="nom_directeur"
+                [readOnly]="Lieu != ''" />
             </div>
 
             <div class="col-lg-3 form-group mt-4">
               <label for="">Prénom du Directeur Régional</label>
-              <input type="text" class="form-control rounded-pill " formControlName="prenom_directeur" [readOnly]="Lieu != ''" />
+              <input type="text" class="form-control rounded-pill " formControlName="prenom_directeur"
+                [readOnly]="Lieu != ''" />
             </div>
           </ng-template>
         </div>
@@ -304,12 +311,15 @@
           <!--Début de Conteneur Aménagement-->
           <div formArrayName="amenagementForm" *ngFor="let item of amenagementForm.controls; let i = index">
 
-            <div class="main-card mt-4 bg-white p-lg-4" *ngIf=" !amenagementForm.controls[i].value.deleted " [formGroupName]="i" id="{{ i }}">
+            <div class="main-card mt-4 bg-white p-lg-4" *ngIf=" !amenagementForm.controls[i].value.deleted "
+              [formGroupName]="i" id="{{ i }}">
               <a (click)="removeAmenagement(i)" class="btn btn-sm danger-btn float-end"><i class="fal fa-trash"></i></a>
 
               <div class="row">
 
-                <input type="hidden" ngModel="{{idm + i +'.zip'}}" class="form-control rounded-pill" formControlName="idm"/>
+                <input type="text"
+                  ngModel="{{update ? amenagementForm.controls[i].value.idm : (idm + i + imageExtension)}}"
+                  class="form-control rounded-pill" formControlName="idm" />
 
                 <div class="col-lg-3 form-group mt-4">
                   <label for="">Nature des travaux d’aménagement</label>
@@ -352,12 +362,14 @@
 
                 <div class="col-lg-12 form-group my-4">
                   <label for="">Fournisseur</label>
-                  <a (click)="addFournisseur(amenagementForm, i ,'New')" class="btn btn-sm second-btn mx-2 mx-lg-4">Ajouter
+                  <a (click)="addFournisseur(amenagementForm, i ,'New')"
+                    class="btn btn-sm second-btn mx-2 mx-lg-4">Ajouter
                     fournisseur</a>
                   <div formArrayName="fournisseur"
                     *ngFor="let item of getFournisseur(amenagementForm, i); let j = index">
 
-                    <div [formGroupName]="j" *ngIf="!amenagementForm.controls[i].value.fournisseur[j].deleted" class="main-card mt-4 bg-white p-lg-4">
+                    <div [formGroupName]="j" *ngIf="!amenagementForm.controls[i].value.fournisseur[j].deleted"
+                      class="main-card mt-4 bg-white p-lg-4">
 
                       <a (click)="removeFournisseur(amenagementForm, i , j)" class="btn btn-sm danger-btn float-end"><i
                           class="fal fa-trash"></i></a>
@@ -376,7 +388,7 @@
                           <label for="">Amenagement éffectué</label>
                           <input type="text" class="form-control rounded-pill" formControlName="amenagement_effectue" />
                         </div>
-                        <input type="hidden" id="{{ 'deleted ' + i + ' ' + j }}" formControlName="deleted"  />
+                        <input type="hidden" id="{{ 'deleted ' + i + ' ' + j }}" formControlName="deleted" />
                       </div>
                     </div>
                   </div>
@@ -399,19 +411,22 @@
 
                 <div class="col-lg-3 form-group mt-4">
                   <label for="">Images du local après aménagement</label>
-                  <input type="file" class="form-control btn success-btn"
-                    formControlName="images_local_apres_amenagement" accept=".zip" (change)='onFileSelectedAmenagement($event,i)'/>
+                  <input type="file" class="form-control btn success-btn" formControlName="images_apres_travaux_files"
+                    accept=".zip" (change)='onFileSelectedAmenagement($event,i)' />
                 </div>
 
                 <div class="col-lg-3 form-group mt-4">
                   <label for="">Croquis d’aménagement via imagerie</label>
-                  <input type="file" class="form-control btn success-btn"
-                    formControlName="croquis_amenagement_via_imagerie" accept=".zip" (change)='onFileSelectedCroquis($event, i)'/>
+                  <input type="file" class="form-control btn success-btn" formControlName="croquis_travaux_files"
+                    accept=".zip" (change)='onFileSelectedCroquis($event, i)' />
                 </div>
+
+                <input type="hidden" class="form-control rounded-pill" formControlName="images_apres_travaux" />
+                <input type="hidden" class="form-control rounded-pill" formControlName="croquis_travaux" />
 
               </div>
 
-              <input type="hidden" id="{{ 'deleted ' + i }}" formControlName="deleted"  />
+              <input type="hidden" id="{{ 'deleted ' + i }}" formControlName="deleted" />
 
             </div>
 

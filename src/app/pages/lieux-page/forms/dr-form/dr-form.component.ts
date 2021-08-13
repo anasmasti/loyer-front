@@ -31,8 +31,6 @@ export class DrFormComponent implements OnInit {
   amenagementList: any = [];
   LfForm!: FormGroup;
   selectedImagesLieuEntrer!: [];
-  selectedImagesAmenagement: any[] = [];
-  selectedImagesCroquis!: [];
 
   constructor(
     private lieuService: LieuxService,
