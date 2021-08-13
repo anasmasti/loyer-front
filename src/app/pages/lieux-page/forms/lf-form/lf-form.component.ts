@@ -74,6 +74,11 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
         this.fetchLf('Default');
       }, 500);
     }
+    this.getDrSup()
+    console.log(this.getDrSup());
+    
+    
+    this.getDr()
   }
 
 
@@ -117,8 +122,6 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
       //Aménagement
       amenagementForm: new FormArray([]),
     });
-
-    this.getDr();
   }
 
   fetchLf(HasAmenagement: string) {
@@ -714,13 +717,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
   // Select Dr
   getDr() {
     this.Dr$ = this.store.select(getDr);
-    this.Dr$.subscribe((data) => {
-      console.log(!data?.length);
-      
-      if (!data?.length) {
-        this.getDrSup();
-      }
-    });
+    this.Dr$.subscribe();
   }
 
   ngOnDestroy() {
