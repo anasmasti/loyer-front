@@ -37,7 +37,7 @@ export class DrFormComponent implements OnInit {
     private mainModalService: MainModalService,
     private help: HelperService,
     @Inject(DOCUMENT) private document: Document
-  ) { }
+  ) {}
 
   ngOnChanges() {
     if (this.Lieu !== '') {
@@ -48,7 +48,6 @@ export class DrFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.drForm = new FormGroup({
       code_lieu: new FormControl(''),
       intitule_lieu: new FormControl(''),
@@ -74,7 +73,6 @@ export class DrFormComponent implements OnInit {
       //Aménagement
       amenagementForm: new FormArray([]),
     });
-
   }
 
   fetchDr(HasAmenagement: string) {
@@ -112,9 +110,7 @@ export class DrFormComponent implements OnInit {
         amenagementControl.deleted
       );
 
-      formGroupAmenagement.controls.idm.setValue(
-        amenagementControl.idm
-      );
+      formGroupAmenagement.controls.idm.setValue(amenagementControl.idm);
 
       formGroupAmenagement.controls.images_apres_travaux.setValue(
         amenagementControl.images_apres_travaux
@@ -164,12 +160,12 @@ export class DrFormComponent implements OnInit {
         amenagementControl.date_livraison_local
       );
 
-
-      formGroupAmenagement.controls.deleted.setValue(amenagementControl.deleted);
+      formGroupAmenagement.controls.deleted.setValue(
+        amenagementControl.deleted
+      );
 
       if (amenagementControl.fournisseur.length !== 0) {
         for (let FourniseurControl of amenagementControl.fournisseur) {
-
           let formGroupFournisseur = new FormGroup({
             nom: new FormControl(''),
             prenom: new FormControl(''),
@@ -338,14 +334,18 @@ export class DrFormComponent implements OnInit {
   onFileSelectedAmenagement(event: any, index: number) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
-      this.file = this.idm + index + this.imageExtension;
       if (!this.update) {
         this.file = this.idm + index + this.imageExtension;
+        this.fd.append('imgs_croquis', this.selectedFile, this.file);
       }
-      if (this.update) {
-        this.file = this.Lieu.amenagement[index].idm + this.imageExtension;
+      if (this.update && this.Lieu.amenagement[index]?.idm === undefined) {
+        this.file = this.idm + index + this.imageExtension;
+        this.fd.append('imgs_croquis', this.selectedFile, this.file);
       }
-      this.fd.append('imgs_amenagement', this.selectedFile, this.file);
+      if (this.update && this.Lieu.amenagement[index]?.idm !== undefined) {
+        this.file = this.Lieu.amenagement[index]?.idm + this.imageExtension;
+        this.fd.append('imgs_croquis', this.selectedFile, this.file);
+      }
     }
   }
 
@@ -355,11 +355,16 @@ export class DrFormComponent implements OnInit {
       this.selectedFile = event.target.files[0];
       if (!this.update) {
         this.file = this.idm + index + this.imageExtension;
+        this.fd.append('imgs_croquis', this.selectedFile, this.file);
       }
-      if (this.update) {
-        this.file = this.Lieu.amenagement[index].idm + this.imageExtension;
+      if (this.update && this.Lieu.amenagement[index]?.idm === undefined) {
+        this.file = this.idm + index + this.imageExtension;
+        this.fd.append('imgs_croquis', this.selectedFile, this.file);
       }
-      this.fd.append('imgs_croquis', this.selectedFile, this.file);
+      if (this.update && this.Lieu.amenagement[index]?.idm !== undefined) {
+        this.file = this.Lieu.amenagement[index]?.idm + this.imageExtension;
+        this.fd.append('imgs_croquis', this.selectedFile, this.file);
+      }
     }
   }
 
