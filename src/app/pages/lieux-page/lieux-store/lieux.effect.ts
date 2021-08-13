@@ -40,8 +40,12 @@ export class LieuxEffects {
         return this.lieuxService.getLieux().pipe(
             map(
                 (lieux: Lieu[]) => {
-                    this.store.dispatch(setLoadingAction({ status: false }))
-                    return getLieuxSuccessAction({ lieux });
+                    if (lieux.length !== 0) {
+                        this.store.dispatch(setLoadingAction({ status: false }))
+                        return getLieuxSuccessAction({ lieux });
+                    } else {
+                        throw new Error("Il y'a aucun Lieu")
+                    }
                 }
             )
         )
@@ -51,8 +55,12 @@ export class LieuxEffects {
         return this.lieuxService.getDrSup().pipe(
             map(
                 (DrWithSup: any) => {
-                    this.store.dispatch(setLoadingAction({ status: false }))
-                    return getDrWithSupSuccessAction({ DrWithSup });
+                    if (DrWithSup.length !== 0) {
+                        this.store.dispatch(setLoadingAction({ status: false }))
+                        return getDrWithSupSuccessAction({ DrWithSup });
+                    } else {
+                        throw new Error("Il y'a aucun Direction régionale ou Supervision")
+                    }
                 }
             )
         )

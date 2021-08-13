@@ -24,7 +24,7 @@ export class SvFormComponent implements OnInit, OnDestroy {
   PostSucces: string = 'Supervision ajouté avec succés';
   UpdateDone: boolean = false;
   UpdateSucces: string = 'Supervision modifié avec succés';
-  Dr$!: Observable<any>;
+  Dr!: any;
   DrSubscription$!: Subscription;
   isAmenagementEmpty: boolean = true;
   hasAmenagementCheck: string = '';
@@ -502,10 +502,10 @@ export class SvFormComponent implements OnInit, OnDestroy {
   }
   // Select Dr
   getDr() {
-    this.Dr$ = this.store.select(getDr);
-    this.DrSubscription$ = this.Dr$.subscribe((data) => {
-      if (!data?.length) this.getDrSup();
-    });
+    this.DrSubscription$ = this.store.select(getDr).subscribe(data => {
+      if (data) this.Dr = data;
+      if (!data) this.getDrSup()
+    })
   }
 
   ngOnDestroy() {

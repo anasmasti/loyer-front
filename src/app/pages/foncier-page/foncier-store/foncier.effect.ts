@@ -40,8 +40,12 @@ export class FoncierEffects {
         return this.foncierService.getFonciers().pipe(
             map(
                 (fonciers: Foncier[]) => {
-                    this.store.dispatch(setLoadingAction({ status: false }))
-                    return getFoncierSuccessAction({ fonciers });
+                    if (fonciers.length !== 0) {
+                        this.store.dispatch(setLoadingAction({ status: false }))
+                        return getFoncierSuccessAction({ fonciers });
+                    } else {
+                        throw new Error("Il y'a aucun foncier")
+                    }
                 }
             )
         )
@@ -52,8 +56,12 @@ export class FoncierEffects {
         return this.foncierService.getPropWithLieux().pipe(
             map(
                 (propWithLieux: any) => {
-                    this.store.dispatch(setLoadingAction({ status: false }))
-                    return getPropWithLieuxSuccessAction({ propWithLieux });
+                    if (propWithLieux.length !== 0) {
+                        this.store.dispatch(setLoadingAction({ status: false }))
+                        return getPropWithLieuxSuccessAction({ propWithLieux });
+                    } else {
+                        throw new Error("Il y'a aucun proprietaire avec Lieux")
+                    }
                 }
             )
         )
