@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { Contrat } from 'src/app/models/Contrat';
 import { ContratService } from 'src/app/services/contrat-service/contrat.service';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
@@ -19,9 +18,9 @@ export class FormContratComponent implements OnInit {
   @Input() contrat?: any;
   //incomming id from list (test)
   idContrat: String = '';
-  //etat selectionner dans le form 
+  //etat selectionner dans le form
   etat: string = '';
-  //display the alert in success case 
+  //display the alert in success case
   success: boolean = false;
   //message displayed on alert
   msg: string = '';
@@ -29,21 +28,17 @@ export class FormContratComponent implements OnInit {
   lieux!: any;
   propriataire!: any;
 
-
-
   constructor(
     private contratService: ContratService,
     private lieuxService: LieuxService,
     private proprietaireService: ProprietaireService,
     private mainModalService: MainModalService
-  ) { }
+  ) {}
 
   ngOnChanges() {
-
     if (this.formType != '') {
       if (this.contrat.length != 0) {
         setTimeout(() => {
-
           this.idContrat = this.contrat._id;
           this.fillUpContrat();
           this.date_debut_loyer = this.contrat.date_debut_loyer;
@@ -51,15 +46,21 @@ export class FormContratComponent implements OnInit {
           this.date_fin_avance = this.contrat.date_fin_avance;
           this.date_reprise_caution = this.contrat.date_reprise_caution;
           this.date_1er_paiement = this.contrat.date_premier_paiement;
-          this.etat_contrat = this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1].libelle;
+          this.etat_contrat =
+            this.contrat.etat_contrat[
+              this.contrat.etat_contrat.length - 1
+            ].libelle;
           this.date_resiliation =
-            this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1].etat.date_resiliation;
+            this.contrat.etat_contrat[
+              this.contrat.etat_contrat.length - 1
+            ].etat.date_resiliation;
           this.date_suspension =
-            this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1].etat.date_suspension;
+            this.contrat.etat_contrat[
+              this.contrat.etat_contrat.length - 1
+            ].etat.date_suspension;
         }, 300);
       }
     }
-
   }
 
   ngOnInit(): void {
@@ -67,10 +68,8 @@ export class FormContratComponent implements OnInit {
     this.getProps();
   }
 
-  
-
-//----------------- update && post  ------------------------------------------------------------------------------------------------
-//objet contrat (je stock les form data dans cet objet pour l'envoyer comme paramaitre au service)
+  //----------------- update && post  ------------------------------------------------------------------------------------------------
+  //objet contrat (je stock les form data dans cet objet pour l'envoyer comme paramaitre au service)
   Contrat: Contrat = {
     _id: 'Chargement',
     numero_contrat: 'Chargement...',
@@ -120,205 +119,199 @@ export class FormContratComponent implements OnInit {
     ],
     deleted: false,
   };
-//form groups
-contratForm: FormGroup = new FormGroup({
-  Ncontrat_loyer: new FormControl(),
-  piece_jointe: new FormControl(),
-  date_debut_loyer: new FormControl(),
-  montant_loyer: new FormControl(),
-  taxe_edilite_comprise_loyer: new FormControl(),
-  taxe_edilite_noncomprise_loyer: new FormControl(),
-  periodicite_paiement: new FormControl(),
-  duree_location: new FormControl(),
-  date_fin_contrat: new FormControl(),
-  declaration_option: new FormControl(),
-  taux_impot: new FormControl(),
-  retenue_source: new FormControl(),
-  montant_apres_impot: new FormControl(),
-  montant_caution: new FormControl(),
-  effort_caution: new FormControl(),
-  date_reprise_caution: new FormControl(),
-  statut_caution: new FormControl(),
-  montant_avance: new FormControl(),
-  date_fin_avance: new FormControl(),
-  date_1er_paiement: new FormControl(),
-  duree_avance: new FormControl(),
-  Nengagement_dépense: new FormControl(),
-  echeance_revision_loyer: new FormControl(),
-  proprietaire: new FormControl(),
-  type_lieu: new FormControl(),
-  lieu: new FormControl(),
-  etat_contrat: new FormControl(),
-});
-etatContrat: FormGroup = new FormGroup({
-  //AVENANT
-  N_avenant: new FormControl(),
-  piece_joint_av: new FormControl(),
-  motif: new FormControl(),
-  montant_new_loyer: new FormControl(),
-  signaletique_successeur: new FormControl(),
-  //SUSPENSION
-  intitule_lieu_sus: new FormControl(),
-  date_suspension: new FormControl(),
-  duree_suspension: new FormControl(),
-  motif_suspension: new FormControl(),
-  //RESILIATION
-  intitule_lieu_res: new FormControl(),
-  reprise_caution: new FormControl(),
-  date_resiliation: new FormControl(),
-  etat_lieux_sortie: new FormControl(),
-  images_lieux_sortie: new FormControl(),
-  preavis: new FormControl(),
-  lettre_resiliation_scannee: new FormControl(),
-});
-//functions
-closeModal() {
-  this.mainModalService.close();
-}
-getLieux() {
-  this.lieuxService.listLieux().subscribe((data: any) => {
-    this.lieux = data;
+  //form groups
+  contratForm: FormGroup = new FormGroup({
+    Ncontrat_loyer: new FormControl(),
+    piece_jointe: new FormControl(),
+    date_debut_loyer: new FormControl(),
+    montant_loyer: new FormControl(),
+    taxe_edilite_comprise_loyer: new FormControl(),
+    taxe_edilite_noncomprise_loyer: new FormControl(),
+    periodicite_paiement: new FormControl(),
+    duree_location: new FormControl(),
+    date_fin_contrat: new FormControl(),
+    declaration_option: new FormControl(),
+    taux_impot: new FormControl(),
+    retenue_source: new FormControl(),
+    montant_apres_impot: new FormControl(),
+    montant_caution: new FormControl(),
+    effort_caution: new FormControl(),
+    date_reprise_caution: new FormControl(),
+    statut_caution: new FormControl(),
+    montant_avance: new FormControl(),
+    date_fin_avance: new FormControl(),
+    date_1er_paiement: new FormControl(),
+    duree_avance: new FormControl(),
+    Nengagement_dépense: new FormControl(),
+    echeance_revision_loyer: new FormControl(),
+    proprietaire: new FormControl(),
+    type_lieu: new FormControl(),
+    lieu: new FormControl(),
+    etat_contrat: new FormControl(),
   });
-}
-getProps() {
-  this.proprietaireService.getProprietaire().subscribe((data: any) => {
-    this.propriataire = data;
+  etatContrat: FormGroup = new FormGroup({
+    //AVENANT
+    N_avenant: new FormControl(),
+    piece_joint_av: new FormControl(),
+    motif: new FormControl(),
+    montant_new_loyer: new FormControl(),
+    signaletique_successeur: new FormControl(),
+    //SUSPENSION
+    intitule_lieu_sus: new FormControl(),
+    date_suspension: new FormControl(),
+    duree_suspension: new FormControl(),
+    motif_suspension: new FormControl(),
+    //RESILIATION
+    intitule_lieu_res: new FormControl(),
+    reprise_caution: new FormControl(),
+    date_resiliation: new FormControl(),
+    etat_lieux_sortie: new FormControl(),
+    images_lieux_sortie: new FormControl(),
+    preavis: new FormControl(),
+    lettre_resiliation_scannee: new FormControl(),
   });
-}
-alertOn(action: string) {
-  if (action == 'update') {
-    this.msg = 'Cette contrat est modifiée avec succées !';
-  } else if (action == 'add') {
-    this.msg = 'Contrat ajoutée avec succées !';
+  //functions
+  closeModal() {
+    this.mainModalService.close();
   }
-  this.success = true;
-  setTimeout(() => {
-    window.scroll(0, 0);
-  }, 100);
-  setTimeout(() => {
-    this.success = false;
-  }, 5000);
-}
-ShowEtat() {
-  this.etat_contrat = this.contratForm.value.etat_contrat;
-}
-//----------------- FIN update && post  -------------------------------------------------------------------------------------------------
+  getLieux() {
+    this.lieuxService.listLieux().subscribe((data: any) => {
+      this.lieux = data;
+    });
+  }
+  getProps() {
+    this.proprietaireService.getProprietaire().subscribe((data: any) => {
+      this.propriataire = data;
+    });
+  }
+  alertOn(action: string) {
+    if (action == 'update') {
+      this.msg = 'Cette contrat est modifiée avec succées !';
+    } else if (action == 'add') {
+      this.msg = 'Contrat ajoutée avec succées !';
+    }
+    this.success = true;
+    setTimeout(() => {
+      window.scroll(0, 0);
+    }, 100);
+    setTimeout(() => {
+      this.success = false;
+    }, 5000);
+  }
+  ShowEtat() {
+    this.etat_contrat = this.contratForm.value.etat_contrat;
+  }
+  //----------------- FIN update && post  -------------------------------------------------------------------------------------------------
 
-
-
-//----------------- Ajouter nouveau Contrat Functions ----------------------------------------------------------------------------
-fillNewValues() {
-  //filling-up Contrat object with the new values form formGroup
-  this.Contrat.numero_contrat = this.contratForm.get('Ncontrat_loyer')?.value;
-  this.Contrat.date_debut_loyer =
-    this.contratForm.get('date_debut_loyer')?.value;
-  this.Contrat.Montant_loyer = this.contratForm.get('montant_loyer')?.value;
-  this.Contrat.taxe_edilite_loyer = this.contratForm.get(
-    'taxe_edilite_comprise_loyer'
-  )?.value;
-  this.Contrat.taxe_edilite_non_loyer = this.contratForm.get(
-    'taxe_edilite_noncomprise_loyer'
-  )?.value;
-  this.Contrat.periodicite_paiement = this.contratForm.get(
-    'periodicite_paiement'
-  )?.value;
-  this.Contrat.date_fin_contrat =
-    this.contratForm.get('date_fin_contrat')?.value;
-  this.Contrat.declaration_option =
-    this.contratForm.get('declaration_option')?.value;
-  this.Contrat.taux_impot = this.contratForm.get('taux_impot')?.value;
-  this.Contrat.retenue_source = this.contratForm.get('retenue_source')?.value;
-  this.Contrat.montant_apres_impot = this.contratForm.get(
-    'montant_apres_impot'
-  )?.value;
-  this.Contrat.montant_caution =
-    this.contratForm.get('montant_caution')?.value;
-  this.Contrat.effort_caution = this.contratForm.get('effort_caution')?.value;
-  this.Contrat.date_reprise_caution = this.contratForm.get(
-    'date_reprise_caution'
-  )?.value;
-  this.Contrat.statut_caution = this.contratForm.get('statut_caution')?.value;
-  this.Contrat.montant_avance = this.contratForm.get('montant_avance')?.value;
-  this.Contrat.date_fin_avance =
-    this.contratForm.get('date_fin_avance')?.value;
-  this.Contrat.date_premier_paiement =
-    this.contratForm.get('date_1er_paiement')?.value;
-  this.Contrat.duree_avance = this.contratForm.get('duree_avance')?.value;
-  this.Contrat.echeance_revision_loyer = this.contratForm.get(
-    'echeance_revision_loyer'
-  )?.value;
-  this.Contrat.proprietaire = this.contratForm.get('proprietaire')?.value;
-  this.Contrat.type_lieu = this.contratForm.get('type_lieu')?.value;
-  this.Contrat.N_engagement_depense = this.contratForm.get(
-    'Nengagement_dépense'
-  )?.value;
-  this.Contrat.lieu = this.contratForm.get('lieu')?.value;
-  this.Contrat.duree_location = this.contratForm.get('duree_location')?.value;
-  this.Contrat.etat_contrat[0].libelle =
+  //----------------- Ajouter nouveau Contrat Functions ----------------------------------------------------------------------------
+  fillNewValues() {
+    //filling-up Contrat object with the new values form formGroup
+    this.Contrat.numero_contrat = this.contratForm.get('Ncontrat_loyer')?.value;
+    this.Contrat.date_debut_loyer =
+      this.contratForm.get('date_debut_loyer')?.value;
+    this.Contrat.Montant_loyer = this.contratForm.get('montant_loyer')?.value;
+    this.Contrat.taxe_edilite_loyer = this.contratForm.get(
+      'taxe_edilite_comprise_loyer'
+    )?.value;
+    this.Contrat.taxe_edilite_non_loyer = this.contratForm.get(
+      'taxe_edilite_noncomprise_loyer'
+    )?.value;
+    this.Contrat.periodicite_paiement = this.contratForm.get(
+      'periodicite_paiement'
+    )?.value;
+    this.Contrat.date_fin_contrat =
+      this.contratForm.get('date_fin_contrat')?.value;
+    this.Contrat.declaration_option =
+      this.contratForm.get('declaration_option')?.value;
+    this.Contrat.taux_impot = this.contratForm.get('taux_impot')?.value;
+    this.Contrat.retenue_source = this.contratForm.get('retenue_source')?.value;
+    this.Contrat.montant_apres_impot = this.contratForm.get(
+      'montant_apres_impot'
+    )?.value;
+    this.Contrat.montant_caution =
+      this.contratForm.get('montant_caution')?.value;
+    this.Contrat.effort_caution = this.contratForm.get('effort_caution')?.value;
+    this.Contrat.date_reprise_caution = this.contratForm.get(
+      'date_reprise_caution'
+    )?.value;
+    this.Contrat.statut_caution = this.contratForm.get('statut_caution')?.value;
+    this.Contrat.montant_avance = this.contratForm.get('montant_avance')?.value;
+    this.Contrat.date_fin_avance =
+      this.contratForm.get('date_fin_avance')?.value;
+    this.Contrat.date_premier_paiement =
+      this.contratForm.get('date_1er_paiement')?.value;
+    this.Contrat.duree_avance = this.contratForm.get('duree_avance')?.value;
+    this.Contrat.echeance_revision_loyer = this.contratForm.get(
+      'echeance_revision_loyer'
+    )?.value;
+    this.Contrat.proprietaire = this.contratForm.get('proprietaire')?.value;
+    this.Contrat.type_lieu = this.contratForm.get('type_lieu')?.value;
+    this.Contrat.N_engagement_depense = this.contratForm.get(
+      'Nengagement_dépense'
+    )?.value;
+    this.Contrat.lieu = this.contratForm.get('lieu')?.value;
+    this.Contrat.duree_location = this.contratForm.get('duree_location')?.value;
+    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length-1].libelle =
       this.contratForm.get('etat_contrat')?.value;
 
     //AVENANT
-    this.Contrat.etat_contrat[0].etat.n_avenant =
+    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length-1].etat.n_avenant =
       this.etatContrat.get('N_avenant')?.value;
-    this.Contrat.etat_contrat[0].etat.motif =
+    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length-1].etat.motif =
       this.etatContrat.get('motif')?.value;
-    this.Contrat.etat_contrat[0].etat.montant_nouveau_loyer =
+    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length-1].etat.montant_nouveau_loyer =
       this.etatContrat.get('montant_new_loyer')?.value;
-    this.Contrat.etat_contrat[0].etat.signaletique_successeur =
+    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length-1].etat.signaletique_successeur =
       this.etatContrat.get('signaletique_successeur')?.value;
     //SUSPENSION
 
-    this.Contrat.etat_contrat[0].etat.date_suspension =
+    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length-1].etat.date_suspension =
       this.etatContrat.get('date_suspension')?.value;
-    this.Contrat.etat_contrat[0].etat.duree_suspension =
+    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length-1].etat.duree_suspension =
       this.etatContrat.get('duree_suspension')?.value;
-    this.Contrat.etat_contrat[0].etat.motif_suspension =
+    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length-1].etat.motif_suspension =
       this.etatContrat.get('motif_suspension')?.value;
     //RESILIATION
 
-    this.Contrat.etat_contrat[0].etat.date_resiliation =
+    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length-1].etat.date_resiliation =
       this.etatContrat.get('date_resiliation')?.value;
-    this.Contrat.etat_contrat[0].etat.reprise_caution =
+    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length-1].etat.reprise_caution =
       this.etatContrat.get('reprise_caution')?.value;
-    this.Contrat.etat_contrat[0].etat.etat_lieu_sortie =
+    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length-1].etat.etat_lieu_sortie =
       this.etatContrat.get('etat_lieux_sortie')?.value;
-    this.Contrat.etat_contrat[0].etat.preavis =
+    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length-1].etat.preavis =
       this.etatContrat.get('preavis')?.value;
-   
-     
+
     if (this.contratForm.get('etat_contrat')?.value == 'Suspension') {
-      this.Contrat.etat_contrat[0].etat.intitule_lieu =
+      this.Contrat.etat_contrat[this.Contrat.etat_contrat.length-1].etat.intitule_lieu =
         this.etatContrat.get('intitule_lieu_sus')?.value;
     } else if (this.contratForm.get('etat_contrat')?.value == 'Résiliation') {
-      this.Contrat.etat_contrat[0].etat.intitule_lieu =
+      this.Contrat.etat_contrat[this.Contrat.etat_contrat.length-1].etat.intitule_lieu =
         this.etatContrat.get('intitule_lieu_res')?.value;
     }
-}
-addNewContrat() {
-  this.fillNewValues();
+  }
+  addNewContrat() {
+    this.fillNewValues();
 
+    this.contratService.addContrat(this.Contrat).subscribe((data: any) => {
+      this.Contrat = data;
+    });
+    this.contratForm.reset();
+  }
+  //----------------- FIN Ajouter nouveau Contrat Functions -------------------------------------------------------------------------------
 
-  this.contratService.addContrat(this.Contrat).subscribe((data: any) => {
-    this.Contrat = data;
-  });
-  this.contratForm.reset();
-}
-//----------------- FIN Ajouter nouveau Contrat Functions -------------------------------------------------------------------------------
-
-
-
-//-----------------  Modifier une Contrat Functions -----------------------------------------------------------------------------------
-date_debut_loyer!: Date;
-date_fin_contrat!: Date;
-date_fin_avance!: Date;
-date_reprise_caution!: Date;
-date_1er_paiement!: Date;
-etat_contrat!: String;
-date_resiliation!: Date;
-date_suspension!: Date;
-updatedContrat: any = {};
-NvEtatContrat: any = {};
-oldEtatContrat: any = {};
+  //-----------------  Modifier une Contrat Functions -----------------------------------------------------------------------------------
+  date_debut_loyer!: Date;
+  date_fin_contrat!: Date;
+  date_fin_avance!: Date;
+  date_reprise_caution!: Date;
+  date_1er_paiement!: Date;
+  etat_contrat!: String;
+  date_resiliation!: Date;
+  date_suspension!: Date;
+  updatedContrat: any = {};
+  NvEtatContrat: any = {};
+  oldEtatContrat: any = {};
   //remplissage de contrat form au cas de modification
   fillUpContrat() {
     if (this.formType != '') {
@@ -348,52 +341,74 @@ oldEtatContrat: any = {};
           proprietaire: this.Contrat.proprietaire,
           type_lieu: this.Contrat.type_lieu,
           lieu: this.Contrat.lieu,
-          etat_contrat: this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].libelle,
+          etat_contrat:
+            this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1]
+              .libelle,
           Nengagement_dépense: this.Contrat.N_engagement_depense,
         });
         this.etatContrat.patchValue({
           //AVENANT
-          N_avenant: this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat.n_avenant,
-          motif: this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat.motif,
+          N_avenant:
+            this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
+              .n_avenant,
+          motif:
+            this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
+              .motif,
           montant_new_loyer:
-            this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat.montant_nouveau_loyer,
+            this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
+              .montant_nouveau_loyer,
           signaletique_successeur:
-            this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat.signaletique_successeur,
+            this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
+              .signaletique_successeur,
+
           //SUSPENSION
-          intitule_lieu_sus: this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat.intitule_lieu,
-          duree_suspension: this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat.duree_suspension,
-          motif_suspension: this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat.motif_suspension,
+          intitule_lieu_sus:
+            this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
+              .intitule_lieu,
+          duree_suspension:
+            this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
+              .duree_suspension,
+          motif_suspension:
+            this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
+              .motif_suspension,
           //RESILIATION
-          intitule_lieu_res: this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat.intitule_lieu,
-          reprise_caution: this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat.reprise_caution,
-          etat_lieux_sortie: this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat.etat_lieu_sortie,
-          preavis: this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat.preavis,
+          intitule_lieu_res:
+            this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
+              .intitule_lieu,
+          reprise_caution:
+            this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
+              .reprise_caution,
+          etat_lieux_sortie:
+            this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
+              .etat_lieu_sortie,
+          preavis:
+            this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
+              .preavis,
         });
       }, 500);
     }
   }
-fillValuesupdated() {
-
-
+  fillValuesupdated() {
     if (
       this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1].libelle ==
       this.contratForm.get('etat_contrat')?.value
     ) {
-
-    }
-    else if (
+      console.log('in == ');
+    } else if (
       this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1].libelle !=
       this.contratForm.get('etat_contrat')?.value
     ) {
-
-
       this.updatedContrat = {
         numero_contrat: this.contratForm.get('Ncontrat_loyer')?.value,
         date_debut_loyer: this.contratForm.get('date_debut_loyer')?.value,
         Montant_loyer: this.contratForm.get('montant_loyer')?.value,
-        taxe_edilite_loyer: this.contratForm.get('taxe_edilite_comprise_loyer')?.value,
-        taxe_edilite_non_loyer: this.contratForm.get('taxe_edilite_noncomprise_loyer')?.value,
-        periodicite_paiement: this.contratForm.get('periodicite_paiement')?.value,
+        taxe_edilite_loyer: this.contratForm.get('taxe_edilite_comprise_loyer')
+          ?.value,
+        taxe_edilite_non_loyer: this.contratForm.get(
+          'taxe_edilite_noncomprise_loyer'
+        )?.value,
+        periodicite_paiement: this.contratForm.get('periodicite_paiement')
+          ?.value,
         date_fin_contrat: this.contratForm.get('date_fin_contrat')?.value,
         declaration_option: this.contratForm.get('declaration_option')?.value,
         taux_impot: this.contratForm.get('taux_impot')?.value,
@@ -401,16 +416,19 @@ fillValuesupdated() {
         montant_apres_impot: this.contratForm.get('montant_apres_impot')?.value,
         montant_caution: this.contratForm.get('montant_caution')?.value,
         effort_caution: this.contratForm.get('effort_caution')?.value,
-        date_reprise_caution: this.contratForm.get('date_reprise_caution')?.value,
+        date_reprise_caution: this.contratForm.get('date_reprise_caution')
+          ?.value,
         statut_caution: this.contratForm.get('statut_caution')?.value,
         montant_avance: this.contratForm.get('montant_avance')?.value,
         date_fin_avance: this.contratForm.get('date_fin_avance')?.value,
         date_premier_paiement: this.contratForm.get('date_1er_paiement')?.value,
         duree_avance: this.contratForm.get('duree_avance')?.value,
-        echeance_revision_loyer: this.contratForm.get('echeance_revision_loyer')?.value,
+        echeance_revision_loyer: this.contratForm.get('echeance_revision_loyer')
+          ?.value,
         proprietaire: this.contratForm.get('proprietaire')?.value,
         type_lieu: this.contratForm.get('type_lieu')?.value,
-        N_engagement_depense: this.contratForm.get('Nengagement_dépense')?.value,
+        N_engagement_depense: this.contratForm.get('Nengagement_dépense')
+          ?.value,
         lieu: this.contratForm.get('lieu')?.value,
         duree_location: this.contratForm.get('duree_location')?.value,
       };
@@ -422,11 +440,12 @@ fillValuesupdated() {
             //AVENANT
             n_avenant: this.etatContrat.get('N_avenant')?.value,
             motif: this.etatContrat.get('motif')?.value,
-            montant_nouveau_loyer: this.etatContrat.get('montant_new_loyer')?.value,
-            signaletique_successeur: this.etatContrat.get('signaletique_successeur')
-              ?.value,
-          }
-
+            montant_nouveau_loyer:
+              this.etatContrat.get('montant_new_loyer')?.value,
+            signaletique_successeur: this.etatContrat.get(
+              'signaletique_successeur'
+            )?.value,
+          },
         };
       }
       if (this.contratForm.get('etat_contrat')?.value == 'Résiliation') {
@@ -434,15 +453,13 @@ fillValuesupdated() {
           libelle: this.contratForm.get('etat_contrat')?.value,
           updated: false,
           etat: {
-
             //RESILIATION
             intitule_lieu: this.etatContrat.get('intitule_lieu_res')?.value,
             date_resiliation: this.etatContrat.get('date_resiliation')?.value,
             reprise_caution: this.etatContrat.get('reprise_caution')?.value,
             etat_lieu_sortie: this.etatContrat.get('etat_lieux_sortie')?.value,
             preavis: this.etatContrat.get('preavis')?.value,
-          }
-
+          },
         };
       }
       if (this.contratForm.get('etat_contrat')?.value == 'Suspension') {
@@ -454,103 +471,126 @@ fillValuesupdated() {
             date_suspension: this.etatContrat.get('date_suspension')?.value,
             duree_suspension: this.etatContrat.get('duree_suspension')?.value,
             motif_suspension: this.etatContrat.get('motif_suspension')?.value,
-
-          }
-
+          },
         };
       }
 
-      if (this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1].libelle == 'Avenant') {
+      if (
+        this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1]
+          .libelle == 'Avenant'
+      ) {
         this.oldEtatContrat = {
-          libelle: this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1].libelle,
+          libelle:
+            this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1]
+              .libelle,
           updated: true,
           etat: {
             //AVENANT
-            n_avenant: this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1].etat.n_avenant,
-            motif: this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1].etat.motif,
-            montant_nouveau_loyer: this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1].etat.montant_nouveau_loyer,
+            n_avenant:
+              this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1]
+                .etat.n_avenant,
+            motif:
+              this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1]
+                .etat.motif,
+            montant_nouveau_loyer:
+              this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1]
+                .etat.montant_nouveau_loyer,
             signaletique_successeur:
-              this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1].etat.signaletique_successeur,
-          }
+              this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1]
+                .etat.signaletique_successeur,
+          },
         };
       }
-      if (this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1].libelle == 'Suspension') {
+      if (
+        this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1]
+          .libelle == 'Suspension'
+      ) {
         this.oldEtatContrat = {
-          libelle: this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1].libelle,
+          libelle:
+            this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1]
+              .libelle,
           updated: true,
           etat: {
             //SUSPENSION
-            intitule_lieu: this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1].etat.intitule_lieu_sus,
-            date_suspension: this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1].etat.date_suspension,
-            duree_suspension: this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1].etat.duree_suspension,
-            motif_suspension: this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1].etat.motif_suspension,
-          }
+            intitule_lieu:
+              this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1]
+                .etat.intitule_lieu_sus,
+            date_suspension:
+              this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1]
+                .etat.date_suspension,
+            duree_suspension:
+              this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1]
+                .etat.duree_suspension,
+            motif_suspension:
+              this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1]
+                .etat.motif_suspension,
+          },
         };
       }
-      if (this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1].libelle == 'Résiliation') {
+      if (
+        this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1]
+          .libelle == 'Résiliation'
+      ) {
         this.oldEtatContrat = {
-          libelle: this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1].libelle,
+          libelle:
+            this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1]
+              .libelle,
           updated: true,
           etat: {
-            intitule_lieu: this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1].etat.intitule_lieu_res,
-            date_resiliation: this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1].etat.date_resiliation,
-            reprise_caution: this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1].etat.reprise_caution,
-            etat_lieu_sortie: this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1].etat.etat_lieux_sortie,
-            preavis: this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1].etat.preavis,
-          }
+            intitule_lieu:
+              this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1]
+                .etat.intitule_lieu_res,
+            date_resiliation:
+              this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1]
+                .etat.date_resiliation,
+            reprise_caution:
+              this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1]
+                .etat.reprise_caution,
+            etat_lieu_sortie:
+              this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1]
+                .etat.etat_lieux_sortie,
+            preavis:
+              this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1]
+                .etat.preavis,
+          },
         };
       }
-
-
     }
-
-}
-
-updateContrat() {
-  
-  //sending request
-  const id = this.idContrat;
-  if (
-    this.contrat.etat_contrat[this.contrat.etat_contrat.length-1].libelle ==
-    this.contratForm.get('etat_contrat')?.value
-  ) {
-    this.fillNewValues();
-    
-  //  console.log(this.Contrat);
-   
-    this.contratService
-      .updateContrat(id, this.Contrat)
-      .subscribe((data: any) => {
-        this.Contrat = data;
-      });
-  } else if (
-    this.contrat.etat_contrat[this.contrat.etat_contrat.length-1].libelle !=
-    this.contratForm.get('etat_contrat')?.value
-  ) {
-  
-    
-    this.fillValuesupdated();
-    // console.log( this.updatedContrat);
-    // console.log(this.NvEtatContrat);
-    // console.log(this.oldEtatContrat);
-    this.contratService
-      .updateContratNvEtat(
-        id,
-        this.updatedContrat,
-        this.NvEtatContrat,
-        this.oldEtatContrat
-      )
-      .subscribe();
   }
 
-
-
-}
-//----------------- FIN Modifier une Contrat Functions -------------------------------------------------------------------------------------
-
-
-
-
-
-
+  updateContrat() {
+    //sending request
+    const id = this.idContrat;
+    if (
+      this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1].libelle ==
+      this.contratForm.get('etat_contrat')?.value
+    ) {
+      this.fillNewValues();
+      if (this.Contrat.etat_contrat.length > 1) {
+        console.log(this.Contrat.etat_contrat);
+      }
+      this.contratService
+        .updateContrat(id, this.Contrat)
+        .subscribe((data: any) => {
+          this.Contrat = data;
+        });
+    } else if (
+      this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1].libelle !=
+      this.contratForm.get('etat_contrat')?.value
+    ) {
+      this.fillValuesupdated();
+      // console.log( this.updatedContrat);
+      // console.log(this.NvEtatContrat);
+      // console.log(this.oldEtatContrat);
+      this.contratService
+        .updateContratNvEtat(
+          id,
+          this.updatedContrat,
+          this.NvEtatContrat,
+          this.oldEtatContrat
+        )
+        .subscribe();
+    }
+  }
+  //----------------- FIN Modifier une Contrat Functions -------------------------------------------------------------------------------------
 }

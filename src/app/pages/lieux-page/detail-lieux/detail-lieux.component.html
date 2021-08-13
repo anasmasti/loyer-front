@@ -20,175 +20,187 @@
 </div>
 
 
+<div class="row d-flex justify-content-around">
+    <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-5">
+        <div class="row">
+            <div class="col-lg-6">
+                <h5>Code lieu</h5>
+                <p>{{ lieu?.code_lieu }}</p>
+            </div>
+            <div class="col-lg-6">
 
-<div class="main-card p-lg-4 mt-4 table-responsive bg-white">
-
-    <table class="table" cellspacing="0" width="100%">
-        <tbody>
-            <tr>
-                <th>code_lieu</th>
-                <td>{{lieu?.code_lieu}}</td>
-            </tr>
-            <tr>
-                <th>intitule_lieu</th>
-                <td>{{lieu?.intitule_lieu}}</td>
-            </tr>
-            <tr>
-                <th>intitule_DR</th>
-                <td>{{lieu?.intitule_DR}}</td>
-            </tr>
-            <tr>
-                <th>adresse</th>
-                <td>{{lieu?.adresse}}</td>
-            </tr>
-            <tr>
-                <th>ville</th>
-                <td>{{lieu?.ville}}</td>
-            </tr>
-            <tr>
-                <th>code_localite</th>
-                <td>{{lieu?.code_localite}}</td>
-            </tr>
-            <tr>
-                <th>desc_lieu_entrer</th>
-                <td>{{lieu?.desc_lieu_entrer}}</td>
-            </tr>
-            <tr>
-                <th>superficie</th>
-                <td>{{lieu?.superficie}}</td>
-            </tr>
-            <tr>
-                <th>telephone</th>
-                <td>{{lieu?.telephone}}</td>
-            </tr>
-            <tr>
-                <th>fax</th>
-                <td>{{lieu?.fax}}</td>
-            </tr>
-            <tr>
-                <th>etage</th>
-                <td>{{lieu?.etage}}</td>
-            </tr>
-            <tr>
-                <th>type_lieu</th>
-                <td>{{lieu?.type_lieu}}</td>
-            </tr>
-            <tr>
-                <th>code_rattache_DR</th>
-                <td>{{lieu?.code_rattache_DR}}</td>
-            </tr>
-            <tr>
-                <th>code_rattache_SUP</th>
-                <td>{{lieu?.code_rattache_SUP}}</td>
-            </tr>
-            <tr>
-                <th>intitule_rattache_SUP_PV</th>
-                <td>{{lieu?.intitule_rattache_SUP_PV}}</td>
-            </tr>
-            <tr>
-                <th>centre_cout_siege</th>
-                <td>{{lieu?.centre_cout_siege}}</td>
-            </tr>
-            <tr>
-                <th>categorie_pointVente</th>
-                <td>{{lieu?.categorie_pointVente}}</td>
-            </tr>
-        </tbody>
-
-    </table>
-    <div>
-        <div>
-            <h4 class="main-title my-4">Aménagement</h4>
+                <h5>Intitule</h5>
+                <p>{{ lieu?.intitule_lieu }}</p>
+            </div>
         </div>
-
-        <div class="d-inline" *ngFor="let selected_amenagement of lieu.amenagement">
-
-
-            <!-- <div class="btn-group d-flex justify-content-between" role="group"
-                aria-label="Basic checkbox toggle button group"> 
-                <div >
-                    <input type="checkbox" name="chk1" class="btn-check roles" id="role1" autocomplete="off"
-                        value="role1" (change)="displayAmenagement(amen._id); scroll();">
-                    <label class="px-5 py-1 rounded-pill checkbox-list-btns" for="role1">{{amen.nature}}</label>
-                </div>
-            </div> -->
-
-
-            <button *ngIf="!selected_amenagement.deleted" class="btn second-btn me-3" type="button"
-                (click)="displayAmenagement(selected_amenagement._id);scroll();">
-                {{selected_amenagement._id}}
-            </button>
-
-
+        <div class="row">
+            <div class="col-lg-6">
+                <h5>Direction régionale</h5>
+                <p>{{ lieu?.intitule_DR }}</p>
+            </div>
+            <div class="col-lg-6">
+                <h5>Adresse</h5>
+                <p>{{ lieu?.adresse }}</p>
+            </div>
         </div>
-
-        <!-- fin de division -->
-        <div class="mt-4" *ngIf="displayAmenagementSection">
-            <table class="table" cellspacing="0" width="100%">
-                <tbody>
-
-                    <tr>
-                        <th>Nature d'aménagement </th>
-                        <td> {{ selectedAmenagement?.nature_amenagement }} </td>
-                    </tr>
-
-                    <tr>
-                        <th>Montant d'Aménagement </th>
-                        <td> {{selectedAmenagement?.montant_amenagement}} </td>
-                    </tr>
-
-                    <tr>
-                        <th>N° de facture</th>
-                        <td> {{selectedAmenagement?.numero_facture}} </td>
-                    </tr>
-
-                    <tr>
-                        <th>N° de bon de commande</th>
-                        <td> {{selectedAmenagement?.numero_bon_commande}} </td>
-                    </tr>
-
-                    <tr>
-                        <th>Date de passation de la commande</th>
-                        <td> {{selectedAmenagement?.date_passation_commande }} </td>
-                    </tr>
-
-                    <tr>
-                        <th>Evaluation du fournisseur</th>
-                        <td> {{selectedAmenagement?.evaluation_fournisseur}} </td>
-                    </tr>
-
-                    <tr>
-                        <th>Date de fin de travaux</th>
-                        <td>{{selectedAmenagement?.date_fin_travaux }} </td>
-                    </tr>
-
-                    <tr>
-                        <th>Date de livraison du local</th>
-                        <td>{{selectedAmenagement?.date_livraison_local }} </td>
-                    </tr>
-
-                    <div>
-                        <h5 class="main-title">Fournisseurs</h5>
-                        <div class="d-flex justify-content-between flex-row">
-                            <div *ngFor="let selected_fournisseur of selectedAmenagement?.fournisseur" class="d-flex">
-                                <div *ngIf="!selected_fournisseur.deleted" class="main-card p-4 ">
-                                    <h6>Nom</h6>
-                                    <p>{{ selected_fournisseur.nom }}</p>
-                                    <h6>Prenom</h6>
-                                    <p>{{ selected_fournisseur.prenom }}</p>
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </tbody>
-
-            </table>
+        <div class="row">
+            <div class="col-lg-6">
+                <h5>Ville</h5>
+                <p>{{ lieu?.ville }}</p>
+            </div>
+            <div class="col-lg-6">
+                <h5>Code localite</h5>
+                <p>{{ lieu?.code_localite }}</p>
+            </div>
         </div>
-
+        <div class="row">
+            <div class="col-lg-6">
+                <h5>superficie</h5>
+                <p>{{ lieu?.superficie }}</p>
+            </div>
+            <div class="col-lg-6">
+                <h5>telephone</h5>
+                <p>{{ lieu?.telephone }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <h5>fax</h5>
+                <p>{{ lieu?.fax }}</p>
+            </div>
+            <div class="col-lg-6">
+                <h5>Etage</h5>
+                <p>{{ lieu?.etage }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <h5>Type</h5>
+                <p>{{ lieu?.type_lieu }}</p>
+            </div>
+            <div class="col-lg-6"></div>
+        </div>
 
     </div>
 
+    <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-6">
 
+        <div class="row">
+            <div class="col-lg-6">
+                <h5>Description d'entrer</h5>
+                <p>{{ lieu?.desc_lieu_entrer }}</p>
+            </div>
+            <div class="col-lg-6">
+                <h5>Images d'entrer</h5>
+                <p>
+                    <a class="btn second-btn" href="{{url}}{{selectedImageEntrer?.image}}" download>
+                        Télécharger
+                    </a>
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <h5>Code direction régionale</h5>
+                <p>{{ lieu?.code_rattache_DR }}</p>
+            </div>
+            <div class="col-lg-6">
+                <h5>Code Supervision</h5>
+                <p>{{ lieu?.code_rattache_SUP }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <h5>Intitule supervision du point de vente</h5>
+                <p>{{ lieu?.intitule_rattache_SUP_PV }}</p>
+            </div>
+            <div class="col-lg-6">
+                <h5>Centre cout siege</h5>
+                <p>{{ lieu?.centre_cout_siege }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <h5>Categorie point vente</h5>
+                <p>{{ lieu?.categorie_pointVente }}</p>
+            </div>
+            <div class="col-lg-6"></div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<div *ngIf="lieu?.amenagement" class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white">
+
+    <h4 class="main-title my-4">Aménagement</h4>
+
+    <div class="d-inline" *ngFor="let selected_amenagement of lieu.amenagement; let i = index">
+        <button *ngIf="!selected_amenagement.deleted" class="btn second-btn me-3" type="button"
+            (click)="displayAmenagement(selected_amenagement._id);scroll();">
+            Aménagement {{ i + 1 }}
+        </button>
+    </div>
+
+    <!-- fin de division -->
+    <div class="mt-4" *ngIf="displayAmenagementSection">
+
+        <div class="row">
+            <div class="col-lg-4">
+                <h5>Nature d'aménagement </h5>
+                <p> {{ selectedAmenagement?.nature_amenagement }} </p>
+            </div>
+            <div class="col-lg-4">
+                <h5>Montant d'Aménagement </h5>
+                <p> {{ selectedAmenagement?.montant_amenagement}} </p>
+            </div>
+            <div class="col-lg-4">
+                <h5>N° de facture</h5>
+                <p> {{ selectedAmenagement?.numero_facture}} </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <h5>N° de bon de commande</h5>
+                <p> {{ selectedAmenagement?.numero_bon_commande}} </p>
+            </div>
+            <div class="col-lg-4">
+                <h5>Date de passation de la commande</h5>
+                <p> {{ selectedAmenagement?.date_passation_commande }} </p>
+            </div>
+            <div class="col-lg-4">
+                <h5>Evaluation du fournisseur</h5>
+                <p> {{ selectedAmenagement?.evaluation_fournisseur}} </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <h5>Date de fin de travaux</h5>
+                <p>{{ selectedAmenagement?.date_fin_travaux }} </p>
+            </div>
+            <div class="col-lg-4">
+                <h5>Date de livraison du local</h5>
+                <p>{{ selectedAmenagement?.date_livraison_local }} </p>
+            </div>
+            <div class="col-lg-4"></div>
+        </div>
+        <div>
+            <h5 class="main-title">Fournisseurs</h5>
+            <div class="d-flex justify-content-between flex-row">
+                <div *ngFor="let selected_fournisseur of selectedAmenagement?.fournisseur" class="d-flex">
+                    <div *ngIf="!selected_fournisseur.deleted" class="main-card p-4 ">
+                        <h6>Nom</h6>
+                        <p>{{ selected_fournisseur.nom }}</p>
+                        <h6>Prenom</h6>
+                        <p>{{ selected_fournisseur.prenom }}</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

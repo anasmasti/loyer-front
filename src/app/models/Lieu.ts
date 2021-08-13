@@ -7,7 +7,12 @@ export interface Lieu {
   ville?: string;
   code_localite?: string;
   desc_lieu_entrer?: string;
-  imgs_lieu_entrer?: string;
+  imgs_lieu_entrer: [
+    {
+      _id: string,
+      image: string
+    }
+  ];
   has_amenagements?: boolean;
   superficie?: string;
   telephone?: string;
@@ -46,7 +51,8 @@ export interface Lieu {
       date_fin_travaux: string;
       date_livraison_local: string;
       deleted?: boolean;
-
+      images_apres_travaux: [];
+      croquis_travaux: [];
       fournisseur?: [
         {
           nom: string;

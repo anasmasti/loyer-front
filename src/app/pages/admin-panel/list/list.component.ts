@@ -7,6 +7,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { User } from 'src/app/models/User';
 import { getUsersAction } from '../admin-store/admin.actions';
+import { AdminService } from 'src/app/services/admin-service/admin.service';
 
 @Component({
   selector: 'user-list',
@@ -16,8 +17,9 @@ import { getUsersAction } from '../admin-store/admin.actions';
 export class ListComponent implements OnInit, OnDestroy {
 
   users!: User[];
-  targetUser: User[] = [];
+  targetUser!: User;
   usersSubscription$!: Subscription;
+  deletedUser: any = ''
 
   // Pagination options
   listUsersPage: number = 1;
@@ -27,7 +29,8 @@ export class ListComponent implements OnInit, OnDestroy {
   constructor(
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private adminService: AdminService,
   ) { }
 
   ngOnInit(): void {
@@ -48,7 +51,8 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
 
-  openConfirmationModal() {
+  openConfirmationModal(deleteduser : any) {
+    this.deletedUser = deleteduser
     this.confirmationModalService.open(); // Open delete confirmation modal
   }
 
@@ -61,6 +65,21 @@ export class ListComponent implements OnInit, OnDestroy {
   closeConfirmationModal() {
     this.confirmationModalService.close(); // Close delete confirmation modal
   }
+
+  deleteUserR(){
+    
+    this.adminService.deleteUserById(this.deletedUser._id)
+      .subscribe(
+        (_) => {
+          setTimeout(() => {
+            this.store.dispatch(getUsersAction())
+            this.confirmationModalService.close();
+          }, 500);
+        }
+      );
+    
+  }
+  
 
   ngOnDestroy() {
     this.usersSubscription$.unsubscribe()

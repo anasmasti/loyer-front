@@ -13,15 +13,5 @@ export class EditContratComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-
   }
-
-  ngOnChanges() {
-    // setTimeout(() => {
-    //   console.log(this.contrat);
-    // }, 500);
-  }
-
-
-
 }

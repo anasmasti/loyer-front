@@ -33,22 +33,17 @@ export class LieuxService {
 
   // get specific "lieu" by his id
   getLieuById(id: String): Observable<Lieu> {
-    return this.http.get<Lieu>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/lieu-by-id/` + id);
+    return this.http.get<Lieu>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/detail/` + id);
   }
 
-  addLieu(data: Lieu): Observable<Lieu> {
-    return this.http.post<Lieu>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`, data);
+  addLieu(formdata: any): Observable<any>{
+    return this.http.post<any>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`, formdata);
   }
 
   // Update the proprietaire
-  updateLieux(id: any, data: Lieu): Observable<Lieu> {
-      return this.http.patch<Lieu>(
-        `${
-          environment.API_URL_TEST + environment.API_VERSION + this.param_url
-        }/modifier/${id}`,
-        data,
-        { headers: this.httpOptions.headers }
-      );
+  updateLieux(id: any, data: any): Observable<any> {
+      return this.http.patch<any>(
+        `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/modifier/${id}`, data);
   }
 
   deleteLieu(id: any, data: any): Observable<Lieu> {

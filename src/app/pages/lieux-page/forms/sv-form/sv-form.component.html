@@ -30,6 +30,8 @@
   <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
   <div *ngIf="UpdateDone" class="done-alert p-2 my-2">{{ UpdateSucces }}</div>
 
+  <a href=""></a>
+
       <!--Début 1er Row-->
       <div class="row">
         <div class="col-lg-3 form-group mt-4">
@@ -45,7 +47,7 @@
         <div class="col-lg-3 form-group mt-4">
           <label for="">Code DR</label>
           <select class="form-control rounded-pill" formControlName="code_rattache_DR">
-            <option [value]="drItem.code_lieu" *ngFor="let drItem of (Dr$ | async)">{{ drItem.code_lieu }}</option>
+            <option [value]="drItem._id" *ngFor="let drItem of (Dr$ | async)">{{ drItem.code_lieu }}</option>
           </select>
 
         </div>
@@ -53,7 +55,7 @@
         <div class="col-lg-3 form-group mt-4">
           <label for="">Direction Régionale</label>
           <select class="form-control rounded-pill" formControlName="intitule_DR">
-            <option [value]="drItem.code_lieu" *ngFor="let drItem of (Dr$ | async)">{{ drItem.intitule_lieu }}</option>
+            <option [value]="drItem._id" *ngFor="let drItem of (Dr$ | async)">{{ drItem.intitule_lieu }}</option>
           </select>
         </div>
 
@@ -89,7 +91,10 @@
         <div class="col-lg-3 form-group mt-4">
           <label for="">Images du local avant aménagement</label>
           <input type="file" class="form-control btn success-btn" formControlName="imgs_lieu_entrer"
-            multiple />
+          name="imgs_lieu_entrer"
+          accept=".zip"
+          id="imgs_lieu_entrer"
+          (change)="onFileSelected($event)"/>
         </div>
 
 
@@ -130,6 +135,14 @@
               <a (click)="removeAmenagement(i)"  class="btn btn-sm danger-btn float-end"><i class="fal fa-trash"></i></a>
 
               <div class="row">
+
+                <input
+                  type="hidden"
+                  ngModel="{{idm + i +'.zip'}}"
+                  class="form-control rounded-pill"
+                  formControlName="idm"
+                />
+
                 <div class="col-lg-3 form-group mt-4">
                   <label for="">Nature des travaux d’aménagement</label>
                   <input type="text" class="form-control rounded-pill" formControlName="nature_amenagement" />
@@ -216,13 +229,13 @@
                 <div class="col-lg-3 form-group mt-4">
                   <label for="">Images du local après aménagement</label>
                   <input type="file" class="form-control btn success-btn"
-                    formControlName="images_local_apres_amenagement" />
+                    formControlName="images_local_apres_amenagement" (change)='onFileSelectedAmenagement($event,i)' accept=".zip" name="imgs_amenagement" id="imgs_amenagement"/>
                 </div>
 
                 <div class="col-lg-3 form-group mt-4">
                   <label for="">Croquis d’aménagement via imagerie</label>
                   <input type="file" class="form-control btn success-btn"
-                    formControlName="croquis_amenagement_via_imagerie" multiple />
+                    formControlName="croquis_amenagement_via_imagerie" (change)='onFileSelectedCroquis($event,i)' accept=".zip" name="imgs_croquis" id="imgs_croquis"/>
                 </div>
 
               </div>

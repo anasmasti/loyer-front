@@ -1,1 +1,70 @@
-<p>foncier-detail works!</p>
+<div class="row title  ">
+    <div class="col-lg-12 mt-3">
+        <div class="d-flex justify-content-between">
+            <h3 class="main-title">
+                <a [routerLink]="['/lieux/list']" class="goback-link">Liste des
+                    fonciers</a>/<span class="selected-text">{{ foncier?.code_postal }}</span>
+            </h3>
+            <div class="d-none d-lg-block">
+                <a [routerLink]="['/foncier/list']" class="btn btn-sm second-btn me-3 " data-bs-toggle="tooltip"
+                    data-bs-placement="top" title="Retour à la liste"><i class="far fa-arrow-left"></i>
+                    Retour à la liste des fonciers
+                </a>
+                <span data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Ici vous pouvez voir les détails du foncier">
+                    <i class="fal fa-info"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row d-flex justify-content-between">
+    <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-7">
+        <div class="row">
+            <div class="col-lg-6">
+                <h5>Proprietaire</h5>
+                <p>{{foncier?.proprietaire}}</p>
+            </div>
+            <div class="col-lg-6">
+                <h5>Lieu</h5>
+                <p>{{foncier?.lieu}}</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <h5>Code postal</h5>
+                <p>{{foncier?.code_postal}}</p>
+            </div>
+            <div class="col-lg-6">
+                <h5>Montant loyer</h5>
+                <p>{{foncier?.montant_loyer}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-4 ms-5">
+        <div class="row">
+            <div class="col-lg-6">
+                <h5>Pays</h5>
+                <p>{{foncier?.pays}}</p>
+            </div>
+            <div class="col-lg-6">
+                <h5>Ville</h5>
+                <p>{{foncier?.ville}}</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <h5>Description</h5>
+                <p>{{foncier?.description}}</p>
+            </div>
+            <div class="col-lg-6">
+                <h5>Etat du bien</h5>
+                <p>{{foncier?.etat_du_bien}}</p>
+            </div>
+        </div>
+    </div>
+</div>

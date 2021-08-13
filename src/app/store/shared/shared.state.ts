@@ -1,7 +1,9 @@
 export interface SharedState {
-    loading: boolean
+    loading: boolean,
+    allCounts: any
 }
 
 export const initialState: SharedState = {
-    loading: true
+    loading: true,
+    allCounts: []
 }

@@ -18,25 +18,18 @@
         </div>
     </div>
 </div>
+<div class="row d-flex justify-content-around">
+    <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-4">
+        <h5>Nom</h5>
+        <p>{{user?.nom}}</p>
 
-<div class="main-card p-lg-4 mt-4 table-responsive bg-white">
-
-    <table class="table" cellspacing="0" width="100%">
-        <tbody>
-            <tr>
-                <th>Nom</th>
-                <td>{{user?.nom}}</td>
-            </tr>
-            <tr>
-                <th>Prenon</th>
-                <td>{{user?.prenom}}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-
-            </tr>
-
-        </tbody>
-
-    </table>
+        <h5>Prenon</h5>
+        <p>{{user?.prenom}}</p>
+    </div>
+    <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-7">
+        <h5>Roles</h5>
+        <div *ngFor="let role of user?.userRoles">
+            <p class="success-btn p-2"><strong>{{role.roleName}}</strong></p>
+        </div>
+    </div>
 </div>

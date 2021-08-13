@@ -1,6 +1,13 @@
 @use '../../../../assets/style/helpers' as *;
 @use '../../../../assets/style/components' as *;
 
-.count-number {
-    color: color(main-color);
+.count {
+    &-number {
+        color: color(main-color);
+
+    }
+    &-card {
+        max-width: 24%;
+    }
+    
 }

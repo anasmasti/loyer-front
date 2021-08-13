@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class FoncierService {
 
+
   constructor(private http: HttpClient) { }
 
   param_url: string = 'foncier';
@@ -27,4 +28,29 @@ export class FoncierService {
       { headers: this.httpOptions.headers }
     );
   }
+
+  // Get proprietaire and lieux ids 
+  getPropWithLieux(): Observable<any> {
+    return this.http.get<any>(
+      `${environment.API_URL_TEST + environment.API_VERSION}/proprietaire-lieu`,
+      { headers: this.httpOptions.headers }
+    );
+  }
+
+  // Post foncier
+  addFoncier(data: Foncier): Observable<Foncier> {
+    return this.http.post<Foncier>(
+      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`, data,
+      { headers: this.httpOptions.headers }
+      );
+    }
+    
+    // Get foncier by id
+    getFoncierById(id: string): Observable<Foncier> {
+      return this.http.get<Foncier>(
+        `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/${id}`,
+        { headers: this.httpOptions.headers }
+      );
+    }
+    
 }

@@ -4,7 +4,7 @@
             <!-- <h3 class=""></h3> -->
             <h3 class="main-title">
                 <a [routerLink]="['/proprietaire/list']" class="goback-link">Liste des
-                    propriétaires</a>/<span class="selected-text">{{ proprietaire.nom_prenom }}</span>
+                    propriétaires</a>/<span class="selected-text">{{ proprietaire?.nom_prenom }}</span>
             </h3>
             <div class="d-none d-lg-block">
                 <a [routerLink]="['/proprietaire/list']" class="btn btn-sm second-btn me-3 " data-bs-toggle="tooltip"
@@ -12,7 +12,7 @@
                     Retour à la liste des propriétaires
                 </a>
                 <span data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Ici vous pouvez voir les détails de {{ proprietaire.nom_prenom }}">
+                    title="Ici vous pouvez voir les détails de {{ proprietaire?.nom_prenom }}">
                     <i class="fal fa-info"></i>
                 </span>
             </div>
@@ -20,114 +20,105 @@
     </div>
 </div>
 
+<div class="row d-flex justify-content-around">
+    <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-4">
+        <div class="row">
+            <div class="col-lg-6">
+                <h5>Nom et prénom de proprietaire</h5>
+                <p>{{ proprietaire?.nom_prenom }}</p>
+            </div>
+            <div class="col-lg-6">
+                <h5>CIN de propriétaire</h5>
+                <p>{{ proprietaire?.cin }}</p>
+            </div>
+        </div>
 
-<div class="main-card p-lg-4 mt-4 table-responsive bg-white">
+        <div class="row">
+            <div class="col-lg-6">
+                <h5>Passeport de propriétaire</h5>
+                <p>{{ proprietaire?.passport }}</p>
+            </div>
+            <div class="col-lg-6">
+                <h5>Carte séjour de propriétaire</h5>
+                <p>{{ proprietaire?.carte_sejour }}</p>
+            </div>
+        </div>
 
-    <table class="table" cellspacing="0" width="100%">
-        <tbody>
-            <tr>
-                <th>CIN de propriétaire</th>
-                <td>{{ proprietaire.cin }}</td>
-            </tr>
+        <div class="row">
+            <div class="col-lg-6">
+                <h5>Adresse</h5>
+                <p>{{ proprietaire?.adresse }}</p>
+            </div>
+            <div class="col-lg-6"></div>
+        </div>
+    </div>
+    <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-7 ms-5">
+        <div class="row">
+            <div class="col-lg-4">
+                <h5>Télephone</h5>
+                <p>{{ proprietaire?.telephone }}</p>
+            </div>
+            <div class="col-lg-4">
+                <h5>Fax</h5>
+                <p>{{ proprietaire?.fax }}</p>
+            </div>
+            <div class="col-lg-4">
+                <h5>Raison sociale</h5>
+                <p>{{ proprietaire?.raison_social }}</p>
+            </div>
+        </div>
 
-            <tr>
-                <th>Passeport de propriétaire</th>
-                <td>{{ proprietaire.passport }}</td>
-            </tr>
+        <div class="row">
+            <div class="col-lg-4">
+                <h5>N° compte bancaire</h5>
+                <p>{{ proprietaire?.n_compte_bancaire }}</p>
+            </div>
+            <div class="col-lg-4">
+                <h5>Banque</h5>
+                <p>{{ proprietaire?.banque }}</p>
+            </div>
+            <div class="col-lg-4">
+                <h5>Nom de l'agence bancaire</h5>
+                <p>{{ proprietaire?.nom_agence_bancaire }}</p>
+            </div>
+        </div>
+    </div>
+</div>
 
-            <tr>
-                <th>Carte séjour de propriétaire</th>
-                <td>{{ proprietaire.carte_sejour }}</td>
-            </tr>
+<div *ngIf="mandataire">
+    <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-12">
+        <!-- Mandataire inputs -->
+        <h4 class="main-title my-4">Mandataire</h4>
+        <div class="row">
+            <div class="col-lg-4">
+                <h5>CIN Mandataire</h5>
+                <p>{{ mandataire?.cin_mandataire }}</p>
+            </div>
+            <div class="col-lg-4">
+                <h5>Raison sociale Mandataire </h5>
+                <p>{{ mandataire?.raison_social_mandataire }}</p>
+            </div>
+            <div class="col-lg-4">
+                <h5>Nom et prénom de Mandataire</h5>
+                <p>{{ mandataire?.nom_prenom_mandataire }}</p>
+            </div>
+            <div class="col-lg-4">
+                <h5>Téléphone de Mandataire</h5>
+                <p>{{ mandataire?.telephone_mandataire }}</p>
+            </div>
+            <div class="col-lg-4">
+                <h5>Fax de Mandataire</h5>
+                <p>{{ mandataire?.fax_mandataire }}</p>
+            </div>
+            <div class="col-lg-4">
+                <h5>Adresse Mandataire</h5>
+                <p>{{ mandataire?.adresse_mandataire }}</p>
+            </div>
 
-            <tr>
-                <th>Nom et prénom de proprietaire</th>
-                <td>{{ proprietaire.nom_prenom }}</td>
-            </tr>
-
-            <tr>
-                <th>Raison sociale</th>
-                <td>{{ proprietaire.raison_social }}</td>
-            </tr>
-
-            <tr>
-                <th>Télephone</th>
-                <td>{{ proprietaire.telephone }}</td>
-            </tr>
-
-            <tr>
-                <th>Fax</th>
-                <td>{{ proprietaire.fax }}</td>
-            </tr>
-
-            <tr>
-                <th>Adresse</th>
-                <td>{{ proprietaire.adresse }}</td>
-            </tr>
-
-            <tr>
-                <th>N° compte bancaire</th>
-                <td>{{ proprietaire.n_compte_bancaire }}</td>
-            </tr>
-
-            <tr>
-                <th>Banque</th>
-                <td>{{ proprietaire.banque }}</td>
-            </tr>
-
-            <tr>
-                <th>Nom de l'agence bancaire</th>
-                <td>{{ proprietaire.nom_agence_bancaire }}</td>
-            </tr>
-        </tbody>
-
-    </table>
-
-    <table *ngIf="mandataire" class="table" cellspacing="0" width="100%">
-        <tbody>
-            <!-- Mandataire inputs -->
-            <h4 class="main-title my-4">Mandataire :</h4>
-
-            <tr>
-                <th>CIN Mandataire</th>
-                <td>{{ mandataire?.cin_mandataire }}</td>
-            </tr>
-
-            <tr>
-                <th>Raison sociale Mandataire </th>
-                <td>{{ mandataire?.raison_social_mandataire }}</td>
-            </tr>
-
-            <tr>
-                <th>Nom et prénom de Mandataire</th>
-                <td>{{ mandataire?.nom_prenom_mandataire }}</td>
-            </tr>
-
-            <tr>
-                <th>Téléphone de Mandataire</th>
-                <td>{{ mandataire?.telephone_mandataire }}</td>
-            </tr>
-
-            <tr>
-                <th>Fax de Mandataire</th>
-                <td>{{ mandataire?.fax_mandataire }}</td>
-            </tr>
-
-            <tr>
-                <th>Adresse Mandataire</th>
-                <td>{{ mandataire?.adresse_mandataire }}</td>
-            </tr>
-
-            <tr>
-                <th>N° compte bancaire Mandataire</th>
-                <td>{{ mandataire?.n_compte_bancaire_mandataire }}</td>
-            </tr>
-
-        </tbody>
-
-    </table>
-
-
-
-
+            <div class="col-lg-4">
+                <h5>N° compte bancaire Mandataire</h5>
+                <p>{{ mandataire?.n_compte_bancaire_mandataire }}</p>
+            </div>
+        </div>
+    </div>
 </div>
