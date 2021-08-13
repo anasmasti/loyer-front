@@ -374,7 +374,7 @@ export class SiegeFormComponent implements OnInit {
   }
 
   onAddsiege() {
-    let siegeData: Lieu = {
+    let siegeData: any = {
       code_lieu: this.siegeForm.get('code_lieu')?.value,
       intitule_lieu: this.siegeForm.get('intitule_lieu')?.value,
       intitule_DR: this.siegeForm.get('intitule_DR')?.value,
