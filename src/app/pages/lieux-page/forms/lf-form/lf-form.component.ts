@@ -15,7 +15,7 @@ import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { AppState } from 'src/app/store/app.state';
 import { MainModalService } from '../../../../services/main-modal/main-modal.service';
 import { getDr } from '../../lieux-store/lieux.selector';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { HelperService } from 'src/app/services/helpers/helper.service';
 
@@ -32,7 +32,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
   etatLogement = '';
   isReplace: string = '';
   amenagementList: any = [];
-  Dr$!: Observable<any>;
+  Dr!: any;
   DrSubscription$!: Subscription;
   lieux: Lieu[] = [];
   isAmenagementEmpty: boolean = true;
@@ -74,11 +74,6 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
         this.fetchLf('Default');
       }, 500);
     }
-    this.getDrSup()
-    console.log(this.getDrSup());
-    
-    
-    this.getDr()
   }
 
 
@@ -122,10 +117,11 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
       //Aménagement
       amenagementForm: new FormArray([]),
     });
+    this.getDr()
   }
 
   fetchLf(HasAmenagement: string) {
- 
+
     this.removeAllAmenagement();
     this.RemoveAllDericteurs();
 
@@ -716,8 +712,10 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
 
   // Select Dr
   getDr() {
-    this.Dr$ = this.store.select(getDr);
-    this.Dr$.subscribe();
+   this.DrSubscription$ = this.store.select(getDr).subscribe(data => {
+      if (data) this.Dr = data;
+      if (!data) this.getDrSup()
+    });
   }
 
   ngOnDestroy() {
