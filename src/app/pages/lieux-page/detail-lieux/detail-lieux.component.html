@@ -138,10 +138,10 @@
 
     <h4 class="main-title my-4">Aménagement</h4>
 
-    <div class="d-inline" *ngFor="let selected_amenagement of lieu.amenagement">
+    <div class="d-inline" *ngFor="let selected_amenagement of lieu.amenagement; let i = index">
         <button *ngIf="!selected_amenagement.deleted" class="btn second-btn me-3" type="button"
             (click)="displayAmenagement(selected_amenagement._id);scroll();">
-            {{ selected_amenagement._id }}
+            Aménagement {{ i + 1 }}
         </button>
     </div>
 
