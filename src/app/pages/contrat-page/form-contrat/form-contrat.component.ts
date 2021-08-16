@@ -26,14 +26,20 @@ export class FormContratComponent implements OnInit {
   msg: string = '';
   //lieux and proprietaires list to fill up drop down lists on form
   lieux!: any;
-  propriataire!: any;
+  foncier!: any;
+
+  montantLoyer: number = 0
+  montantApresImpot: number = 0
+  hasDeclarationOption: string = 'non'
+  retenueSource: number = 0
+  tauxImpot: number = 0
 
   constructor(
     private contratService: ContratService,
     private lieuxService: LieuxService,
     private proprietaireService: ProprietaireService,
     private mainModalService: MainModalService
-  ) {}
+  ) { }
 
   ngOnChanges() {
     if (this.formType != '') {
@@ -65,7 +71,41 @@ export class FormContratComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLieux();
-    this.getProps();
+  }
+
+  checkRetenue() {
+    let montantLoyerForYear = (this.montantLoyer * 12)
+    let tauxImpot: number = 0
+    let montantApresImpot: number = 0
+    let result: number = 0
+
+    if (this.hasDeclarationOption === 'non') {
+      if (montantLoyerForYear <= 30000) {
+        result = 0
+        montantApresImpot = montantLoyerForYear
+        tauxImpot = 0
+      }
+      if (montantLoyerForYear > 30000 && montantLoyerForYear <= 120000) {
+        result = (montantLoyerForYear * 10) / 100
+        montantApresImpot = (montantLoyerForYear - result) / 12
+        tauxImpot = 10
+      }
+      if (montantLoyerForYear > 120000) {
+        result = (montantLoyerForYear * 15) / 100
+        montantApresImpot = (montantLoyerForYear - result) / 12
+        tauxImpot = 15
+      }
+    }
+    if (this.hasDeclarationOption === 'oui') {
+      result = 0
+      montantApresImpot = montantLoyerForYear
+      tauxImpot = 0
+    }
+    this.retenueSource = result
+    this.montantApresImpot = montantApresImpot
+    this.tauxImpot = tauxImpot
+
+    return result
   }
 
   //----------------- update && post  ------------------------------------------------------------------------------------------------
@@ -121,7 +161,6 @@ export class FormContratComponent implements OnInit {
   };
   //form groups
   contratForm: FormGroup = new FormGroup({
-    Ncontrat_loyer: new FormControl(),
     piece_jointe: new FormControl(),
     date_debut_loyer: new FormControl(),
     montant_loyer: new FormControl(),
@@ -170,20 +209,18 @@ export class FormContratComponent implements OnInit {
     preavis: new FormControl(),
     lettre_resiliation_scannee: new FormControl(),
   });
+  
   //functions
   closeModal() {
     this.mainModalService.close();
   }
+
   getLieux() {
     this.lieuxService.listLieux().subscribe((data: any) => {
       this.lieux = data;
     });
   }
-  getProps() {
-    this.proprietaireService.getProprietaire().subscribe((data: any) => {
-      this.propriataire = data;
-    });
-  }
+
   alertOn(action: string) {
     if (action == 'update') {
       this.msg = 'Cette contrat est modifiée avec succées !';
@@ -198,15 +235,17 @@ export class FormContratComponent implements OnInit {
       this.success = false;
     }, 5000);
   }
+
   ShowEtat() {
     this.etat_contrat = this.contratForm.value.etat_contrat;
   }
+
   //----------------- FIN update && post  -------------------------------------------------------------------------------------------------
 
   //----------------- Ajouter nouveau Contrat Functions ----------------------------------------------------------------------------
   fillNewValues() {
     //filling-up Contrat object with the new values form formGroup
-    this.Contrat.numero_contrat = this.contratForm.get('Ncontrat_loyer')?.value;
+
     this.Contrat.date_debut_loyer =
       this.contratForm.get('date_debut_loyer')?.value;
     this.Contrat.Montant_loyer = this.contratForm.get('montant_loyer')?.value;
@@ -251,53 +290,57 @@ export class FormContratComponent implements OnInit {
     )?.value;
     this.Contrat.lieu = this.contratForm.get('lieu')?.value;
     this.Contrat.duree_location = this.contratForm.get('duree_location')?.value;
-    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length-1].libelle =
+    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].libelle =
       this.contratForm.get('etat_contrat')?.value;
 
     //AVENANT
-    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length-1].etat.n_avenant =
+    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat.n_avenant =
       this.etatContrat.get('N_avenant')?.value;
-    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length-1].etat.motif =
+    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat.motif =
       this.etatContrat.get('motif')?.value;
-    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length-1].etat.montant_nouveau_loyer =
+    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat.montant_nouveau_loyer =
       this.etatContrat.get('montant_new_loyer')?.value;
-    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length-1].etat.signaletique_successeur =
+    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat.signaletique_successeur =
       this.etatContrat.get('signaletique_successeur')?.value;
     //SUSPENSION
 
-    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length-1].etat.date_suspension =
+    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat.date_suspension =
       this.etatContrat.get('date_suspension')?.value;
-    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length-1].etat.duree_suspension =
+    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat.duree_suspension =
       this.etatContrat.get('duree_suspension')?.value;
-    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length-1].etat.motif_suspension =
+    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat.motif_suspension =
       this.etatContrat.get('motif_suspension')?.value;
     //RESILIATION
 
-    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length-1].etat.date_resiliation =
+    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat.date_resiliation =
       this.etatContrat.get('date_resiliation')?.value;
-    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length-1].etat.reprise_caution =
+    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat.reprise_caution =
       this.etatContrat.get('reprise_caution')?.value;
-    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length-1].etat.etat_lieu_sortie =
+    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat.etat_lieu_sortie =
       this.etatContrat.get('etat_lieux_sortie')?.value;
-    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length-1].etat.preavis =
+    this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat.preavis =
       this.etatContrat.get('preavis')?.value;
 
     if (this.contratForm.get('etat_contrat')?.value == 'Suspension') {
-      this.Contrat.etat_contrat[this.Contrat.etat_contrat.length-1].etat.intitule_lieu =
+      this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat.intitule_lieu =
         this.etatContrat.get('intitule_lieu_sus')?.value;
     } else if (this.contratForm.get('etat_contrat')?.value == 'Résiliation') {
-      this.Contrat.etat_contrat[this.Contrat.etat_contrat.length-1].etat.intitule_lieu =
+      this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat.intitule_lieu =
         this.etatContrat.get('intitule_lieu_res')?.value;
     }
   }
+
   addNewContrat() {
     this.fillNewValues();
 
     this.contratService.addContrat(this.Contrat).subscribe((data: any) => {
       this.Contrat = data;
+      setTimeout(() => {
+        this.contratForm.reset();
+      }, 500);
     });
-    this.contratForm.reset();
   }
+
   //----------------- FIN Ajouter nouveau Contrat Functions -------------------------------------------------------------------------------
 
   //-----------------  Modifier une Contrat Functions -----------------------------------------------------------------------------------
@@ -312,10 +355,12 @@ export class FormContratComponent implements OnInit {
   updatedContrat: any = {};
   NvEtatContrat: any = {};
   oldEtatContrat: any = {};
+
   //remplissage de contrat form au cas de modification
   fillUpContrat() {
     if (this.formType != '') {
       const id = this.idContrat;
+      
       this.contratService.getSelectedContrat(id).subscribe((data: any) => {
         this.Contrat = data;
       });
