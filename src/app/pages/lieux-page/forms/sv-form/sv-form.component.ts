@@ -2,8 +2,7 @@ import { AppState } from './../../../../store/app.state';
 import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
-import { Lieu } from 'src/app/models/Lieu';
+import { Subscription } from 'rxjs';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { getDrWithSupAction } from '../../lieux-store/lieux.actions';
@@ -122,7 +121,7 @@ export class SvFormComponent implements OnInit, OnDestroy {
         'OldAmng',
         amenagementControl.deleted
       );
-      
+
       formGroupAmenagement.controls.idm.setValue(
         amenagementControl.idm
       );
@@ -344,18 +343,23 @@ export class SvFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  
+
   //Upload Image amenagement après amenagement
   onFileSelectedAmenagement(event: any, index: number) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
       if (!this.update) {
         this.file = this.idm + index + this.imageExtension;
+        this.fd.append('imgs_croquis', this.selectedFile, this.file);
       }
-      if (this.update) {
-        this.file = this.Lieu.amenagement[index].idm + this.imageExtension;
+      if (this.update && this.Lieu.amenagement[index]?.idm === undefined) {
+        this.file = this.idm + index + this.imageExtension;
+        this.fd.append('imgs_croquis', this.selectedFile, this.file);
       }
-      this.fd.append('imgs_amenagement', this.selectedFile, this.file);
+      if (this.update && this.Lieu.amenagement[index]?.idm !== undefined) {
+        this.file = this.Lieu.amenagement[index]?.idm + this.imageExtension;
+        this.fd.append('imgs_croquis', this.selectedFile, this.file);
+      }
     }
   }
 
@@ -365,11 +369,16 @@ export class SvFormComponent implements OnInit, OnDestroy {
       this.selectedFile = event.target.files[0];
       if (!this.update) {
         this.file = this.idm + index + this.imageExtension;
+        this.fd.append('imgs_croquis', this.selectedFile, this.file);
       }
-      if (this.update) {
-        this.file = this.Lieu.amenagement[index].idm + this.imageExtension;
+      if (this.update && this.Lieu.amenagement[index]?.idm === undefined) {
+        this.file = this.idm + index + this.imageExtension;
+        this.fd.append('imgs_croquis', this.selectedFile, this.file);
       }
-      this.fd.append('imgs_croquis', this.selectedFile, this.file);
+      if (this.update && this.Lieu.amenagement[index]?.idm !== undefined) {
+        this.file = this.Lieu.amenagement[index]?.idm + this.imageExtension;
+        this.fd.append('imgs_croquis', this.selectedFile, this.file);
+      }
     }
   }
 

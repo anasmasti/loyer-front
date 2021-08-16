@@ -22,14 +22,14 @@
     <!--Début Formulaire siege-form-->
     <form [formGroup]="siegeForm" (ngSubmit)="(Lieu == '') ? onAddsiege() : updateSg()" enctype="multipart/form-data">
 
-        <!-- Message d'ERREUR de serveur -->
-  <div class="w-100 d-flex justify-content-center">
-    <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
-  </div>
-  <!-- Message de succés de serveur -->
-  <!-- <div *ngIf="updateDone" class="done-alert p-2 my-2">{{ Updatesuccess }}</div> -->
-  <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
-  <div *ngIf="UpdateDone" class="done-alert p-2 my-2">{{ UpdateSucces }}</div>
+      <!-- Message d'ERREUR de serveur -->
+      <div class="w-100 d-flex justify-content-center">
+        <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
+      </div>
+      <!-- Message de succés de serveur -->
+      <!-- <div *ngIf="updateDone" class="done-alert p-2 my-2">{{ Updatesuccess }}</div> -->
+      <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
+      <div *ngIf="UpdateDone" class="done-alert p-2 my-2">{{ UpdateSucces }}</div>
 
       <!--Début 1er Row-->
       <div class="row">
@@ -78,10 +78,8 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Images du local avant aménagement</label>
-          <input type="file" class="form-control btn success-btn" formControlName="imgs_lieu_entrer"  name="imgs_lieu_entrer"
-          accept=".zip"
-          id="imgs_lieu_entrer"
-          (change)="onFileSelected($event)"/>
+          <input type="file" class="form-control btn success-btn" formControlName="imgs_lieu_entrer"
+            name="imgs_lieu_entrer" accept=".zip" id="imgs_lieu_entrer" (change)="onFileSelected($event)" />
         </div>
 
 
@@ -117,17 +115,16 @@
           <!--Début de Conteneur Aménagement-->
           <div formArrayName="amenagementForm" *ngFor="let item of amenagementForm.controls; let i = index">
 
-            <div class="main-card mt-4 bg-white p-lg-4" *ngIf=" !amenagementForm.controls[i].value.deleted " [formGroupName]="i">
+            <div class="main-card mt-4 bg-white p-lg-4" *ngIf=" !amenagementForm.controls[i].value.deleted "
+              [formGroupName]="i">
               <a (click)="removeAmenagement(i)" class="btn btn-sm danger-btn float-end"><i class="fal fa-trash"></i></a>
 
               <div class="row">
 
-                <input
-                  type="hidden"
-                  ngModel="{{update ? amenagementForm.controls[i].value.idm : (idm + i + imageExtension)}}"
-                  class="form-control rounded-pill"
-                  formControlName="idm"
-                />
+                <input type="hidden" ngModel="{{
+                    update && amenagementForm.controls[i].value.idm.length !== 0
+                      ? amenagementForm.controls[i].value.idm 
+                      : idm + i + imageExtension }}" class="form-control rounded-pill" formControlName="idm" />
 
                 <div class="col-lg-3 form-group mt-4">
                   <label for="">Nature des travaux d’aménagement</label>
@@ -170,12 +167,14 @@
 
                 <div class="col-lg-12 form-group my-4">
                   <label for="">Fournisseur</label>
-                  <a (click)="addFournisseur(amenagementForm, i , 'New')" class="btn btn-sm second-btn mx-2 mx-lg-4">Ajouter
+                  <a (click)="addFournisseur(amenagementForm, i , 'New')"
+                    class="btn btn-sm second-btn mx-2 mx-lg-4">Ajouter
                     fournisseur</a>
                   <div formArrayName="fournisseur"
                     *ngFor="let item of getFournisseur(amenagementForm, i); let j = index">
 
-                    <div [formGroupName]="j" *ngIf="!amenagementForm.controls[i].value.fournisseur[j].deleted" class="main-card mt-4 bg-white p-lg-4">
+                    <div [formGroupName]="j" *ngIf="!amenagementForm.controls[i].value.fournisseur[j].deleted"
+                      class="main-card mt-4 bg-white p-lg-4">
                       <a (click)="removeFournisseur(amenagementForm, i , j)" class="btn btn-sm danger-btn float-end"><i
                           class="fal fa-trash"></i></a>
                       <div class="row">
@@ -193,7 +192,7 @@
                           <label for="">Amenagement éffectué</label>
                           <input type="text" class="form-control rounded-pill" formControlName="amenagement_effectue" />
                         </div>
-                        <input type="hidden" id="{{ 'deleted ' + i + ' ' + j }}" formControlName="deleted"  />
+                        <input type="hidden" id="{{ 'deleted ' + i + ' ' + j }}" formControlName="deleted" />
                       </div>
                     </div>
                   </div>
@@ -216,14 +215,15 @@
 
                 <div class="col-lg-3 form-group mt-4">
                   <label for="">Images du local après aménagement</label>
-                  <input type="file" class="form-control btn success-btn"
-                    formControlName="images_apres_travaux_files" (change)='onFileSelectedAmenagement($event,i)' accept=".zip" name="imgs_amenagement" id="imgs_amenagement"/>
+                  <input type="file" class="form-control btn success-btn" formControlName="images_apres_travaux_files"
+                    (change)='onFileSelectedAmenagement($event,i)' accept=".zip" name="imgs_amenagement"
+                    id="imgs_amenagement" />
                 </div>
 
                 <div class="col-lg-3 form-group mt-4">
                   <label for="">Croquis d’aménagement via imagerie</label>
-                  <input type="file" class="form-control btn success-btn"
-                    formControlName="croquis_travaux_files" (change)='onFileSelectedCroquis($event,i)' accept=".zip" name="imgs_croquis" id="imgs_croquis"/>
+                  <input type="file" class="form-control btn success-btn" formControlName="croquis_travaux_files"
+                    (change)='onFileSelectedCroquis($event,i)' accept=".zip" name="imgs_croquis" id="imgs_croquis" />
                 </div>
 
                 <input type="hidden" class="form-control rounded-pill" formControlName="images_apres_travaux" />
@@ -231,7 +231,7 @@
 
               </div>
 
-              <input type="hidden" id="{{ 'deleted ' + i }}" formControlName="deleted"  />
+              <input type="hidden" id="{{ 'deleted ' + i }}" formControlName="deleted" />
 
             </div>
 

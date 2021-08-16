@@ -1,7 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray } from '@angular/forms';
-import { Lieu } from 'src/app/models/Lieu';
 import { HelperService } from 'src/app/services/helpers/helper.service';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { MainModalService } from './../../../../services/main-modal/main-modal.service';
@@ -365,11 +364,16 @@ export class SiegeFormComponent implements OnInit {
       this.selectedFile = event.target.files[0];
       if (!this.update) {
         this.file = this.idm + index + this.imageExtension;
+        this.fd.append('imgs_croquis', this.selectedFile, this.file);
       }
-      if (this.update) {
-        this.file = this.Lieu.amenagement[index].idm + this.imageExtension;
+      if (this.update && this.Lieu.amenagement[index]?.idm === undefined) {
+        this.file = this.idm + index + this.imageExtension;
+        this.fd.append('imgs_croquis', this.selectedFile, this.file);
       }
-      this.fd.append('imgs_amenagement', this.selectedFile, this.file);
+      if (this.update && this.Lieu.amenagement[index]?.idm !== undefined) {
+        this.file = this.Lieu.amenagement[index]?.idm + this.imageExtension;
+        this.fd.append('imgs_croquis', this.selectedFile, this.file);
+      }
     }
   }
 
@@ -379,11 +383,16 @@ export class SiegeFormComponent implements OnInit {
       this.selectedFile = event.target.files[0];
       if (!this.update) {
         this.file = this.idm + index + this.imageExtension;
+        this.fd.append('imgs_croquis', this.selectedFile, this.file);
       }
-      if (this.update) {
-        this.file = this.Lieu.amenagement[index].idm + this.imageExtension;
+      if (this.update && this.Lieu.amenagement[index]?.idm === undefined) {
+        this.file = this.idm + index + this.imageExtension;
+        this.fd.append('imgs_croquis', this.selectedFile, this.file);
       }
-      this.fd.append('imgs_croquis', this.selectedFile, this.file);
+      if (this.update && this.Lieu.amenagement[index]?.idm !== undefined) {
+        this.file = this.Lieu.amenagement[index]?.idm + this.imageExtension;
+        this.fd.append('imgs_croquis', this.selectedFile, this.file);
+      }
     }
   }
 

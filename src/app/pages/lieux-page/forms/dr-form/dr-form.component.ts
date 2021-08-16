@@ -1,4 +1,3 @@
-import { Lieu } from 'src/app/models/Lieu';
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
