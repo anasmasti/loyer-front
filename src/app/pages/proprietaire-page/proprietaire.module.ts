@@ -9,6 +9,7 @@ import { DetailsProprietaireComponent } from './details-proprietaire/details-pro
 import { ListProprietaireComponent } from './list-proprietaire/list-proprietaire.component';
 import { EditProprietaireComponent } from './edit-proprietaire/edit-proprietaire.component';
 import { FormProprietaireComponent } from './form-proprietaire/form-proprietaire.component';
+import { FormsModule } from '@angular/forms';
 
 
 const route: Routes = [
@@ -30,7 +31,8 @@ const route: Routes = [
     CommonModule,
     ReactiveFormsModule,
     MainModalModule,
-    ConfirmationModalModule
+    ConfirmationModalModule,
+    FormsModule
   ],
 })
 export class ProprietaireModule { }

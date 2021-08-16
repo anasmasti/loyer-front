@@ -52,15 +52,15 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     });
   }
 
+  // Filter by intitule
   search(){
     if (this.findLieu != "") {
       this.lieux = this.lieux.filter(res => {
         return res.intitule_lieu?.toLowerCase().match(this.findLieu.toLowerCase());
       });
     } else if (this.findLieu == "") {
-      this.ngOnInit();
+      this.getAllLieux();
     }
-
   }
 
   getAllLieux() {

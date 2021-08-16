@@ -14,6 +14,7 @@ export class ListProprietaireComponent implements OnInit {
   proprietaires: Proprietaire[] = [];
   targetProprietaire: Proprietaire[] = [];
   targetProprietaireId: string = '';
+  findProprietaire!: string;
 
   constructor(
     private proprietaireService: ProprietaireService,
@@ -29,6 +30,20 @@ export class ListProprietaireComponent implements OnInit {
   // ngOnChanges() {
   //   this.getAllProprietaires(); // Trow the fitching data if anything changes
   // }
+
+    // Filter by intitule
+    search(){
+      if (this.findProprietaire != "") {
+        this.proprietaires = this.proprietaires.filter(res => {
+          // return res.intitule_lieu?.toLowerCase().match(this.findProprietaire.toLowerCase());
+          return res.cin?.toLowerCase().match(this.findProprietaire.toLowerCase()) || res.passport?.toLowerCase().match(this.findProprietaire.toLowerCase())
+           || res.carte_sejour?.toLowerCase().match(this.findProprietaire.toLowerCase());
+        });
+      } else if (this.findProprietaire == "") {
+        this.getAllProprietaires();
+      }
+    }
+
 
   // Get data from proprietaire service
   getAllProprietaires() {
