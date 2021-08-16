@@ -35,7 +35,6 @@ export class ListProprietaireComponent implements OnInit {
     search(){
       if (this.findProprietaire != "") {
         this.proprietaires = this.proprietaires.filter(res => {
-          // return res.intitule_lieu?.toLowerCase().match(this.findProprietaire.toLowerCase());
           return res.cin?.toLowerCase().match(this.findProprietaire.toLowerCase()) || res.passport?.toLowerCase().match(this.findProprietaire.toLowerCase())
            || res.carte_sejour?.toLowerCase().match(this.findProprietaire.toLowerCase()) || res.nom_prenom?.toLowerCase().match(this.findProprietaire.toLowerCase());
         });
@@ -79,11 +78,11 @@ export class ListProprietaireComponent implements OnInit {
     let data = {
       deleted: true,
     };
-
     // Call detele proprietaire function from proprietaire service
     this.proprietaireService.deleteProprietaire(id, data).subscribe((_) => {
       this.getAllProprietaires(); // Trow the fitching data
     });
+    this.closeConfirmationModal();
   }
 
   // Get id of selected proprietaire
