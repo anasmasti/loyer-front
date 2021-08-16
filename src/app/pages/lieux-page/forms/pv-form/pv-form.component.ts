@@ -1,14 +1,13 @@
 import { AppState } from './../../../../store/app.state';
 import { MainModalService } from './../../../../services/main-modal/main-modal.service';
 import { ConfirmationModalService } from './../../../../services/confirmation-modal-service/confirmation-modal.service';
-import { Lieu } from '../../../../models/Lieu';
 import { LieuxService } from './../../../../services/lieux-service/lieux.service';
 import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray } from '@angular/forms';
 import { getDrWithSupAction } from '../../lieux-store/lieux.actions';
 import { getDr, getSup } from '../../lieux-store/lieux.selector';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { HelperService } from 'src/app/services/helpers/helper.service';
 
@@ -352,11 +351,16 @@ export class PvFormComponent implements OnInit, OnDestroy {
       this.selectedFile = event.target.files[0];
       if (!this.update) {
         this.file = this.idm + index + this.imageExtension;
+        this.fd.append('imgs_croquis', this.selectedFile, this.file);
       }
-      if (this.update) {
-        this.file = this.Lieu.amenagement[index].idm + this.imageExtension;
+      if (this.update && this.Lieu.amenagement[index]?.idm === undefined) {
+        this.file = this.idm + index + this.imageExtension;
+        this.fd.append('imgs_croquis', this.selectedFile, this.file);
       }
-      this.fd.append('imgs_amenagement', this.selectedFile, this.file);
+      if (this.update && this.Lieu.amenagement[index]?.idm !== undefined) {
+        this.file = this.Lieu.amenagement[index]?.idm + this.imageExtension;
+        this.fd.append('imgs_croquis', this.selectedFile, this.file);
+      }
     }
   }
 
@@ -366,11 +370,16 @@ export class PvFormComponent implements OnInit, OnDestroy {
       this.selectedFile = event.target.files[0];
       if (!this.update) {
         this.file = this.idm + index + this.imageExtension;
+        this.fd.append('imgs_croquis', this.selectedFile, this.file);
       }
-      if (this.update) {
-        this.file = this.Lieu.amenagement[index].idm + this.imageExtension;
+      if (this.update && this.Lieu.amenagement[index]?.idm === undefined) {
+        this.file = this.idm + index + this.imageExtension;
+        this.fd.append('imgs_croquis', this.selectedFile, this.file);
       }
-      this.fd.append('imgs_croquis', this.selectedFile, this.file);
+      if (this.update && this.Lieu.amenagement[index]?.idm !== undefined) {
+        this.file = this.Lieu.amenagement[index]?.idm + this.imageExtension;
+        this.fd.append('imgs_croquis', this.selectedFile, this.file);
+      }
     }
   }
 

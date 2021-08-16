@@ -120,7 +120,8 @@
                   <div class="ms-3">
                     <a class="btn btn-sm success-btn rounded-pill" (click)='openReplaceModal("remplacer");'>
                       <span *ngIf="etatLogement == 'occupe'">Remplacer <i [class]=" 'fal fa-sync' "></i></span>
-                      <span class="mx-3" *ngIf="etatLogement != 'occupe'">Ajouter <i [class]=" 'fal fa-plus' "></i></span>
+                      <span class="mx-3" *ngIf="etatLogement != 'occupe'">Ajouter <i
+                          [class]=" 'fal fa-plus' "></i></span>
                     </a>
                     <a class="btn btn-sm info-btn mx-2 rounded-pill" *ngIf="etatLogement == 'occupe'"
                       (click)=" openReplaceModal('modifier') ">
@@ -166,12 +167,14 @@
                       </div>
 
                       <div class="col-lg-3 form-group mt-5">
-                         <a class="btn second-btn form-control" *ngIf="etatLogement == 'occupe'" (click)="openConfirmationModal()">
+                        <a class="btn second-btn form-control" *ngIf="etatLogement == 'occupe'"
+                          (click)="openConfirmationModal()">
                           Remplacer
-                         </a>
-                         <a class="btn second-btn form-control" *ngIf="etatLogement != 'occupe'" (click)="RemplacerDirecteur()" >
+                        </a>
+                        <a class="btn second-btn form-control" *ngIf="etatLogement != 'occupe'"
+                          (click)="RemplacerDirecteur()">
                           Ajouter
-                         </a>
+                        </a>
                       </div>
 
                     </div>
@@ -317,9 +320,10 @@
 
               <div class="row">
 
-                <input type="hidden"
-                  ngModel="{{update ? amenagementForm.controls[i].value.idm : (idm + i + imageExtension)}}"
-                  class="form-control rounded-pill" formControlName="idm" />
+                <input type="hidden" ngModel="{{
+                  update && amenagementForm.controls[i].value.idm.length !== 0
+                    ? amenagementForm.controls[i].value.idm 
+                    : idm + i + imageExtension }}" class="form-control rounded-pill" formControlName="idm" />
 
                 <div class="col-lg-3 form-group mt-4">
                   <label for="">Nature des travaux d’aménagement</label>

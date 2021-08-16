@@ -3,7 +3,7 @@
         <div class="d-lg-flex justify-content-lg-between">
             <h3 class="main-title">Lieux</h3>
             <div>
-                <a [routerLink]="['/lieux/list']" class="btn main-btn">Voir la liste des lieux</a>
+                <a [routerLink]="['/lieux/list']" class="btn btn-sm main-btn">Voir la liste des lieux</a>
                 <a class="text-dark ms-5" data-bs-toggle="tooltip" data-bs-placement="top"
                     title="Ici vous pouvez ajouter un nouveau lieu"><i class="fal fa-info"></i></a>
             </div>
@@ -14,7 +14,7 @@
 <div class="my-5">
     <div class="d-flex justify-content-between align-content-center flex-row">
         <div class="" *ngFor="let lieu of lieux">
-            <a (click)='showForm(lieu.id);getLieuName(lieu.name)' class="btn second-btn">{{ lieu.name }}</a>
+            <a (click)='showForm(lieu.id);getLieuName(lieu.name)' class="btn second-btn lieux-types-card">{{ lieu.name }}</a>
         </div>
     </div>
 </div>

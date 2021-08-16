@@ -2,9 +2,18 @@
 @use '../../../../assets/style/components' as *;
 
 th {
-   @extend .header-table;
+    @extend .header-table;
 }
 
 a {
     cursor: pointer;
+}
+
+.lieux-types-card {
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    font-size: larger;
+    padding: 30px;
 }
