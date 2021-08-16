@@ -2,6 +2,7 @@
   <div class="col-lg-12 mt-3">
     <div class="d-flex justify-content-between">
       <h3 class="main-title">Liste des lieux</h3>
+      
       <div class="d-none d-lg-block">
         <a class="btn btn-sm success-btn" [routerLink]="['/lieux']">
           <i class="fal fa-plus-octagon"></i> Nouveau lieu
@@ -19,14 +20,15 @@
 </div>
 <div>
   
-  <div class="col-lg-4 form-group mt-4">
-    <label for="">Rechercher par intitulé...</label>
-    <input type="text" [(ngModel)]="findLieu" (input)='search()' class="form-control rounded-pill"/>
-  </div>
 
 </div>
 <div class="main-card bg-white table-responsive-sm p-lg-3 mt-4">
+  <div class="col-lg-4 mb-4">
+    <label for=""><i class="far fa-search"></i> Recherche</label>
+    <input type="text" [(ngModel)]="findLieu" (input)='search()' class="form-control rounded-pill" placeholder="Rechercher par intitulé..."/>
+  </div>
   <table class="table">
+   
     <thead>
       <tr>
         <th>Type de lieu</th>
