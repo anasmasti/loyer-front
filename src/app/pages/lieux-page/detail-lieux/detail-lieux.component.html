@@ -186,6 +186,24 @@
                 <h5>Date de livraison du local</h5>
                 <p>{{ selectedAmenagement?.date_livraison_local }} </p>
             </div>
+            <div class="col-lg-4">
+                <h5>Images du local après aménagement</h5>
+                <p>
+                    <a class="btn second-btn" href="{{url}}{{selectedAmenagementImage?.image}}" download>
+                        Télécharger
+                    </a>
+                </p>   
+            </div>
+
+            <div class="col-lg-4">
+                <h5>Croquis d’aménagement</h5>
+                <p>
+                    <a class="btn second-btn" href="{{url}}{{selectedAmenagementCroquis?.image}}" download>
+                        Télécharger
+                    </a>
+                </p>   
+            </div>
+
             <div class="col-lg-4"></div>
         </div>
         <div>

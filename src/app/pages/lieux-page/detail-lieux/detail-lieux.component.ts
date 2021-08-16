@@ -14,9 +14,13 @@ export class DetailLieuxComponent implements OnInit {
 
   lieu!: Lieu;
   selectedAmenagement!: any;
+  //Get image croquis to download
+  selectedAmenagementCroquis!: any;
+  //Get image apres amenagement to download
+  selectedAmenagementImage!: any;
   displayAmenagementSection: boolean = false;
   selectedImageEntrer!: any;
-  url: string = 'http://192.168.11.118:5000/';
+  url: string = 'http://192.168.11.121:5000/';
 
   constructor(
     private lieuxService: LieuxService,
@@ -37,6 +41,8 @@ export class DetailLieuxComponent implements OnInit {
 
       for (let index = 0; index < this.lieu.imgs_lieu_entrer.length; index++) {
         this.selectedImageEntrer = this.lieu.imgs_lieu_entrer[index];
+        this.selectedAmenagementCroquis =  this.lieu.amenagement[index].croquis_travaux[index];
+        this.selectedAmenagementImage = this.lieu.amenagement[index].images_apres_travaux[index];
       }
 
     });

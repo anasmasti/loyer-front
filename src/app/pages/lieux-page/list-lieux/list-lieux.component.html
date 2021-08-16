@@ -19,8 +19,8 @@
   <table class="table">
     <thead>
       <tr>
-        <th>Intitulé de lieu</th>
         <th>Type de lieu</th>
+        <th>Intitulé de lieu</th>
         <th>Ville</th>
         <th>Téléphone</th>
         <th>Aménagement</th>
@@ -31,8 +31,8 @@
     <tbody *ngIf="lieux.length">
       <tr *ngFor="let lieu of lieux | paginate: { itemsPerPage: tableSize, currentPage: listLieuxPage, id: 'listLieuxPagination', totalItems: count }">
         <!-- <td >{{ proprietaire._id }}</td> -->
-        <td>{{ lieu.intitule_lieu }}</td>
         <td>{{ lieu.type_lieu }}</td>
+        <td>{{ lieu.intitule_lieu }}</td>
         <td>{{ lieu.ville }}</td>
         <td>{{ lieu.telephone }}</td>
         <td>
