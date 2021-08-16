@@ -14,6 +14,7 @@ import { FoncierEffects } from './foncier-store/foncier.effect';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { FormsModule } from '@angular/forms';
 
 
 const route: Routes = [
@@ -40,7 +41,8 @@ const route: Routes = [
     ConfirmationModalModule,
     StoreModule.forFeature('foncier', foncierReducer),
     EffectsModule.forFeature([FoncierEffects]),
-    NgxPaginationModule
+    NgxPaginationModule,
+    FormsModule
   ]
 })
 export class FoncierPageModule { }
