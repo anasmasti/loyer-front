@@ -17,13 +17,20 @@
     </div>
   </div>
 </div>
+<div>
+  
+  <div class="col-lg-4 form-group mt-4">
+    <label for="">Rechercher par intitulé...</label>
+    <input type="text" [(ngModel)]="findLieu" (input)='search()' class="form-control rounded-pill"/>
+  </div>
 
+</div>
 <div class="main-card bg-white table-responsive-sm p-lg-3 mt-4">
   <table class="table">
     <thead>
       <tr>
-        <th>Intitulé de lieu</th>
         <th>Type de lieu</th>
+        <th>Intitulé de lieu</th>
         <th>Ville</th>
         <th>Téléphone</th>
         <th>Aménagement</th>
@@ -34,8 +41,8 @@
     <tbody *ngIf="lieux.length">
       <tr *ngFor="let lieu of lieux | paginate: { itemsPerPage: tableSize, currentPage: listLieuxPage, id: 'listLieuxPagination', totalItems: count }">
         <!-- <td >{{ proprietaire._id }}</td> -->
-        <td>{{ lieu.intitule_lieu }}</td>
         <td>{{ lieu.type_lieu }}</td>
+        <td>{{ lieu.intitule_lieu }}</td>
         <td>{{ lieu.ville }}</td>
         <td>{{ lieu.telephone }}</td>
         <td>

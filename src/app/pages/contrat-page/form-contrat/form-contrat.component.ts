@@ -579,9 +579,6 @@ export class FormContratComponent implements OnInit {
       this.contratForm.get('etat_contrat')?.value
     ) {
       this.fillValuesupdated();
-      // console.log( this.updatedContrat);
-      // console.log(this.NvEtatContrat);
-      // console.log(this.oldEtatContrat);
       this.contratService
         .updateContratNvEtat(
           id,
