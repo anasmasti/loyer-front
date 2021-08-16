@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { getLieux } from '../lieux-store/lieux.selector';
 import { getLieuxAction } from '../lieux-store/lieux.actions';
 
+
 @Component({
   selector: 'app-list-lieux',
   templateUrl: './list-lieux.component.html',
@@ -24,11 +25,14 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
   deletedLieu!: Lieu;
   loading: boolean = false;
   lieuxSubscription$!: Subscription;
+  findLieu!: string;
+
 
   // Pagination options
   listLieuxPage: number = 1;
   count: number = 0;
   tableSize: number = 10;
+
 
   constructor(
     private lieuxService: LieuxService,
@@ -46,6 +50,17 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     this.store.select(getLoading).subscribe((data) => {
       this.loading = data;
     });
+  }
+
+  search(){
+    if (this.findLieu != "") {
+      this.lieux = this.lieux.filter(res => {
+        return res.intitule_lieu?.toLowerCase().match(this.findLieu.toLowerCase());
+      });
+    } else if (this.findLieu == "") {
+      this.ngOnInit();
+    }
+
   }
 
   getAllLieux() {

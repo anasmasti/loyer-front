@@ -18,6 +18,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { lieuxReducer } from './lieux-store/lieux.reducer';
 import { LieuxEffects } from './lieux-store/lieux.effect';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { FormsModule } from '@angular/forms';
 
 
 const route: Routes = [
@@ -47,7 +48,8 @@ const route: Routes = [
     ConfirmationModalModule,
     StoreModule.forFeature('lieux', lieuxReducer),
     EffectsModule.forFeature([LieuxEffects]),
-    NgxPaginationModule
+    NgxPaginationModule,
+    FormsModule
   ]
 })
 export class LieuxModule { }
