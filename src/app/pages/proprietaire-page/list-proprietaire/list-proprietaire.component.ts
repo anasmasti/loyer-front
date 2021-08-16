@@ -37,7 +37,7 @@ export class ListProprietaireComponent implements OnInit {
         this.proprietaires = this.proprietaires.filter(res => {
           // return res.intitule_lieu?.toLowerCase().match(this.findProprietaire.toLowerCase());
           return res.cin?.toLowerCase().match(this.findProprietaire.toLowerCase()) || res.passport?.toLowerCase().match(this.findProprietaire.toLowerCase())
-           || res.carte_sejour?.toLowerCase().match(this.findProprietaire.toLowerCase());
+           || res.carte_sejour?.toLowerCase().match(this.findProprietaire.toLowerCase()) || res.nom_prenom?.toLowerCase().match(this.findProprietaire.toLowerCase());
         });
       } else if (this.findProprietaire == "") {
         this.getAllProprietaires();
