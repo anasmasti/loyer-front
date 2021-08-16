@@ -27,9 +27,9 @@
 
   </div>
   <div class="row"*ngIf="userIsEmpty">
-    <div class="mt-5">
+    <div class="mt-4">
       <!-- <h1>{{ userR._id }}</h1> -->
-      <h3 class="main-title">Rôles Empty</h3><br>
+      <h5 class="main-muted-text mb-2">Les rôles à affecter</h5>
       <div class="btn-group d-flex justify-content-between" role="group"
         aria-label="Basic checkbox toggle button group">
         <div>
@@ -62,9 +62,9 @@
     </div>
   </div>
   <div class="row" *ngIf="!userIsEmpty">
-    <div class="mt-5">
+    <div class="mt-4">
       <!-- <h1>{{ userR._id }}</h1> -->
-      <h3 class="main-title">Rôles NotEmpty</h3><br>
+      <h5 class="main-muted-text mb-2">Les rôles à affecter</h5>
       <div class="btn-group d-flex justify-content-between" role="group"
         aria-label="Basic checkbox toggle button group">
         <div>
@@ -98,7 +98,7 @@
   </div>
   <div class="form-group my-5">
     <button type="submit" class="btn second-btn" *ngIf="SubmitForm == 'Ajouter'">
-      Ajouter
+      Ajouter un utilisateur
     </button>
     <button type="submit" class="btn second-btn" *ngIf="SubmitForm == 'Modifier'">
       Modifier
