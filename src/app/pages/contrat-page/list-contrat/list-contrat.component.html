@@ -19,6 +19,11 @@
 
 
 <div class="main-card bg-white table-responsive-sm p-lg-3 mt-4">
+    <div class="col-lg-4 mb-4">
+        <label for=""><i class="far fa-search"></i> Recherche</label>
+        <input type="text" [(ngModel)]="findContrat" (input)='search()' class="form-control rounded-pill" placeholder="Rechercher par numéro de contrat..."/>
+      </div>
+
     <table class="table">
         <thead>
             <tr class="text-truncate">

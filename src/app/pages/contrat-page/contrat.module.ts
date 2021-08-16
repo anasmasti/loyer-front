@@ -9,6 +9,7 @@ import { ConfirmationModalModule } from 'src/app/shared/modals/confirmation-moda
 import { MainModalModule } from 'src/app/shared/modals/main-modal/main-modal.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 const route: Routes = [
   { path: '', component: ContratComponent },
@@ -30,7 +31,8 @@ const route: Routes = [
     CommonModule,
     ReactiveFormsModule,
     MainModalModule,
-    ConfirmationModalModule
+    ConfirmationModalModule,
+    FormsModule
   ]
 })
 export class ContratModule { }
