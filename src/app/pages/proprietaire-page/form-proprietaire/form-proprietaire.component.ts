@@ -200,9 +200,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   addProprietaire() {
     let proprietaire_data: any = {
       // _id: this.proprietaireForm.get('_id').value ,
-      cin: this.proprietaireForm.get('cin')?.value,
-      passport: this.proprietaireForm.get('passport')?.value,
-      carte_sejour: this.proprietaireForm.get('carte_sejour')?.value,
+      cin: this.proprietaireForm.get('cin')?.value || '',
+      passport: this.proprietaireForm.get('passport')?.value || '',
+      carte_sejour: this.proprietaireForm.get('carte_sejour')?.value || '',
       nom_prenom: this.proprietaireForm.get('nom_prenom')?.value,
       raison_social: this.proprietaireForm.get('raison_social')?.value,
       n_registre_commerce: this.proprietaireForm.get('n_registre_commerce')

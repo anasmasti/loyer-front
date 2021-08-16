@@ -15,6 +15,7 @@ export class ListContratComponent implements OnInit {
   contrats!: Contrat[];
   id: string = '0';
   targetContrat: Contrat[] = [];
+  findContrat!: string;
 
   constructor(
     private contratService: ContratService,
@@ -35,6 +36,17 @@ export class ListContratComponent implements OnInit {
     this.contratService.getContrat().subscribe((data:any) => {
       this.contrats = data;
     });
+  }
+
+   // Filter by intitule
+   search(){
+    if (this.findContrat != "") {
+      this.contrats = this.contrats.filter(res => {
+        return res.numero_contrat?.toLowerCase().match(this.findContrat.toLowerCase());
+      });
+    } else if (this.findContrat == "") {
+      this.getContrat();
+    }
   }
 
   openEditModal(SelectedContrat: any) {
