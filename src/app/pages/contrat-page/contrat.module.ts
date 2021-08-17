@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { lieuxReducer } from '../lieux-page/lieux-store/lieux.reducer';
 import { StoreModule } from '@ngrx/store';
+import { foncierReducer } from '../foncier-page/foncier-store/foncier.reducer';
 
 const route: Routes = [
   { path: '', component: ContratComponent },
@@ -38,6 +39,7 @@ const route: Routes = [
     ConfirmationModalModule,
     FormsModule,
     StoreModule.forFeature('lieux', lieuxReducer),
+    StoreModule.forFeature('foncier',foncierReducer),
     EffectsModule.forFeature([LieuxEffects]),
   ]
 })

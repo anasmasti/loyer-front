@@ -8,6 +8,7 @@ import { Contrat } from 'src/app/models/Contrat';
 import { ContratService } from 'src/app/services/contrat-service/contrat.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { getLieux } from '../../lieux-page/lieux-store/lieux.selector';
+import { getFonciers } from '../../foncier-page/foncier-store/foncier.selector';
 
 @Component({
   selector: 'app-form-contrat',
@@ -218,6 +219,11 @@ export class FormContratComponent implements OnInit {
     }
   }
 
+  getFoncier(){
+    this.store.select(getFonciers).subscribe((data) => {
+      
+    })
+  }
   alertOn(action: string) {
     if (action == 'update') {
       this.msg = 'Cette contrat est modifiée avec succées !';
