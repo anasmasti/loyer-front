@@ -55,7 +55,7 @@ export class FormContratComponent implements OnInit {
   NvEtatContrat: any = {};
   oldEtatContrat: any = {};
 
-  typeLieu!: any
+  // typeLieu!: any
   lieuxByType: any = []
 
   constructor(
@@ -90,8 +90,6 @@ export class FormContratComponent implements OnInit {
         }, 300);
       }
     }
-
-    this.getLieuxByType()
   }
 
   ngOnInit(): void {
@@ -203,14 +201,15 @@ export class FormContratComponent implements OnInit {
     });
   }
 
-  getLieuxByType() {
+  getLieuxByType(event: any) {
+    let typeLieu = event.target.value;
+
     // Select Lieux by type from store
-    if (this.typeLieu) {
+    if (typeLieu) {
       this.store.select(getLieuxByType, {
-        type_lieu: this.typeLieu
+        type_lieu: typeLieu
       }).subscribe((data) => {
         this.lieuxByType = data;
-        console.log(this.lieuxByType);
       });
     }
   }
