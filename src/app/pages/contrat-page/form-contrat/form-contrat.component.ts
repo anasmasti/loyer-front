@@ -9,6 +9,7 @@ import { ContratService } from 'src/app/services/contrat-service/contrat.service
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { getLieux } from '../../lieux-page/lieux-store/lieux.selector';
 import { getFonciers } from '../../foncier-page/foncier-store/foncier.selector';
+import { getFoncierAction } from '../../foncier-page/foncier-store/foncier.actions';
 
 @Component({
   selector: 'app-form-contrat',
@@ -134,7 +135,7 @@ export class FormContratComponent implements OnInit {
       duree_avance: new FormControl(),
       Nengagement_dépense: new FormControl(),
       echeance_revision_loyer: new FormControl(),
-      proprietaire: new FormControl(),
+      foncier: new FormControl(),
       type_lieu: new FormControl(),
       lieu: new FormControl(),
       etat_contrat: new FormControl(),
@@ -161,6 +162,8 @@ export class FormContratComponent implements OnInit {
       preavis: new FormControl(),
       lettre_resiliation_scannee: new FormControl(),
     });
+
+    this.getFoncier()
   }
 
  
@@ -225,11 +228,16 @@ export class FormContratComponent implements OnInit {
     }
   }
 
-  getFoncier(){
+  getFoncier() {
     this.store.select(getFonciers).subscribe((data) => {
-      
+      if (data.length === 0) {
+        this.store.dispatch(getFoncierAction());
+      }
+      this.foncier = data
+      console.log("foncier ==> ", this.foncier)
     })
   }
+  
   alertOn(action: string) {
     if (action == 'update') {
       this.msg = 'Cette contrat est modifiée avec succées !';

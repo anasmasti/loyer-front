@@ -15,12 +15,13 @@ import { EffectsModule } from '@ngrx/effects';
 import { lieuxReducer } from '../lieux-page/lieux-store/lieux.reducer';
 import { StoreModule } from '@ngrx/store';
 import { foncierReducer } from '../foncier-page/foncier-store/foncier.reducer';
+import { FoncierEffects } from '../foncier-page/foncier-store/foncier.effect';
 
 const route: Routes = [
   { path: '', component: ContratComponent },
   { path: 'list/list/:id', component: DetailContratComponent },
   { path: 'list', component: ListContratComponent },
-  { path: 'list/edit/:id', component: EditContratComponent }
+  { path: 'list/edit/:id', component: EditContratComponent },
 ];
 
 @NgModule({
@@ -29,7 +30,7 @@ const route: Routes = [
     FormContratComponent,
     EditContratComponent,
     ListContratComponent,
-    DetailContratComponent
+    DetailContratComponent,
   ],
   imports: [
     RouterModule.forChild(route),
@@ -39,8 +40,8 @@ const route: Routes = [
     ConfirmationModalModule,
     FormsModule,
     StoreModule.forFeature('lieux', lieuxReducer),
-    StoreModule.forFeature('foncier',foncierReducer),
-    EffectsModule.forFeature([LieuxEffects]),
-  ]
+    StoreModule.forFeature('foncier', foncierReducer),
+    EffectsModule.forFeature([LieuxEffects, FoncierEffects]),
+  ],
 })
-export class ContratModule { }
+export class ContratModule {}
