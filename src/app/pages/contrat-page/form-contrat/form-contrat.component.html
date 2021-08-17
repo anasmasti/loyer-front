@@ -10,7 +10,7 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Pièce jointe</label>
-        <input type="file" class="form-control btn success-btn" formControlName="piece_jointe" multiple />
+        <input type="file" class="form-control btn success-btn" formControlName="piece_jointe" (change)="onFileSelected($event)"/>
       </div>
 
       <div class="col-lg-3 form-group mt-4">
@@ -312,10 +312,10 @@
         (click)="addNewContrat(); alertOn('add');">
         Ajouter
       </button>
-      <button *ngIf="formType" type="submit" id="Modifier" class="btn second-btn form-control"
+      <!-- <button *ngIf="formType" type="submit" id="Modifier" class="btn second-btn form-control"
         (click)="updateContrat();alertOn('update'); closeModal()">
         Modifier
-      </button>
+      </button> -->
     </div>
   </form>
   <!-- Fin de formulaire-->

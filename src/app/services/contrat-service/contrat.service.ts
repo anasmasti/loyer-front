@@ -40,8 +40,8 @@ export class ContratService {
     }, { headers: this.httpOptions.headers });
   }
 
-  addContrat(contrat: Contrat) {
-    return this.http.post(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`, contrat, { headers: this.httpOptions.headers });
+  addContrat(formdata: any) {
+    return this.http.post(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`, formdata, { headers: this.httpOptions.headers });
   }
 
   deleteContrat(id: String) {
