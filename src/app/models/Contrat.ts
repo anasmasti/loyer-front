@@ -23,10 +23,9 @@ export interface Contrat {
   duree_avance: number;
   N_engagement_depense: string;
   echeance_revision_loyer: string;
-  proprietaire: string;
   type_lieu: string;
   lieu: string;
-  protrietaire: string;
+  foncier: string;
   etat_contrat?: {
     libelle: string;
     etat: {

@@ -234,10 +234,9 @@ export class FormContratComponent implements OnInit {
         this.store.dispatch(getFoncierAction());
       }
       this.foncier = data
-      console.log("foncier ==> ", this.foncier)
     })
   }
-  
+
   alertOn(action: string) {
     if (action == 'update') {
       this.msg = 'Cette contrat est modifiée avec succées !';
@@ -273,31 +272,32 @@ export class FormContratComponent implements OnInit {
   addNewContrat() {
     let ctr_data: any = {
 
-      date_debut_loyer: this.contratForm.get('date_debut_loyer')?.value,
-      montant_loyer: this.contratForm.get('montant_loyer')?.value,
-      taxe_edilite_loyer: this.contratForm.get('taxe_edilite_comprise_loyer')?.value,
-      taxe_edilite_non_loyer: this.contratForm.get('taxe_edilite_noncomprise_loyer')?.value,
-      periodicite_paiement: this.contratForm.get('periodicite_paiement')?.value,
-      date_fin_contrat: this.contratForm.get('date_fin_contrat')?.value,
-      declaration_option: this.contratForm.get('declaration_option')?.value,
-      taux_impot: this.contratForm.get('taux_impot')?.value,
-      retenue_source: this.contratForm.get('retenue_source')?.value,
-      montant_apres_impot: this.contratForm.get('montant_apres_impot')?.value,
-      montant_caution: this.contratForm.get('montant_caution')?.value,
-      effort_caution: this.contratForm.get('effort_caution')?.value,
-      date_reprise_caution: this.contratForm.get('date_reprise_caution')?.value,
-      statut_caution: this.contratForm.get('statut_caution')?.value,
-      montant_avance: this.contratForm.get('montant_avance')?.value,
-      date_fin_avance: this.contratForm.get('date_fin_avance')?.value,
-      date_premier_paiement: this.contratForm.get('date_1er_paiement')?.value,
-      duree_avance: this.contratForm.get('duree_avance')?.value,
-      echeance_revision_loyer: this.contratForm.get('echeance_revision_loyer')?.value,
-      proprietaire: this.contratForm.get('proprietaire')?.value,
-      type_lieu: this.contratForm.get('type_lieu')?.value,
-      N_engagement_depense: this.contratForm.get('Nengagement_dépense')?.value,
-      lieu: this.contratForm.get('lieu')?.value,
-      duree_location: this.contratForm.get('duree_location')?.value,
+      date_debut_loyer: this.contratForm.get('date_debut_loyer')?.value || '' ,
+      montant_loyer: this.contratForm.get('montant_loyer')?.value || '',
+      taxe_edilite_loyer: this.contratForm.get('taxe_edilite_comprise_loyer')?.value || '',
+      taxe_edilite_non_loyer: this.contratForm.get('taxe_edilite_noncomprise_loyer')?.value || '',
+      periodicite_paiement: this.contratForm.get('periodicite_paiement')?.value || '',
+      date_fin_contrat: this.contratForm.get('date_fin_contrat')?.value || '',
+      declaration_option: this.contratForm.get('declaration_option')?.value || '',
+      taux_impot: this.tauxImpot,
+      retenue_source: this.retenueSource,
+      montant_apres_impot: this.montantApresImpot,
+      montant_caution: this.contratForm.get('montant_caution')?.value || '',
+      effort_caution: this.contratForm.get('effort_caution')?.value || '',
+      date_reprise_caution: this.contratForm.get('date_reprise_caution')?.value || '',
+      statut_caution: this.contratForm.get('statut_caution')?.value || '',
+      montant_avance: this.contratForm.get('montant_avance')?.value || '',
+      date_fin_avance: this.contratForm.get('date_fin_avance')?.value || '',
+      date_premier_paiement: this.contratForm.get('date_1er_paiement')?.value || '',
+      duree_avance: this.contratForm.get('duree_avance')?.value || '',
+      echeance_revision_loyer: this.contratForm.get('echeance_revision_loyer')?.value || '',
+      proprietaire: this.contratForm.get('proprietaire')?.value || '',
+      type_lieu: this.contratForm.get('type_lieu')?.value || '',
+      N_engagement_depense: this.contratForm.get('Nengagement_dépense')?.value || '',
+      lieu: this.contratForm.get('lieu')?.value || '',
+      duree_location: this.contratForm.get('duree_location')?.value || '',
   
+
       // //etat de contrat
       // etat_contrat: this.contratForm.get('etat_contrat')?.value,
       
@@ -318,10 +318,13 @@ export class FormContratComponent implements OnInit {
       // etat_lieux_sortie: this.etatContrat.get('etat_lieux_sortie')?.value,
       // preavis: this.etatContrat.get('preavis')?.value,
     }
+    console.log(JSON.stringify(ctr_data));
+
+    
 
     this.fd.append('data', JSON.stringify(ctr_data));
-
-    this.contratService.addContrat(this.fd).subscribe((data: any) => {
+    // let test = {'username': 'badr'}
+    this.contratService.addContrat(this.fd).subscribe((data) => {
      // this.fd = data;
       console.log("form data ===> ",data);
       
