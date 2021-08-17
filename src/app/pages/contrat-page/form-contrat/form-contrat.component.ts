@@ -1,3 +1,4 @@
+import { getLieuxByType } from './../../lieux-page/lieux-store/lieux.selector';
 import { getLieuxAction } from './../../lieux-page/lieux-store/lieux.actions';
 import { AppState } from 'src/app/store/app.state';
 import { Component, Input, OnInit } from '@angular/core';
@@ -6,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { Contrat } from 'src/app/models/Contrat';
 import { ContratService } from 'src/app/services/contrat-service/contrat.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
-import { getLieuxIds } from '../../lieux-page/lieux-store/lieux.selector';
+import { getLieux } from '../../lieux-page/lieux-store/lieux.selector';
 
 @Component({
   selector: 'app-form-contrat',
@@ -56,6 +57,9 @@ export class FormContratComponent implements OnInit {
   NvEtatContrat: any = {};
   oldEtatContrat: any = {};
 
+  typeLieu!: any
+  lieuxByType: any = []
+
   constructor(
     private contratService: ContratService,
     private mainModalService: MainModalService,
@@ -88,6 +92,8 @@ export class FormContratComponent implements OnInit {
         }, 300);
       }
     }
+
+    this.getLieuxByType()
   }
 
   ngOnInit(): void {
@@ -141,7 +147,7 @@ export class FormContratComponent implements OnInit {
       preavis: new FormControl(),
       lettre_resiliation_scannee: new FormControl(),
     });
-    
+
     this.getLieux();
   }
 
@@ -191,7 +197,7 @@ export class FormContratComponent implements OnInit {
 
   getLieux() {
     // Select lieux from store
-    this.store.select(getLieuxIds).subscribe((data) => {
+    this.store.select(getLieux).subscribe((data) => {
       // Check if lieux data is empty then fetch it from server
       if (data.length === 0) {
         // Dispatch action to handle the NgRx get lieux from server effect
@@ -199,6 +205,18 @@ export class FormContratComponent implements OnInit {
       }
       this.lieux = data;
     });
+  }
+
+  getLieuxByType() {
+    // Select Lieux by type from store
+    if (this.typeLieu) {
+      this.store.select(getLieuxByType, {
+        type_lieu: this.typeLieu
+      }).subscribe((data) => {
+        this.lieuxByType = data;
+        console.log(this.lieuxByType);
+      });
+    }
   }
 
   alertOn(action: string) {
@@ -297,7 +315,7 @@ export class FormContratComponent implements OnInit {
   //----------------- FIN Ajouter nouveau Contrat Functions -------------------------------------------------------------------------------
 
   //-----------------  Modifier une Contrat Functions -----------------------------------------------------------------------------------
-  
+
 
   //remplissage de contrat form au cas de modification
   fillUpContrat() {
