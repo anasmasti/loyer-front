@@ -142,15 +142,16 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Type de lieu</label>
-        <select class="form-control rounded-pill" formControlName="type_lieu">
-          <option value="Direction régional"> direction régional </option>
+        <select class="form-control rounded-pill" formControlName="type_lieu" [(ngModel)]="typeLieu">
+          <option *ngFor="let lieu of lieux" [value]="lieu.type_lieu"> {{ lieu.type_lieu }} </option>
         </select>
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Lieu</label>
         <select class="form-control rounded-pill" formControlName="lieu">
-          <option *ngFor="let lieu of lieux" [value]="lieu._id"> {{ lieu.intitule_lieu }} </option>
+          <option *ngFor="let lieu of lieuxByType" [value]="lieu._id"> {{ lieu.intitule_lieu }} </option>
+          
         </select>
       </div>
 

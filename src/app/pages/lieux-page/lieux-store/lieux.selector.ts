@@ -1,3 +1,4 @@
+import { Lieu } from 'src/app/models/Lieu';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { LieuxState } from './lieux.state';
 
@@ -9,12 +10,12 @@ export const getLieux = createSelector(getLieuxState, (state) => {
   return state.lieux;
 });
 
-// Select lieux ids
-export const getLieuxIds = createSelector(getLieuxState, (state) => {
-  return state.lieux.map(lieu => {
-    return lieu.intitule_lieu
-  })
-});
+// Select lieux by type
+export const getLieuxByType = createSelector(getLieux,
+  (getLieux: Lieu[], props: any) => {
+    const lieuByType = getLieux.filter(lieu => lieu.type_lieu == props.type_lieu)
+    return lieuByType
+  });
 
 // Get DR from Lieux data
 export const getDr = createSelector(getLieuxState, (state: any) => {
