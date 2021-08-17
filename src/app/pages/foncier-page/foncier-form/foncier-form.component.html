@@ -15,7 +15,7 @@
       <div class="col-lg-3 form-group mt-4">
         <label for="">Proprietaire</label>
         <select class="form-control rounded-pill" formControlName="proprietaire">
-          <option [value]="proprietaire._id" *ngFor="let proprietaire of (proprietaires$ | async)">{{
+          <option [value]="proprietaire._id" *ngFor="let proprietaire of proprietaires">{{
             proprietaire.cin }}</option>
 
         </select>
@@ -39,7 +39,7 @@
       <div class="col-lg-3 form-group mt-4">
         <label for="">Lieu</label>
         <select class="form-control rounded-pill" formControlName="lieu">
-          <option [value]="lieu._id" *ngFor="let lieu of (lieux$ | async)">{{ lieu.code_lieu }}</option>
+          <option [value]="lieu._id" *ngFor="let lieu of lieux">{{ lieu.code_lieu }}</option>
 
         </select>
       </div>

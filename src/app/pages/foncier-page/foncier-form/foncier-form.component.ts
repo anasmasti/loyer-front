@@ -21,8 +21,8 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   postDone: boolean = false;
   PostSucces: string = 'Foncier ajouté avec succés';
   foncierForm!: FormGroup;
-  proprietaires$!: Observable<any>
-  lieux$!: Observable<any>
+  proprietaires!: any
+  lieux!: any
   lieuxSubscription$!: Subscription
   proprietairesSubscription$!: Subscription
 
@@ -100,18 +100,18 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
   // Select Proprietaire ids
   getProprietaires() {
-    this.proprietaires$ = this.store.select(getProprietaires)
-    this.proprietairesSubscription$ = this.proprietaires$.pipe(debounceTime(500)).subscribe(data => {
-      if (!data?.length) this.getPropWithLieux()
-    })
+    this.proprietairesSubscription$ = this.store.select(getProprietaires).pipe(debounceTime(500)).subscribe(data => {
+      if (data) this.proprietaires = data;
+      if (!data) this.getPropWithLieux()
+    });
   }
 
   // Select Lieux ids
   getLieux() {
-    this.lieux$ = this.store.select(getLieux)
-    this.lieuxSubscription$ = this.lieux$.subscribe(data => {
-      if (!data?.length) this.getPropWithLieux()
-    })
+    this.lieuxSubscription$ = this.store.select(getLieux).subscribe(data => {
+      if (data) this.lieux = data;
+      if (!data) this.getPropWithLieux()
+    });
   }
 
   ngOnDestroy() {

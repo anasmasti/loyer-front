@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class HelperService {
-  
+
   constructor(private http: HttpClient) { }
 
   httpOptions = {
@@ -20,7 +20,11 @@ export class HelperService {
   refrechPage() {
     location.reload();
   }
-  
+
+  toTheUp() {
+    window.scroll(0, 0);
+  }
+
   // Get all counts from server
   getAllCounts() {
     return this.http.get(

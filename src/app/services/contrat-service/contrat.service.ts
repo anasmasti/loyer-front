@@ -28,8 +28,8 @@ export class ContratService {
     return this.http.get(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/details/${id}`, { headers: this.httpOptions.headers });
   }
 
-  updateContrat(id: String, contrat: Contrat) {
-    return this.http.put(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/modifier/${id}`, contrat, { headers: this.httpOptions.headers });
+  updateContrat(id: String, formdata: any): Observable<any> {
+    return this.http.patch<any>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/modifier/${id}`, formdata);
   }
 
   updateContratNvEtat(id: String, contrat: Contrat, nvEtatContrat: any, oldEtatContrat: any) {
@@ -41,7 +41,7 @@ export class ContratService {
   }
 
   addContrat(formdata: any): Observable<any> {
-    return this.http.post<any>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`, formdata, { headers: this.httpOptions.headers });
+    return this.http.post<any>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`, formdata);
   }
 
   deleteContrat(id: String) {
