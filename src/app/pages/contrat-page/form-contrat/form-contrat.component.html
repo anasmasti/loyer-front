@@ -144,11 +144,6 @@
         <label for="">Type de lieu</label>
         <select class="form-control rounded-pill" formControlName="type_lieu">
           <option value="Direction régional"> direction régional </option>
-          <option value="Logement de fonction"> logement de fonction </option>
-          <option value="Point de vente"> point de vente </option>
-          <option value="Siege"> siege </option>
-          <option value="Supervision"> supervision </option>
-
         </select>
       </div>
 
@@ -156,34 +151,18 @@
         <label for="">Lieu</label>
         <select class="form-control rounded-pill" formControlName="lieu">
           <option *ngFor="let lieu of lieux" [value]="lieu._id"> {{ lieu.intitule_lieu }} </option>
-
         </select>
       </div>
-
-      <div class="col-lg-3 form-group mt-4">
-        <label for="">Etat de contrat</label>
-        <select class="form-control rounded-pill" formControlName="etat_contrat" (change)="ShowEtat()">
-          <option value="Avenant">Avenant</option>
-          <option value="Suspension">Suspension</option>
-          <option value="Résiliation">Résiliation</option>
-        </select>
-      </div>
-
 
       <div class="mt-4">
-
-
         <div class="form-box mt-4">
-        
           <div *ngIf="etat_contrat == 'Avenant'; then AV"></div>
           <div *ngIf="etat_contrat == 'Suspension'; then SUS"></div>
           <div *ngIf="etat_contrat == 'Résiliation'; then RES"></div>
         </div>
-
       </div>
 
       <form [formGroup]="etatContrat">
-
         <!-- Template Avenant start -->
         <ng-template #AV>
           <h6><u>Etat du contrat: Avenant</u></h6>
