@@ -1,10 +1,12 @@
+import { getLieuxAction } from './../../lieux-page/lieux-store/lieux.actions';
+import { AppState } from 'src/app/store/app.state';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { Contrat } from 'src/app/models/Contrat';
 import { ContratService } from 'src/app/services/contrat-service/contrat.service';
-import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
-import { ProprietaireService } from 'src/app/services/proprietaire-service/proprietaire.service';
+import { getLieuxIds } from '../../lieux-page/lieux-store/lieux.selector';
 
 @Component({
   selector: 'app-form-contrat',
@@ -36,11 +38,28 @@ export class FormContratComponent implements OnInit {
   retenueSource: number = 0
   tauxImpot: number = 0
 
+  contratForm!: FormGroup
+  etatContrat!: FormGroup
+
+  //objet contrat (je stock les form data dans cet objet pour l'envoyer comme paramaitre au service)
+  Contrat!: Contrat;
+
+  date_debut_loyer!: Date;
+  date_fin_contrat!: Date;
+  date_fin_avance!: Date;
+  date_reprise_caution!: Date;
+  date_1er_paiement!: Date;
+  etat_contrat!: String;
+  date_resiliation!: Date;
+  date_suspension!: Date;
+  updatedContrat: any = {};
+  NvEtatContrat: any = {};
+  oldEtatContrat: any = {};
+
   constructor(
     private contratService: ContratService,
-    private lieuxService: LieuxService,
-    private proprietaireService: ProprietaireService,
-    private mainModalService: MainModalService
+    private mainModalService: MainModalService,
+    private store: Store<AppState>
   ) { }
 
   ngOnChanges() {
@@ -72,6 +91,57 @@ export class FormContratComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.contratForm = new FormGroup({
+      piece_jointe: new FormControl(),
+      date_debut_loyer: new FormControl(),
+      montant_loyer: new FormControl(),
+      taxe_edilite_comprise_loyer: new FormControl(),
+      taxe_edilite_noncomprise_loyer: new FormControl(),
+      periodicite_paiement: new FormControl(),
+      duree_location: new FormControl(),
+      date_fin_contrat: new FormControl(),
+      declaration_option: new FormControl(),
+      taux_impot: new FormControl(),
+      retenue_source: new FormControl(),
+      montant_apres_impot: new FormControl(),
+      montant_caution: new FormControl(),
+      effort_caution: new FormControl(),
+      date_reprise_caution: new FormControl(),
+      statut_caution: new FormControl(),
+      montant_avance: new FormControl(),
+      date_fin_avance: new FormControl(),
+      date_1er_paiement: new FormControl(),
+      duree_avance: new FormControl(),
+      Nengagement_dépense: new FormControl(),
+      echeance_revision_loyer: new FormControl(),
+      proprietaire: new FormControl(),
+      type_lieu: new FormControl(),
+      lieu: new FormControl(),
+      etat_contrat: new FormControl(),
+    });
+
+    this.etatContrat = new FormGroup({
+      //AVENANT
+      N_avenant: new FormControl(),
+      piece_joint_av: new FormControl(),
+      motif: new FormControl(),
+      montant_new_loyer: new FormControl(),
+      signaletique_successeur: new FormControl(),
+      //SUSPENSION
+      intitule_lieu_sus: new FormControl(),
+      date_suspension: new FormControl(),
+      duree_suspension: new FormControl(),
+      motif_suspension: new FormControl(),
+      //RESILIATION
+      intitule_lieu_res: new FormControl(),
+      reprise_caution: new FormControl(),
+      date_resiliation: new FormControl(),
+      etat_lieux_sortie: new FormControl(),
+      images_lieux_sortie: new FormControl(),
+      preavis: new FormControl(),
+      lettre_resiliation_scannee: new FormControl(),
+    });
+    
     this.getLieux();
   }
 
@@ -112,115 +182,21 @@ export class FormContratComponent implements OnInit {
     return result
   }
 
-  //----------------- update && post  ------------------------------------------------------------------------------------------------
-  //objet contrat (je stock les form data dans cet objet pour l'envoyer comme paramaitre au service)
-  Contrat: Contrat = {
-    _id: 'Chargement',
-    numero_contrat: 'Chargement...',
-    date_debut_loyer: new Date(),
-    date_fin_contrat: new Date(),
-    date_fin_avance: new Date(),
-    date_reprise_caution: new Date(),
-    date_premier_paiement: new Date(),
-    Montant_loyer: 0,
-    taxe_edilite_loyer: 'Chargement...',
-    taxe_edilite_non_loyer: 'Chargement...',
-    periodicite_paiement: 'Chargement...',
-    duree_location: 0,
-    declaration_option: 'Chargement...',
-    taux_impot: 'Chargement...',
-    retenue_source: 'Chargement...',
-    montant_apres_impot: 0,
-    montant_caution: 0,
-    effort_caution: 'Chargement...',
-    statut_caution: 'Chargement...',
-    montant_avance: 0,
-    duree_avance: 0,
-    N_engagement_depense: 'Chargement...',
-    echeance_revision_loyer: 'Chargement...',
-    proprietaire: 'Chargement...',
-    type_lieu: 'Chargement...',
-    lieu: 'Chargement...',
-    protrietaire: 'Chargement...',
-    etat_contrat: [
-      {
-        libelle: 'Chargement...',
-        etat: {
-          n_avenant: 'Chargement...',
-          motif: 'Chargement...',
-          montant_nouveau_loyer: 0,
-          signaletique_successeur: 'Chargement...',
-          intitule_lieu: 'Chargement...',
-          date_suspension: new Date(),
-          duree_suspension: 0,
-          motif_suspension: 'Chargement...',
-          reprise_caution: 'Chargement...',
-          date_resiliation: new Date(),
-          etat_lieu_sortie: 'Chargement...',
-          preavis: 'Chargement...',
-        },
-      },
-    ],
-    deleted: false,
-  };
-  //form groups
-  contratForm: FormGroup = new FormGroup({
-    piece_jointe: new FormControl(),
-    date_debut_loyer: new FormControl(),
-    montant_loyer: new FormControl(),
-    taxe_edilite_comprise_loyer: new FormControl(),
-    taxe_edilite_noncomprise_loyer: new FormControl(),
-    periodicite_paiement: new FormControl(),
-    duree_location: new FormControl(),
-    date_fin_contrat: new FormControl(),
-    declaration_option: new FormControl(),
-    taux_impot: new FormControl(),
-    retenue_source: new FormControl(),
-    montant_apres_impot: new FormControl(),
-    montant_caution: new FormControl(),
-    effort_caution: new FormControl(),
-    date_reprise_caution: new FormControl(),
-    statut_caution: new FormControl(),
-    montant_avance: new FormControl(),
-    date_fin_avance: new FormControl(),
-    date_1er_paiement: new FormControl(),
-    duree_avance: new FormControl(),
-    Nengagement_dépense: new FormControl(),
-    echeance_revision_loyer: new FormControl(),
-    proprietaire: new FormControl(),
-    type_lieu: new FormControl(),
-    lieu: new FormControl(),
-    etat_contrat: new FormControl(),
-  });
-  etatContrat: FormGroup = new FormGroup({
-    //AVENANT
-    N_avenant: new FormControl(),
-    piece_joint_av: new FormControl(),
-    motif: new FormControl(),
-    montant_new_loyer: new FormControl(),
-    signaletique_successeur: new FormControl(),
-    //SUSPENSION
-    intitule_lieu_sus: new FormControl(),
-    date_suspension: new FormControl(),
-    duree_suspension: new FormControl(),
-    motif_suspension: new FormControl(),
-    //RESILIATION
-    intitule_lieu_res: new FormControl(),
-    reprise_caution: new FormControl(),
-    date_resiliation: new FormControl(),
-    etat_lieux_sortie: new FormControl(),
-    images_lieux_sortie: new FormControl(),
-    preavis: new FormControl(),
-    lettre_resiliation_scannee: new FormControl(),
-  });
-  
+  //----------------- Update and Post  --------------------------
+
   //functions
   closeModal() {
     this.mainModalService.close();
   }
 
   getLieux() {
-    this.lieuxService.listLieux().subscribe((data: any) => {
+    // Select lieux from store
+    this.store.select(getLieuxIds).subscribe((data) => {
+      // Check if lieux data is empty then fetch it from server
+      if (data.length === 0) {
+        // Dispatch action to handle the NgRx get lieux from server effect
+        this.store.dispatch(getLieuxAction());
+      }
       this.lieux = data;
     });
   }
@@ -253,7 +229,7 @@ export class FormContratComponent implements OnInit {
      onFileSelected(event: any) {
       if (event.target.files.length > 0) {
         this.selectedFile = event.target.files[0];
-        this.fd.append('piece_joint', this.selectedFile);
+        this.fd.append('piece_joint_contrat', this.selectedFile);
       }
     }
 
@@ -285,25 +261,25 @@ export class FormContratComponent implements OnInit {
       lieu: this.contratForm.get('lieu')?.value,
       duree_location: this.contratForm.get('duree_location')?.value,
   
-      //etat de contrat
-      etat_contrat: this.contratForm.get('etat_contrat')?.value,
+      // //etat de contrat
+      // etat_contrat: this.contratForm.get('etat_contrat')?.value,
       
-      //AVENANT
-      N_avenant: this.etatContrat.get('N_avenant')?.value,
-      motif: this.etatContrat.get('motif')?.value,
-      montant_new_loyer: this.etatContrat.get('montant_new_loyer')?.value,
-      signaletique_successeur: this.etatContrat.get('signaletique_successeur')?.value,
+      // //AVENANT
+      // N_avenant: this.etatContrat.get('N_avenant')?.value,
+      // motif: this.etatContrat.get('motif')?.value,
+      // montant_new_loyer: this.etatContrat.get('montant_new_loyer')?.value,
+      // signaletique_successeur: this.etatContrat.get('signaletique_successeur')?.value,
   
-      //SUSPENSION
-      date_suspension: this.etatContrat.get('date_suspension')?.value,
-      duree_suspension: this.etatContrat.get('duree_suspension')?.value,
-      motif_suspension: this.etatContrat.get('motif_suspension')?.value,
+      // //SUSPENSION
+      // date_suspension: this.etatContrat.get('date_suspension')?.value,
+      // duree_suspension: this.etatContrat.get('duree_suspension')?.value,
+      // motif_suspension: this.etatContrat.get('motif_suspension')?.value,
   
-      //RESILIATION
-      date_resiliation: this.etatContrat.get('date_resiliation')?.value,
-      reprise_caution: this.etatContrat.get('reprise_caution')?.value,
-      etat_lieux_sortie: this.etatContrat.get('etat_lieux_sortie')?.value,
-      preavis: this.etatContrat.get('preavis')?.value,
+      // //RESILIATION
+      // date_resiliation: this.etatContrat.get('date_resiliation')?.value,
+      // reprise_caution: this.etatContrat.get('reprise_caution')?.value,
+      // etat_lieux_sortie: this.etatContrat.get('etat_lieux_sortie')?.value,
+      // preavis: this.etatContrat.get('preavis')?.value,
     }
 
     this.fd.append('data', JSON.stringify(ctr_data));
@@ -321,23 +297,13 @@ export class FormContratComponent implements OnInit {
   //----------------- FIN Ajouter nouveau Contrat Functions -------------------------------------------------------------------------------
 
   //-----------------  Modifier une Contrat Functions -----------------------------------------------------------------------------------
-  date_debut_loyer!: Date;
-  date_fin_contrat!: Date;
-  date_fin_avance!: Date;
-  date_reprise_caution!: Date;
-  date_1er_paiement!: Date;
-  etat_contrat!: String;
-  date_resiliation!: Date;
-  date_suspension!: Date;
-  updatedContrat: any = {};
-  NvEtatContrat: any = {};
-  oldEtatContrat: any = {};
+  
 
   //remplissage de contrat form au cas de modification
   fillUpContrat() {
     if (this.formType != '') {
       const id = this.idContrat;
-      
+
       this.contratService.getSelectedContrat(id).subscribe((data: any) => {
         this.Contrat = data;
       });
@@ -410,6 +376,7 @@ export class FormContratComponent implements OnInit {
       }, 500);
     }
   }
+
   fillValuesupdated() {
     if (
       this.contrat.etat_contrat[this.contrat.etat_contrat.length - 1].libelle ==

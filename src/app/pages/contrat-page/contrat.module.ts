@@ -1,3 +1,4 @@
+import { LieuxEffects } from './../lieux-page/lieux-store/lieux.effect';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContratComponent } from './contrat/contrat.component';
@@ -10,6 +11,9 @@ import { MainModalModule } from 'src/app/shared/modals/main-modal/main-modal.mod
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { EffectsModule } from '@ngrx/effects';
+import { lieuxReducer } from '../lieux-page/lieux-store/lieux.reducer';
+import { StoreModule } from '@ngrx/store';
 
 const route: Routes = [
   { path: '', component: ContratComponent },
@@ -32,7 +36,9 @@ const route: Routes = [
     ReactiveFormsModule,
     MainModalModule,
     ConfirmationModalModule,
-    FormsModule
+    FormsModule,
+    StoreModule.forFeature('lieux', lieuxReducer),
+    EffectsModule.forFeature([LieuxEffects]),
   ]
 })
 export class ContratModule { }

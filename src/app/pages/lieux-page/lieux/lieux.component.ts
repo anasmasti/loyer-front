@@ -39,9 +39,7 @@ export class LieuxComponent implements OnInit {
   showForm(lieu_name: string) {
     this.activeLieux = lieu_name;
   }
-
-
-
+  
   getLieuName(name : string){
     this.LieuName = name;
   }
