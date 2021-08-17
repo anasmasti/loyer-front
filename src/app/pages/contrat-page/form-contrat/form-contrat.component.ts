@@ -27,8 +27,7 @@ export class FormContratComponent implements OnInit {
   success: boolean = false;
   //message displayed on alert
   msg: string = '';
-  //lieux and proprietaires list to fill up drop down lists on form
-  lieux!: any;
+
   foncier!: any;
 
   montantLoyer: number = 0
@@ -55,7 +54,23 @@ export class FormContratComponent implements OnInit {
   NvEtatContrat: any = {};
   oldEtatContrat: any = {};
 
-  // typeLieu!: any
+  typeLieuList: any = [
+    {
+      'type': 'Direction régionale'
+    },
+    {
+      'type': 'Logement de fonction'
+    },
+    {
+      'type': 'Point de vente'
+    },
+    {
+      'type': 'Siège'
+    },
+    {
+      'type': 'Supervision'
+    }
+  ]
   lieuxByType: any = []
 
   constructor(
@@ -143,8 +158,6 @@ export class FormContratComponent implements OnInit {
       preavis: new FormControl(),
       lettre_resiliation_scannee: new FormControl(),
     });
-
-    this.getLieux();
   }
 
   checkRetenue() {
@@ -189,18 +202,7 @@ export class FormContratComponent implements OnInit {
     this.mainModalService.close();
   }
 
-  getLieux() {
-    // Select lieux from store
-    this.store.select(getLieux).subscribe((data) => {
-      // Check if lieux data is empty then fetch it from server
-      if (data.length === 0) {
-        // Dispatch action to handle the NgRx get lieux from server effect
-        this.store.dispatch(getLieuxAction());
-      }
-      this.lieux = data;
-    });
-  }
-
+  // Get lieux by type
   getLieuxByType(event: any) {
     let typeLieu = event.target.value;
 
@@ -209,6 +211,10 @@ export class FormContratComponent implements OnInit {
       this.store.select(getLieuxByType, {
         type_lieu: typeLieu
       }).subscribe((data) => {
+        if (data.length === 0) {
+          // Dispatch action to handle the NgRx get lieux from server effect
+          this.store.dispatch(getLieuxAction());
+        }
         this.lieuxByType = data;
       });
     }
