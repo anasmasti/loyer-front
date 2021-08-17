@@ -71,7 +71,7 @@ export class FormContratComponent implements OnInit {
       if (this.contrat.length != 0) {
         setTimeout(() => {
           this.idContrat = this.contrat._id;
-          this.fillUpContrat();
+          // this.fillUpContrat();
           this.date_debut_loyer = this.contrat.date_debut_loyer;
           this.date_fin_contrat = this.contrat.date_fin_contrat;
           this.date_fin_avance = this.contrat.date_fin_avance;
@@ -243,13 +243,13 @@ export class FormContratComponent implements OnInit {
   //----------------- Ajouter nouveau Contrat Functions ----------------------------------------------------------------------------
 
 
-     //Upload Image amenagement avant amenagement
-     onFileSelected(event: any) {
-      if (event.target.files.length > 0) {
-        this.selectedFile = event.target.files[0];
-        this.fd.append('piece_joint_contrat', this.selectedFile);
-      }
+   //Upload Image amenagement avant amenagement
+   onFileSelected(event: any) {
+    if (event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
+      this.fd.append('piece_joint_contrat', this.selectedFile);
     }
+  }
 
   addNewContrat() {
     let ctr_data: any = {
@@ -317,83 +317,83 @@ export class FormContratComponent implements OnInit {
   //-----------------  Modifier une Contrat Functions -----------------------------------------------------------------------------------
 
 
-  //remplissage de contrat form au cas de modification
-  fillUpContrat() {
-    if (this.formType != '') {
-      const id = this.idContrat;
+  // //remplissage de contrat form au cas de modification
+  // fillUpContrat() {
+  //   if (this.formType != '') {
+  //     const id = this.idContrat;
 
-      this.contratService.getSelectedContrat(id).subscribe((data: any) => {
-        this.Contrat = data;
-      });
+  //     this.contratService.getSelectedContrat(id).subscribe((data: any) => {
+  //       this.Contrat = data;
+  //     });
 
-      setTimeout(() => {
-        this.contratForm.patchValue({
-          Ncontrat_loyer: this.Contrat.numero_contrat,
-          montant_loyer: this.Contrat.Montant_loyer,
-          taxe_edilite_comprise_loyer: this.Contrat.taxe_edilite_loyer,
-          taxe_edilite_noncomprise_loyer: this.Contrat.taxe_edilite_non_loyer,
-          periodicite_paiement: this.Contrat.periodicite_paiement,
-          duree_location: this.Contrat.duree_location,
-          declaration_option: this.Contrat.declaration_option,
-          taux_impot: this.Contrat.taux_impot,
-          retenue_source: this.Contrat.retenue_source,
-          montant_apres_impot: this.Contrat.montant_apres_impot,
-          montant_caution: this.Contrat.montant_caution,
-          effort_caution: this.Contrat.effort_caution,
-          statut_caution: this.Contrat.statut_caution,
-          montant_avance: this.Contrat.montant_avance,
-          duree_avance: this.Contrat.duree_avance,
-          echeance_revision_loyer: this.Contrat.echeance_revision_loyer,
-          proprietaire: this.Contrat.proprietaire,
-          type_lieu: this.Contrat.type_lieu,
-          lieu: this.Contrat.lieu,
-          etat_contrat:
-            this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1]
-              .libelle,
-          Nengagement_dépense: this.Contrat.N_engagement_depense,
-        });
-        this.etatContrat.patchValue({
-          //AVENANT
-          N_avenant:
-            this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
-              .n_avenant,
-          motif:
-            this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
-              .motif,
-          montant_new_loyer:
-            this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
-              .montant_nouveau_loyer,
-          signaletique_successeur:
-            this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
-              .signaletique_successeur,
+  //     setTimeout(() => {
+  //       this.contratForm.patchValue({
+  //         Ncontrat_loyer: this.Contrat.numero_contrat,
+  //         montant_loyer: this.Contrat.Montant_loyer,
+  //         taxe_edilite_comprise_loyer: this.Contrat.taxe_edilite_loyer,
+  //         taxe_edilite_noncomprise_loyer: this.Contrat.taxe_edilite_non_loyer,
+  //         periodicite_paiement: this.Contrat.periodicite_paiement,
+  //         duree_location: this.Contrat.duree_location,
+  //         declaration_option: this.Contrat.declaration_option,
+  //         taux_impot: this.Contrat.taux_impot,
+  //         retenue_source: this.Contrat.retenue_source,
+  //         montant_apres_impot: this.Contrat.montant_apres_impot,
+  //         montant_caution: this.Contrat.montant_caution,
+  //         effort_caution: this.Contrat.effort_caution,
+  //         statut_caution: this.Contrat.statut_caution,
+  //         montant_avance: this.Contrat.montant_avance,
+  //         duree_avance: this.Contrat.duree_avance,
+  //         echeance_revision_loyer: this.Contrat.echeance_revision_loyer,
+  //         proprietaire: this.Contrat.proprietaire,
+  //         type_lieu: this.Contrat.type_lieu,
+  //         lieu: this.Contrat.lieu,
+  //         etat_contrat:
+  //           this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1]
+  //             .libelle,
+  //         Nengagement_dépense: this.Contrat.N_engagement_depense,
+  //       });
+  //       this.etatContrat.patchValue({
+  //         //AVENANT
+  //         N_avenant:
+  //           this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
+  //             .n_avenant,
+  //         motif:
+  //           this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
+  //             .motif,
+  //         montant_new_loyer:
+  //           this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
+  //             .montant_nouveau_loyer,
+  //         signaletique_successeur:
+  //           this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
+  //             .signaletique_successeur,
 
-          //SUSPENSION
-          intitule_lieu_sus:
-            this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
-              .intitule_lieu,
-          duree_suspension:
-            this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
-              .duree_suspension,
-          motif_suspension:
-            this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
-              .motif_suspension,
-          //RESILIATION
-          intitule_lieu_res:
-            this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
-              .intitule_lieu,
-          reprise_caution:
-            this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
-              .reprise_caution,
-          etat_lieux_sortie:
-            this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
-              .etat_lieu_sortie,
-          preavis:
-            this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
-              .preavis,
-        });
-      }, 500);
-    }
-  }
+  //         //SUSPENSION
+  //         intitule_lieu_sus:
+  //           this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
+  //             .intitule_lieu,
+  //         duree_suspension:
+  //           this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
+  //             .duree_suspension,
+  //         motif_suspension:
+  //           this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
+  //             .motif_suspension,
+  //         //RESILIATION
+  //         intitule_lieu_res:
+  //           this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
+  //             .intitule_lieu,
+  //         reprise_caution:
+  //           this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
+  //             .reprise_caution,
+  //         etat_lieux_sortie:
+  //           this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
+  //             .etat_lieu_sortie,
+  //         preavis:
+  //           this.Contrat.etat_contrat[this.Contrat.etat_contrat.length - 1].etat
+  //             .preavis,
+  //       });
+  //     }, 500);
+  //   }
+  // }
 
   fillValuesupdated() {
     if (

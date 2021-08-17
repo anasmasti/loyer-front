@@ -37,9 +37,9 @@
         </thead>
         <tbody>
             <tr class="text-center" *ngFor="let contrat of contrats">
-                <td class="progress-bar progress-bar-striped  text-light font-weight-bold"
+                <!-- <td class="progress-bar progress-bar-striped  text-light font-weight-bold"
                     [ngClass]="{'bg-success': contrat.etat_contrat[contrat.etat_contrat.length-1].libelle == 'Avenant', 'bg-danger': contrat.etat_contrat[contrat.etat_contrat.length-1].libelle == 'Suspension', 'bg-warning': contrat.etat_contrat[contrat.etat_contrat.length-1].libelle == 'Résiliation'}">
-                    {{ contrat.etat_contrat[contrat.etat_contrat.length-1].libelle }} </td>
+                    {{ contrat.etat_contrat[contrat.etat_contrat.length-1].libelle }} </td> -->
                 <td>{{ contrat.numero_contrat }}</td>
                 <td> {{ contrat.Montant_loyer }} </td>
                 <td> {{ contrat.date_debut_loyer | date : 'dd-MM-yyyy' }} </td>
