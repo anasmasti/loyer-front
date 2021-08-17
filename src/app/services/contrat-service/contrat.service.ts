@@ -41,7 +41,7 @@ export class ContratService {
   }
 
   addContrat(formdata: any): Observable<any> {
-    return this.http.post<any>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`, formdata, { headers: this.httpOptions.headers });
+    return this.http.post<any>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`, formdata);
   }
 
   deleteContrat(id: String) {

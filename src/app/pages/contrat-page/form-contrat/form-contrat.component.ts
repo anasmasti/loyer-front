@@ -26,10 +26,6 @@ export class FormContratComponent implements OnInit {
   idContrat: String = '';
   //etat selectionner dans le form
   etat: string = '';
-  //display the alert in success case
-  success: boolean = false;
-  //message displayed on alert
-  msg: string = '';
 
   errors!: string;
   postDone: boolean = false;
@@ -170,6 +166,7 @@ export class FormContratComponent implements OnInit {
     });
 
     this.getFoncier()
+
   }
 
 
@@ -219,19 +216,26 @@ export class FormContratComponent implements OnInit {
   // Get lieux by type
   getLieuxByType(event: any) {
     let typeLieu = event.target.value;
-
+    this.getAllLieux()
     // Select Lieux by type from store
-    if (typeLieu) {
+    if (typeLieu.length !== 0) {
       this.store.select(getLieuxByType, {
         type_lieu: typeLieu
       }).subscribe((data) => {
-        if (data.length === 0) {
-          // Dispatch action to handle the NgRx get lieux from server effect
-          this.store.dispatch(getLieuxAction());
-        }
         this.lieuxByType = data;
       });
     }
+  }
+
+  getAllLieux() {
+    // Select lieux from store
+    this.store.select(getLieux).subscribe((data) => {
+      // Check if lieux data is empty then fetch it from server
+      if (data.length === 0) {
+        // Dispatch action to handle the NgRx get lieux from server effect
+        this.store.dispatch(getLieuxAction());
+      }
+    });
   }
 
   getFoncier() {
@@ -318,7 +322,6 @@ export class FormContratComponent implements OnInit {
           this.contratForm.reset();
           this.postDone = false
           this.help.toTheUp();
-          this.help.refrechPage();
         }, 2000);
       },
       (error) => {
