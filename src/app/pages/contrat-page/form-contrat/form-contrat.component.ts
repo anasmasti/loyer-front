@@ -1,3 +1,4 @@
+import { HelperService } from 'src/app/services/helpers/helper.service';
 import { getLieuxByType } from './../../lieux-page/lieux-store/lieux.selector';
 import { getLieuxAction } from './../../lieux-page/lieux-store/lieux.actions';
 import { AppState } from 'src/app/store/app.state';
@@ -29,6 +30,10 @@ export class FormContratComponent implements OnInit {
   success: boolean = false;
   //message displayed on alert
   msg: string = '';
+
+  errors!: string;
+  postDone: boolean = false;
+  PostSucces: string = 'Contrat ajouté avec succés';
 
   foncier!: any;
   selectedFile!: File;
@@ -80,6 +85,7 @@ export class FormContratComponent implements OnInit {
   constructor(
     private contratService: ContratService,
     private mainModalService: MainModalService,
+    private help: HelperService,
     private store: Store<AppState>
   ) { }
 
@@ -166,7 +172,7 @@ export class FormContratComponent implements OnInit {
     this.getFoncier()
   }
 
- 
+
 
   checkRetenue() {
     let montantLoyerForYear = (this.montantLoyer * 12)
@@ -234,23 +240,7 @@ export class FormContratComponent implements OnInit {
         this.store.dispatch(getFoncierAction());
       }
       this.foncier = data
-      console.log("foncier ==> ", this.foncier)
     })
-  }
-  
-  alertOn(action: string) {
-    if (action == 'update') {
-      this.msg = 'Cette contrat est modifiée avec succées !';
-    } else if (action == 'add') {
-      this.msg = 'Contrat ajoutée avec succées !';
-    }
-    this.success = true;
-    setTimeout(() => {
-      window.scroll(0, 0);
-    }, 100);
-    setTimeout(() => {
-      this.success = false;
-    }, 5000);
   }
 
   ShowEtat() {
@@ -262,8 +252,8 @@ export class FormContratComponent implements OnInit {
   //----------------- Ajouter nouveau Contrat Functions ----------------------------------------------------------------------------
 
 
-   //Upload Image amenagement avant amenagement
-   onFileSelected(event: any) {
+  //Upload Image amenagement avant amenagement
+  onFileSelected(event: any) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
       this.fd.append('piece_joint_contrat', this.selectedFile);
@@ -297,21 +287,21 @@ export class FormContratComponent implements OnInit {
       N_engagement_depense: this.contratForm.get('Nengagement_dépense')?.value,
       lieu: this.contratForm.get('lieu')?.value,
       duree_location: this.contratForm.get('duree_location')?.value,
-  
+
       // //etat de contrat
       // etat_contrat: this.contratForm.get('etat_contrat')?.value,
-      
+
       // //AVENANT
       // N_avenant: this.etatContrat.get('N_avenant')?.value,
       // motif: this.etatContrat.get('motif')?.value,
       // montant_new_loyer: this.etatContrat.get('montant_new_loyer')?.value,
       // signaletique_successeur: this.etatContrat.get('signaletique_successeur')?.value,
-  
+
       // //SUSPENSION
       // date_suspension: this.etatContrat.get('date_suspension')?.value,
       // duree_suspension: this.etatContrat.get('duree_suspension')?.value,
       // motif_suspension: this.etatContrat.get('motif_suspension')?.value,
-  
+
       // //RESILIATION
       // date_resiliation: this.etatContrat.get('date_resiliation')?.value,
       // reprise_caution: this.etatContrat.get('reprise_caution')?.value,
@@ -321,15 +311,35 @@ export class FormContratComponent implements OnInit {
 
     this.fd.append('data', JSON.stringify(ctr_data));
 
-    this.contratService.addContrat(this.fd).subscribe((data: any) => {
-     // this.fd = data;
-      console.log("form data ===> ",data);
-      
-      setTimeout(() => {
-        this.contratForm.reset();
-      }, 500);
-    });
+    this.contratService.addContrat(this.fd).subscribe(
+      (_) => {
+        this.postDone = true;
+        setTimeout(() => {
+          this.contratForm.reset();
+          this.postDone = false
+          this.help.toTheUp();
+          this.help.refrechPage();
+        }, 2000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+    );
   }
+
+  // Afficher le message d'erreur de serveur
+  showErrorMessage() {
+    $('.error-alert').addClass('active');
+  }
+  // hide le message d'erreur de serveur
+  hideErrorMessage() {
+    $('.error-alert').removeClass('active');
+  }
+
 
   //----------------- FIN Ajouter nouveau Contrat Functions -------------------------------------------------------------------------------
 
