@@ -285,8 +285,8 @@ export class FormContratComponent implements OnInit {
     this.fd.append('data', JSON.stringify(ctr_data));
 
     this.contratService.addContrat(this.fd).subscribe((data: any) => {
-      this.fd = data;
-      console.log("form data ===> ",this.fd);
+     // this.fd = data;
+      console.log("form data ===> ",data);
       
       setTimeout(() => {
         this.contratForm.reset();

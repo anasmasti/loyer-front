@@ -10,7 +10,7 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Pièce jointe</label>
-        <input type="file" class="form-control btn success-btn" formControlName="piece_jointe" (change)="onFileSelected($event)"/>
+        <input type="file" class="form-control btn success-btn" formControlName="piece_jointe" accept=".zip" (change)="onFileSelected($event)"/>
       </div>
 
       <div class="col-lg-3 form-group mt-4">
