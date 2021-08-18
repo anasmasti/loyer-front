@@ -10,6 +10,8 @@
     <!-- alert de reussite -->
     <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
 
+    <div *ngIf="updateDone" class="done-alert p-2 my-2">{{ updateSucces }}</div>
+
     <!--Début 1er Row-->
     <div class="row">
 
@@ -21,14 +23,13 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date de début du loyer</label>
-        <input type="date" class="form-control rounded-pill" [ngModel]="date_debut_loyer | date:'yyyy-MM-dd'"
-          formControlName="date_debut_loyer" />
+        <input type="date" class="form-control rounded-pill" formControlName="date_debut_loyer" />
 
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Montant du loyer</label>
-        <input type="number" [(ngModel)]="montantLoyer" (keyup)="generateMontant()" class="form-control rounded-pill"
+        <input type="number" [(ngModel)]="montantLoyer" (keyup)="calculMontant()" class="form-control rounded-pill"
           formControlName="montant_loyer" />
       </div>
 
@@ -57,13 +58,12 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date fin de contrat de bail</label>
-        <input type="date" class="form-control rounded-pill" [ngModel]="date_fin_contrat | date:'yyyy-MM-dd'"
-          formControlName="date_fin_contrat">
+        <input type="date" class="form-control rounded-pill" formControlName="date_fin_contrat">
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Déclaration d’option</label>
-        <select class="form-control rounded-pill" (change)="generateMontant()" [(ngModel)]="hasDeclarationOption"
+        <select class="form-control rounded-pill" (change)="calculMontant()" [(ngModel)]="hasDeclarationOption"
           formControlName="declaration_option">
           <option value="oui">Oui</option>
           <option value="non">Non</option>
@@ -99,8 +99,7 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date de reprise de la caution</label>
-        <input type="date" class="form-control rounded-pill" [ngModel]="date_reprise_caution | date:'yyyy-MM-dd'"
-          formControlName="date_reprise_caution">
+        <input type="date" class="form-control rounded-pill" formControlName="date_reprise_caution">
       </div>
 
       <div class="col-lg-3 form-group mt-4">
@@ -115,14 +114,12 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date fin de l’avance</label>
-        <input type="date" class="form-control rounded-pill" [ngModel]="date_fin_avance | date:'yyyy-MM-dd'"
-          formControlName="date_fin_avance">
+        <input type="date" class="form-control rounded-pill" formControlName="date_fin_avance">
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date 1er paiement</label>
-        <input type="date" class="form-control rounded-pill" [ngModel]="date_1er_paiement | date:'yyyy-MM-dd'"
-          formControlName="date_1er_paiement">
+        <input type="date" class="form-control rounded-pill" formControlName="date_1er_paiement">
       </div>
 
       <div class="col-lg-3 form-group mt-4">
@@ -141,157 +138,225 @@
       </div>
 
       <!-- ____________ -->
+      <div *ngIf="update" class="mt-5">
+        <div class="row">
+          <div class="col-lg-6 main-card px-5 py-2">
+            <div class="row">
+              <div class="col-8">
+                <h3>Foncier sélèctionné</h3>
+              </div>
+              <div class="col-4">
+                <a class="btn btn-sm success-btn" (click)="updateFoncier = true"><i class="fal fa-edit"></i></a>
+                <a *ngIf="updateFoncier" class="btn btn-sm danger-btn ms-2" (click)="updateFoncier = false">Annuler</a>
+              </div>
+            </div>
 
-      <div class="col-lg-3 form-group mt-4">
-        <label for="">Foncier</label>
-        <select class="form-control rounded-pill" formControlName="foncier">
-          <option *ngFor="let fc of foncier" [value]="fc._id"> {{ fc.adresse }} </option>
+            <div *ngIf="!updateFoncier" class="row mt-2">
+              <p><strong>Adresse : </strong>&nbsp; {{ contrat.foncier?.adresse }}</p>
+            </div>
 
-        </select>
+            <div *ngIf="updateFoncier" class="col-lg-3 form-group mt-2">
+              <label for="">Sélectionner un foncier</label>
+              <select class="form-control rounded-pill" formControlName="foncier">
+                <option *ngFor="let fc of foncier" [value]="fc._id"> {{ fc.adresse }} </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-6 main-card px-5 py-2">
+            <div class="row">
+              <div class="col-8">
+                <h3>Lieu sélèctionné</h3>
+              </div>
+              <div class="col-4">
+                <a class="btn btn-sm success-btn" (click)="updateLieu = true"><i class="fal fa-edit"></i></a>
+                <a *ngIf="updateLieu" class="btn btn-sm danger-btn ms-2" (click)="updateLieu = false">Annuler</a>
+              </div>
+            </div>
+
+            <div *ngIf="!updateLieu" class="row mt-2">
+              <p><strong>Intitulé : </strong>&nbsp; {{ contrat.lieu?.intitule_lieu }}</p>
+            </div>
+
+            <div *ngIf="updateLieu" class="row mt-2">
+              <div class="col-lg-3 form-group">
+                <label for="">Type de lieu</label>
+                <select class="form-control rounded-pill" (change)='getLieuxByType($event)' formControlName="type_lieu">
+                  <option value="" selected="true" disabled default="true"> Sélectionner un type </option>
+                  <option *ngFor="let type of typeLieuList" [value]="type.type"> {{ type.type }} </option>
+                </select>
+              </div>
+
+              <div class="col-lg-3 form-group">
+                <label for="">Sélectionner un lieu</label>
+                <select class="form-control rounded-pill" formControlName="lieu">
+                  <option *ngFor="let lieuByType of lieuxByType" [value]="lieuByType._id">
+                    {{ lieuByType.intitule_lieu }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="col-lg-3 form-group mt-4">
-        <label for="">Type de lieu</label>
-        <select class="form-control rounded-pill" (change)='getLieuxByType($event)' formControlName="type_lieu">
-          <option *ngFor="let type of typeLieuList" [value]="type.type"> {{ type.type }} </option>
-        </select>
+      <div *ngIf="!update">
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Foncier</label>
+          <select class="form-control rounded-pill" formControlName="foncier">
+            <option *ngFor="let fc of foncier" [value]="fc._id"> {{ fc.adresse }} </option>
+          </select>
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Type de lieu</label>
+          <select class="form-control rounded-pill" (change)='getLieuxByType($event)' formControlName="type_lieu">
+            <option *ngFor="let type of typeLieuList" [value]="type.type"> {{ type.type }} </option>
+          </select>
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Lieu</label>
+          <select class="form-control rounded-pill" formControlName="lieu">
+            <option *ngFor="let lieuByType of lieuxByType" [value]="lieuByType._id"> {{ lieuByType.intitule_lieu }}
+            </option>
+          </select>
+        </div>
       </div>
 
-      <div class="col-lg-3 form-group mt-4">
-        <label for="">Lieu</label>
-        <select class="form-control rounded-pill" formControlName="lieu">
-          <option *ngFor="let lieuByType of lieuxByType" [value]="lieuByType._id"> {{ lieuByType.intitule_lieu }}
-          </option>
-
+      <div *ngIf="update" class="col-lg-3 form-group mt-5">
+        <label for="">Etat de contrat</label>
+        <select class="form-control rounded-pill" formControlName="etat_contrat_libelle"
+          (change)="showEtatSection($event)">
+          <option value="Avenant">Avenant</option>
+          <option value="Suspension">Suspension</option>
+          <option value="Résiliation">Résiliation</option>
         </select>
       </div>
 
       <div class="mt-4">
         <div class="form-box mt-4">
-          <div *ngIf="etat_contrat == 'Avenant'; then AV"></div>
-          <div *ngIf="etat_contrat == 'Suspension'; then SUS"></div>
-          <div *ngIf="etat_contrat == 'Résiliation'; then RES"></div>
+          <div *ngIf="etatContratTypes == 'Avenant'; then AV"></div>
+          <div *ngIf="etatContratTypes == 'Suspension'; then SUS"></div>
+          <div *ngIf="etatContratTypes == 'Résiliation'; then RES"></div>
         </div>
       </div>
 
-      <form [formGroup]="etatContrat">
-        <!-- Template Avenant start -->
-        <ng-template #AV>
-          <h6><u>Etat du contrat: Avenant</u></h6>
-          <div class="row">
 
-            <div class="col-lg-3 form-group mt-4">
-              <label for="">N° Avenant</label>
-              <input type="text" class="form-control rounded-pill" formControlName="N_avenant">
-            </div>
+      <!-- Template Avenant start -->
+      <ng-template #AV>
+        <h6><u>Etat du contrat: Avenant</u></h6>
+        <div class="row">
 
-            <div class="col-lg-3 form-group mt-4">
-              <label for="">Pièce jointe</label>
-              <input type="file" class="form-control rounded-pill btn success-btn" formControlName="piece_joint_av"
-                multiple>
-            </div>
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">N° Avenant</label>
+            <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_n_avenant">
+          </div>
 
-            <div class="col-lg-3 form-group mt-4">
-              <label for="">Motif</label>
-              <input type="text" class="form-control rounded-pill" formControlName="motif">
-            </div>
-
-            <div class="col-lg-3 form-group mt-4">
-              <label for="">Montant du nouveau loyer</label>
-              <input type="number" class="form-control rounded-pill" formControlName="montant_new_loyer">
-            </div>
-
-            <div class="col-lg-3 form-group mt-4">
-              <label for="">Signalétique du successeur</label>
-              <input type="text" class="form-control rounded-pill" formControlName="signaletique_successeur">
-            </div>
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Pièce jointe</label>
+            <input type="file" class="form-control rounded-pill btn success-btn"
+              formControlName="etat_contrat_piece_jointe_avenant" accept=".zip" (change)="onFileSelectedAvenant($event)">
 
           </div>
 
-        </ng-template>
-        <!-- Template Avenant end -->
-
-        <!-- Template Suspension start -->
-        <ng-template #SUS>
-
-          <h6><u>Etat du contrat: Suspension</u></h6>
-          <div class="row">
-            <div class="col-lg-3 form-group mt-4">
-              <label for="">Intitulé de lieu</label>
-              <input type="text" class="form-control rounded-pill" formControlName="intitule_lieu_sus">
-            </div>
-
-            <div class="col-lg-3 form-group mt-4">
-              <label for="">Date de suspension</label>
-              <input type="date" class="form-control rounded-pill" [ngModel]="date_suspension | date:'yyyy-MM-dd'"
-                formControlName="date_suspension">
-            </div>
-
-            <div class="col-lg-3 form-group mt-4">
-              <label for="">Durée de suspension</label>
-              <input type="number" class="form-control rounded-pill" formControlName="duree_suspension">
-            </div>
-
-            <div class="col-lg-3 form-group mt-4">
-              <label for="">Motif de suspension</label>
-              <input type="text" class="form-control rounded-pill" formControlName="motif_suspension">
-            </div>
-
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Motif</label>
+            <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_motif">
           </div>
 
-        </ng-template>
-        <!-- Template Suspension end -->
-
-        <!-- Template Resiliation start -->
-        <ng-template #RES>
-
-          <h6><u>Etat du contrat: Résiliation</u></h6>
-
-          <div class="row">
-            <div class="col-lg-3 form-group mt-4">
-              <label for="">Intitulé de lieu</label>
-              <input type="text" class="form-control rounded-pill" formControlName="intitule_lieu_res">
-            </div>
-
-            <div class="col-lg-3 form-group mt-4">
-              <label for="">Reprise caution</label>
-              <input type="text" class="form-control rounded-pill" formControlName="reprise_caution">
-            </div>
-
-            <div class="col-lg-3 form-group mt-4">
-              <label for="">Date de résiliation</label>
-              <input type="date" class="form-control rounded-pill" [ngModel]="date_resiliation | date:'yyyy-MM-dd'"
-                formControlName="date_resiliation">
-            </div>
-
-            <div class="col-lg-3 form-group mt-4">
-              <label for="">Etat des lieux de sortie</label>
-              <input type="text" class="form-control rounded-pill" formControlName="etat_lieux_sortie">
-            </div>
-
-            <div class="col-lg-3 form-group mt-4">
-              <label for="">Images d'état des lieux de sortie</label>
-              <input type="file" class="form-control btn success-btn" formControlName="images_lieux_sortie" multiple>
-            </div>
-
-            <div class="col-lg-3 form-group mt-4">
-              <label for="">Préavis</label>
-              <input type="text" class="form-control rounded-pill" formControlName="preavis">
-            </div>
-
-            <div class="col-lg-3 form-group mt-4">
-              <label for="">Piéce jointe (la lettre de résiliation scannée)</label>
-              <input type="file" class="form-control btn success-btn" formControlName="lettre_resiliation_scannee"
-                multiple>
-            </div>
-
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Montant du nouveau loyer</label>
+            <input type="number" class="form-control rounded-pill" formControlName="etat_contrat_montant_nouveau_loyer">
           </div>
 
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Signalétique du successeur</label>
+            <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_signaletique_successeur">
+          </div>
 
+        </div>
 
-        </ng-template>
-        <!-- Template Resiliation end -->
-      </form>
+      </ng-template>
+      <!-- Template Avenant end -->
+
+      <!-- Template Suspension start -->
+      <ng-template #SUS>
+
+        <h6><u>Etat du contrat: Suspension</u></h6>
+        <div class="row">
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Intitulé de lieu</label>
+            <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_intitule_lieu">
+          </div>
+
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Date de suspension</label>
+            <input type="date" class="form-control rounded-pill" formControlName="etat_contrat_date_suspension">
+          </div>
+
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Durée de suspension</label>
+            <input type="number" class="form-control rounded-pill" formControlName="etat_contrat_duree_suspension">
+          </div>
+
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Motif de suspension</label>
+            <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_motif_suspension">
+          </div>
+
+        </div>
+
+      </ng-template>
+      <!-- Template Suspension end -->
+
+      <!-- Template Resiliation start -->
+      <ng-template #RES>
+
+        <h6>Etat du contrat: Résiliation</h6>
+
+        <div class="row">
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Intitulé de lieu</label>
+            <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_intitule_lieu">
+          </div>
+
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Reprise caution</label>
+            <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_reprise_caution">
+          </div>
+
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Date de résiliation</label>
+            <input type="date" class="form-control rounded-pill" formControlName="etat_contrat_date_resiliation">
+          </div>
+
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Etat des lieux de sortie</label>
+            <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_etat_lieu_sortie">
+          </div>
+
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Images d'état des lieux de sortie</label>
+            <input type="file" class="form-control btn success-btn"
+              formControlName="etat_contrat_images_etat_res_lieu_sortie" accept=".zip"
+              (change)="onFileSelectedResLieuSortie($event)">
+          </div>
+
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Préavis</label>
+            <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_preavis">
+          </div>
+
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Piéce jointe (la lettre de résiliation scannée)</label>
+            <input type="file" class="form-control btn success-btn"
+              formControlName="etat_contrat_lettre_res_piece_jointe" accept=".zip" (change)="onFileSelectedLettreRes($event)">
+          </div>
+
+        </div>
+      </ng-template>
+      <!-- Template Resiliation end -->
+
 
     </div>
 
@@ -299,12 +364,10 @@
 
     <!-- Button Ajouter -->
     <div class="form-group mt-4 col-lg-2 d-flex">
-      <button *ngIf="!update" type="submit" id="Ajouter" class="btn second-btn form-control"
-        (click)="addNewContrat();">
+      <button *ngIf="!update" type="submit" id="Ajouter" class="btn second-btn form-control" (click)="addNewContrat();">
         Ajouter
       </button>
-      <button *ngIf="update" type="submit" id="Modifier" class="btn second-btn form-control"
-        (click)="updateContrat();">
+      <button *ngIf="update" type="submit" id="Modifier" class="btn second-btn form-control" (click)="updateContrat();">
         Modifier
       </button>
     </div>

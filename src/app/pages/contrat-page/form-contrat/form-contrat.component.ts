@@ -30,6 +30,8 @@ export class FormContratComponent implements OnInit {
   errors!: string;
   postDone: boolean = false;
   PostSucces: string = 'Contrat ajouté avec succés';
+  updateDone: boolean = false;
+  updateSucces: string = 'Contrat modifié avec succés';
 
   foncier!: any;
   selectedFile!: File;
@@ -42,19 +44,8 @@ export class FormContratComponent implements OnInit {
   tauxImpot: number = 0
 
   contratForm!: FormGroup
-  etatContrat!: FormGroup
 
-  date_debut_loyer!: Date;
-  date_fin_contrat!: Date;
-  date_fin_avance!: Date;
-  date_reprise_caution!: Date;
-  date_1er_paiement!: Date;
-  etat_contrat!: String;
-  date_resiliation!: Date;
-  date_suspension!: Date;
-  updatedContrat: any = {};
-  NvEtatContrat: any = {};
-  oldEtatContrat: any = {};
+  etatContratTypes!: string
 
   typeLieuList: any = [
     {
@@ -74,6 +65,9 @@ export class FormContratComponent implements OnInit {
     }
   ]
   lieuxByType: any = []
+
+  updateLieu: boolean = false
+  updateFoncier: boolean = false
 
   constructor(
     private contratService: ContratService,
@@ -115,35 +109,30 @@ export class FormContratComponent implements OnInit {
       foncier: new FormControl(),
       type_lieu: new FormControl(),
       lieu: new FormControl(),
-      etat_contrat: new FormControl(),
-    });
 
-    this.etatContrat = new FormGroup({
-      //AVENANT
-      N_avenant: new FormControl(),
-      piece_joint_av: new FormControl(),
-      motif: new FormControl(),
-      montant_new_loyer: new FormControl(),
-      signaletique_successeur: new FormControl(),
-      //SUSPENSION
-      intitule_lieu_sus: new FormControl(),
-      date_suspension: new FormControl(),
-      duree_suspension: new FormControl(),
-      motif_suspension: new FormControl(),
-      //RESILIATION
-      intitule_lieu_res: new FormControl(),
-      reprise_caution: new FormControl(),
-      date_resiliation: new FormControl(),
-      etat_lieux_sortie: new FormControl(),
-      images_lieux_sortie: new FormControl(),
-      preavis: new FormControl(),
-      lettre_resiliation_scannee: new FormControl(),
+      // Etat
+      etat_contrat_libelle: new FormControl(),
+      etat_contrat_n_avenant: new FormControl(),
+      etat_contrat_motif: new FormControl(),
+      etat_contrat_montant_nouveau_loyer: new FormControl(),
+      etat_contrat_signaletique_successeur: new FormControl(),
+      etat_contrat_intitule_lieu: new FormControl(),
+      etat_contrat_date_suspension: new FormControl(),
+      etat_contrat_duree_suspension: new FormControl(),
+      etat_contrat_motif_suspension: new FormControl(),
+      etat_contrat_reprise_caution: new FormControl(),
+      etat_contrat_date_resiliation: new FormControl(),
+      etat_contrat_etat_lieu_sortie: new FormControl(),
+      etat_contrat_preavis: new FormControl(),
+      etat_contrat_images_etat_res_lieu_sortie: new FormControl(),
+      etat_contrat_lettre_res_piece_jointe: new FormControl(),
+      etat_contrat_piece_jointe_avenant: new FormControl(),
     });
 
     this.getFoncier()
   }
 
-  generateMontant() {
+  calculMontant() {
     let montantLoyerForYear = (this.montantLoyer * 12)
     let tauxImpot: number = 0
     let montantApresImpot: number = 0
@@ -218,8 +207,9 @@ export class FormContratComponent implements OnInit {
     })
   }
 
-  ShowEtat() {
-    this.etat_contrat = this.contratForm.value.etat_contrat;
+  showEtatSection(event: any) {
+    let selectedEtat = event.target.value
+    this.etatContratTypes = selectedEtat
   }
 
   //----------------- FIN update && post  -------------------------------------------------------------------------------------------------
@@ -227,11 +217,35 @@ export class FormContratComponent implements OnInit {
   //----------------- Ajouter nouveau Contrat Functions ----------------------------------------------------------------------------
 
 
-  //Upload Image amenagement avant amenagement
+  //Upload Image piece joint contrat
   onFileSelected(event: any) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
       this.fd.append('piece_joint_contrat', this.selectedFile);
+    }
+  }
+
+   //Upload Image piece joint avenant
+   onFileSelectedAvenant(event: any) {
+    if (event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
+      this.fd.append('piece_jointe_avenant', this.selectedFile);
+    }
+  }
+
+   //Upload Image image lieu sortie resiliation
+   onFileSelectedResLieuSortie(event: any) {
+    if (event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
+      this.fd.append('images_etat_res_lieu_sortie', this.selectedFile);
+    }
+  }
+
+   //Upload Image lettre resiliation
+   onFileSelectedLettreRes(event: any) {
+    if (event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
+      this.fd.append('lettre_res_piece_jointe', this.selectedFile);
     }
   }
 
@@ -262,27 +276,6 @@ export class FormContratComponent implements OnInit {
       n_engagement_depense: this.contratForm.get('n_engagement_depense')?.value || '',
       lieu: this.contratForm.get('lieu')?.value || '',
       duree_location: this.contratForm.get('duree_location')?.value || '',
-
-
-      // //etat de contrat
-      // etat_contrat: this.contratForm.get('etat_contrat')?.value,
-
-      // //AVENANT
-      // N_avenant: this.etatContrat.get('N_avenant')?.value,
-      // motif: this.etatContrat.get('motif')?.value,
-      // montant_new_loyer: this.etatContrat.get('montant_new_loyer')?.value,
-      // signaletique_successeur: this.etatContrat.get('signaletique_successeur')?.value,
-
-      // //SUSPENSION
-      // date_suspension: this.etatContrat.get('date_suspension')?.value,
-      // duree_suspension: this.etatContrat.get('duree_suspension')?.value,
-      // motif_suspension: this.etatContrat.get('motif_suspension')?.value,
-
-      // //RESILIATION
-      // date_resiliation: this.etatContrat.get('date_resiliation')?.value,
-      // reprise_caution: this.etatContrat.get('reprise_caution')?.value,
-      // etat_lieux_sortie: this.etatContrat.get('etat_lieux_sortie')?.value,
-      // preavis: this.etatContrat.get('preavis')?.value,
     }
 
     this.fd.append('data', JSON.stringify(ctr_data));
@@ -338,11 +331,28 @@ export class FormContratComponent implements OnInit {
         date_premier_paiement: this.contrat.date_premier_paiement,
         duree_avance: this.contrat.duree_avance,
         echeance_revision_loyer: this.contrat.echeance_revision_loyer,
-        foncier: this.contrat.foncier,
-        type_lieu: this.contrat.type_lieu,
+        foncier: this.contrat.foncier?._id,
+        // type_lieu: this.contrat.type_lieu,
         n_engagement_depense: this.contrat.n_engagement_depense,
-        lieu: this.contrat.lieu,
-        duree_location: this.contrat.duree_location
+        lieu: this.contrat.lieu?._id,
+        duree_location: this.contrat.duree_location,
+
+        etat_contrat_libelle: this.contrat.etat_contrat?.libelle,
+        etat_contrat_n_avenant: this.contrat.etat_contrat?.etat?.n_avenant,
+        etat_contrat_motif: this.contrat.etat_contrat?.etat?.motif,
+        etat_contrat_montant_nouveau_loyer: this.contrat.etat_contrat?.etat?.montant_nouveau_loyer,
+        etat_contrat_signaletique_successeur: this.contrat.etat_contrat?.etat?.signaletique_successeur,
+        etat_contrat_intitule_lieu: this.contrat.etat_contrat?.etat?.intitule_lieu,
+        etat_contrat_date_suspension: this.contrat.etat_contrat?.etat?.date_suspension,
+        etat_contrat_duree_suspension: this.contrat.etat_contrat?.etat?.duree_suspension,
+        etat_contrat_motif_suspension: this.contrat.etat_contrat?.etat?.motif_suspension,
+        etat_contrat_reprise_caution: this.contrat.etat_contrat?.etat?.reprise_caution,
+        etat_contrat_date_resiliation: this.contrat.etat_contrat?.etat?.date_resiliation,
+        etat_contrat_etat_lieu_sortie: this.contrat.etat_contrat?.etat?.etat_lieu_sortie,
+        etat_contrat_preavis: this.contrat.etat_contrat?.etat?.preavis,
+        etat_contrat_images_etat_res_lieu_sortie: this.contrat.etat_contrat?.etat?.images_etat_res_lieu_sortie,
+        etat_contrat_lettre_res_piece_jointe: this.contrat.etat_contrat?.etat?.lettre_res_piece_jointe,
+        etat_contrat_piece_jointe_avenant: this.contrat.etat_contrat?.etat?.piece_jointe_avenant,
       });
     }
   }
@@ -377,37 +387,39 @@ export class FormContratComponent implements OnInit {
       lieu: this.contratForm.get('lieu')?.value || '',
       duree_location: this.contratForm.get('duree_location')?.value || '',
 
-
       //etat de contrat
-      etat_contrat: this.contratForm.get('etat_contrat')?.value || '',
+      etat_contrat: {
+        libelle: this.contratForm.get('etat_contrat_libelle')?.value || 'initié',
+        etat: {
+          n_avenant: this.contratForm.get('etat_contrat_n_avenant')?.value || '',
+          motif: this.contratForm.get('etat_contrat_motif')?.value || '',
+          montant_nouveau_loyer: this.contratForm.get('etat_contrat_montant_nouveau_loyer')?.value || '',
+          signaletique_successeur: this.contratForm.get('etat_contrat_signaletique_successeur')?.value || '',
+          intitule_lieu: this.contratForm.get('etat_contrat_intitule_lieu')?.value || '',
+          date_suspension: this.contratForm.get('etat_contrat_date_suspension')?.value || '',
+          duree_suspension: this.contratForm.get('etat_contrat_duree_suspension')?.value || '',
+          motif_suspension: this.contratForm.get('etat_contrat_motif_suspension')?.value || '',
+          reprise_caution: this.contratForm.get('etat_contrat_reprise_caution')?.value || '',
+          date_resiliation: this.contratForm.get('etat_contrat_date_resiliation')?.value || '',
+          etat_lieu_sortie: this.contratForm.get('etat_contrat_etat_lieu_sortie')?.value || '',
+          preavis: this.contratForm.get('etat_contrat_preavis')?.value || '',
+          images_etat_res_lieu_sortie: this.contratForm.get('etat_contrat_images_etat_res_lieu_sortie')?.value || '',
+          lettre_res_piece_jointe: this.contratForm.get('etat_contrat_lettre_res_piece_jointe')?.value || '',
+          piece_jointe_avenant: this.contratForm.get('etat_contrat_piece_jointe_avenant')?.value || '',
+        }
+      }
 
-      //AVENANT
-      N_avenant: this.etatContrat.get('N_avenant')?.value || '',
-      motif: this.etatContrat.get('motif')?.value || '',
-      montant_new_loyer: this.etatContrat.get('montant_new_loyer')?.value || '',
-      signaletique_successeur: this.etatContrat.get('signaletique_successeur')?.value || '',
-
-      //SUSPENSION
-      date_suspension: this.etatContrat.get('date_suspension')?.value || '',
-      duree_suspension: this.etatContrat.get('duree_suspension')?.value || '',
-      motif_suspension: this.etatContrat.get('motif_suspension')?.value || '',
-
-      //RESILIATION
-      date_resiliation: this.etatContrat.get('date_resiliation')?.value || '',
-      reprise_caution: this.etatContrat.get('reprise_caution')?.value || '',
-      etat_lieux_sortie: this.etatContrat.get('etat_lieux_sortie')?.value || '',
-      preavis: this.etatContrat.get('preavis')?.value || '',
     }
 
     this.fd.append('data', JSON.stringify(ctr_data));
 
     this.contratService.updateContrat(id, this.fd).subscribe(
       (_) => {
-        this.postDone = true;
+        this.updateDone = true;
         setTimeout(() => {
-          this.contratForm.reset();
-          this.postDone = false
-          this.help.toTheUp();
+          this.mainModalService.close();
+          this.updateDone = false;
+          this.help.refrechPage();
         }, 2000);
       },
       (error) => {
@@ -418,6 +430,5 @@ export class FormContratComponent implements OnInit {
         this.hideErrorMessage();
       }
     );
-
   }
 }

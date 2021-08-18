@@ -14,8 +14,12 @@ export class DrFormComponent implements OnInit {
   errors!: string;
   hasAmenagement: boolean = false;
   hasAmenagementCheck: string = '';
+
   postDone: boolean = false;
   PostSucces: string = 'Direction régionale ajouté avec succés';
+  updateDone: boolean = false;
+  updateSucces: string = 'Contrat modifié avec succés';
+  
   selectedFile!: File;
   drForm!: FormGroup;
   file!: string;
@@ -465,12 +469,11 @@ export class DrFormComponent implements OnInit {
 
     this.lieuService.updateLieux(id, this.fd).subscribe(
       (_) => {
-        this.postDone = true;
+        this.updateDone = true;
         setTimeout(() => {
           this.drForm.controls;
           this.mainModalService.close();
-          this.drForm.reset();
-          this.postDone = false;
+          this.updateDone = false;
           this.help.refrechPage();
         }, 2000);
       },
