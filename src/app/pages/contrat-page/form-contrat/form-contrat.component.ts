@@ -30,6 +30,8 @@ export class FormContratComponent implements OnInit {
   errors!: string;
   postDone: boolean = false;
   PostSucces: string = 'Contrat ajouté avec succés';
+  updateDone: boolean = false;
+  updateSucces: string = 'Contrat modifié avec succés';
 
   foncier!: any;
   selectedFile!: File;
@@ -75,6 +77,9 @@ export class FormContratComponent implements OnInit {
   ]
   lieuxByType: any = []
 
+  updateLieu: boolean = false
+  updateFoncier: boolean = false
+
   constructor(
     private contratService: ContratService,
     private mainModalService: MainModalService,
@@ -110,7 +115,7 @@ export class FormContratComponent implements OnInit {
       date_fin_avance: new FormControl(),
       date_1er_paiement: new FormControl(),
       duree_avance: new FormControl(),
-      n_engagement_dépense: new FormControl(),
+      n_engagement_depense: new FormControl(),
       echeance_revision_loyer: new FormControl(),
       foncier: new FormControl(),
       type_lieu: new FormControl(),
@@ -259,30 +264,9 @@ export class FormContratComponent implements OnInit {
       echeance_revision_loyer: this.contratForm.get('echeance_revision_loyer')?.value || '',
       foncier: this.contratForm.get('foncier')?.value || '',
       type_lieu: this.contratForm.get('type_lieu')?.value || '',
-      n_engagement_dépense: this.contratForm.get('n_engagement_dépense')?.value || '',
+      n_engagement_depense: this.contratForm.get('n_engagement_depense')?.value || '',
       lieu: this.contratForm.get('lieu')?.value || '',
       duree_location: this.contratForm.get('duree_location')?.value || '',
-
-
-      // //etat de contrat
-      // etat_contrat: this.contratForm.get('etat_contrat')?.value,
-
-      // //AVENANT
-      // N_avenant: this.etatContrat.get('N_avenant')?.value,
-      // motif: this.etatContrat.get('motif')?.value,
-      // montant_new_loyer: this.etatContrat.get('montant_new_loyer')?.value,
-      // signaletique_successeur: this.etatContrat.get('signaletique_successeur')?.value,
-
-      // //SUSPENSION
-      // date_suspension: this.etatContrat.get('date_suspension')?.value,
-      // duree_suspension: this.etatContrat.get('duree_suspension')?.value,
-      // motif_suspension: this.etatContrat.get('motif_suspension')?.value,
-
-      // //RESILIATION
-      // date_resiliation: this.etatContrat.get('date_resiliation')?.value,
-      // reprise_caution: this.etatContrat.get('reprise_caution')?.value,
-      // etat_lieux_sortie: this.etatContrat.get('etat_lieux_sortie')?.value,
-      // preavis: this.etatContrat.get('preavis')?.value,
     }
 
     this.fd.append('data', JSON.stringify(ctr_data));
@@ -338,10 +322,10 @@ export class FormContratComponent implements OnInit {
         date_premier_paiement: this.contrat.date_premier_paiement,
         duree_avance: this.contrat.duree_avance,
         echeance_revision_loyer: this.contrat.echeance_revision_loyer,
-        foncier: this.contrat.foncier,
-        type_lieu: this.contrat.type_lieu,
-        n_engagement_dépense: this.contrat.n_engagement_depense,
-        lieu: this.contrat.lieu,
+        foncier: this.contrat.foncier?._id,
+        // type_lieu: this.contrat.type_lieu,
+        n_engagement_depense: this.contrat.n_engagement_depense,
+        lieu: this.contrat.lieu?._id,
         duree_location: this.contrat.duree_location
       });
     }
@@ -403,10 +387,9 @@ export class FormContratComponent implements OnInit {
 
     this.contratService.updateContrat(id, this.fd).subscribe(
       (_) => {
-        this.postDone = true;
+        this.updateDone = true;
         setTimeout(() => {
-          this.contratForm.reset();
-          this.postDone = false
+          this.updateDone = false
           this.help.toTheUp();
         }, 2000);
       },

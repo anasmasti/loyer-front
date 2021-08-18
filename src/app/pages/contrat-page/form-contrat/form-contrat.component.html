@@ -10,6 +10,8 @@
     <!-- alert de reussite -->
     <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
 
+    <div *ngIf="updateDone" class="done-alert p-2 my-2">{{ updateSucces }}</div>
+
     <!--Début 1er Row-->
     <div class="row">
 
@@ -132,7 +134,7 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">N° d’engagement de la dépense</label>
-        <input type="text" class="form-control rounded-pill" formControlName="n_engagement_dépense">
+        <input type="text" class="form-control rounded-pill" formControlName="n_engagement_depense">
       </div>
 
       <div class="col-lg-3 form-group mt-4">
@@ -141,30 +143,93 @@
       </div>
 
       <!-- ____________ -->
+      <div *ngIf="update" class="mt-5">
+        <div class="row">
+          <div class="col-lg-6 main-card px-5 py-2">
+            <div class="row">
+              <div class="col-9">
+                <h2>Foncier sélèctionné</h2>
+              </div>
+              <div class="col-3">
+                <a class="btn btn-sm success-btn" (click)="updateFoncier = true"><i class="fal fa-edit"></i></a>
+                <a *ngIf="updateFoncier" class="btn btn-sm danger-btn ms-2" (click)="updateFoncier = false">Annuler</a>
+              </div>
+            </div>
 
-      <div class="col-lg-3 form-group mt-4">
-        <label for="">Foncier</label>
-        <select class="form-control rounded-pill" formControlName="foncier">
-          <option *ngFor="let fc of foncier" [value]="fc._id"> {{ fc.adresse }} </option>
+            <div *ngIf="!updateFoncier" class="row mt-2">
+              <h5>Adresse</h5>
+              <p>{{ contrat.foncier?.adresse }}</p>
+            </div>
 
-        </select>
+            <div *ngIf="updateFoncier" class="col-lg-3 form-group mt-2">
+              <label for="">Sélectionner un foncier</label>
+              <select class="form-control rounded-pill" formControlName="foncier">
+                <option *ngFor="let fc of foncier" [value]="fc._id"> {{ fc.adresse }} </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-6 main-card px-5 py-2">
+            <div class="row">
+              <div class="col-9">
+                <h2>Lieu sélèctionné</h2>
+              </div>
+              <div class="col-3">
+                <a class="btn btn-sm success-btn" (click)="updateLieu = true"><i class="fal fa-edit"></i></a>
+                <a *ngIf="updateLieu" class="btn btn-sm danger-btn ms-2" (click)="updateLieu = false">Annuler</a>
+              </div>
+            </div>
+
+            <div *ngIf="!updateLieu" class="row mt-2">
+              <h5>Intitulé</h5>
+              <p>{{ contrat.lieu?.intitule_lieu }}</p>
+            </div>
+
+            <div *ngIf="updateLieu" class="row mt-2">
+              <div class="col-lg-3 form-group">
+                <label for="">Type de lieu</label>
+                <select class="form-control rounded-pill" (change)='getLieuxByType($event)' formControlName="type_lieu">
+                  <option value="" selected="true" disabled default="true"> Sélectionner un type </option>
+                  <option *ngFor="let type of typeLieuList" [value]="type.type"> {{ type.type }} </option>
+                </select>
+              </div>
+
+              <div class="col-lg-3 form-group">
+                <label for="">Sélectionner un lieu</label>
+                <select class="form-control rounded-pill" formControlName="lieu">
+                  <option *ngFor="let lieuByType of lieuxByType" [value]="lieuByType._id">
+                    {{ lieuByType.intitule_lieu }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="col-lg-3 form-group mt-4">
-        <label for="">Type de lieu</label>
-        <select class="form-control rounded-pill" (change)='getLieuxByType($event)' formControlName="type_lieu">
-          <option *ngFor="let type of typeLieuList" [value]="type.type"> {{ type.type }} </option>
-        </select>
+      <div *ngIf="!update">
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Foncier</label>
+          <select class="form-control rounded-pill" formControlName="foncier">
+            <option *ngFor="let fc of foncier" [value]="fc._id"> {{ fc.adresse }} </option>
+          </select>
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Type de lieu</label>
+          <select class="form-control rounded-pill" (change)='getLieuxByType($event)' formControlName="type_lieu">
+            <option *ngFor="let type of typeLieuList" [value]="type.type"> {{ type.type }} </option>
+          </select>
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Lieu</label>
+          <select class="form-control rounded-pill" formControlName="lieu">
+            <option *ngFor="let lieuByType of lieuxByType" [value]="lieuByType._id"> {{ lieuByType.intitule_lieu }}
+            </option>
+          </select>
+        </div>
       </div>
 
-      <div class="col-lg-3 form-group mt-4">
-        <label for="">Lieu</label>
-        <select class="form-control rounded-pill" formControlName="lieu">
-          <option *ngFor="let lieuByType of lieuxByType" [value]="lieuByType._id"> {{ lieuByType.intitule_lieu }}
-          </option>
-
-        </select>
-      </div>
 
       <div class="mt-4">
         <div class="form-box mt-4">
@@ -299,12 +364,10 @@
 
     <!-- Button Ajouter -->
     <div class="form-group mt-4 col-lg-2 d-flex">
-      <button *ngIf="!update" type="submit" id="Ajouter" class="btn second-btn form-control"
-        (click)="addNewContrat();">
+      <button *ngIf="!update" type="submit" id="Ajouter" class="btn second-btn form-control" (click)="addNewContrat();">
         Ajouter
       </button>
-      <button *ngIf="update" type="submit" id="Modifier" class="btn second-btn form-control"
-        (click)="updateContrat();">
+      <button *ngIf="update" type="submit" id="Modifier" class="btn second-btn form-control" (click)="updateContrat();">
         Modifier
       </button>
     </div>

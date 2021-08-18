@@ -6,7 +6,7 @@
             <div class="d-none d-lg-block">
                 <a class="btn btn-sm success-btn" [routerLink]="['/contrat']">
                     <i class="fal fa-plus-octagon"></i> Nouveau contrat
-                  </a>
+                </a>
                 <a class="btn btn-sm second-btn mx-3" (click)="reload()"><i class="far fa-undo-alt"></i>
                     Rafraîchir la liste
                 </a>
@@ -24,8 +24,9 @@
 <div class="main-card bg-white table-responsive-sm p-lg-3 mt-4">
     <div class="col-lg-4 mb-4">
         <label for=""><i class="far fa-search"></i> Recherche</label>
-        <input type="text" [(ngModel)]="findContrat" (input)='search()' class="form-control rounded-pill" placeholder="Rechercher par numéro de contrat..."/>
-      </div>
+        <input type="text" [(ngModel)]="findContrat" (input)='search()' class="form-control rounded-pill"
+            placeholder="Rechercher par numéro de contrat..." />
+    </div>
 
     <table class="table">
         <thead>
@@ -38,15 +39,15 @@
                 <th>Action</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody *ngIf="contrats?.length">
             <tr class="text-center" *ngFor="let contrat of contrats">
                 <!-- <td class="progress-bar progress-bar-striped  text-light font-weight-bold"
                     [ngClass]="{'bg-success': contrat.etat_contrat[contrat.etat_contrat.length-1].libelle == 'Avenant', 'bg-danger': contrat.etat_contrat[contrat.etat_contrat.length-1].libelle == 'Suspension', 'bg-warning': contrat.etat_contrat[contrat.etat_contrat.length-1].libelle == 'Résiliation'}">
                     {{ contrat.etat_contrat[contrat.etat_contrat.length-1].libelle }} </td> -->
-                <td>{{ contrat.numero_contrat }}</td>
+                <td> {{ contrat.numero_contrat }} </td>
                 <td> {{ contrat.montant_loyer }} </td>
                 <td> {{ contrat.date_debut_loyer }} </td>
-                <td> {{ contrat.date_fin_contrat  }} </td>
+                <td> {{ contrat.date_fin_contrat }} </td>
 
                 <td>
                     <div class="d-inline">
@@ -76,6 +77,13 @@
                 </div>
             </app-confirmation-modal>
 
+        </tbody>
+
+        <tbody *ngIf="!contrats?.length" class="w-100 d-flex align-items-center">
+            <h5 class="main-muted-text my-4">Aucun contrat à afficher</h5>
+            <a class="btn btn-sm second-btn ms-2" [routerLink]="['/contrat']">
+                + Nouveau contrat
+            </a>
         </tbody>
     </table>
 </div>
