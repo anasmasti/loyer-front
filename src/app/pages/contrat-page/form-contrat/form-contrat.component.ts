@@ -350,9 +350,9 @@ export class FormContratComponent implements OnInit {
         etat_contrat_date_resiliation: this.contrat.etat_contrat?.etat?.date_resiliation,
         etat_contrat_etat_lieu_sortie: this.contrat.etat_contrat?.etat?.etat_lieu_sortie,
         etat_contrat_preavis: this.contrat.etat_contrat?.etat?.preavis,
-        etat_contrat_images_etat_res_lieu_sortie: this.contrat.etat_contrat?.etat?.images_etat_res_lieu_sortie,
-        etat_contrat_lettre_res_piece_jointe: this.contrat.etat_contrat?.etat?.lettre_res_piece_jointe,
-        etat_contrat_piece_jointe_avenant: this.contrat.etat_contrat?.etat?.piece_jointe_avenant,
+        // etat_contrat_images_etat_res_lieu_sortie: this.contrat.etat_contrat?.etat?.images_etat_res_lieu_sortie,
+        // etat_contrat_lettre_res_piece_jointe: this.contrat.etat_contrat?.etat?.lettre_res_piece_jointe,
+        // etat_contrat_piece_jointe_avenant: this.contrat.etat_contrat?.etat?.piece_jointe_avenant,
       });
     }
   }
