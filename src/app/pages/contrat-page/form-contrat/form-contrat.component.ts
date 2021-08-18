@@ -110,7 +110,7 @@ export class FormContratComponent implements OnInit {
       date_fin_avance: new FormControl(),
       date_1er_paiement: new FormControl(),
       duree_avance: new FormControl(),
-      n_engagement_dépense: new FormControl(),
+      n_engagement_depense: new FormControl(),
       echeance_revision_loyer: new FormControl(),
       foncier: new FormControl(),
       type_lieu: new FormControl(),
@@ -259,7 +259,7 @@ export class FormContratComponent implements OnInit {
       echeance_revision_loyer: this.contratForm.get('echeance_revision_loyer')?.value || '',
       foncier: this.contratForm.get('foncier')?.value || '',
       type_lieu: this.contratForm.get('type_lieu')?.value || '',
-      n_engagement_dépense: this.contratForm.get('n_engagement_dépense')?.value || '',
+      n_engagement_depense: this.contratForm.get('n_engagement_depense')?.value || '',
       lieu: this.contratForm.get('lieu')?.value || '',
       duree_location: this.contratForm.get('duree_location')?.value || '',
 
@@ -340,7 +340,7 @@ export class FormContratComponent implements OnInit {
         echeance_revision_loyer: this.contrat.echeance_revision_loyer,
         foncier: this.contrat.foncier,
         type_lieu: this.contrat.type_lieu,
-        n_engagement_dépense: this.contrat.n_engagement_depense,
+        n_engagement_depense: this.contrat.n_engagement_depense,
         lieu: this.contrat.lieu,
         duree_location: this.contrat.duree_location
       });
@@ -373,7 +373,7 @@ export class FormContratComponent implements OnInit {
       echeance_revision_loyer: this.contratForm.get('echeance_revision_loyer')?.value || '',
       foncier: this.contratForm.get('foncier')?.value || '',
       type_lieu: this.contratForm.get('type_lieu')?.value || '',
-      n_engagement_depense: this.contratForm.get('n_engagement_dépense')?.value || '',
+      n_engagement_depense: this.contratForm.get('n_engagement_depense')?.value || '',
       lieu: this.contratForm.get('lieu')?.value || '',
       duree_location: this.contratForm.get('duree_location')?.value || '',
 
