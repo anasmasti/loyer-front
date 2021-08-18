@@ -199,7 +199,7 @@
         </div>
       </div>
 
-      <div *ngIf="!update">
+      <div *ngIf="!update" class="row">
         <div class="col-lg-3 form-group mt-4">
           <label for="">Foncier</label>
           <select class="form-control rounded-pill" formControlName="foncier">
@@ -234,7 +234,7 @@
       </div>
 
       <div class="mt-4">
-        <div class="form-box mt-4">
+        <div class="form-box mt-2">
           <div *ngIf="etatContratTypes == 'Avenant'; then AV"></div>
           <div *ngIf="etatContratTypes == 'Suspension'; then SUS"></div>
           <div *ngIf="etatContratTypes == 'Résiliation'; then RES"></div>
@@ -244,7 +244,7 @@
 
       <!-- Template Avenant start -->
       <ng-template #AV>
-        <h6><u>Etat du contrat: Avenant</u></h6>
+        <h6>Etat du contrat: &nbsp;<span>Avenant</span></h6>
         <div class="row">
 
           <div class="col-lg-3 form-group mt-4">
@@ -282,7 +282,7 @@
       <!-- Template Suspension start -->
       <ng-template #SUS>
 
-        <h6><u>Etat du contrat: Suspension</u></h6>
+        <h6>Etat du contrat: &nbsp;<span>Suspension</span></h6>
         <div class="row">
           <div class="col-lg-3 form-group mt-4">
             <label for="">Intitulé de lieu</label>
@@ -312,7 +312,7 @@
       <!-- Template Resiliation start -->
       <ng-template #RES>
 
-        <h6>Etat du contrat: Résiliation</h6>
+        <h6>Etat du contrat: &nbsp;<span>Résiliation</span></h6>
 
         <div class="row">
           <div class="col-lg-3 form-group mt-4">
@@ -363,7 +363,7 @@
 
 
     <!-- Button Ajouter -->
-    <div class="form-group mt-4 col-lg-2 d-flex">
+    <div class="form-group mt-5 col-lg-2 d-flex">
       <button *ngIf="!update" type="submit" id="Ajouter" class="btn second-btn form-control" (click)="addNewContrat();">
         Ajouter
       </button>

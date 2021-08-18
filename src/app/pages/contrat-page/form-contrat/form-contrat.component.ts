@@ -297,8 +297,7 @@ export class FormContratComponent implements OnInit {
         this.hideErrorMessage();
       }
     );
-  }
-  ;
+  };
   // Afficher le message d'erreur de serveur
   showErrorMessage() {
     $('.error-alert').addClass('active');
