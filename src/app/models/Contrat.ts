@@ -7,7 +7,7 @@ export interface Contrat {
   date_reprise_caution: Date;
   date_fin_avance: Date;
   date_premier_paiement: Date;
-  Montant_loyer: number;
+  montant_loyer: number;
   taxe_edilite_loyer: string;
   taxe_edilite_non_loyer: string;
   periodicite_paiement: string;
@@ -21,7 +21,7 @@ export interface Contrat {
   statut_caution: string;
   montant_avance: number;
   duree_avance: number;
-  N_engagement_depense: string;
+  n_engagement_depense: string;
   echeance_revision_loyer: string;
   type_lieu: string;
   lieu: string;

@@ -28,7 +28,7 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Montant du loyer</label>
-        <input type="number" [(ngModel)]="montantLoyer" (keyup)="checkRetenue()" class="form-control rounded-pill"
+        <input type="number" [(ngModel)]="montantLoyer" (keyup)="generateMontant()" class="form-control rounded-pill"
           formControlName="montant_loyer" />
       </div>
 
@@ -63,7 +63,7 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Déclaration d’option</label>
-        <select class="form-control rounded-pill" (change)="checkRetenue()" [(ngModel)]="hasDeclarationOption"
+        <select class="form-control rounded-pill" (change)="generateMontant()" [(ngModel)]="hasDeclarationOption"
           formControlName="declaration_option">
           <option value="oui">Oui</option>
           <option value="non">Non</option>
@@ -132,7 +132,7 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">N° d’engagement de la dépense</label>
-        <input type="text" class="form-control rounded-pill" formControlName="Nengagement_dépense">
+        <input type="text" class="form-control rounded-pill" formControlName="n_engagement_dépense">
       </div>
 
       <div class="col-lg-3 form-group mt-4">
@@ -299,14 +299,14 @@
 
     <!-- Button Ajouter -->
     <div class="form-group mt-4 col-lg-2 d-flex">
-      <button *ngIf="!formType" type="submit" id="Ajouter" class="btn second-btn form-control"
+      <button *ngIf="!update" type="submit" id="Ajouter" class="btn second-btn form-control"
         (click)="addNewContrat();">
         Ajouter
       </button>
-      <!-- <button *ngIf="formType" type="submit" id="Modifier" class="btn second-btn form-control"
-        (click)="updateContrat();alertOn('update'); closeModal()">
+      <button *ngIf="update" type="submit" id="Modifier" class="btn second-btn form-control"
+        (click)="updateContrat();">
         Modifier
-      </button> -->
+      </button>
     </div>
   </form>
   <!-- Fin de formulaire-->
