@@ -47,4 +47,6 @@ export interface Contrat {
     };
   };
   deleted: boolean;
+  validation1_DMG: boolean,
+  validation2_DAJC: boolean
 }

@@ -1,5 +1,5 @@
 import { HelperService } from './../../../services/helpers/helper.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Contrat } from 'src/app/models/Contrat';
 import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
 import { ContratService } from 'src/app/services/contrat-service/contrat.service';
@@ -16,6 +16,9 @@ export class ListContratComponent implements OnInit {
   id: string = '0';
   targetContrat: Contrat[] = [];
   findContrat!: string;
+  
+  isValidate!: boolean;
+  isValidate2!: boolean;
 
   constructor(
     private contratService: ContratService,
@@ -29,6 +32,8 @@ export class ListContratComponent implements OnInit {
       this.getContrat();
 
     }, 200);
+
+   
 
   }
 
@@ -50,12 +55,27 @@ export class ListContratComponent implements OnInit {
   }
 
   openEditModal(SelectedContrat: any) {
-
     this.mainModalService.open();
     this.targetContrat = SelectedContrat;
   }
 
   openConfirmationModal(id: string) {
+    this.isValidate = false;
+    this.isValidate2 = false;
+    this.id = id;
+    this.confirmationModalService.open(); // Open delete confirmation modal
+  }
+
+  openConfirmationModalValidation1(id: string) {
+    this.isValidate2 = false;
+    this.isValidate = true;
+    this.id = id;
+    this.confirmationModalService.open(); // Open delete confirmation modal
+  }
+
+  openConfirmationModalValidation2(id: string) {
+    this.isValidate = false;
+    this.isValidate2 = true;
     this.id = id;
     this.confirmationModalService.open(); // Open delete confirmation modal
   }
@@ -63,10 +83,12 @@ export class ListContratComponent implements OnInit {
   // Close confirmation modal
   closeConfirmationModal() {
     this.confirmationModalService.close(); // Close delete confirmation modal
+    
   }
 
   // deleteContrat
   deleteContrat() {
+    
     this.contratService
       .deleteContrat(this.id)
       .subscribe((_) => {
@@ -76,6 +98,14 @@ export class ListContratComponent implements OnInit {
 
   reload() {
     this.helperService.refrechPage()
+  }
+
+  validation1Contrat(){
+    this.contratService.updateValidation1Contrat(this.id).subscribe();
+  }
+
+  validation2Contrat(){
+    this.contratService.updateValidation2Contrat(this.id).subscribe();
   }
 
 }

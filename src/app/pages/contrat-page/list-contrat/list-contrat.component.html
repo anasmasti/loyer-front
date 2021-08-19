@@ -41,22 +41,27 @@
         </thead>
         <tbody *ngIf="contrats?.length">
             <tr class="text-center" *ngFor="let contrat of contrats">
-                <!-- <td class="progress-bar progress-bar-striped  text-light font-weight-bold"
-                    [ngClass]="{'bg-success': contrat.etat_contrat[contrat.etat_contrat.length-1].libelle == 'Avenant', 'bg-danger': contrat.etat_contrat[contrat.etat_contrat.length-1].libelle == 'Suspension', 'bg-warning': contrat.etat_contrat[contrat.etat_contrat.length-1].libelle == 'Résiliation'}">
-                    {{ contrat.etat_contrat[contrat.etat_contrat.length-1].libelle }} </td> -->
+                <td class="progress-bar progress-bar-striped  text-light font-weight-bold"
+                    [ngClass]="{'bag-succes': this.contrat.etat_contrat?.libelle == 'Avenant', 'bag-danger': this.contrat.etat_contrat?.libelle == 'Suspension', 'bag-second': this.contrat.etat_contrat?.libelle == 'Résiliation' ,
+                     'bag-info': this.contrat.etat_contrat?.libelle == 'initié'}">
+                    {{ this.contrat.etat_contrat?.libelle }} </td>
                 <td> {{ contrat.numero_contrat }} </td>
                 <td> {{ contrat.montant_loyer }} </td>
                 <td> {{ contrat.date_debut_loyer }} </td>
                 <td> {{ contrat.date_fin_contrat }} </td>
 
                 <td>
-                    <div class="d-inline">
+                    <div class="d-flex">
                         <a [routerLink]="['list',contrat._id]" class="btn btn-sm main-btn"><i
                                 class="fal fa-eye"></i></a>
                         <a (click)="openEditModal(contrat);" class="btn btn-sm info-btn mx-2"><i
                                 class="far fa-user-edit"></i></a>
                         <a class="btn btn-sm danger-btn" (click)="openConfirmationModal(contrat._id);"><i
                                 class="far fa-user-minus"></i></a>
+                                <!-- <div class="d-inline"> -->
+                                    <a  class="btn btn-sm success-btn mx-2" (click)="openConfirmationModalValidation1(contrat._id)">Validiation1</a>
+                                    <a  class="btn btn-sm btn-info rounded-pill" (click)="openConfirmationModalValidation2(contrat._id)" style="color:white">Validation2</a>
+                                <!-- </div> -->
                     </div>
 
                 </td>
@@ -67,14 +72,44 @@
                 <app-edit-contrat [contrat]="targetContrat">
                 </app-edit-contrat>
             </app-main-modal>
+
             <app-confirmation-modal [closeBtn]='true'>
-                <h3 class="main-title">Confirmation de la supression <i class="far fa-exclamation-circle"></i></h3>
-                <p class="mt-3">Voulez vous vraiment supprimer ce propriétaire?</p>
-                <div class="d-inline-flex justify-content-start mt-5">
-                    <a class="btn btn-lg px-lg-4 danger-btn me-2"
-                        (click)="deleteContrat();closeConfirmationModal()">Oui</a>
-                    <a class="btn btn-lg px-lg-4 main-btn" (click)='closeConfirmationModal();'>Non</a>
-                </div>
+                <!-- <div *ngIf="isValidate; then validation1;else delete"></div> -->
+                <div *ngIf="isValidate; then validation1;else isValidate2 ?  validation2 : delete "></div>
+                <!-- <div *ngIf="isValidate2; then validation2;"></div> -->
+                
+
+                <ng-template #validation1>
+                    <h3 class="main-title">Confirmation de la validation 1<i class="far fa-exclamation-circle"></i></h3>
+                    <p class="mt-3">Voulez vous vraiment valider la première validation de contrat?</p>
+                    <div class="d-inline-flex justify-content-start mt-5">
+                        <a class="btn btn-lg px-lg-4 danger-btn me-2"
+                            (click)="validation1Contrat();closeConfirmationModal()">Oui</a>
+                        <a class="btn btn-lg px-lg-4 main-btn" (click)='closeConfirmationModal();'>Non</a>
+                    </div>
+                </ng-template>
+
+                <ng-template #validation2>
+                    <h3 class="main-title">Confirmation de la validation 2 <i class="far fa-exclamation-circle"></i></h3>
+                    <p class="mt-3">Voulez vous vraiment valider la deuxième validation de contrat?</p>
+                    <div class="d-inline-flex justify-content-start mt-5">
+                        <a class="btn btn-lg px-lg-4 danger-btn me-2"
+                            (click)="validation2Contrat();closeConfirmationModal()">Oui</a>
+                        <a class="btn btn-lg px-lg-4 main-btn" (click)='closeConfirmationModal();'>Non</a>
+                    </div>
+                </ng-template>
+
+                <ng-template #delete>
+                    <h3 class="main-title">Confirmation de la supression <i class="far fa-exclamation-circle"></i></h3>
+                    <p class="mt-3">Voulez vous vraiment supprimer cette contrat?</p>
+                    <div class="d-inline-flex justify-content-start mt-5">
+                        <a class="btn btn-lg px-lg-4 danger-btn me-2"
+                            (click)="deleteContrat();closeConfirmationModal()">Oui</a>
+                        <a class="btn btn-lg px-lg-4 main-btn" (click)='closeConfirmationModal();'>Non</a>
+                    </div>
+                </ng-template>
+
+
             </app-confirmation-modal>
 
         </tbody>

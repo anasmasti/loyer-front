@@ -155,7 +155,7 @@
               <p><strong>Adresse : </strong>&nbsp; {{ contrat.foncier?.adresse }}</p>
             </div>
 
-            <div *ngIf="updateFoncier" class="col-lg-3 form-group mt-2">
+            <div *ngIf="updateFoncier" class="col-lg-5 form-group mt-2">
               <label for="">Sélectionner un foncier</label>
               <select class="form-control rounded-pill" formControlName="foncier">
                 <option *ngFor="let fc of foncier" [value]="fc._id"> {{ fc.adresse }} </option>
@@ -178,7 +178,7 @@
             </div>
 
             <div *ngIf="updateLieu" class="row mt-2">
-              <div class="col-lg-3 form-group">
+              <div class="col-lg-5 form-group">
                 <label for="">Type de lieu</label>
                 <select class="form-control rounded-pill" (change)='getLieuxByType($event)' formControlName="type_lieu">
                   <option value="" selected="true" disabled default="true"> Sélectionner un type </option>
@@ -186,7 +186,7 @@
                 </select>
               </div>
 
-              <div class="col-lg-3 form-group">
+              <div class="col-lg-5 form-group">
                 <label for="">Sélectionner un lieu</label>
                 <select class="form-control rounded-pill" formControlName="lieu">
                   <option *ngFor="let lieuByType of lieuxByType" [value]="lieuByType._id">

@@ -32,13 +32,13 @@ export class ContratService {
     return this.http.patch<any>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/modifier/${id}`, formdata);
   }
 
-  updateContratNvEtat(id: String, contrat: Contrat, nvEtatContrat: any, oldEtatContrat: any) {
-    return this.http.put(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/modifierNvEtat/${id}`, {
-      oldEtat: oldEtatContrat,
-      NewEtat: nvEtatContrat,
-      contrat: contrat
-    }, { headers: this.httpOptions.headers });
-  }
+  // updateContratNvEtat(id: String, contrat: Contrat, nvEtatContrat: any, oldEtatContrat: any) {
+  //   return this.http.put(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/modifierNvEtat/${id}`, {
+  //     oldEtat: oldEtatContrat,
+  //     NewEtat: nvEtatContrat,
+  //     contrat: contrat
+  //   }, { headers: this.httpOptions.headers });
+  // }
 
   addContrat(formdata: any): Observable<any> {
     return this.http.post<any>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`, formdata);
@@ -46,6 +46,14 @@ export class ContratService {
 
   deleteContrat(id: String) {
     return this.http.put(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/supprimer/${id}`, { deleted: true }, { headers: this.httpOptions.headers });
+  }
+
+  updateValidation1Contrat(id: string): Observable<any> {
+    return this.http.put<any>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/validation1/${id}`,'');
+  }
+
+  updateValidation2Contrat(id: string): Observable<any> {
+    return this.http.put<any>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/validation2/${id}`,'');
   }
 
 
