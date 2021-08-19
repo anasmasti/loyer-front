@@ -1,10 +1,10 @@
-<!-- <div class="row title  ">
+<div class="row title  ">
     <div class="col-lg-12 mt-3">
         <div class="d-flex justify-content-between">
           
             <h3 class="main-title">
                 <a class="goback-link">Détails de Contrat de bail</a>/<span class="selected-text">
-                    {{Contrat.numero_contrat}}
+                    <!-- {{contrat.numero_contrat}} -->
                 </span>
             </h3>
             <div class="d-none d-lg-block">
@@ -29,110 +29,110 @@
 
             <tr>
                 <th>Numero de contrat</th>
-                <td> {{Contrat.numero_contrat}} </td>
+                <td> {{contrat.numero_contrat}} </td>
             </tr>
             <tr>
                 <th>Date de debut du loyer</th>
-                <td> {{Contrat.date_debut_loyer | date :'dd-MM-yyyy'}}</td>
+                <td> {{contrat.date_debut_loyer}}</td>
             </tr>
 
             <tr>
                 <th>Date fin de contrat de bail</th>
-                <td> {{Contrat.date_fin_contrat | date :'dd-MM-yyyy'}} </td>
+                <td> {{contrat.date_fin_contrat}} </td>
             </tr>
 
             <tr>
                 <th>Durée de location</th>
-                <td> {{Contrat.duree_location}} </td>
+                <td> {{contrat.duree_location}} </td>
             </tr>
 
             <tr>
                 <th>Périodicité de paiement</th>
-                <td> {{Contrat.periodicite_paiement}} </td>
+                <td> {{contrat.periodicite_paiement}} </td>
             </tr>
 
             <tr>
                 <th>Montant du loyer</th>
-                <td> {{Contrat.Montant_loyer}} </td>
+                <td> {{contrat.montant_loyer}} </td>
             </tr>
 
             <tr>
                 <th>Taxe d'édilité comprise dans loyer</th>
-                <td> {{Contrat.taxe_edilite_loyer}} </td>
+                <td> {{contrat.taxe_edilite_loyer}} </td>
             </tr>
 
 
             <tr>
                 <th>Taxe d'édilité non comprise dans loyer</th>
-                <td> {{Contrat.taxe_edilite_non_loyer}} </td>
+                <td> {{contrat.taxe_edilite_non_loyer}} </td>
             </tr>
 
             <tr>
                 <th>Déclaration d'option </th>
-                <td> {{Contrat.declaration_option}} </td>
+                <td> {{contrat.declaration_option}} </td>
             </tr>
 
             <tr>
                 <th>Taux de l'impot</th>
-                <td> {{Contrat.taux_impot}} </td>
+                <td> {{contrat.taux_impot}} </td>
             </tr>
 
             <tr>
                 <th>Retenue à la source </th>
-                <td> {{Contrat.retenue_source}} </td>
+                <td> {{contrat.retenue_source}} </td>
             </tr>
 
             <tr>
                 <th>Montant après impot</th>
-                <td> {{Contrat.montant_apres_impot}} </td>
+                <td> {{contrat.montant_apres_impot}} </td>
             </tr>
 
             <tr>
                 <th>Montant de la caution</th>
-                <td> {{Contrat.montant_caution}} </td>
+                <td> {{contrat.montant_caution}} </td>
             </tr>
 
             <tr>
                 <th>Effort de la caution</th>
-                <td> {{Contrat.effort_caution}} </td>
+                <td> {{contrat.effort_caution}} </td>
             </tr>
 
             <tr>
                 <th>Date de reprise de la caution </th>
-                <td> {{Contrat.date_reprise_caution | date: 'dd-MM-yyyy'}} </td>
+                <td> {{contrat.date_reprise_caution}} </td>
             </tr>
 
             <tr>
                 <th>Statut de la caution</th>
-                <td> {{Contrat.statut_caution}} </td>
+                <td> {{contrat.statut_caution}} </td>
             </tr>
             <tr>
                 <th>Montant de l'avance</th>
-                <td> {{Contrat.montant_avance}} </td>
+                <td> {{contrat.montant_avance}} </td>
             </tr>
             <tr>
                 <th>Date fin de l'avance</th>
-                <td> {{Contrat.date_fin_avance | date: 'dd-MM-yyyy'}} </td>
+                <td> {{contrat.date_fin_avance}} </td>
             </tr>
             <tr>
                 <th>Date 1er paiement</th>
-                <td> {{Contrat.date_premier_paiement | date: 'dd-MM-yyyy'}} </td>
+                <td> {{contrat.date_premier_paiement}} </td>
             </tr>
             <tr>
                 <th>Durée de l'avance</th>
-                <td> {{Contrat.duree_avance}} </td>
+                <td> {{contrat.duree_avance}} </td>
             </tr>
             <tr>
                 <th>N° d'engagement de la dépense</th>
-                <td> {{Contrat.N_engagement_depense}} </td>
+                <td> {{contrat.n_engagement_depense}} </td>
             </tr>
             <tr>
                 <th>Echéance de révision du loyer</th>
-                <td> {{Contrat.echeance_revision_loyer}} </td>
+                <td> {{contrat.echeance_revision_loyer}} </td>
             </tr>
             <tr>
                 <th>Etat de contrat</th>
-                <td>  </td>
+                <td> {{this.contrat.etat_contrat?.libelle}}  </td>
             </tr>
         </tbody>
 
@@ -207,4 +207,4 @@
             </tr>
         </tbody>
     </table>
-</div> -->
+</div>
