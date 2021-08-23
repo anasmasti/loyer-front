@@ -17,9 +17,12 @@ export class ListContratComponent implements OnInit {
   findContrat!: string;
   Class: string = '';
 
+  //Validation 1
   isValidate!: boolean;
+  //Validation 2
   isValidate2!: boolean;
 
+  // Test pour verifier si la validation 1 est déjà validé sinon on vas afficher le msg d'erreur {{msgErrorV2}}
   msgErrorV2: string ="Vous devez d'abbord validé la validation numéro 1!"
   testValidation1: boolean = false;
 
@@ -71,7 +74,7 @@ export class ListContratComponent implements OnInit {
     this.isValidate2 = false;
     this.isValidate = true;
     this.id = id;
-    this.confirmationModalService.open(); // Open delete confirmation modal
+    this.confirmationModalService.open(); // Open validation 1 confirmation modal
   }
 
   openConfirmationModalValidation2(id: string,validation1:boolean) {
@@ -79,7 +82,7 @@ export class ListContratComponent implements OnInit {
       this.isValidate = false;
       this.isValidate2 = true;
       this.id = id;
-      this.confirmationModalService.open(); // Open delete confirmation modal
+      this.confirmationModalService.open(); // Open validation 2 confirmation modal
       
     }
     else {
