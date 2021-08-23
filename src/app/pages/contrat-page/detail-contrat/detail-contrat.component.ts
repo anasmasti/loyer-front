@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ContratService } from 'src/app/services/contrat-service/contrat.service';
 import { Contrat } from '../../../models/Contrat';
 import { ActivatedRoute } from '@angular/router';
+import { elementAt } from 'rxjs/operators';
 
 @Component({
   selector: 'app-detail-contrat',
@@ -9,6 +10,13 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./detail-contrat.component.scss'],
 })
 export class DetailContratComponent implements OnInit {
+
+  selectedPieceContrat!: any;
+  selected_images_res_sortie!: any;
+  selected_lettre_res!: any;
+  selected_piece_jointe_avenant!: any ;
+  url: string = 'http://192.168.11.121:5000/';
+
   contrat: Contrat ={
     _id: 'Chargement...',
     numero_contrat: 'Chargement...',
@@ -75,6 +83,24 @@ export class DetailContratComponent implements OnInit {
     const id = this.actRoute.snapshot.paramMap.get('id') || '';
     this.contratService.getSelectedContrat(id).subscribe((data: any) => {
       this.contrat = data;
+      this.contrat.piece_joint_contrat = data.piece_joint_contrat;
+      this.contrat.etat_contrat = data.etat_contrat
+
+      // for (let index = 0; index < this.contrat.piece_joint_contrat.length; index++) {
+      //   this.selectedPieceContrat = this.contrat.piece_joint_contrat[index];
+      //   this.selected_lettre_res =  this.contrat.etat_contrat?.etat.lettre_res_piece_jointe;
+      //   this.selected_piece_jointe_avenant = this.contrat.etat_contrat?.etat.piece_jointe_avenant;
+      //   this.selected_images_res_sortie = this.contrat.etat_contrat?.etat. images_etat_res_lieu_sortie;
+   
+      // }
     });
   }
+
+  scroll() {
+    setTimeout(() => {
+      window.scrollTo(0, document.body.scrollHeight);
+    }, 100);
+  }
+
+
 }

@@ -20,6 +20,8 @@
     </div>
 </div>
 
+<!-- alert de reussite -->
+<div *ngIf="testValidation1" class="error-alert p-2 my-2">{{ msgErrorV2 }}</div>
 
 <div class="main-card bg-white table-responsive-sm p-lg-3 mt-4">
     <div class="col-lg-4 mb-4">
@@ -58,12 +60,16 @@
                                 class="far fa-user-edit"></i></a>
                         <a class="btn btn-sm danger-btn" (click)="openConfirmationModal(contrat._id);"><i
                                 class="far fa-user-minus"></i></a>
-                                <!-- <div class="d-inline"> -->
-                                    <a  class="btn btn-sm success-btn mx-2" (click)="openConfirmationModalValidation1(contrat._id)">Validiation1</a>
-                                    <a  class="btn btn-sm btn-info rounded-pill" (click)="openConfirmationModalValidation2(contrat._id)" style="color:white">Validation2</a>
-                                <!-- </div> -->
-                    </div>
+                            
+                                    <button  [ngClass]="contrat.validation1_DMG ? 'btn btn-sm mx-2 rounded-pill bag-succes':'btn btn-sm rounded-pill bag-second mx-2'" 
+                                    [id]="'vld1: ' + contrat._id"
+                                     (click)="openConfirmationModalValidation1(contrat._id)"   [disabled]="contrat.validation1_DMG">Validiation1</button>
 
+                                    <button  [ngClass]="contrat.validation2_DAJC ? 'btn btn-sm mx-2 rounded-pill bag-succes':'btn btn-sm rounded-pill bag-second mx-2'" 
+                                    [id]="'vld2: ' + contrat._id" 
+                                    (click)="openConfirmationModalValidation2(contrat._id , contrat.validation1_DMG)"  [disabled]="contrat.validation2_DAJC">Validation2</button>
+                                 
+                    </div>
                 </td>
             </tr>
 
