@@ -232,7 +232,7 @@
 
       <div *ngIf="update" class="col-lg-3 form-group mt-5">
         <label for="">Etat de contrat</label>
-        <select class="form-control rounded-pill" formControlName="etat_contrat_libelle"
+        <select class="form-control rounded-pill" formControlName="etat_contrat_libelle" [(ngModel)]="etatContratTypes"
           (change)="showEtatSection($event)">
           <option value="En cours">En cours</option>
           <option value="Avenant">Avenant</option>
@@ -240,14 +240,15 @@
           <option value="Résiliation">Résiliation</option>
         </select>
       </div>
-
+      
       <div class="mt-4">
-        <div class="form-box mt-2">
-          <div *ngIf="etatContratTypes == 'Avenant'; then AV"></div>
-          <div *ngIf="etatContratTypes == 'Suspension'; then SUS"></div>
-          <div *ngIf="etatContratTypes == 'Résiliation'; then RES"></div>
-        </div>
+         <div class="form-box mt-2">
+           <div *ngIf="etatContratTypes == 'Avenant'; then AV"></div>
+           <div *ngIf="etatContratTypes == 'Suspension'; then SUS"></div>
+           <div *ngIf="etatContratTypes == 'Résiliation'; then RES"></div>
+         </div>
       </div>
+    
 
 
       <!-- Template Avenant start -->
@@ -264,7 +265,6 @@
             <label for="">Pièce jointe</label>
             <input type="file" class="form-control rounded-pill btn success-btn"
               formControlName="etat_contrat_piece_jointe_avenant" accept=".zip" (change)="onFileSelectedAvenant($event)">
-
           </div>
 
           <div class="col-lg-3 form-group mt-4">

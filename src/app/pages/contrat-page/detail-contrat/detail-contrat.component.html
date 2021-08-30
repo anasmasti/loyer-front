@@ -81,9 +81,13 @@
             <div class="col-lg-6">
                 <h5 style="color:#909ef8;">Pièce joint</h5>
                 <p>
-                    <a class="btn second-btn" href="{{url}}{{selectedPieceContrat}}" download>
+                    <a class="btn second-btn" *ngIf="selectedPieceContrat != undefined" href="{{url}}{{selectedPieceContrat?.image}}" download>
                         Télécharger
                     </a>
+
+                    <span *ngIf="selectedPieceContrat == undefined">
+                        Aucun fichier
+                    </span>
                 </p>
             </div>
         </div>
@@ -192,7 +196,7 @@
             <div class="col-lg-3">
                 <h5 style="color:#909ef8;">Pièce jointe</h5>
                 <p>
-                    <a class="btn second-btn" href="{{url}}{{selected_piece_jointe_avenant}}" download>
+                    <a class="btn second-btn" href="{{url}}{{selected_piece_jointe_avenant?.image}}" download>
                         Télécharger
                     </a>
                 </p>   
@@ -265,7 +269,7 @@
         <div class="col-lg-3">
            <h5 style="color:#909ef8;">Images d'état des lieux de sortie</h5>
            <p>
-            <a class="btn second-btn" href="{{url}}{{selected_images_res_sortie}}" download>
+            <a class="btn second-btn" href="{{url}}{{selected_images_res_sortie?.image}}" download>
                 Télécharger
             </a>
         </p>   
@@ -274,7 +278,7 @@
         <div class="col-lg-3">
             <h5 style="color:#909ef8;">La lettre de résiliation scannée</h5>
             <p>
-                <a class="btn second-btn" href="{{url}}{{selected_lettre_res}}" download>
+                <a class="btn second-btn" href="{{url}}{{selected_lettre_res?.image}}" download>
                     Télécharger
                 </a>
             </p>   

@@ -83,6 +83,7 @@ export class FormContratComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // this.etatContratTypes = 'Avenant'
     this.contratForm = new FormGroup({
       numero_contrat:new FormControl(),
       piece_jointe: new FormControl(),

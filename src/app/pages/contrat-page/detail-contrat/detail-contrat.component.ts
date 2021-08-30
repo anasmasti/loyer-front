@@ -15,7 +15,7 @@ export class DetailContratComponent implements OnInit {
   selected_images_res_sortie!: any;
   selected_lettre_res!: any;
   selected_piece_jointe_avenant!: any ;
-  url: string = 'http://192.168.11.118:5000/';
+  url: string = 'http://192.168.11.116:5000/';
 
   contrat: Contrat ={
     _id: 'Chargement...',
@@ -86,12 +86,25 @@ export class DetailContratComponent implements OnInit {
       this.contrat.piece_joint_contrat = data.piece_joint_contrat;
       this.contrat.etat_contrat = data.etat_contrat
       
-        this.selectedPieceContrat = this.contrat.piece_joint_contrat;
-        this.selected_lettre_res =  this.contrat.etat_contrat?.etat.lettre_res_piece_jointe;
-        this.selected_piece_jointe_avenant = this.contrat.etat_contrat?.etat.piece_jointe_avenant;
-        this.selected_images_res_sortie = this.contrat.etat_contrat?.etat. images_etat_res_lieu_sortie;
-   
+
+      for (let index = 0; index < 1; index++) {
+        
+        this.selectedPieceContrat = this.contrat.piece_joint_contrat[index];
+        this.selected_lettre_res =  this.contrat.etat_contrat?.etat.lettre_res_piece_jointe[index];
+        this.selected_piece_jointe_avenant = this.contrat.etat_contrat?.etat.piece_jointe_avenant[index];
+        this.selected_images_res_sortie = this.contrat.etat_contrat?.etat.images_etat_res_lieu_sortie[index];
+      }
+      console.log('1', this.selectedPieceContrat);
+      
+     
+      console.log(this.selectedPieceContrat);
+      console.log(this.selected_lettre_res);
+      console.log(this.selected_piece_jointe_avenant);
+      console.log(this.selected_images_res_sortie);
+      // console.log("Data ==> ",this.contrat);
     });
+
+    
   }
 
   scroll() {

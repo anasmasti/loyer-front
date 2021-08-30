@@ -17,6 +17,7 @@ import { StoreModule } from '@ngrx/store';
 import { foncierReducer } from '../foncier-page/foncier-store/foncier.reducer';
 import { FoncierEffects } from '../foncier-page/foncier-store/foncier.effect';
 
+
 const route: Routes = [
   { path: '', component: ContratComponent },
   { path: 'list/list/:id', component: DetailContratComponent },
