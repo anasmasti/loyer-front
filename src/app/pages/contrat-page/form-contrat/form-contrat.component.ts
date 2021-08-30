@@ -362,7 +362,7 @@ export class FormContratComponent implements OnInit {
         // etat_contrat_piece_jointe_avenant: this.contrat.etat_contrat?.etat?.piece_jointe_avenant,
       });
     }
-    console.log("Fetch ==> ",this.contratForm.value);
+
     
   }
 

@@ -16,6 +16,7 @@ export class ListContratComponent implements OnInit {
   targetContrat: Contrat[] = [];
   findContrat!: string;
   Class: string = '';
+  disabledEtat: boolean = false;
 
   //Validation 1
   isValidate!: boolean;
