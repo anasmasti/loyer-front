@@ -7,7 +7,7 @@ export const environment = {
   // Api url
   API_URL: 'https://loyer-api.herokuapp.com/api/',
   // Api test url 
-  API_URL_TEST: 'http://192.168.11.118:5000/api/',
+  API_URL_TEST: 'http://192.168.11.116:5000/api/',
   // Api access key
   API_ACCESS_KEY: 'take$the#whole!bull',
   // Api version

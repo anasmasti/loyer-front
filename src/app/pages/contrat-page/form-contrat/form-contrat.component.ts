@@ -84,6 +84,7 @@ export class FormContratComponent implements OnInit {
 
   ngOnInit(): void {
     this.contratForm = new FormGroup({
+      numero_contrat:new FormControl(),
       piece_jointe: new FormControl(),
       date_debut_loyer: new FormControl(),
       montant_loyer: new FormControl(),
@@ -127,6 +128,10 @@ export class FormContratComponent implements OnInit {
       etat_contrat_images_etat_res_lieu_sortie: new FormControl(),
       etat_contrat_lettre_res_piece_jointe: new FormControl(),
       etat_contrat_piece_jointe_avenant: new FormControl(),
+
+      // Validation
+      validation1_DMG: new FormControl(),
+      validation2_DAJC: new FormControl(),
     });
 
     this.getFoncier()
@@ -311,6 +316,9 @@ export class FormContratComponent implements OnInit {
   fetchContrat() {
     if (this.contrat) {
       this.contratForm?.patchValue({
+        numero_contrat: this.contrat.numero_contrat,
+        validation1_DMG:this.contrat.validation1_DMG,
+        validation2_DAJC: this.contrat.validation2_DAJC,
         date_debut_loyer: this.contrat.date_debut_loyer,
         montant_loyer: this.contrat.montant_loyer,
         taxe_edilite_comprise_loyer: this.contrat.taxe_edilite_loyer,
@@ -354,13 +362,16 @@ export class FormContratComponent implements OnInit {
         // etat_contrat_piece_jointe_avenant: this.contrat.etat_contrat?.etat?.piece_jointe_avenant,
       });
     }
+    console.log("Fetch ==> ",this.contratForm.value);
+    
   }
 
   updateContrat() {
     let id = this.contrat._id;
 
     let ctr_data: any = {
-
+      
+      numero_contrat: this.contratForm.get('numero_contrat')?.value || '',
       date_debut_loyer: this.contratForm.get('date_debut_loyer')?.value || '',
       montant_loyer: this.contratForm.get('montant_loyer')?.value || '',
       taxe_edilite_loyer: this.contratForm.get('taxe_edilite_comprise_loyer')?.value || '',
@@ -406,7 +417,11 @@ export class FormContratComponent implements OnInit {
           lettre_res_piece_jointe: this.contratForm.get('etat_contrat_lettre_res_piece_jointe')?.value || '',
           piece_jointe_avenant: this.contratForm.get('etat_contrat_piece_jointe_avenant')?.value || '',
         }
-      }
+      },
+
+      //Validation
+      validation1_DMG: this.contratForm.get('validation1_DMG')?.value || false,
+      validation2_DAJC:this.contratForm.get('validation2_DAJC')?.value || false,
 
     }
 

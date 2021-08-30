@@ -20,7 +20,7 @@ export class DetailLieuxComponent implements OnInit {
   selectedAmenagementImage!: any;
   displayAmenagementSection: boolean = false;
   selectedImageEntrer!: any;
-  url: string = 'http://192.168.11.121:5000/';
+  url: string = 'http://192.168.11.111:5000/';
 
   constructor(
     private lieuxService: LieuxService,
