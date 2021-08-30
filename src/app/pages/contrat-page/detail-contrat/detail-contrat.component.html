@@ -157,7 +157,7 @@
 </div>
 
 
-<div *ngIf="contrat.etat_contrat?.libelle !== 'initié' && contrat.etat_contrat?.libelle == 'Avenant'" class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white">
+<div *ngIf="contrat.etat_contrat?.libelle !== 'En cours' && contrat.etat_contrat?.libelle == 'Avenant'" class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white">
     <h5 class="main-title mb-4">
         <a class="goback-link">Etat de contrat</a>/<span class="selected-text">
             {{this.contrat.etat_contrat?.libelle}}
@@ -196,12 +196,12 @@
                         Télécharger
                     </a>
                 </p>   
-            </div>
+            </div>  
         </div>   
 
 </div>
 
-<div *ngIf="contrat.etat_contrat?.libelle !== 'initié' && contrat.etat_contrat?.libelle == 'Suspension'" class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white">
+<div *ngIf="contrat.etat_contrat?.libelle !== 'En cours' && contrat.etat_contrat?.libelle == 'Suspension'" class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white">
     <h5 class="main-title mb-4">
         <a class="goback-link">Etat de contrat</a>/<span class="selected-text">
             {{this.contrat.etat_contrat?.libelle}}
@@ -230,7 +230,7 @@
 
 </div>
 
-<div *ngIf="contrat.etat_contrat?.libelle !== 'initié' && contrat.etat_contrat?.libelle == 'Résiliation'" class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white">
+<div *ngIf="contrat.etat_contrat?.libelle !== 'En cours' && contrat.etat_contrat?.libelle == 'Résiliation'" class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white">
     <h4 class="main-title mb-4">
         <a class="goback-link">Etat de contrat</a>/<span class="selected-text">
             {{this.contrat.etat_contrat?.libelle}}

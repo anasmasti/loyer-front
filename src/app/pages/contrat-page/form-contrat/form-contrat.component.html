@@ -16,9 +16,9 @@
     <div class="row">
 
       <!-- Validation inputs -->
-        <input type="text" class="form-control btn success-btn" formControlName="validation1_DMG"/>
-        <input type="text" class="form-control btn success-btn" formControlName="validation2_DAJC"/>
-        <input type="text" class="form-control btn success-btn" formControlName="numero_contrat"/>
+        <input type="hidden" class="form-control btn success-btn" formControlName="validation1_DMG"/>
+        <input type="hidden" class="form-control btn success-btn" formControlName="validation2_DAJC"/>
+        <input type="hidden" class="form-control btn success-btn" formControlName="numero_contrat"/>
         
       
 
@@ -234,6 +234,7 @@
         <label for="">Etat de contrat</label>
         <select class="form-control rounded-pill" formControlName="etat_contrat_libelle"
           (change)="showEtatSection($event)">
+          <option value="En cours">En cours</option>
           <option value="Avenant">Avenant</option>
           <option value="Suspension">Suspension</option>
           <option value="Résiliation">Résiliation</option>

@@ -283,6 +283,9 @@ export class FormContratComponent implements OnInit {
       duree_location: this.contratForm.get('duree_location')?.value || '',
     }
 
+  
+    
+
     this.fd.append('data', JSON.stringify(ctr_data));
 
     this.contratService.addContrat(this.fd).subscribe(
@@ -399,7 +402,7 @@ export class FormContratComponent implements OnInit {
 
       //etat de contrat
       etat_contrat: {
-        libelle: this.contratForm.get('etat_contrat_libelle')?.value || 'initié',
+        libelle: this.contratForm.get('etat_contrat_libelle')?.value || 'En cours',
         etat: {
           n_avenant: this.contratForm.get('etat_contrat_n_avenant')?.value || '',
           motif: this.contratForm.get('etat_contrat_motif')?.value || '',

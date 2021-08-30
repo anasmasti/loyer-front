@@ -45,7 +45,7 @@
             <tr class="text-center" *ngFor="let contrat of contrats">
                 <td class="progress-bar progress-bar-striped  text-light font-weight-bold"
                     [ngClass]="{'bag-succes': this.contrat.etat_contrat?.libelle == 'Avenant', 'bag-danger': this.contrat.etat_contrat?.libelle == 'Suspension', 'bag-second': this.contrat.etat_contrat?.libelle == 'Résiliation' ,
-                     'bag-info': this.contrat.etat_contrat?.libelle == 'initié'}">
+                     'bag-info': this.contrat.etat_contrat?.libelle == 'En cours'}">
                     {{ this.contrat.etat_contrat?.libelle }} </td>
                 <td> {{ contrat.numero_contrat }} </td>
                 <td> {{ contrat.montant_loyer }} </td>
