@@ -138,6 +138,8 @@ export class FormContratComponent implements OnInit {
     this.getFoncier()
   }
 
+  
+
   calculMontant() {
     let montantLoyerForYear = (this.montantLoyer * 12)
     let tauxImpot: number = 0
@@ -365,10 +367,9 @@ export class FormContratComponent implements OnInit {
         // etat_contrat_lettre_res_piece_jointe: this.contrat.etat_contrat?.etat?.lettre_res_piece_jointe,
         // etat_contrat_piece_jointe_avenant: this.contrat.etat_contrat?.etat?.piece_jointe_avenant,
       });
-    }
-
-    
+    } 
   }
+
 
   updateContrat() {
     let id = this.contrat._id;

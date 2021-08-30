@@ -88,20 +88,12 @@ export class DetailContratComponent implements OnInit {
       
 
       for (let index = 0; index < 1; index++) {
-        
         this.selectedPieceContrat = this.contrat.piece_joint_contrat[index];
         this.selected_lettre_res =  this.contrat.etat_contrat?.etat.lettre_res_piece_jointe[index];
         this.selected_piece_jointe_avenant = this.contrat.etat_contrat?.etat.piece_jointe_avenant[index];
         this.selected_images_res_sortie = this.contrat.etat_contrat?.etat.images_etat_res_lieu_sortie[index];
       }
-      console.log('1', this.selectedPieceContrat);
-      
      
-      console.log(this.selectedPieceContrat);
-      console.log(this.selected_lettre_res);
-      console.log(this.selected_piece_jointe_avenant);
-      console.log(this.selected_images_res_sortie);
-      // console.log("Data ==> ",this.contrat);
     });
 
     

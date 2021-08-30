@@ -235,7 +235,7 @@
         <select class="form-control rounded-pill" formControlName="etat_contrat_libelle" [(ngModel)]="etatContratTypes"
           (change)="showEtatSection($event)">
           <option value="En cours">En cours</option>
-          <option value="Avenant">Avenant</option>
+          <option *ngIf="this.contrat.validation2_DAJC" [value]="etatContratTypes == 'Avenant' ? etatContratTypes : 'Avenant'">Avenant</option>
           <option value="Suspension">Suspension</option>
           <option value="Résiliation">Résiliation</option>
         </select>
