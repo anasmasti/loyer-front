@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
@@ -30,11 +29,11 @@ import { ListVersementComponent } from './pages/versement-page/list-versement/li
     SideNavbarComponent,
     MainContentComponent,
     FooterComponent,
-    VersementComponent,
-    DetailVersementComponent,
-    EditVersementComponent,
-    FormVersementComponent,
-    ListVersementComponent,
+    // VersementComponent,
+    // DetailVersementComponent,
+    // EditVersementComponent,
+    // FormVersementComponent,
+    // ListVersementComponent,
   ],
   imports: [
     BrowserModule,

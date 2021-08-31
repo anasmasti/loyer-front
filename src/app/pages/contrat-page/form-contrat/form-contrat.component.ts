@@ -43,6 +43,12 @@ export class FormContratComponent implements OnInit {
   retenueSource: number = 0
   tauxImpot: number = 0
 
+  effortCaution: number = 0
+  montantCaution: number = 0
+
+  dureeAvance: number = 0;
+  result!: any;
+
   contratForm!: FormGroup
 
   etatContratTypes!: string
@@ -68,6 +74,9 @@ export class FormContratComponent implements OnInit {
 
   updateLieu: boolean = false
   updateFoncier: boolean = false
+
+// To format the date
+ formattedDate : any;
 
   constructor(
     private contratService: ContratService,
@@ -136,6 +145,7 @@ export class FormContratComponent implements OnInit {
     });
 
     this.getFoncier()
+    this.calculDate()
   }
 
   
@@ -172,6 +182,23 @@ export class FormContratComponent implements OnInit {
     this.retenueSource = result
     this.montantApresImpot = montantApresImpot
     this.tauxImpot = tauxImpot
+  }
+
+  calculEffortCaution(){
+    let montantCaution: number = this.contratForm.get('montant_caution')?.value
+    let effortCaution!: number
+    effortCaution = (montantCaution / this.montantLoyer )
+    this.montantCaution = montantCaution
+    this.effortCaution = effortCaution  
+  }
+
+  calculDate(){
+     let date = new Date(this.contratForm.get('date_debut_loyer')?.value);
+     let month = date.getMonth();
+     this.dureeAvance = this.contratForm.get('duree_avance')?.value;
+     date.setMonth(month+this.dureeAvance);
+     this.formattedDate = date.toISOString().slice(0,10);
+     console.log(this.formattedDate);  
   }
 
   //----------------- Update and Post  --------------------------
@@ -271,7 +298,7 @@ export class FormContratComponent implements OnInit {
       retenue_source: this.retenueSource,
       montant_apres_impot: this.montantApresImpot,
       montant_caution: this.contratForm.get('montant_caution')?.value || '',
-      effort_caution: this.contratForm.get('effort_caution')?.value || '',
+      effort_caution: this.effortCaution,
       date_reprise_caution: this.contratForm.get('date_reprise_caution')?.value || '',
       statut_caution: this.contratForm.get('statut_caution')?.value || '',
       montant_avance: this.contratForm.get('montant_avance')?.value || '',
@@ -286,7 +313,7 @@ export class FormContratComponent implements OnInit {
       duree_location: this.contratForm.get('duree_location')?.value || '',
     }
 
-  
+     console.log(ctr_data);
     
 
     this.fd.append('data', JSON.stringify(ctr_data));

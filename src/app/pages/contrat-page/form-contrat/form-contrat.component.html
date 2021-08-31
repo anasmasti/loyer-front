@@ -96,12 +96,12 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Montant de la caution</label>
-        <input type="number" class="form-control rounded-pill" formControlName="montant_caution">
+        <input type="number" class="form-control rounded-pill" [(ngModel)]="montantCaution"  (keyup)="calculEffortCaution()" formControlName="montant_caution">
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Effort de la caution</label>
-        <input type="text" class="form-control rounded-pill" formControlName="effort_caution">
+        <input type="text" class="form-control rounded-pill"  [value]="effortCaution"  formControlName="effort_caution" readonly>
       </div>
 
       <div class="col-lg-3 form-group mt-4">
@@ -111,28 +111,35 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Statut de la caution</label>
-        <input type="text" class="form-control rounded-pill" formControlName="statut_caution">
+        <!-- <input type="text" class="form-control rounded-pill" formControlName="statut_caution"> -->
+        <select class="form-control rounded-pill" formControlName="statut_caution">
+          <option value="Consommée">Consommée</option>
+          <option value="Récupérée">Récupérée</option>
+          <option value="Compensée">Compensée</option>
+        </select>
+        
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Montant de l’avance</label>
         <input type="number" class="form-control rounded-pill" formControlName="montant_avance">
       </div>
-
+      
+      <div class="col-lg-3 form-group mt-4">
+        <label for="">Durée de l’avance(par mois)</label>
+        <input type="number" class="form-control rounded-pill" [(ngModel)]="dureeAvance" (keyup)="calculDate()" formControlName="duree_avance">
+      </div>
+      
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date fin de l’avance</label>
-        <input type="date" class="form-control rounded-pill" formControlName="date_fin_avance">
+        <input type="date" class="form-control rounded-pill" [value]="formattedDate" formControlName="date_fin_avance" readonly>
       </div>
-
+      
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date 1er paiement</label>
         <input type="date" class="form-control rounded-pill" formControlName="date_1er_paiement">
       </div>
-
-      <div class="col-lg-3 form-group mt-4">
-        <label for="">Durée de l’avance</label>
-        <input type="number" class="form-control rounded-pill" formControlName="duree_avance">
-      </div>
+      
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">N° d’engagement de la dépense</label>
@@ -269,7 +276,13 @@
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Motif</label>
-            <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_motif">
+            <!-- <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_motif"> -->
+            <select class="form-control rounded-pill" formControlName="etat_contrat_motif">
+              <option value="Décès">Décès</option>
+              <option value="Cession">Cession</option>
+              <option value="Révision_prix_loyer">Révision du prix du loyer</option>
+            </select>
+          
           </div>
 
           <div class="col-lg-3 form-group mt-4">
@@ -330,7 +343,11 @@
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Reprise caution</label>
-            <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_reprise_caution">
+            <!-- <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_reprise_caution"> -->
+            <select class="form-control rounded-pill" formControlName="etat_contrat_reprise_caution">
+              <option value="Consommée">Consommée</option>
+              <option value="Récupérée">Récupérée</option>
+            </select>
           </div>
 
           <div class="col-lg-3 form-group mt-4">

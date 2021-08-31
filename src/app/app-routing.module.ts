@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'admin', loadChildren: () => import('./pages/admin-panel/admin-panel.module').then(m => m.AdminPanelModule) },
   { path: 'foncier', loadChildren: () => import('./pages/foncier-page/foncier-page.module').then(m => m.FoncierPageModule) },
   { path: '**', loadChildren: () => import('./pages/notfound-page/notfound-page.module').then(m => m.NotfoundPageModule) },
+  { path: 'versement', loadChildren: () => import('./pages/versement-page/versement.module').then(m => m.VersementModule) },
 ];
 
 @NgModule({
