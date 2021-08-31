@@ -54,7 +54,12 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Périodicité de paiement</label>
-        <input type="text" class="form-control rounded-pill" formControlName="periodicite_paiement" />
+        <!-- <input type="text" class="form-control rounded-pill" formControlName="periodicite_paiement" /> -->
+        <select class="form-control rounded-pill" formControlName="periodicite_paiement">
+          <option value="mensuelle">Mensuelle</option>
+          <option value="trimestrielle">Trimestrielle</option>
+          <option value="annuelle">Annuelle</option>
+        </select>
       </div>
 
 
