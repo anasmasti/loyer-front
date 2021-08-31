@@ -16,6 +16,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { VersementComponent } from './pages/versement-page/versement/versement.component';
+import { DetailVersementComponent } from './pages/versement-page/detail-versement/detail-versement.component';
+import { EditVersementComponent } from './pages/versement-page/edit-versement/edit-versement.component';
+import { FormVersementComponent } from './pages/versement-page/form-versement/form-versement.component';
+import { ListVersementComponent } from './pages/versement-page/list-versement/list-versement.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +30,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SideNavbarComponent,
     MainContentComponent,
     FooterComponent,
+    VersementComponent,
+    DetailVersementComponent,
+    EditVersementComponent,
+    FormVersementComponent,
+    ListVersementComponent,
   ],
   imports: [
     BrowserModule,
