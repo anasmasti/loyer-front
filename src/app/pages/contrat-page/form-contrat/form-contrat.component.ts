@@ -192,13 +192,13 @@ export class FormContratComponent implements OnInit {
     this.effortCaution = effortCaution  
   }
 
+  // calcul Date fin de l’avance
   calculDate(){
      let date = new Date(this.contratForm.get('date_debut_loyer')?.value);
      let month = date.getMonth();
      this.dureeAvance = this.contratForm.get('duree_avance')?.value;
      date.setMonth(month+this.dureeAvance);
-     this.formattedDate = date.toISOString().slice(0,10);
-     console.log(this.formattedDate);  
+     this.formattedDate = date.toISOString().slice(0,10); 
   }
 
   //----------------- Update and Post  --------------------------
@@ -302,7 +302,7 @@ export class FormContratComponent implements OnInit {
       date_reprise_caution: this.contratForm.get('date_reprise_caution')?.value || '',
       statut_caution: this.contratForm.get('statut_caution')?.value || '',
       montant_avance: this.contratForm.get('montant_avance')?.value || '',
-      date_fin_avance: this.contratForm.get('date_fin_avance')?.value || '',
+      date_fin_avance: this.formattedDate,
       date_premier_paiement: this.contratForm.get('date_1er_paiement')?.value || '',
       duree_avance: this.contratForm.get('duree_avance')?.value || '',
       echeance_revision_loyer: this.contratForm.get('echeance_revision_loyer')?.value || '',
@@ -415,11 +415,11 @@ export class FormContratComponent implements OnInit {
       retenue_source: this.retenueSource,
       montant_apres_impot: this.montantApresImpot,
       montant_caution: this.contratForm.get('montant_caution')?.value || '',
-      effort_caution: this.contratForm.get('effort_caution')?.value || '',
+      effort_caution: this.effortCaution,
       date_reprise_caution: this.contratForm.get('date_reprise_caution')?.value || '',
       statut_caution: this.contratForm.get('statut_caution')?.value || '',
       montant_avance: this.contratForm.get('montant_avance')?.value || '',
-      date_fin_avance: this.contratForm.get('date_fin_avance')?.value || '',
+      date_fin_avance: this.formattedDate,
       date_premier_paiement: this.contratForm.get('date_1er_paiement')?.value || '',
       duree_avance: this.contratForm.get('duree_avance')?.value || '',
       echeance_revision_loyer: this.contratForm.get('echeance_revision_loyer')?.value || '',
