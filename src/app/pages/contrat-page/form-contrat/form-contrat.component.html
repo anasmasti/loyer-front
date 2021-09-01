@@ -30,7 +30,7 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date de début du loyer</label>
-        <input type="date" class="form-control rounded-pill" formControlName="date_debut_loyer" />
+        <input type="date"  class="form-control rounded-pill" (change)="calculMontant()" formControlName="date_debut_loyer" />
 
       </div>
 

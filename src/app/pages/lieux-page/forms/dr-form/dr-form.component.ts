@@ -379,6 +379,7 @@ export class DrFormComponent implements OnInit {
     }
   }
 
+  //Add direction regional
   async addDR() {
     let dr_data: any = {
       code_lieu: this.drForm.get('code_lieu')?.value,
@@ -424,6 +425,7 @@ export class DrFormComponent implements OnInit {
     );
   }
 
+  //Patch Direction regional
   updateDR() {
     let id = this.Lieu._id;
 
