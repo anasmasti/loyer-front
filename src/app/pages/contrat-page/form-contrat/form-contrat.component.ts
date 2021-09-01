@@ -149,7 +149,7 @@ export class FormContratComponent implements OnInit {
   }
 
   
-
+// Calculer le montant
   calculMontant() {
     let montantLoyerForYear = (this.montantLoyer * 12)
     let tauxImpot: number = 0
@@ -220,9 +220,6 @@ export class FormContratComponent implements OnInit {
         this.lieuxByType = data;
       });
     }
-console.log("===> ",this.lieuxByType);
-
-    
   }
 
   getAllLieux() {
@@ -237,22 +234,22 @@ console.log("===> ",this.lieuxByType);
   }
 
   getFoncier() {
+    // Select Foncier from store
     this.store.select(getFonciers).subscribe((data) => {
+      // Check if Foncier data is empty then fetch it from server
       if (data.length === 0) {
+        // Dispatch action to handle the NgRx get Foncier from server effect
         this.store.dispatch(getFoncierAction());
       }
       this.foncier = data
     })
   }
 
+  
   showEtatSection(event: any) {
     let selectedEtat = event.target.value
     this.etatContratTypes = selectedEtat
   }
-
-  //----------------- FIN update && post  -------------------------------------------------------------------------------------------------
-
-  //----------------- Ajouter nouveau Contrat Functions ----------------------------------------------------------------------------
 
 
   //Upload Image piece joint contrat
@@ -287,6 +284,7 @@ console.log("===> ",this.lieuxByType);
     }
   }
 
+  //Add contrat
   addNewContrat() {
     let ctr_data: any = {
 
@@ -315,12 +313,10 @@ console.log("===> ",this.lieuxByType);
       lieu: this.contratForm.get('lieu')?.value || '',
       duree_location: this.contratForm.get('duree_location')?.value || '',
     }
-
-     console.log(ctr_data);
-    
-
+    //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
 
+    //post the formdata (data+files)
     this.contratService.addContrat(this.fd).subscribe(
       (_) => {
         this.postDone = true;
@@ -401,7 +397,7 @@ console.log("===> ",this.lieuxByType);
     } 
   }
 
-
+// Update contrat
   updateContrat() {
     let id = this.contrat._id;
 
@@ -460,10 +456,11 @@ console.log("===> ",this.lieuxByType);
       validation2_DAJC:this.contratForm.get('validation2_DAJC')?.value || false,
 
     }
+   //Append contrat-data in formdata
+      this.fd.append('data', JSON.stringify(ctr_data));
 
-    this.fd.append('data', JSON.stringify(ctr_data));
-
-    this.contratService.updateContrat(id, this.fd).subscribe(
+   //patch the formdata (data+files)
+      this.contratService.updateContrat(id, this.fd).subscribe(
       (_) => {
         this.updateDone = true;
         setTimeout(() => {

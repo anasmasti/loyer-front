@@ -375,13 +375,7 @@ export class DrFormComponent implements OnInit {
   onFileSelected(event: any) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
-      this.fd.append('imgs_lieu_entrer', this.selectedFile);
-
-      console.log("FormData ==> ",this.fd);
-      
-
-     
-      
+      this.fd.append('imgs_lieu_entrer', this.selectedFile); 
     }
   }
 
