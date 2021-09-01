@@ -220,6 +220,9 @@ export class FormContratComponent implements OnInit {
         this.lieuxByType = data;
       });
     }
+console.log("===> ",this.lieuxByType);
+
+    
   }
 
   getAllLieux() {
@@ -325,6 +328,7 @@ export class FormContratComponent implements OnInit {
           this.contratForm.reset();
           this.postDone = false
           this.help.toTheUp();
+          this.help.refrechPage();
         }, 2000);
       },
       (error) => {

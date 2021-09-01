@@ -204,12 +204,12 @@
                   <option *ngFor="let type of typeLieuList" [value]="type.type"> {{ type.type }} </option>
                 </select>
               </div>
-
+           
               <div class="col-lg-5 form-group">
                 <label for="">Sélectionner un lieu</label>
                 <select class="form-control rounded-pill" formControlName="lieu">
                   <option *ngFor="let lieuByType of lieuxByType" [value]="lieuByType._id">
-                    {{ lieuByType.intitule_lieu }}
+                {{ lieuByType.intitule_lieu }}
                   </option>
                 </select>
               </div>
@@ -236,7 +236,7 @@
         <div class="col-lg-3 form-group mt-4">
           <label for="">Lieu</label>
           <select class="form-control rounded-pill" formControlName="lieu">
-            <option *ngFor="let lieuByType of lieuxByType" [value]="lieuByType._id"> {{ lieuByType.intitule_lieu }}
+            <option *ngFor="let lieuByType of lieuxByType" [value]="lieuByType._id"> {{ lieuByType.code_lieu }}
             </option>
           </select>
         </div>
