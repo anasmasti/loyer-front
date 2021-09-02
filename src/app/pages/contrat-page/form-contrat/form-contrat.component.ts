@@ -154,14 +154,19 @@ export class FormContratComponent implements OnInit {
     let tauxImpot: number = 0;
     let montantApresImpot: number = 0;
     let result: number = 0;
+    // Date debut de loyer
     let dateDebutLoyer = this.contratForm.get('date_debut_loyer')?.value;
     dateDebutLoyer = new Date(dateDebutLoyer);
-    let month = dateDebutLoyer.getMonth()+1;
-    let day = dateDebutLoyer.getDate();
-  
-    
+    let month = dateDebutLoyer.getMonth() + 1;
+    // Date resilition
+    let dateResiliation = this.contratForm.get(
+      'etat_contrat_date_resiliation'
+    )?.value;
+    dateResiliation = new Date(dateResiliation);
+    let monthResiliation = dateResiliation.getMonth() + 1;
 
-    if (month == 1) {
+    // ------First Condition--------
+    if (month == 1 && this.etatContratTypes != 'Résiliation') {
       if (this.hasDeclarationOption === 'non') {
         if (montantLoyerForYear <= 30000) {
           result = 0;
@@ -189,37 +194,72 @@ export class FormContratComponent implements OnInit {
       this.montantApresImpot = montantApresImpot;
       this.tauxImpot = tauxImpot;
     }
-    if (month != 1) {
+    // ------Seconde Condition--------
+    if (month != 1 && this.etatContratTypes != 'Résiliation') {
+      // nombre des mois louer
+      let nbr_mois_louer = 12 - month + 1;
 
-      let test = (12 - month) + 1;
-      console.log(test);
-      
       if (this.hasDeclarationOption === 'non') {
-        if (this.montantLoyer * test <= 30000) {
+        if (this.montantLoyer * nbr_mois_louer <= 30000) {
           result = 0;
           montantApresImpot = this.montantLoyer;
           tauxImpot = 0;
         }
         if (
-          this.montantLoyer * test > 30000 &&
-          this.montantLoyer * test <= 120000
+          this.montantLoyer * nbr_mois_louer > 30000 &&
+          this.montantLoyer * nbr_mois_louer <= 120000
         ) {
-          result = (this.montantLoyer * test * 10) / 100;
-          montantApresImpot = (this.montantLoyer * test - result) / test;
+          result = (this.montantLoyer * nbr_mois_louer * 10) / 100;
+          montantApresImpot = (this.montantLoyer * nbr_mois_louer - result) / nbr_mois_louer;
           tauxImpot = 10;
 
-          console.log("==> ",montantApresImpot);
-          
+          console.log('==> ', montantApresImpot);
         }
-        if (this.montantLoyer * test > 120000) {
-          result = (this.montantLoyer * test * 15) / 100;
-          montantApresImpot = (this.montantLoyer * test - result) / test;
+        if (this.montantLoyer * nbr_mois_louer > 120000) {
+          result = (this.montantLoyer * nbr_mois_louer * 15) / 100;
+          montantApresImpot = (this.montantLoyer * nbr_mois_louer - result) / nbr_mois_louer;
           tauxImpot = 15;
         }
       }
       if (this.hasDeclarationOption === 'oui') {
         result = 0;
-        montantApresImpot = this.montantLoyer * test;
+        montantApresImpot = this.montantLoyer * nbr_mois_louer;
+        tauxImpot = 0;
+      }
+
+      this.retenueSource = result;
+      this.montantApresImpot = montantApresImpot;
+      this.tauxImpot = tauxImpot;
+    }
+
+    // ------Third Condition--------
+    if (this.etatContratTypes == 'Résiliation') {
+      // nombre des mois louer
+      let nbr_mois_louer = monthResiliation - month + 1;
+
+      if (this.hasDeclarationOption === 'non') {
+        if (this.montantLoyer * nbr_mois_louer <= 30000) {
+          result = 0;
+          montantApresImpot = this.montantLoyer;
+          tauxImpot = 0;
+        }
+        if (
+          this.montantLoyer * nbr_mois_louer > 30000 &&
+          this.montantLoyer * nbr_mois_louer <= 120000
+        ) {
+          result = (this.montantLoyer * nbr_mois_louer * 10) / 100;
+          montantApresImpot = (this.montantLoyer * nbr_mois_louer - result) / nbr_mois_louer;
+          tauxImpot = 10;
+        }
+        if (this.montantLoyer * nbr_mois_louer > 120000) {
+          result = (this.montantLoyer * nbr_mois_louer * 15) / 100;
+          montantApresImpot = (this.montantLoyer * nbr_mois_louer - result) / nbr_mois_louer;
+          tauxImpot = 15;
+        }
+      }
+      if (this.hasDeclarationOption === 'oui') {
+        result = 0;
+        montantApresImpot = this.montantLoyer * nbr_mois_louer;
         tauxImpot = 0;
       }
 

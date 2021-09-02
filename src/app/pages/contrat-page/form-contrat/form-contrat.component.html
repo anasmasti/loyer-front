@@ -357,7 +357,7 @@
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Date de résiliation</label>
-            <input type="date" class="form-control rounded-pill" formControlName="etat_contrat_date_resiliation">
+            <input type="date" class="form-control rounded-pill" (change)="calculMontant()" formControlName="etat_contrat_date_resiliation">
           </div>
 
           <div class="col-lg-3 form-group mt-4">

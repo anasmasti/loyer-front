@@ -15,7 +15,7 @@ export class DetailContratComponent implements OnInit {
   selected_images_res_sortie!: any;
   selected_lettre_res!: any;
   selected_piece_jointe_avenant!: any ;
-  url: string = 'http://192.168.11.116:5000/';
+  url: string = 'http://192.168.11.110:5000/';
 
   contrat: Contrat ={
     _id: 'Chargement...',
