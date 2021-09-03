@@ -12,6 +12,7 @@ import { getLieux } from '../../lieux-page/lieux-store/lieux.selector';
 import { getFonciers } from '../../foncier-page/foncier-store/foncier.selector';
 import { getFoncierAction } from '../../foncier-page/foncier-store/foncier.actions';
 
+
 @Component({
   selector: 'app-form-contrat',
   templateUrl: './form-contrat.component.html',
@@ -77,6 +78,8 @@ export class FormContratComponent implements OnInit {
 
   // To format the date
   formattedDate: any;
+
+  filename!: any;
 
   constructor(
     private contratService: ContratService,
@@ -147,6 +150,8 @@ export class FormContratComponent implements OnInit {
     this.getFoncier();
     this.calculDate();
   }
+
+
 
   // Calculer le montant
   calculMontant() {
@@ -286,8 +291,6 @@ export class FormContratComponent implements OnInit {
     this.formattedDate = date.toISOString().slice(0, 10);
   }
 
-  //----------------- Update and Post  --------------------------
-
   //functions
   closeModal() {
     this.mainModalService.close();
@@ -369,6 +372,7 @@ export class FormContratComponent implements OnInit {
     }
   }
 
+  //----------------- Update and Post  --------------------------
   //Add contrat
   addNewContrat() {
     let ctr_data: any = {

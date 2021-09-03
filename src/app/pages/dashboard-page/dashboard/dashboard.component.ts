@@ -5,6 +5,8 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getAllCountsAction } from 'src/app/store/shared/shared.action';
 import { ScaleType } from '@swimlane/ngx-charts';
+import { DownloadService } from 'src/app/services/download-service/download.service';
+import * as fileSaver from 'file-saver';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +15,7 @@ import { ScaleType } from '@swimlane/ngx-charts';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>, private downloadService: DownloadService) { }
 
   allCount!: any;
   allCountSubscription$!: Subscription
@@ -262,6 +264,32 @@ export class DashboardComponent implements OnInit {
   formatNumber(input: number): number {
     return input
   }
+
+  // --------------Test--------------
+  returnBlob(res:any):Blob {
+    return new Blob([res],{type:'application/xml'})
+  }
+
+  downloadAnnex1(filename:string){
+    this.downloadService.dowloadFileAnnex1(filename).subscribe(res => {
+      if(res){
+        fileSaver.saveAs(res , filename);
+        console.log('---filename--', filename);
+        
+      }
+    })
+  }
+
+  downloadAnnex2(filename:string){
+    this.downloadService.dowloadFileAnnex2(filename).subscribe(res => {
+      if(res){
+        fileSaver.saveAs(res , filename);
+        console.log('---filename--', filename);
+        
+      }
+    })
+  }
+  // --------------Test--------------
 
 
 }
