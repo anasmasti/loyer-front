@@ -36,4 +36,18 @@ export class DownloadService {
       responseType: 'blob',
     });
   }
+
+  dowloadFileComptableLoyer(filename: string) {
+    const param = new HttpParams().set('filename', filename);
+    const options = {
+      params: param,
+    };
+    console.log(options.params);
+    
+    return this.http.get(`${environment.API_URL_TEST+environment.API_VERSION}/fichier-comptable-loyer`, {
+      ...options,
+      responseType: 'blob',
+    });
+  }
+
 }

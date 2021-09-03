@@ -265,7 +265,7 @@ export class DashboardComponent implements OnInit {
     return input
   }
 
-  // --------------Test--------------
+  // --------------Start Download Files--------------
   returnBlob(res:any):Blob {
     return new Blob([res],{type:'application/xml'})
   }
@@ -274,8 +274,6 @@ export class DashboardComponent implements OnInit {
     this.downloadService.dowloadFileAnnex1(filename).subscribe(res => {
       if(res){
         fileSaver.saveAs(res , filename);
-        console.log('---filename--', filename);
-        
       }
     })
   }
@@ -284,12 +282,22 @@ export class DashboardComponent implements OnInit {
     this.downloadService.dowloadFileAnnex2(filename).subscribe(res => {
       if(res){
         fileSaver.saveAs(res , filename);
-        console.log('---filename--', filename);
-        
       }
     })
   }
-  // --------------Test--------------
+
+  downloadFichierComptable(){
+    let today = new Date()
+    let currentMonthName = today.toLocaleString('default', {month:'long'})
+    let currentYear = today.getFullYear()
+    let filename = 'FichierComptable ' + currentMonthName + ' ' + currentYear
+    this.downloadService.dowloadFileComptableLoyer(filename).subscribe(res => {
+      if(res){
+        fileSaver.saveAs(res , filename);
+      }
+    })
+  }
+  // --------------End Download Files--------------
 
 
 }
