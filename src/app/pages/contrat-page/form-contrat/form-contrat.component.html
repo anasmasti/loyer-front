@@ -15,14 +15,17 @@
     <!--Début 1er Row-->
     <div class="row">
 
-      
+       <!-- Calcul retenue a la source par mois/ total brut loyer / total net loyer -->
+      <input type="hidden" class="form-control btn success-btn" [value]="duree" formControlName="duree"/>
+      <input type="hidden" class="form-control mb-4 btn success-btn" [value]="retunue_source_par_mois" formControlName="retunue_source_par_mois"/>
+      <input type="hidden" class="form-control btn success-btn" [value]="totalBrutLoyer" formControlName="total_montant_brut_loyer"/>
+      <input type="hidden" class="form-control btn success-btn" [value]="totalNetLoyer" formControlName="total_montant_net_loyer"/>
+ 
       <!-- Validation inputs -->
         <input type="hidden" class="form-control btn success-btn" formControlName="validation1_DMG"/>
         <input type="hidden" class="form-control btn success-btn" formControlName="validation2_DAJC"/>
         <input type="hidden" class="form-control btn success-btn" formControlName="numero_contrat"/>
         
-      
-
       <div class="col-lg-3 form-group mt-4">
         <label for="">Pièce jointe</label>
         <input type="file" class="form-control btn success-btn" formControlName="piece_jointe" accept=".zip"

@@ -81,6 +81,11 @@ export class FormContratComponent implements OnInit {
 
   filename!: any;
 
+  duree!:number;
+  retunue_source_par_mois!: number;
+  totalBrutLoyer!: number;
+  totalNetLoyer!: number
+
   constructor(
     private contratService: ContratService,
     private mainModalService: MainModalService,
@@ -145,6 +150,12 @@ export class FormContratComponent implements OnInit {
       // Validation
       validation1_DMG: new FormControl(),
       validation2_DAJC: new FormControl(),
+
+      //calculer par mois
+      duree: new FormControl(),
+      retunue_source_par_mois: new FormControl(),
+      total_montant_brut_loyer: new FormControl(),
+      total_montant_net_loyer: new FormControl(),
     });
 
     this.getFoncier();
@@ -172,6 +183,7 @@ export class FormContratComponent implements OnInit {
 
     // ------First Condition--------
     if (month == 1 && this.etatContratTypes != 'Résiliation') {
+      this.duree = 12;
       if (this.hasDeclarationOption === 'non') {
         if (montantLoyerForYear <= 30000) {
           result = 0;
@@ -198,11 +210,18 @@ export class FormContratComponent implements OnInit {
       this.retenueSource = result;
       this.montantApresImpot = montantApresImpot;
       this.tauxImpot = tauxImpot;
+      //calculer retenue a la source par mois
+      this.retunue_source_par_mois = this.retenueSource / this.duree;
+      //total brut loyer
+      this.totalBrutLoyer = this.montantLoyer * this.duree;
+      // total net loyer
+      this.totalNetLoyer = this.montantApresImpot * this.duree;
     }
     // ------Seconde Condition--------
     if (month != 1 && this.etatContratTypes != 'Résiliation') {
       // nombre des mois louer
       let nbr_mois_louer = 12 - month + 1;
+      this.duree = nbr_mois_louer;
 
       if (this.hasDeclarationOption === 'non') {
         if (this.montantLoyer * nbr_mois_louer <= 30000) {
@@ -235,12 +254,19 @@ export class FormContratComponent implements OnInit {
       this.retenueSource = result;
       this.montantApresImpot = montantApresImpot;
       this.tauxImpot = tauxImpot;
+      //calculer retenue a la source par mois
+      this.retunue_source_par_mois = this.retenueSource / this.duree;
+      //total brut loyer
+      this.totalBrutLoyer = this.montantLoyer * this.duree;
+      // total net loyer
+      this.totalNetLoyer = this.montantApresImpot * this.duree;
     }
 
     // ------Third Condition--------
     if (this.etatContratTypes == 'Résiliation') {
       // nombre des mois louer
       let nbr_mois_louer = monthResiliation - month + 1;
+      this.duree = nbr_mois_louer;
 
       if (this.hasDeclarationOption === 'non') {
         if (this.montantLoyer * nbr_mois_louer <= 30000) {
@@ -271,6 +297,12 @@ export class FormContratComponent implements OnInit {
       this.retenueSource = result;
       this.montantApresImpot = montantApresImpot;
       this.tauxImpot = tauxImpot;
+      //calculer retenue a la source par mois
+      this.retunue_source_par_mois = this.retenueSource / this.duree;
+      //total brut loyer
+      this.totalBrutLoyer = this.montantLoyer * this.duree;
+      // total net loyer
+      this.totalNetLoyer = this.montantApresImpot * this.duree;
     }
   }
 
