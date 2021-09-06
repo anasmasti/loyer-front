@@ -3,7 +3,7 @@
         <div class="d-flex justify-content-between">
           
             <h3 class="main-title">
-                <a class="goback-link">Détails de Contrat de bail</a>/<span class="selected-text">
+                <a [routerLink]="['/contrat/list']" class="goback-link">Détails de Contrat de bail</a>/<span class="selected-text">
                     {{contrat.numero_contrat}}
                 </span>
             </h3>
@@ -24,62 +24,62 @@
     <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-5">
         <div class="row">
             <div class="col-lg-6">
-                <h5 style="color:#909ef8;">Numero de contrat</h5>
+                <h5>Numero de contrat</h5>
                 <p>{{ contrat.numero_contrat }}</p>
             </div>
             <div class="col-lg-6">
 
-                <h5 style="color:#909ef8;">Date de debut du loyer</h5>
+                <h5>Date de debut du loyer</h5>
                 <p>{{ contrat.date_debut_loyer }}</p>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
-                <h5 style="color:#909ef8;">Date fin de contrat de bail</h5>
+                <h5>Date fin de contrat de bail</h5>
                 <p>{{ contrat.date_fin_contrat }}</p>
             </div>
             <div class="col-lg-6">
-                <h5 style="color:#909ef8;">Durée de location</h5>
+                <h5>Durée de location</h5>
                 <p>{{ contrat.duree_location }}</p>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
-                <h5 style="color:#909ef8;">Périodicité de paiement</h5>
+                <h5>Périodicité de paiement</h5>
                 <p>{{ contrat.periodicite_paiement }}</p>
             </div>
             <div class="col-lg-6">
-                <h5 style="color:#909ef8;">Montant du loyer</h5>
+                <h5>Montant du loyer</h5>
                 <p>{{ contrat.montant_loyer }}</p>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
-                <h5 style="color:#909ef8;">Taxe d'édilité comprise dans loyer</h5>
+                <h5>Taxe d'édilité comprise dans loyer</h5>
                 <p>{{contrat.taxe_edilite_loyer}}</p>
             </div>
             <div class="col-lg-6">
-                <h5 style="color:#909ef8;">Taxe d'édilité non comprise dans loyer</h5>
+                <h5>Taxe d'édilité non comprise dans loyer</h5>
                 <p>{{ contrat.taxe_edilite_non_loyer }}</p>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
-                <h5 style="color:#909ef8;">Déclaration d'option</h5>
+                <h5>Déclaration d'option</h5>
                 <p>{{ contrat.declaration_option }}</p>
             </div>
             <div class="col-lg-6">
-                <h5 style="color:#909ef8;">Taux de l'impot</h5>
+                <h5>Taux de l'impot</h5>
                 <p>{{ contrat.taux_impot }}</p>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
-                <h5 style="color:#909ef8;">Retenue à la source</h5>
+                <h5>Retenue à la source</h5>
                 <p>{{ contrat.retenue_source }}</p>
             </div>
             <div class="col-lg-6">
-                <h5 style="color:#909ef8;">Pièce joint</h5>
+                <h5>Pièce joint</h5>
                 <p>
                     <a class="btn second-btn" *ngIf="selectedPieceContrat != undefined" href="{{url}}{{selectedPieceContrat?.image}}" download>
                         Télécharger
@@ -98,61 +98,61 @@
 
         <div class="row">
             <div class="col-lg-6">
-                <h5 style="color:#909ef8;">Montant après impot</h5>
+                <h5>Montant après impot</h5>
                 <p>{{ contrat.montant_apres_impot }}</p>
             </div>
             <div class="col-lg-6">
-                <h5 style="color:#909ef8;">Montant de la caution</h5>
+                <h5>Montant de la caution</h5>
                 <p>{{ contrat.montant_caution }}</p>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
-                <h5 style="color:#909ef8;">Effort de la caution</h5>
+                <h5>Effort de la caution</h5>
                 <p>{{ contrat.effort_caution }}</p>
             </div>
             <div class="col-lg-6">
-                <h5 style="color:#909ef8;">Date de reprise de la caution</h5>
+                <h5>Date de reprise de la caution</h5>
                 <p>{{ contrat.date_reprise_caution}}</p>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
-                <h5 style="color:#909ef8;">Statut de la caution</h5>
+                <h5>Statut de la caution</h5>
                 <p>{{contrat.statut_caution }}</p>
             </div>
             <div class="col-lg-6">
-               <h5 style="color:#909ef8;">Montant de l'avance</h5>
+               <h5>Montant de l'avance</h5>
                <p>{{contrat.montant_avance}}</p> 
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
-                <h5 style="color:#909ef8;">Date fin de l'avance</h5>
+                <h5>Date fin de l'avance</h5>
                 <p>{{contrat.date_fin_avance }}</p>
             </div>
             <div class="col-lg-6">
-               <h5 style="color:#909ef8;">Date 1er paiement</h5>
+               <h5>Date 1er paiement</h5>
                <p>{{contrat.date_premier_paiement}}</p> 
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
-                <h5 style="color:#909ef8;">Durée de l'avance</h5>
+                <h5>Durée de l'avance</h5>
                 <p>{{contrat.duree_avance }}</p>
             </div>
             <div class="col-lg-6">
-               <h5 style="color:#909ef8;">N° d'engagement de la dépense</h5>
+               <h5>N° d'engagement de la dépense</h5>
                <p>{{contrat.n_engagement_depense}}</p> 
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
-                <h5 style="color:#909ef8;">Echéance de révision du loyer</h5>
+                <h5>Echéance de révision du loyer</h5>
                 <p>{{contrat.echeance_revision_loyer }}</p>
             </div>
             <div class="col-lg-6">
-               <h5 style="color:#909ef8;">Etat de contrat</h5>
+               <h5>Etat de contrat</h5>
                <p>{{this.contrat.etat_contrat?.libelle}}</p> 
             </div>
         </div>
@@ -170,31 +170,31 @@
     
         <div class="row">
             <div class="col-lg-3">
-                <h5 style="color:#909ef8;">N° avenant</h5>
+                <h5>N° avenant</h5>
                 <p>{{contrat.etat_contrat?.etat?.n_avenant}}</p>
             </div>
             <div class="col-lg-3">
-               <h5 style="color:#909ef8;">Motif</h5>
+               <h5>Motif</h5>
                <p>{{contrat.etat_contrat?.etat?.motif}}</p> 
             </div>
     
             <div class="col-lg-3">
-                <h5 style="color:#909ef8;">Montant nouveau loyer</h5>
+                <h5>Montant nouveau loyer</h5>
                 <p>{{contrat.etat_contrat?.etat?.montant_nouveau_loyer}}</p>
             </div>
             <div class="col-lg-3">
-               <h5 style="color:#909ef8;">Signaletique successeur</h5>
+               <h5>Signaletique successeur</h5>
                <p>{{contrat.etat_contrat?.etat?.signaletique_successeur}}</p> 
             </div>
         </div>
     
         <div class="row">
             <div class="col-lg-3">
-                <h5 style="color:#909ef8;">Intitule lieu</h5>
+                <h5>Intitule lieu</h5>
                 <p>{{contrat.etat_contrat?.etat?.intitule_lieu}}</p>
             </div>
             <div class="col-lg-3">
-                <h5 style="color:#909ef8;">Pièce jointe</h5>
+                <h5>Pièce jointe</h5>
                 <p>
                     <a class="btn second-btn" *ngIf="selected_piece_jointe_avenant != undefined" href="{{url}}{{selected_piece_jointe_avenant?.image}}" download>
                         Télécharger
@@ -217,20 +217,20 @@
     
     <div class="row">
         <div class="col-lg-3">
-            <h5 style="color:#909ef8;">Intitule de lieu</h5>
+            <h5>Intitule de lieu</h5>
             <p>{{contrat.etat_contrat?.etat?.intitule_lieu}}</p>
         </div>
         <div class="col-lg-3">
-           <h5 style="color:#909ef8;">Date de suspension</h5>
+           <h5>Date de suspension</h5>
            <p>{{contrat.etat_contrat?.etat?.date_suspension}}</p> 
         </div>
 
         <div class="col-lg-3">
-            <h5 style="color:#909ef8;">Durée de suspension</h5>
+            <h5>Durée de suspension</h5>
             <p>{{contrat.etat_contrat?.etat?.duree_suspension}}</p>
         </div>
         <div class="col-lg-3">
-           <h5 style="color:#909ef8;">Motif suspension</h5>
+           <h5>Motif suspension</h5>
            <p>{{contrat.etat_contrat?.etat?.motif_suspension}}</p> 
         </div>
     </div> 
@@ -246,31 +246,31 @@
     
     <div class="row">
         <div class="col-lg-3">
-            <h5 style="color:#909ef8;">Intitulé de lieu</h5>
+            <h5>Intitulé de lieu</h5>
             <p>{{contrat.etat_contrat?.etat?.intitule_lieu}}</p>
         </div>
         <div class="col-lg-3">
-           <h5 style="color:#909ef8;">Reprise caution</h5>
+           <h5>Reprise caution</h5>
            <p>{{contrat.etat_contrat?.etat?.reprise_caution}}</p> 
         </div>
 
         <div class="col-lg-3">
-            <h5 style="color:#909ef8;">Etat des lieux de sortie</h5>
+            <h5>Etat des lieux de sortie</h5>
             <p>{{contrat.etat_contrat?.etat?.etat_lieu_sortie}}</p>
         </div>
         <div class="col-lg-3">
-           <h5 style="color:#909ef8;">Préavis</h5>
+           <h5>Préavis</h5>
            <p>{{contrat.etat_contrat?.etat?.preavis}}</p> 
         </div>
     </div> 
 
     <div class="row">
         <div class="col-lg-3">
-            <h5 style="color:#909ef8;">Date de résiliation</h5>
+            <h5>Date de résiliation</h5>
             <p>{{contrat.etat_contrat?.etat?.date_resiliation}}</p>
         </div>
         <div class="col-lg-3">
-           <h5 style="color:#909ef8;">Images d'état des lieux de sortie</h5>
+           <h5>Images d'état des lieux de sortie</h5>
            <p>
             <a class="btn second-btn" *ngIf="selected_images_res_sortie != undefined" href="{{url}}{{selected_images_res_sortie?.image}}" download>
                 Télécharger
@@ -282,7 +282,7 @@
         </div>
 
         <div class="col-lg-3">
-            <h5 style="color:#909ef8;">La lettre de résiliation scannée</h5>
+            <h5>La lettre de résiliation scannée</h5>
             <p>
                 <a class="btn second-btn" *ngIf="selected_lettre_res != undefined" href="{{url}}{{selected_lettre_res?.image}}" download>
                     Télécharger
