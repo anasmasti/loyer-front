@@ -123,3 +123,9 @@ body {
     @extend .main-btn;
   }
 }
+
+// Checkbox style
+.form-check-input:checked {
+  background-color: #f9a11e !important;
+  border-color: #f9a11e !important;
+}
