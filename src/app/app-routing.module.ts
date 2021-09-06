@@ -9,7 +9,6 @@ const routes: Routes = [
   { path: 'contrat', loadChildren: () => import('./pages/contrat-page/contrat.module').then(m => m.ContratModule) },
   { path: 'admin', loadChildren: () => import('./pages/admin-panel/admin-panel.module').then(m => m.AdminPanelModule) },
   { path: 'foncier', loadChildren: () => import('./pages/foncier-page/foncier-page.module').then(m => m.FoncierPageModule) },
-  { path: 'versement', loadChildren: () => import('./pages/versement-page/versement.module').then(m => m.VersementModule) },
   { path: '**', loadChildren: () => import('./pages/notfound-page/notfound-page.module').then(m => m.NotfoundPageModule) },
 ];
 

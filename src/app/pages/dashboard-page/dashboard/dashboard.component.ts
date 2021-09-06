@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
   // Color options
   gradient: boolean = false;
   colorScheme = {
-    domain: ['#909ef8', '#ced3f7', '#7285ff']
+    domain: ['#f9a11e', '#ffbb56', '#e25e2c', "#ff9a73"]
   };
   schemeType: any = 'ordinal'; // 'ordinal' or 'linear'
 
@@ -190,37 +190,27 @@ export class DashboardComponent implements OnInit {
     {
       "name": "Germany",
       "value": 40632,
-      "extra": {
-        "code": "de"
-      }
+     
     },
     {
       "name": "United States",
       "value": 50000,
-      "extra": {
-        "code": "us"
-      }
+    
     },
     {
       "name": "France",
       "value": 36745,
-      "extra": {
-        "code": "fr"
-      }
+     
     },
     {
       "name": "United Kingdom",
       "value": 36240,
-      "extra": {
-        "code": "uk"
-      }
+     
     },
     {
       "name": "Spain",
       "value": 33000,
-      "extra": {
-        "code": "es"
-      }
+     
     },
     {
       "name": "Western Sahara",
