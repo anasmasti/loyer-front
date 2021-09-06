@@ -5,7 +5,6 @@ import { AppState } from 'src/app/store/app.state';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Contrat } from 'src/app/models/Contrat';
 import { ContratService } from 'src/app/services/contrat-service/contrat.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { getLieux } from '../../lieux-page/lieux-store/lieux.selector';
@@ -81,7 +80,7 @@ export class FormContratComponent implements OnInit {
 
   filename!: any;
 
-  duree!:number;
+  duree!: number;
   retunue_source_par_mois!: number;
   totalBrutLoyer!: number;
   totalNetLoyer!: number
@@ -91,7 +90,7 @@ export class FormContratComponent implements OnInit {
     private mainModalService: MainModalService,
     private help: HelperService,
     private store: Store<AppState>
-  ) {}
+  ) { }
 
   ngOnChanges() {
     if (this.update) {
@@ -440,11 +439,17 @@ export class FormContratComponent implements OnInit {
         this.contratForm.get('n_engagement_depense')?.value || '',
       lieu: this.contratForm.get('lieu')?.value || '',
       duree_location: this.contratForm.get('duree_location')?.value || '',
+
+      duree: this.duree || '',
+      retunue_source_par_mois: this.retunue_source_par_mois || '',
+      total_montant_brut_loyer: this.totalBrutLoyer || '',
+      total_montant_net_loyer: this.totalNetLoyer || '',
     };
+
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
 
-    //post the formdata (data+files)
+    // post the formdata (data+files)
     this.contratService.addContrat(this.fd).subscribe(
       (_) => {
         this.postDone = true;
