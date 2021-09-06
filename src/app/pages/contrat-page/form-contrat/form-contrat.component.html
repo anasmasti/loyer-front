@@ -39,7 +39,7 @@
       </div>
 
       <div class="col-lg-3 form-group mt-4">
-        <label for="">Montant du loyer</label>
+        <label for="">Montant du loyer (Mensuel)</label>
         <input type="number" [(ngModel)]="montantLoyer" (keyup)="calculMontant()" class="form-control rounded-pill"
           formControlName="montant_loyer" />
       </div>
@@ -92,13 +92,13 @@
       </div>
 
       <div class="col-lg-3 form-group mt-4">
-        <label for="">Retenue à la source </label>
+        <label for="">Retenue à la source (Annuel) </label>
         <input type="text" [value]="retenueSource" class="form-control rounded-pill" formControlName="retenue_source"
           readonly>
       </div>
 
       <div class="col-lg-3 form-group mt-4">
-        <label for="">Montant après impôt</label>
+        <label for="">Montant après impôt (Mensuel)</label>
         <input type="number" class="form-control rounded-pill" [value]="montantApresImpot"
           formControlName="montant_apres_impot" readonly>
       </div>
