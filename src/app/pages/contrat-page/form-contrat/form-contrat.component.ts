@@ -235,8 +235,6 @@ export class FormContratComponent implements OnInit {
           result = (this.montantLoyer * nbr_mois_louer * 10) / 100;
           montantApresImpot = (this.montantLoyer * nbr_mois_louer - result) / nbr_mois_louer;
           tauxImpot = 10;
-
-          console.log('==> ', montantApresImpot);
         }
         if (this.montantLoyer * nbr_mois_louer > 120000) {
           result = (this.montantLoyer * nbr_mois_louer * 15) / 100;
