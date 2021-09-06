@@ -112,8 +112,8 @@ export class ListContratComponent implements OnInit {
 
   validation1Contrat() {
     (document.getElementById("vld1: " + this.id) as HTMLInputElement).disabled=true;
-    (document.getElementById("vld1: " + this.id) as HTMLInputElement).classList.remove('bag-second');
-    (document.getElementById("vld1: " + this.id) as HTMLInputElement).classList.add('bag-succes');
+    (document.getElementById("vld1: " + this.id) as HTMLInputElement).classList.remove('second-btn');
+    (document.getElementById("vld1: " + this.id) as HTMLInputElement).classList.add('success-btn');
     this.contratService.updateValidation1Contrat(this.id).subscribe();
     // this.testValidation1=true;
     setTimeout(() => {

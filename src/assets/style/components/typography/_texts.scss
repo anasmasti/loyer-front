@@ -1,0 +1,25 @@
+@use '../../helpers' as *;
+
+//txt succes
+.success-txt {
+    color: color(success) !important;
+    font-weight: bold;
+}
+
+//txt danger
+.danger-txt {
+    color: color(danger) !important;
+    font-weight: bold;
+}
+
+//txt second
+.main-txt {
+    color: color(main-color) !important;
+    font-weight: bold;
+}
+
+//txt info
+.info-txt {
+    color: color(info) !important;
+    font-weight: bold;
+}
