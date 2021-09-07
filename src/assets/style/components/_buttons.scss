@@ -94,15 +94,4 @@
     }
 }
 
-.isDisabled {
-   
-    background: color(dark) !important;
-    color: color(light) !important;
-    filter: blur(5px); 
-    cursor: not-allowed;  
-    cursor: -moz-not-allowed;
-    cursor: -webkit-not-allowed;
-    pointer-events: none;
-  }
-
 

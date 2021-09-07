@@ -82,24 +82,14 @@
                 <h6 class="main-title">
                     Liens rapides
                 </h6>
-                <coming-soon></coming-soon>
+                <div class="col-12 col-lg-6 mt-2 d-flex mt-3">
+                    <button type="submit" class="btn second-btn form-control mx-3"
+                        (click)="downloadAnnex1('Annex1')">Télécharger annex 1</button>
+                    <button type="submit" class="btn second-btn form-control"
+                        (click)="downloadAnnex2('Annex2')">Télécharger annex 2</button>
+                    <button type="submit" class="btn second-btn form-control mx-3"
+                        (click)="downloadFichierComptable()">Télécharger fichier comptable</button>
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="mt-5">
-        <div class="row">
-            <h6 class="main-title">
-                Télécharger xml
-            </h6>
-            <div class="col-12 col-lg-6 mt-2 d-flex">
-
-                <button type="submit" class="btn second-btn form-control mx-3"  (click)="downloadAnnex1('Annex1')">Annex1</button>
-                <button type="submit" class="btn second-btn form-control" (click)="downloadAnnex2('Annex2')">Annex2</button>
-                <button type="submit" class="btn second-btn form-control mx-3" (click)="downloadFichierComptable()">Fichier comptable</button>
-                
-            </div>
-        </div>
-    </div>
-
-    
