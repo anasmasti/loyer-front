@@ -5,9 +5,9 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class CheckRolesGuard implements CanActivate {
+export class AuthGuard implements CanActivate {
 
-  isAuth: boolean = false
+  isAuth: boolean = true
 
   constructor(public router: Router) { }
 
