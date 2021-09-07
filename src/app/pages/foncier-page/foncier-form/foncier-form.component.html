@@ -16,8 +16,8 @@
         <label for="">Proprietaire</label>
         <select class="form-control rounded-pill" formControlName="proprietaire">
           <option [value]="proprietaire._id" *ngFor="let proprietaire of proprietaires">{{
-            proprietaire.cin }}</option>
-
+            proprietaire.cin }}
+          </option>
         </select>
       </div>
 
@@ -88,8 +88,6 @@
       </div>
 
     </div>
-
-
 
     <!-- Button Ajouter -->
     <div class="form-group mt-5 col-lg-2 d-flex">
