@@ -1,5 +1,6 @@
 import { MainModalService } from '../../../services/main-modal/main-modal.service';
 import { Component, Input, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-main-modal',
@@ -11,11 +12,13 @@ export class MainModalComponent implements OnInit {
   @Input() closeBtn: boolean = true
   @Input() mainHeight!: string;
 
+  version!: string;
+
   constructor(private mainModalService: MainModalService) { }
 
 
   ngOnInit(): void {
-    
+    this.version = environment.APP_VERSION;
   }
 
   closeModal() {
