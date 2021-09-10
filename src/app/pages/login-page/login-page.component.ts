@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth-service/auth.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,14 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginPageComponent implements OnInit {
 
-  constructor( private mainModalService: MainModalService) { }
+  constructor(private mainModalService: MainModalService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.mainModalService.open();
   }
 
   login() {
-
+    this.authService.logIn().subscribe(data => {
+      console.log(data);
+    })
   }
 
 }
