@@ -3,7 +3,7 @@
     <div class="d-lg-flex justify-content-lg-between">
       <h5 class="main-title">Direction régionale</h5>
       <div>
-        <a [routerLink]="['/lieux/list']" class="btn main-btn">Voir la liste des directions régionales</a>
+        <a [routerLink]="['/lieux/list']" class="btn btn-sm main-btn">Voir la liste des directions régionales</a>
         <a class="text-dark ms-5" data-bs-toggle="tooltip" data-bs-placement="top"
           title="Ici vous pouvez ajouter une nouvelle direction régionale"><i class="fal fa-info"></i></a>
       </div>
@@ -121,7 +121,7 @@
               [formGroupName]="i" id="{{ i }}">
               <a (click)="removeAmenagement(i)" class="btn btn-sm danger-btn float-end"><i class="fal fa-trash"></i></a>
               <div class="row">
-                <input type="text" ngModel="{{
+                <input type="hidden" ngModel="{{
                     update && amenagementForm.controls[i].value.idm.length !== 0
                       ? amenagementForm.controls[i].value.idm 
                       : idm + i + imageExtension 
