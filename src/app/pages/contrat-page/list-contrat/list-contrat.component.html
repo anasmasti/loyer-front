@@ -38,8 +38,8 @@
                 <th>Montant loyer</th>
                 <th>Date début du loyer</th>
                 <th>Date fin de contrat</th>
-                <th>Action</th>
-                <th>Validation</th>
+                <th>Actions</th>
+                <th>Autre</th>
             </tr>
         </thead>
         <tbody *ngIf="contrats?.length">
@@ -57,26 +57,51 @@
                     <div class="d-flex">
                         <a [routerLink]="['list',contrat._id]" class="btn btn-sm main-btn me-2"><i
                                 class="fal fa-eye"></i></a>
-                        <a *ngIf="this.contrat.etat_contrat?.libelle != 'Résiliation'"
-                            (click)="openEditModal(contrat);" class="btn btn-sm info-btn me-2"><i
-                                class="far fa-user-edit"></i></a>
+                        <a *ngIf="this.contrat.etat_contrat?.libelle != 'Résiliation'" (click)="openEditModal(contrat);"
+                            class="btn btn-sm info-btn me-2"><i class="far fa-user-edit"></i></a>
                         <a class="btn btn-sm danger-btn" (click)="openConfirmationModal(contrat._id);"><i
                                 class="far fa-user-minus"></i></a>
                     </div>
                 </td>
                 <td>
-                    <div class="d-flex">
-                        <button *ngIf="contrat.etat_contrat?.libelle != 'Résiliation'" class="mx-2"
-                            [ngClass]="contrat.validation1_DMG ? 'success-btn' : 'second-btn'"
-                            [id]="'vld1: ' + contrat._id" (click)="openConfirmationModalValidation1(contrat._id)"
-                            [disabled]="contrat.validation1_DMG">Validiation 1</button>
-
-                        <button *ngIf="contrat.etat_contrat?.libelle != 'Résiliation'"
-                            [ngClass]="contrat.validation2_DAJC ? 'success-btn' : ' second-btn'"
-                            [id]="'vld2: ' + contrat._id"
-                            (click)="openConfirmationModalValidation2(contrat._id , contrat.validation1_DMG)"
-                            [disabled]="contrat.validation2_DAJC">Validation 2</button>
+                    <div class="btn-group" role="group">
+                        <a id="btnGroupDrop1" class="btn main-btn " data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fal fa-ellipsis-h-alt"></i>
+                        </a>
+                        <ul class="dropdown-menu p-3" aria-labelledby="btnGroupDrop1">
+                            <li>
+                                <h5 class="main-title">Validation</h5>
+                                <div class="d-flex">
+                                    <button *ngIf="contrat.etat_contrat?.libelle != 'Résiliation'" class="mx-2"
+                                        [ngClass]="contrat.validation1_DMG ? 'success-btn' : 'second-btn'"
+                                        [id]="'vld1: ' + contrat._id"
+                                        (click)="openConfirmationModalValidation1(contrat._id)"
+                                        [disabled]="contrat.validation1_DMG">
+                                        Validiation 1
+                                    </button>
+                                    <button *ngIf="contrat.etat_contrat?.libelle != 'Résiliation'"
+                                        [ngClass]="contrat.validation2_DAJC ? 'success-btn' : ' second-btn'"
+                                        [id]="'vld2: ' + contrat._id"
+                                        (click)="openConfirmationModalValidation2(contrat._id , contrat.validation1_DMG)"
+                                        [disabled]="contrat.validation2_DAJC">
+                                        Validation 2
+                                    </button>
+                                </div>
+                            </li>
+                            <li class="my-3">
+                                <h5 class="main-title">Téléchargement</h5>
+                                <div class="col-12 col-lg-6 mt-2 d-flex mt-3">
+                                    <button type="submit" class="btn second-btn form-control"
+                                        (click)="downloadAnnex1('Annex1')">Annex 1</button>
+                                    <button type="submit" class="btn second-btn form-control mx-3"
+                                        (click)="downloadAnnex2('Annex2')">Annex 2</button>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
+
+
+
                 </td>
             </tr>
 

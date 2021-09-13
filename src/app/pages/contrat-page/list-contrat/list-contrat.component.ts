@@ -4,6 +4,8 @@ import { Contrat } from 'src/app/models/Contrat';
 import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
 import { ContratService } from 'src/app/services/contrat-service/contrat.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
+import { DownloadService } from 'src/app/services/download-service/download.service';
+import * as fileSaver from 'file-saver';
 
 @Component({
   selector: 'app-list-contrat',
@@ -31,7 +33,8 @@ export class ListContratComponent implements OnInit {
     private contratService: ContratService,
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
-    private helperService: HelperService
+    private helperService: HelperService,
+    private downloadService: DownloadService
   ) {}
 
   ngOnInit(): void {
@@ -129,6 +132,21 @@ export class ListContratComponent implements OnInit {
     setTimeout(() => {
       location.reload();
     }, 400);
+  }
 
+  downloadAnnex1(filename:string){
+    this.downloadService.dowloadFileAnnex1(filename).subscribe(res => {
+      if(res){
+        fileSaver.saveAs(res , filename);
+      }
+    })
+  }
+
+  downloadAnnex2(filename:string){
+    this.downloadService.dowloadFileAnnex2(filename).subscribe(res => {
+      if(res){
+        fileSaver.saveAs(res , filename);
+      }
+    })
   }
 }

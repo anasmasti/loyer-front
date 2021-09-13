@@ -256,26 +256,6 @@ export class DashboardComponent implements OnInit {
   }
 
   // --------------Start Download Files--------------
-  returnBlob(res:any):Blob {
-    return new Blob([res],{type:'application/xml'})
-  }
-
-  downloadAnnex1(filename:string){
-    this.downloadService.dowloadFileAnnex1(filename).subscribe(res => {
-      if(res){
-        fileSaver.saveAs(res , filename);
-      }
-    })
-  }
-
-  downloadAnnex2(filename:string){
-    this.downloadService.dowloadFileAnnex2(filename).subscribe(res => {
-      if(res){
-        fileSaver.saveAs(res , filename);
-      }
-    })
-  }
-
   downloadFichierComptable(){
     let today = new Date()
     let currentMonthName = today.toLocaleString('default', {month:'long'})

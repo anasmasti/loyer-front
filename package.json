@@ -22,6 +22,7 @@
     "@ngrx/effects": "^12.3.0",
     "@ngrx/store": "^12.3.0",
     "@ngrx/store-devtools": "^12.3.0",
+    "@popperjs/core": "^2.10.1",
     "@swimlane/ngx-charts": "^18.0.1",
     "bootstrap": "^5.0.1",
     "file-saver": "^2.0.5",
