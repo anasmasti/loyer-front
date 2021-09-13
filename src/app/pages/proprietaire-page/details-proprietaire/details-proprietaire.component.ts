@@ -28,7 +28,7 @@ export class DetailsProprietaireComponent implements OnInit {
     this.proprietaireService.getProprietaireById(id).subscribe((data) => {
       if (data) {
         this.proprietaire = data;
-        this.mandataire = data.mandataire[0];
+        this.mandataire = data.mandataire;
       }
     });
   }

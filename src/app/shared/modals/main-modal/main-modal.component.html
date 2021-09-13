@@ -2,6 +2,8 @@
     <div class="modal-content" [ngStyle]="{'height': mainHeight}">
         <span *ngIf="closeBtn" class="close-icon" (click)='closeModal()'>&times;</span>
         <ng-content></ng-content>
-        Version: <strong>{{ version }}</strong> 
+        <div class="mt-5">
+            Version: <strong>{{ version }}</strong> 
+        </div>
     </div>
 </div>

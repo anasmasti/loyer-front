@@ -12,13 +12,6 @@ import { stringify } from '@angular/compiler/src/util';
 export class FormComponent implements OnInit {
 
 
-  // // user: User = {
-  // //   userMatricul: "",
-  // //   nom: "",
-  // //   prenom: "",
-  // //   userRoles: [],
-  // //   deleted:false
-  // };
   errors!: string;
   postDone: boolean = false;
   adminForm!: FormGroup;
@@ -40,11 +33,9 @@ export class FormComponent implements OnInit {
   ngOnChanges() {
 
     if ((this.userR != 'Ajouter') && (this.userR != null)) {
-
       this.fetchUser();
       this.userIsEmpty = false;
       this.SubmitForm = 'Modifier'
-
     }
     else {
       this.userIsEmpty = true;
@@ -55,11 +46,9 @@ export class FormComponent implements OnInit {
       this.Role4 = false;
       this.Role5 = false;
     }
-
   }
 
   ngOnInit(): void {
-
     this.adminForm = new FormGroup({
       Matricule: new FormControl('', []),
       Nom: new FormControl('', []),
@@ -67,22 +56,14 @@ export class FormComponent implements OnInit {
       Roles: new FormArray([]),
       deleted: new FormControl('',)
     });
-
   }
 
   fetchUser() {
-
-
-
     // this.adminForm.reset();
     const control = <FormArray>this.adminForm.controls['Roles'];
     for (let i = control.length - 1; i >= 0; i--) {
       control.removeAt(i)
     }
-
-
-
-
 
     this.Role1 = false;
     this.Role2 = false;
@@ -266,6 +247,7 @@ export class FormComponent implements OnInit {
           this.adminForm.reset();
           this.clearCH();
           this.postDone = false;
+          location.reload();
         }, 1000);
       },
       (error) => {
