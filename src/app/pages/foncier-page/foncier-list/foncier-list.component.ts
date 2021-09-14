@@ -22,6 +22,7 @@ export class FoncierListComponent implements OnInit {
   targetFoncier!: Foncier;
   foncierSubscription$!: Subscription
   findFoncier!: string;
+  deletedFoncier!: Foncier;
 
   // Pagination options
   listFoncierPage: number = 1;
@@ -29,6 +30,7 @@ export class FoncierListComponent implements OnInit {
   tableSize: number = 10;
 
   constructor(
+    private foncierService: FoncierService,
     private helperService: HelperService,
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
@@ -65,11 +67,15 @@ export class FoncierListComponent implements OnInit {
   openEditModal(SelectedFoncier: any) {
     this.mainModalService.open();
     this.targetFoncier = SelectedFoncier;
+    console.log(this.targetFoncier);
+    
+    
   }
 
-  openConfirmationModal(id: string) {
-    this.id = id;
+  openConfirmationModal(Foncier: any) {
+    // this.id = id;
     this.confirmationModalService.open(); // Open delete confirmation modal
+    this.deletedFoncier = Foncier
   }
 
   // Close confirmation modal
@@ -77,9 +83,35 @@ export class FoncierListComponent implements OnInit {
     this.confirmationModalService.close(); // Close delete confirmation modal
   }
 
+   // Afficher le message d'erreur de serveur
+   showErrorMessage() {
+    $('.error-alert').addClass('active');
+  }
+  // hide le message d'erreur de serveur
+  hideErrorMessage() {
+    $('.error-alert').removeClass('active');
+  }
+
   // Delete fonfier
   deleteFoncier() {
-
+    this.foncierService
+    .deleteFoncier(this.deletedFoncier._id, { deleted: true })
+    .subscribe(
+      (_) => {
+        // this.postDone = true;
+        setTimeout(() => {
+          // this.drForm.controls
+          this.store.dispatch(getFoncierAction());
+          this.confirmationModalService.close();
+        }, 500);
+      },
+      (error) => {
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+    );
   }
 
   reload() {

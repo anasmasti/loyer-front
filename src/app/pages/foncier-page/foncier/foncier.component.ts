@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FoncierComponent implements OnInit {
 
-  Ajouter: string = "";
+  foncier: string = '';
 
   constructor() { }
 

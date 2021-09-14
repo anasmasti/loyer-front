@@ -8,6 +8,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { getLieux, getProprietaires } from '../foncier-store/foncier.selector';
 import { debounceTime } from 'rxjs/operators';
+import { HelperService } from 'src/app/services/helpers/helper.service';
+import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 
 @Component({
   selector: 'foncier-form',
@@ -17,9 +19,12 @@ import { debounceTime } from 'rxjs/operators';
 export class FoncierFormComponent implements OnInit, OnDestroy {
 
   @Input() formType!: string;
+  @Input() foncier!: any;
   errors!: string;
   postDone: boolean = false;
   PostSucces: string = 'Foncier ajouté avec succés';
+  updateDone: boolean = false;
+  updateSucces: string = 'Foncier modifié avec succés';
   foncierForm!: FormGroup;
   proprietaires!: any
   lieux!: any
@@ -28,7 +33,9 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
   constructor(
     private foncierService: FoncierService,
-    private store: Store<AppState>) { }
+    private store: Store<AppState>,
+    private help: HelperService,
+    private mainModalService: MainModalService,) { }
 
   ngOnInit(): void {
     this.foncierForm = new FormGroup({
@@ -48,6 +55,36 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
     this.getProprietaires()
     this.getLieux()
+    
+  }
+
+  ngOnChanges() {
+    if (this.foncier !== '' && this.foncier !== undefined ) {
+      setTimeout(() => {
+        this.fetchFc();
+      }, 200);
+    }
+  }
+
+  fetchFc() {
+    // this.removeAllAmenagement();
+
+    this.foncierForm.patchValue({
+      proprietaire: this.foncier.proprietaire,
+      type_foncier: this.foncier.type_foncier,
+      adresse: this.foncier.adresse,
+      description: this.foncier.description,
+      lieu: this.foncier.lieu,
+      assure: this.foncier.assure,
+      etat_du_bien: this.foncier.etat_du_bien,
+      ville: this.foncier.ville,
+      code_postal: this.foncier.code_postal,
+      pays: this.foncier.pays,
+      montant_loyer: this.foncier.montant_loyer,
+      meuble_equipe: this.foncier.meuble_equipe,
+    });
+    
+
   }
 
   // Afficher le message d'erreur de serveur
@@ -90,9 +127,46 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
         }, 3000);
         this.hideErrorMessage();
       }
-    );
-  }
+      );
+    }
+    
+  updateFoncier(){
+      let id = this.foncier._id
 
+    let foncier: Foncier = {
+      proprietaire: this.foncierForm.get('proprietaire')?.value,
+      type_foncier: this.foncierForm.get('type_foncier')?.value,
+      adresse: this.foncierForm.get('adresse')?.value,
+      description: this.foncierForm.get('description')?.value,
+      lieu: this.foncierForm.get('lieu')?.value,
+      assure: this.foncierForm.get('assure')?.value,
+      etat_du_bien: this.foncierForm.get('etat_du_bien')?.value,
+      ville: this.foncierForm.get('ville')?.value,
+      code_postal: this.foncierForm.get('code_postal')?.value,
+      pays: this.foncierForm.get('pays')?.value,
+      montant_loyer: this.foncierForm.get('montant_loyer')?.value,
+      meuble_equipe: this.foncierForm.get('meuble_equipe')?.value,
+    }
+
+    this.foncierService.updateFoncier(id,foncier).subscribe(
+      (_) => {
+        this.updateDone = true;
+        setTimeout(() => {
+          this.foncierForm.reset();
+          this.updateDone = false;
+          this.mainModalService.close();
+          this.help.refrechPage();
+        }, 2000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+      );
+    }
   // Get Proprietaire With Lieux Ids from the server
   getPropWithLieux() {
     this.store.dispatch(getPropWithLieuxAction())
@@ -113,6 +187,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       if (!data) this.getPropWithLieux()
     });
   }
+
 
   ngOnDestroy() {
     if (this.lieuxSubscription$) this.lieuxSubscription$.unsubscribe()
