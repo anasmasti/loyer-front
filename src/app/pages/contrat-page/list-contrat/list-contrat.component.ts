@@ -13,6 +13,7 @@ import * as fileSaver from 'file-saver';
   styleUrls: ['./list-contrat.component.scss'],
 })
 export class ListContratComponent implements OnInit {
+  errors!: string;
   contrats!: Contrat[];
   id: string = '0';
   targetContrat: Contrat[] = [];
@@ -25,9 +26,11 @@ export class ListContratComponent implements OnInit {
   //Validation 2
   isValidate2!: boolean;
 
-  // Test pour verifier si la validation 1 est déjà validé sinon on vas afficher le msg d'erreur {{msgErrorV2}}
-  msgErrorV2: string ="Vous devez d'abbord validé la validation numéro 1!"
   testValidation1: boolean = false;
+
+  //Delete succes message
+  deleteDone: boolean = false;
+  deleteSucces: string = 'Utilisateur supprimé avec succés'
 
   constructor(
     private contratService: ContratService,
@@ -35,7 +38,7 @@ export class ListContratComponent implements OnInit {
     private confirmationModalService: ConfirmationModalService,
     private helperService: HelperService,
     private downloadService: DownloadService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -81,18 +84,20 @@ export class ListContratComponent implements OnInit {
     this.confirmationModalService.open(); // Open validation 1 confirmation modal
   }
 
-  openConfirmationModalValidation2(id: string,validation1:boolean) {
-    if(validation1){
+  openConfirmationModalValidation2(id: string, validation1: boolean) {
+    if (validation1) {
       this.isValidate = false;
       this.isValidate2 = true;
       this.id = id;
       this.confirmationModalService.open(); // Open validation 2 confirmation modal
-      
+
     }
     else {
-      this.testValidation1 = true ;
+      this.testValidation1 = true;
+      // Test pour verifier si la validation 1 est déjà validé sinon on vas afficher le msg d'erreur 
+      this.errors = "Vous devez d'abbord validé la validation numéro 1!"
       setTimeout(() => {
-        this.testValidation1 = false ;
+        this.testValidation1 = false;
       }, 2000);
     }
   }
@@ -102,11 +107,34 @@ export class ListContratComponent implements OnInit {
     this.confirmationModalService.close(); // Close delete confirmation modal
   }
 
+  // Afficher le message d'erreur de serveur
+  showErrorMessage() {
+    $('.error-alert').addClass('active');
+  }
+
+  // hide le message d'erreur de serveur
+  hideErrorMessage() {
+    $('.error-alert').removeClass('active');
+  }
+
   // deleteContrat
   deleteContrat() {
-    this.contratService.deleteContrat(this.id).subscribe((_) => {
-      this.getContrat();
-    });
+    this.contratService.deleteContrat(this.id).subscribe(
+      (_) => {
+        this.getContrat();
+        this.deleteDone = true;
+        setTimeout(() => {
+          this.deleteDone = false;
+        }, 3000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 2000);
+        this.hideErrorMessage();
+      }
+    );
   }
 
   reload() {
@@ -114,7 +142,7 @@ export class ListContratComponent implements OnInit {
   }
 
   validation1Contrat() {
-    (document.getElementById("vld1: " + this.id) as HTMLInputElement).disabled=true;
+    (document.getElementById("vld1: " + this.id) as HTMLInputElement).disabled = true;
     (document.getElementById("vld1: " + this.id) as HTMLInputElement).classList.remove('second-btn');
     (document.getElementById("vld1: " + this.id) as HTMLInputElement).classList.add('success-btn');
     this.contratService.updateValidation1Contrat(this.id).subscribe();
@@ -125,7 +153,7 @@ export class ListContratComponent implements OnInit {
   }
 
   validation2Contrat() {
-    (document.getElementById("vld2: " + this.id) as HTMLInputElement).disabled=true;
+    (document.getElementById("vld2: " + this.id) as HTMLInputElement).disabled = true;
     (document.getElementById("vld2: " + this.id) as HTMLInputElement).classList.remove('bag-second');
     (document.getElementById("vld2: " + this.id) as HTMLInputElement).classList.add('bag-succes');
     this.contratService.updateValidation2Contrat(this.id).subscribe();
@@ -134,18 +162,18 @@ export class ListContratComponent implements OnInit {
     }, 400);
   }
 
-  downloadAnnex1(filename:string){
+  downloadAnnex1(filename: string) {
     this.downloadService.dowloadFileAnnex1(filename).subscribe(res => {
-      if(res){
-        fileSaver.saveAs(res , filename);
+      if (res) {
+        fileSaver.saveAs(res, filename);
       }
     })
   }
 
-  downloadAnnex2(filename:string){
+  downloadAnnex2(filename: string) {
     this.downloadService.dowloadFileAnnex2(filename).subscribe(res => {
-      if(res){
-        fileSaver.saveAs(res , filename);
+      if (res) {
+        fileSaver.saveAs(res, filename);
       }
     })
   }

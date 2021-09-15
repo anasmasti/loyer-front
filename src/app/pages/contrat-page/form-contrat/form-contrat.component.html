@@ -5,27 +5,25 @@
 
     <div class="w-100 d-flex justify-content-center">
       <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
+      <!-- alert de reussite -->
+      <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
+      <div *ngIf="updateDone" class="done-alert p-2 my-2">{{ updateSucces }}</div>
     </div>
-
-    <!-- alert de reussite -->
-    <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
-
-    <div *ngIf="updateDone" class="done-alert p-2 my-2">{{ updateSucces }}</div>
 
     <!--Début 1er Row-->
     <div class="row">
+      <!-- Calcul retenue a la source par mois/ total brut loyer / total net loyer -->
+      <input type="hidden" class="form-control" [value]="duree" formControlName="duree" />
+      <input type="hidden" class="form-control" [value]="retunue_source_par_mois"
+        formControlName="retunue_source_par_mois" />
+      <input type="hidden" class="form-control" [value]="totalBrutLoyer" formControlName="total_montant_brut_loyer" />
+      <input type="hidden" class="form-control" [value]="totalNetLoyer" formControlName="total_montant_net_loyer" />
 
-       <!-- Calcul retenue a la source par mois/ total brut loyer / total net loyer -->
-      <input type="hidden" class="form-control" [value]="duree" formControlName="duree"/>
-      <input type="hidden" class="form-control" [value]="retunue_source_par_mois" formControlName="retunue_source_par_mois"/>
-      <input type="hidden" class="form-control" [value]="totalBrutLoyer" formControlName="total_montant_brut_loyer"/>
-      <input type="hidden" class="form-control" [value]="totalNetLoyer" formControlName="total_montant_net_loyer"/>
- 
       <!-- Validation inputs -->
-        <input type="hidden" class="form-control btn success-btn" formControlName="validation1_DMG"/>
-        <input type="hidden" class="form-control btn success-btn" formControlName="validation2_DAJC"/>
-        <input type="hidden" class="form-control btn success-btn" formControlName="numero_contrat"/>
-        
+      <input type="hidden" class="form-control btn success-btn" formControlName="validation1_DMG" />
+      <input type="hidden" class="form-control btn success-btn" formControlName="validation2_DAJC" />
+      <input type="hidden" class="form-control btn success-btn" formControlName="numero_contrat" />
+
       <div class="col-lg-3 form-group mt-4">
         <label for="">Pièce jointe</label>
         <input type="file" class="form-control btn success-btn" formControlName="piece_jointe" accept=".zip"
@@ -34,7 +32,8 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date de début du loyer</label>
-        <input type="date"  class="form-control rounded-pill" (change)="calculMontant()" formControlName="date_debut_loyer" />
+        <input type="date" class="form-control rounded-pill" (change)="calculMontant()"
+          formControlName="date_debut_loyer" />
 
       </div>
 
@@ -88,7 +87,8 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Taux de l’impôt</label>
-        <input type="text" class="form-control rounded-pill" [value]="tauxImpot + '%'" formControlName="taux_impot" readonly>
+        <input type="text" class="form-control rounded-pill" [value]="tauxImpot + '%'" formControlName="taux_impot"
+          readonly>
       </div>
 
       <div class="col-lg-3 form-group mt-4">
@@ -105,12 +105,14 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Montant de la caution</label>
-        <input type="number" class="form-control rounded-pill" [(ngModel)]="montantCaution"  (keyup)="calculEffortCaution()" formControlName="montant_caution">
+        <input type="number" class="form-control rounded-pill" [(ngModel)]="montantCaution"
+          (keyup)="calculEffortCaution()" formControlName="montant_caution">
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Effort de la caution</label>
-        <input type="text" class="form-control rounded-pill"  [value]="effortCaution"  formControlName="effort_caution" readonly>
+        <input type="text" class="form-control rounded-pill" [value]="effortCaution" formControlName="effort_caution"
+          readonly>
       </div>
 
       <div class="col-lg-3 form-group mt-4">
@@ -126,29 +128,31 @@
           <option value="Récupérée">Récupérée</option>
           <option value="Compensée">Compensée</option>
         </select>
-        
+
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Montant de l’avance</label>
         <input type="number" class="form-control rounded-pill" formControlName="montant_avance">
       </div>
-      
+
       <div class="col-lg-3 form-group mt-4">
         <label for="">Durée de l’avance(par mois)</label>
-        <input type="number" class="form-control rounded-pill" [(ngModel)]="dureeAvance" (keyup)="calculDate()" formControlName="duree_avance">
+        <input type="number" class="form-control rounded-pill" [(ngModel)]="dureeAvance" (keyup)="calculDate()"
+          formControlName="duree_avance">
       </div>
-      
+
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date fin de l’avance</label>
-        <input type="date" class="form-control rounded-pill" [value]="formattedDate" formControlName="date_fin_avance" readonly>
+        <input type="date" class="form-control rounded-pill" [value]="formattedDate" formControlName="date_fin_avance"
+          readonly>
       </div>
-      
+
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date 1er paiement</label>
         <input type="date" class="form-control rounded-pill" formControlName="date_1er_paiement">
       </div>
-      
+
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">N° d’engagement de la dépense</label>
@@ -208,12 +212,12 @@
                   <option *ngFor="let type of typeLieuList" [value]="type.type"> {{ type.type }} </option>
                 </select>
               </div>
-           
+
               <div class="col-lg-5 form-group">
                 <label for="">Sélectionner un lieu</label>
                 <select class="form-control rounded-pill" formControlName="lieu">
                   <option *ngFor="let lieuByType of lieuxByType" [value]="lieuByType._id">
-                {{ lieuByType.intitule_lieu }}
+                    {{ lieuByType.intitule_lieu }}
                   </option>
                 </select>
               </div>
@@ -251,20 +255,21 @@
         <select class="form-control rounded-pill" formControlName="etat_contrat_libelle" [(ngModel)]="etatContratTypes"
           (change)="showEtatSection($event)">
           <option value="En cours">En cours</option>
-          <option *ngIf="this.contrat.validation2_DAJC" [value]="etatContratTypes == 'Avenant' ? etatContratTypes : 'Avenant'">Avenant</option>
+          <option *ngIf="this.contrat.validation2_DAJC"
+            [value]="etatContratTypes == 'Avenant' ? etatContratTypes : 'Avenant'">Avenant</option>
           <option value="Suspension">Suspension</option>
           <option value="Résiliation">Résiliation</option>
         </select>
       </div>
-      
+
       <div class="mt-4">
-         <div class="form-box mt-2">
-           <div *ngIf="etatContratTypes == 'Avenant'; then AV"></div>
-           <div *ngIf="etatContratTypes == 'Suspension'; then SUS"></div>
-           <div *ngIf="etatContratTypes == 'Résiliation'; then RES"></div>
-         </div>
+        <div class="form-box mt-2">
+          <div *ngIf="etatContratTypes == 'Avenant'; then AV"></div>
+          <div *ngIf="etatContratTypes == 'Suspension'; then SUS"></div>
+          <div *ngIf="etatContratTypes == 'Résiliation'; then RES"></div>
+        </div>
       </div>
-    
+
 
 
       <!-- Template Avenant start -->
@@ -280,7 +285,8 @@
           <div class="col-lg-3 form-group mt-4">
             <label for="">Pièce jointe</label>
             <input type="file" class="form-control rounded-pill btn success-btn"
-              formControlName="etat_contrat_piece_jointe_avenant" accept=".zip" (change)="onFileSelectedAvenant($event)">
+              formControlName="etat_contrat_piece_jointe_avenant" accept=".zip"
+              (change)="onFileSelectedAvenant($event)">
           </div>
 
           <div class="col-lg-3 form-group mt-4">
@@ -291,7 +297,7 @@
               <option value="Cession">Cession</option>
               <option value="Révision_prix_loyer">Révision du prix du loyer</option>
             </select>
-          
+
           </div>
 
           <div class="col-lg-3 form-group mt-4">
@@ -361,7 +367,8 @@
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Date de résiliation</label>
-            <input type="date" class="form-control rounded-pill" (change)="calculMontant()" formControlName="etat_contrat_date_resiliation">
+            <input type="date" class="form-control rounded-pill" (change)="calculMontant()"
+              formControlName="etat_contrat_date_resiliation">
           </div>
 
           <div class="col-lg-3 form-group mt-4">
@@ -384,7 +391,8 @@
           <div class="col-lg-3 form-group mt-4">
             <label for="">Piéce jointe (la lettre de résiliation scannée)</label>
             <input type="file" class="form-control btn success-btn"
-              formControlName="etat_contrat_lettre_res_piece_jointe" accept=".zip" (change)="onFileSelectedLettreRes($event)">
+              formControlName="etat_contrat_lettre_res_piece_jointe" accept=".zip"
+              (change)="onFileSelectedLettreRes($event)">
           </div>
 
         </div>
