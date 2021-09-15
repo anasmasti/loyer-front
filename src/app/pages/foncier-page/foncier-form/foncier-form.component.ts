@@ -26,8 +26,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   updateDone: boolean = false;
   updateSucces: string = 'Foncier modifié avec succés';
   foncierForm!: FormGroup;
-  deleteDone: boolean = false;
-  deleteSucces: string = 'Foncier supprimé avec succés'
+
   proprietaires!: any
   lieux!: any
   lieuxSubscription$!: Subscription

@@ -29,6 +29,10 @@ export class ListContratComponent implements OnInit {
   msgErrorV2: string ="Vous devez d'abbord validé la validation numéro 1!"
   testValidation1: boolean = false;
 
+   //Delete succes message
+   deleteDone: boolean = false;
+   deleteSucces: string = 'Foncier supprimé avec succés'
+
   constructor(
     private contratService: ContratService,
     private mainModalService: MainModalService,
@@ -106,6 +110,10 @@ export class ListContratComponent implements OnInit {
   deleteContrat() {
     this.contratService.deleteContrat(this.id).subscribe((_) => {
       this.getContrat();
+      this.deleteDone = true;
+      setTimeout(() => {
+        this.deleteDone = false;
+      }, 3000);
     });
   }
 
