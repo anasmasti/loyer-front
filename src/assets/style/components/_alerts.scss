@@ -6,7 +6,7 @@
     background: color(danger) !important;
     color: color(light) !important;
     border-radius: $main-border-radius;
-    width: 50vw;
+    width: auto;
     text-align: center;
     &.active {
         display: none;
@@ -18,6 +18,6 @@
     background: color(success);
     color: color(light);
     border-radius: $main-border-radius;
-    width: 50vw;
+    width: auto;
     text-align: center;
 }
