@@ -69,6 +69,15 @@ export class ListComponent implements OnInit, OnDestroy {
     this.confirmationModalService.close(); // Close delete confirmation modal
   }
 
+  showErrorMessage() {
+    $('.error-alert').addClass('active');
+  }
+
+  // hide le message d'erreur de serveur
+  hideErrorMessage() {
+    $('.error-alert').removeClass('active');
+  }
+
   deleteUserR() {
     this.adminService.deleteUserById(this.deletedUser._id)
       .subscribe(
@@ -79,6 +88,12 @@ export class ListComponent implements OnInit, OnDestroy {
           setTimeout(() => {
             this.deleteDone = false;
           }, 3000);
+        },
+        (error) => {
+          setTimeout(() => {
+            this.showErrorMessage();
+          }, 3000);
+          this.hideErrorMessage();
         }
       );
   }
