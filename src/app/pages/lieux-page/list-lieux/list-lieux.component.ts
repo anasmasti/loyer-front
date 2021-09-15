@@ -18,6 +18,7 @@ import { getLieuxAction } from '../lieux-store/lieux.actions';
   styleUrls: ['./list-lieux.component.scss'],
 })
 export class ListLieuxComponent implements OnInit, OnDestroy {
+  errors!: string;
   lieux!: Lieu[];
   lieuEmpty: boolean = true;
   targetlieu: Lieu[] = [];
@@ -32,6 +33,10 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
   listLieuxPage: number = 1;
   count: number = 0;
   tableSize: number = 10;
+
+  //Delete succes message
+  deleteDone: boolean = false;
+  deleteSucces: string = 'Lieu supprimé avec succés'
 
 
   constructor(
@@ -53,7 +58,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
   }
 
   // Filter by intitule
-  search(){
+  search() {
     if (this.findLieu != "") {
       this.lieux = this.lieux.filter(res => {
         return res.intitule_lieu?.toLowerCase().match(this.findLieu.toLowerCase());
@@ -127,12 +132,12 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
       .deleteLieu(this.deletedLieu._id, { deleted: true })
       .subscribe(
         (_) => {
-          // this.postDone = true;
+          this.store.dispatch(getLieuxAction());
+          this.confirmationModalService.close();
+          this.deleteDone = true;
           setTimeout(() => {
-            // this.drForm.controls
-            this.store.dispatch(getLieuxAction());
-            this.confirmationModalService.close();
-          }, 500);
+            this.deleteDone = false;
+          }, 3000);
         },
         (error) => {
           setTimeout(() => {

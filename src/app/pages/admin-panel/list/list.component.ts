@@ -26,6 +26,10 @@ export class ListComponent implements OnInit, OnDestroy {
   count: number = 0;
   tableSize: number = 4;
 
+  //Delete succes message
+  deleteDone: boolean = false;
+  deleteSucces: string = 'Utilisateur supprimé avec succés'
+
   constructor(
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
@@ -50,8 +54,7 @@ export class ListComponent implements OnInit, OnDestroy {
     })
   }
 
-
-  openConfirmationModal(deleteduser : any) {
+  openConfirmationModal(deleteduser: any) {
     this.deletedUser = deleteduser
     this.confirmationModalService.open(); // Open delete confirmation modal
   }
@@ -66,20 +69,35 @@ export class ListComponent implements OnInit, OnDestroy {
     this.confirmationModalService.close(); // Close delete confirmation modal
   }
 
-  deleteUserR(){
-    
+  showErrorMessage() {
+    $('.error-alert').addClass('active');
+  }
+
+  // hide le message d'erreur de serveur
+  hideErrorMessage() {
+    $('.error-alert').removeClass('active');
+  }
+
+  deleteUserR() {
     this.adminService.deleteUserById(this.deletedUser._id)
       .subscribe(
         (_) => {
+          this.store.dispatch(getUsersAction())
+          this.confirmationModalService.close();
+          this.deleteDone = true;
           setTimeout(() => {
-            this.store.dispatch(getUsersAction())
-            this.confirmationModalService.close();
-          }, 500);
+            this.deleteDone = false;
+          }, 3000);
+        },
+        (error) => {
+          setTimeout(() => {
+            this.showErrorMessage();
+          }, 3000);
+          this.hideErrorMessage();
         }
       );
-    
   }
-  
+
 
   ngOnDestroy() {
     this.usersSubscription$.unsubscribe()
