@@ -29,6 +29,8 @@ export class FoncierListComponent implements OnInit {
   count: number = 0;
   tableSize: number = 10;
 
+
+
   constructor(
     private foncierService: FoncierService,
     private helperService: HelperService,
@@ -103,6 +105,7 @@ export class FoncierListComponent implements OnInit {
           // this.drForm.controls
           this.store.dispatch(getFoncierAction());
           this.confirmationModalService.close();
+          
         }, 2000);
       },
       (error) => {
