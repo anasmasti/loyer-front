@@ -29,6 +29,10 @@ export class FoncierListComponent implements OnInit {
   count: number = 0;
   tableSize: number = 10;
 
+  //Delete succes message
+  deleteDone: boolean = false;
+  deleteSucces: string = 'Foncier supprimé avec succés'
+
   constructor(
     private foncierService: FoncierService,
     private helperService: HelperService,
@@ -100,6 +104,10 @@ export class FoncierListComponent implements OnInit {
         (_) => {
           this.store.dispatch(getFoncierAction());
           this.confirmationModalService.close();
+          this.deleteDone = true;
+          setTimeout(() => {
+            this.deleteDone = false;
+          }, 3000);
         },
         (error) => {
           setTimeout(() => {
