@@ -15,7 +15,7 @@ import { AdminService } from 'src/app/services/admin-service/admin.service';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit, OnDestroy {
-
+  errors!: string;
   users!: User[];
   targetUser!: User;
   usersSubscription$!: Subscription;
@@ -90,6 +90,7 @@ export class ListComponent implements OnInit, OnDestroy {
           }, 3000);
         },
         (error) => {
+          this.errors = error.error.message;
           setTimeout(() => {
             this.showErrorMessage();
           }, 3000);

@@ -16,7 +16,7 @@ import { getFonciers } from '../foncier-store/foncier.selector';
   styleUrls: ['./foncier-list.component.scss']
 })
 export class FoncierListComponent implements OnInit {
-
+  errors!: string;
   fonciers: any = [];
   id: string = '0';
   targetFoncier!: Foncier;
@@ -110,6 +110,7 @@ export class FoncierListComponent implements OnInit {
           }, 3000);
         },
         (error) => {
+          this.errors = error.error.message;
           setTimeout(() => {
             this.showErrorMessage();
           }, 3000);

@@ -11,7 +11,6 @@ import { stringify } from '@angular/compiler/src/util';
 })
 export class FormComponent implements OnInit {
 
-
   errors!: string;
   postDone: boolean = false;
   adminForm!: FormGroup;
@@ -231,7 +230,6 @@ export class FormComponent implements OnInit {
   }
 
   updateUserRole() {
-
     let userData: User = {
       userMatricul: this.adminForm.get('Matricule')?.value,
       nom: this.adminForm.get('Nom')?.value,

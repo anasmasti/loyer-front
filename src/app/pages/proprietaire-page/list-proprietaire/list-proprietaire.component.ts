@@ -16,9 +16,10 @@ export class ListProprietaireComponent implements OnInit {
   targetProprietaireId: string = '';
   findProprietaire!: string;
   errors!: string;
-    //Delete succes message
-    deleteDone: boolean = false;
-    deleteSucces: string = 'Proprietaire supprimé avec succés'
+  
+  //Delete succes message
+  deleteDone: boolean = false;
+  deleteSucces: string = 'Proprietaire supprimé avec succés'
 
   constructor(
     private proprietaireService: ProprietaireService,
@@ -35,17 +36,17 @@ export class ListProprietaireComponent implements OnInit {
   //   this.getAllProprietaires(); // Trow the fitching data if anything changes
   // }
 
-    // Filter by intitule
-    search(){
-      if (this.findProprietaire != "") {
-        this.proprietaires = this.proprietaires.filter(res => {
-          return res.cin?.toLowerCase().match(this.findProprietaire.toLowerCase()) || res.passport?.toLowerCase().match(this.findProprietaire.toLowerCase())
-           || res.carte_sejour?.toLowerCase().match(this.findProprietaire.toLowerCase()) || res.nom_prenom?.toLowerCase().match(this.findProprietaire.toLowerCase());
-        });
-      } else if (this.findProprietaire == "") {
-        this.getAllProprietaires();
-      }
+  // Filter by intitule
+  search() {
+    if (this.findProprietaire != "") {
+      this.proprietaires = this.proprietaires.filter(res => {
+        return res.cin?.toLowerCase().match(this.findProprietaire.toLowerCase()) || res.passport?.toLowerCase().match(this.findProprietaire.toLowerCase())
+          || res.carte_sejour?.toLowerCase().match(this.findProprietaire.toLowerCase()) || res.nom_prenom?.toLowerCase().match(this.findProprietaire.toLowerCase());
+      });
+    } else if (this.findProprietaire == "") {
+      this.getAllProprietaires();
     }
+  }
 
 
   // Get data from proprietaire service
@@ -93,24 +94,24 @@ export class ListProprietaireComponent implements OnInit {
     };
     // Call detele proprietaire function from proprietaire service
     this.proprietaireService.deleteProprietaire(id, data).subscribe(
-     
-     (_) => {
-      this.getAllProprietaires(); // Trow the fitching data
-      this.confirmationModalService.close();
-      this.deleteDone = true;
-      setTimeout(() => {
-        this.deleteDone = false;
-      }, 3000);
-    },
-    (error) => {
-      this.errors = error.error.message;
-      setTimeout(() => {
-        this.showErrorMessage();
-      }, 3000);
-      this.hideErrorMessage();
-    }
-  );
- 
+
+      (_) => {
+        this.getAllProprietaires(); // Trow the fitching data
+        this.confirmationModalService.close();
+        this.deleteDone = true;
+        setTimeout(() => {
+          this.deleteDone = false;
+        }, 3000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+    );
+
   }
 
   // Get id of selected proprietaire

@@ -2,7 +2,7 @@
   <div class="col-lg-12 mt-3">
     <div class="d-flex justify-content-between">
       <h3 class="main-title">Liste des lieux</h3>
-      
+
       <div class="d-none d-lg-block">
         <a class="btn btn-sm success-btn" [routerLink]="['/lieux']">
           <i class="fal fa-plus-octagon"></i> Nouveau lieu
@@ -10,8 +10,7 @@
         <a class="btn btn-sm second-btn mx-3" (click)='refrechPage()'><i class="far fa-undo-alt"></i>
           Rafraîchir la liste
         </a>
-        <span data-bs-toggle="tooltip" data-bs-placement="top"
-          title="Ici vous pouvez consulter la list des lieux">
+        <span data-bs-toggle="tooltip" data-bs-placement="top" title="Ici vous pouvez consulter la list des lieux">
           <i class="fal fa-info"></i>
         </span>
       </div>
@@ -19,19 +18,20 @@
   </div>
 </div>
 
-   <div class="w-100 d-flex justify-content-center">
-     <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
-     <!-- Message succes delete -->
-    <div *ngIf="deleteDone" class="done-alert p-2 my-2">{{ deleteSucces }}</div>
-   </div>
+<div class="w-100 d-flex justify-content-center">
+  <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
+  <!-- Message succes delete -->
+  <div *ngIf="deleteDone" class="done-alert p-2 my-2">{{ deleteSucces }}</div>
+</div>
 
 <div class="main-card bg-white table-responsive p-lg-3 mt-4">
   <div class="col-lg-4 mb-4">
     <label for="" class="main-muted-text"><i class="far fa-search"></i> Recherche</label>
-    <input type="text" [(ngModel)]="findLieu" (input)='search()' class="form-control rounded-pill" placeholder="Rechercher par intitulé..."/>
+    <input type="text" [(ngModel)]="findLieu" (input)='search()' class="form-control rounded-pill"
+      placeholder="Rechercher par intitulé..." />
   </div>
   <table class="table">
-   
+
     <thead>
       <tr>
         <th>Type de lieu</th>
@@ -44,7 +44,8 @@
     </thead>
 
     <tbody *ngIf="lieux.length">
-      <tr *ngFor="let lieu of lieux | paginate: { itemsPerPage: tableSize, currentPage: listLieuxPage, id: 'listLieuxPagination', totalItems: count }">
+      <tr
+        *ngFor="let lieu of lieux | paginate: { itemsPerPage: tableSize, currentPage: listLieuxPage, id: 'listLieuxPagination', totalItems: count }">
         <!-- <td >{{ proprietaire._id }}</td> -->
         <td>{{ lieu.type_lieu }}</td>
         <td>{{ lieu.intitule_lieu }}</td>
