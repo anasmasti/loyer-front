@@ -71,9 +71,6 @@ export class FoncierListComponent implements OnInit {
   openEditModal(SelectedFoncier: any) {
     this.mainModalService.open();
     this.targetFoncier = SelectedFoncier;
-    console.log(this.targetFoncier);
-
-
   }
 
   openConfirmationModal(Foncier: any) {

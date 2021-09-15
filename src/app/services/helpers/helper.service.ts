@@ -32,4 +32,16 @@ export class HelperService {
       { headers: this.httpOptions.headers }
     );
   }
+
+  getCities(isoCode: string) {
+    return this.http.get(
+      `${environment.API_URL_TEST + environment.API_VERSION}/cities/${isoCode}`
+    );
+  }
+
+  getCountries() {
+    return this.http.get(
+      `${environment.API_URL_TEST + environment.API_VERSION}/countries`
+    );
+  }
 }

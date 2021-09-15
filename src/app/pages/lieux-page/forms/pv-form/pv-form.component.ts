@@ -56,18 +56,13 @@ export class PvFormComponent implements OnInit, OnDestroy {
   ) { }
 
 
-
   ngOnChanges() {
     if (this.Lieu !== "") {
       setTimeout(() => {
         this.fetchPv('Default');
-        console.log(this.Lieu);
-        
       }, 100);
     }
   }
-
-
 
   ngOnInit(): void {
     this.PvForm = new FormGroup({
