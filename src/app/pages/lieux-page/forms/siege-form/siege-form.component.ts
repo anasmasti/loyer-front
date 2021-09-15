@@ -15,8 +15,8 @@ export class SiegeFormComponent implements OnInit {
   siegeForm!: FormGroup;
   postDone: boolean = false;
   PostSucces: string = 'Siège ajouté avec succés';
-  UpdateDone: boolean = false;
-  UpdateSucces: string = 'Siège modifié avec succés';
+  updateDone: boolean = false;
+  updateSucces: string = 'Siège modifié avec succés';
   errors!: any;
   hasAmenagement: boolean = false;
   hasAmenagementCheck: string = "";
@@ -505,11 +505,11 @@ export class SiegeFormComponent implements OnInit {
 
     this.lieuService.updateLieux(id, this.fd).subscribe(
       (_) => {
-        this.UpdateDone = true;
+        this.updateDone = true;
         setTimeout(() => {
           this.mainModalService.close();
           this.siegeForm.reset();
-          this.UpdateDone = false;
+          this.updateDone = false;
           location.reload();
         }, 2000);
       },

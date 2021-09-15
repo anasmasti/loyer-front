@@ -15,6 +15,10 @@ export class ListProprietaireComponent implements OnInit {
   targetProprietaire: Proprietaire[] = [];
   targetProprietaireId: string = '';
   findProprietaire!: string;
+  errors!: string;
+    //Delete succes message
+    deleteDone: boolean = false;
+    deleteSucces: string = 'Proprietaire supprimé avec succés'
 
   constructor(
     private proprietaireService: ProprietaireService,
@@ -73,16 +77,40 @@ export class ListProprietaireComponent implements OnInit {
     this.confirmationModalService.close(); // Close delete confirmation modal
   }
 
+  showErrorMessage() {
+    $('.error-alert').addClass('active');
+  }
+
+  // hide le message d'erreur de serveur
+  hideErrorMessage() {
+    $('.error-alert').removeClass('active');
+  }
+
   // Delete proprietaire
   deleteProprietaire(id: string) {
     let data = {
       deleted: true,
     };
     // Call detele proprietaire function from proprietaire service
-    this.proprietaireService.deleteProprietaire(id, data).subscribe((_) => {
+    this.proprietaireService.deleteProprietaire(id, data).subscribe(
+     
+     (_) => {
       this.getAllProprietaires(); // Trow the fitching data
-    });
-    this.closeConfirmationModal();
+      this.confirmationModalService.close();
+      this.deleteDone = true;
+      setTimeout(() => {
+        this.deleteDone = false;
+      }, 3000);
+    },
+    (error) => {
+      this.errors = error.error.message;
+      setTimeout(() => {
+        this.showErrorMessage();
+      }, 3000);
+      this.hideErrorMessage();
+    }
+  );
+ 
   }
 
   // Get id of selected proprietaire

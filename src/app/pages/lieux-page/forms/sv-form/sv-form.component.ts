@@ -21,8 +21,8 @@ export class SvFormComponent implements OnInit, OnDestroy {
   errors!: any;
   postDone: boolean = false;
   PostSucces: string = 'Supervision ajouté avec succés';
-  UpdateDone: boolean = false;
-  UpdateSucces: string = 'Supervision modifié avec succés';
+  updateDone: boolean = false;
+  updateSucces: string = 'Supervision modifié avec succés';
   Dr!: any;
   DrSubscription$!: Subscription;
   isAmenagementEmpty: boolean = true;
@@ -487,11 +487,11 @@ export class SvFormComponent implements OnInit, OnDestroy {
 
     this.lieuService.updateLieux(id, this.fd).subscribe(
       (_) => {
-        this.UpdateDone = true;
+        this.updateDone = true;
         setTimeout(() => {
           this.mainModalService.close();
           this.svForm.reset();
-          this.UpdateDone = false;
+          this.updateDone = false;
           location.reload();
         }, 2000);
       },

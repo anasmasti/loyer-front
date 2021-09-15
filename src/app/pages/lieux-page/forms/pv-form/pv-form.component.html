@@ -23,10 +23,9 @@
 
       <div class="w-100 d-flex justify-content-center">
         <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
+        <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
+        <div *ngIf="updateDone" class="done-alert p-2 my-2">{{ updateSucces }}</div>
       </div>
-
-      <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
-      <div *ngIf="UpdateDone" class="done-alert p-2 my-2">{{ UpdateSucces }}</div>
 
       <!--Début 1er Row-->
       <div class="row">

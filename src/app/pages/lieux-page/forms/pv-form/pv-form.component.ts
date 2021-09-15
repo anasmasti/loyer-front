@@ -23,8 +23,8 @@ export class PvFormComponent implements OnInit, OnDestroy {
   errors!: string;
   postDone: boolean = false;
   PostSucces: string = 'Point de vente ajouté avec succés';
-  UpdateDone: boolean = false;
-  UpdateSucces: string = 'Point de vente modifié avec succés';
+  updateDone: boolean = false;
+  updateSucces: string = 'Point de vente modifié avec succés';
   amenagementList: any = [];
   Dr!: any;
   Sup!: any;
@@ -493,11 +493,11 @@ export class PvFormComponent implements OnInit, OnDestroy {
 
     this.lieuService.updateLieux(id, this.fd).subscribe(
       (_) => {
-        this.UpdateDone = true;
+        this.updateDone = true;
         setTimeout(() => {
           this.mainModalService.close();
           this.PvForm.reset();
-          this.UpdateDone = false;
+          this.updateDone = false;
           location.reload();
         }, 2000);
       },

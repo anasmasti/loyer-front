@@ -49,8 +49,8 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
   errors!: string;
   postDone: boolean = false;
   PostSucces: string = 'Logement de fonction ajouté avec succés';
-  UpdateDone: boolean = false;
-  UpdateSucces: string = 'Logement de fonction modifié avec succés';
+  updateDone: boolean = false;
+  updateSucces: string = 'Contrat modifié avec succés';
 
   selectedFile!: File;
   file!: string;
@@ -697,11 +697,11 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
 
     this.lieuService.updateLieux(idlf, this.fd).subscribe(
       (_) => {
-        this.UpdateDone = true;
+        this.updateDone = true;
         setTimeout(() => {
           this.mainModalService.close();
           this.LfForm.reset();
-          this.UpdateDone = false;
+          this.updateDone = false;
           location.reload();
         }, 2000);
       },
