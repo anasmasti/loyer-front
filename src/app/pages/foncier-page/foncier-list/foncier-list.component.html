@@ -38,8 +38,7 @@
             </tr>
         </thead>
         <tbody *ngIf="fonciers.length">
-            <tr class="text-center"
-                *ngFor="let foncier of fonciers | paginate: { itemsPerPage: tableSize, currentPage: listFoncierPage, id: 'listFoncierPagination', totalItems: count }">
+            <tr *ngFor="let foncier of fonciers | paginate: { itemsPerPage: tableSize, currentPage: listFoncierPage, id: 'listFoncierPagination', totalItems: count }">
                 <td> {{ foncier.type_foncier }}</td>
                 <td> {{ foncier.pays }} </td>
                 <td> {{ foncier.ville }} </td>
