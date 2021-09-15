@@ -103,7 +103,7 @@ export class FoncierListComponent implements OnInit {
           // this.drForm.controls
           this.store.dispatch(getFoncierAction());
           this.confirmationModalService.close();
-        }, 500);
+        }, 2000);
       },
       (error) => {
         setTimeout(() => {
