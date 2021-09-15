@@ -10,6 +10,7 @@ import { getLieux, getProprietaires } from '../foncier-store/foncier.selector';
 import { debounceTime } from 'rxjs/operators';
 import { HelperService } from 'src/app/services/helpers/helper.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'foncier-form',
@@ -31,6 +32,9 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   lieux!: any
   lieuxSubscription$!: Subscription
   proprietairesSubscription$!: Subscription
+
+  cities!: any
+  countries!: any
 
   constructor(
     private foncierService: FoncierService,
@@ -56,11 +60,12 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
     this.getProprietaires()
     this.getLieux()
-    
+    this.getCountries()
+
   }
 
   ngOnChanges() {
-    if (this.foncier !== '' && this.foncier !== undefined ) {
+    if (this.foncier !== '' && this.foncier !== undefined) {
       setTimeout(() => {
         this.fetchFc();
       }, 200);
@@ -84,7 +89,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       montant_loyer: this.foncier.montant_loyer,
       meuble_equipe: this.foncier.meuble_equipe,
     });
-    
+
 
   }
 
@@ -128,11 +133,11 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
         }, 3000);
         this.hideErrorMessage();
       }
-      );
-    }
-    
-  updateFoncier(){
-      let id = this.foncier._id
+    );
+  }
+
+  updateFoncier() {
+    let id = this.foncier._id
 
     let foncier: Foncier = {
       proprietaire: this.foncierForm.get('proprietaire')?.value,
@@ -149,7 +154,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       meuble_equipe: this.foncierForm.get('meuble_equipe')?.value,
     }
 
-    this.foncierService.updateFoncier(id,foncier).subscribe(
+    this.foncierService.updateFoncier(id, foncier).subscribe(
       (_) => {
         this.updateDone = true;
         setTimeout(() => {
@@ -166,8 +171,8 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
         }, 3000);
         this.hideErrorMessage();
       }
-      );
-    }
+    );
+  }
   // Get Proprietaire With Lieux Ids from the server
   getPropWithLieux() {
     this.store.dispatch(getPropWithLieuxAction())
@@ -187,6 +192,20 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       if (data) this.lieux = data;
       if (!data) this.getPropWithLieux()
     });
+  }
+
+  getCities(event: any) {
+    let isoCode: string = event.target.value
+
+    this.help.getCities(isoCode).subscribe(data => {
+      this.cities = data
+    })
+  }
+
+  getCountries() {
+    this.help.getCountries().subscribe(data => {
+      this.countries = data
+    })
   }
 
 

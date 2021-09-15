@@ -16,9 +16,7 @@ export class LoginPageComponent implements OnInit {
   }
 
   login() {
-    this.authService.logIn().subscribe(data => {
-      console.log(data);
-    })
+    this.authService.logIn().subscribe()
   }
 
 }

@@ -51,15 +51,15 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Pays</label>
-        <select class="form-control rounded-pill" formControlName="pays">
-          <option value=""></option>
+        <select class="form-control rounded-pill" formControlName="pays" (change)='getCities($event)'>
+          <option *ngFor="let country of countries" [value]="country.isoCode" >{{country.name}}</option>
         </select>
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Ville</label>
         <select class="form-control rounded-pill" formControlName="ville">
-          <option value=""></option>
+          <option *ngFor="let city of cities" value="">{{city.name}}</option>
         </select>
       </div>
 
