@@ -61,6 +61,8 @@ export class PvFormComponent implements OnInit, OnDestroy {
     if (this.Lieu !== "") {
       setTimeout(() => {
         this.fetchPv('Default');
+        console.log(this.Lieu);
+        
       }, 100);
     }
   }

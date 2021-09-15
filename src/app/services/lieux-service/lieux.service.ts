@@ -40,7 +40,7 @@ export class LieuxService {
     return this.http.post<any>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`, formdata);
   }
 
-  // Update the proprietaire
+  // Update the Lieu
   updateLieux(id: any, data: any): Observable<any> {
     return this.http.patch<any>(
       `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/modifier/${id}`, data);

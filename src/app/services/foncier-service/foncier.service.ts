@@ -52,5 +52,19 @@ export class FoncierService {
         { headers: this.httpOptions.headers }
       );
     }
+
+    updateFoncier(id: any, data: any): Observable<any> {
+      return this.http.patch<any>(
+        `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/modifier/${id}`, data);
+    }
+
+    deleteFoncier(id: any, data: any): Observable<Foncier> {
+      return this.http.patch<Foncier>(
+        `${environment.API_URL_TEST + environment.API_VERSION + this.param_url
+        }/delete/${id}`,
+        data,
+        { headers: this.httpOptions.headers }
+      );
+    }
     
 }
