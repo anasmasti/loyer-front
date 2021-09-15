@@ -53,23 +53,23 @@ export class FoncierListComponent implements OnInit {
     })
   }
 
- // Filter by intitule
- search(){
-  if (this.findFoncier != "") {
-    this.fonciers = this.fonciers.filter((res: { type_foncier: string; }) => {
-      return res.type_foncier?.toLowerCase().match(this.findFoncier.toLowerCase());
-    });
-  } else if (this.findFoncier == "") {
-    this.getFoncier();
+  // Filter by intitule
+  search() {
+    if (this.findFoncier != "") {
+      this.fonciers = this.fonciers.filter((res: { type_foncier: string; }) => {
+        return res.type_foncier?.toLowerCase().match(this.findFoncier.toLowerCase());
+      });
+    } else if (this.findFoncier == "") {
+      this.getFoncier();
+    }
   }
-}
 
   openEditModal(SelectedFoncier: any) {
     this.mainModalService.open();
     this.targetFoncier = SelectedFoncier;
     console.log(this.targetFoncier);
-    
-    
+
+
   }
 
   openConfirmationModal(Foncier: any) {
@@ -83,8 +83,8 @@ export class FoncierListComponent implements OnInit {
     this.confirmationModalService.close(); // Close delete confirmation modal
   }
 
-   // Afficher le message d'erreur de serveur
-   showErrorMessage() {
+  // Afficher le message d'erreur de serveur
+  showErrorMessage() {
     $('.error-alert').addClass('active');
   }
   // hide le message d'erreur de serveur
@@ -95,23 +95,19 @@ export class FoncierListComponent implements OnInit {
   // Delete fonfier
   deleteFoncier() {
     this.foncierService
-    .deleteFoncier(this.deletedFoncier._id, { deleted: true })
-    .subscribe(
-      (_) => {
-        // this.postDone = true;
-        setTimeout(() => {
-          // this.drForm.controls
+      .deleteFoncier(this.deletedFoncier._id, { deleted: true })
+      .subscribe(
+        (_) => {
           this.store.dispatch(getFoncierAction());
           this.confirmationModalService.close();
-        }, 2000);
-      },
-      (error) => {
-        setTimeout(() => {
-          this.showErrorMessage();
-        }, 3000);
-        this.hideErrorMessage();
-      }
-    );
+        },
+        (error) => {
+          setTimeout(() => {
+            this.showErrorMessage();
+          }, 3000);
+          this.hideErrorMessage();
+        }
+      );
   }
 
   reload() {
