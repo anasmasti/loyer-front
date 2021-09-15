@@ -28,9 +28,9 @@ export class ListContratComponent implements OnInit {
 
   testValidation1: boolean = false;
 
-  //Delete succes message
-  deleteDone: boolean = false;
-  deleteSucces: string = 'Utilisateur supprimé avec succés'
+   //Delete succes message
+   deleteDone: boolean = false;
+   deleteSucces: string = 'Contrat supprimé avec succés'
 
   constructor(
     private contratService: ContratService,

@@ -24,11 +24,9 @@
       <!-- Message d'ERREUR de serveur -->
       <div class="w-100 d-flex justify-content-center">
         <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
+        <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
+        <div *ngIf="updateDone" class="done-alert p-2 my-2">{{ updateSucces }}</div>
       </div>
-      <!-- Message de succés de serveur -->
-      <!-- <div *ngIf="updateDone" class="done-alert p-2 my-2">{{ Updatesuccess }}</div> -->
-      <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
-      <div *ngIf="UpdateDone" class="done-alert p-2 my-2">{{ UpdateSucces }}</div>
 
       <a href=""></a>
 

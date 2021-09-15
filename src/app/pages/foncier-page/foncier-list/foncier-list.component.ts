@@ -110,6 +110,7 @@ export class FoncierListComponent implements OnInit {
           }, 3000);
         },
         (error) => {
+          this.errors = error.error.message;
           setTimeout(() => {
             this.showErrorMessage();
           }, 3000);

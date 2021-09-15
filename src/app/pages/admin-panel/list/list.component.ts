@@ -90,6 +90,7 @@ export class ListComponent implements OnInit, OnDestroy {
           }, 3000);
         },
         (error) => {
+          this.errors = error.error.message;
           setTimeout(() => {
             this.showErrorMessage();
           }, 3000);
