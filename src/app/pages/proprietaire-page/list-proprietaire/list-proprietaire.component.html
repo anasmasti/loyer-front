@@ -20,6 +20,12 @@
     </div>
 </div>
 
+<div class="w-100 d-flex justify-content-center">
+    <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
+    <!-- Message succes delete -->
+   <div *ngIf="deleteDone" class="done-alert p-2 my-2">{{ deleteSucces }}</div>
+  </div>
+
 
 <div class="main-card bg-white table-responsive p-lg-3 mt-4">
     <div class="col-lg-4 mb-4">
