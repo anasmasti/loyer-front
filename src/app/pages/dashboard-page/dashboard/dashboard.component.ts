@@ -21,17 +21,20 @@ export class DashboardComponent implements OnInit {
   allCount!: any;
   allCountSubscription$!: Subscription
 
+  // View options
+  view: any[] = [700, 400];
+
   // Legend options
   hasLegend: boolean = true
-  legendTitle: any = 'Horizontal statistiques';
+  legendTitle: any = 'Titres';
   legendPositionRight: any = 'right';
   legendPositionBelow: any = 'below';
 
   // Axis options
   xAxis: boolean = false;
   yAxis: boolean = true;
-  yAxisLabel: string = 'Vue globale';
-  xAxisLabel: string = 'Vue globale';
+  yAxisLabel: string = 'Foncier statiqtiques';
+  xAxisLabel: string = 'Foncier statiqtiques';
   showXAxisLabel: boolean = false;
   showYAxisLabel: boolean = true;
 
