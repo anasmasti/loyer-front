@@ -41,8 +41,8 @@
         <h6 class="main-title">
             Quelque statistiques
         </h6>
-        <div class="row">
-            <div class="col-12 col-lg-6">
+        <div class="row text-center">
+            <div class="col-12 col-lg-4">
                 <ngx-charts-bar-vertical [results]="statisticsBar" [scheme]="colorScheme" [schemeType]="schemeType"
                     [gradient]="gradient" [xAxis]="xAxis" [yAxis]="yAxis" [showXAxisLabel]="showXAxisLabel"
                     [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="xAxisLabel"
@@ -55,7 +55,16 @@
                 </ngx-charts-bar-vertical>
 
             </div>
-            <div class="col-12 col-lg-6">
+
+            <div class="col-12 col-lg-4">
+                <h6>Contrat statiqtiques</h6>
+                <ngx-charts-pie-chart [results]="statisticsCircle" [scheme]="colorScheme" [schemeType]="schemeType"
+                    [gradient]="gradient" [animations]="animations" [labels]="true" [tooltipDisabled]="tooltipDisabled"
+                    [legend]="false">
+                </ngx-charts-pie-chart>
+            </div>
+
+            <div class="col-12 col-lg-4">
                 <ngx-charts-line-chart [results]="statisticsLine" [scheme]="colorScheme" [schemeType]="schemeType"
                     [gradient]="gradient" [xAxis]="xAxis" [yAxis]="yAxis" [showXAxisLabel]="showXAxisLabel"
                     [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="xAxisLabel"
@@ -66,15 +75,6 @@
                     [yAxisTickFormatting]="formatNumber" [tooltipDisabled]="tooltipDisabled" [legend]="hasLegend">
                 </ngx-charts-line-chart>
             </div>
-
-            <div class="col-12 col-lg-6">
-                <ngx-charts-pie-chart [results]="statisticsCircle" [scheme]="colorScheme" [schemeType]="schemeType"
-                    [gradient]="gradient" [legendTitle]="legendTitle" [legendPosition]="legendPositionRight"
-                    [animations]="animations" [tooltipDisabled]="tooltipDisabled" [legend]="hasLegend"> 
-                </ngx-charts-pie-chart>
-            </div>
-
-            
         </div>
     </div>
 
