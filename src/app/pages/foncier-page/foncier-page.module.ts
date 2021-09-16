@@ -1,3 +1,4 @@
+import { SharedEffects } from './../../store/shared/shared.effect';
 import { ConfirmationModalModule } from './../../shared/modals/confirmation-modal/confirmation-modal.module';
 import { MainModalModule } from 'src/app/shared/modals/main-modal/main-modal.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -40,7 +41,7 @@ const route: Routes = [
     MainModalModule,
     ConfirmationModalModule,
     StoreModule.forFeature('foncier', foncierReducer),
-    EffectsModule.forFeature([FoncierEffects]),
+    EffectsModule.forFeature([FoncierEffects, SharedEffects]),
     NgxPaginationModule,
     FormsModule
   ]
