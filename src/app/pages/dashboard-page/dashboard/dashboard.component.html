@@ -43,7 +43,7 @@
         </h6>
         <div class="row">
             <div class="col-12 col-lg-6">
-                <ngx-charts-bar-vertical [results]="statistiquesBar" [scheme]="colorScheme" [schemeType]="schemeType"
+                <ngx-charts-bar-vertical [results]="statisticsBar" [scheme]="colorScheme" [schemeType]="schemeType"
                     [gradient]="gradient" [xAxis]="xAxis" [yAxis]="yAxis" [showXAxisLabel]="showXAxisLabel"
                     [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="xAxisLabel"
                     [legendTitle]="legendTitle" [legendPosition]="legendPositionBelow" [animations]="animations"
@@ -56,7 +56,7 @@
 
             </div>
             <div class="col-12 col-lg-6">
-                <ngx-charts-line-chart [results]="statistiquesLine" [scheme]="colorScheme" [schemeType]="schemeType"
+                <ngx-charts-line-chart [results]="statisticsLine" [scheme]="colorScheme" [schemeType]="schemeType"
                     [gradient]="gradient" [xAxis]="xAxis" [yAxis]="yAxis" [showXAxisLabel]="showXAxisLabel"
                     [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="xAxisLabel"
                     [legendTitle]="legendTitle" [legendPosition]="legendPositionRight" [animations]="animations"
@@ -66,6 +66,15 @@
                     [yAxisTickFormatting]="formatNumber" [tooltipDisabled]="tooltipDisabled" [legend]="hasLegend">
                 </ngx-charts-line-chart>
             </div>
+
+            <div class="col-12 col-lg-6">
+                <ngx-charts-pie-chart [results]="statisticsCircle" [scheme]="colorScheme" [schemeType]="schemeType"
+                    [gradient]="gradient" [legendTitle]="legendTitle" [legendPosition]="legendPositionRight"
+                    [animations]="animations" [tooltipDisabled]="tooltipDisabled" [legend]="hasLegend"> 
+                </ngx-charts-pie-chart>
+            </div>
+
+            
         </div>
     </div>
 

@@ -7,6 +7,7 @@ import { getAllCountsAction } from 'src/app/store/shared/shared.action';
 import { ScaleType } from '@swimlane/ngx-charts';
 import { DownloadService } from 'src/app/services/download-service/download.service';
 import * as fileSaver from 'file-saver';
+import { ChartsService } from 'src/app/services/charts/charts.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,7 +16,7 @@ import * as fileSaver from 'file-saver';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private store: Store<AppState>, private downloadService: DownloadService) { }
+  constructor(private store: Store<AppState>, private downloadService: DownloadService, private chartService: ChartsService) { }
 
   allCount!: any;
   allCountSubscription$!: Subscription
@@ -57,177 +58,15 @@ export class DashboardComponent implements OnInit {
   yScaleMax: number = 9000;
   roundEdges: boolean = false;
 
-
-  statistiquesLine = [
-    {
-      "name": "Saint Martin (French Part)",
-      "series": [
-        {
-          "value": 3526,
-          "name": "2016-09-15T11:01:03.684Z"
-        },
-        {
-          "value": 3345,
-          "name": "2016-09-12T20:53:53.530Z"
-        },
-        {
-          "value": 5622,
-          "name": "2016-09-15T07:02:37.783Z"
-        },
-        {
-          "value": 2855,
-          "name": "2016-09-13T00:56:01.382Z"
-        },
-        {
-          "value": 2975,
-          "name": "2016-09-17T13:01:34.527Z"
-        }
-      ]
-    },
-    {
-      "name": "Uganda",
-      "series": [
-        {
-          "value": 3055,
-          "name": "2016-09-15T11:01:03.684Z"
-        },
-        {
-          "value": 2610,
-          "name": "2016-09-12T20:53:53.530Z"
-        },
-        {
-          "value": 3654,
-          "name": "2016-09-15T07:02:37.783Z"
-        },
-        {
-          "value": 3930,
-          "name": "2016-09-13T00:56:01.382Z"
-        },
-        {
-          "value": 2347,
-          "name": "2016-09-17T13:01:34.527Z"
-        }
-      ]
-    },
-    {
-      "name": "Georgia",
-      "series": [
-        {
-          "value": 2775,
-          "name": "2016-09-15T11:01:03.684Z"
-        },
-        {
-          "value": 5613,
-          "name": "2016-09-12T20:53:53.530Z"
-        },
-        {
-          "value": 6507,
-          "name": "2016-09-15T07:02:37.783Z"
-        },
-        {
-          "value": 2854,
-          "name": "2016-09-13T00:56:01.382Z"
-        },
-        {
-          "value": 3402,
-          "name": "2016-09-17T13:01:34.527Z"
-        }
-      ]
-    },
-    {
-      "name": "French Guiana",
-      "series": [
-        {
-          "value": 4286,
-          "name": "2016-09-15T11:01:03.684Z"
-        },
-        {
-          "value": 4944,
-          "name": "2016-09-12T20:53:53.530Z"
-        },
-        {
-          "value": 2269,
-          "name": "2016-09-15T07:02:37.783Z"
-        },
-        {
-          "value": 3470,
-          "name": "2016-09-13T00:56:01.382Z"
-        },
-        {
-          "value": 5315,
-          "name": "2016-09-17T13:01:34.527Z"
-        }
-      ]
-    },
-    {
-      "name": "Malta",
-      "series": [
-        {
-          "value": 6454,
-          "name": "2016-09-15T11:01:03.684Z"
-        },
-        {
-          "value": 5277,
-          "name": "2016-09-12T20:53:53.530Z"
-        },
-        {
-          "value": 3938,
-          "name": "2016-09-15T07:02:37.783Z"
-        },
-        {
-          "value": 4637,
-          "name": "2016-09-13T00:56:01.382Z"
-        },
-        {
-          "value": 3471,
-          "name": "2016-09-17T13:01:34.527Z"
-        }
-      ]
-    }
-  ]
-
-  statistiquesBar = [
-    {
-      "name": "Germany",
-      "value": 40632,
-     
-    },
-    {
-      "name": "United States",
-      "value": 50000,
-    
-    },
-    {
-      "name": "France",
-      "value": 36745,
-     
-    },
-    {
-      "name": "United Kingdom",
-      "value": 36240,
-     
-    },
-    {
-      "name": "Spain",
-      "value": 33000,
-     
-    },
-    {
-      "name": "Western Sahara",
-      "value": 59634
-    },
-    {
-      "name": "Samoa",
-      "value": 40342
-    },
-    {
-      "name": "Puerto Rico",
-      "value": 45330
-    }
-  ]
+  statisticsLine!: any 
+  statisticsBar!: any 
+  statisticsCircle!: any
 
   ngOnInit(): void {
     this.getAllCount()
+    this.getChartBar()
+    this.getChartCircl()
+    this.getChartLine()
   }
 
   getAllCount() {
@@ -269,5 +108,23 @@ export class DashboardComponent implements OnInit {
   }
   // --------------End Download Files--------------
 
+  getChartLine(){
+    this.chartService.getChartLine().subscribe((data) => {
+      this.statisticsLine = data;
+    })
+  }
+
+  getChartCircl(){
+    this.chartService.getChartCircl().subscribe((data) => {
+      this.statisticsCircle = data
+      
+    })
+  }
+
+  getChartBar(){
+    this.chartService.getChartBar().subscribe((data) => {
+     this.statisticsBar = data
+    })
+  }
 
 }

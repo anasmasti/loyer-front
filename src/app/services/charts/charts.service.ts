@@ -16,9 +16,21 @@ export class ChartsService {
     }),
   };
 
-  getContratStatistics() {
+  getChartCircl() {
     return this.http.get(
-      `${environment.API_URL_TEST + environment.API_VERSION}/countries`
+      `${environment.API_URL_TEST + environment.API_VERSION}/chartCircl`
+    );
+  }
+
+  getChartLine() {
+    return this.http.get(
+      `${environment.API_URL_TEST + environment.API_VERSION}/chartLine`
+    );
+  }
+
+  getChartBar() {
+    return this.http.get(
+      `${environment.API_URL_TEST + environment.API_VERSION}/chartBar`
     );
   }
 
