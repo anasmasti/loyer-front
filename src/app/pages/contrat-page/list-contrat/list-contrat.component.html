@@ -45,7 +45,7 @@
             </tr>
         </thead>
         <tbody *ngIf="contrats?.length">
-            <tr *ngFor="let contrat of contrats">
+            <tr *ngFor="let contrat of contrats | paginate: { itemsPerPage: tableSize, currentPage: listContratPage, id: 'listContratPagination', totalItems: count }">
                 <td class="py-3"
                     [ngClass]="{'info-txt': contrat.etat_contrat?.libelle == 'Avenant', 'danger-txt': contrat.etat_contrat?.libelle == 'Suspension' || contrat.etat_contrat?.libelle == 'Résiliation', 'success-txt': contrat.etat_contrat?.libelle == 'En cours'}">
                     {{ this.contrat.etat_contrat?.libelle }}
@@ -104,12 +104,11 @@
                             </li>
                         </ul>
                     </div>
-
-
-
                 </td>
             </tr>
 
+            <pagination-controls id="listContratPagination" (pageChange)="listContratPage = $event">
+            </pagination-controls>
 
             <app-main-modal [closeBtn]='true'>
                 <app-edit-contrat [contrat]="targetContrat">
