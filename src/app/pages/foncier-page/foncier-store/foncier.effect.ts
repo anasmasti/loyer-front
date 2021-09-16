@@ -33,6 +33,7 @@ export class FoncierEffects {
         )
     });
 
+   
     ///////////////////////////////////////////////////////////////////
 
     // Load fonciers from service
@@ -66,4 +67,6 @@ export class FoncierEffects {
             )
         )
     }
+
+   
 }
