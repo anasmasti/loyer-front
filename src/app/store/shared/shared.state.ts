@@ -1,9 +1,13 @@
 export interface SharedState {
     loading: boolean,
-    allCounts: any
+    allCounts: any,
+    countries: any,
+    cities: any,
 }
 
 export const initialState: SharedState = {
     loading: true,
-    allCounts: []
+    allCounts: [],
+    countries: [],
+    cities: [],
 }
