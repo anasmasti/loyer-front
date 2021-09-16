@@ -111,13 +111,14 @@ export class DashboardComponent implements OnInit {
   getChartLine(){
     this.chartService.getChartLine().subscribe((data) => {
       this.statisticsLine = data;
+      console.log(data);    
     })
+    
   }
 
   getChartCircl(){
     this.chartService.getChartCircl().subscribe((data) => {
       this.statisticsCircle = data
-      
     })
   }
 
