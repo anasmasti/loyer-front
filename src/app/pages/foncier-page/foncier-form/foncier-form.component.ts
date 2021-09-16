@@ -62,9 +62,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
     this.getProprietaires()
     this.getLieux()
-    this.fetchCountries()
     this.getCountries()
-
   }
 
   ngOnChanges() {
@@ -200,8 +198,15 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
    /////////////////// Get countries and cities  ////////////*
 
-   fetchCities() {
-    // this.store.dispatch()
+   fetchCountries() {
+    this.store.dispatch(getCountriesAction())
+  }
+
+  getCountries() {
+    this.countriesSubscription$ = this.store.select(getCountries).subscribe(data => {
+      if (data) this.countries = data;
+      if (data.length == 0) this.fetchCountries()
+    });
   }
 
   getCities(event: any) {
@@ -212,17 +217,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     })
   }
 
-  fetchCountries() {
-    this.store.dispatch(getCountriesAction())
-  }
-
-  getCountries() {
-    this.countriesSubscription$ = this.store.select(getCountries).subscribe(data => {
-      console.log(data);
-      if (data) this.countries = data;
-      if (!data) this.fetchCountries()
-    });
-  }
+ 
 
  ///////////////////////
 

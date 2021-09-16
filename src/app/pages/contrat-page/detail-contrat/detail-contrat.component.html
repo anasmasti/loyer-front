@@ -1,9 +1,10 @@
 <div class="row title  ">
     <div class="col-lg-12 mt-3">
         <div class="d-flex justify-content-between">
-          
+
             <h3 class="main-title">
-                <a [routerLink]="['/contrat/list']" class="goback-link">Détails de Contrat de bail</a>/<span class="selected-text">
+                <a [routerLink]="['/contrat/list']" class="goback-link">Détails de Contrat de bail</a>/<span
+                    class="selected-text">
                     {{contrat.numero_contrat}}
                 </span>
             </h3>
@@ -81,7 +82,8 @@
             <div class="col-lg-6">
                 <h5 class="main-txt">Pièce joint</h5>
                 <p>
-                    <a class="btn second-btn" *ngIf="selectedPieceContrat != undefined" href="{{url}}{{selectedPieceContrat?.image}}" download>
+                    <a class="btn second-btn" *ngIf="selectedPieceContrat != undefined"
+                        href="{{url}}{{selectedPieceContrat?.image}}" download>
                         Télécharger
                     </a>
 
@@ -122,8 +124,8 @@
                 <p>{{contrat.statut_caution }}</p>
             </div>
             <div class="col-lg-6">
-               <h5 class="main-txt">Montant de l'avance</h5>
-               <p>{{contrat.montant_avance}}</p> 
+                <h5 class="main-txt">Montant de l'avance</h5>
+                <p>{{contrat.montant_avance}}</p>
             </div>
         </div>
         <div class="row">
@@ -132,8 +134,8 @@
                 <p>{{contrat.date_fin_avance }}</p>
             </div>
             <div class="col-lg-6">
-               <h5 class="main-txt">Date 1er paiement</h5>
-               <p>{{contrat.date_premier_paiement}}</p> 
+                <h5 class="main-txt">Date 1er paiement</h5>
+                <p>{{contrat.date_premier_paiement}}</p>
             </div>
         </div>
         <div class="row">
@@ -142,8 +144,8 @@
                 <p>{{contrat.duree_avance }}</p>
             </div>
             <div class="col-lg-6">
-               <h5 class="main-txt">N° d'engagement de la dépense</h5>
-               <p>{{contrat.n_engagement_depense}}</p> 
+                <h5 class="main-txt">N° d'engagement de la dépense</h5>
+                <p>{{contrat.n_engagement_depense}}</p>
             </div>
         </div>
         <div class="row">
@@ -152,8 +154,8 @@
                 <p>{{contrat.echeance_revision_loyer }}</p>
             </div>
             <div class="col-lg-6">
-               <h5 class="main-txt">Etat de contrat</h5>
-               <p>{{this.contrat.etat_contrat?.libelle}}</p> 
+                <h5 class="main-txt">Etat de contrat</h5>
+                <p>{{this.contrat.etat_contrat?.libelle}}</p>
             </div>
         </div>
 
@@ -161,68 +163,75 @@
 </div>
 
 
-<div *ngIf="contrat.etat_contrat?.libelle !== 'En cours' && contrat.etat_contrat?.libelle == 'Avenant'" class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white">
+<div *ngIf="contrat.etat_contrat?.libelle !== 'En cours' && contrat.etat_contrat?.libelle == 'Avenant'"
+    class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white">
     <h5 class="main-title mb-4">
-        <a class="goback-link">Etat de contrat</a>/<span class="selected-text">
+        Etat de contrat:
+        <span
+            [ngClass]="{'info-txt': contrat.etat_contrat?.libelle == 'Avenant', 'danger-txt': contrat.etat_contrat?.libelle == 'Suspension' || contrat.etat_contrat?.libelle == 'Résiliation', 'success-txt': contrat.etat_contrat?.libelle == 'En cours'}">
             {{this.contrat.etat_contrat?.libelle}}
         </span>
     </h5>
-    
-        <div class="row">
-            <div class="col-lg-3">
-                <h5 class="main-txt">N° avenant</h5>
-                <p>{{contrat.etat_contrat?.etat?.n_avenant}}</p>
-            </div>
-            <div class="col-lg-3">
-               <h5 class="main-txt">Motif</h5>
-               <p>{{contrat.etat_contrat?.etat?.motif}}</p> 
-            </div>
-    
-            <div class="col-lg-3">
-                <h5 class="main-txt">Montant nouveau loyer</h5>
-                <p>{{contrat.etat_contrat?.etat?.montant_nouveau_loyer}}</p>
-            </div>
-            <div class="col-lg-3">
-               <h5 class="main-txt">Signaletique successeur</h5>
-               <p>{{contrat.etat_contrat?.etat?.signaletique_successeur}}</p> 
-            </div>
+
+    <div class="row">
+        <div class="col-lg-3">
+            <h5 class="main-txt">N° avenant</h5>
+            <p>{{contrat.etat_contrat?.etat?.n_avenant}}</p>
         </div>
-    
-        <div class="row">
-            <div class="col-lg-3">
-                <h5 class="main-txt">Intitule lieu</h5>
-                <p>{{contrat.etat_contrat?.etat?.intitule_lieu}}</p>
-            </div>
-            <div class="col-lg-3">
-                <h5 class="main-txt">Pièce jointe</h5>
-                <p>
-                    <a class="btn second-btn" *ngIf="selected_piece_jointe_avenant != undefined" href="{{url}}{{selected_piece_jointe_avenant?.image}}" download>
-                        Télécharger
-                    </a>
-                    <span *ngIf="selected_piece_jointe_avenant == undefined">
-                        Aucun fichier
-                    </span>
-                </p>   
-            </div>  
-        </div>   
+        <div class="col-lg-3">
+            <h5 class="main-txt">Motif</h5>
+            <p>{{contrat.etat_contrat?.etat?.motif}}</p>
+        </div>
+
+        <div class="col-lg-3">
+            <h5 class="main-txt">Montant nouveau loyer</h5>
+            <p>{{contrat.etat_contrat?.etat?.montant_nouveau_loyer}}</p>
+        </div>
+        <div class="col-lg-3">
+            <h5 class="main-txt">Signaletique successeur</h5>
+            <p>{{contrat.etat_contrat?.etat?.signaletique_successeur}}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3">
+            <h5 class="main-txt">Intitule lieu</h5>
+            <p>{{contrat.etat_contrat?.etat?.intitule_lieu}}</p>
+        </div>
+        <div class="col-lg-3">
+            <h5 class="main-txt">Pièce jointe</h5>
+            <p>
+                <a class="btn second-btn" *ngIf="selected_piece_jointe_avenant != undefined"
+                    href="{{url}}{{selected_piece_jointe_avenant?.image}}" download>
+                    Télécharger
+                </a>
+                <span *ngIf="selected_piece_jointe_avenant == undefined">
+                    Aucun fichier
+                </span>
+            </p>
+        </div>
+    </div>
 
 </div>
 
-<div *ngIf="contrat.etat_contrat?.libelle !== 'En cours' && contrat.etat_contrat?.libelle == 'Suspension'" class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white">
+<div *ngIf="contrat.etat_contrat?.libelle !== 'En cours' && contrat.etat_contrat?.libelle == 'Suspension'"
+    class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white">
     <h5 class="main-title mb-4">
-        <a class="goback-link">Etat de contrat</a>/<span class="selected-text">
+        Etat de contrat:
+        <span
+            [ngClass]="{'info-txt': contrat.etat_contrat?.libelle == 'Avenant', 'danger-txt': contrat.etat_contrat?.libelle == 'Suspension' || contrat.etat_contrat?.libelle == 'Résiliation', 'success-txt': contrat.etat_contrat?.libelle == 'En cours'}">
             {{this.contrat.etat_contrat?.libelle}}
         </span>
     </h5>
-    
+
     <div class="row">
         <div class="col-lg-3">
             <h5 class="main-txt">Intitule de lieu</h5>
             <p>{{contrat.etat_contrat?.etat?.intitule_lieu}}</p>
         </div>
         <div class="col-lg-3">
-           <h5 class="main-txt">Date de suspension</h5>
-           <p>{{contrat.etat_contrat?.etat?.date_suspension}}</p> 
+            <h5 class="main-txt">Date de suspension</h5>
+            <p>{{contrat.etat_contrat?.etat?.date_suspension}}</p>
         </div>
 
         <div class="col-lg-3">
@@ -230,28 +239,31 @@
             <p>{{contrat.etat_contrat?.etat?.duree_suspension}}</p>
         </div>
         <div class="col-lg-3">
-           <h5 class="main-txt">Motif suspension</h5>
-           <p>{{contrat.etat_contrat?.etat?.motif_suspension}}</p> 
+            <h5 class="main-txt">Motif suspension</h5>
+            <p>{{contrat.etat_contrat?.etat?.motif_suspension}}</p>
         </div>
-    </div> 
+    </div>
 
 </div>
 
-<div *ngIf="contrat.etat_contrat?.libelle !== 'En cours' && contrat.etat_contrat?.libelle == 'Résiliation'" class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white">
-    <h4 class="main-title mb-4">
-        <a class="goback-link">Etat de contrat</a>/<span class="selected-text">
+<div *ngIf="contrat.etat_contrat?.libelle !== 'En cours' && contrat.etat_contrat?.libelle == 'Résiliation'"
+    class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white">
+    <h5 class="main-title mb-4">
+        Etat de contrat:
+        <span
+            [ngClass]="{'info-txt': contrat.etat_contrat?.libelle == 'Avenant', 'danger-txt': contrat.etat_contrat?.libelle == 'Suspension' || contrat.etat_contrat?.libelle == 'Résiliation', 'success-txt': contrat.etat_contrat?.libelle == 'En cours'}">
             {{this.contrat.etat_contrat?.libelle}}
         </span>
-    </h4>
-    
+    </h5>
+
     <div class="row">
         <div class="col-lg-3">
             <h5 class="main-txt">Intitulé de lieu</h5>
             <p>{{contrat.etat_contrat?.etat?.intitule_lieu}}</p>
         </div>
         <div class="col-lg-3">
-           <h5 class="main-txt">Reprise caution</h5>
-           <p>{{contrat.etat_contrat?.etat?.reprise_caution}}</p> 
+            <h5 class="main-txt">Reprise caution</h5>
+            <p>{{contrat.etat_contrat?.etat?.reprise_caution}}</p>
         </div>
 
         <div class="col-lg-3">
@@ -259,10 +271,10 @@
             <p>{{contrat.etat_contrat?.etat?.etat_lieu_sortie}}</p>
         </div>
         <div class="col-lg-3">
-           <h5 class="main-txt">Préavis</h5>
-           <p>{{contrat.etat_contrat?.etat?.preavis}}</p> 
+            <h5 class="main-txt">Préavis</h5>
+            <p>{{contrat.etat_contrat?.etat?.preavis}}</p>
         </div>
-    </div> 
+    </div>
 
     <div class="row">
         <div class="col-lg-3">
@@ -270,32 +282,31 @@
             <p>{{contrat.etat_contrat?.etat?.date_resiliation}}</p>
         </div>
         <div class="col-lg-3">
-           <h5 class="main-txt">Images d'état des lieux de sortie</h5>
-           <p>
-            <a class="btn second-btn" *ngIf="selected_images_res_sortie != undefined" href="{{url}}{{selected_images_res_sortie?.image}}" download>
-                Télécharger
-            </a>
-            <span *ngIf="selected_images_res_sortie == undefined">
-                Aucun fichier
-            </span>
-        </p>   
+            <h5 class="main-txt">Images d'état des lieux de sortie</h5>
+            <p>
+                <a class="btn second-btn" *ngIf="selected_images_res_sortie != undefined"
+                    href="{{url}}{{selected_images_res_sortie?.image}}" download>
+                    Télécharger
+                </a>
+                <span *ngIf="selected_images_res_sortie == undefined">
+                    Aucun fichier
+                </span>
+            </p>
         </div>
 
         <div class="col-lg-3">
             <h5 class="main-txt">La lettre de résiliation scannée</h5>
             <p>
-                <a class="btn second-btn" *ngIf="selected_lettre_res != undefined" href="{{url}}{{selected_lettre_res?.image}}" download>
+                <a class="btn second-btn" *ngIf="selected_lettre_res != undefined"
+                    href="{{url}}{{selected_lettre_res?.image}}" download>
                     Télécharger
                 </a>
                 <span *ngIf="selected_lettre_res == undefined">
                     Aucun fichier
                 </span>
-            </p>   
+            </p>
         </div>
-        
-    </div> 
+
+    </div>
 
 </div>
-
-
-
