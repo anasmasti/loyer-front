@@ -16,10 +16,15 @@ export class ListProprietaireComponent implements OnInit {
   targetProprietaireId: string = '';
   findProprietaire!: string;
   errors!: string;
-  
+
   //Delete succes message
   deleteDone: boolean = false;
   deleteSucces: string = 'Proprietaire supprimé avec succés'
+
+  // Pagination options
+  listProprietairePage: number = 1;
+  count: number = 0;
+  tableSize: number = 10;
 
   constructor(
     private proprietaireService: ProprietaireService,
