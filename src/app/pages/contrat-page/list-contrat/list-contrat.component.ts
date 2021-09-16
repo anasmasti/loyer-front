@@ -28,9 +28,14 @@ export class ListContratComponent implements OnInit {
 
   testValidation1: boolean = false;
 
-   //Delete succes message
-   deleteDone: boolean = false;
-   deleteSucces: string = 'Contrat supprimé avec succés'
+  //Delete succes message
+  deleteDone: boolean = false;
+  deleteSucces: string = 'Contrat supprimé avec succés'
+
+  // Pagination options
+  listContratPage: number = 1;
+  count: number = 0;
+  tableSize: number = 10;
 
   constructor(
     private contratService: ContratService,
@@ -95,9 +100,10 @@ export class ListContratComponent implements OnInit {
     else {
       this.testValidation1 = true;
       // Test pour verifier si la validation 1 est déjà validé sinon on vas afficher le msg d'erreur 
-      this.errors = "Vous devez d'abbord validé la validation numéro 1!"
+      this.errors = "Vous devez d'abbord validé la première validation!"
       setTimeout(() => {
         this.testValidation1 = false;
+        this.errors = ''
       }, 2000);
     }
   }

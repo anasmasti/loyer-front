@@ -10,6 +10,7 @@ import { ListProprietaireComponent } from './list-proprietaire/list-proprietaire
 import { EditProprietaireComponent } from './edit-proprietaire/edit-proprietaire.component';
 import { FormProprietaireComponent } from './form-proprietaire/form-proprietaire.component';
 import { FormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 const route: Routes = [
@@ -32,6 +33,7 @@ const route: Routes = [
     ReactiveFormsModule,
     MainModalModule,
     ConfirmationModalModule,
+    NgxPaginationModule,
     FormsModule
   ],
 })

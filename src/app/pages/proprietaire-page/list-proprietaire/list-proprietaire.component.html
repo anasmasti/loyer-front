@@ -44,7 +44,8 @@
         </thead>
 
         <tbody *ngIf="proprietaires.length">
-            <tr *ngFor="let proprietaire of proprietaires; let i = index">
+            <tr
+                *ngFor="let proprietaire of proprietaires | paginate: { itemsPerPage: tableSize, currentPage: listProprietairePage, id: 'listProprietaitePagination', totalItems: count }; let i = index">
                 <!-- <td >{{ proprietaire._id }}</td> -->
                 <td>{{ proprietaire.nom_prenom }}</td>
                 <td>{{ proprietaire.raison_social }}</td>
@@ -65,6 +66,9 @@
                             class="far fa-user-minus"></i></a>
                 </td>
             </tr>
+
+            <pagination-controls id="listProprietaitePagination" (pageChange)="listProprietairePage = $event"
+                previousLabel="Précédent" nextLabel="Suivant"></pagination-controls>
 
             <app-main-modal [closeBtn]='true'>
                 <app-edit-proprietaire [proprietaire]="targetProprietaire">

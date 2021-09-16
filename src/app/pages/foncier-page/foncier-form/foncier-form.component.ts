@@ -3,14 +3,15 @@ import { FoncierService } from './../../../services/foncier-service/foncier.serv
 import { getPropWithLieuxAction } from './../foncier-store/foncier.actions';
 import { AppState } from 'src/app/store/app.state';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { getLieux, getProprietaires } from '../foncier-store/foncier.selector';
 import { debounceTime } from 'rxjs/operators';
 import { HelperService } from 'src/app/services/helpers/helper.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
-import { ThisReceiver } from '@angular/compiler';
+import { getCountries } from 'src/app/store/shared/shared.selector';
+import { getCountriesAction } from 'src/app/store/shared/shared.action';
 
 @Component({
   selector: 'foncier-form',
@@ -32,6 +33,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   lieux!: any
   lieuxSubscription$!: Subscription
   proprietairesSubscription$!: Subscription
+  countriesSubscription$!: Subscription
 
   cities!: any
   countries!: any
@@ -60,6 +62,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
     this.getProprietaires()
     this.getLieux()
+    this.fetchCountries()
     this.getCountries()
 
   }
@@ -173,6 +176,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       }
     );
   }
+
   // Get Proprietaire With Lieux Ids from the server
   getPropWithLieux() {
     this.store.dispatch(getPropWithLieuxAction())
@@ -194,6 +198,12 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     });
   }
 
+   /////////////////// Get countries and cities  ////////////*
+
+   fetchCities() {
+    // this.store.dispatch()
+  }
+
   getCities(event: any) {
     let isoCode: string = event.target.value
 
@@ -202,15 +212,23 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     })
   }
 
-  getCountries() {
-    this.help.getCountries().subscribe(data => {
-      this.countries = data
-    })
+  fetchCountries() {
+    this.store.dispatch(getCountriesAction())
   }
 
+  getCountries() {
+    this.countriesSubscription$ = this.store.select(getCountries).subscribe(data => {
+      console.log(data);
+      if (data) this.countries = data;
+      if (!data) this.fetchCountries()
+    });
+  }
+
+ ///////////////////////
 
   ngOnDestroy() {
     if (this.lieuxSubscription$) this.lieuxSubscription$.unsubscribe()
     if (this.proprietairesSubscription$) this.proprietairesSubscription$.unsubscribe()
+    if (this.countriesSubscription$) this.countriesSubscription$.unsubscribe()
   }
 }

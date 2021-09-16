@@ -1,5 +1,5 @@
 import { AppState } from './../app.state';
-import { getAllCountsSuccessAction } from './shared.action';
+import { getAllCountsSuccessAction, getCountriesAction, getCountriesSuccessAction } from './shared.action';
 import { HelperService } from 'src/app/services/helpers/helper.service';
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from '@ngrx/store';
@@ -24,6 +24,14 @@ export class SharedEffects {
         )
     });
 
+    // Create effect for all coutries
+    loadCoutries$ = createEffect((): any => {
+        return this.actions$.pipe(
+            ofType(getCountriesAction),
+            mergeMap(() => this.loadCountries())
+        )
+    });
+
     ///////////////////////////////////////////////////////////////////
 
     // Load all counts from service
@@ -36,6 +44,22 @@ export class SharedEffects {
                         return getAllCountsSuccessAction({ all_counts });
                     } else {
                         throw new Error("Il y'a aucun Lieu")
+                    }
+                }
+            )
+        )
+    }
+
+    // Load countries from service
+    loadCountries() {
+        return this.helperervice.getCountries().pipe(
+            map(
+                (countries: any) => {
+                    if (countries.length !== 0) {
+                        this.store.dispatch(setLoadingAction({ status: false }))
+                        return getCountriesSuccessAction({ countries });
+                    } else {
+                        throw new Error("Il y'a aucun pays")
                     }
                 }
             )

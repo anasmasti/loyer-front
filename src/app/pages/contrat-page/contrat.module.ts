@@ -16,6 +16,7 @@ import { lieuxReducer } from '../lieux-page/lieux-store/lieux.reducer';
 import { StoreModule } from '@ngrx/store';
 import { foncierReducer } from '../foncier-page/foncier-store/foncier.reducer';
 import { FoncierEffects } from '../foncier-page/foncier-store/foncier.effect';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 const route: Routes = [
@@ -43,6 +44,7 @@ const route: Routes = [
     StoreModule.forFeature('lieux', lieuxReducer),
     StoreModule.forFeature('foncier', foncierReducer),
     EffectsModule.forFeature([LieuxEffects, FoncierEffects]),
+    NgxPaginationModule,
   ],
 })
 export class ContratModule {}
