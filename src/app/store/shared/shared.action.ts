@@ -1,8 +1,8 @@
-import { createAction, props } from "@ngrx/store";
+import { createAction, props } from '@ngrx/store';
 
-const SET_LOADING = '[Shared Store] set loading'
-const GET_ALL_COUNTS = '[Shared Store] Get All Counts'
-const GET_ALL_COUNTS_SUCCESS = '[Shared Store] Get All Counts Success'
+const SET_LOADING = '[Shared Store] set loading';
+const GET_ALL_COUNTS = '[Shared Store] Get All Counts';
+const GET_ALL_COUNTS_SUCCESS = '[Shared Store] Get All Counts Success';
 
 const GET_COUNTRIES = '[Shared Store] Get Countries';
 const GET_COUNTRIES_SUCCESS = '[Shared Store] Get Countries Success';

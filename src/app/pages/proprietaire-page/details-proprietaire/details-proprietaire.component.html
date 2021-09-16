@@ -24,29 +24,29 @@
     <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-4">
         <div class="row">
             <div class="col-lg-6">
-                <h5>Nom et prénom de proprietaire</h5>
+                <h5 class="main-txt">Nom et prénom de proprietaire</h5>
                 <p>{{ proprietaire?.nom_prenom }}</p>
             </div>
             <div class="col-lg-6">
-                <h5>CIN de propriétaire</h5>
+                <h5 class="main-txt">CIN de propriétaire</h5>
                 <p>{{ proprietaire?.cin }}</p>
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-6">
-                <h5>Passeport de propriétaire</h5>
+                <h5 class="main-txt">Passeport de propriétaire</h5>
                 <p>{{ proprietaire?.passport }}</p>
             </div>
             <div class="col-lg-6">
-                <h5>Carte séjour de propriétaire</h5>
+                <h5 class="main-txt">Carte séjour de propriétaire</h5>
                 <p>{{ proprietaire?.carte_sejour }}</p>
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-6">
-                <h5>Adresse</h5>
+                <h5 class="main-txt">Adresse</h5>
                 <p>{{ proprietaire?.adresse }}</p>
             </div>
             <div class="col-lg-6"></div>
@@ -55,30 +55,30 @@
     <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-7 ms-5">
         <div class="row">
             <div class="col-lg-4">
-                <h5>Télephone</h5>
+                <h5 class="main-txt">Télephone</h5>
                 <p>{{ proprietaire?.telephone }}</p>
             </div>
             <div class="col-lg-4">
-                <h5>Fax</h5>
+                <h5 class="main-txt">Fax</h5>
                 <p>{{ proprietaire?.fax }}</p>
             </div>
             <div class="col-lg-4">
-                <h5>Raison sociale</h5>
+                <h5 class="main-txt">Raison sociale</h5>
                 <p>{{ proprietaire?.raison_social }}</p>
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-4">
-                <h5>N° compte bancaire</h5>
+                <h5 class="main-txt">N° compte bancaire</h5>
                 <p>{{ proprietaire?.n_compte_bancaire }}</p>
             </div>
             <div class="col-lg-4">
-                <h5>Banque</h5>
+                <h5 class="main-txt">Banque</h5>
                 <p>{{ proprietaire?.banque }}</p>
             </div>
             <div class="col-lg-4">
-                <h5>Nom de l'agence bancaire</h5>
+                <h5 class="main-txt">Nom de l'agence bancaire</h5>
                 <p>{{ proprietaire?.nom_agence_bancaire }}</p>
             </div>
         </div>
@@ -92,32 +92,32 @@
         <div *ngFor="let mdtr of mandataire;let i = index" class="row mt-3">
             <h5 class="main-title">Mandataire {{i + 1}}</h5>
             <div class="col-lg-4">
-                <h5>CIN Mandataire</h5>
+                <h5 class="main-txt">CIN Mandataire</h5>
                 <p>{{ mdtr?.cin_mandataire }}</p>
             </div>
             <div class="col-lg-4">
-                <h5>Raison sociale Mandataire </h5>
+                <h5 class="main-txt">Raison sociale Mandataire </h5>
                 <p>{{ mdtr?.raison_social_mandataire }}</p>
             </div>
             <div class="col-lg-4">
-                <h5>Nom et prénom de Mandataire</h5>
+                <h5 class="main-txt">Nom et prénom de Mandataire</h5>
                 <p>{{ mdtr?.nom_prenom_mandataire }}</p>
             </div>
             <div class="col-lg-4">
-                <h5>Téléphone de Mandataire</h5>
+                <h5 class="main-txt">Téléphone de Mandataire</h5>
                 <p>{{ mdtr?.telephone_mandataire }}</p>
             </div>
             <div class="col-lg-4">
-                <h5>Fax de Mandataire</h5>
+                <h5 class="main-txt">Fax de Mandataire</h5>
                 <p>{{ mdtr?.fax_mandataire }}</p>
             </div>
             <div class="col-lg-4">
-                <h5>Adresse Mandataire</h5>
+                <h5 class="main-txt">Adresse Mandataire</h5>
                 <p>{{ mdtr?.adresse_mandataire }}</p>
             </div>
 
             <div class="col-lg-4">
-                <h5>N° compte bancaire Mandataire</h5>
+                <h5 class="main-txt">N° compte bancaire Mandataire</h5>
                 <p>{{ mdtr?.n_compte_bancaire_mandataire }}</p>
             </div>
         </div>
