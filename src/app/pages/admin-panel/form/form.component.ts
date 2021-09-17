@@ -21,6 +21,7 @@ export class FormComponent implements OnInit {
   Role3: boolean = false
 
 
+
   @Input() userR !: any;
   userIsEmpty: boolean = true;
 
@@ -97,6 +98,7 @@ export class FormComponent implements OnInit {
             break;
 
         }
+console.log("====",this.userR);
 
       }
       // make thes roles checked
@@ -261,4 +263,6 @@ export class FormComponent implements OnInit {
       }
     }
   }
+
+
 }

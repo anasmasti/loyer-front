@@ -14,6 +14,7 @@ import { usersReducer } from './admin-store/admin.reducer';
 import { UsersEffects } from './admin-store/admin.effect';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { EditComponent } from './edit/edit.component';
+import { FormsModule } from '@angular/forms';
 
 const route: Routes = [
   { path: '', component: AdminComponent },
@@ -37,7 +38,8 @@ const route: Routes = [
     ConfirmationModalModule,
     StoreModule.forFeature('users', usersReducer),
     EffectsModule.forFeature([UsersEffects]),
-    NgxPaginationModule
+    NgxPaginationModule,
+    FormsModule
   ]
 })
 export class AdminPanelModule { }

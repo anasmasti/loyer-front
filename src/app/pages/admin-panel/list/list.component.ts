@@ -20,6 +20,7 @@ export class ListComponent implements OnInit, OnDestroy {
   targetUser!: User;
   usersSubscription$!: Subscription;
   deletedUser: any = ''
+  findAdmin!: string;
 
   // Pagination options
   listUsersPage: number = 1;
@@ -29,6 +30,7 @@ export class ListComponent implements OnInit, OnDestroy {
   //Delete succes message
   deleteDone: boolean = false;
   deleteSucces: string = 'Utilisateur supprimé avec succés'
+
 
   constructor(
     private mainModalService: MainModalService,
@@ -98,6 +100,19 @@ export class ListComponent implements OnInit, OnDestroy {
         }
       );
   }
+
+     // Filter by intitule
+ search(){
+  if (this.findAdmin != "") {
+    this.users = this.users.filter((res) => {
+      return res.userMatricul?.toLowerCase().match(this.findAdmin.toLowerCase()) || res.nom?.toLowerCase().match(this.findAdmin.toLowerCase())
+             || res.prenom?.toLowerCase().match(this.findAdmin.toLowerCase());
+    });
+  } else if (this.findAdmin == "") {
+    this.getUsersList()
+    
+  }
+}
 
 
   ngOnDestroy() {
