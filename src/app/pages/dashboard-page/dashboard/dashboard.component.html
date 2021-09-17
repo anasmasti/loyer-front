@@ -35,6 +35,32 @@
                 </h3>
             </div>
         </div>
+        <div class="row d-flex justify-content-between mt-3">
+            <div class="col-lg-3 main-card bg-white p-4 count-card">
+                <h3>
+                    <span class="count-number">{{allCount.totalCountAmenagements}}</span> Amenagement<span
+                        *ngIf="allCount.totalCountAmenagements > 1">s</span>
+                </h3>
+            </div>
+            <div class="col-lg-3 main-card bg-white p-4 count-card">
+                <h3>
+                    <span class="count-number">{{allCount.totalCountFournisseur}}</span> Fournisseur<span
+                        *ngIf="allCount.totalCountFournisseur > 1">s</span>
+                </h3>
+            </div>
+            <div class="col-lg-3 main-card bg-white p-4 count-card">
+                <h3>
+                    <span class="count-number">{{allCount.totalCountFournisseur}}</span> Fournisseur<span
+                        *ngIf="allCount.totalCountFournisseur > 1">s</span>
+                </h3>
+            </div>
+            <div class="col-lg-3 main-card bg-white p-4 count-card">
+                <h3>
+                    <span class="count-number">{{allCount.totalCountFournisseur}}</span> Fournisseur<span
+                        *ngIf="allCount.totalCountFournisseur > 1">s</span>
+                </h3>
+            </div>
+        </div>
     </div>
 
     <div class="mt-5">
@@ -45,7 +71,7 @@
             <div class="col-12 col-lg-4">
                 <ngx-charts-bar-vertical [results]="statisticsBar" [scheme]="colorScheme" [schemeType]="schemeType"
                     [gradient]="gradient" [xAxis]="xAxis" [yAxis]="yAxis" [showXAxisLabel]="showXAxisLabel"
-                    [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="xAxisLabel"
+                    [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel1"
                     [legendTitle]="legendTitle" [legendPosition]="legendPositionBelow" [animations]="animations"
                     [showGridLines]="showGridLines" [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
                     [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
@@ -53,7 +79,6 @@
                     [yAxisTickFormatting]="formatNumber" [showDataLabel]="showDataLabel" [barPadding]="barPadding"
                     [tooltipDisabled]="tooltipDisabled" [roundEdges]="roundEdges" [legend]="hasLegend">
                 </ngx-charts-bar-vertical>
-
             </div>
 
             <div class="col-12 col-lg-4">
@@ -67,7 +92,7 @@
             <div class="col-12 col-lg-4">
                 <ngx-charts-line-chart [results]="statisticsLine" [scheme]="colorScheme" [schemeType]="schemeType"
                     [gradient]="gradient" [xAxis]="xAxis" [yAxis]="yAxis" [showXAxisLabel]="showXAxisLabel"
-                    [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="xAxisLabel"
+                    [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel2"
                     [legendTitle]="legendTitle" [legendPosition]="legendPositionRight" [animations]="animations"
                     [showGridLines]="showGridLines" [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
                     [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"

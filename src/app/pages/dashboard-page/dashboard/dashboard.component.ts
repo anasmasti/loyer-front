@@ -4,7 +4,6 @@ import { AppState } from 'src/app/store/app.state';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getAllCountsAction } from 'src/app/store/shared/shared.action';
-import { ScaleType } from '@swimlane/ngx-charts';
 import { DownloadService } from 'src/app/services/download-service/download.service';
 import * as fileSaver from 'file-saver';
 import { ChartsService } from 'src/app/services/charts/charts.service';
@@ -33,8 +32,9 @@ export class DashboardComponent implements OnInit {
   // Axis options
   xAxis: boolean = false;
   yAxis: boolean = true;
-  yAxisLabel: string = 'Foncier statiqtiques';
-  xAxisLabel: string = 'Foncier statiqtiques';
+  xAxisLabel: string = 'Statiqtiques';
+  yAxisLabel1: string = 'Foncier statiqtiques';
+  yAxisLabel2: string = 'Lieux statiqtiques';
   showXAxisLabel: boolean = false;
   showYAxisLabel: boolean = true;
 
@@ -88,7 +88,6 @@ export class DashboardComponent implements OnInit {
     this.allCountSubscription$.unsubscribe();
   }
 
-
   formatString(input: string): string {
     return input.toUpperCase()
   }
@@ -120,7 +119,6 @@ export class DashboardComponent implements OnInit {
   getChartCircl(){
     this.chartService.getChartCircl().subscribe((data) => {
       this.statisticsCircle = data
-      
     })
   }
 
