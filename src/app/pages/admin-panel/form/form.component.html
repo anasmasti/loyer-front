@@ -29,14 +29,14 @@
     <div class="mt-4">
       <!-- <h1>{{ userR._id }}</h1> -->
       <h5 class="main-muted-text mb-2">Les rôles à affecter</h5>
-      <div class="btn-group d-flex justify-content-between" role="group"
+      <div class="btn-group d-flex justify-content-lg-start gap-1 flex-lg-row flex-column" role="group"
         aria-label="Basic checkbox toggle button group">
         <div>
           <input type="checkbox" name="chk1" class="btn-check roles" id="role1" autocomplete="off" value="Département Comptable"
             (change)="CheckedRoles('role1')">
           <label class="px-5 py-1 rounded-pill checkbox-list-btns" for="role1">Département Comptable</label>
         </div>
-        <div>
+        <div class="mx-lg-2 my-2 my-lg-0">
           <input type="checkbox" name="chk2" class="btn-check roles" id="role2" autocomplete="off" value="Direction Affaires Juridiques et Conformité"
             (change)="CheckedRoles('role2')">
           <label class="px-5 py-1 rounded-pill checkbox-list-btns" for="role2">Direction Affaires Juridiques et Conformité</label>

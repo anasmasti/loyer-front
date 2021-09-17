@@ -20,8 +20,11 @@
                 <!-- <td >{{ proprietaire._id }}</td> -->
                 <td>{{ user.userMatricul }}</td>
                 <td>{{ user.nom }} {{ user.prenom }}</td>
-                <td class="d-flex justify-content-around ">
-                    <p *ngFor="let role of user.userRoles" class="success-btn px-2"><small>{{ role.roleName }}</small>
+                <td class="d-flex justify-content-start gap-1">
+                    <p *ngFor="let role of user.userRoles" class="success-btn px-2">
+                        <small>
+                            {{ role.roleName }}
+                        </small>
                     </p>
                 </td>
                 <td>
