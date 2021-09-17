@@ -96,10 +96,7 @@ export class FormComponent implements OnInit {
 
           case "Direction Moyens Généraux": this.Role3 = true;
             break;
-
         }
-console.log("====",this.userR);
-
       }
       // make thes roles checked
     });
@@ -116,10 +113,7 @@ console.log("====",this.userR);
       <FormGroup>RoleData
     );
     
-    console.log(RoleData);
     return <FormGroup>RoleData;
-
-    
   }
 
   removeUser(index: number) {
