@@ -1,3 +1,4 @@
+import { environment } from './../../../../environments/environment';
 import { Lieu } from 'src/app/models/Lieu';
 import { Component, OnInit } from '@angular/core';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
@@ -18,7 +19,9 @@ export class DetailLieuxComponent implements OnInit {
   selectedAmenagementImage!: any;
   displayAmenagementSection: boolean = false;
   selectedImageEntrer!: any;
-  url: string = 'http://192.168.11.111:5000/';
+  url: string = environment.API_URL_WITHOUT_PARAM;
+
+  hasAmenagement: boolean = true
 
   constructor(
     private lieuxService: LieuxService,
@@ -34,13 +37,18 @@ export class DetailLieuxComponent implements OnInit {
     const id = this.actRoute.snapshot.paramMap.get('id') || '';
     this.lieuxService.getLieuById(id).subscribe((data: Lieu) => {
       this.lieu = data;
+      
+      if ((data.amenagement.length).toString() == '0') {
+        this.hasAmenagement = false
+      }
+      
       this.lieu.amenagement = data.amenagement;
       this.lieu.imgs_lieu_entrer = data.imgs_lieu_entrer;
 
       for (let index = 0; index < this.lieu.imgs_lieu_entrer.length; index++) {
         this.selectedImageEntrer = this.lieu.imgs_lieu_entrer[index];
-        this.selectedAmenagementCroquis =  this.lieu.amenagement[index].croquis_travaux[index];
-        this.selectedAmenagementImage = this.lieu.amenagement[index].images_apres_travaux[index];
+        this.selectedAmenagementCroquis =  this.lieu.amenagement[index]?.croquis_travaux[index];
+        this.selectedAmenagementImage = this.lieu.amenagement[index]?.images_apres_travaux[index];
       }
 
     });
