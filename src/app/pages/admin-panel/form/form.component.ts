@@ -19,8 +19,7 @@ export class FormComponent implements OnInit {
   Role1: boolean = false
   Role2: boolean = false
   Role3: boolean = false
-  Role4: boolean = false
-  Role5: boolean = false
+
 
   @Input() userR !: any;
   userIsEmpty: boolean = true;
@@ -42,8 +41,7 @@ export class FormComponent implements OnInit {
       this.Role1 = false;
       this.Role2 = false;
       this.Role3 = false;
-      this.Role4 = false;
-      this.Role5 = false;
+
     }
   }
 
@@ -67,8 +65,7 @@ export class FormComponent implements OnInit {
     this.Role1 = false;
     this.Role2 = false;
     this.Role3 = false;
-    this.Role4 = false;
-    this.Role5 = false;
+
 
     // Fetch Info 
     this.adminForm.patchValue({
@@ -90,20 +87,15 @@ export class FormComponent implements OnInit {
 
       if (!Role.deleted) {
         switch (Role.roleName) {
-          case "role1": this.Role1 = true;
+          case "Département Comptable": this.Role1 = true;
             break;
 
-          case "role2": this.Role2 = true;
+          case "Direction Affaires Juridiques et Conformité": this.Role2 = true;
             break;
 
-          case "role3": this.Role3 = true;
+          case "Direction Moyens Généraux": this.Role3 = true;
             break;
 
-          case "role4": this.Role4 = true;
-            break;
-
-          case "role5": this.Role5 = true;
-            break;
         }
 
       }
@@ -121,8 +113,11 @@ export class FormComponent implements OnInit {
     (<FormArray>this.adminForm.get('Roles')).push(
       <FormGroup>RoleData
     );
-
+    
+    console.log(RoleData);
     return <FormGroup>RoleData;
+
+    
   }
 
   removeUser(index: number) {
