@@ -3,12 +3,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray } from '@angular/forms';
 import { User } from '../../../models/User';
 import { AdminService } from 'src/app/services/admin-service/admin.service';
-import { stringify } from '@angular/compiler/src/util';
+
 @Component({
   selector: 'admin-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
+
 export class FormComponent implements OnInit {
 
   errors!: string;
@@ -19,8 +20,6 @@ export class FormComponent implements OnInit {
   Role1: boolean = false
   Role2: boolean = false
   Role3: boolean = false
-
-
 
   @Input() userR !: any;
   userIsEmpty: boolean = true;
@@ -121,16 +120,13 @@ export class FormComponent implements OnInit {
   }
 
   CheckedRoles(name: any) {
-
     let element = document.getElementById(name) as HTMLInputElement
 
     // put all the role names into a table 
     let Tab: string[] = [];
 
     this.adminForm.get('Roles')?.value.forEach((Role: any, index: any) => {
-
       Tab[index] = Role.roleName;
-
     });
 
     if (element.checked) {
@@ -190,7 +186,6 @@ export class FormComponent implements OnInit {
   }
 
   postUserRole() {
-
     let userData: User = {
       userMatricul: this.adminForm.get('Matricule')?.value,
       nom: this.adminForm.get('Nom')?.value,
@@ -257,6 +252,4 @@ export class FormComponent implements OnInit {
       }
     }
   }
-
-
 }
