@@ -1,6 +1,4 @@
-import { environment } from './../../../../environments/environment';
 import { Lieu } from 'src/app/models/Lieu';
-
 import { Component, OnInit } from '@angular/core';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { ActivatedRoute } from '@angular/router';
@@ -33,7 +31,6 @@ export class DetailLieuxComponent implements OnInit {
 
   // Get the Lieu data by id
   getLieuById() {
-    
     const id = this.actRoute.snapshot.paramMap.get('id') || '';
     this.lieuxService.getLieuById(id).subscribe((data: Lieu) => {
       this.lieu = data;
