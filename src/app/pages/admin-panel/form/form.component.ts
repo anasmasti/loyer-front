@@ -13,9 +13,11 @@ import { AdminService } from 'src/app/services/admin-service/admin.service';
 export class FormComponent implements OnInit {
 
   errors!: string;
-  postDone: boolean = false;
   adminForm!: FormGroup;
+  postDone: boolean = false;
   PostSucces: string = 'Utilisateur ajouté avec succés';
+  updateDone: boolean = false;
+  updateSucces: string = 'Utilisateur modifié avec succés';
   SubmitForm: string = 'Ajouter';
   Role1: boolean = false
   Role2: boolean = false
@@ -60,7 +62,9 @@ export class FormComponent implements OnInit {
   }
 
   fetchUser() {
-    this.adminForm.reset();
+    console.log(this.userR);
+    
+    // this.adminForm.reset();
     const control = <FormArray>this.adminForm.controls['Roles'];
     for (let i = control.length - 1; i >= 0; i--) {
       control.removeAt(i)
@@ -140,6 +144,8 @@ export class FormComponent implements OnInit {
       Tab[index] = Role.roleName;
     });
 
+    
+    
     if (element.checked) {
       if (Tab.includes(element.value)) {
         this.adminForm.get('Roles')?.value.forEach((Role: any) => {
@@ -159,7 +165,9 @@ export class FormComponent implements OnInit {
         this.adminForm.get('Roles')?.value.forEach((Role: any, index: any) => {
           if (Role.roleName == element.value) {
             if (Role.NewOrOld == 'Old') {
+              // console.log("TResssssssst");
               Role.deleted = true;
+              
             }
             else {
               this.removeUser(index)
@@ -168,6 +176,7 @@ export class FormComponent implements OnInit {
         });
       }
     }
+    // console.log("role names ===> " + element.checked );
   }
 
   listeRoles() {
@@ -240,11 +249,11 @@ export class FormComponent implements OnInit {
 
     this.adminService.updateUser(userData, this.userR._id).subscribe(
       (_) => {
-        this.postDone = true;
+        this.updateDone = true;
         setTimeout(() => {
           this.adminForm.reset();
           this.clearCH();
-          this.postDone = false;
+          this.updateDone = false;
           location.reload();
         }, 1000);
       },
