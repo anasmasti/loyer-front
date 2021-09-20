@@ -12,6 +12,12 @@
         <div class="row d-flex justify-content-between">
             <div class="col-lg-3 main-card bg-white p-4 count-card">
                 <h3>
+                    <span class="count-number">{{allCount.countUser}}</span> Utilisateur<span
+                        *ngIf="allCount.countUser > 1">s</span>
+                </h3>
+            </div>
+            <div class="col-lg-3 main-card bg-white p-4 count-card">
+                <h3>
                     <span class="count-number">{{allCount.totalCountDirecteurRegional}}</span> Directeur<span
                         *ngIf="allCount.totalCountDirecteurRegional > 1">s</span>
                 </h3>
@@ -24,19 +30,19 @@
             </div>
             <div class="col-lg-3 main-card bg-white p-4 count-card">
                 <h3>
-                    <span class="count-number">{{allCount.countLieu}}</span> Lieu<span
-                        *ngIf="allCount.countLieu > 1">x</span>
-                </h3>
-            </div>
-            <div class="col-lg-3 main-card bg-white p-4 count-card">
-                <h3>
                     <span class="count-number">{{allCount.countContrat}}</span> Contrat<span
                         *ngIf="allCount.countContrat > 1">s</span>
                 </h3>
             </div>
-
         </div>
+
         <div class="row d-flex justify-content-between mt-3">
+            <div class="col-lg-3 main-card bg-white p-4 count-card">
+                <h3>
+                    <span class="count-number">{{allCount.countLieu}}</span> Lieu<span
+                        *ngIf="allCount.countLieu > 1">x</span>
+                </h3>
+            </div>
             <div class="col-lg-3 main-card bg-white p-4 count-card">
                 <h3>
                     <span class="count-number">{{allCount.countFoncier}}</span> Foncier<span
@@ -55,13 +61,6 @@
                         *ngIf="allCount.totalCountFournisseur > 1">s</span>
                 </h3>
             </div>
-            <div class="col-lg-3 main-card bg-white p-4 count-card">
-                <h3>
-                    <span class="count-number">{{allCount.countUser}}</span> Utilisateur<span
-                        *ngIf="allCount.countUser > 1">s</span>
-                </h3>
-            </div>
-
         </div>
     </div>
 

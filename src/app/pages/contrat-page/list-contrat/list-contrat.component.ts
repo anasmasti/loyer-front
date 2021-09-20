@@ -35,7 +35,7 @@ export class ListContratComponent implements OnInit {
   // Pagination options
   listContratPage: number = 1;
   count: number = 0;
-  tableSize: number = 10;
+  tableSize: number = 6;
 
   constructor(
     private contratService: ContratService,
