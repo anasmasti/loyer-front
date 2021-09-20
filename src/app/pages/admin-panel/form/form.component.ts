@@ -20,6 +20,8 @@ export class FormComponent implements OnInit {
   Role1: boolean = false
   Role2: boolean = false
   Role3: boolean = false
+  Role4: boolean = false
+
 
   @Input() userR !: any;
   userIsEmpty: boolean = true;
@@ -41,6 +43,8 @@ export class FormComponent implements OnInit {
       this.Role1 = false;
       this.Role2 = false;
       this.Role3 = false;
+      this.Role4 = false;
+      
 
     }
   }
@@ -65,6 +69,8 @@ export class FormComponent implements OnInit {
     this.Role1 = false;
     this.Role2 = false;
     this.Role3 = false;
+    this.Role4 = false;
+ 
 
 
     // Fetch Info 
@@ -93,12 +99,17 @@ export class FormComponent implements OnInit {
           case "Direction Affaires Juridiques et Conformité": this.Role2 = true;
             break;
 
-          case "Direction Moyens Généraux": this.Role3 = true;
+            case "Chargé de suivi des loyers et aménagements": this.Role3 = true;
+            break;
+
+            case "Chef de département gestion et suivi du patrimoine": this.Role4 = true;
             break;
         }
       }
       // make thes roles checked
     });
+    console.log("====>",this.userR);
+    
   }
 
   AddRole(NewOrOld: any) {
@@ -245,6 +256,8 @@ export class FormComponent implements OnInit {
         this.hideErrorMessage();
       }
     );
+    console.log("update ==>",userData);
+    
   }
 
   clearCH() {
