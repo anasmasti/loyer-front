@@ -194,24 +194,27 @@ export class FormComponent implements OnInit {
       deleted: false
     };
 
-    this.adminService.addUser(userData).subscribe(
-      (_) => {
-        this.postDone = true;
-        setTimeout(() => {
-          this.adminForm.reset();
-          this.clearCH();
-          this.postDone = false;
-          location.reload();
-        }, 1000);
-      },
-      (error) => {
-        this.errors = error.error.message;
-        setTimeout(() => {
-          this.showErrorMessage();
-        }, 2000);
-        this.hideErrorMessage();
-      }
-    );
+    console.log(userData);
+    
+
+    // this.adminService.addUser(userData).subscribe(
+    //   (_) => {
+    //     this.postDone = true;
+    //     setTimeout(() => {
+    //       this.adminForm.reset();
+    //       this.clearCH();
+    //       this.postDone = false;
+    //       location.reload();
+    //     }, 1000);
+    //   },
+    //   (error) => {
+    //     this.errors = error.error.message;
+    //     setTimeout(() => {
+    //       this.showErrorMessage();
+    //     }, 2000);
+    //     this.hideErrorMessage();
+    //   }
+    // );
 
   }
 
