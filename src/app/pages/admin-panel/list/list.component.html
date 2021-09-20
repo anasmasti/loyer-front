@@ -14,7 +14,7 @@
             <tr>
                 <th>Matricule</th>
                 <th>Nom complet</th>
-                <th>Role</th>
+                <th>Les rôles</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -24,8 +24,8 @@
                 <!-- <td >{{ proprietaire._id }}</td> -->
                 <td>{{ user.userMatricul }}</td>
                 <td>{{ user.nom }} {{ user.prenom }}</td>
-                <td class="d-flex justify-content-start gap-1">
-                    <p *ngFor="let role of user.userRoles" class="success-btn px-2">
+                <td class="d-flex justify-content-start gap-1 flex-column">
+                    <p *ngFor="let role of user.userRoles" class="danger-txt px-2">
                         <small>
                             {{ role.roleName }}
                         </small>
