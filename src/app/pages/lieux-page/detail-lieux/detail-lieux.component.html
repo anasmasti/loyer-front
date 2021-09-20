@@ -92,11 +92,15 @@
             </div>
             <div class="col-lg-6">
                 <h5 class="main-txt">Images d'entrer</h5>
-                <p>
-                    <a class="btn second-btn" href="{{url}}{{selectedImageEntrer?.image}}" download>
+                <div class="my-2">
+                    <a *ngIf="selectedImageEntrer?.image" class="btn second-btn"
+                        href="{{url}}{{selectedImageEntrer?.image}}" download>
                         Télécharger
                     </a>
-                </p>
+                    <p *ngIf="selectedImageEntrer?.image == null" class="main-muted-text">
+                        Il n'y a aucun fichier à télécharger
+                    </p>
+                </div>
             </div>
         </div>
 
@@ -132,13 +136,11 @@
 </div>
 
 
-
-
-<div *ngIf="lieu?.amenagement" class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white">
-
+<div *ngIf="hasAmenagement" class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white">
+    
     <h4 class="main-title my-4">Aménagement</h4>
 
-    <div class="d-inline" *ngFor="let selected_amenagement of lieu.amenagement; let i = index">
+    <div class="d-inline" *ngFor="let selected_amenagement of lieu?.amenagement; let i = index">
         <button *ngIf="!selected_amenagement.deleted" class="btn second-btn me-3" type="button"
             (click)="displayAmenagement(selected_amenagement._id);scroll();">
             Aménagement {{ i + 1 }}
@@ -189,19 +191,27 @@
             <div class="col-lg-4">
                 <h5 class="main-txt">Images du local après aménagement</h5>
                 <p>
-                    <a class="btn second-btn" href="{{url}}{{selectedAmenagementImage?.image}}" download>
+                    <a *ngIf="selectedAmenagementImage?.image" class="btn second-btn"
+                        href="{{url}}{{selectedAmenagementImage?.image}}" download>
                         Télécharger
                     </a>
-                </p>   
+                    <span *ngIf="!selectedAmenagementImage?.image" class="main-muted-text">
+                        Il n'y a aucun fichier à télécharger
+                    </span>
+                </p>
             </div>
 
             <div class="col-lg-4">
                 <h5 class="main-txt">Croquis d’aménagement</h5>
                 <p>
-                    <a class="btn second-btn" href="{{url}}{{selectedAmenagementCroquis?.image}}" download>
+                    <a *ngIf="selectedAmenagementCroquis?.image" class="btn second-btn"
+                        href="{{url}}{{selectedAmenagementCroquis?.image}}" download>
                         Télécharger
                     </a>
-                </p>   
+                    <span *ngIf="!selectedAmenagementCroquis?.image" class="main-muted-text">
+                        Il n'y a aucun fichier à télécharger
+                    </span>
+                </p>
             </div>
 
             <div class="col-lg-4"></div>
@@ -215,7 +225,6 @@
                         <p>{{ selected_fournisseur.nom }}</p>
                         <h6 class="main-txt">Prenom</h6>
                         <p>{{ selected_fournisseur.prenom }}</p>
-
                     </div>
                 </div>
             </div>
