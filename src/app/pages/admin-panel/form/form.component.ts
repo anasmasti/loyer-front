@@ -60,7 +60,7 @@ export class FormComponent implements OnInit {
   }
 
   fetchUser() {
-    // this.adminForm.reset();
+    this.adminForm.reset();
     const control = <FormArray>this.adminForm.controls['Roles'];
     for (let i = control.length - 1; i >= 0; i--) {
       control.removeAt(i)
@@ -205,27 +205,27 @@ export class FormComponent implements OnInit {
       deleted: false
     };
 
-    console.log(userData);
+    // console.log(userData);
     
 
-    // this.adminService.addUser(userData).subscribe(
-    //   (_) => {
-    //     this.postDone = true;
-    //     setTimeout(() => {
-    //       this.adminForm.reset();
-    //       this.clearCH();
-    //       this.postDone = false;
-    //       location.reload();
-    //     }, 1000);
-    //   },
-    //   (error) => {
-    //     this.errors = error.error.message;
-    //     setTimeout(() => {
-    //       this.showErrorMessage();
-    //     }, 2000);
-    //     this.hideErrorMessage();
-    //   }
-    // );
+    this.adminService.addUser(userData).subscribe(
+      (_) => {
+        this.postDone = true;
+        setTimeout(() => {
+          this.adminForm.reset();
+          this.clearCH();
+          this.postDone = false;
+          location.reload();
+        }, 1000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 2000);
+        this.hideErrorMessage();
+      }
+    );
 
   }
 
