@@ -5,9 +5,9 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
-
-  isAuth!: boolean;
+export class CSLAGuard implements CanActivate {
+  
+  role!: string;
 
   constructor(public router: Router) { }
 
@@ -15,11 +15,11 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    this.isAuth = true
+    this.role = 'CSLA'
     // this.isAuth = false
-    
-    if (!this.isAuth) {
-      this.router.navigate(['/login']);
+
+    if (this.role != 'CSLA') {
+      this.router.navigate(['/access-denied', 'CSLA']);
       return false;
     }
 

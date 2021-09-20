@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './middleware/auth.guard';
+import { DCGuard } from './middleware/roles/dc.guard';
 
 const routes: Routes = [
   { path: '', loadChildren: () => import('./pages/dashboard-page/dashboard.module').then(m => m.DashboardModule), canActivate: [AuthGuard] },
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'admin', loadChildren: () => import('./pages/admin-panel/admin-panel.module').then(m => m.AdminPanelModule), canActivate: [AuthGuard] },
   { path: 'foncier', loadChildren: () => import('./pages/foncier-page/foncier-page.module').then(m => m.FoncierPageModule), canActivate: [AuthGuard] },
   { path: 'login', loadChildren: () => import('./pages/login-page/login.module').then(m => m.LoginModule) },
+  { path: 'access-denied', loadChildren: () => import('./shared/access-denied/access-denied.module').then(m => m.AccessDeniedModule) },
   { path: '**', loadChildren: () => import('./pages/notfound-page/notfound-page.module').then(m => m.NotfoundPageModule) },
 ];
 

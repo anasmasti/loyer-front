@@ -9,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginPageComponent implements OnInit {
 
-  constructor(private mainModalService: MainModalService, private authService: AuthService) { }
+  constructor(
+    private mainModalService: MainModalService,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
     this.mainModalService.open();
