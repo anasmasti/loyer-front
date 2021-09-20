@@ -41,7 +41,6 @@ export class FormComponent implements OnInit {
       this.Role1 = false;
       this.Role2 = false;
       this.Role3 = false;
-
     }
   }
 
