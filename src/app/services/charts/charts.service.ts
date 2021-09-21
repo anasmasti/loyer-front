@@ -22,13 +22,13 @@ export class ChartsService {
     );
   }
 
-  getChartLine() {
+  getChartBarH() {
     return this.http.get(
       `${environment.API_URL_TEST + environment.API_VERSION}/chartLine`
     );
   }
 
-  getChartBar() {
+  getChartBarV() {
     return this.http.get(
       `${environment.API_URL_TEST + environment.API_VERSION}/chartBar`
     );
