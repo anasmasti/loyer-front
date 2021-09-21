@@ -109,6 +109,7 @@ export class FormComponent implements OnInit {
             case "Chef de département gestion et suivi du patrimoine": this.Role4 = true;
             break;
         }
+  
       }
       // make thes roles checked
     });
