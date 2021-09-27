@@ -12,6 +12,7 @@ import * as fileSaver from 'file-saver';
   templateUrl: './list-contrat.component.html',
   styleUrls: ['./list-contrat.component.scss'],
 })
+
 export class ListContratComponent implements OnInit {
   errors!: string;
   contrats!: Contrat[];
