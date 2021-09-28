@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ContratService } from 'src/app/services/contrat-service/contrat.service';
 import { Contrat } from '../../../models/Contrat';
 import { ActivatedRoute } from '@angular/router';
-import { elementAt } from 'rxjs/operators';
 
 @Component({
   selector: 'app-detail-contrat',
