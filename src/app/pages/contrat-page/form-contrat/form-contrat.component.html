@@ -206,20 +206,9 @@
 
             <div *ngIf="updateLieu" class="row mt-2">
               <div class="col-lg-5 form-group">
-                <label for="">Type de lieu</label>
-                <select class="form-control rounded-pill" (change)='getLieuxByType($event)' formControlName="type_lieu">
-                  <option value="" selected="true" disabled default="true"> Sélectionner un type </option>
-                  <option *ngFor="let type of typeLieuList" [value]="type.type"> {{ type.type }} </option>
-                </select>
-              </div>
-
-              <div class="col-lg-5 form-group">
-                <label for="">Sélectionner un lieu</label>
-                <select class="form-control rounded-pill" formControlName="lieu">
-                  <option *ngFor="let lieuByType of lieuxByType" [value]="lieuByType._id">
-                    {{ lieuByType.intitule_lieu }}
-                  </option>
-                </select>
+                <div class="col-lg-3 form-group mt-4">
+                  <input type="hidden" [(ngModel)]="foncier.lieu" formControlName="lieu">
+                </div>
               </div>
             </div>
           </div>
@@ -228,25 +217,17 @@
 
       <div *ngIf="!update" class="row">
         <div class="col-lg-3 form-group mt-4">
-          <label for="">Foncier</label>
-          <select class="form-control rounded-pill" formControlName="foncier">
-            <option *ngFor="let fc of foncier" [value]="fc._id"> {{ fc.adresse }} </option>
-          </select>
+          <label for="">Addresse du foncier</label>
+          <input type="hidden" [(ngModel)]="foncier._id" formControlName="foncier">
+          <p> 
+            <strong>
+              {{ foncier.adresse }} 
+            </strong>
+          </p>
         </div>
 
         <div class="col-lg-3 form-group mt-4">
-          <label for="">Type de lieu</label>
-          <select class="form-control rounded-pill" (change)='getLieuxByType($event)' formControlName="type_lieu">
-            <option *ngFor="let type of typeLieuList" [value]="type.type"> {{ type.type }} </option>
-          </select>
-        </div>
-
-        <div class="col-lg-3 form-group mt-4">
-          <label for="">Lieu</label>
-          <select class="form-control rounded-pill" formControlName="lieu">
-            <option *ngFor="let lieuByType of lieuxByType" [value]="lieuByType._id"> {{ lieuByType.code_lieu }}
-            </option>
-          </select>
+          <input type="hidden" [(ngModel)]="foncier.lieu" formControlName="lieu">
         </div>
       </div>
 
@@ -254,7 +235,7 @@
         <label for="">Etat de contrat</label>
         <select class="form-control rounded-pill" formControlName="etat_contrat_libelle" [(ngModel)]="etatContratTypes"
           (change)="showEtatSection($event)">
-          <option value="En cours">En cours</option>
+          <option value="Active">Active</option>
           <option *ngIf="this.contrat.validation2_DAJC"
             [value]="etatContratTypes == 'Avenant' ? etatContratTypes : 'Avenant'">Avenant</option>
           <option value="Suspension">Suspension</option>

@@ -39,6 +39,7 @@
                 <th>Pays</th>
                 <th>Ville</th>
                 <th>Montant loyer</th>
+                <th>Contrat</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -49,6 +50,9 @@
                 <td> {{ foncier.pays }} </td>
                 <td> {{ foncier.ville }} </td>
                 <td> {{ foncier.montant_loyer }} </td>
+                <td> 
+                    <a [routerLink]="['/contrat',foncier._id]" class="btn btn-sm success-btn">Ajouter un contrat</a>
+                </td>
 
                 <td>
                     <div class="d-inline">

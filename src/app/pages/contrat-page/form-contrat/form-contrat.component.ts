@@ -1,3 +1,4 @@
+import { FoncierService } from './../../../services/foncier-service/foncier.service';
 import { HelperService } from 'src/app/services/helpers/helper.service';
 import { getLieuxByType } from './../../lieux-page/lieux-store/lieux.selector';
 import { getLieuxAction } from './../../lieux-page/lieux-store/lieux.actions';
@@ -8,8 +9,7 @@ import { Store } from '@ngrx/store';
 import { ContratService } from 'src/app/services/contrat-service/contrat.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { getLieux } from '../../lieux-page/lieux-store/lieux.selector';
-import { getFonciers } from '../../foncier-page/foncier-store/foncier.selector';
-import { getFoncierAction } from '../../foncier-page/foncier-store/foncier.actions';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -85,11 +85,15 @@ export class FormContratComponent implements OnInit {
   totalBrutLoyer!: number;
   totalNetLoyer!: number
 
+  foncier_id!: string
+
   constructor(
     private contratService: ContratService,
     private mainModalService: MainModalService,
     private help: HelperService,
-    private store: Store<AppState>
+    private foncierService: FoncierService,
+    private store: Store<AppState>,
+    private actRoute: ActivatedRoute
   ) { }
 
   ngOnChanges() {
@@ -99,6 +103,15 @@ export class FormContratComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.foncier_id = this.actRoute.snapshot.paramMap.get('foncier_id') || '';
+    
+    if (this.foncier_id) {
+      this.foncierService.getFoncierById(this.foncier_id).subscribe(data => {
+        this.foncier = data
+      })
+    }
+
+
     // this.etatContratTypes = 'Avenant'
     this.contratForm = new FormGroup({
       numero_contrat: new FormControl(),
@@ -125,7 +138,6 @@ export class FormContratComponent implements OnInit {
       n_engagement_depense: new FormControl(),
       echeance_revision_loyer: new FormControl(),
       foncier: new FormControl(),
-      type_lieu: new FormControl(),
       lieu: new FormControl(),
 
       // Etat
@@ -157,7 +169,6 @@ export class FormContratComponent implements OnInit {
       total_montant_net_loyer: new FormControl(),
     });
 
-    this.getFoncier();
     this.calculDate();
   }
 
@@ -325,45 +336,6 @@ export class FormContratComponent implements OnInit {
     this.mainModalService.close();
   }
 
-  // Get lieux by type
-  getLieuxByType(event: any) {
-    let typeLieu = event.target.value;
-    this.getAllLieux();
-    // Select Lieux by type from store
-    if (typeLieu.length !== 0) {
-      this.store
-        .select(getLieuxByType, {
-          type_lieu: typeLieu,
-        })
-        .subscribe((data) => {
-          this.lieuxByType = data;
-        });
-    }
-  }
-
-  getAllLieux() {
-    // Select lieux from store
-    this.store.select(getLieux).subscribe((data) => {
-      // Check if lieux data is empty then fetch it from server
-      if (data.length === 0) {
-        // Dispatch action to handle the NgRx get lieux from server effect
-        this.store.dispatch(getLieuxAction());
-      }
-    });
-  }
-
-  getFoncier() {
-    // Select Foncier from store
-    this.store.select(getFonciers).subscribe((data) => {
-      // Check if Foncier data is empty then fetch it from server
-      if (data.length === 0) {
-        // Dispatch action to handle the NgRx get Foncier from server effect
-        this.store.dispatch(getFoncierAction());
-      }
-      this.foncier = data;
-    });
-  }
-
   showEtatSection(event: any) {
     let selectedEtat = event.target.value;
     this.etatContratTypes = selectedEtat;
@@ -432,7 +404,6 @@ export class FormContratComponent implements OnInit {
       echeance_revision_loyer:
         this.contratForm.get('echeance_revision_loyer')?.value || '',
       foncier: this.contratForm.get('foncier')?.value || '',
-      type_lieu: this.contratForm.get('type_lieu')?.value || '',
       n_engagement_depense:
         this.contratForm.get('n_engagement_depense')?.value || '',
       lieu: this.contratForm.get('lieu')?.value || '',
@@ -502,7 +473,6 @@ export class FormContratComponent implements OnInit {
         duree_avance: this.contrat.duree_avance,
         echeance_revision_loyer: this.contrat.echeance_revision_loyer,
         foncier: this.contrat.foncier?._id,
-        // type_lieu: this.contrat.type_lieu,
         n_engagement_depense: this.contrat.n_engagement_depense,
         lieu: this.contrat.lieu?._id,
         duree_location: this.contrat.duree_location,
@@ -569,7 +539,6 @@ export class FormContratComponent implements OnInit {
       echeance_revision_loyer:
         this.contratForm.get('echeance_revision_loyer')?.value || '',
       foncier: this.contratForm.get('foncier')?.value || '',
-      type_lieu: this.contratForm.get('type_lieu')?.value || '',
       n_engagement_depense:
         this.contratForm.get('n_engagement_depense')?.value || '',
       lieu: this.contratForm.get('lieu')?.value || '',
