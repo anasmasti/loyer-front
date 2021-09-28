@@ -35,7 +35,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     this.proprietaireForm = new FormGroup({
       // Champs du propriètaire
       cin: new FormControl('', []),
-      passport: new FormControl('', []),
+      passport: new FormControl('',[]),
       carte_sejour: new FormControl('', []),
       nom_prenom: new FormControl('', [
         Validators.required,
