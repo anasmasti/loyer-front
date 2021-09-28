@@ -34,7 +34,7 @@ export class FormContratComponent implements OnInit {
   selectedFile!: File;
   fd: FormData = new FormData();
 
-  montantLoyer: number = 0;
+  montantLoyer!: number ;
   montantApresImpot: number = 0;
   hasDeclarationOption: string = 'non';
   retenueSource: number = 0;
@@ -162,8 +162,6 @@ export class FormContratComponent implements OnInit {
       total_montant_brut_loyer: new FormControl(),
       total_montant_net_loyer: new FormControl(),
     });
-
-    this.calculDate();
   }
 
   getFoncierByID(FID: any) {
