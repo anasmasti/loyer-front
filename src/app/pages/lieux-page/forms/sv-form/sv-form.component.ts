@@ -33,7 +33,7 @@ export class SvFormComponent implements OnInit, OnDestroy {
   file!: string;
   fd: FormData = new FormData();
   idm: any = JSON.stringify(Math.random());
-  imageExtension: string = '.zip';
+  imageExtension: string = '.pdf';
   selectedImagesLieuEntrer!: [];
 
   @Input() update!: boolean;

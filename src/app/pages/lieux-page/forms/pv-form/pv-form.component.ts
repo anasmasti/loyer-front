@@ -38,7 +38,7 @@ export class PvFormComponent implements OnInit, OnDestroy , OnChanges {
   fd: FormData = new FormData();
   idm: any = JSON.stringify(Math.random());
   i: any = 0;
-  imageExtension: string = '.zip';
+  imageExtension: string = '.pdf';
   selectedImagesLieuEntrer!: [];
 
 

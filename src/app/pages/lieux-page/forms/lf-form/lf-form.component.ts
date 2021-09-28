@@ -55,7 +55,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
   selectedFile!: File;
   file!: string;
   idm: any = JSON.stringify(Math.random());
-  imageExtension: string = '.zip';
+  imageExtension: string = '.pdf';
   selectedImagesLieuEntrer!: [];
 
   constructor(

@@ -26,7 +26,7 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Pièce jointe</label>
-        <input type="file" class="form-control btn success-btn" formControlName="piece_jointe" accept=".zip"
+        <input type="file" class="form-control btn success-btn" formControlName="piece_jointe" accept=".pdf"
           (change)="onFileSelected($event)" />
       </div>
 
@@ -341,7 +341,7 @@
           <div class="col-lg-3 form-group mt-4">
             <label for="">Pièce jointe</label>
             <input type="file" class="form-control rounded-pill btn success-btn"
-              formControlName="etat_contrat_piece_jointe_avenant" accept=".zip"
+              formControlName="etat_contrat_piece_jointe_avenant" accept=".pdf"
               (change)="onFileSelectedAvenant($event)">
           </div>
 
@@ -435,7 +435,7 @@
           <div class="col-lg-3 form-group mt-4">
             <label for="">Images d'état des lieux de sortie</label>
             <input type="file" class="form-control btn success-btn"
-              formControlName="etat_contrat_images_etat_res_lieu_sortie" accept=".zip"
+              formControlName="etat_contrat_images_etat_res_lieu_sortie" accept=".pdf"
               (change)="onFileSelectedResLieuSortie($event)">
           </div>
 
@@ -447,7 +447,7 @@
           <div class="col-lg-3 form-group mt-4">
             <label for="">Piéce jointe (la lettre de résiliation scannée)</label>
             <input type="file" class="form-control btn success-btn"
-              formControlName="etat_contrat_lettre_res_piece_jointe" accept=".zip"
+              formControlName="etat_contrat_lettre_res_piece_jointe" accept=".pdf"
               (change)="onFileSelectedLettreRes($event)">
           </div>
 

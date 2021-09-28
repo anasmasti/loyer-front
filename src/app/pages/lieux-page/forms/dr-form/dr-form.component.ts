@@ -26,7 +26,7 @@ export class DrFormComponent implements OnInit {
   fd: FormData = new FormData();
   idm: any = JSON.stringify(Math.random());
   isAmenagementEmpty: boolean = true;
-  imageExtension: string = '.zip';
+  imageExtension: string = '.pdf';
 
   @Input() update!: boolean;
   @Input() Lieu!: any;

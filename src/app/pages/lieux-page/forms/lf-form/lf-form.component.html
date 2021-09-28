@@ -62,7 +62,7 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Images du local avant aménagement</label>
-          <input type="file" class="form-control btn success-btn" formControlName="imgs_lieu_entrer" accept=".zip"
+          <input type="file" class="form-control btn success-btn" formControlName="imgs_lieu_entrer" accept=".pdf"
             (change)='onFileSelected($event)' />
         </div>
 
@@ -415,13 +415,13 @@
                 <div class="col-lg-3 form-group mt-4">
                   <label for="">Images du local après aménagement</label>
                   <input type="file" class="form-control btn success-btn" formControlName="images_apres_travaux_files"
-                    accept=".zip" (change)='onFileSelectedAmenagement($event,i)' />
+                    accept=".pdf" (change)='onFileSelectedAmenagement($event,i)' />
                 </div>
 
                 <div class="col-lg-3 form-group mt-4">
                   <label for="">Croquis d’aménagement via imagerie</label>
                   <input type="file" class="form-control btn success-btn" formControlName="croquis_travaux_files"
-                    accept=".zip" (change)='onFileSelectedCroquis($event, i)' />
+                    accept=".pdf" (change)='onFileSelectedCroquis($event, i)' />
                 </div>
 
                 <input type="hidden" class="form-control rounded-pill" formControlName="images_apres_travaux" />
