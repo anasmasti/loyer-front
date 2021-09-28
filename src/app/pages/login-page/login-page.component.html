@@ -6,7 +6,7 @@
         </div>
         <h4>Connexion au compte</h4>
         <p>Vous devez se connecter pour accéder à l'application.</p>
-        <form [formGroup]="loginForm" (ngSubmit)="login()" class="mb-3 mt-4">
+        <form [formGroup]="loginForm" class="mb-3 mt-4">
             <div *ngIf="!matricule" class="form-group">
                 <label for="">Matricule</label>
                 <input type="text" placeholder="Matricule" class="form-control rounded-pill"

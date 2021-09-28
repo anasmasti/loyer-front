@@ -2,6 +2,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from './../../services/auth-service/auth.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -12,7 +13,8 @@ export class LoginPageComponent implements OnInit {
 
   constructor(
     private mainModalService: MainModalService,
-    private authService: AuthService
+    private authService: AuthService,
+    public router: Router
   ) { }
 
   loginForm!: FormGroup;
@@ -33,9 +35,13 @@ export class LoginPageComponent implements OnInit {
 
     if (!this.matricule) {
       localStorage.setItem('matricule', matricule);
+      this.matricule = matricule
     }
-    
-    this.authService.logIn().subscribe()
+
+    this.authService.logIn(this.matricule).subscribe(data => {
+      localStorage.setItem('user', JSON.stringify(data))
+      this.router.navigate(['/']);
+    })
   }
 
   removeUser() {

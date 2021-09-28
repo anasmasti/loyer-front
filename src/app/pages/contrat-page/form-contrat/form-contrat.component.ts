@@ -170,8 +170,6 @@ export class FormContratComponent implements OnInit {
     this.foncierService.getFoncierById(FID).subscribe(data => {
       this.foncier = data
     })
-    console.log(this.foncier);
-    
   }
 
   // Calculer le montant
