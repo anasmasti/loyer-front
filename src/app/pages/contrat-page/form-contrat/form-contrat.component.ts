@@ -1,14 +1,11 @@
 import { FoncierService } from './../../../services/foncier-service/foncier.service';
 import { HelperService } from 'src/app/services/helpers/helper.service';
-import { getLieuxByType } from './../../lieux-page/lieux-store/lieux.selector';
-import { getLieuxAction } from './../../lieux-page/lieux-store/lieux.actions';
 import { AppState } from 'src/app/store/app.state';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { ContratService } from 'src/app/services/contrat-service/contrat.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
-import { getLieux } from '../../lieux-page/lieux-store/lieux.selector';
 import { ActivatedRoute } from '@angular/router';
 
 
@@ -106,11 +103,8 @@ export class FormContratComponent implements OnInit {
     this.foncier_id = this.actRoute.snapshot.paramMap.get('foncier_id') || '';
     
     if (this.foncier_id) {
-      this.foncierService.getFoncierById(this.foncier_id).subscribe(data => {
-        this.foncier = data
-      })
+      this.getFoncierByID(this.foncier_id)
     }
-
 
     // this.etatContratTypes = 'Avenant'
     this.contratForm = new FormGroup({
@@ -172,7 +166,13 @@ export class FormContratComponent implements OnInit {
     this.calculDate();
   }
 
-
+  getFoncierByID(FID: any) {
+    this.foncierService.getFoncierById(FID).subscribe(data => {
+      this.foncier = data
+    })
+    console.log(this.foncier);
+    
+  }
 
   // Calculer le montant
   calculMontant() {

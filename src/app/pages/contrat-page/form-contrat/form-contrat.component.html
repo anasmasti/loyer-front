@@ -164,72 +164,25 @@
         <input type="text" class="form-control rounded-pill" formControlName="echeance_revision_loyer">
       </div>
 
-      <!-- ____________ -->
-      <div *ngIf="update" class="mt-5">
-        <div class="row">
-          <div class="col-lg-6 main-card px-5 py-2">
-            <div class="row">
-              <div class="col-8">
-                <h3>Foncier sélèctionné</h3>
-              </div>
-              <div class="col-4">
-                <a class="btn btn-sm success-btn" (click)="updateFoncier = true"><i class="fal fa-edit"></i></a>
-                <a *ngIf="updateFoncier" class="btn btn-sm danger-btn ms-2" (click)="updateFoncier = false">Annuler</a>
-              </div>
-            </div>
-
-            <div *ngIf="!updateFoncier" class="row mt-2">
-              <p><strong>Adresse : </strong>&nbsp; {{ contrat.foncier?.adresse }}</p>
-            </div>
-
-            <div *ngIf="updateFoncier" class="col-lg-5 form-group mt-2">
-              <label for="">Sélectionner un foncier</label>
-              <select class="form-control rounded-pill" formControlName="foncier">
-                <option *ngFor="let fc of foncier" [value]="fc._id"> {{ fc.adresse }} </option>
-              </select>
-            </div>
-          </div>
-          <div class="col-lg-6 main-card px-5 py-2">
-            <div class="row">
-              <div class="col-8">
-                <h3>Lieu sélèctionné</h3>
-              </div>
-              <div class="col-4">
-                <a class="btn btn-sm success-btn" (click)="updateLieu = true"><i class="fal fa-edit"></i></a>
-                <a *ngIf="updateLieu" class="btn btn-sm danger-btn ms-2" (click)="updateLieu = false">Annuler</a>
-              </div>
-            </div>
-
-            <div *ngIf="!updateLieu" class="row mt-2">
-              <p><strong>Intitulé : </strong>&nbsp; {{ contrat.lieu?.intitule_lieu }}</p>
-            </div>
-
-            <div *ngIf="updateLieu" class="row mt-2">
-              <div class="col-lg-5 form-group">
-                <div class="col-lg-3 form-group mt-4">
-                  <input type="hidden" [(ngModel)]="foncier.lieu" formControlName="lieu">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div *ngIf="!update && foncier" class="col-lg-3 form-group mt-4">
+        <label for="">Addresse du foncier</label>
+        <input type="hidden" [(ngModel)]="foncier._id" formControlName="foncier">
+        <p>
+          <strong>
+            {{ foncier.adresse }}
+          </strong>
+        </p>
       </div>
 
-      <div *ngIf="!update" class="row">
-        <div class="col-lg-3 form-group mt-4">
-          <label for="">Addresse du foncier</label>
-          <input type="hidden" [(ngModel)]="foncier._id" formControlName="foncier">
-          <p> 
-            <strong>
-              {{ foncier.adresse }} 
-            </strong>
-          </p>
-        </div>
-
-        <div class="col-lg-3 form-group mt-4">
-          <input type="hidden" [(ngModel)]="foncier.lieu" formControlName="lieu">
-        </div>
+      <div *ngIf="!update && foncier" class="col-lg-3 form-group mt-4">
+        <input type="hidden" [(ngModel)]="foncier.lieu" formControlName="lieu">
       </div>
+
+      <div *ngIf="update" class="col-lg-3 form-group mt-4">
+        <input type="hidden" formControlName="lieu">
+        <input type="hidden" formControlName="foncier">
+      </div>
+
 
       <div *ngIf="update" class="col-lg-3 form-group mt-5">
         <label for="">Etat de contrat</label>

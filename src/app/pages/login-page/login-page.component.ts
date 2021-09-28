@@ -34,8 +34,6 @@ export class LoginPageComponent implements OnInit {
     if (!this.matricule) {
       localStorage.setItem('matricule', matricule);
     }
-
-    console.log(matricule);
     
     this.authService.logIn().subscribe()
   }

@@ -7,7 +7,6 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class EditContratComponent implements OnInit {
   
-  Modifier: string = "Modifier";
   @Input() contrat!: any;
 
   constructor() { }

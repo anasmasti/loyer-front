@@ -62,7 +62,6 @@ export class FormComponent implements OnInit {
   }
 
   fetchUser() {
-    console.log(this.userR);
     
     // this.adminForm.reset();
     const control = <FormArray>this.adminForm.controls['Roles'];
@@ -113,7 +112,6 @@ export class FormComponent implements OnInit {
       }
       // make thes roles checked
     });
-    console.log("====>",this.userR);
     
   }
 
@@ -166,7 +164,6 @@ export class FormComponent implements OnInit {
         this.adminForm.get('Roles')?.value.forEach((Role: any, index: any) => {
           if (Role.roleName == element.value) {
             if (Role.NewOrOld == 'Old') {
-              // console.log("TResssssssst");
               Role.deleted = true;
               
             }
@@ -177,7 +174,6 @@ export class FormComponent implements OnInit {
         });
       }
     }
-    // console.log("role names ===> " + element.checked );
   }
 
   listeRoles() {
@@ -214,9 +210,6 @@ export class FormComponent implements OnInit {
       userRoles: this.adminForm.get('Roles')?.value,
       deleted: false
     };
-
-    // console.log(userData);
-    
 
     this.adminService.addUser(userData).subscribe(
       (_) => {
@@ -266,7 +259,6 @@ export class FormComponent implements OnInit {
         this.hideErrorMessage();
       }
     );
-    console.log("update ==>",userData);
     
   }
 
