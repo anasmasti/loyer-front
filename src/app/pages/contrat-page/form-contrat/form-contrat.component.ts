@@ -3,7 +3,7 @@ import { getLieuxByType } from './../../lieux-page/lieux-store/lieux.selector';
 import { getLieuxAction } from './../../lieux-page/lieux-store/lieux.actions';
 import { AppState } from 'src/app/store/app.state';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { ContratService } from 'src/app/services/contrat-service/contrat.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
@@ -101,15 +101,15 @@ export class FormContratComponent implements OnInit {
   ngOnInit(): void {
     // this.etatContratTypes = 'Avenant'
     this.contratForm = new FormGroup({
-      numero_contrat: new FormControl(),
+      numero_contrat: new FormControl('',[Validators.required]),
       piece_jointe: new FormControl(),
-      date_debut_loyer: new FormControl(),
-      montant_loyer: new FormControl(),
+      date_debut_loyer: new FormControl('',[Validators.required]),
+      montant_loyer: new FormControl('',[Validators.required]),
       taxe_edilite_comprise_loyer: new FormControl(),
       taxe_edilite_noncomprise_loyer: new FormControl(),
-      periodicite_paiement: new FormControl(),
-      duree_location: new FormControl(),
-      date_fin_contrat: new FormControl(),
+      periodicite_paiement: new FormControl('',[Validators.required]),
+      duree_location: new FormControl('',[Validators.required]),
+      date_fin_contrat: new FormControl('',[Validators.required]),
       declaration_option: new FormControl(),
       taux_impot: new FormControl(),
       retenue_source: new FormControl(),
@@ -118,10 +118,10 @@ export class FormContratComponent implements OnInit {
       effort_caution: new FormControl(),
       date_reprise_caution: new FormControl(),
       statut_caution: new FormControl(),
-      montant_avance: new FormControl(),
-      date_fin_avance: new FormControl(),
-      date_1er_paiement: new FormControl(),
-      duree_avance: new FormControl(),
+      montant_avance: new FormControl('',[Validators.required]),
+      date_fin_avance: new FormControl('',[Validators.required]),
+      date_1er_paiement: new FormControl('',[Validators.required]),
+      duree_avance: new FormControl('',[Validators.required]),
       n_engagement_depense: new FormControl(),
       echeance_revision_loyer: new FormControl(),
       foncier: new FormControl(),
