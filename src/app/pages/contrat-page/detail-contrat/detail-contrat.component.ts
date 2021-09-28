@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ContratService } from 'src/app/services/contrat-service/contrat.service';
 import { Contrat } from '../../../models/Contrat';
 import { ActivatedRoute } from '@angular/router';
-import { elementAt } from 'rxjs/operators';
 
 @Component({
   selector: 'app-detail-contrat',
@@ -17,58 +16,7 @@ export class DetailContratComponent implements OnInit {
   selected_piece_jointe_avenant!: any ;
   url: string = 'http://192.168.11.110:5000/';
 
-  contrat: Contrat ={
-    _id: 'Chargement...',
-    numero_contrat: 'Chargement...',
-    piece_joint_contrat: [],
-    date_debut_loyer: 'Chargement...',
-    date_fin_contrat: 'Chargement...',
-    date_reprise_caution: 'Chargement...',
-    date_fin_avance: 'Chargement...',
-    date_premier_paiement: 'Chargement...',
-    montant_loyer: 0,
-    taxe_edilite_loyer: 'Chargement...',
-    taxe_edilite_non_loyer: 'Chargement...',
-    periodicite_paiement: 'Chargement...',
-    duree_location: 0,
-    declaration_option: 'Chargement...',
-    taux_impot: 'Chargement...',
-    retenue_source: 'Chargement...',
-    montant_apres_impot: 0 ,
-    montant_caution: 0,
-    effort_caution: 'Chargement...',
-    statut_caution: 'Chargement...',
-    montant_avance: 0,
-    duree_avance: 0,
-    n_engagement_depense: 'Chargement...',
-    echeance_revision_loyer: 'Chargement...',
-    type_lieu: 'Chargement...',
-    lieu: 'Chargement...',
-    foncier: 'Chargement...',
-    etat_contrat: {
-      libelle: 'Chargement...',
-      etat: {
-        n_avenant: 'Chargement...',
-        motif: 'Chargement...',
-        montant_nouveau_loyer: 0,
-        signaletique_successeur: 'Chargement...',
-        intitule_lieu: 'Chargement...',
-        date_suspension: 'Chargement...',
-        duree_suspension: 0,
-        motif_suspension: 'Chargement...',
-        reprise_caution: 'Chargement...',
-        date_resiliation: 'Chargement...',
-        etat_lieu_sortie: 'Chargement...',
-        preavis: 'Chargement...',
-        images_etat_res_lieu_sortie: [],
-        lettre_res_piece_jointe: [],
-        piece_jointe_avenant: [],
-      }
-    },
-    deleted: false,
-    validation1_DMG: false,
-    validation2_DAJC: false,
-  }
+  contrat!: Contrat
 
   constructor(
     private contratService: ContratService,

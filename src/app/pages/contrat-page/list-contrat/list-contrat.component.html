@@ -52,7 +52,7 @@
                 <td> {{ contrat.date_debut_loyer }} </td>
                 <td> {{ contrat.date_fin_contrat }} </td>
                 <td class="py-3"
-                    [ngClass]="{'info-txt': contrat.etat_contrat?.libelle == 'Avenant', 'danger-txt': contrat.etat_contrat?.libelle == 'Suspension' || contrat.etat_contrat?.libelle == 'Résiliation', 'success-txt': contrat.etat_contrat?.libelle == 'En cours'}">
+                    [ngClass]="{'info-txt': contrat.etat_contrat?.libelle == 'Avenant', 'danger-txt': contrat.etat_contrat?.libelle == 'Suspension' || contrat.etat_contrat?.libelle == 'Résiliation', 'success-txt': contrat.etat_contrat?.libelle == 'Active'}">
                     {{ this.contrat.etat_contrat?.libelle }}
                 </td>
 
@@ -60,7 +60,7 @@
                     <div class="d-flex">
                         <a [routerLink]="['list',contrat._id]" class="btn btn-sm main-btn me-2"><i
                                 class="fal fa-eye"></i></a>
-                        <a *ngIf="this.contrat.etat_contrat?.libelle != 'Résiliation'" (click)="openEditModal(contrat);"
+                        <a *ngIf="this.contrat.etat_contrat?.libelle != 'Résiliation'" (click)="openEditModal(contrat)"
                             class="btn btn-sm info-btn me-2"><i class="far fa-user-edit"></i></a>
                         <a class="btn btn-sm danger-btn" (click)="openConfirmationModal(contrat._id);"><i
                                 class="far fa-user-minus"></i></a>

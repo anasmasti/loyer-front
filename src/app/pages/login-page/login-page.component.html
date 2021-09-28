@@ -6,6 +6,33 @@
         </div>
         <h4>Connexion au compte</h4>
         <p>Vous devez se connecter pour accéder à l'application.</p>
+        <form [formGroup]="loginForm" (ngSubmit)="login()" class="mb-3 mt-4">
+            <div *ngIf="!matricule" class="form-group">
+                <label for="">Matricule</label>
+                <input type="text" placeholder="Matricule" class="form-control rounded-pill"
+                    formControlName="Matricule">
+            </div>
+
+            <input *ngIf="matricule" type="hidden" [(ngModel)]="matricule" class="form-control rounded-pill"
+                formControlName="Matricule">
+
+            <div *ngIf="matricule" class="d-flex align-items-baseline gap-2">
+                <div>
+                    <p>
+                        Matricule
+                        <span class="h4">
+                            <strong>
+                                {{matricule}}
+                            </strong>
+                        </span>
+                    </p>
+                </div>
+                <div>
+                    <a (click)="removeUser()" class="btn btn-sm danger-btn"><i class="far fa-trash"></i></a>
+                </div>
+            </div>
+        </form>
+
         <a (click)="login()" class="btn second-btn">Se connecter <i class="fal fa-sign-in-alt"></i></a>
     </div>
 </app-main-modal>

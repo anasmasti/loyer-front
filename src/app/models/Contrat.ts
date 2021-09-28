@@ -24,8 +24,14 @@ export interface Contrat {
   n_engagement_depense: string;
   echeance_revision_loyer: string;
   type_lieu: string;
-  lieu: string;
-  foncier: string;
+  lieu: {
+    intitule_lieu: string;
+    _id: any;
+  };
+  foncier: {
+    _id: any;
+    adresse: string;
+  };
   etat_contrat?: {
     libelle: string;
     etat: {
@@ -47,6 +53,6 @@ export interface Contrat {
     };
   };
   deleted: boolean;
-  validation1_DMG: boolean,
+  validation1_DMG: boolean
   validation2_DAJC: boolean
 }

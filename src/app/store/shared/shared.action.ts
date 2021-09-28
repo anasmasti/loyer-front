@@ -7,6 +7,9 @@ const GET_ALL_COUNTS_SUCCESS = '[Shared Store] Get All Counts Success';
 const GET_COUNTRIES = '[Shared Store] Get Countries';
 const GET_COUNTRIES_SUCCESS = '[Shared Store] Get Countries Success';
 
+const GET_FONCIER_ID = '[Shared Store] Get Foncier ID';
+
+
 export const setLoadingAction = createAction(SET_LOADING,
   props<{ status: boolean }>())
 
