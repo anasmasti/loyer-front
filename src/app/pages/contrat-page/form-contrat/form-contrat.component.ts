@@ -2,7 +2,7 @@ import { FoncierService } from './../../../services/foncier-service/foncier.serv
 import { HelperService } from 'src/app/services/helpers/helper.service';
 import { AppState } from 'src/app/store/app.state';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { ContratService } from 'src/app/services/contrat-service/contrat.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
@@ -108,27 +108,27 @@ export class FormContratComponent implements OnInit {
 
     // this.etatContratTypes = 'Avenant'
     this.contratForm = new FormGroup({
-      numero_contrat: new FormControl(),
+      numero_contrat: new FormControl('',[Validators.required]),
       piece_jointe: new FormControl(),
-      date_debut_loyer: new FormControl(),
-      montant_loyer: new FormControl(),
+      date_debut_loyer: new FormControl('',[Validators.required]),
+      montant_loyer: new FormControl('',[Validators.required]),
       taxe_edilite_comprise_loyer: new FormControl(),
       taxe_edilite_noncomprise_loyer: new FormControl(),
-      periodicite_paiement: new FormControl(),
-      duree_location: new FormControl(),
-      date_fin_contrat: new FormControl(),
+      periodicite_paiement: new FormControl('',[Validators.required]),
+      duree_location: new FormControl('',[Validators.required]),
+      date_fin_contrat: new FormControl('',[Validators.required]),
       declaration_option: new FormControl(),
       taux_impot: new FormControl(),
       retenue_source: new FormControl(),
       montant_apres_impot: new FormControl(),
       montant_caution: new FormControl(),
       effort_caution: new FormControl(),
-      date_reprise_caution: new FormControl(),
+      date_reprise_caution: new FormControl('',[Validators.required]),
       statut_caution: new FormControl(),
-      montant_avance: new FormControl(),
-      date_fin_avance: new FormControl(),
-      date_1er_paiement: new FormControl(),
-      duree_avance: new FormControl(),
+      montant_avance: new FormControl('',[Validators.required]),
+      date_fin_avance: new FormControl('',[Validators.required]),
+      date_1er_paiement: new FormControl('',[Validators.required]),
+      duree_avance: new FormControl('',[Validators.required]),
       n_engagement_depense: new FormControl(),
       echeance_revision_loyer: new FormControl(),
       foncier: new FormControl(),
@@ -438,6 +438,12 @@ export class FormContratComponent implements OnInit {
       }
     );
   }
+
+    // Check if all inputs has invalid errors
+    checkInputsValidation(targetInput: any) {
+      return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
+    }
+
   // Afficher le message d'erreur de serveur
   showErrorMessage() {
     $('.error-alert').addClass('active');
@@ -612,4 +618,26 @@ export class FormContratComponent implements OnInit {
       }
     );
   }
+
+  get date_debut_loyer(){
+    return this.contratForm.get('date_debut_loyer');
+  }
+  get montant_loyer(){
+    return this.contratForm.get('montant_loyer')
+  }
+  get periodicite_paiement(){
+    return this.contratForm.get('periodicite_paiement')
+  }
+  get duree_location(){
+    return this.contratForm.get('duree_location')
+  }
+  get date_fin_contrat(){
+    return this.contratForm.get('date_fin_contrat')
+  }
+  get date_reprise_caution(){
+    return this.contratForm.get('date_reprise_caution')
+  }
+  
+  
+  
 }

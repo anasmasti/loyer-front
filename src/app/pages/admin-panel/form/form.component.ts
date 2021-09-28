@@ -62,7 +62,6 @@ export class FormComponent implements OnInit {
   }
 
   fetchUser() {
-    
     // this.adminForm.reset();
     const control = <FormArray>this.adminForm.controls['Roles'];
     for (let i = control.length - 1; i >= 0; i--) {

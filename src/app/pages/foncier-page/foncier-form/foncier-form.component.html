@@ -31,48 +31,45 @@
         <input type="text" class="form-control rounded-pill" formControlName="adresse" />
       </div>
 
-      <div class="col-lg-3 form-group mt-4">
-        <label for="">Description</label>
-        <input type="text" class="form-control rounded-pill" formControlName="description" />
-      </div>
-
+      
       <div class="col-lg-3 form-group mt-4">
         <label for="">Lieu</label>
         <select class="form-control rounded-pill" formControlName="lieu">
           <option [value]="lieu._id" *ngFor="let lieu of lieux">{{ lieu.code_lieu }}</option>
-
+          
         </select>
       </div>
-
+      
       <div class="col-lg-3 form-group mt-4">
         <label for="">Etat du bien</label>
         <input type="text" class="form-control rounded-pill" formControlName="etat_du_bien" />
       </div>
-
+      
       <div class="col-lg-3 form-group mt-4">
         <label for="">Pays</label>
         <select class="form-control rounded-pill" formControlName="pays" (change)='getCities($event)'>
           <option *ngFor="let country of countries" [value]="country.isoCode" >{{country.name}}</option>
         </select>
       </div>
-
+      
       <div class="col-lg-3 form-group mt-4">
         <label for="">Ville</label>
         <select class="form-control rounded-pill" formControlName="ville">
           <option *ngFor="let city of cities" value="">{{city.name}}</option>
         </select>
       </div>
-
+      
       <div class="col-lg-3 form-group mt-4">
         <label for="">Code postal</label>
         <input type="text" class="form-control rounded-pill" formControlName="code_postal" />
       </div>
-
+      
       <div class="col-lg-3 form-group mt-4">
-        <label for="">Montant loyer</label>
-        <input type="number" class="form-control rounded-pill" formControlName="montant_loyer" />
+        <label for="">Description</label>
+        <textarea type="text" class="form-control rounded-pill" formControlName="description" ></textarea>
       </div>
-
+      
+      
       <div class="mt-4">Assure</div>
       <div class="col-lg-3 form-group d-flex mt-2">
         <label for="">Oui</label>
@@ -80,17 +77,17 @@
         <label for="">Non</label>
         <input type="radio" name="assure" [value]="false" class="form-check-input mx-2" formControlName="assure" />
       </div>
-
+      
       <div class="mt-4">Meuble equipe</div>
       <div class="col-lg-3 form-group d-flex mt-2">
         <label for="Oui">Oui</label>
         <input type="radio" name="meuble_equipe" [value]="true" class="form-check-input mx-2"
-          formControlName="meuble_equipe" id="Oui" />
+        formControlName="meuble_equipe" id="Oui" />
         <label for="Non">Non</label>
         <input type="radio" name="meuble_equipe" [value]="false" class="form-check-input mx-2"
-          formControlName="meuble_equipe" id="Non" />
+        formControlName="meuble_equipe" id="Non" />
       </div>
-
+      
     </div>
 
     <!-- Button Ajouter -->

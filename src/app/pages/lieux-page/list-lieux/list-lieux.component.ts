@@ -61,7 +61,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
   search() {
     if (this.findLieu != "") {
       this.lieux = this.lieux.filter(res => {
-        return res.intitule_lieu?.toLowerCase().match(this.findLieu.toLowerCase());
+        return res.intitule_lieu?.toLowerCase().match(this.findLieu.toLowerCase()) || res.ville?.toLowerCase().match(this.findLieu.toLowerCase());
       });
     } else if (this.findLieu == "") {
       this.getAllLieux();

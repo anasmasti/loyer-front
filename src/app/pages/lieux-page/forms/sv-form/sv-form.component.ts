@@ -1,6 +1,6 @@
 import { AppState } from './../../../../store/app.state';
 import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormArray } from '@angular/forms';
+import { FormControl, FormGroup, FormArray ,Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
@@ -33,7 +33,7 @@ export class SvFormComponent implements OnInit, OnDestroy {
   file!: string;
   fd: FormData = new FormData();
   idm: any = JSON.stringify(Math.random());
-  imageExtension: string = '.zip';
+  imageExtension: string = '.pdf';
   selectedImagesLieuEntrer!: [];
 
   @Input() update!: boolean;
@@ -59,8 +59,8 @@ export class SvFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.svForm = new FormGroup({
-      code_lieu: new FormControl(''),
-      intitule_lieu: new FormControl(''),
+      code_lieu: new FormControl('' , [Validators.required]),
+      intitule_lieu: new FormControl('', [Validators.required]),
       intitule_DR: new FormControl(''),
       adresse: new FormControl(''),
       ville: new FormControl(''),
@@ -71,7 +71,7 @@ export class SvFormComponent implements OnInit, OnDestroy {
       etat_logement_fonction: new FormControl(''),
       etage: new FormControl(''),
       type_lieu: new FormControl(''),
-      code_rattache_DR: new FormControl(''),
+      code_rattache_DR: new FormControl('', [Validators.required]),
       code_rattache_SUP: new FormControl(''),
       intitule_rattache_SUP_PV: new FormControl(''),
       centre_cout_siege: new FormControl(''),
@@ -381,6 +381,11 @@ export class SvFormComponent implements OnInit, OnDestroy {
       }
     }
   }
+
+    // Check if all inputs has invalid errors
+    checkInputsValidation(targetInput: any) {
+      return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
+    }
 
   //Upload Image amenagement avant amenagement
   onFileSelected(event: any) {

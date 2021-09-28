@@ -1,5 +1,5 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup , Validators } from '@angular/forms';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { DOCUMENT } from '@angular/common';
@@ -26,7 +26,7 @@ export class DrFormComponent implements OnInit {
   fd: FormData = new FormData();
   idm: any = JSON.stringify(Math.random());
   isAmenagementEmpty: boolean = true;
-  imageExtension: string = '.zip';
+  imageExtension: string = '.pdf';
 
   @Input() update!: boolean;
   @Input() Lieu!: any;
@@ -52,8 +52,8 @@ export class DrFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.drForm = new FormGroup({
-      code_lieu: new FormControl(''),
-      intitule_lieu: new FormControl(''),
+      code_lieu: new FormControl('',[Validators.required]),
+      intitule_lieu: new FormControl('',[Validators.required]),
       // intitule_DR: new FormControl('',),
       adresse: new FormControl(''),
       ville: new FormControl(''),
@@ -369,6 +369,11 @@ export class DrFormComponent implements OnInit {
         this.fd.append('imgs_croquis', this.selectedFile, this.file);
       }
     }
+  }
+
+  // Check if all inputs has invalid errors
+  checkInputsValidation(targetInput: any) {
+    return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
   }
 
   //Upload Image amenagement avant amenagement

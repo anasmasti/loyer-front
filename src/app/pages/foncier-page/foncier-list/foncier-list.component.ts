@@ -60,8 +60,9 @@ export class FoncierListComponent implements OnInit {
   // Filter by intitule
   search() {
     if (this.findFoncier != "") {
-      this.fonciers = this.fonciers.filter((res: { type_foncier: string; }) => {
-        return res.type_foncier?.toLowerCase().match(this.findFoncier.toLowerCase());
+      this.fonciers = this.fonciers.filter((res:any) => {
+        return res.type_foncier?.toLowerCase().match(this.findFoncier.toLowerCase())
+        || res.ville?.toLowerCase().match(this.findFoncier.toLowerCase());
       });
     } else if (this.findFoncier == "") {
       this.getFoncier();
