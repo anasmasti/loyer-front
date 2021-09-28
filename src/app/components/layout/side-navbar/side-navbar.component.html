@@ -57,7 +57,7 @@
                 </ul>
             </li>
             <li class="nav-item my-4">
-                <a [routerLink]="['/foncier']" routerLinkActive="router-link-active" class="nav-link main-btn ">
+                <a [routerLink]="['/foncier']" routerLinkActive="router-link-active" class="nav-link main-btn">
                     <span (click)="showSubMenu('foncier')">Foncier</span>
                 </a>
                 <ul class="sub-menu list-unstyled" id="foncier">
@@ -70,17 +70,17 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a [routerLink]="['/contrat']" routerLinkActive="router-link-active" class="nav-link main-btn ">
-                    <span (click)="showSubMenu('contrat')">Contrat de bail</span>
+                <a [routerLink]="['/contrat/list-global/list']" routerLinkActive="router-link-active" class="nav-link main-btn">
+                    <span>List des contrats</span>
                 </a>
-                <ul class="sub-menu list-unstyled" id="contrat">
+                <!-- <ul class="sub-menu list-unstyled" id="contrat">
                     <li>
                         <a [routerLink]="['/contrat/list']" class="nav-link sub-menu-btn">
                             List des contrats
                         </a>
                     </li>
 
-                </ul>
+                </ul> -->
             </li>
         </ul>
     </div>
@@ -100,6 +100,6 @@
             </li>
         </ul>
     </div>
-    
+
 </div>
 <!-- End vertical navbar -->
