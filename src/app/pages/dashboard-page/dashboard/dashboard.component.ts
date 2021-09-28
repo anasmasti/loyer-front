@@ -61,8 +61,8 @@ export class DashboardComponent implements OnInit {
   yScaleMax: number = 9000;
   roundEdges: boolean = false;
 
-  statisticsLine!: any 
-  statisticsBar!: any 
+  statisticsBarV!: any
+  statisticsBarH!: any
   statisticsCircle!: any
 
   ngOnInit(): void {
@@ -97,34 +97,34 @@ export class DashboardComponent implements OnInit {
   }
 
   // --------------Start Download Files--------------
-  downloadFichierComptable(){
+  downloadFichierComptable() {
     let today = new Date()
-    let currentMonthName = today.toLocaleString('default', {month:'long'})
+    let currentMonthName = today.toLocaleString('default', { month: 'long' })
     let currentYear = today.getFullYear()
     let filename = 'FichierComptable ' + currentMonthName + ' ' + currentYear
     this.downloadService.dowloadFileComptableLoyer(filename).subscribe(res => {
-      if(res){
-        fileSaver.saveAs(res , filename);
+      if (res) {
+        fileSaver.saveAs(res, filename);
       }
     })
   }
   // --------------End Download Files--------------
 
-  getChartLine(){
-    this.chartService.getChartLine().subscribe((data) => {
-      this.statisticsLine = data;
+  getChartLine() {
+    this.chartService.getChartBarH().subscribe((data) => {
+      this.statisticsBarH = data;
     })
   }
 
-  getChartCircl(){
+  getChartCircl() {
     this.chartService.getChartCircl().subscribe((data) => {
       this.statisticsCircle = data
     })
   }
 
-  getChartBar(){
-    this.chartService.getChartBar().subscribe((data) => {
-     this.statisticsBar = data
+  getChartBar() {
+    this.chartService.getChartBarV().subscribe((data) => {
+      this.statisticsBarV = data
     })
   }
 

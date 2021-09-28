@@ -70,7 +70,7 @@
         </h6>
         <div class="row text-center">
             <div class="col-12 col-lg-4">
-                <ngx-charts-bar-vertical [results]="statisticsBar" [scheme]="colorScheme" [schemeType]="schemeType"
+                <ngx-charts-bar-vertical [results]="statisticsBarV" [scheme]="colorScheme" [schemeType]="schemeType"
                     [gradient]="gradient" [xAxis]="xAxis" [yAxis]="yAxis" [showXAxisLabel]="showXAxisLabel"
                     [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel1"
                     [legendTitle]="legendTitle" [legendPosition]="legendPositionBelow" [animations]="animations"
@@ -82,24 +82,36 @@
                 </ngx-charts-bar-vertical>
             </div>
 
-            <div class="col-12 col-lg-4">
+            <div class="col-12 col-lg-8">
                 <h6>Contrat statiqtiques</h6>
                 <ngx-charts-pie-chart [results]="statisticsCircle" [scheme]="colorScheme" [schemeType]="schemeType"
                     [gradient]="gradient" [animations]="animations" [labels]="true" [tooltipDisabled]="tooltipDisabled"
                     [legend]="false">
                 </ngx-charts-pie-chart>
             </div>
+        </div>
+    </div>
 
-            <div class="col-12 col-lg-4">
-                <ngx-charts-line-chart [results]="statisticsLine" [scheme]="colorScheme" [schemeType]="schemeType"
+    <div class="mt-5">
+        <div class="row">
+            <div class="col-12 col-lg-7">
+                <ngx-charts-bar-horizontal [results]="statisticsBarH" [scheme]="colorScheme" [schemeType]="schemeType"
                     [gradient]="gradient" [xAxis]="xAxis" [yAxis]="yAxis" [showXAxisLabel]="showXAxisLabel"
-                    [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel2"
-                    [legendTitle]="legendTitle" [legendPosition]="legendPositionRight" [animations]="animations"
+                    [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel1"
+                    [legendTitle]="legendTitle" [legendPosition]="legendPositionBelow" [animations]="animations"
                     [showGridLines]="showGridLines" [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
                     [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
                     [maxYAxisTickLength]="maxYAxisTickLength" [xAxisTickFormatting]="formatString"
-                    [yAxisTickFormatting]="formatNumber" [tooltipDisabled]="tooltipDisabled" [legend]="hasLegend">
-                </ngx-charts-line-chart>
+                    [yAxisTickFormatting]="formatNumber" [showDataLabel]="showDataLabel" [barPadding]="barPadding"
+                    [tooltipDisabled]="tooltipDisabled" [roundEdges]="roundEdges" [legend]="hasLegend">
+                </ngx-charts-bar-horizontal>
+            </div>
+            <div class="col-12 col-lg-5">
+                <h6 class="main-title">
+                    Dernières alertes
+                    <!-- (<span class="count-number">5</span>) -->
+                </h6>
+                <coming-soon></coming-soon>
             </div>
         </div>
     </div>
@@ -108,18 +120,11 @@
         <div class="row">
             <div class="col-12 col-lg-6">
                 <h6 class="main-title">
-                    Dernières alertes
-                    <!-- (<span class="count-number">5</span>) -->
-                </h6>
-                <coming-soon></coming-soon>
-            </div>
-            <div class="col-12 col-lg-6">
-                <h6 class="main-title">
                     Liens rapides
                 </h6>
                 <div class="col-12 col-lg-6 mt-2 d-flex mt-3">
                     <button type="submit" class="btn second-btn form-control"
-                        (click)="downloadFichierComptable()">Télécharger fichier comptable</button>
+                        (click)="downloadFichierComptable()">Exporter fichier comptablilisation</button>
                 </div>
             </div>
         </div>
