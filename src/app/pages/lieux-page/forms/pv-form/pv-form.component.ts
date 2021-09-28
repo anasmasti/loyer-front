@@ -2,8 +2,8 @@ import { AppState } from './../../../../store/app.state';
 import { MainModalService } from './../../../../services/main-modal/main-modal.service';
 import { ConfirmationModalService } from './../../../../services/confirmation-modal-service/confirmation-modal.service';
 import { LieuxService } from './../../../../services/lieux-service/lieux.service';
-import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormArray } from '@angular/forms';
+import { Component, Inject, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, FormArray , Validators } from '@angular/forms';
 import { getDrWithSupAction } from '../../lieux-store/lieux.actions';
 import { getDr, getSup } from '../../lieux-store/lieux.selector';
 import { Store } from '@ngrx/store';
@@ -16,7 +16,7 @@ import { HelperService } from 'src/app/services/helpers/helper.service';
   templateUrl: './pv-form.component.html',
   styleUrls: ['./pv-form.component.scss']
 })
-export class PvFormComponent implements OnInit, OnDestroy {
+export class PvFormComponent implements OnInit, OnDestroy , OnChanges {
 
   hasAmenagement: boolean = false;
   PvForm!: FormGroup;
@@ -66,8 +66,8 @@ export class PvFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.PvForm = new FormGroup({
-      code_lieu: new FormControl(''),
-      intitule_lieu: new FormControl(''),
+      code_lieu: new FormControl('' ,[Validators.required]),
+      intitule_lieu: new FormControl('', [Validators.required]),
       intitule_DR: new FormControl(''),
       adresse: new FormControl(''),
       ville: new FormControl(''),
@@ -78,8 +78,8 @@ export class PvFormComponent implements OnInit, OnDestroy {
       etat_logement_fonction: new FormControl(''),
       etage: new FormControl(''),
       type_lieu: new FormControl(''),
-      code_rattache_DR: new FormControl(''),
-      code_rattache_SUP: new FormControl(''),
+      code_rattache_DR: new FormControl('', [Validators.required]),
+      code_rattache_SUP: new FormControl('', [Validators.required]),
       intitule_rattache_SUP_PV: new FormControl(''),
       centre_cout_siege: new FormControl(''),
       categorie_pointVente: new FormControl(''),
@@ -388,6 +388,11 @@ export class PvFormComponent implements OnInit, OnDestroy {
     }
   }
 
+  // Check if all inputs has invalid errors
+  checkInputsValidation(targetInput: any) {
+    return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
+  }
+
   addPv() {
     let pvData: any = {
       code_lieu: this.PvForm.get('code_lieu')?.value,
@@ -426,7 +431,7 @@ export class PvFormComponent implements OnInit, OnDestroy {
         setTimeout(() => {
           this.PvForm.reset();
           this.postDone = false;
-          this.help.refrechPage();
+          // this.help.refrechPage();
         }, 2000);
       },
       (error) => {
@@ -537,6 +542,22 @@ export class PvFormComponent implements OnInit, OnDestroy {
 
   get amenagementForm(): FormArray {
     return (<FormArray>this.PvForm.get('amenagementForm'));
+  }
+
+  get code_lieu() {
+    return this.PvForm.get('code_lieu')
+  }
+
+  get intitule_lieu() {
+    return this.PvForm.get('intitule_lieu')
+  }
+
+  get code_rattache_DR() {
+    return this.PvForm.get('code_rattache_DR')
+  }
+
+  get code_rattache_SUP() {
+    return this.PvForm.get('code_rattache_SUP')
   }
 
 }
