@@ -33,14 +33,34 @@
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date de début du loyer</label>
         <input type="date" class="form-control rounded-pill" (change)="calculMontant()"
-          formControlName="date_debut_loyer" />
+          formControlName="date_debut_loyer" required [ngClass]="{
+            'is-invalid': checkInputsValidation(date_debut_loyer),
+            'is-valid': !date_debut_loyer?.invalid
+          }"/>
+
+          <!-- Error Message  -->
+      <div class="" *ngIf="checkInputsValidation(date_debut_loyer)">
+        <p class="text-danger" *ngIf="date_debut_loyer?.errors?.required">
+          Veuillez remplir ce champ
+        </p>
+      </div>
 
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Montant du loyer (Mensuel)</label>
         <input type="number" [(ngModel)]="montantLoyer" (keyup)="calculMontant()" class="form-control rounded-pill"
-          formControlName="montant_loyer" />
+          formControlName="montant_loyer" [ngClass]="{
+            'is-invalid': checkInputsValidation(montant_loyer),
+            'is-valid': !montant_loyer?.invalid
+          }"/>
+
+          <!-- Error Message  -->
+      <div class="" *ngIf="checkInputsValidation(montant_loyer)">
+        <p class="text-danger" *ngIf="montant_loyer?.errors?.required">
+          Veuillez remplir ce champ
+        </p>
+      </div>
       </div>
 
       <div class="col-lg-3 form-group mt-4">
@@ -58,22 +78,49 @@
       <div class="col-lg-3 form-group mt-4">
         <label for="">Périodicité de paiement</label>
         <!-- <input type="text" class="form-control rounded-pill" formControlName="periodicite_paiement" /> -->
-        <select class="form-control rounded-pill" formControlName="periodicite_paiement">
+        <select class="form-control rounded-pill" formControlName="periodicite_paiement" [ngClass]="{
+          'is-invalid': checkInputsValidation(periodicite_paiement),
+          'is-valid': !periodicite_paiement?.invalid
+        }">
           <option value="mensuelle">Mensuelle</option>
           <option value="trimestrielle">Trimestrielle</option>
           <option value="annuelle">Annuelle</option>
         </select>
+          <!-- Error Message  -->
+      <div class="" *ngIf="checkInputsValidation(periodicite_paiement)">
+        <p class="text-danger" *ngIf="periodicite_paiement?.errors?.required">
+          Veuillez remplir ce champ
+        </p>
+      </div>
       </div>
 
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Durée de location</label>
-        <input type="number" class="form-control rounded-pill" formControlName="duree_location" />
+        <input type="number" class="form-control rounded-pill" formControlName="duree_location" [ngClass]="{
+          'is-invalid': checkInputsValidation(duree_location),
+          'is-valid': !duree_location?.invalid
+        }"/>
+         <!-- Error Message  -->
+      <div class="" *ngIf="checkInputsValidation(duree_location)">
+        <p class="text-danger" *ngIf="duree_location?.errors?.required">
+          Veuillez remplir ce champ
+        </p>
+      </div>
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date fin de contrat de bail</label>
-        <input type="date" class="form-control rounded-pill" formControlName="date_fin_contrat">
+        <input type="date" class="form-control rounded-pill" formControlName="date_fin_contrat" [ngClass]="{
+          'is-invalid': checkInputsValidation(date_fin_contrat),
+          'is-valid': !date_fin_contrat?.invalid
+        }">
+            <!-- Error Message  -->
+      <div class="" *ngIf="checkInputsValidation(date_fin_contrat)">
+        <p class="text-danger" *ngIf="date_fin_contrat?.errors?.required">
+          Veuillez remplir ce champ
+        </p>
+      </div>
       </div>
 
       <div class="col-lg-3 form-group mt-4">
@@ -117,7 +164,16 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date de reprise de la caution</label>
-        <input type="date" class="form-control rounded-pill" formControlName="date_reprise_caution">
+        <input type="date" class="form-control rounded-pill" formControlName="date_reprise_caution" [ngClass]="{
+          'is-invalid': checkInputsValidation(date_reprise_caution),
+          'is-valid': !date_reprise_caution?.invalid
+        }">
+         <!-- Error Message  -->
+      <div class="" *ngIf="checkInputsValidation(date_reprise_caution)">
+        <p class="text-danger" *ngIf="date_reprise_caution?.errors?.required">
+          Veuillez remplir ce champ
+        </p>
+      </div>
       </div>
 
       <div class="col-lg-3 form-group mt-4">

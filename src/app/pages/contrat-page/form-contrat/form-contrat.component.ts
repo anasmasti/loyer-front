@@ -116,7 +116,7 @@ export class FormContratComponent implements OnInit {
       montant_apres_impot: new FormControl(),
       montant_caution: new FormControl(),
       effort_caution: new FormControl(),
-      date_reprise_caution: new FormControl(),
+      date_reprise_caution: new FormControl('',[Validators.required]),
       statut_caution: new FormControl(),
       montant_avance: new FormControl('',[Validators.required]),
       date_fin_avance: new FormControl('',[Validators.required]),
@@ -467,6 +467,12 @@ export class FormContratComponent implements OnInit {
       }
     );
   }
+
+    // Check if all inputs has invalid errors
+    checkInputsValidation(targetInput: any) {
+      return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
+    }
+
   // Afficher le message d'erreur de serveur
   showErrorMessage() {
     $('.error-alert').addClass('active');
@@ -643,4 +649,26 @@ export class FormContratComponent implements OnInit {
       }
     );
   }
+
+  get date_debut_loyer(){
+    return this.contratForm.get('date_debut_loyer');
+  }
+  get montant_loyer(){
+    return this.contratForm.get('montant_loyer')
+  }
+  get periodicite_paiement(){
+    return this.contratForm.get('periodicite_paiement')
+  }
+  get duree_location(){
+    return this.contratForm.get('duree_location')
+  }
+  get date_fin_contrat(){
+    return this.contratForm.get('date_fin_contrat')
+  }
+  get date_reprise_caution(){
+    return this.contratForm.get('date_reprise_caution')
+  }
+  
+  
+  
 }
