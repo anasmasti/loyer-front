@@ -63,6 +63,9 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     this.getProprietaires()
     this.getLieux()
     this.getCountries()
+    setTimeout(() => {
+      this.selectCountries();
+    }, 500);
   }
 
   ngOnChanges() {
@@ -72,6 +75,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       }, 200);
     }
   }
+
 
   fetchFc() {
     // this.removeAllAmenagement();
@@ -102,6 +106,18 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   hideErrorMessage() {
     $('.error-alert').removeClass('active');
   }
+
+  
+
+selectCountries(){
+  this.foncierForm.patchValue({
+    pays: 'MA',
+  });
+  this.help.getCities('MA').subscribe(data => {
+        this.cities = data
+      })
+}
+
 
   addFoncier() {
     let foncier: Foncier = {
@@ -209,6 +225,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     });
   }
 
+
   getCities(event: any) {
     let isoCode: string = event.target.value
 
@@ -216,8 +233,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       this.cities = data
     })
   }
-
- 
 
  ///////////////////////
 
