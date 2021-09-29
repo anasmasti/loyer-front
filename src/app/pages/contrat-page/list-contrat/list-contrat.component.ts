@@ -104,11 +104,11 @@ export class ListContratComponent implements OnInit {
     else {
       this.testValidation1 = true;
       // Test pour verifier si la validation 1 est déjà validé sinon on vas afficher le msg d'erreur 
-      this.errors = "Vous devez d'abbord validé la première validation!"
+      this.errors = "La première validation n'a pas encore fait!"
       setTimeout(() => {
         this.testValidation1 = false;
         this.errors = ''
-      }, 2000);
+      }, 3000);
     }
   }
 
