@@ -110,26 +110,12 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   
 
 selectCountries(){
-
-  
   this.foncierForm.patchValue({
     pays: 'MA',
   });
-
   this.help.getCities('MA').subscribe(data => {
         this.cities = data
       })
-  
-  // for (let index = 0; index < this.countries.length; index++) {
-  //   const element = (document.getElementById(this.countries[index].isoCode ) as HTMLOptionElement);
-  //   if (element.value == 'MA') {
-  //     element.selected = true;
-  //     this.foncierForm.patchValue({
-  //       pays: 'MA',
-  //     });
-  //   }
-    
-  // }
 }
 
 
@@ -155,8 +141,6 @@ selectCountries(){
         setTimeout(() => {
           this.foncierForm.reset();
           this.postDone = false;
-          console.log(foncier);
-          
         }, 2000);
       },
       (error) => {
@@ -247,8 +231,6 @@ selectCountries(){
 
     this.help.getCities(isoCode).subscribe(data => {
       this.cities = data
-      console.log('====> ',data);
-      
     })
   }
 

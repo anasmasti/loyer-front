@@ -26,8 +26,6 @@ export class FoncierDetailComponent implements OnInit {
     const id: string = this.actRoute.snapshot.paramMap.get('id') || '';
     this.foncierService.getFoncierById(id).subscribe((data: Foncier) => {
       this.foncier = data;
-      console.log(this.foncier);
-      
     });
   }
 
