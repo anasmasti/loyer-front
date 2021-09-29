@@ -1,3 +1,4 @@
+import { HelperService } from './../../services/helpers/helper.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from './../../services/auth-service/auth.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
@@ -14,7 +15,8 @@ export class LoginPageComponent implements OnInit {
   constructor(
     private mainModalService: MainModalService,
     private authService: AuthService,
-    public router: Router
+    public router: Router,
+    private helperService: HelperService,
   ) { }
 
   loginForm!: FormGroup;

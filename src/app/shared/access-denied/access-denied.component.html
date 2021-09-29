@@ -10,4 +10,10 @@
             <span *ngIf="role == 'DAJC'">Direction Affaires Juridiques et Conformité</span>
         </p>
     </div>
+
+    <div class="d-inline-flex justify-content-center gap-2">
+        <a class="btn btn-lg px-lg-4 second-btn" (click)='backToHome()'>Tableau de bord</a>
+        <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)="logout()">Se deconnecter</a>
+    </div>
+
 </app-main-modal>

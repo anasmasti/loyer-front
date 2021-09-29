@@ -1,6 +1,8 @@
+import { HelperService } from './../../services/helpers/helper.service';
+import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { MainModalService } from './../../services/main-modal/main-modal.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-access-denied',
@@ -13,12 +15,23 @@ export class AccessDeniedComponent implements OnInit {
 
   constructor(
     private actRoute: ActivatedRoute,
-    private mainModalService: MainModalService
+    private mainModalService: MainModalService,
+    private authService: AuthService,
+    private router: Router,
+    private HelperService: HelperService,
   ) { }
 
   ngOnInit(): void {
     this.mainModalService.open();
     this.role = this.actRoute.snapshot.paramMap.get('role') || ''
+  }
+
+  logout() {
+    this.authService.logOut()
+  }
+
+  backToHome() {
+    this.router.navigate([''])
   }
 
 }

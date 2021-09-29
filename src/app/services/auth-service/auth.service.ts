@@ -1,7 +1,9 @@
+import { HelperService } from './../helpers/helper.service';
 import { Router } from '@angular/router';
 import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { resolveSanitizationFn } from '@angular/compiler/src/render3/view/template';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +11,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class AuthService {
   constructor(
     private http: HttpClient,
-    public router: Router
+    public router: Router,
+    public helperService: HelperService,
   ) { }
 
   param_url: string = 'auth';
+  user: any = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '') : [];
+  roles: any[] = localStorage.getItem('user') ? this.user.existedUser.userRoles : []
+  structuredRoles: any[] = []
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -33,8 +39,29 @@ export class AuthService {
   logOut() {
     if (localStorage.removeItem('user') == null) {
       localStorage.clear();
-      this.router.navigate(['/login']);
+
+      this.router.navigate(['/login']).then(() => {
+        this.helperService.refrechPage()
+      });
+
     }
+  }
+
+  checkUserRole(role: string) {
+    let hasAccess: boolean
+    
+    if (this.user) {
+      if (this.roles) {
+        this.roles.forEach(role => {
+          this.structuredRoles.push(role.roleName)
+        })
+        hasAccess = this.structuredRoles.includes(role)
+        if (hasAccess) {
+          return true
+        }
+      }
+    }
+    return false
   }
 
 
