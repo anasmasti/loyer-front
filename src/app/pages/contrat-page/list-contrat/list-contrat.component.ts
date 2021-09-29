@@ -6,8 +6,6 @@ import { ContratService } from 'src/app/services/contrat-service/contrat.service
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { DownloadService } from 'src/app/services/download-service/download.service';
 import * as fileSaver from 'file-saver';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/app.state';
 
 @Component({
   selector: 'app-list-contrat',

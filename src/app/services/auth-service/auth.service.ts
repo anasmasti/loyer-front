@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { resolveSanitizationFn } from '@angular/compiler/src/render3/view/template';
 
 @Injectable({
   providedIn: 'root'
