@@ -1,3 +1,4 @@
+import { ConfirmationModalService } from './../../../services/confirmation-modal-service/confirmation-modal.service';
 import { DarkModeService } from './../../../services/dark-mode/dark-mode.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
@@ -8,8 +9,11 @@ import { AuthService } from 'src/app/services/auth-service/auth.service';
   styleUrls: ['./header-navbar.component.scss'],
 })
 export class HeaderNavbarComponent implements OnInit {
-  constructor(private darkModeService: DarkModeService,
-    private authService: AuthService) { }
+  constructor(
+    private darkModeService: DarkModeService,
+    private authService: AuthService,
+    private confirmationModalService: ConfirmationModalService
+  ) { }
 
   ngOnInit(): void { }
 
@@ -19,5 +23,14 @@ export class HeaderNavbarComponent implements OnInit {
 
   logout() {
     this.authService.logOut()
+  }
+
+  openConfirmationModal() {
+    this.confirmationModalService.open(); // Open delete confirmation modal
+  }
+
+  // Close confirmation modal
+  closeConfirmationModal() {
+    this.confirmationModalService.close(); // Close delete confirmation modal
   }
 }

@@ -16,7 +16,6 @@ export class DAJCGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     this.role = 'DAJC'
-    // this.isAuth = false
 
     if (this.role != 'DAJC') {
       this.router.navigate(['/access-denied', 'DAJC']);

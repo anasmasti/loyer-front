@@ -45,7 +45,6 @@ export class ListContratComponent implements OnInit {
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
     private helperService: HelperService,
-    private store: Store<AppState>,
     private downloadService: DownloadService
   ) { }
 

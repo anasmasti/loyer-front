@@ -1,3 +1,4 @@
+import { HeaderNavbarModule } from './components/layout/header-navbar/header-navbar.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -20,7 +21,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   declarations: [
     AppComponent,
     MainLayoutComponent,
-    HeaderNavbarComponent,
     SideNavbarComponent,
     MainContentComponent,
     FooterComponent
@@ -33,6 +33,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    HeaderNavbarModule,
     StoreModule.forRoot(appReducer),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })

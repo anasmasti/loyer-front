@@ -32,7 +32,7 @@ const route: Routes = [
     FormContratComponent,
     EditContratComponent,
     ListContratComponent,
-    DetailContratComponent,
+    DetailContratComponent
   ],
   imports: [
     RouterModule.forChild(route),

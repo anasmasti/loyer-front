@@ -16,7 +16,6 @@ export class CSLAGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     this.role = 'CSLA'
-    // this.isAuth = false
 
     if (this.role != 'CSLA') {
       this.router.navigate(['/access-denied', 'CSLA']);

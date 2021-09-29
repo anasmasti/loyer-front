@@ -33,8 +33,16 @@
                 <a class="btn dark-btn" (click)='doDarkMode()' title="Mode sombre"><i class="fal fa-moon"></i></a>
                 <a [routerLink]="['/notification']" routerLinkActive="router-link-active" class="btn main-btn mx-2"><i
                         class="fal fa-bell"></i></a>
-                <a class="btn danger-btn me-2" (click)='logout()'><i class="far fa-sign-out"></i></a>
+                <a class="btn danger-btn me-2" (click)='openConfirmationModal()'><i class="far fa-sign-out"></i></a>
             </div>
         </div>
     </nav>
 </div>
+
+<app-confirmation-modal [closeBtn]='true'>
+    <h3 class="main-title">Voulez vous vraiment se deconnecter ?</h3>
+    <div class="d-inline-flex justify-content-start mt-5">
+        <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)="logout();closeConfirmationModal()">Oui</a>
+        <a class="btn btn-lg px-lg-4 main-btn" (click)='closeConfirmationModal();'>Non</a>
+    </div>
+</app-confirmation-modal>

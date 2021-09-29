@@ -13,10 +13,10 @@ export class CDGSPGuard implements CanActivate {
 
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    state: RouterStateSnapshot
+  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     this.role = 'CDGSP'
-    // this.isAuth = false
 
     if (this.role != 'CDGSP') {
       this.router.navigate(['/access-denied', 'CDGSP']);

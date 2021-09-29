@@ -15,8 +15,7 @@ export class DCGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    this.role = 'll'
-    // this.isAuth = false
+    this.role = 'DC'
 
     if (this.role != 'DC') {
       this.router.navigate(['/access-denied', 'DC']);
