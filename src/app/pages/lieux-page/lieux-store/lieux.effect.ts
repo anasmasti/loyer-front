@@ -1,12 +1,13 @@
 import { AppState } from './../../../store/app.state';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { getDrWithSupAction, getDrWithSupSuccessAction, getLieuxAction, getLieuxSuccessAction } from "./lieux.actions";
+import { getDrWithSupAction, getDrWithSupSuccessAction, getLieuxAction, getLieuxSuccessAction, setLieuxErrorAction } from "./lieux.actions";
 import { Store } from '@ngrx/store';
 import { Lieu } from 'src/app/models/Lieu';
 import { Injectable } from '@angular/core';
 import { setLoadingAction } from 'src/app/store/shared/shared.action';
-import { map, mergeMap } from 'rxjs/operators';
+import { catchError, map, mergeMap } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class LieuxEffects {
@@ -49,7 +50,11 @@ export class LieuxEffects {
                         throw new Error("Il y'a aucun Lieu")
                     }
                 }
-            )
+            ),
+            catchError((error: any) => {
+                this.store.dispatch(setLieuxErrorAction({ error: error.error.message }))
+                return throwError(error.error.message)
+            })
         )
     }
     // Load lieux from service

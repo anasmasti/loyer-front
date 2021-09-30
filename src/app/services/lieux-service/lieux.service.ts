@@ -24,7 +24,7 @@ export class LieuxService {
   };
 
   // Get list of all lieux from database
-  getLieux(matricule: any): Observable<Lieu[]> {
+  getLieux(matricule: any): Observable<Lieu[]> | any{
     return this.http.get<Lieu[]>(
       `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/all-lieu/${matricule}`,
       { headers: this.httpOptions.headers }

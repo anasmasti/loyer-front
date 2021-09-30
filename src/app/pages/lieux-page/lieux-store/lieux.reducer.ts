@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { getDrWithSupAction, getDrWithSupSuccessAction, getLieuxAction, getLieuxSuccessAction } from "./lieux.actions";
+import { getDrWithSupAction, getDrWithSupSuccessAction, getLieuxAction, getLieuxSuccessAction, setLieuxErrorAction } from "./lieux.actions";
 import { initialState } from "./lieux.state";
 
 
@@ -35,6 +35,13 @@ const _lieuxReducer = createReducer(initialState,
     return {
       ...state,
       DrWithSup: action.DrWithSup,
+    }
+  }),
+
+  on(setLieuxErrorAction, (state, action) => {
+    return {
+      ...state,
+      error: action.error
     }
   }),
 );

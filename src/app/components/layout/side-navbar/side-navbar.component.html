@@ -1,6 +1,6 @@
 <!-- Vertical navbar -->
-<div class="vertical-nav d-lg-flex flex-column justify-content-lg-evenly align-items-lg-start" id="sidebar">
-    <div class="px-3">
+<div class="vertical-nav " id="sidebar">
+    <div class="px-3 mt-3">
         <a id="sidebar-collapse-mobile" class="btn bg-white border-0">
             <i class="far fa-chevron-left"></i>
         </a>
@@ -18,7 +18,7 @@
         </div>
     </div>
 
-    <div>
+    <div class="mt-5">
         <ul class="nav flex-column p-4">
             <li class="nav-item">
                 <a [routerLink]="['']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact: true}"
@@ -82,11 +82,7 @@
 
                 </ul> -->
             </li>
-        </ul>
-    </div>
-    <div>
-        <ul class="nav flex-column p-4">
-            <li class="nav-item">
+            <li *ngIf="isAdmin" class="nav-item">
                 <a [routerLink]="['/admin']" routerLinkActive="router-link-active" class="nav-link danger-btn">
                     <span (click)="showSubMenu('admin')">Panneau d'administration</span>
                 </a>
@@ -100,6 +96,5 @@
             </li>
         </ul>
     </div>
-
 </div>
 <!-- End vertical navbar -->

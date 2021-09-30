@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth-service/auth.service';
 
 @Component({
   selector: 'app-side-navbar',
@@ -7,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SideNavbarComponent implements OnInit {
 
-  constructor() { }
+  isAdmin!: boolean 
+
+  constructor(public authService: AuthService) { }
 
   ngOnInit(): void {
     this.showAndHideMobileSideBarMenu() // Launch toggeling side menu for mobile
+    this.isAdmin = this.authService.checkUserRole('Admin');
+
   }
 
   // Toggel sub menu

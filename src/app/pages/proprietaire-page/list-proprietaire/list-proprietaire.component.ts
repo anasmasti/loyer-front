@@ -63,7 +63,7 @@ export class ListProprietaireComponent implements OnInit {
       this.proprietaires = data;
     }, error => {
       this.accessError = error.error.message
-    } );
+    });
   }
 
   // Open the update proprietaire form and push index and data of proprietaire
