@@ -64,7 +64,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     this.store.select(getError).subscribe(data => {
       if (data) this.accessError = data
     })
-  }
+  } 
 
   // Filter by intitule
   search() {

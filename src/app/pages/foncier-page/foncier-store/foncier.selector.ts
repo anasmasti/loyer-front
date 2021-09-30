@@ -19,3 +19,9 @@ export const getLieux = createSelector(getFonciersState, (state) => {
   return state.propWithLieux.lieu;
 });
 
+// Get error
+export const getError = createSelector(getFonciersState, (state: any) => {
+  return state.error;
+  ;
+});
+

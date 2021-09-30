@@ -7,6 +7,9 @@ const GET_FONCIERS_SUCCESS = '[Foncier Page] Get Lieux Success'
 const GET_PROPRIETAIR_LIEUX = '[Foncier Page] Proprietaire With Lieux'
 const GET_PROPRIETAIR_LIEUX_SUCCESS = '[Foncier Page] Proprietaire With Lieux Success'
 
+const GET_ERROR_FONCIERS = '[Lieux Page] Get Error'
+
+
 // Foncier actions
 export const getFoncierAction = createAction(GET_FONCIERS)
 export const getFoncierSuccessAction = createAction(GET_FONCIERS_SUCCESS,
@@ -16,3 +19,5 @@ export const getFoncierSuccessAction = createAction(GET_FONCIERS_SUCCESS,
 export const getPropWithLieuxAction = createAction(GET_PROPRIETAIR_LIEUX)
 export const getPropWithLieuxSuccessAction = createAction(GET_PROPRIETAIR_LIEUX_SUCCESS,
     props<{ propWithLieux: any }>())
+
+export const setFonciersrrorAction = createAction(GET_ERROR_FONCIERS, props<{ error: string }>())

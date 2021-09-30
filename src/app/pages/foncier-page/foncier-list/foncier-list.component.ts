@@ -8,7 +8,7 @@ import { Foncier } from './../../../models/Foncier';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getFoncierAction } from '../foncier-store/foncier.actions';
-import { getFonciers } from '../foncier-store/foncier.selector';
+import { getFonciers , getError } from '../foncier-store/foncier.selector';
 
 @Component({
   selector: 'app-foncier-list',
@@ -34,6 +34,8 @@ export class FoncierListComponent implements OnInit {
   deleteSucces: string = 'Foncier supprimé avec succés'
 
   userMatricule: any = localStorage.getItem('matricule')
+  accessError!: any;
+
 
 
   constructor(
@@ -46,6 +48,11 @@ export class FoncierListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getFoncier()
+
+    // Check error
+    this.store.select(getError).subscribe(data => {
+      if (data) this.accessError = data
+    })
   }
 
   getFoncier() {

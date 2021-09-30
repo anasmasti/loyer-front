@@ -12,7 +12,6 @@ import * as fileSaver from 'file-saver';
   templateUrl: './list-contrat.component.html',
   styleUrls: ['./list-contrat.component.scss'],
 })
-
 export class ListContratComponent implements OnInit {
   errors!: string;
   contrats!: Contrat[];
@@ -31,14 +30,15 @@ export class ListContratComponent implements OnInit {
 
   //Delete succes message
   deleteDone: boolean = false;
-  deleteSucces: string = 'Contrat supprimé avec succés'
+  deleteSucces: string = 'Contrat supprimé avec succés';
 
   // Pagination options
   listContratPage: number = 1;
   count: number = 0;
   tableSize: number = 6;
 
-  userMatricule: any = localStorage.getItem('matricule')
+  userMatricule: any = localStorage.getItem('matricule');
+  accessError!: any;
 
   constructor(
     private contratService: ContratService,
@@ -46,7 +46,7 @@ export class ListContratComponent implements OnInit {
     private confirmationModalService: ConfirmationModalService,
     private helperService: HelperService,
     private downloadService: DownloadService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -55,9 +55,14 @@ export class ListContratComponent implements OnInit {
   }
 
   getContrat() {
-    this.contratService.getContrat(this.userMatricule).subscribe((data: any) => {
-      this.contrats = data;
-    });
+    this.contratService.getContrat().subscribe(
+      (data: any) => {
+        this.contrats = data;
+      },
+      (error: any) => {
+        this.accessError = error.error.message;
+      }
+    );
   }
 
   // Filter by intitule
@@ -98,15 +103,13 @@ export class ListContratComponent implements OnInit {
       this.isValidate2 = true;
       this.id = id;
       this.confirmationModalService.open(); // Open validation 2 confirmation modal
-
-    }
-    else {
+    } else {
       this.testValidation1 = true;
-      // Test pour verifier si la validation 1 est déjà validé sinon on vas afficher le msg d'erreur 
-      this.errors = "La première validation n'a pas encore fait!"
+      // Test pour verifier si la validation 1 est déjà validé sinon on vas afficher le msg d'erreur
+      this.errors = "La première validation n'a pas encore fait!";
       setTimeout(() => {
         this.testValidation1 = false;
-        this.errors = ''
+        this.errors = '';
       }, 3000);
     }
   }
@@ -151,10 +154,17 @@ export class ListContratComponent implements OnInit {
   }
 
   validation1Contrat() {
-    (document.getElementById("vld1: " + this.id) as HTMLInputElement).disabled = true;
-    (document.getElementById("vld1: " + this.id) as HTMLInputElement).classList.remove('second-btn');
-    (document.getElementById("vld1: " + this.id) as HTMLInputElement).classList.add('success-btn');
-    this.contratService.updateValidation1Contrat(this.id, this.userMatricule).subscribe();
+    (document.getElementById('vld1: ' + this.id) as HTMLInputElement).disabled =
+      true;
+    (
+      document.getElementById('vld1: ' + this.id) as HTMLInputElement
+    ).classList.remove('second-btn');
+    (
+      document.getElementById('vld1: ' + this.id) as HTMLInputElement
+    ).classList.add('success-btn');
+    this.contratService
+      .updateValidation1Contrat(this.id, this.userMatricule)
+      .subscribe();
     // this.testValidation1=true;
     setTimeout(() => {
       location.reload();
@@ -162,28 +172,35 @@ export class ListContratComponent implements OnInit {
   }
 
   validation2Contrat() {
-    (document.getElementById("vld2: " + this.id) as HTMLInputElement).disabled = true;
-    (document.getElementById("vld2: " + this.id) as HTMLInputElement).classList.remove('bag-second');
-    (document.getElementById("vld2: " + this.id) as HTMLInputElement).classList.add('bag-succes');
-    this.contratService.updateValidation2Contrat(this.id, this.userMatricule).subscribe();
+    (document.getElementById('vld2: ' + this.id) as HTMLInputElement).disabled =
+      true;
+    (
+      document.getElementById('vld2: ' + this.id) as HTMLInputElement
+    ).classList.remove('bag-second');
+    (
+      document.getElementById('vld2: ' + this.id) as HTMLInputElement
+    ).classList.add('bag-succes');
+    this.contratService
+      .updateValidation2Contrat(this.id, this.userMatricule)
+      .subscribe();
     setTimeout(() => {
       location.reload();
     }, 400);
   }
 
   downloadAnnex1(filename: string) {
-    this.downloadService.dowloadFileAnnex1(filename).subscribe(res => {
+    this.downloadService.dowloadFileAnnex1(filename).subscribe((res) => {
       if (res) {
         fileSaver.saveAs(res, filename);
       }
-    })
+    });
   }
 
   downloadAnnex2(filename: string) {
-    this.downloadService.dowloadFileAnnex2(filename).subscribe(res => {
+    this.downloadService.dowloadFileAnnex2(filename).subscribe((res) => {
       if (res) {
         fileSaver.saveAs(res, filename);
       }
-    })
+    });
   }
 }
