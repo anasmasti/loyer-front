@@ -39,7 +39,7 @@
     </nav>
 </div>
 
-<app-confirmation-modal [closeBtn]='true'>
+<app-confirmation-modal [closeBtn]='true' [id]='id'>
     <h3 class="main-title">Voulez vous vraiment se deconnecter ?</h3>
     <div class="d-inline-flex justify-content-start mt-5">
         <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)="logout();closeConfirmationModal()">Oui</a>
