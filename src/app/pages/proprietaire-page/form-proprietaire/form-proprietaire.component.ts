@@ -20,6 +20,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   updateDone: boolean = false;
   proprietaireForm!: FormGroup;
 
+  userMatricule: any = localStorage.getItem('matricule')
+
+
   constructor(
     private proprietaireService: ProprietaireService,
     private mainModalService: MainModalService
@@ -220,7 +223,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       // deleted:false,
     };
 
-    this.proprietaireService.postProprietaire(proprietaire_data).subscribe(
+    this.proprietaireService.postProprietaire(proprietaire_data, this.userMatricule).subscribe(
       (_) => {
         this.postDone = true;
         setTimeout(() => {
@@ -261,7 +264,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       mandataire: this.proprietaireForm.get('mandataireForm')?.value,
     };
 
-    this.proprietaireService.updateProprietaire(id, proprietaireData).subscribe(
+    this.proprietaireService.updateProprietaire(id, proprietaireData, this.userMatricule).subscribe(
       (_) => {
         this.updateDone = true;
         setTimeout(() => {

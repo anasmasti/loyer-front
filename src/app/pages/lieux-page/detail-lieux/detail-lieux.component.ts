@@ -23,6 +23,9 @@ export class DetailLieuxComponent implements OnInit {
 
   hasAmenagement: boolean = true
 
+  userMatricule: any = localStorage.getItem('matricule')
+
+
   constructor(
     private lieuxService: LieuxService,
     private actRoute: ActivatedRoute
@@ -35,7 +38,7 @@ export class DetailLieuxComponent implements OnInit {
   // Get the Lieu data by id
   getLieuById() {
     const id = this.actRoute.snapshot.paramMap.get('id') || '';
-    this.lieuxService.getLieuById(id).subscribe((data: Lieu) => {
+    this.lieuxService.getLieuById(id, this.userMatricule).subscribe((data: Lieu) => {
       this.lieu = data;
       
       if ((data.amenagement.length).toString() == '0') {

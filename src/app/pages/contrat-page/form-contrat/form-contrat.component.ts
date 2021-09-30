@@ -34,7 +34,7 @@ export class FormContratComponent implements OnInit {
   selectedFile!: File;
   fd: FormData = new FormData();
 
-  montantLoyer!: number ;
+  montantLoyer!: number;
   montantApresImpot: number = 0;
   hasDeclarationOption: string = 'non';
   retenueSource: number = 0;
@@ -84,6 +84,9 @@ export class FormContratComponent implements OnInit {
 
   foncier_id!: string
 
+  userMatricule: any = localStorage.getItem('matricule')
+
+
   constructor(
     private contratService: ContratService,
     private mainModalService: MainModalService,
@@ -101,34 +104,34 @@ export class FormContratComponent implements OnInit {
 
   ngOnInit(): void {
     this.foncier_id = this.actRoute.snapshot.paramMap.get('foncier_id') || '';
-    
+
     if (this.foncier_id) {
       this.getFoncierByID(this.foncier_id)
     }
 
     // this.etatContratTypes = 'Avenant'
     this.contratForm = new FormGroup({
-      numero_contrat: new FormControl('',[Validators.required]),
+      numero_contrat: new FormControl('', [Validators.required]),
       piece_jointe: new FormControl(),
-      date_debut_loyer: new FormControl('',[Validators.required]),
-      montant_loyer: new FormControl('',[Validators.required]),
+      date_debut_loyer: new FormControl('', [Validators.required]),
+      montant_loyer: new FormControl('', [Validators.required]),
       taxe_edilite_comprise_loyer: new FormControl(),
       taxe_edilite_noncomprise_loyer: new FormControl(),
-      periodicite_paiement: new FormControl('',[Validators.required]),
-      duree_location: new FormControl('',[Validators.required]),
-      date_fin_contrat: new FormControl('',[Validators.required]),
+      periodicite_paiement: new FormControl('', [Validators.required]),
+      duree_location: new FormControl('', [Validators.required]),
+      date_fin_contrat: new FormControl('', [Validators.required]),
       declaration_option: new FormControl(),
       taux_impot: new FormControl(),
       retenue_source: new FormControl(),
       montant_apres_impot: new FormControl(),
       montant_caution: new FormControl(),
       effort_caution: new FormControl(),
-      date_reprise_caution: new FormControl('',[Validators.required]),
+      date_reprise_caution: new FormControl('', [Validators.required]),
       statut_caution: new FormControl(),
-      montant_avance: new FormControl('',[Validators.required]),
-      date_fin_avance: new FormControl('',[Validators.required]),
-      date_1er_paiement: new FormControl('',[Validators.required]),
-      duree_avance: new FormControl('',[Validators.required]),
+      montant_avance: new FormControl('', [Validators.required]),
+      date_fin_avance: new FormControl('', [Validators.required]),
+      date_1er_paiement: new FormControl('', [Validators.required]),
+      duree_avance: new FormControl('', [Validators.required]),
       n_engagement_depense: new FormControl(),
       echeance_revision_loyer: new FormControl(),
       foncier: new FormControl(),
@@ -165,7 +168,7 @@ export class FormContratComponent implements OnInit {
   }
 
   getFoncierByID(FID: any) {
-    this.foncierService.getFoncierById(FID).subscribe(data => {
+    this.foncierService.getFoncierById(FID, this.userMatricule).subscribe(data => {
       this.foncier = data
     })
   }
@@ -415,7 +418,7 @@ export class FormContratComponent implements OnInit {
     this.fd.append('data', JSON.stringify(ctr_data));
 
     // post the formdata (data+files)
-    this.contratService.addContrat(this.fd).subscribe(
+    this.contratService.addContrat(this.fd, this.userMatricule).subscribe(
       (_) => {
         this.postDone = true;
         setTimeout(() => {
@@ -435,10 +438,10 @@ export class FormContratComponent implements OnInit {
     );
   }
 
-    // Check if all inputs has invalid errors
-    checkInputsValidation(targetInput: any) {
-      return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
-    }
+  // Check if all inputs has invalid errors
+  checkInputsValidation(targetInput: any) {
+    return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
+  }
 
   // Afficher le message d'erreur de serveur
   showErrorMessage() {
@@ -596,7 +599,7 @@ export class FormContratComponent implements OnInit {
     this.fd.append('data', JSON.stringify(ctr_data));
 
     //patch the formdata (data+files)
-    this.contratService.updateContrat(id, this.fd).subscribe(
+    this.contratService.updateContrat(id, this.fd, this.userMatricule).subscribe(
       (_) => {
         this.updateDone = true;
         setTimeout(() => {
@@ -615,25 +618,25 @@ export class FormContratComponent implements OnInit {
     );
   }
 
-  get date_debut_loyer(){
+  get date_debut_loyer() {
     return this.contratForm.get('date_debut_loyer');
   }
-  get montant_loyer(){
+  get montant_loyer() {
     return this.contratForm.get('montant_loyer')
   }
-  get periodicite_paiement(){
+  get periodicite_paiement() {
     return this.contratForm.get('periodicite_paiement')
   }
-  get duree_location(){
+  get duree_location() {
     return this.contratForm.get('duree_location')
   }
-  get date_fin_contrat(){
+  get date_fin_contrat() {
     return this.contratForm.get('date_fin_contrat')
   }
-  get date_reprise_caution(){
+  get date_reprise_caution() {
     return this.contratForm.get('date_reprise_caution')
   }
-  
-  
-  
+
+
+
 }

@@ -38,6 +38,8 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   cities!: any
   countries!: any
 
+  userMatricule: any = localStorage.getItem('matricule')
+
   constructor(
     private foncierService: FoncierService,
     private store: Store<AppState>,
@@ -135,7 +137,7 @@ selectCountries(){
       meuble_equipe: this.foncierForm.get('meuble_equipe')?.value,
     }
 
-    this.foncierService.addFoncier(foncier).subscribe(
+    this.foncierService.addFoncier(foncier, this.userMatricule).subscribe(
       (_) => {
         this.postDone = true;
         setTimeout(() => {
@@ -171,7 +173,7 @@ selectCountries(){
       meuble_equipe: this.foncierForm.get('meuble_equipe')?.value,
     }
 
-    this.foncierService.updateFoncier(id, foncier).subscribe(
+    this.foncierService.updateFoncier(id, foncier, this.userMatricule).subscribe(
       (_) => {
         this.updateDone = true;
         setTimeout(() => {

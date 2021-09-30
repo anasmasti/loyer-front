@@ -26,6 +26,8 @@ export class ListProprietaireComponent implements OnInit {
   count: number = 0;
   tableSize: number = 10;
 
+  userMatricule: any = localStorage.getItem('matricule')
+
   constructor(
     private proprietaireService: ProprietaireService,
     private mainModalService: MainModalService,
@@ -56,7 +58,7 @@ export class ListProprietaireComponent implements OnInit {
 
   // Get data from proprietaire service
   getAllProprietaires() {
-    this.proprietaireService.getProprietaire().subscribe((data) => {
+    this.proprietaireService.getProprietaire(this.userMatricule).subscribe((data) => {
       this.proprietaires = data;
     });
   }
@@ -98,7 +100,7 @@ export class ListProprietaireComponent implements OnInit {
       deleted: true,
     };
     // Call detele proprietaire function from proprietaire service
-    this.proprietaireService.deleteProprietaire(id, data).subscribe(
+    this.proprietaireService.deleteProprietaire(id, data, this.userMatricule).subscribe(
 
       (_) => {
         this.getAllProprietaires(); // Trow the fitching data

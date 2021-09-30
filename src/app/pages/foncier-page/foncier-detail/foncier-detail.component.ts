@@ -11,6 +11,8 @@ import { Component, OnInit } from '@angular/core';
 export class FoncierDetailComponent implements OnInit {
 
   foncier!: Foncier;
+  userMatricule: any = localStorage.getItem('matricule')
+
 
   constructor(
     private foncierService: FoncierService,
@@ -24,7 +26,7 @@ export class FoncierDetailComponent implements OnInit {
   // Get the foncier data by id
   getFoncierById() {
     const id: string = this.actRoute.snapshot.paramMap.get('id') || '';
-    this.foncierService.getFoncierById(id).subscribe((data: Foncier) => {
+    this.foncierService.getFoncierById(id, this.userMatricule).subscribe((data: Foncier) => {
       this.foncier = data;
     });
   }

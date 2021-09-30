@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/services/auth-service/auth.service';
   templateUrl: './header-navbar.component.html',
   styleUrls: ['./header-navbar.component.scss'],
 })
+
 export class HeaderNavbarComponent implements OnInit {
   constructor(
     private darkModeService: DarkModeService,

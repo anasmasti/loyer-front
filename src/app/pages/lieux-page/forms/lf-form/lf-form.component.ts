@@ -58,6 +58,9 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
   imageExtension: string = '.pdf';
   selectedImagesLieuEntrer!: [];
 
+  userMatricule: any = localStorage.getItem('matricule')
+
+
   constructor(
     private mainModalService: MainModalService,
     private mainModel: MainModalService,
@@ -626,7 +629,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
 
     this.fd.append('data', JSON.stringify(lfData));
 
-    this.lieuService.addLieu(this.fd).subscribe(
+    this.lieuService.addLieu(this.fd, this.userMatricule).subscribe(
       (_) => {
         this.postDone = true;
         setTimeout(() => {
@@ -695,7 +698,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
 
     this.fd.append('data', JSON.stringify(lfData));
 
-    this.lieuService.updateLieux(idlf, this.fd).subscribe(
+    this.lieuService.updateLieux(idlf, this.fd, this.userMatricule).subscribe(
       (_) => {
         this.updateDone = true;
         setTimeout(() => {

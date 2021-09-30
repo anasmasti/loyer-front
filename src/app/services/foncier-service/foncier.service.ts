@@ -22,46 +22,46 @@ export class FoncierService {
   };
 
   // Get list of all fonciers from database
-  getFonciers(): Observable<Foncier[]> {
+  getFonciers(matricule: any): Observable<Foncier[]> {
     return this.http.get<Foncier[]>(
-      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/all`,
+      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/all/${matricule}`,
       { headers: this.httpOptions.headers }
     );
   }
 
   // Get proprietaire and lieux ids 
-  getPropWithLieux(): Observable<any> {
+  getPropWithLieux(matricule: any): Observable<any> {
     return this.http.get<any>(
-      `${environment.API_URL_TEST + environment.API_VERSION}/proprietaire-lieu`,
+      `${environment.API_URL_TEST + environment.API_VERSION}/proprietaire-lieu/${matricule}`,
       { headers: this.httpOptions.headers }
     );
   }
 
   // Post foncier
-  addFoncier(data: Foncier): Observable<Foncier> {
+  addFoncier(data: Foncier, matricule: any): Observable<Foncier> {
     return this.http.post<Foncier>(
-      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`, data,
+      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter/${matricule}`, data,
       { headers: this.httpOptions.headers }
       );
     }
     
     // Get foncier by id
-    getFoncierById(id: string): Observable<Foncier> {
+    getFoncierById(id: string, matricule: any): Observable<Foncier> {
       return this.http.get<Foncier>(
-        `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/${id}`,
+        `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/${id}/${matricule}`,
         { headers: this.httpOptions.headers }
       );
     }
 
-    updateFoncier(id: any, data: any): Observable<any> {
+    updateFoncier(id: any, data: any, matricule: any): Observable<any> {
       return this.http.patch<any>(
-        `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/modifier/${id}`, data);
+        `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/modifier/${id}/${matricule}`, data);
     }
 
-    deleteFoncier(id: any, data: any): Observable<Foncier> {
+    deleteFoncier(id: any, data: any, matricule: any): Observable<Foncier> {
       return this.http.patch<Foncier>(
         `${environment.API_URL_TEST + environment.API_VERSION + this.param_url
-        }/delete/${id}`,
+        }/delete/${id}/${matricule}`,
         data,
         { headers: this.httpOptions.headers }
       );

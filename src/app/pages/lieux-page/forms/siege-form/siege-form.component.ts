@@ -35,6 +35,9 @@ export class SiegeFormComponent implements OnInit {
   @Input() Lieu!: any;
   @Input() LieuName!: string;
 
+  userMatricule: any = localStorage.getItem('matricule')
+
+
   constructor(
     private siegeService: LieuxService,
     private lieuService: LieuxService,
@@ -433,7 +436,7 @@ export class SiegeFormComponent implements OnInit {
 
     this.fd.append('data', JSON.stringify(siegeData));
 
-    this.siegeService.addLieu(this.fd).subscribe(
+    this.siegeService.addLieu(this.fd, this.userMatricule).subscribe(
       (_) => {
         this.postDone = true;
         setTimeout(() => {
@@ -503,7 +506,7 @@ export class SiegeFormComponent implements OnInit {
 
     this.fd.append('data', JSON.stringify(sgData));
 
-    this.lieuService.updateLieux(id, this.fd).subscribe(
+    this.lieuService.updateLieux(id, this.fd, this.userMatricule).subscribe(
       (_) => {
         this.updateDone = true;
         setTimeout(() => {
