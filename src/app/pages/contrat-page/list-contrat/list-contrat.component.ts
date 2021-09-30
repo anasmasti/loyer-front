@@ -1,5 +1,5 @@
 import { HelperService } from './../../../services/helpers/helper.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Contrat } from 'src/app/models/Contrat';
 import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
 import { ContratService } from 'src/app/services/contrat-service/contrat.service';
@@ -38,6 +38,8 @@ export class ListContratComponent implements OnInit {
   count: number = 0;
   tableSize: number = 6;
 
+  userMatricule: any = localStorage.getItem('matricule')
+
   constructor(
     private contratService: ContratService,
     private mainModalService: MainModalService,
@@ -53,7 +55,7 @@ export class ListContratComponent implements OnInit {
   }
 
   getContrat() {
-    this.contratService.getContrat().subscribe((data: any) => {
+    this.contratService.getContrat(this.userMatricule).subscribe((data: any) => {
       this.contrats = data;
     });
   }
@@ -76,7 +78,7 @@ export class ListContratComponent implements OnInit {
     this.targetContrat = SelectedContrat;
   }
 
-  openConfirmationModal(id: string) {
+  openConfirmationContratModal(id: string) {
     this.isValidate = false;
     this.isValidate2 = false;
     this.id = id;
@@ -126,7 +128,7 @@ export class ListContratComponent implements OnInit {
 
   // deleteContrat
   deleteContrat() {
-    this.contratService.deleteContrat(this.id).subscribe(
+    this.contratService.deleteContrat(this.id, this.userMatricule).subscribe(
       (_) => {
         this.getContrat();
         this.deleteDone = true;
@@ -152,7 +154,7 @@ export class ListContratComponent implements OnInit {
     (document.getElementById("vld1: " + this.id) as HTMLInputElement).disabled = true;
     (document.getElementById("vld1: " + this.id) as HTMLInputElement).classList.remove('second-btn');
     (document.getElementById("vld1: " + this.id) as HTMLInputElement).classList.add('success-btn');
-    this.contratService.updateValidation1Contrat(this.id).subscribe();
+    this.contratService.updateValidation1Contrat(this.id, this.userMatricule).subscribe();
     // this.testValidation1=true;
     setTimeout(() => {
       location.reload();
@@ -163,7 +165,7 @@ export class ListContratComponent implements OnInit {
     (document.getElementById("vld2: " + this.id) as HTMLInputElement).disabled = true;
     (document.getElementById("vld2: " + this.id) as HTMLInputElement).classList.remove('bag-second');
     (document.getElementById("vld2: " + this.id) as HTMLInputElement).classList.add('bag-succes');
-    this.contratService.updateValidation2Contrat(this.id).subscribe();
+    this.contratService.updateValidation2Contrat(this.id, this.userMatricule).subscribe();
     setTimeout(() => {
       location.reload();
     }, 400);

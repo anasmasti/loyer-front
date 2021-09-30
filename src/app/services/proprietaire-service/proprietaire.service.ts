@@ -20,49 +20,49 @@ export class ProprietaireService {
   constructor(private http: HttpClient) {}
 
   // Get list of all proprietaires from database
-  getProprietaire(): Observable<Proprietaire[]> {
+  getProprietaire(matricule: any): Observable<Proprietaire[]> {
     return this.http.get<Proprietaire[]>(
-      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/tous`,
+      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/tous/${matricule}`,
       { headers: this.httpOptions.headers }
     );
   }
 
   // Get one proprietaire by id from database
-  getProprietaireById(id: string): Observable<Proprietaire> {
+  getProprietaireById(id: string, matricule: any): Observable<Proprietaire> {
     return this.http.get<Proprietaire>(
-      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/${id}`,
+      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/${id}/${matricule}`,
       { headers: this.httpOptions.headers }
     );
   }
 
   // Push the proprietaire data to database
-  postProprietaire(data: Proprietaire): Observable<Proprietaire> {
+  postProprietaire(data: Proprietaire, matricule: any): Observable<Proprietaire> {
     return this.http.post<Proprietaire>(
       `${
         environment.API_URL_TEST + environment.API_VERSION + this.param_url
-      }/ajouter`,
+      }/ajouter/${matricule}`,
       data,
       { headers: this.httpOptions.headers }
     );
   }
 
   // Update the proprietaire
-  updateProprietaire(id: string, data: Proprietaire): Observable<Proprietaire> {
+  updateProprietaire(id: string, data: Proprietaire, matricule: any): Observable<Proprietaire> {
     return this.http.put<Proprietaire>(
       `${
         environment.API_URL_TEST + environment.API_VERSION + this.param_url
-      }/modifier/${id}`,
+      }/modifier/${id}/${matricule}`,
       data,
       { headers: this.httpOptions.headers }
     );
   }
 
   // Delete the proprietaire
-  deleteProprietaire(id: string, data: any): Observable<Proprietaire> {
+  deleteProprietaire(id: string, data: any, matricule: any): Observable<Proprietaire> {
     return this.http.put<Proprietaire>(
       `${
         environment.API_URL_TEST + environment.API_VERSION + this.param_url
-      }/supprimer/${id}`,
+      }/supprimer/${id}/${matricule}`,
       data,
       { headers: this.httpOptions.headers }
     );

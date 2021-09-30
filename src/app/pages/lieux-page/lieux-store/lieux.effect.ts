@@ -11,6 +11,8 @@ import { map, mergeMap } from 'rxjs/operators';
 @Injectable()
 export class LieuxEffects {
 
+    userMatricule: any = localStorage.getItem('matricule')
+
     constructor(
         private actions$: Actions,
         private lieuxService: LieuxService,
@@ -37,7 +39,7 @@ export class LieuxEffects {
 
     // Load lieux from service
     loadLieux() {
-        return this.lieuxService.getLieux().pipe(
+        return this.lieuxService.getLieux(this.userMatricule).pipe(
             map(
                 (lieux: Lieu[]) => {
                     if (lieux.length !== 0) {
@@ -52,7 +54,7 @@ export class LieuxEffects {
     }
     // Load lieux from service
     loadDrWithSup() {
-        return this.lieuxService.getDrSup().pipe(
+        return this.lieuxService.getDrSup(this.userMatricule).pipe(
             map(
                 (DrWithSup: any) => {
                     if (DrWithSup.length !== 0) {

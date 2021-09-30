@@ -23,6 +23,8 @@ export class FormComponent implements OnInit {
   Role2: boolean = false
   Role3: boolean = false
   Role4: boolean = false
+  
+  userMatricule: any = localStorage.getItem('matricule')
 
 
   @Input() userR !: any;
@@ -210,7 +212,7 @@ export class FormComponent implements OnInit {
       deleted: false
     };
 
-    this.adminService.addUser(userData).subscribe(
+    this.adminService.addUser(userData, this.userMatricule).subscribe(
       (_) => {
         this.postDone = true;
         setTimeout(() => {
@@ -240,7 +242,7 @@ export class FormComponent implements OnInit {
       deleted: this.adminForm.get('deleted')?.value
     };
 
-    this.adminService.updateUser(userData, this.userR._id).subscribe(
+    this.adminService.updateUser(userData, this.userR._id, this.userMatricule).subscribe(
       (_) => {
         this.updateDone = true;
         setTimeout(() => {

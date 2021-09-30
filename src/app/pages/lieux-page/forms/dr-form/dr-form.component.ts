@@ -35,6 +35,9 @@ export class DrFormComponent implements OnInit {
   LfForm!: FormGroup;
   selectedImagesLieuEntrer!: [];
 
+  userMatricule: any = localStorage.getItem('matricule')
+
+
   constructor(
     private lieuService: LieuxService,
     private mainModalService: MainModalService,
@@ -411,7 +414,7 @@ export class DrFormComponent implements OnInit {
     };
     this.fd.append('data', JSON.stringify(dr_data));
 
-    this.lieuService.addLieu(this.fd).subscribe(
+    this.lieuService.addLieu(this.fd, this.userMatricule).subscribe(
       (_) => {
         this.postDone = true;
         setTimeout(() => {
@@ -474,7 +477,7 @@ export class DrFormComponent implements OnInit {
 
     this.fd.append('data', JSON.stringify(dr_data));
 
-    this.lieuService.updateLieux(id, this.fd).subscribe(
+    this.lieuService.updateLieux(id, this.fd, this.userMatricule).subscribe(
       (_) => {
         this.updateDone = true;
         setTimeout(() => {

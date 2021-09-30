@@ -33,6 +33,9 @@ export class FoncierListComponent implements OnInit {
   deleteDone: boolean = false;
   deleteSucces: string = 'Foncier supprimé avec succés'
 
+  userMatricule: any = localStorage.getItem('matricule')
+
+
   constructor(
     private foncierService: FoncierService,
     private helperService: HelperService,
@@ -97,7 +100,7 @@ export class FoncierListComponent implements OnInit {
   // Delete fonfier
   deleteFoncier() {
     this.foncierService
-      .deleteFoncier(this.deletedFoncier._id, { deleted: true })
+      .deleteFoncier(this.deletedFoncier._id, { deleted: true }, this.userMatricule)
       .subscribe(
         (_) => {
           this.store.dispatch(getFoncierAction());
