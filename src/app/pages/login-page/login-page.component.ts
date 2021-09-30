@@ -45,6 +45,17 @@ export class LoginPageComponent implements OnInit {
       localStorage.setItem('user', JSON.stringify(data))
       this.router.navigate(['/']);
     })
+
+    // setTimeout(() => {
+    //   setInterval(() => {
+    //     localStorage.clear()
+
+    //     this.authService.logIn(this.matricule).subscribe(data => {
+    //       localStorage.setItem('user', JSON.stringify(data))
+    //     })
+    //   }, 7000)
+    // }, 259200);
+
   }
 
   removeUser() {

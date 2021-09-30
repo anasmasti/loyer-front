@@ -48,7 +48,7 @@ export class AuthService {
 
   checkUserRole(role: string) {
     let hasAccess: boolean
-    
+
     if (this.user) {
       if (this.roles) {
         this.roles.forEach(role => {
