@@ -38,6 +38,9 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
   deleteDone: boolean = false;
   deleteSucces: string = 'Lieu supprimé avec succés'
 
+  userMatricule: any = localStorage.getItem('matricule')
+
+
 
   constructor(
     private lieuxService: LieuxService,
@@ -129,7 +132,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
 
   deleteLieu() {
     this.lieuxService
-      .deleteLieu(this.deletedLieu._id, { deleted: true })
+      .deleteLieu(this.deletedLieu._id, { deleted: true }, this.userMatricule)
       .subscribe(
         (_) => {
           this.store.dispatch(getLieuxAction());

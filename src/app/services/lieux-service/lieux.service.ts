@@ -24,53 +24,53 @@ export class LieuxService {
   };
 
   // Get list of all lieux from database
-  getLieux(): Observable<Lieu[]> {
+  getLieux(matricule: any): Observable<Lieu[]> {
     return this.http.get<Lieu[]>(
-      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/all-lieu`,
+      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/all-lieu/${matricule}`,
       { headers: this.httpOptions.headers }
     );
   }
 
   // get specific "lieu" by his id
-  getLieuById(id: String): Observable<Lieu> {
-    return this.http.get<Lieu>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/detail/` + id);
+  getLieuById(id: String, matricule: any): Observable<Lieu> {
+    return this.http.get<Lieu>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/detail//${matricule}` + id);
   }
 
-  addLieu(formdata: any): Observable<any> {
-    return this.http.post<any>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`, formdata);
+  addLieu(formdata: any, matricule: any): Observable<any> {
+    return this.http.post<any>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter/${matricule}`, formdata);
   }
 
   // Update the Lieu
-  updateLieux(id: any, data: any): Observable<any> {
+  updateLieux(id: any, data: any, matricule: any): Observable<any> {
     return this.http.patch<any>(
-      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/modifier/${id}`, data);
+      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/modifier/${id}/${matricule}`, data);
   }
 
-  deleteLieu(id: any, data: any): Observable<Lieu> {
+  deleteLieu(id: any, data: any, matricule: any): Observable<Lieu> {
     return this.http.patch<Lieu>(
       `${environment.API_URL_TEST + environment.API_VERSION + this.param_url
-      }/delete/${id}`,
+      }/delete/${id}/${matricule}`,
       data,
       { headers: this.httpOptions.headers }
     );
   }
 
   //get dr and sup to load dropdown list
-  getDrSup(): Observable<any> {
+  getDrSup(matricule: any): Observable<any> {
     return this.http.get<any>(
-      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/Dr/Sup`,
+      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/Dr/Sup/${matricule}`,
       { headers: this.httpOptions.headers }
     );
   }
 
   // post formdata file
-  uploadFile(formdata: FormData) {
-    return this.http.post<any>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`, formdata)
+  uploadFile(formdata: FormData, matricule: any) {
+    return this.http.post<any>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter/${matricule}`, formdata)
   }
 
   //get the list of lieux to load the drop down list in contrat component
-  listLieux() {
-    return this.http.get(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/all-lieu`);
+  listLieux(matricule: any) {
+    return this.http.get(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/all-lieu/${matricule}`);
   }
 
 

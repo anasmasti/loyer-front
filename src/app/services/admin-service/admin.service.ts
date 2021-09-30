@@ -21,15 +21,15 @@ export class AdminService {
   };
 
   // Post new UserRole
-  addUser(data: User): Observable<User> {
-    return this.http.post<User>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter`, data,
+  addUser(data: User, matricule: any): Observable<User> {
+    return this.http.post<User>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter/${matricule}`, data,
       { 'headers': this.httpOptions.headers }
     );
   }
 
   // Update new UserRole
-  updateUser(data: User , id : any): Observable<User> {
-    return this.http.put<User>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/update/${id}`, data,
+  updateUser(data: User, id: any, matricule: any): Observable<User> {
+    return this.http.put<User>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/update/${id}/${matricule}`, data,
       { 'headers': this.httpOptions.headers }
     );
   }
@@ -39,8 +39,8 @@ export class AdminService {
     return this.http.get<User[]>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/all `, { 'headers': this.httpOptions.headers });
   }
 
-   // Get user by id 
-   getUserById(id: String): Observable<User> {
+  // Get user by id 
+  getUserById(id: String): Observable<User> {
     return this.http.get<User>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/detail/${id} `, { 'headers': this.httpOptions.headers });
   }
 

@@ -13,6 +13,8 @@ export class DetailsProprietaireComponent implements OnInit {
   proprietaire!: Proprietaire;
   mandataire!: any;
 
+  userMatricule: any = localStorage.getItem('matricule')
+
   constructor(
     private proprietaireService: ProprietaireService,
     private actRoute: ActivatedRoute
@@ -25,7 +27,7 @@ export class DetailsProprietaireComponent implements OnInit {
   // Get the proprietaire data by id
   getProprietaireById() {
     const id = this.actRoute.snapshot.paramMap.get('id') || '';
-    this.proprietaireService.getProprietaireById(id).subscribe((data) => {
+    this.proprietaireService.getProprietaireById(id, this.userMatricule).subscribe((data) => {
       if (data) {
         this.proprietaire = data;
         this.mandataire = data.mandataire;

@@ -40,6 +40,9 @@ export class SvFormComponent implements OnInit, OnDestroy {
   @Input() Lieu!: any;
   @Input() LieuName!: string;
 
+  userMatricule: any = localStorage.getItem('matricule')
+
+
   constructor(
     private svService: LieuxService,
     private lieuService: LieuxService,
@@ -425,7 +428,7 @@ export class SvFormComponent implements OnInit, OnDestroy {
 
     this.fd.append('data', JSON.stringify(svData));
 
-    this.svService.addLieu(this.fd).subscribe(
+    this.svService.addLieu(this.fd, this.userMatricule).subscribe(
       (_) => {
         this.postDone = true;
         setTimeout(() => {
@@ -490,7 +493,7 @@ export class SvFormComponent implements OnInit, OnDestroy {
 
     this.fd.append('data', JSON.stringify(SvData))
 
-    this.lieuService.updateLieux(id, this.fd).subscribe(
+    this.lieuService.updateLieux(id, this.fd, this.userMatricule).subscribe(
       (_) => {
         this.updateDone = true;
         setTimeout(() => {

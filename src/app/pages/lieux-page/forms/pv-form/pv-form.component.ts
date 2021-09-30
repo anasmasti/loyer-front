@@ -46,6 +46,9 @@ export class PvFormComponent implements OnInit, OnDestroy , OnChanges {
   @Input() Lieu!: any;
   @Input() LieuName!: string;
 
+  userMatricule: any = localStorage.getItem('matricule')
+
+
   constructor(
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
@@ -425,7 +428,7 @@ export class PvFormComponent implements OnInit, OnDestroy , OnChanges {
 
     this.fd.append('data', JSON.stringify(pvData));
 
-    this.lieuService.addLieu(this.fd).subscribe(
+    this.lieuService.addLieu(this.fd, this.userMatricule).subscribe(
       (_) => {
         this.postDone = true;
         setTimeout(() => {
@@ -491,7 +494,7 @@ export class PvFormComponent implements OnInit, OnDestroy , OnChanges {
 
     this.fd.append('data', JSON.stringify(pvData));
 
-    this.lieuService.updateLieux(id, this.fd).subscribe(
+    this.lieuService.updateLieux(id, this.fd, this.userMatricule).subscribe(
       (_) => {
         this.updateDone = true;
         setTimeout(() => {

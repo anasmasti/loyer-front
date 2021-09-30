@@ -62,7 +62,7 @@
                                 class="fal fa-eye"></i></a>
                         <a *ngIf="this.contrat.etat_contrat?.libelle != 'Résiliation'" (click)="openEditModal(contrat)"
                             class="btn btn-sm info-btn me-2"><i class="far fa-user-edit"></i></a>
-                        <a class="btn btn-sm danger-btn" (click)="openConfirmationModal(contrat._id);"><i
+                        <a class="btn btn-sm danger-btn" (click)="openConfirmationContratModal(contrat._id);"><i
                                 class="far fa-user-minus"></i></a>
                     </div>
                 </td>
