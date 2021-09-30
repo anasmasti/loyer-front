@@ -9,6 +9,8 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ConfirmationModalComponent implements OnInit {
 
   @Input() closeBtn: boolean = true
+  @Input() id: string = 'confirmationModal'
+  
 
   constructor(private confirmationModalService: ConfirmationModalService) { }
 
@@ -16,7 +18,7 @@ export class ConfirmationModalComponent implements OnInit {
   }
 
   closeModal() {
-    this.confirmationModalService.close();
+    this.confirmationModalService.close(this.id);
   }
 
 }

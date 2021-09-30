@@ -10,6 +10,9 @@ import { AuthService } from 'src/app/services/auth-service/auth.service';
 })
 
 export class HeaderNavbarComponent implements OnInit {
+
+  id : string = 'Deconnecter'
+
   constructor(
     private darkModeService: DarkModeService,
     private authService: AuthService,
@@ -27,11 +30,11 @@ export class HeaderNavbarComponent implements OnInit {
   }
 
   openConfirmationModal() {
-    this.confirmationModalService.open(); // Open delete confirmation modal
+    this.confirmationModalService.open(this.id); // Open delete confirmation modal
   }
 
   // Close confirmation modal
   closeConfirmationModal() {
-    this.confirmationModalService.close(); // Close delete confirmation modal
+    this.confirmationModalService.close(this.id); // Close delete confirmation modal
   }
 }
