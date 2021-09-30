@@ -16,6 +16,7 @@ export class ListProprietaireComponent implements OnInit {
   targetProprietaireId: string = '';
   findProprietaire!: string;
   errors!: string;
+  accessError!: string;
 
   //Delete succes message
   deleteDone: boolean = false;
@@ -60,7 +61,9 @@ export class ListProprietaireComponent implements OnInit {
   getAllProprietaires() {
     this.proprietaireService.getProprietaire(this.userMatricule).subscribe((data) => {
       this.proprietaires = data;
-    });
+    }, error => {
+      this.accessError = error.error.message
+    } );
   }
 
   // Open the update proprietaire form and push index and data of proprietaire
