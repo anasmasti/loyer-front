@@ -14,7 +14,7 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Proprietaire</label>
-        <select class="form-control rounded-pill" formControlName="proprietaire">
+        <select class="form-select rounded-pill" formControlName="proprietaire">
           <option [value]="proprietaire._id" *ngFor="let proprietaire of proprietaires">{{
             proprietaire.cin }}
           </option>
@@ -34,7 +34,7 @@
       
       <div class="col-lg-3 form-group mt-4">
         <label for="">Lieu</label>
-        <select class="form-control rounded-pill" formControlName="lieu">
+        <select class="form-select rounded-pill" formControlName="lieu">
           <option [value]="lieu._id" *ngFor="let lieu of lieux">{{ lieu.code_lieu }}</option>
           
         </select>
@@ -47,14 +47,14 @@
       
       <div class="col-lg-3 form-group mt-4">
         <label for="">Pays</label>
-        <select class="form-control rounded-pill" formControlName="pays" (change)='getCities($event)'>
+        <select class="form-select rounded-pill" formControlName="pays" (change)='getCities($event)'>
           <option *ngFor="let country of countries" [value]="country.isoCode">{{country.name}}</option>
         </select>
       </div>
       
       <div class="col-lg-3 form-group mt-4">
         <label for="">Ville</label>
-        <select class="form-control rounded-pill" formControlName="ville">
+        <select class="form-select rounded-pill" formControlName="ville">
           <option *ngFor="let city of cities" [value]="city.name">{{city.name}}</option>
         </select>
       </div>

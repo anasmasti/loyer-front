@@ -78,7 +78,7 @@
       <div class="col-lg-3 form-group mt-4">
         <label for="">Périodicité de paiement</label>
         <!-- <input type="text" class="form-control rounded-pill" formControlName="periodicite_paiement" /> -->
-        <select class="form-control rounded-pill" formControlName="periodicite_paiement" [ngClass]="{
+        <select class="form-select rounded-pill" formControlName="periodicite_paiement" [ngClass]="{
           'is-invalid': checkInputsValidation(periodicite_paiement),
           'is-valid': !periodicite_paiement?.invalid
         }">
@@ -125,7 +125,7 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Déclaration d’option</label>
-        <select class="form-control rounded-pill" (change)="calculMontant()" [(ngModel)]="hasDeclarationOption"
+        <select class="form-select rounded-pill" (change)="calculMontant()" [(ngModel)]="hasDeclarationOption"
           formControlName="declaration_option">
           <option value="oui">Oui</option>
           <option value="non">Non</option>
@@ -179,7 +179,7 @@
       <div class="col-lg-3 form-group mt-4">
         <label for="">Statut de la caution</label>
         <!-- <input type="text" class="form-control rounded-pill" formControlName="statut_caution"> -->
-        <select class="form-control rounded-pill" formControlName="statut_caution">
+        <select class="form-select rounded-pill" formControlName="statut_caution">
           <option value="Consommée">Consommée</option>
           <option value="Récupérée">Récupérée</option>
           <option value="Compensée">Compensée</option>
@@ -242,7 +242,7 @@
 
       <div *ngIf="update" class="col-lg-3 form-group mt-5">
         <label for="">Etat de contrat</label>
-        <select class="form-control rounded-pill" formControlName="etat_contrat_libelle" [(ngModel)]="etatContratTypes"
+        <select class="form-select rounded-pill" formControlName="etat_contrat_libelle" [(ngModel)]="etatContratTypes"
           (change)="showEtatSection($event)">
           <option value="Active">Active</option>
           <option *ngIf="this.contrat.validation2_DAJC"
@@ -282,7 +282,7 @@
           <div class="col-lg-3 form-group mt-4">
             <label for="">Motif</label>
             <!-- <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_motif"> -->
-            <select class="form-control rounded-pill" formControlName="etat_contrat_motif">
+            <select class="form-select rounded-pill" formControlName="etat_contrat_motif">
               <option value="Décès">Décès</option>
               <option value="Cession">Cession</option>
               <option value="Révision_prix_loyer">Révision du prix du loyer</option>
@@ -349,7 +349,7 @@
           <div class="col-lg-3 form-group mt-4">
             <label for="">Reprise caution</label>
             <!-- <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_reprise_caution"> -->
-            <select class="form-control rounded-pill" formControlName="etat_contrat_reprise_caution">
+            <select class="form-select rounded-pill" formControlName="etat_contrat_reprise_caution">
               <option value="Consommée">Consommée</option>
               <option value="Récupérée">Récupérée</option>
             </select>
