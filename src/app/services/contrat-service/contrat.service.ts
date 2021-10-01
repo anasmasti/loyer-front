@@ -1,13 +1,15 @@
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Contrat } from 'src/app/models/Contrat';
 import { environment } from 'src/environments/environment';
-import { map } from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root',
 })
+
 export class ContratService {
+  
   constructor(private http: HttpClient) {}
 
   param_url: string = 'contrat';

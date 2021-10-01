@@ -13,6 +13,7 @@ import * as fileSaver from 'file-saver';
   styleUrls: ['./list-contrat.component.scss'],
 })
 export class ListContratComponent implements OnInit {
+  
   errors!: string;
   contrats!: Contrat[];
   id: string = '0';
