@@ -37,8 +37,6 @@ export class AuthService {
 
   logOut() {
     if (localStorage.removeItem('user') == null) {
-      localStorage.clear();
-
       this.router.navigate(['/login']).then(() => {
         this.helperService.refrechPage()
       });
