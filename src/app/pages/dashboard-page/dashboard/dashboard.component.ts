@@ -31,9 +31,9 @@ export class DashboardComponent implements OnInit {
 
   // Axis options
   xAxis: boolean = false;
-  yAxis: boolean = true;
+  yAxis: boolean = false;
   xAxisLabel: string = 'Statiqtiques';
-  yAxisLabel1: string = 'Foncier statiqtiques';
+  yAxisLabel1: string = 'Total du montant par type du foncier';
   yAxisLabel2: string = 'Lieux statiqtiques';
   showXAxisLabel: boolean = false;
   showYAxisLabel: boolean = true;
