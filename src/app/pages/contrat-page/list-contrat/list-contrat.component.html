@@ -59,10 +59,8 @@
         <td>{{ contrat.date_fin_contrat }}</td>
         <td class="py-3 success-txt" *ngIf="contrat.etat_contrat?.libelle == 'Avenant'">
           Active
-          <span class="info-txt" data-bs-toggle="tooltip" data-bs-placement="top" title="Avenant">
-            <strong>
-              AV
-            </strong>
+          <span class="av p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Avenant">
+            AV
           </span>
         </td>
         <td class="py-3" [ngClass]="{
