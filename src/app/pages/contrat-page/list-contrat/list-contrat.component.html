@@ -4,8 +4,8 @@
       <!-- <h3 class=""></h3> -->
       <h3 class="main-title">Liste des contrats</h3>
       <div class="d-none d-lg-block">
-        <a class="btn btn-sm success-btn" [routerLink]="['/contrat']">
-          <i class="fal fa-plus-octagon"></i> Nouveau contrat
+        <a class="btn btn-sm success-btn" [routerLink]="['/']">
+          <i class="fal fa-home"></i> Tableau de board
         </a>
         <a class="btn btn-sm second-btn mx-3" (click)="reload()"><i class="far fa-undo-alt"></i>
           Rafraîchir la liste
@@ -59,10 +59,8 @@
         <td>{{ contrat.date_fin_contrat }}</td>
         <td class="py-3 success-txt" *ngIf="contrat.etat_contrat?.libelle == 'Avenant'">
           Active
-          <span class="info-txt" data-bs-toggle="tooltip" data-bs-placement="top" title="Avenant">
-            <strong>
-              AV
-            </strong>
+          <span class="av p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Avenant">
+            AV
           </span>
         </td>
         <td class="py-3" [ngClass]="{
