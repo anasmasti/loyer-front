@@ -163,23 +163,23 @@
   <div class="mt-2">Mandataire</div>
   <div class="col-lg-3 form-group d-flex">
     <label for="">Oui</label>
-    <input type="radio" name="has_mandataire" [value]="true" class="form-check-input mx-2" [(ngModel)]="isMand"
-      formControlName="has_mandataire" />
+    <input type="radio" name="mandataire" [value]="true" class="form-check-input mx-2" [(ngModel)]="isMand"
+      formControlName="mandataire" />
     <label for="">Non</label>
-    <input type="radio" name="has_mandataire" [value]="false" class="form-check-input mx-2" [(ngModel)]="isMand"
-      formControlName="has_mandataire" />
+    <input type="radio" name="mandataire" [value]="false" class="form-check-input mx-2" [(ngModel)]="isMand"
+      formControlName="mandataire" />
   </div>
 
   <!-- Condition pour afficher ou cacher le formulaire de mandataire -->
-  <div *ngIf="isMand; then mandataire"></div>
+  <!-- <div *ngIf="isMand; then mandataire"></div> -->
   <!--  -->
   <!---->
 
-  <!--Début 2éme Row -->
+  <!-- Début 2éme Row
   <div class="row mt-4">
-    <!--Début de Div Mandataire Qui contient(Title+divForm+Form)-->
+    Début de Div Mandataire Qui contient(Title+divForm+Form)
     <ng-template #mandataire>
-      <!--Grand Titre Mandataire -->
+      Grand Titre Mandataire
       <div class="row mt-3 mb-2">
         <div class="margin-main col-lg-12 mt-3">
           <div class="d-flex justify-content-between">
@@ -189,13 +189,13 @@
         </div>
       </div>
 
-      <!--Début de Conteneur Mandataire-->
+      Début de Conteneur Mandataire
       <div>
         <h6>Remplissage des données</h6>
 
-        <!--Début Div form Mandataire-->
+        Début Div form Mandataire
 
-        <!--Début 3éme Row-->
+        Début 3éme Row
         <div formArrayName="mandataireForm" *ngFor="let mandataireItem of mandataireForm.controls; let i = index">
 
           <div class="main-card mt-4 bg-white p-lg-4" [formGroupName]="i">
@@ -241,14 +241,14 @@
               </div>
             </div>
           </div>
-          <!--Fin de 3éme Row-->
+          Fin de 3éme Row
         </div>
-        <!-- Div form Mandataire End-->
+        Div form Mandataire End
       </div>
-      <!--Fin de Conteneur Mandataire -->
+      Fin de Conteneur Mandataire
     </ng-template>
-    <!--Fin de Div Mandataire (Title+divForm+Form)-->
-  </div>
+    Fin de Div Mandataire (Title+divForm+Form)
+  </div> -->
   <!-- Fin 2éme Row-->
 
   <!-- Button Modifier & Ajouter -->

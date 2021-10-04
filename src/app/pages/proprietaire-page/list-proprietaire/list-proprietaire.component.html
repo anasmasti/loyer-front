@@ -52,8 +52,8 @@
                 <td>{{ proprietaire.n_registre_commerce }} </td>
                 <td>
                     <span class="p-1"
-                        [ngClass]="{'done-alert': proprietaire?.has_mandataire, 'error-alert': !proprietaire?.has_mandataire}">
-                        {{ checkAndPutText(proprietaire.has_mandataire) }}
+                        [ngClass]="{'done-alert': proprietaire?.mandataire, 'error-alert': !proprietaire?.mandataire}">
+                        {{ checkAndPutText(proprietaire.mandataire) }}
                     </span>
                 </td>
                 <td>
