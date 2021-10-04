@@ -14,7 +14,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 
 const route: Routes = [
-  { path: '', component: ProprietaireComponent },
+  { path: ':id_lieu', component: ProprietaireComponent },
   { path: 'list/list/:id', component: DetailsProprietaireComponent },
   { path: 'list', component: ListProprietaireComponent }
 ];

@@ -11,7 +11,6 @@ import { Store } from '@ngrx/store';
 import { getLieux } from '../lieux-store/lieux.selector';
 import { getLieuxAction } from '../lieux-store/lieux.actions';
 
-
 @Component({
   selector: 'app-list-lieux',
   templateUrl: './list-lieux.component.html',
@@ -27,7 +26,9 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
   loading: boolean = false;
   lieuxSubscription$!: Subscription;
   findLieu!: string;
-
+  findAmenagement!: any;
+  checkAmenagementTrue!: any;
+  checkAmenagementFalse!: any;
 
   // Pagination options
   listLieuxPage: number = 1;
@@ -36,11 +37,9 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
 
   //Delete succes message
   deleteDone: boolean = false;
-  deleteSucces: string = 'Lieu supprimé avec succés'
+  deleteSucces: string = 'Lieu supprimé avec succés';
 
-  userMatricule: any = localStorage.getItem('matricule')
-
-
+  userMatricule: any = localStorage.getItem('matricule');
 
   constructor(
     private lieuxService: LieuxService,
@@ -48,7 +47,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     private confirmationModalService: ConfirmationModalService,
     private helperService: HelperService,
     private store: Store<AppState>
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     // Throw get lieux from server function
@@ -60,16 +59,52 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     });
   }
 
+  //=======================================================================================================
   // Filter by intitule
   search() {
-    if (this.findLieu != "") {
-      this.lieux = this.lieux.filter(res => {
-        return res.intitule_lieu?.toLowerCase().match(this.findLieu.toLowerCase()) || res.ville?.toLowerCase().match(this.findLieu.toLowerCase());
+    if (this.findLieu != '') {
+      this.lieux = this.lieux.filter((res: any) => {
+        return (
+          res.type_foncier?.toLowerCase().match(this.findLieu.toLowerCase()) ||
+          res.ville?.toLowerCase().match(this.findLieu.toLowerCase())
+        );
       });
-    } else if (this.findLieu == "") {
+    } else if (this.findLieu == '') {
       this.getAllLieux();
     }
   }
+
+  // searchAmenagementFalse(event:any) {
+  //   if (event.target.checked) {
+  //     this.lieux = this.lieux.filter((res) => {
+  //       return (res.has_amenagements?.toString().match(this.checkAmenagementFalse = 'false'));
+  //     });
+  //   } 
+  //   else if (this.checkAmenagementFalse == '') {
+      
+  //      this.getAllLieux();
+  //   }
+  //   console.log("Event",event.target.checked);
+    
+  //   console.log('checked => ', this.checkAmenagementFalse); 
+  // }
+
+  // searchAmenagementTrue(event:any) {
+  //   if (event.target.checked) {
+  //     this.lieux = this.lieux.filter((res) => {
+  //       return (res.has_amenagements?.toString().match(this.checkAmenagementTrue = 'true'));
+  //     });
+
+  //   } 
+  //   else if (this.checkAmenagementTrue == '') {
+     
+  //      this.getAllLieux();
+  //   }
+  //   console.log('checked => ', this.checkAmenagementTrue); 
+  // }
+
+
+  //=======================================================================================================
 
   getAllLieux() {
     // Select lieux from store

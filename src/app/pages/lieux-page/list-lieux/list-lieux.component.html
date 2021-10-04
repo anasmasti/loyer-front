@@ -7,10 +7,15 @@
         <a class="btn btn-sm success-btn" [routerLink]="['/lieux']">
           <i class="fal fa-plus-octagon"></i> Nouveau lieu
         </a>
-        <a class="btn btn-sm second-btn mx-3" (click)='refrechPage()'><i class="far fa-undo-alt"></i>
+        <a class="btn btn-sm second-btn mx-3" (click)="refrechPage()"
+          ><i class="far fa-undo-alt"></i>
           Rafraîchir la liste
         </a>
-        <span data-bs-toggle="tooltip" data-bs-placement="top" title="Ici vous pouvez consulter la list des lieux">
+        <span
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          title="Ici vous pouvez consulter la list des lieux"
+        >
           <i class="fal fa-info"></i>
         </span>
       </div>
@@ -25,49 +30,114 @@
 </div>
 
 <div class="main-card bg-white table-responsive p-lg-3 mt-4">
-  <div class="col-lg-4 mb-4">
-    <label for="" class="main-muted-text"><i class="far fa-search"></i> Recherche</label>
-    <input type="text" [(ngModel)]="findLieu" (input)='search()' class="form-control rounded-pill"
-      placeholder="Rechercher par intitulé/ville/aménagement..." />
+  <div class="row">
+    <div class="col-lg-4 mb-4">
+      <label for="" class="main-muted-text"
+        ><i class="far fa-search"></i> Recherche</label
+      >
+      <input
+        type="text"
+        [(ngModel)]="findLieu"
+        (input)="search()"
+        class="form-control rounded-pill"
+        placeholder="Rechercher par intitulé/ville/aménagement..."
+      />
+    </div>
+  <!-- <div class="col-sm-1 my-2">
+     <label for="" class="main-muted-text">Oui</label>
+      <input
+        type="radio"
+        name="filterAmg"
+        [(ngModel)]="checkAmenagementTrue"
+        [value]="true"
+        (change)="searchAmenagementTrue($event)"
+        class=" rounded-pill"
+      />
   </div>
-  <table class="table">
+     <div class="col-sm-1 my-2">
+       <label for="" class="main-muted-text">Non</label>
+      <input
+        type="radio"
+        name="filterAmg"
+        [(ngModel)]="checkAmenagementFalse"
+        [value]="false"
+        (change)="searchAmenagementFalse($event)"
+        class=" rounded-pill"
 
+      />
+     </div> -->
+      
+
+  </div>
+
+  <table class="table">
     <thead>
       <tr>
         <th>Type de lieu</th>
         <th>Intitulé de lieu</th>
         <th>Ville</th>
-        <th>Téléphone</th>
         <th>Aménagement</th>
+        <th>Propriétaire</th>
+        <th>Contrat</th>
         <th>Actions</th>
       </tr>
     </thead>
 
     <tbody *ngIf="lieux.length">
       <tr
-        *ngFor="let lieu of lieux | paginate: { itemsPerPage: tableSize, currentPage: listLieuxPage, id: 'listLieuxPagination', totalItems: count }">
+        *ngFor="
+          let lieu of lieux
+            | paginate
+              : {
+                  itemsPerPage: tableSize,
+                  currentPage: listLieuxPage,
+                  id: 'listLieuxPagination',
+                  totalItems: count
+                }
+        "
+      >
         <!-- <td >{{ proprietaire._id }}</td> -->
         <td>{{ lieu.type_lieu }}</td>
         <td>{{ lieu.intitule_lieu }}</td>
         <td>{{ lieu.ville }}</td>
-        <td>{{ lieu.telephone }}</td>
         <td>
-          <span class="p-1" [ngClass]="{
-              'done-alert': lieu.has_amenagements,
-              'error-alert': !lieu.has_amenagements
-            }">
-            {{ checkAndPutText(lieu.has_amenagements) }}
-          </span>
-        </td>
+          <span
+          class="p-1"
+          [ngClass]="{
+            'done-alert': lieu.has_amenagements,
+            'error-alert': !lieu.has_amenagements
+          }"
+          >
+          {{ checkAndPutText(lieu.has_amenagements) }}
+        </span>
+      </td>
+      <td>
+        <a [routerLink]="['/proprietaire',lieu._id]" class="btn btn-sm success-btn">Ajouter un propriétaire</a>
+      </td>
+      <td> 
+        <a [routerLink]="['/contrat',lieu._id]" class="btn btn-sm success-btn">Ajouter un contrat</a>
+    </td>
         <td>
-          <a [routerLink]="['list', lieu._id]" class="btn btn-sm main-btn"><i class="fal fa-eye"></i></a>
-          <a class="btn btn-sm info-btn mx-2" (click)="openModalAndPushLieu(lieu)"><i class="far fa-user-edit"></i></a>
-          <a class="btn btn-sm danger-btn" (click)="openConfirmationModal(lieu)"><i class="far fa-user-minus"></i></a>
+          <a [routerLink]="['list', lieu._id]" class="btn btn-sm main-btn"
+            ><i class="fal fa-eye"></i
+          ></a>
+          <a
+            class="btn btn-sm info-btn mx-2"
+            (click)="openModalAndPushLieu(lieu)"
+            ><i class="far fa-user-edit"></i
+          ></a>
+          <a class="btn btn-sm danger-btn" (click)="openConfirmationModal(lieu)"
+            ><i class="far fa-user-minus"></i
+          ></a>
         </td>
       </tr>
 
-      <pagination-controls id="listLieuxPagination" (pageChange)="listLieuxPage = $event" previousLabel="Précédent"
-        nextLabel="Suivant"></pagination-controls>
+      <pagination-controls
+        id="listLieuxPagination"
+        (pageChange)="listLieuxPage = $event"
+        previousLabel="Précédent"
+        nextLabel="Suivant"
+      ></pagination-controls>
 
       <app-main-modal [closeBtn]="true">
         <app-edit-lieux [Lieu]="targetlieu"></app-edit-lieux>
@@ -80,8 +150,14 @@
         </h3>
         <p class="mt-3">Voulez vous vraiment supprimer ce propriétaire?</p>
         <div class="d-inline-flex justify-content-start mt-5">
-          <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)="deleteLieu()">Oui</a>
-          <a class="btn btn-lg px-lg-4 main-btn" (click)="closeConfirmationModal()">Non</a>
+          <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)="deleteLieu()"
+            >Oui</a
+          >
+          <a
+            class="btn btn-lg px-lg-4 main-btn"
+            (click)="closeConfirmationModal()"
+            >Non</a
+          >
         </div>
       </app-confirmation-modal>
     </tbody>

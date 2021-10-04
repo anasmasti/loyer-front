@@ -8,7 +8,7 @@ import { DAJCGuard } from './middleware/roles/dajc/dajc.guard';
 
 const routes: Routes = [
   { path: '', loadChildren: () => import('./pages/dashboard-page/dashboard.module').then(m => m.DashboardModule), canActivate: [AuthGuard] },
-  { path: 'proprietaire', loadChildren: () => import('./pages/proprietaire-page/proprietaire.module').then(m => m.ProprietaireModule), canActivate: [AuthGuard, CDGSPGuard, DCGuard, CSLAGuard, DAJCGuard] },
+  { path: 'proprietaire', loadChildren: () => import('./pages/proprietaire-page/proprietaire.module').then(m => m.ProprietaireModule), canActivate: [AuthGuard] },
   { path: 'lieux', loadChildren: () => import('./pages/lieux-page/lieux.module').then(m => m.LieuxModule), canActivate: [AuthGuard] },
   { path: 'notification', loadChildren: () => import('./pages/notification/main-notifications.module').then(m => m.MainNotificationsModule), canActivate: [AuthGuard] },
   { path: 'contrat', loadChildren: () => import('./pages/contrat-page/contrat.module').then(m => m.ContratModule), canActivate: [AuthGuard] },
