@@ -42,7 +42,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
   userMatricule: any = localStorage.getItem('matricule')
   accessError!: any;
 
-  // proprietaire !: any;
+  proprietaire !: any[];
 
 
   constructor(
@@ -124,6 +124,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
         this.store.dispatch(getLieuxAction());
       }
       this.lieux = data;
+      // this.proprietaire = data.proprietaire
     });
   }
 

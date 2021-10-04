@@ -20,7 +20,6 @@
 </div>
 
 <div class="mt-4">
-
     <div class="form-box mt-5">
         <div *ngIf="activeLieux == 'DR'; then DR"></div>
         <div *ngIf="activeLieux == 'LF'; then LF"></div>
@@ -29,7 +28,6 @@
         <div *ngIf="activeLieux == 'SV'; then SV"></div>
         <div *ngIf="activeLieux == ''; then Error"></div>
     </div>
-
 </div>
 
 <ng-template #DR>
