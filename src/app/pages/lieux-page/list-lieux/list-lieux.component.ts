@@ -37,7 +37,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
 
   //Delete succes message
   deleteDone: boolean = false;
-  deleteSucces: string = 'Lieu supprimé avec succés'
+  deleteSucces: string = 'Foncier supprimé avec succés'
 
   userMatricule: any = localStorage.getItem('matricule')
   accessError!: any;

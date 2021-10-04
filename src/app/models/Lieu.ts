@@ -14,6 +14,7 @@ export interface Lieu {
       image: string
     }
   ];
+  has_contrat?: boolean;
   has_amenagements?: boolean;
   superficie?: string;
   telephone?: string;
