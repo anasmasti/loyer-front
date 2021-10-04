@@ -62,8 +62,8 @@ export class SvFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.svForm = new FormGroup({
-      code_lieu: new FormControl('' , [Validators.required]),
-      intitule_lieu: new FormControl('', [Validators.required]),
+      code_lieu: new FormControl('' ,[Validators.required,Validators.maxLength(3),Validators.pattern('[0-9]*')]),
+      intitule_lieu: new FormControl('',[Validators.required,Validators.pattern('[a-zA-Z ]*')]),
       intitule_DR: new FormControl(''),
       adresse: new FormControl(''),
       ville: new FormControl(''),
@@ -80,8 +80,8 @@ export class SvFormComponent implements OnInit, OnDestroy {
       centre_cout_siege: new FormControl(''),
       categorie_pointVente: new FormControl(''),
       telephone: new FormControl(''),
-      fax: new FormControl(''),
-      superficie: new FormControl(''),
+      fax: new FormControl('',[Validators.required,Validators.pattern('[0-9]*'),Validators.maxLength(10)]),
+      superficie: new FormControl('',[Validators.required,Validators.pattern('[0-9]*'),Validators.maxLength(10)]),
 
       //Aménagement
       amenagementForm: new FormArray([]),

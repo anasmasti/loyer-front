@@ -95,17 +95,36 @@
           }"/>
           <div class="" *ngIf="checkInputsValidation(fax)">
             <p class="text-danger" *ngIf="fax?.errors?.required">
-              Vous devez entrer seulement des chiffres
+              Veuillez remplir ce champ
             </p>
             <p class="text-danger" *ngIf="fax?.errors?.maxlength">
               Vous devez entrer 10 nombres au maximum
             </p>
+            <p class="text-danger" *ngIf="fax?.errors?.pattern">
+              Vous devez entrer seulement des chiffres
+            </p>
           </div>
+         
         </div>
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Téléphone</label>
-          <input type="text" class="form-control rounded-pill" formControlName="telephone" />
+          <input type="text" class="form-control rounded-pill" formControlName="telephone" 
+          [ngClass]="{
+            'is-invalid': checkInputsValidation(telephone),
+            'is-valid': !telephone?.invalid 
+          }"/>
+          <div class="" *ngIf="checkInputsValidation(telephone)">
+            <p class="text-danger" *ngIf="telephone?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+            <p class="text-danger" *ngIf="telephone?.errors?.maxlength">
+              Vous devez entrer 10 nombres au maximum
+            </p>
+            <p class="text-danger" *ngIf="telephone?.errors?.pattern">
+              Vous devez entrer seulement des chiffres
+            </p>
+          </div>
         </div>
 
         <div class="col-lg-3 form-group mt-4">

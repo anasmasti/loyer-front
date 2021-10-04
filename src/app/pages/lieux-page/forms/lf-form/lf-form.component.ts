@@ -106,8 +106,8 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
       centre_cout_siege: new FormControl(''),
       categorie_pointVente: new FormControl(''),
       superficie: new FormControl(''),
-      telephone: new FormControl('',[Validators.pattern('[0-9]*'),Validators.maxLength(10)]),
-      fax: new FormControl('',[Validators.pattern('[0-9]*'),Validators.maxLength(10)]),
+      telephone: new FormControl('',[Validators.required,Validators.pattern('[0-9]*'),Validators.maxLength(10)]),
+      fax: new FormControl('',[Validators.required,Validators.pattern('[0-9]*'),Validators.maxLength(10)]),
 
       //Directeur
       matricule_directeur: new FormControl(''),

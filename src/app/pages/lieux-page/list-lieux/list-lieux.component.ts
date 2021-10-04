@@ -85,34 +85,34 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     }
   }
 
-  searchAmenagementFalse(event:any) {
-    if (event.target.checked) {
-      this.lieux = this.lieux.filter((res) => {
-        return (res.has_amenagements?.toString().match(this.checkAmenagementFalse = 'false'));
-      });
-    } 
-    else if (this.checkAmenagementFalse == '') {
+  // searchAmenagementFalse(event:any) {
+  //   if (event.target.checked) {
+  //     this.lieux = this.lieux.filter((res) => {
+  //       return (res.has_amenagements?.toString().match(this.checkAmenagementFalse = 'false'));
+  //     });
+  //   } 
+  //   else if (this.checkAmenagementFalse == '') {
       
-       this.getAllLieux();
-    }
-    console.log("Event",event.target.checked);
+  //      this.getAllLieux();
+  //   }
+  //   console.log("Event",event.target.checked);
     
-    console.log('checked => ', this.checkAmenagementFalse); 
-  }
+  //   console.log('checked => ', this.checkAmenagementFalse); 
+  // }
 
-  searchAmenagementTrue(event:any) {
-    if (event.target.checked) {
-      this.lieux = this.lieux.filter((res) => {
-        return (res.has_amenagements?.toString().match(this.checkAmenagementTrue = 'true'));
-      });
+  // searchAmenagementTrue(event:any) {
+  //   if (event.target.checked) {
+  //     this.lieux = this.lieux.filter((res) => {
+  //       return (res.has_amenagements?.toString().match(this.checkAmenagementTrue = 'true'));
+  //     });
 
-    } 
-    else if (this.checkAmenagementTrue == '') {
+  //   } 
+  //   else if (this.checkAmenagementTrue == '') {
      
-       this.getAllLieux();
-    }
-    console.log('checked => ', this.checkAmenagementTrue); 
-  }
+  //      this.getAllLieux();
+  //   }
+  //   console.log('checked => ', this.checkAmenagementTrue); 
+  // }
 
 
   //=======================================================================================================
