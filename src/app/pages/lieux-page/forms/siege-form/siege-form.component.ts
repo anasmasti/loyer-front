@@ -56,8 +56,8 @@ export class SiegeFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.siegeForm = new FormGroup({
-      code_lieu: new FormControl(''),
-      intitule_lieu: new FormControl(''),
+      code_lieu: new FormControl('',[Validators.required,Validators.maxLength(3),Validators.pattern('[0-9]*')]),
+      intitule_lieu: new FormControl('',[Validators.required,Validators.pattern('[a-zA-Z]*')]),
       intitule_DR: new FormControl(''),
       adresse: new FormControl(''),
       ville: new FormControl(''),
