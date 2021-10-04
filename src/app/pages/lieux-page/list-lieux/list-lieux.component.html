@@ -111,25 +111,49 @@
           {{ checkAndPutText(lieu.has_amenagements) }}
         </span>
       </td>
+      
       <td>
-        <a [routerLink]="['/proprietaire',lieu._id]" class="btn btn-sm success-btn">Ajouter un propriétaire</a>
+          <span class="m-2 col-sm-6">
+            <strong *ngIf="lieu.proprietaire">{{lieu.proprietaire.length > 1 ? lieu.proprietaire.length : ''}}</strong>
+          </span>
+          <a *ngIf="lieu.proprietaire" [routerLink]="['/proprietaire',lieu._id]" class="short-link"> | Ajouter un autre propriétaire</a> 
+     
+
+        <a *ngIf="!lieu.proprietaire" [routerLink]="['/proprietaire',lieu._id]" class="btn btn-sm success-btn">Ajouter un propriétaire</a>
       </td>
+
       <td> 
         <a [routerLink]="['/contrat',lieu._id]" class="btn btn-sm success-btn">Ajouter un contrat</a>
-    </td>
-        <td>
-          <a [routerLink]="['list', lieu._id]" class="btn btn-sm main-btn"
-            ><i class="fal fa-eye"></i
-          ></a>
-          <a
-            class="btn btn-sm info-btn mx-2"
-            (click)="openModalAndPushLieu(lieu)"
-            ><i class="far fa-user-edit"></i
-          ></a>
-          <a class="btn btn-sm danger-btn" (click)="openConfirmationModal(lieu)"
-            ><i class="far fa-user-minus"></i
-          ></a>
-        </td>
+      </td>
+
+    <td>
+      <div class="btn-group" role="group">
+          <a id="btnGroupDrop1" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
+              <h4>
+                  <i class="fal fa-ellipsis-v-alt"></i>
+              </h4>
+          </a>
+          <ul class="dropdown-menu p-3 main-card border-0" aria-labelledby="btnGroupDrop1">
+              <li>
+                  
+                  <div class="d-flex">
+                    <a [routerLink]="['list', lieu._id]" class="btn btn-sm main-btn"
+                    ><i class="fal fa-eye"></i
+                  ></a>
+                  <a
+                    class="btn btn-sm info-btn mx-2"
+                    (click)="openModalAndPushLieu(lieu)"
+                    ><i class="far fa-user-edit"></i
+                  ></a>
+                  <a class="btn btn-sm danger-btn" (click)="openConfirmationModal(lieu)"
+                    ><i class="far fa-user-minus"></i
+                  ></a>
+                  </div>
+              </li>
+          </ul>
+      </div>
+  </td>
+
       </tr>
 
       <pagination-controls
