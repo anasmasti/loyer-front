@@ -1,6 +1,6 @@
 
 import { createReducer, on } from "@ngrx/store";
-import { getAllCountsAction, getAllCountsSuccessAction, getCountriesAction, getCountriesSuccessAction, setLoadingAction } from "./shared.action";
+import { getAllCountsAction, getAllCountsSuccessAction, getCitiesAction, getCitiesSuccessAction, setLoadingAction } from "./shared.action";
 import { initialState } from "./shared.state";
 
 const _sharedReducer = createReducer(initialState,
@@ -29,18 +29,18 @@ const _sharedReducer = createReducer(initialState,
     }),
 
     // Get all counts
-    on(getCountriesAction, (state) => {
+    on(getCitiesAction, (state) => {
         return {
             ...state,
-            countries: state.countries
+            cities: state.cities
         }
     }),
 
     // On all counts come from server
-    on(getCountriesSuccessAction, (state, action) => {
+    on(getCitiesSuccessAction, (state, action) => {
         return {
             ...state,
-            countries: action.countries,
+            cities: action.cities,
         }
     }),
 )

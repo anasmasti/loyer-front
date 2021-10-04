@@ -1,3 +1,4 @@
+import { getCitiesAction } from './../../../../store/shared/shared.action';
 import { AppState } from './../../../../store/app.state';
 import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray ,Validators } from '@angular/forms';
@@ -9,6 +10,7 @@ import { getDrWithSupAction } from '../../lieux-store/lieux.actions';
 import { getDr } from '../../lieux-store/lieux.selector';
 import { DOCUMENT } from '@angular/common';
 import { HelperService } from 'src/app/services/helpers/helper.service';
+import { getCities } from 'src/app/store/shared/shared.selector';
 
 @Component({
   selector: 'sv-form',
@@ -42,6 +44,8 @@ export class SvFormComponent implements OnInit, OnDestroy {
 
   userMatricule: any = localStorage.getItem('matricule')
 
+  cities!: any[]
+  citiesSubscription$!: Subscription
 
   constructor(
     private svService: LieuxService,
@@ -88,6 +92,18 @@ export class SvFormComponent implements OnInit, OnDestroy {
     });
 
     this.getDr();
+    this.getCities()
+  }
+
+  fetchCities() {
+    this.store.dispatch(getCitiesAction())
+  }
+
+  getCities() {
+    this.citiesSubscription$ = this.store.select(getCities).subscribe(data => {
+      if (data) this.cities = data;
+      if (data.length == 0) this.fetchCities()
+    });
   }
 
   fetchSv(HasAmenagement: string) {
@@ -527,6 +543,7 @@ export class SvFormComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.DrSubscription$) this.DrSubscription$.unsubscribe();
+    if (this.citiesSubscription$) this.citiesSubscription$.unsubscribe()
   }
 
   get code_lieu() {

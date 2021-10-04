@@ -57,17 +57,9 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Ville</label>
-          <input type="text" class="form-control rounded-pill" formControlName="ville" 
-          [ngClass]="{
-            'is-invalid': checkInputsValidation(ville),
-            'is-valid': !ville?.invalid 
-          }"/>
-
-          <div class="" *ngIf="checkInputsValidation(ville)">
-            <p class="text-danger" *ngIf="ville?.errors?.required">
-              Veuillez remplir ce champ
-            </p>
-          </div>
+          <select class="form-select rounded-pill" formControlName="ville">
+            <option *ngFor="let city of cities" [value]="city.name">{{city.name}}</option>
+          </select>
         </div>
 
         <div class="col-lg-3 form-group mt-4">

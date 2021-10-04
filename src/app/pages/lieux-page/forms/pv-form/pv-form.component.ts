@@ -1,22 +1,24 @@
+import { getCitiesAction } from './../../../../store/shared/shared.action';
 import { AppState } from './../../../../store/app.state';
 import { MainModalService } from './../../../../services/main-modal/main-modal.service';
 import { ConfirmationModalService } from './../../../../services/confirmation-modal-service/confirmation-modal.service';
 import { LieuxService } from './../../../../services/lieux-service/lieux.service';
 import { Component, Inject, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormArray , Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { getDrWithSupAction } from '../../lieux-store/lieux.actions';
 import { getDr, getSup } from '../../lieux-store/lieux.selector';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { HelperService } from 'src/app/services/helpers/helper.service';
+import { getCities } from 'src/app/store/shared/shared.selector';
 
 @Component({
   selector: 'pv-form',
   templateUrl: './pv-form.component.html',
   styleUrls: ['./pv-form.component.scss']
 })
-export class PvFormComponent implements OnInit, OnDestroy , OnChanges {
+export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
 
   hasAmenagement: boolean = false;
   PvForm!: FormGroup;
@@ -48,11 +50,11 @@ export class PvFormComponent implements OnInit, OnDestroy , OnChanges {
 
   userMatricule: any = localStorage.getItem('matricule')
 
+  cities!: any[]
+  citiesSubscription$!: Subscription
 
   constructor(
     private mainModalService: MainModalService,
-    private confirmationModalService: ConfirmationModalService,
-    private help: HelperService,
     private lieuService: LieuxService,
     private store: Store<AppState>,
     @Inject(DOCUMENT) private document: Document
@@ -96,8 +98,19 @@ export class PvFormComponent implements OnInit, OnDestroy , OnChanges {
 
     this.getDr()
     this.getSup()
+    this.getCities()
   }
 
+  fetchCities() {
+    this.store.dispatch(getCitiesAction())
+  }
+
+  getCities() {
+    this.citiesSubscription$ = this.store.select(getCities).subscribe(data => {
+      if (data) this.cities = data;
+      if (data.length == 0) this.fetchCities()
+    });
+  }
 
   fetchPv(HasAmenagement: string) {
 
@@ -424,7 +437,7 @@ export class PvFormComponent implements OnInit, OnDestroy , OnChanges {
 
     }
 
-   
+
 
     this.fd.append('data', JSON.stringify(pvData));
 
@@ -540,8 +553,8 @@ export class PvFormComponent implements OnInit, OnDestroy , OnChanges {
   ngOnDestroy() {
     if (this.DrSubscription$) this.DrSubscription$.unsubscribe()
     if (this.SupSubscription$) this.SupSubscription$.unsubscribe()
+    if (this.citiesSubscription$) this.citiesSubscription$.unsubscribe()
   }
-
 
   get amenagementForm(): FormArray {
     return (<FormArray>this.PvForm.get('amenagementForm'));

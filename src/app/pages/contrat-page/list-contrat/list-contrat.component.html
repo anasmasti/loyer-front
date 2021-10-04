@@ -80,6 +80,20 @@
               contrat.etat_contrat?.libelle == 'Résiliation',
             'success-txt': contrat.etat_contrat?.libelle == 'Active'
           }"
+          *ngIf="contrat.etat_contrat?.libelle == 'Avenant'"
+        >
+          Active (AV)
+        </td>
+        <td
+          class="py-3"
+          [ngClass]="{
+            'info-txt': contrat.etat_contrat?.libelle == 'Avenant',
+            'danger-txt':
+              contrat.etat_contrat?.libelle == 'Suspension' ||
+              contrat.etat_contrat?.libelle == 'Résiliation',
+            'success-txt': contrat.etat_contrat?.libelle == 'Active'
+          }"
+          *ngIf="contrat.etat_contrat?.libelle != 'Avenant'"
         >
           {{ this.contrat.etat_contrat?.libelle }}
         </td>
@@ -120,14 +134,18 @@
               class="dropdown-menu p-3 main-card border-0"
               aria-labelledby="btnGroupDrop1"
             >
-              <li *ngIf="userRoles.includes('CDGSP') || userRoles.includes('DAJC') ">
+              <li
+                *ngIf="
+                  userRoles.includes('CDGSP') || userRoles.includes('DAJC')
+                "
+              >
                 <h5
                   *ngIf="contrat.etat_contrat?.libelle != 'Résiliation'"
                   class="main-title"
                 >
                   Validation
                 </h5>
-                <div class="d-flex"  >
+                <div class="d-flex">
                   <div *ngIf="userRoles.includes('CDGSP')">
                     <button
                       *ngIf="contrat.etat_contrat?.libelle != 'Résiliation'"
@@ -139,27 +157,28 @@
                       (click)="openConfirmationModalValidation1(contrat._id)"
                       [disabled]="contrat.validation1_DMG"
                     >
-                      Validiation 1
+                      Valider
                     </button>
                   </div>
                   <div *ngIf="userRoles.includes('DAJC')">
                     <button
-                    *ngIf="contrat.etat_contrat?.libelle != 'Résiliation'"
-                    [ngClass]="
-                      contrat.validation2_DAJC ? 'success-btn' : ' second-btn'
-                    "
-                    [id]="'vld2: ' + contrat._id"
-                    (click)="
-                      openConfirmationModalValidation2(
-                        contrat._id,
-                        contrat.validation1_DMG
-                      )
-                    "
-                    [disabled]="contrat.validation2_DAJC"
-                  >
-                    Validation 2
-                  </button>
-                  </div>                  
+                      *ngIf="contrat.etat_contrat?.libelle != 'Résiliation' && contrats[0].validation1_DMG"
+                      [ngClass]="
+                        contrat.validation2_DAJC ? 'success-btn p-1' : ' second-btn p-1'
+                      "
+                      [id]="'vld2: ' + contrat._id"
+                      (click)="
+                        openConfirmationModalValidation2(
+                          contrat._id,
+                          contrat.validation1_DMG
+                        )
+                      "
+                      [disabled]="contrat.validation2_DAJC"
+                    >
+                      Valider le contrat
+                    </button>
+                    <div class="error-alert p-3 text-center" *ngIf="!contrats[0].validation1_DMG" style="width: 300px;" >La première validation n'a pas encore faite.</div>
+                  </div>
                 </div>
               </li>
               <!-- <li class="my-3">

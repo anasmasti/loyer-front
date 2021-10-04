@@ -10,8 +10,6 @@ import { getLieux, getProprietaires } from '../foncier-store/foncier.selector';
 import { debounceTime, delay, map } from 'rxjs/operators';
 import { HelperService } from 'src/app/services/helpers/helper.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
-import { getCountries } from 'src/app/store/shared/shared.selector';
-import { getCountriesAction } from 'src/app/store/shared/shared.action';
 
 @Component({
   selector: 'foncier-form',
@@ -64,9 +62,9 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
     this.getProprietaires()
     this.getLieux()
-    this.getCountries()
+    // this.getCountries()
     setTimeout(() => {
-      this.selectCountries();
+      // this.selectCountries();
     }, 500);
   }
 
@@ -111,14 +109,14 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
   
 
-selectCountries(){
-  this.foncierForm.patchValue({
-    pays: 'MA',
-  });
-  this.help.getCities('MA').subscribe(data => {
-        this.cities = data
-      })
-}
+// selectCountries(){
+//   this.foncierForm.patchValue({
+//     pays: 'MA',
+//   });
+//   this.help.getCities('MA').subscribe(data => {
+//         this.cities = data
+//       })
+// }
 
 
   addFoncier() {
@@ -216,35 +214,33 @@ selectCountries(){
 
    /////////////////// Get countries and cities  ////////////*
 
-   fetchCountries() {
-    this.store.dispatch(getCountriesAction())
-  }
+  //  fetchCountries() {
+  //   this.store.dispatch(getCountriesAction())
+  // }
 
-  getCountries() {
-    this.countriesSubscription$ = this.store.select(getCountries).subscribe(data => {
-      if (data) this.countries = data;
-      if (data.length == 0) this.fetchCountries()
-    });
-  }
+  // getCountries() {
+  //   this.countriesSubscription$ = this.store.select(getCountries).subscribe(data => {
+  //     if (data) this.countries = data;
+  //     if (data.length == 0) this.fetchCountries()
+  //   });
+  // }
 
 
-  getCities(event: any) {
-    let isoCode: string = event.target.value
+  // getCities(event: any) {
+  //   let isoCode: string = event.target.value
 
-    this.help.getCities(isoCode)
-    // .pipe(
-    //   map((data: any) => {
-    //     if (data.length > 20) {
-    //      debounceTime(1000)
-    //     }
-    //   })
-    // )
-    .subscribe(data => {
-      this.cities = data
-      console.log(data);
-      
-    })
-  }
+  //   this.help.getCities(isoCode)
+  //   // .pipe(
+  //   //   map((data: any) => {
+  //   //     if (data.length > 20) {
+  //   //      debounceTime(1000)
+  //   //     }
+  //   //   })
+  //   // )
+  //   .subscribe(data => {
+  //     this.cities = data
+  //   })
+  // }
 
  ///////////////////////
 

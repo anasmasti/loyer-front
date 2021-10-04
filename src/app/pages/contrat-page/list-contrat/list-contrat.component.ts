@@ -65,7 +65,6 @@ export class ListContratComponent implements OnInit {
         const element = this.user.existedUser.userRoles[index].roleCode;
         this.userRoles.push(element)
       }
-      console.log(this.userRoles);
       
     }
 
@@ -75,8 +74,6 @@ export class ListContratComponent implements OnInit {
     this.contratService.getContrat().subscribe(
       (data: any) => {
         this.contrats = data;
-        console.log(data);
-        
       },
       (error: any) => {
         this.accessError = error.error.message;
