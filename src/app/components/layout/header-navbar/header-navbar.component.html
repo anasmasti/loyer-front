@@ -25,9 +25,9 @@
                 <div id="#user-card" class="card border-0 me-5 main-card">
                     <div class="card-body">
                         <h6 class="mainText">
-                            Ahmad Alaoui
+                            {{user.existedUser.nom}} {{user.existedUser.prenom}}
                         </h6>
-                        <span class="badge user-admin-title">Administrateur</span>
+                        <span class="badge user-admin-title">{{userRole}}</span>
                     </div>
                 </div>
                 <a class="btn dark-btn" (click)='doDarkMode()' title="Mode sombre"><i class="fal fa-moon"></i></a>

@@ -43,8 +43,21 @@ export class LoginPageComponent implements OnInit {
 
     this.authService.logIn(this.matricule).subscribe(data => {
       localStorage.setItem('user', JSON.stringify(data))
-      this.router.navigate(['/']);
+      this.router.navigate(['/']).then(() => {
+        this.helperService.refrechPage()
+      });;
     })
+
+    // setTimeout(() => {
+    //   setInterval(() => {
+    //     localStorage.clear()
+
+    //     this.authService.logIn(this.matricule).subscribe(data => {
+    //       localStorage.setItem('user', JSON.stringify(data))
+    //     })
+    //   }, 7000)
+    // }, 259200);
+
   }
 
   removeUser() {

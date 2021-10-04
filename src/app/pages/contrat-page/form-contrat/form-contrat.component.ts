@@ -599,7 +599,7 @@ export class FormContratComponent implements OnInit {
     this.fd.append('data', JSON.stringify(ctr_data));
 
     //patch the formdata (data+files)
-    this.contratService.updateContrat(id, this.fd, this.userMatricule).subscribe(
+    this.contratService.updateContrat(id, this.fd).subscribe(
       (_) => {
         this.updateDone = true;
         setTimeout(() => {

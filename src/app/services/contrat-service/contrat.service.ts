@@ -1,13 +1,15 @@
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Contrat } from 'src/app/models/Contrat';
 import { environment } from 'src/environments/environment';
-import { map } from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root',
 })
+
 export class ContratService {
+  
   constructor(private http: HttpClient) {}
 
   param_url: string = 'contrat';
@@ -19,11 +21,11 @@ export class ContratService {
   };
 
   // Get list of all proprietaires from database
-  getContrat(matricule: any): Observable<Contrat> {
+  getContrat(): Observable<Contrat> {
     return this.http.get<Contrat>(
       `${
         environment.API_URL_TEST + environment.API_VERSION + this.param_url
-      }/tous//${matricule}`,
+      }/tous`,
       { headers: this.httpOptions.headers }
     );
   }
@@ -38,11 +40,11 @@ export class ContratService {
     );
   }
 
-  updateContrat(id: String, formdata: any, matricule: any): Observable<any> {
+  updateContrat(id: String, formdata: any): Observable<any> {
     return this.http.patch<any>(
       `${
         environment.API_URL_TEST + environment.API_VERSION + this.param_url
-      }/modifier/${id}/${matricule}`,
+      }/modifier/${id}`,
       formdata
     );
   }

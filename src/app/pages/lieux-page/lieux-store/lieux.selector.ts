@@ -26,3 +26,9 @@ export const getDr = createSelector(getLieuxState, (state: any) => {
 export const getSup = createSelector(getLieuxState, (state: any) => {
   return state.DrWithSup.SUP;
 });
+
+// Get error
+export const getError = createSelector(getLieuxState, (state: any) => {
+  return state.error;
+  ;
+});

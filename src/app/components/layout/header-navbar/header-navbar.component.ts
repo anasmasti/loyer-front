@@ -11,7 +11,9 @@ import { AuthService } from 'src/app/services/auth-service/auth.service';
 
 export class HeaderNavbarComponent implements OnInit {
 
-  id : string = 'Deconnecter'
+  id: string = 'Deconnecter'
+  user: any = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '') : [];
+  userRole: any[] = localStorage.getItem('user') ? this.user.existedUser.userRoles[0].roleName : []
 
   constructor(
     private darkModeService: DarkModeService,

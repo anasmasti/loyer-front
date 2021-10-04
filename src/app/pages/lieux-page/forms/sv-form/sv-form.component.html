@@ -78,7 +78,7 @@
         <div class="col-lg-3 form-group mt-4">
           <label for="">Code DR</label>
           <select
-            class="form-control rounded-pill"
+            class="form-select rounded-pill"
             formControlName="code_rattache_DR"
             [ngClass]="{
               'is-invalid': checkInputsValidation(code_rattache_DR)
@@ -98,7 +98,7 @@
         <div class="col-lg-3 form-group mt-4">
           <label for="">Direction Régionale</label>
           <select
-            class="form-control rounded-pill"
+            class="form-select rounded-pill"
             formControlName="intitule_DR"
           >
             <option [value]="drItem._id" *ngFor="let drItem of Dr">

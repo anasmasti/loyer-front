@@ -78,7 +78,7 @@
         <div class="col-lg-3 form-group mt-4">
           <label for="">Supervision</label>
           <select
-            class="form-control rounded-pill"
+            class="form-select rounded-pill"
             formControlName="intitule_rattache_SUP_PV"
           >
             <option [value]="supItem._id" *ngFor="let supItem of Sup">
@@ -90,7 +90,7 @@
         <div class="col-lg-3 form-group mt-4">
           <label for="">Code supervision</label>
           <select
-            class="form-control rounded-pill"
+            class="form-select rounded-pill"
             formControlName="code_rattache_SUP"
             [ngClass]="{
               'is-invalid': checkInputsValidation(code_rattache_SUP)
@@ -110,7 +110,7 @@
         <div class="col-lg-3 form-group mt-4">
           <label for="">Direction Régionale</label>
           <select
-            class="form-control rounded-pill"
+            class="form-select rounded-pill"
             formControlName="intitule_DR"
           >
             <option [value]="drItem._id" *ngFor="let drItem of Dr">
@@ -122,7 +122,7 @@
         <div class="col-lg-3 form-group mt-4">
           <label for="">Code DR</label>
           <select
-            class="form-control rounded-pill"
+            class="form-select rounded-pill"
             formControlName="code_rattache_DR"
             [ngClass]="{
               'is-invalid': checkInputsValidation(code_rattache_DR)

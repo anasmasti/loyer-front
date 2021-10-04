@@ -37,8 +37,6 @@ export class AuthService {
 
   logOut() {
     if (localStorage.removeItem('user') == null) {
-      localStorage.clear();
-
       this.router.navigate(['/login']).then(() => {
         this.helperService.refrechPage()
       });
@@ -48,11 +46,11 @@ export class AuthService {
 
   checkUserRole(role: string) {
     let hasAccess: boolean
-    
+
     if (this.user) {
       if (this.roles) {
         this.roles.forEach(role => {
-          this.structuredRoles.push(role.roleName)
+          this.structuredRoles.push(role.roleCode)
         })
         hasAccess = this.structuredRoles.includes(role)
         if (hasAccess) {
@@ -62,6 +60,4 @@ export class AuthService {
     }
     return false
   }
-
-
 }

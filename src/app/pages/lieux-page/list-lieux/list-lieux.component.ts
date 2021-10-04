@@ -8,7 +8,7 @@ import { MainModalService } from '../../../services/main-modal/main-modal.servic
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { Observable, timer, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { getLieux } from '../lieux-store/lieux.selector';
+import { getError, getLieux } from '../lieux-store/lieux.selector';
 import { getLieuxAction } from '../lieux-store/lieux.actions';
 
 @Component({
@@ -37,9 +37,11 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
 
   //Delete succes message
   deleteDone: boolean = false;
-  deleteSucces: string = 'Lieu supprimé avec succés';
+  deleteSucces: string = 'Lieu supprimé avec succés'
 
-  userMatricule: any = localStorage.getItem('matricule');
+  userMatricule: any = localStorage.getItem('matricule')
+  accessError!: any;
+
 
   constructor(
     private lieuxService: LieuxService,
@@ -57,7 +59,12 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     this.store.select(getLoading).subscribe((data) => {
       this.loading = data;
     });
-  }
+
+    // Check error
+    this.store.select(getError).subscribe(data => {
+      if (data) this.accessError = data
+    })
+  } 
 
   //=======================================================================================================
   // Filter by intitule

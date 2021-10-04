@@ -5,8 +5,9 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import { setLoadingAction } from 'src/app/store/shared/shared.action';
-import { map, mergeMap } from 'rxjs/operators';
-import { getFoncierSuccessAction, getFoncierAction, getPropWithLieuxSuccessAction, getPropWithLieuxAction } from './foncier.actions';
+import { map, mergeMap , catchError } from 'rxjs/operators';
+import { getFoncierSuccessAction, getFoncierAction, getPropWithLieuxSuccessAction, getPropWithLieuxAction , setFonciersrrorAction } from './foncier.actions';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class FoncierEffects {
@@ -50,7 +51,11 @@ export class FoncierEffects {
                         throw new Error("Il y'a aucun foncier")
                     }
                 }
-            )
+            ),
+            catchError((error: any) => {
+                this.store.dispatch(setFonciersrrorAction({ error: error.error.message }))
+                return throwError(error.error.message)
+            })
         )
     }
 

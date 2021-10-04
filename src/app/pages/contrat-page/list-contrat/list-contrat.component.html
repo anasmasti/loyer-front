@@ -159,11 +159,18 @@
 
         </tbody>
 
-        <tbody *ngIf="!contrats?.length" class="w-100 d-flex align-items-center">
+        <tbody *ngIf="!contrats?.length && !accessError" class="w-100 d-flex align-items-center">
             <h5 class="main-muted-text my-4">Aucun contrat à afficher</h5>
             <a class="btn btn-sm second-btn ms-2" [routerLink]="['/contrat']">
                 + Nouveau contrat
             </a>
         </tbody>
+
+        <tbody *ngIf="accessError" class="w-100 d-flex align-items-center">
+            <h5 class="text-danger my-4">{{accessError}}</h5>
+            <a class="btn btn-sm second-btn ms-3" [routerLink]="['/']">
+              <i class="far fa-chevron-left"></i> Retour au tablau de bors
+            </a>
+          </tbody>
     </table>
 </div>

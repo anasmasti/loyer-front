@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { getFoncierAction, getFoncierSuccessAction, getPropWithLieuxAction, getPropWithLieuxSuccessAction } from "./foncier.actions";
+import { getFoncierAction, getFoncierSuccessAction, getPropWithLieuxAction, getPropWithLieuxSuccessAction , setFonciersrrorAction } from "./foncier.actions";
 import { initialState } from "./foncier.state";
 
 
@@ -35,6 +35,13 @@ const _foncierReducer = createReducer(initialState,
     return {
       ...state,
       propWithLieux: action.propWithLieux,
+    }
+  }),
+
+  on(setFonciersrrorAction, (state, action) => {
+    return {
+      ...state,
+      error: action.error
     }
   }),
 

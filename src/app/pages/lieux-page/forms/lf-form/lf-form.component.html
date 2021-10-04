@@ -35,7 +35,7 @@
       <div class="row">
         <div class="col-lg-3 form-group mt-4">
           <label for="">Code DR</label>
-          <select class="form-control rounded-pill" formControlName="code_rattache_DR">
+          <select class="form-select rounded-pill" formControlName="code_rattache_DR">
             <option [value]="drItem.code_lieu" *ngFor="let drItem of Dr">{{ drItem.code_lieu }}</option>
           </select>
         </div>
@@ -83,7 +83,7 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Etat logement de fonction</label>
-          <select class="form-control rounded-pill" formControlName="etat_logement_fonction"
+          <select class="form-select rounded-pill" formControlName="etat_logement_fonction"
             (change)="showEtatLogement()">
             <option value="disponible" [disabled]="(Lieu != '') ? 'disabled' : false">Disponible</option>
             <option value="occupe" [disabled]="(Lieu != '') ? 'disabled' : false">Occupé</option>
