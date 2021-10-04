@@ -108,7 +108,7 @@
         </td>
 
         <td>
-          <p *ngIf="lieu.has_contrat" class="success-txt">Ce foncier contient un contrat</p>
+          <p *ngIf="lieu.has_contrat" class="info-txt">Ce foncier contient un contrat</p>
           <a *ngIf="!lieu.has_contrat" [routerLink]="['/contrat',lieu._id]" class="btn btn-sm success-btn">Ajouter un contrat</a>
         </td>
 
