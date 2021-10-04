@@ -108,7 +108,8 @@
         </td>
 
         <td>
-          <a [routerLink]="['/contrat',lieu._id]" class="btn btn-sm success-btn">Ajouter un contrat</a>
+          <p *ngIf="lieu.has_contrat" class="info-txt">Ce foncier contient un contrat</p>
+          <a *ngIf="!lieu.has_contrat" [routerLink]="['/contrat',lieu._id]" class="btn btn-sm success-btn">Ajouter un contrat</a>
         </td>
 
         <td>
@@ -120,7 +121,7 @@
             </a>
             <ul class="dropdown-menu p-3 main-card border-0" aria-labelledby="btnGroupDrop1">
               <li>
-
+                  <h5 class="main-title">Actions</h5>
                 <div class="d-flex">
                   <a [routerLink]="['list', lieu._id]" class="btn btn-sm main-btn"><i class="fal fa-eye"></i></a>
                   <a class="btn btn-sm info-btn mx-2" (click)="openModalAndPushLieu(lieu)"><i
