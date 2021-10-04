@@ -8,7 +8,7 @@ import {
   OnChanges,
   Inject,
 } from '@angular/core';
-import { FormControl, FormGroup, FormArray } from '@angular/forms';
+import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Lieu } from 'src/app/models/Lieu';
 import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
@@ -94,8 +94,8 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
       code_lieu: new FormControl(''),
       intitule_lieu: new FormControl(''),
       intitule_DR: new FormControl(''),
-      adresse: new FormControl(''),
-      ville: new FormControl(''),
+      adresse: new FormControl('',[Validators.required]),
+      ville: new FormControl('',[Validators.required]),
       code_localite: new FormControl(''),
       desc_lieu_entrer: new FormControl(''),
       imgs_lieu_entrer: new FormControl(''),
@@ -109,8 +109,8 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
       centre_cout_siege: new FormControl(''),
       categorie_pointVente: new FormControl(''),
       superficie: new FormControl(''),
-      telephone: new FormControl(''),
-      fax: new FormControl(''),
+      telephone: new FormControl('',[Validators.required,Validators.pattern('[0-9]*'),Validators.maxLength(10)]),
+      fax: new FormControl('',[Validators.required,Validators.pattern('[0-9]*'),Validators.maxLength(10)]),
 
       //Directeur
       matricule_directeur: new FormControl(''),
@@ -308,6 +308,11 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
         });
       }
     }
+  }
+
+   // Check if all inputs has invalid errors
+   checkInputsValidation(targetInput: any) {
+    return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
   }
 
   addDirecteur() {

@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormArray } from '@angular/forms';
+import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { HelperService } from 'src/app/services/helpers/helper.service';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { MainModalService } from './../../../../services/main-modal/main-modal.service';
@@ -67,8 +67,8 @@ export class SiegeFormComponent implements OnInit {
       has_amenagements: new FormControl(''),
       etat_logement_fonction: new FormControl(''),
       etage: new FormControl(''),
-      telephone: new FormControl(''),
-      fax: new FormControl(''),
+      telephone: new FormControl('',[Validators.required,Validators.pattern('[0-9]*'),Validators.maxLength(10)]),
+      fax: new FormControl('',[Validators.required,Validators.pattern('[0-9]*'),Validators.maxLength(10)]),
       superficie: new FormControl(''),
       type_lieu: new FormControl(''),
       code_rattache_DR: new FormControl(''),
@@ -82,6 +82,10 @@ export class SiegeFormComponent implements OnInit {
     })
   }
 
+    // Check if all inputs has invalid errors
+    checkInputsValidation(targetInput: any) {
+      return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
+    }
 
   fetchSg(HasAmenagement: string) {
 

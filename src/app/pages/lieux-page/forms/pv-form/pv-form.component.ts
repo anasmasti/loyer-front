@@ -71,10 +71,10 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnInit(): void {
     this.PvForm = new FormGroup({
-      code_lieu: new FormControl('', [Validators.required]),
-      intitule_lieu: new FormControl('', [Validators.required]),
+      code_lieu: new FormControl('' ,[Validators.required,Validators.maxLength(3),Validators.pattern('[0-9]*')]),
+      intitule_lieu: new FormControl('', [Validators.required,Validators.pattern('[a-zA-Z]*')]),
       intitule_DR: new FormControl(''),
-      adresse: new FormControl(''),
+      adresse: new FormControl('',[Validators.required]),
       ville: new FormControl(''),
       code_localite: new FormControl(''),
       desc_lieu_entrer: new FormControl(''),
@@ -89,8 +89,8 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
       centre_cout_siege: new FormControl(''),
       categorie_pointVente: new FormControl(''),
       superficie: new FormControl('',),
-      telephone: new FormControl('',),
-      fax: new FormControl('',),
+      telephone: new FormControl('',[Validators.required,Validators.pattern('[0-9]*'),Validators.maxLength(10)]),
+      fax: new FormControl('',[Validators.required,Validators.pattern('[0-9]*'),Validators.maxLength(10)]),
 
       //Aménagement
       amenagementForm: new FormArray([]),

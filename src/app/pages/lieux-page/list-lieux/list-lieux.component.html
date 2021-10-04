@@ -33,26 +33,23 @@
     </div>
     <!-- <div class="col-sm-1 my-2">
      <label for="" class="main-muted-text">Oui</label>
-      <input
-        type="radio"
-        name="filterAmg"
+      <button
+        type="submit"
         [(ngModel)]="checkAmenagementTrue"
-        [value]="true"
-        (change)="searchAmenagementTrue($event)"
+        
+        (click)="searchAmenagementTrue($event)"
         class=" rounded-pill"
-      />
+      >Oui</button>
   </div>
      <div class="col-sm-1 my-2">
        <label for="" class="main-muted-text">Non</label>
-      <input
-        type="radio"
-        name="filterAmg"
+      <button
+        type="submit"
         [(ngModel)]="checkAmenagementFalse"
-        [value]="false"
-        (change)="searchAmenagementFalse($event)"
+        
+        (click)="searchAmenagementFalse($event)"
         class=" rounded-pill"
-
-      />
+      >Non</button>
      </div> -->
 
 
@@ -67,7 +64,7 @@
         <th>Aménagement</th>
         <th>Propriétaire</th>
         <th>Contrat</th>
-        <th>Actions</th>
+        <th>Autres</th>
       </tr>
     </thead>
 
