@@ -22,6 +22,8 @@ export class LoginPageComponent implements OnInit {
 
   loginForm!: FormGroup;
   matricule!: string
+  hasError!: boolean
+  errorMessage!: string
 
   ngOnInit(): void {
     this.mainModalService.open();
@@ -46,6 +48,13 @@ export class LoginPageComponent implements OnInit {
       this.router.navigate(['/']).then(() => {
         this.helperService.refrechPage()
       });;
+    }, error => {
+      this.hasError = true
+      this.errorMessage = error.error.message
+      setTimeout(() => {
+        this.hasError = false
+        this.errorMessage = ''
+      }, 3000);
     })
 
     // setTimeout(() => {
