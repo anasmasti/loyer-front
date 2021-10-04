@@ -1,100 +1,168 @@
 <div class="row title">
-    <div class="col-lg-12 mt-3">
-        <div class="d-flex justify-content-between">
-            <!-- <h3 class=""></h3> -->
-            <h3 class="main-title">Liste des contrats</h3>
-            <div class="d-none d-lg-block">
-                <a class="btn btn-sm success-btn" [routerLink]="['/contrat']">
-                    <i class="fal fa-plus-octagon"></i> Nouveau contrat
-                </a>
-                <a class="btn btn-sm second-btn mx-3" (click)="reload()"><i class="far fa-undo-alt"></i>
-                    Rafraîchir la liste
-                </a>
-                <span data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Ici vous pouvez consulter la list des contrats">
-                    <i class="fal fa-info"></i>
-                </span>
-            </div>
-
-        </div>
+  <div class="col-lg-12 mt-3">
+    <div class="d-flex justify-content-between">
+      <!-- <h3 class=""></h3> -->
+      <h3 class="main-title">Liste des contrats</h3>
+      <div class="d-none d-lg-block">
+        <a class="btn btn-sm success-btn" [routerLink]="['/contrat']">
+          <i class="fal fa-plus-octagon"></i> Nouveau contrat
+        </a>
+        <a class="btn btn-sm second-btn mx-3" (click)="reload()"
+          ><i class="far fa-undo-alt"></i>
+          Rafraîchir la liste
+        </a>
+        <span
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          title="Ici vous pouvez consulter la list des contrats"
+        >
+          <i class="fal fa-info"></i>
+        </span>
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="w-100 d-flex justify-content-center">
-    <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
-    <div *ngIf="deleteDone" class="done-alert p-2 my-2">{{ deleteSucces }}</div>
+  <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
+  <div *ngIf="deleteDone" class="done-alert p-2 my-2">{{ deleteSucces }}</div>
 </div>
 
 <div class="main-card bg-white table-responsive p-lg-3 mt-4">
-    <div class="col-lg-4 mb-4">
-        <label for="" class="main-muted-text"><i class="far fa-search"></i> Recherche</label>
-        <input type="text" [(ngModel)]="findContrat" (input)='search()' class="form-control rounded-pill"
-            placeholder="Rechercher par numéro de contrat..." />
-    </div>
+  <div class="col-lg-4 mb-4">
+    <label for="" class="main-muted-text"
+      ><i class="far fa-search"></i> Recherche</label
+    >
+    <input
+      type="text"
+      [(ngModel)]="findContrat"
+      (input)="search()"
+      class="form-control rounded-pill"
+      placeholder="Rechercher par numéro de contrat..."
+    />
+  </div>
 
-    <table class="table">
-        <thead>
-            <tr class="text-truncate">
-                <th>N° contrat</th>
-                <th>Montant loyer</th>
-                <th>Date début du loyer</th>
-                <th>Date fin de contrat</th>
-                <th>Etat</th>
-                <th>Actions</th>
-                <th>Autre</th>
-            </tr>
-        </thead>
-        <tbody *ngIf="contrats?.length">
-            <tr
-                *ngFor="let contrat of contrats | paginate: { itemsPerPage: tableSize, currentPage: listContratPage, id: 'listContratPagination', totalItems: count }">
-                <td> {{ contrat.numero_contrat }} </td>
-                <td> {{ contrat.montant_loyer }} </td>
-                <td> {{ contrat.date_debut_loyer }} </td>
-                <td> {{ contrat.date_fin_contrat }} </td>
-                <td class="py-3"
-                    [ngClass]="{'info-txt': contrat.etat_contrat?.libelle == 'Avenant', 'danger-txt': contrat.etat_contrat?.libelle == 'Suspension' || contrat.etat_contrat?.libelle == 'Résiliation', 'success-txt': contrat.etat_contrat?.libelle == 'Active'}">
-                    {{ this.contrat.etat_contrat?.libelle }}
-                </td>
+  <table class="table">
+    <thead>
+      <tr class="text-truncate">
+        <th>N° contrat</th>
+        <th>Montant loyer</th>
+        <th>Date début du loyer</th>
+        <th>Date fin de contrat</th>
+        <th>Etat</th>
+        <th>Actions</th>
+        <th>Autre</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="contrats?.length">
+      <tr
+        *ngFor="
+          let contrat of contrats
+            | paginate
+              : {
+                  itemsPerPage: tableSize,
+                  currentPage: listContratPage,
+                  id: 'listContratPagination',
+                  totalItems: count
+                }
+        "
+      >
+        <td>{{ contrat.numero_contrat }}</td>
+        <td>{{ contrat.montant_loyer }}</td>
+        <td>{{ contrat.date_debut_loyer }}</td>
+        <td>{{ contrat.date_fin_contrat }}</td>
+        <td
+          class="py-3"
+          [ngClass]="{
+            'info-txt': contrat.etat_contrat?.libelle == 'Avenant',
+            'danger-txt':
+              contrat.etat_contrat?.libelle == 'Suspension' ||
+              contrat.etat_contrat?.libelle == 'Résiliation',
+            'success-txt': contrat.etat_contrat?.libelle == 'Active'
+          }"
+        >
+          {{ this.contrat.etat_contrat?.libelle }}
+        </td>
 
-                <td>
-                    <div class="d-flex">
-                        <a [routerLink]="['list',contrat._id]" class="btn btn-sm main-btn me-2"><i
-                                class="fal fa-eye"></i></a>
-                        <a *ngIf="this.contrat.etat_contrat?.libelle != 'Résiliation'" (click)="openEditModal(contrat)"
-                            class="btn btn-sm info-btn me-2"><i class="far fa-user-edit"></i></a>
-                        <a class="btn btn-sm danger-btn" (click)="openConfirmationContratModal(contrat._id);"><i
-                                class="far fa-user-minus"></i></a>
-                    </div>
-                </td>
-                <td>
-                    <div class="btn-group" role="group">
-                        <a id="btnGroupDrop1" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
-                            <h4>
-                                <i class="fal fa-ellipsis-v-alt"></i>
-                            </h4>
-                        </a>
-                        <ul class="dropdown-menu p-3 main-card border-0" aria-labelledby="btnGroupDrop1">
-                            <li>
-                                <h5 *ngIf="contrat.etat_contrat?.libelle != 'Résiliation'" class="main-title">Validation
-                                </h5>
-                                <div class="d-flex">
-                                    <button *ngIf="contrat.etat_contrat?.libelle != 'Résiliation'" class="mx-2"
-                                        [ngClass]="contrat.validation1_DMG ? 'success-btn' : 'second-btn'"
-                                        [id]="'vld1: ' + contrat._id"
-                                        (click)="openConfirmationModalValidation1(contrat._id)"
-                                        [disabled]="contrat.validation1_DMG">
-                                        Validiation 1
-                                    </button>
-                                    <button *ngIf="contrat.etat_contrat?.libelle != 'Résiliation'"
-                                        [ngClass]="contrat.validation2_DAJC ? 'success-btn' : ' second-btn'"
-                                        [id]="'vld2: ' + contrat._id"
-                                        (click)="openConfirmationModalValidation2(contrat._id , contrat.validation1_DMG)"
-                                        [disabled]="contrat.validation2_DAJC">
-                                        Validation 2
-                                    </button>
-                                </div>
-                            </li>
-                            <li class="my-3">
+        <td>
+          <div class="d-flex">
+            <a
+              [routerLink]="['list', contrat._id]"
+              class="btn btn-sm main-btn me-2"
+              ><i class="fal fa-eye"></i
+            ></a>
+            <a
+              *ngIf="this.contrat.etat_contrat?.libelle != 'Résiliation'"
+              (click)="openEditModal(contrat)"
+              class="btn btn-sm info-btn me-2"
+              ><i class="far fa-user-edit"></i
+            ></a>
+            <a
+              class="btn btn-sm danger-btn"
+              (click)="openConfirmationContratModal(contrat._id)"
+              ><i class="far fa-user-minus"></i
+            ></a>
+          </div>
+        </td>
+        <td>
+          <div class="btn-group" role="group">
+            <a
+              id="btnGroupDrop1"
+              class="btn"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <h4>
+                <i class="fal fa-ellipsis-v-alt"></i>
+              </h4>
+            </a>
+            <ul
+              class="dropdown-menu p-3 main-card border-0"
+              aria-labelledby="btnGroupDrop1"
+            >
+              <li *ngIf="userRoles.includes('CDGSP') || userRoles.includes('DAJC') ">
+                <h5
+                  *ngIf="contrat.etat_contrat?.libelle != 'Résiliation'"
+                  class="main-title"
+                >
+                  Validation
+                </h5>
+                <div class="d-flex"  >
+                  <div *ngIf="userRoles.includes('CDGSP')">
+                    <button
+                      *ngIf="contrat.etat_contrat?.libelle != 'Résiliation'"
+                      class="mx-2"
+                      [ngClass]="
+                        contrat.validation1_DMG ? 'success-btn' : 'second-btn'
+                      "
+                      [id]="'vld1: ' + contrat._id"
+                      (click)="openConfirmationModalValidation1(contrat._id)"
+                      [disabled]="contrat.validation1_DMG"
+                    >
+                      Validiation 1
+                    </button>
+                  </div>
+                  <div *ngIf="userRoles.includes('DAJC')">
+                    <button
+                    *ngIf="contrat.etat_contrat?.libelle != 'Résiliation'"
+                    [ngClass]="
+                      contrat.validation2_DAJC ? 'success-btn' : ' second-btn'
+                    "
+                    [id]="'vld2: ' + contrat._id"
+                    (click)="
+                      openConfirmationModalValidation2(
+                        contrat._id,
+                        contrat.validation1_DMG
+                      )
+                    "
+                    [disabled]="contrat.validation2_DAJC"
+                  >
+                    Validation 2
+                  </button>
+                  </div>                  
+                </div>
+              </li>
+              <!-- <li class="my-3">
                                 <h5 class="main-title">Téléchargement</h5>
                                 <div class="col-12 col-lg-6 mt-2 d-flex mt-3">
                                     <button type="submit" class="btn second-btn form-control"
@@ -102,75 +170,117 @@
                                     <button type="submit" class="btn second-btn form-control mx-3"
                                         (click)="downloadAnnex2('Annex2')">Annex 2</button>
                                 </div>
-                            </li>
-                        </ul>
-                    </div>
-                </td>
-            </tr>
+                            </li> -->
+            </ul>
+          </div>
+        </td>
+      </tr>
 
-            <pagination-controls id="listContratPagination" (pageChange)="listContratPage = $event"
-                previousLabel="Précédent" nextLabel="Suivant">
-            </pagination-controls>
+      <pagination-controls
+        id="listContratPagination"
+        (pageChange)="listContratPage = $event"
+        previousLabel="Précédent"
+        nextLabel="Suivant"
+      >
+      </pagination-controls>
 
-            <app-main-modal [closeBtn]='true'>
-                <app-edit-contrat [contrat]="targetContrat">
-                </app-edit-contrat>
-            </app-main-modal>
+      <app-main-modal [closeBtn]="true">
+        <app-edit-contrat [contrat]="targetContrat"> </app-edit-contrat>
+      </app-main-modal>
 
-            <app-confirmation-modal [closeBtn]='true'>
-                <!-- <div *ngIf="isValidate; then validation1;else delete"></div> -->
-                <div *ngIf="isValidate; then validation1;else isValidate2 ?  validation2 : delete "></div>
-                <!-- <div *ngIf="isValidate2; then validation2;"></div> -->
+      <app-confirmation-modal [closeBtn]="true">
+        <!-- <div *ngIf="isValidate; then validation1;else delete"></div> -->
+        <div
+          *ngIf="
+            isValidate;
+            then validation1;
+            else isValidate2 ? validation2 : delete
+          "
+        ></div>
+        <!-- <div *ngIf="isValidate2; then validation2;"></div> -->
 
+        <ng-template #validation1>
+          <h3 class="main-title">
+            Confirmation de la validation 1<i
+              class="far fa-exclamation-circle"
+            ></i>
+          </h3>
+          <p class="mt-3">
+            Voulez vous vraiment valider la première validation de contrat?
+          </p>
+          <div class="d-inline-flex justify-content-start mt-5">
+            <a
+              class="btn btn-lg px-lg-4 danger-btn me-2"
+              (click)="validation1Contrat(); closeConfirmationModal()"
+              >Oui</a
+            >
+            <a
+              class="btn btn-lg px-lg-4 main-btn"
+              (click)="closeConfirmationModal()"
+              >Non</a
+            >
+          </div>
+        </ng-template>
 
-                <ng-template #validation1>
-                    <h3 class="main-title">Confirmation de la validation 1<i class="far fa-exclamation-circle"></i></h3>
-                    <p class="mt-3">Voulez vous vraiment valider la première validation de contrat?</p>
-                    <div class="d-inline-flex justify-content-start mt-5">
-                        <a class="btn btn-lg px-lg-4 danger-btn me-2"
-                            (click)="validation1Contrat();closeConfirmationModal()">Oui</a>
-                        <a class="btn btn-lg px-lg-4 main-btn" (click)='closeConfirmationModal();'>Non</a>
-                    </div>
-                </ng-template>
+        <ng-template #validation2>
+          <h3 class="main-title">
+            Confirmation de la validation 2
+            <i class="far fa-exclamation-circle"></i>
+          </h3>
+          <p class="mt-3">
+            Voulez vous vraiment valider la deuxième validation de contrat?
+          </p>
+          <div class="d-inline-flex justify-content-start mt-5">
+            <a
+              class="btn btn-lg px-lg-4 danger-btn me-2"
+              (click)="validation2Contrat(); closeConfirmationModal()"
+              >Oui</a
+            >
+            <a
+              class="btn btn-lg px-lg-4 main-btn"
+              (click)="closeConfirmationModal()"
+              >Non</a
+            >
+          </div>
+        </ng-template>
 
-                <ng-template #validation2>
-                    <h3 class="main-title">Confirmation de la validation 2 <i class="far fa-exclamation-circle"></i>
-                    </h3>
-                    <p class="mt-3">Voulez vous vraiment valider la deuxième validation de contrat?</p>
-                    <div class="d-inline-flex justify-content-start mt-5">
-                        <a class="btn btn-lg px-lg-4 danger-btn me-2"
-                            (click)="validation2Contrat();closeConfirmationModal()">Oui</a>
-                        <a class="btn btn-lg px-lg-4 main-btn" (click)='closeConfirmationModal();'>Non</a>
-                    </div>
-                </ng-template>
+        <ng-template #delete>
+          <h3 class="main-title">
+            Confirmation de la supression
+            <i class="far fa-exclamation-circle"></i>
+          </h3>
+          <p class="mt-3">Voulez vous vraiment supprimer cette contrat?</p>
+          <div class="d-inline-flex justify-content-start mt-5">
+            <a
+              class="btn btn-lg px-lg-4 danger-btn me-2"
+              (click)="deleteContrat(); closeConfirmationModal()"
+              >Oui</a
+            >
+            <a
+              class="btn btn-lg px-lg-4 main-btn"
+              (click)="closeConfirmationModal()"
+              >Non</a
+            >
+          </div>
+        </ng-template>
+      </app-confirmation-modal>
+    </tbody>
 
-                <ng-template #delete>
-                    <h3 class="main-title">Confirmation de la supression <i class="far fa-exclamation-circle"></i></h3>
-                    <p class="mt-3">Voulez vous vraiment supprimer cette contrat?</p>
-                    <div class="d-inline-flex justify-content-start mt-5">
-                        <a class="btn btn-lg px-lg-4 danger-btn me-2"
-                            (click)="deleteContrat();closeConfirmationModal()">Oui</a>
-                        <a class="btn btn-lg px-lg-4 main-btn" (click)='closeConfirmationModal();'>Non</a>
-                    </div>
-                </ng-template>
+    <tbody
+      *ngIf="!contrats?.length && !accessError"
+      class="w-100 d-flex align-items-center"
+    >
+      <h5 class="main-muted-text my-4">Aucun contrat à afficher</h5>
+      <a class="btn btn-sm second-btn ms-2" [routerLink]="['/contrat']">
+        + Nouveau contrat
+      </a>
+    </tbody>
 
-
-            </app-confirmation-modal>
-
-        </tbody>
-
-        <tbody *ngIf="!contrats?.length && !accessError" class="w-100 d-flex align-items-center">
-            <h5 class="main-muted-text my-4">Aucun contrat à afficher</h5>
-            <a class="btn btn-sm second-btn ms-2" [routerLink]="['/contrat']">
-                + Nouveau contrat
-            </a>
-        </tbody>
-
-        <tbody *ngIf="accessError" class="w-100 d-flex align-items-center">
-            <h5 class="text-danger my-4">{{accessError}}</h5>
-            <a class="btn btn-sm second-btn ms-3" [routerLink]="['/']">
-              <i class="far fa-chevron-left"></i> Retour au tablau de bors
-            </a>
-          </tbody>
-    </table>
+    <tbody *ngIf="accessError" class="w-100 d-flex align-items-center">
+      <h5 class="text-danger my-4">{{ accessError }}</h5>
+      <a class="btn btn-sm second-btn ms-3" [routerLink]="['/']">
+        <i class="far fa-chevron-left"></i> Retour au tablau de bors
+      </a>
+    </tbody>
+  </table>
 </div>
