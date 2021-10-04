@@ -42,6 +42,8 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
   userMatricule: any = localStorage.getItem('matricule')
   accessError!: any;
 
+  // proprietaire !: any;
+
 
   constructor(
     private lieuxService: LieuxService,

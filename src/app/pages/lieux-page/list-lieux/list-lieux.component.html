@@ -112,7 +112,11 @@
         </span>
       </td>
       <td>
-        <a [routerLink]="['/proprietaire',lieu._id]" class="btn btn-sm success-btn">Ajouter un propriétaire</a>
+        <span class="bg-info rounded-pill p-1 m-2 col-sm-6">
+          <strong *ngIf="lieu.proprietaire">{{lieu.proprietaire.length > 1 ? lieu.proprietaire.length : ''}}</strong><span> Proprietaire</span>
+        </span>
+        <a *ngIf="!lieu.proprietaire" [routerLink]="['/proprietaire',lieu._id]" class="btn btn-sm success-btn">Ajouter un propriétaire</a>
+        <a *ngIf="lieu.proprietaire" [routerLink]="['/proprietaire',lieu._id]" class="btn btn-sm success-btn">Ajouter un autre</a>
       </td>
       <td> 
         <a [routerLink]="['/contrat',lieu._id]" class="btn btn-sm success-btn">Ajouter un contrat</a>
