@@ -48,12 +48,19 @@
             class="form-control rounded-pill"
             formControlName="code_lieu"
             [ngClass]="{
-              'is-invalid': checkInputsValidation(code_lieu)
+              'is-invalid': checkInputsValidation(code_lieu),
+              'is-valid': !code_lieu?.invalid
             }"
           />
           <div class="" *ngIf="checkInputsValidation(code_lieu)">
             <p class="text-danger" *ngIf="code_lieu?.errors?.required">
               Veuillez remplir ce champ
+            </p>
+            <p class="text-danger" *ngIf="code_lieu?.errors?.maxlength">
+              Ce champ ne doit pas dépasser 3 caractères
+            </p>
+            <p class="text-danger" *ngIf="code_lieu?.errors?.pattern">
+              Vous devez entrer seulement des chiffres
             </p>
           </div>
         </div>
@@ -65,12 +72,16 @@
             class="form-control rounded-pill"
             formControlName="intitule_lieu"
             [ngClass]="{
-              'is-invalid': checkInputsValidation(intitule_lieu)
+              'is-invalid': checkInputsValidation(intitule_lieu),
+              'is-valid': !intitule_lieu?.invalid
             }"
           />
           <div class="" *ngIf="checkInputsValidation(intitule_lieu)">
-            <p class="text-danger" *ngIf="code_lieu?.errors?.required">
+            <p class="text-danger" *ngIf="intitule_lieu?.errors?.required">
               Veuillez remplir ce champ
+            </p>
+            <p class="text-danger" *ngIf="intitule_lieu?.errors?.pattern">
+              Vous devez entrer seulement des alphabets
             </p>
           </div>
         </div>
@@ -81,7 +92,19 @@
             type="text"
             class="form-control rounded-pill"
             formControlName="adresse"
+            [ngClass]="{
+              'is-invalid': checkInputsValidation(adresse),
+              'is-valid': !adresse?.invalid  
+            }"
           />
+          <div class="" *ngIf="checkInputsValidation(adresse)">
+            <p class="text-danger" *ngIf="adresse?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+            <p class="text-danger" *ngIf="adresse?.errors?.pattern">
+              Vous devez entrer seulement des alphabets
+            </p>
+          </div>
         </div>
 
         <div class="col-lg-3 form-group mt-4">
@@ -90,7 +113,20 @@
             type="text"
             class="form-control rounded-pill"
             formControlName="ville"
+            [ngClass]="{
+              'is-invalid': checkInputsValidation(code_localite),
+              'is-valid': !code_localite?.invalid 
+            }"
           />
+
+          <div class="" *ngIf="checkInputsValidation(code_localite)">
+            <p class="text-danger" *ngIf="code_localite?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+            <p class="text-danger" *ngIf="code_localite?.errors?.pattern">
+              Vous devez entrer seulement des alphabets
+            </p>
+          </div>
         </div>
 
         <div class="col-lg-3 form-group mt-4">
@@ -147,7 +183,9 @@
             type="text"
             class="form-control rounded-pill"
             formControlName="telephone"
+            
           />
+
         </div>
 
         <div class="col-lg-3 form-group mt-4">

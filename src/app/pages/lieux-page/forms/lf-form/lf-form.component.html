@@ -35,19 +35,39 @@
       <div class="row">
         <div class="col-lg-3 form-group mt-4">
           <label for="">Code DR</label>
-          <select class="form-select rounded-pill" formControlName="code_rattache_DR">
+          <select class="form-select rounded-pill" formControlName="code_rattache_DR" >
             <option [value]="drItem.code_lieu" *ngFor="let drItem of Dr">{{ drItem.code_lieu }}</option>
           </select>
+        
         </div>
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Adresse</label>
-          <input type="text" class="form-control rounded-pill" formControlName="adresse" />
+          <input type="text" class="form-control rounded-pill" formControlName="adresse" 
+          [ngClass]="{
+            'is-invalid': checkInputsValidation(adresse),
+            'is-valid': !adresse?.invalid 
+          }"/>
+          <div class="" *ngIf="checkInputsValidation(adresse)">
+            <p class="text-danger" *ngIf="adresse?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+          </div>
         </div>
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Ville</label>
-          <input type="text" class="form-control rounded-pill" formControlName="ville" />
+          <input type="text" class="form-control rounded-pill" formControlName="ville" 
+          [ngClass]="{
+            'is-invalid': checkInputsValidation(ville),
+            'is-valid': !ville?.invalid 
+          }"/>
+
+          <div class="" *ngIf="checkInputsValidation(ville)">
+            <p class="text-danger" *ngIf="ville?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+          </div>
         </div>
 
         <div class="col-lg-3 form-group mt-4">
@@ -68,7 +88,19 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Fax</label>
-          <input type="text" class="form-control rounded-pill" formControlName="fax" />
+          <input type="text" class="form-control rounded-pill" formControlName="fax" 
+          [ngClass]="{
+            'is-invalid': checkInputsValidation(fax),
+            'is-valid': !fax?.invalid 
+          }"/>
+          <div class="" *ngIf="checkInputsValidation(fax)">
+            <p class="text-danger" *ngIf="fax?.errors?.required">
+              Vous devez entrer seulement des chiffres
+            </p>
+            <p class="text-danger" *ngIf="fax?.errors?.maxlength">
+              Vous devez entrer 10 nombres au maximum
+            </p>
+          </div>
         </div>
 
         <div class="col-lg-3 form-group mt-4">

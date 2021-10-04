@@ -43,26 +43,26 @@
         placeholder="Rechercher par intitulé/ville/aménagement..."
       />
     </div>
-  <!-- <div class="col-sm-1 my-2">
-     <label for="" class="main-muted-text">Oui</label>
+  <div class="col-sm-1 my-2">
+     <!-- <label for="" class="main-muted-text">Oui</label> -->
       <button
         type="submit"
         [(ngModel)]="checkAmenagementTrue"
-        [value]="true"
-        (change)="searchAmenagementTrue($event)"
+        
+        (click)="searchAmenagementTrue($event)"
         class=" rounded-pill"
       >Oui</button>
   </div>
      <div class="col-sm-1 my-2">
-       <label for="" class="main-muted-text">Non</label>
+       <!-- <label for="" class="main-muted-text">Non</label> -->
       <button
         type="submit"
         [(ngModel)]="checkAmenagementFalse"
-        [value]="false"
-        (change)="searchAmenagementFalse($event)"
+        
+        (click)="searchAmenagementFalse($event)"
         class=" rounded-pill"
       >Non</button>
-     </div> -->
+     </div>
       
 
   </div>
