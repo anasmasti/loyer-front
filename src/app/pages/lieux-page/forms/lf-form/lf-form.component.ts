@@ -1,3 +1,4 @@
+import { getCitiesAction } from './../../../../store/shared/shared.action';
 import { getDrWithSupAction } from './../../lieux-store/lieux.actions';
 import {
   Component,
@@ -18,6 +19,7 @@ import { getDr } from '../../lieux-store/lieux.selector';
 import { Subscription } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { HelperService } from 'src/app/services/helpers/helper.service';
+import { getCities } from 'src/app/store/shared/shared.selector';
 
 @Component({
   selector: 'lf-form',
@@ -60,10 +62,11 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
 
   userMatricule: any = localStorage.getItem('matricule')
 
+  cities!: any[]
+  citiesSubscription$!: Subscription
 
   constructor(
     private mainModalService: MainModalService,
-    private mainModel: MainModalService,
     private confirmationModalService: ConfirmationModalService,
     private help: HelperService,
     private lieuService: LieuxService,
@@ -121,6 +124,18 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
       amenagementForm: new FormArray([]),
     });
     this.getDr()
+    this.getCities()
+  }
+
+  fetchCities() {
+    this.store.dispatch(getCitiesAction())
+  }
+  
+  getCities() {
+    this.citiesSubscription$ = this.store.select(getCities).subscribe(data => {
+      if (data) this.cities = data;
+      if (data.length == 0) this.fetchCities()
+    });
   }
 
   fetchLf(HasAmenagement: string) {
@@ -733,6 +748,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnDestroy() {
     if (this.DrSubscription$) this.DrSubscription$.unsubscribe();
+    if (this.citiesSubscription$) this.citiesSubscription$.unsubscribe()
   }
 
   //////////////////////////////////////////////////////////////////////////////////

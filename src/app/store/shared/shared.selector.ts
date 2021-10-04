@@ -11,6 +11,6 @@ export const getAllCounts = createSelector(getSharedState, (state) => {
     return state.allCounts
 })
 
-export const getCountries = createSelector(getSharedState, (state) => {
-    return state.countries
+export const getCities = createSelector(getSharedState, (state) => {
+    return state.cities
 })

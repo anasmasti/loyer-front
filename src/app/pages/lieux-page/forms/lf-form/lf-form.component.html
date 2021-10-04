@@ -47,7 +47,9 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Ville</label>
-          <input type="text" class="form-control rounded-pill" formControlName="ville" />
+          <select class="form-select rounded-pill" formControlName="ville">
+            <option *ngFor="let city of cities" [value]="city.name">{{city.name}}</option>
+          </select>
         </div>
 
         <div class="col-lg-3 form-group mt-4">
