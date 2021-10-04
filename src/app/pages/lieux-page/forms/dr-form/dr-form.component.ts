@@ -1,9 +1,14 @@
+import { Subscription } from 'rxjs';
+import { getCitiesAction } from './../../../../store/shared/shared.action';
+import { AppState } from './../../../../store/app.state';
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup , Validators } from '@angular/forms';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { DOCUMENT } from '@angular/common';
 import { HelperService } from 'src/app/services/helpers/helper.service';
+import { Store } from '@ngrx/store';
+import { getCities } from 'src/app/store/shared/shared.selector';
 
 @Component({
   selector: 'dr-form',
@@ -36,12 +41,15 @@ export class DrFormComponent implements OnInit {
   selectedImagesLieuEntrer!: [];
 
   userMatricule: any = localStorage.getItem('matricule')
-
+  
+  cities!: any[]
+  citiesSubscription$!: Subscription
 
   constructor(
     private lieuService: LieuxService,
     private mainModalService: MainModalService,
     private help: HelperService,
+    private store: Store<AppState>,
     @Inject(DOCUMENT) private document: Document
   ) {}
 
@@ -78,6 +86,19 @@ export class DrFormComponent implements OnInit {
 
       //Aménagement
       amenagementForm: new FormArray([]),
+    });
+
+    this.getCities()
+  }
+
+  fetchCities() {
+    this.store.dispatch(getCitiesAction())
+  }
+  
+  getCities() {
+    this.citiesSubscription$ = this.store.select(getCities).subscribe(data => {
+      if (data) this.cities = data;
+      if (data.length == 0) this.fetchCities()
     });
   }
 
@@ -495,6 +516,10 @@ export class DrFormComponent implements OnInit {
         this.hideErrorMessage();
       }
     );
+  }
+
+  ngOnDestroy() {
+    if (this.citiesSubscription$) this.citiesSubscription$.unsubscribe()
   }
 
   get code_lieu() {

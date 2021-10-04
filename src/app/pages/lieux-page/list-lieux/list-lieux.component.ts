@@ -6,7 +6,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ConfirmationModalService } from '../../../services/confirmation-modal-service/confirmation-modal.service';
 import { MainModalService } from '../../../services/main-modal/main-modal.service';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
-import { Observable, timer, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { getError, getLieux } from '../lieux-store/lieux.selector';
 import { getLieuxAction } from '../lieux-store/lieux.actions';
