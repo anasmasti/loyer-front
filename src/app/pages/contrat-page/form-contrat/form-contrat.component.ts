@@ -82,7 +82,7 @@ export class FormContratComponent implements OnInit {
   totalBrutLoyer!: number;
   totalNetLoyer!: number
 
-  foncier_id!: string
+  lieu_id!: string
 
   userMatricule: any = localStorage.getItem('matricule')
 
@@ -103,12 +103,11 @@ export class FormContratComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.foncier_id = this.actRoute.snapshot.paramMap.get('foncier_id') || '';
+    this.lieu_id = this.actRoute.snapshot.paramMap.get('id_lieu') || '';
 
-    if (this.foncier_id) {
-      this.getFoncierByID(this.foncier_id)
-    }
-    
+    if (this.lieu_id) {
+      this.getFoncierByID(this.lieu_id)
+    }    
 
     // this.etatContratTypes = 'Avenant'
     this.contratForm = new FormGroup({
@@ -406,7 +405,8 @@ export class FormContratComponent implements OnInit {
       foncier: this.contratForm.get('foncier')?.value || '',
       n_engagement_depense:
         this.contratForm.get('n_engagement_depense')?.value || '',
-      lieu: this.contratForm.get('lieu')?.value || '',
+      // lieu: this.contratForm.get('lieu')?.value || '',
+      lieu: this.lieu_id,
       duree_location: this.contratForm.get('duree_location')?.value || '',
 
       duree: this.duree || '',
