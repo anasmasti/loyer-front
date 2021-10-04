@@ -104,7 +104,7 @@
                         contrat.validation1_DMG ? 'success-btn' : 'second-btn'
                       " [id]="'vld1: ' + contrat._id" (click)="openConfirmationModalValidation1(contrat._id)"
                       [disabled]="contrat.validation1_DMG">
-                      Valider le contrat
+                      {{ ( contrat.validation1_DMG ) ? 'contrat validé' : 'Valider le contrat' }}
                     </button>
                   </div>
                   <div *ngIf="userRoles.includes('DAJC')">
@@ -117,7 +117,9 @@
                           contrat.validation1_DMG
                         )
                       " [disabled]="contrat.validation2_DAJC">
-                      Valider le contrat
+                      
+                      {{ ( contrat.validation2_DAJC ) ? 'contrat validé' : 'Valider le contrat' }}
+
                     </button>
                     <div class="error-alert p-3 text-center" *ngIf="!contrats[0].validation1_DMG" style="width: 300px;">
                       La première validation n'a pas encore faite.</div>
