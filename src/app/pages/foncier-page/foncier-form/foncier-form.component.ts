@@ -241,8 +241,6 @@ selectCountries(){
     // )
     .subscribe(data => {
       this.cities = data
-      console.log(data);
-      
     })
   }
 

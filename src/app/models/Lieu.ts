@@ -5,7 +5,7 @@ export interface Lieu {
   intitule_DR?: string;
   adresse?: string;
   ville?: string;
-  proprietaire?: [];
+  proprietaire: [];
   code_localite?: string;
   desc_lieu_entrer?: string;
   imgs_lieu_entrer: [

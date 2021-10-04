@@ -97,6 +97,10 @@
 .short-link {
     text-decoration: none;
     font-size: small;
+    
+    &:hover {
+        color: color(dark) !important;
+    }
 }
 
 

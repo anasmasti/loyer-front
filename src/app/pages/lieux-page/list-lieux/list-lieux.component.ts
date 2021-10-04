@@ -42,10 +42,13 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
   userMatricule: any = localStorage.getItem('matricule')
   accessError!: any;
 
+<<<<<<< HEAD
   
   // proprietaire !: any;
 
 
+=======
+>>>>>>> c6a7f1baf292a13a783bb55d6bc36d4a2304c1b9
   constructor(
     private lieuxService: LieuxService,
     private mainModalService: MainModalService,
@@ -96,9 +99,6 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
       
   //      this.getAllLieux();
   //   }
-  //   console.log("Event",event.target.checked);
-    
-  //   console.log('checked => ', this.checkAmenagementFalse); 
   // }
 
   // searchAmenagementTrue(event:any) {
@@ -112,7 +112,6 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
      
   //      this.getAllLieux();
   //   }
-  //   console.log('checked => ', this.checkAmenagementTrue); 
   // }
 
 
