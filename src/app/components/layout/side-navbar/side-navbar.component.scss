@@ -38,6 +38,7 @@
 
 .sub-menu#lieux.active {
     display: flex !important;
+    flex-direction: column;
 }
 
 .sub-menu#foncier.active {
