@@ -108,8 +108,6 @@ export class FormContratComponent implements OnInit {
     if (this.foncier_id) {
       this.getFoncierByID(this.foncier_id)
     }
-
-    console.log(this.foncier_id);
     
 
     // this.etatContratTypes = 'Avenant'
@@ -419,8 +417,6 @@ export class FormContratComponent implements OnInit {
 
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
-
-    console.log('Data ==> ' , ctr_data);
     
 
     // post the formdata (data+files)

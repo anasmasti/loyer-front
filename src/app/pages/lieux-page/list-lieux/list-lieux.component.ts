@@ -92,9 +92,6 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
       
   //      this.getAllLieux();
   //   }
-  //   console.log("Event",event.target.checked);
-    
-  //   console.log('checked => ', this.checkAmenagementFalse); 
   // }
 
   // searchAmenagementTrue(event:any) {
@@ -108,7 +105,6 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
      
   //      this.getAllLieux();
   //   }
-  //   console.log('checked => ', this.checkAmenagementTrue); 
   // }
 
 

@@ -226,9 +226,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       // deleted:false,
     };
 
-    console.log(proprietaire_data);
-    
-
     this.proprietaireService.postProprietaire(proprietaire_data, id_lieu, this.userMatricule).subscribe(
       (_) => {
         this.postDone = true;
