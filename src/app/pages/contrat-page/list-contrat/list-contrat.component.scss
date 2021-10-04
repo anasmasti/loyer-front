@@ -5,3 +5,10 @@ th {
    @extend .header-table
 }
 
+.av {
+    background: color(info);
+    color: color(light);
+    border-radius: $main-border-radius;
+    width: auto;
+    text-align: center;
+}

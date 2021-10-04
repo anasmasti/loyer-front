@@ -1,12 +1,10 @@
 import { FoncierService } from './../../../services/foncier-service/foncier.service';
 import { HelperService } from 'src/app/services/helpers/helper.service';
-import { AppState } from 'src/app/store/app.state';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
 import { ContratService } from 'src/app/services/contrat-service/contrat.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -92,7 +90,7 @@ export class FormContratComponent implements OnInit {
     private mainModalService: MainModalService,
     private help: HelperService,
     private foncierService: FoncierService,
-    private store: Store<AppState>,
+    public router: Router,
     private actRoute: ActivatedRoute
   ) { }
 
@@ -418,10 +416,6 @@ export class FormContratComponent implements OnInit {
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
 
-    console.log(ctr_data);
-    
-    
-
     // post the formdata (data+files)
     this.contratService.addContrat(this.fd, this.userMatricule).subscribe(
       (_) => {
@@ -430,7 +424,9 @@ export class FormContratComponent implements OnInit {
           this.contratForm.reset();
           this.postDone = false;
           this.help.toTheUp();
-          // this.help.refrechPage();
+          this.router.navigate(['/contrat/list-global/list']).then(() => {
+            this.help.refrechPage()
+          });
         }, 2000);
       },
       (error) => {

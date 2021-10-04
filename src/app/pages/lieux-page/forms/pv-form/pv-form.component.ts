@@ -72,7 +72,7 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit(): void {
     this.PvForm = new FormGroup({
       code_lieu: new FormControl('' ,[Validators.required,Validators.maxLength(3),Validators.pattern('[0-9]*')]),
-      intitule_lieu: new FormControl('', [Validators.required,Validators.pattern('[a-zA-Z]*')]),
+      intitule_lieu: new FormControl('',[Validators.required,Validators.pattern('[a-zA-Z]*')]),
       intitule_DR: new FormControl(''),
       adresse: new FormControl('',[Validators.required]),
       ville: new FormControl(''),
@@ -574,6 +574,14 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
 
   get code_rattache_SUP() {
     return this.PvForm.get('code_rattache_SUP')
+  }
+  
+  get telephone() {
+    return this.PvForm.get('telephone');
+  }
+
+  get fax() {
+    return this.PvForm.get('fax');
   }
 
 }
