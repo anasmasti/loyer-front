@@ -26,24 +26,8 @@
                     Tableau de bord
                 </a>
             </li>
+
             <li class="nav-item my-4">
-                <a [routerLink]="['/proprietaire']" routerLinkActive="router-link-active" class="nav-link main-btn">
-                    <span (click)="showSubMenu('proprietaire')">Propriétaire de locale</span>
-                </a>
-                <ul class="sub-menu list-unstyled" id="proprietaire">
-                    <li>
-                        <a [routerLink]="['/proprietaire/list']" class="nav-link sub-menu-btn">
-                            Liste des propriétaires
-                        </a>
-                    </li>
-                    <!-- <li>
-                    <a [routerLink]="['/proprietaire/detail']" class="nav-link sub-menu-btn">
-                        Détails
-                    </a>
-                </li> -->
-                </ul>
-            </li>
-            <li class="nav-item ">
                 <a [routerLink]="['/lieux']" routerLinkActive="router-link-active" class="nav-link main-btn">
                     <span (click)="showSubMenu('lieux')">Lieux</span>
                 </a>
@@ -53,10 +37,38 @@
                             Liste des lieux
                         </a>
                     </li>
-
+                    <li>
+                        <a [routerLink]="['/lieux/list']" class="nav-link sub-menu-btn">
+                           Ajouter propriétaires
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/lieux/list']" class="nav-link sub-menu-btn">
+                            Ajouter contrat
+                        </a>
+                    </li>
                 </ul>
             </li>
-            <li class="nav-item my-4">
+
+            <li class="nav-item">
+                <a [routerLink]="['/proprietaire/list']" routerLinkActive="router-link-active" class="nav-link main-btn">
+                    <span>Liste des propriétaires</span>
+                </a>
+                <!-- <ul class="sub-menu list-unstyled" id="proprietaire">
+                    <li>
+                        <a [routerLink]="['/proprietaire/list']" class="nav-link sub-menu-btn">
+                            Liste des propriétaires
+                        </a>
+                    </li> -->
+                    <!-- <li>
+                    <a [routerLink]="['/proprietaire/detail']" class="nav-link sub-menu-btn">
+                        Détails
+                    </a>
+                </li> -->
+                <!-- </ul> -->
+            </li>
+          
+            <!-- <li class="nav-item my-4">
                 <a [routerLink]="['/foncier']" routerLinkActive="router-link-active" class="nav-link main-btn">
                     <span (click)="showSubMenu('foncier')">Foncier</span>
                 </a>
@@ -68,8 +80,8 @@
                     </li>
 
                 </ul>
-            </li>
-            <li class="nav-item">
+            </li> -->
+            <li class="nav-item my-4">
                 <a [routerLink]="['/contrat/list-global/list']" routerLinkActive="router-link-active" class="nav-link main-btn">
                     <span>List des contrats</span>
                 </a>
