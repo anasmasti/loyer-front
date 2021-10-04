@@ -96,9 +96,9 @@
                 <h5 *ngIf="contrat.etat_contrat?.libelle != 'Résiliation'" class="main-title">
                   Validation
                 </h5>
-                <div class="d-flex">
-                  <div *ngIf="userRoles.includes('CDGSP')">
-                    <button *ngIf="contrat.etat_contrat?.libelle != 'Résiliation'" class="mx-2" [ngClass]="
+                <div class="d-flex flex-column gap-2">
+                  <div *ngIf="userRoles.includes('CDGSP')" >
+                    <button *ngIf="contrat.etat_contrat?.libelle != 'Résiliation'" class="btn" [ngClass]="
                         contrat.validation1_DMG ? 'success-btn' : 'second-btn'
                       " [id]="'vld1: ' + contrat._id" (click)="openConfirmationModalValidation1(contrat._id)"
                       [disabled]="contrat.validation1_DMG">
@@ -108,13 +108,13 @@
                   <div *ngIf="userRoles.includes('DAJC')">
                     <button *ngIf="contrat.etat_contrat?.libelle != 'Résiliation' && contrats[0].validation1_DMG"
                       [ngClass]="
-                        contrat.validation2_DAJC ? 'success-btn p-1' : ' second-btn p-1'
+                        contrat.validation2_DAJC ? 'success-btn' : 'second-btn'
                       " [id]="'vld2: ' + contrat._id" (click)="
                         openConfirmationModalValidation2(
                           contrat._id,
                           contrat.validation1_DMG
                         )
-                      " [disabled]="contrat.validation2_DAJC">
+                      " [disabled]="contrat.validation2_DAJC" class="btn">
                       Valider le contrat
                     </button>
                     <div class="error-alert p-3 text-center" *ngIf="!contrats[0].validation1_DMG" style="width: 300px;">
