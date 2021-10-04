@@ -12,7 +12,7 @@
 </div>
 
 <div class="my-5">
-    <div class="d-flex justify-content-between align-content-center flex-row">
+    <div class="d-flex justify-content-between align-content-center gap-2 flex-row">
         <div class="" *ngFor="let lieu of lieux">
             <a (click)='showForm(lieu.id);getLieuName(lieu.name)' class="btn second-btn lieux-types-card">{{ lieu.name }}</a>
         </div>

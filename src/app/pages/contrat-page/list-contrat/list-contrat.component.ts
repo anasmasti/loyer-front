@@ -41,6 +41,10 @@ export class ListContratComponent implements OnInit {
   userMatricule: any = localStorage.getItem('matricule');
   accessError!: any;
 
+  user: any = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '') : [];
+  userRoles: any[] = []; 
+
+
   constructor(
     private contratService: ContratService,
     private mainModalService: MainModalService,
@@ -53,17 +57,32 @@ export class ListContratComponent implements OnInit {
     setTimeout(() => {
       this.getContrat();
     }, 200);
+
+
+    if (localStorage.getItem('user')) {
+
+      for (let index = 0; index < this.user.existedUser.userRoles.length; index++) {
+        const element = this.user.existedUser.userRoles[index].roleCode;
+        this.userRoles.push(element)
+      }
+      console.log(this.userRoles);
+      
+    }
+
   }
 
   getContrat() {
     this.contratService.getContrat().subscribe(
       (data: any) => {
         this.contrats = data;
+        console.log(data);
+        
       },
       (error: any) => {
         this.accessError = error.error.message;
       }
     );
+    
   }
 
   // Filter by intitule
@@ -107,7 +126,7 @@ export class ListContratComponent implements OnInit {
     } else {
       this.testValidation1 = true;
       // Test pour verifier si la validation 1 est déjà validé sinon on vas afficher le msg d'erreur
-      this.errors = "La première validation n'a pas encore fait!";
+      this.errors = "La première validation n'a pas encore faite!";
       setTimeout(() => {
         this.testValidation1 = false;
         this.errors = '';

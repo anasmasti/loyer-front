@@ -31,11 +31,11 @@ export class ContratService {
   }
 
   //get details contrat by id
-  getSelectedContrat(id: String, matricule: any) {
+  getSelectedContrat(id: String) {
     return this.http.get(
       `${
         environment.API_URL_TEST + environment.API_VERSION + this.param_url
-      }/details/${id}/${matricule}`,
+      }/details/${id}`,
       { headers: this.httpOptions.headers }
     );
   }
