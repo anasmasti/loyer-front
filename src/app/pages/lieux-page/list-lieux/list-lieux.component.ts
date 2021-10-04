@@ -42,6 +42,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
   userMatricule: any = localStorage.getItem('matricule')
   accessError!: any;
 
+  
 
   constructor(
     private lieuxService: LieuxService,
@@ -64,6 +65,8 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     this.store.select(getError).subscribe(data => {
       if (data) this.accessError = data
     })
+
+    
   } 
 
   //=======================================================================================================

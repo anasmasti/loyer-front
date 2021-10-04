@@ -41,6 +41,10 @@ export class ListContratComponent implements OnInit {
   userMatricule: any = localStorage.getItem('matricule');
   accessError!: any;
 
+  user: any = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '') : [];
+  userRoles: any[] = []; 
+
+
   constructor(
     private contratService: ContratService,
     private mainModalService: MainModalService,
@@ -53,6 +57,19 @@ export class ListContratComponent implements OnInit {
     setTimeout(() => {
       this.getContrat();
     }, 200);
+
+    console.log( 'test ===>' ,  this.user);
+
+    if (localStorage.getItem('user')) {
+
+      for (let index = 0; index < this.user.existedUser.userRoles.length; index++) {
+        const element = this.user.existedUser.userRoles[index].roleCode;
+        this.userRoles.push(element)
+      }
+      console.log(this.userRoles);
+      
+    }
+
   }
 
   getContrat() {
