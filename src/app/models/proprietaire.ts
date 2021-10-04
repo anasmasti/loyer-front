@@ -12,6 +12,7 @@ export interface Proprietaire {
   n_compte_bancaire: string;
   banque: string;
   nom_agence_bancaire: string;
+  montant_loyer: number;
   mandataire: boolean;
   // mandataire: [{
   //   cin_mandataire: string;

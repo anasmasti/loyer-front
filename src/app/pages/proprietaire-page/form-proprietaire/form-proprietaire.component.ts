@@ -61,6 +61,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       ]),
       banque: new FormControl('', [Validators.required]),
       nom_agence_bancaire: new FormControl('', []),
+      montant_loyer: new FormControl('', []),
       mandataire: new FormControl('', []),
 
       // Champs du mandataire
@@ -174,6 +175,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         n_compte_bancaire: this.proprietaire.n_compte_bancaire,
         banque: this.proprietaire.banque,
         nom_agence_bancaire: this.proprietaire.nom_agence_bancaire,
+        montant_loyer: this.proprietaire.montant_loyer,
         mandataire: this.proprietaire.mandataire,
         // mandataire inputs
         // cin_mandataire: '',
@@ -220,11 +222,15 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       banque: this.proprietaireForm.get('banque')?.value,
       nom_agence_bancaire: this.proprietaireForm.get('nom_agence_bancaire')
         ?.value,
+      montant_loyer: this.proprietaireForm.get('montant_loyer')?.value,
       mandataire: this.proprietaireForm.get('mandataire')?.value,
 
       // mandataire: this.proprietaireForm.get('mandataireForm')?.value,
       // deleted:false,
     };
+
+    console.log(proprietaire_data);
+    
 
     this.proprietaireService.postProprietaire(proprietaire_data, id_lieu, this.userMatricule).subscribe(
       (_) => {
@@ -262,6 +268,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       banque: this.proprietaireForm.get('banque')?.value,
       nom_agence_bancaire: this.proprietaireForm.get('nom_agence_bancaire')
         ?.value,
+      montant_loyer : this.proprietaireForm.get('montant_loyer')?.value ,
       mandataire: this.proprietaireForm.get('mandataire')?.value,
 
       // mandataire: this.proprietaireForm.get('mandataireForm')?.value,
@@ -323,6 +330,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
   get nom_agence_bancaire() {
     return this.proprietaireForm.get('nom_agence_bancaire');
+  }
+  get montant_loyer() {
+    return this.proprietaireForm.get('montant_loyer');
   }
   get mandataire() {
     return this.proprietaireForm.get('mandataire');
