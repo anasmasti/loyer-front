@@ -73,8 +73,8 @@ export class DrFormComponent implements OnInit {
       imgs_lieu_entrer: new FormControl(''),
       has_amenagements: new FormControl(''),
       superficie: new FormControl(''),
-      telephone: new FormControl(''),
-      fax: new FormControl(''),
+      telephone: new FormControl('',[Validators.required,Validators.pattern('[0-9]*'),Validators.maxLength(10)]),
+      fax: new FormControl('',[Validators.required,Validators.pattern('[0-9]*'),Validators.maxLength(10)]),
       etage: new FormControl(''),
       type_lieu: new FormControl(''),
       code_rattache_DR: new FormControl(''),
@@ -544,5 +544,13 @@ export class DrFormComponent implements OnInit {
 
   get amenagementForm(): FormArray {
     return <FormArray>this.drForm.get('amenagementForm');
+  }
+
+  get telephone(): FormArray {
+    return <FormArray>this.drForm.get('telephone');
+  }
+
+  get fax(): FormArray {
+    return <FormArray>this.drForm.get('fax');
   }
 }
