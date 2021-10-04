@@ -20,7 +20,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 
 const route: Routes = [
-  { path: ':foncier_id', component: ContratComponent },
+  { path: ':id_lieu', component: ContratComponent },
   { path: 'list-global/list/list/:id', component: DetailContratComponent },
   { path: 'list-global/list', component: ListContratComponent },
   { path: 'list/edit/:id', component: EditContratComponent },

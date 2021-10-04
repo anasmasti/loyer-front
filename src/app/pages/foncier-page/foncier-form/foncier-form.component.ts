@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { getLieux, getProprietaires } from '../foncier-store/foncier.selector';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, delay, map } from 'rxjs/operators';
 import { HelperService } from 'src/app/services/helpers/helper.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { getCountries } from 'src/app/store/shared/shared.selector';
@@ -231,8 +231,18 @@ selectCountries(){
   getCities(event: any) {
     let isoCode: string = event.target.value
 
-    this.help.getCities(isoCode).subscribe(data => {
+    this.help.getCities(isoCode)
+    // .pipe(
+    //   map((data: any) => {
+    //     if (data.length > 20) {
+    //      debounceTime(1000)
+    //     }
+    //   })
+    // )
+    .subscribe(data => {
       this.cities = data
+      console.log(data);
+      
     })
   }
 
