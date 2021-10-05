@@ -23,11 +23,16 @@
                     </li> -->
                 </ul>
                 <div id="#user-card" class="card border-0 me-5 main-card">
-                    <div class="card-body">
+                    <div *ngIf="user.existedUser" class="card-body">
                         <h6 class="mainText">
                             {{user.existedUser.nom}} {{user.existedUser.prenom}}
                         </h6>
                         <span class="badge user-admin-title">{{userRole}}</span>
+                    </div>
+                    <div *ngIf="!user.existedUser" class="card-body">
+                        <h6 class="mainText">
+                            Vous devez se connecter.
+                        </h6>
                     </div>
                 </div>
                 <a class="btn dark-btn" (click)='doDarkMode()' title="Mode sombre"><i class="fal fa-moon"></i></a>

@@ -55,7 +55,7 @@ export class LoginPageComponent implements OnInit {
       localStorage.setItem('user', JSON.stringify(data))
       this.router.navigate(['/']).then(() => {
         this.helperService.refrechPage()
-      });;
+      });
     }, error => {
       this.hasError = true
       this.errorMessage = error.error.message
