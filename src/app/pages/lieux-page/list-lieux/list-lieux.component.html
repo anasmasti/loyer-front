@@ -95,8 +95,8 @@
         <td>
           <div *ngIf="lieu.proprietaire.length">
             <span class="col-sm-6 danger-txt">
-             {{lieu.proprietaire.length > 1 ? lieu.proprietaire.length : ''}} propriétaire<span *ngIf="lieu.proprietaire.length > 1" >s</span>
-            </span> 
+             {{lieu.proprietaire.length >= 1 ? lieu.proprietaire.length : ''}} propriétaire<span *ngIf="lieu.proprietaire.length > 1" >s</span>
+            </span>
             <span class="mx-1 text-secondary">
               •
             </span>
