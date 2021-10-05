@@ -66,7 +66,7 @@ export class DrFormComponent implements OnInit {
       code_lieu: new FormControl('',[Validators.required,Validators.maxLength(3),Validators.pattern('[0-9]*')]),
       intitule_lieu: new FormControl('',[Validators.required,Validators.pattern('[a-zA-Z ]*')]),
       // intitule_DR: new FormControl('',),
-      adresse: new FormControl('',[Validators.required,Validators.pattern('[a-zA-Z ]*')]),
+      adresse: new FormControl('',[Validators.required]),
       ville: new FormControl('',[Validators.required]),
       code_localite: new FormControl(''),
       desc_lieu_entrer: new FormControl(''),
