@@ -39,7 +39,9 @@
         <th>Date fin de contrat</th>
         <th>Etat</th>
         <th>Actions</th>
-        <th>Autre</th>
+        <th *ngIf="
+        userRoles.includes('CDGSP') || userRoles.includes('DAJC')
+      ">Autre</th>
       </tr>
     </thead>
     <tbody *ngIf="contrats?.length">
@@ -82,7 +84,9 @@
                 class="far fa-user-minus"></i></a>
           </div>
         </td>
-        <td>
+        <td *ngIf="
+        userRoles.includes('CDGSP') || userRoles.includes('DAJC')
+      ">
           <div class="btn-group" role="group">
             <a id="btnGroupDrop1" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
               <h4>
@@ -90,9 +94,7 @@
               </h4>
             </a>
             <ul class="dropdown-menu p-3 main-card border-0" aria-labelledby="btnGroupDrop1">
-              <li *ngIf="
-                  userRoles.includes('CDGSP') || userRoles.includes('DAJC')
-                ">
+              <li >
                 <h5 *ngIf="contrat.etat_contrat?.libelle != 'Résiliation'" class="main-title">
                   Validation
                 </h5>
