@@ -366,15 +366,15 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
       this.selectedFile = event.target.files[0];
       if (!this.update) {
         this.file = this.idm + index + this.imageExtension;
-        this.fd.append('imgs_croquis', this.selectedFile, this.file);
+        this.fd.append('imgs_amenagement', this.selectedFile, this.file);
       }
       if (this.update && this.Lieu.amenagement[index]?.idm === undefined) {
         this.file = this.idm + index + this.imageExtension;
-        this.fd.append('imgs_croquis', this.selectedFile, this.file);
+        this.fd.append('imgs_amenagement', this.selectedFile, this.file);
       }
       if (this.update && this.Lieu.amenagement[index]?.idm !== undefined) {
         this.file = this.Lieu.amenagement[index]?.idm + this.imageExtension;
-        this.fd.append('imgs_croquis', this.selectedFile, this.file);
+        this.fd.append('imgs_amenagement', this.selectedFile, this.file);
       }
     }
   }
