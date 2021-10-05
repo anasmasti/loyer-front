@@ -58,7 +58,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       adresse: new FormControl('', [Validators.required]),
       n_compte_bancaire: new FormControl('', [
         Validators.required,
-       
       ]),
       banque: new FormControl('', [Validators.required]),
       nom_agence_bancaire: new FormControl('', []),
