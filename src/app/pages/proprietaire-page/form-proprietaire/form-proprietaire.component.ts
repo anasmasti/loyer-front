@@ -1,9 +1,10 @@
+import { HelperService } from 'src/app/services/helpers/helper.service';
 import { Proprietaire } from '../../../models/Proprietaire';
 import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { ProprietaireService } from 'src/app/services/proprietaire-service/proprietaire.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-proprietaire',
@@ -27,7 +28,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   constructor(
     private proprietaireService: ProprietaireService,
     private mainModalService: MainModalService,
-    private actRoute: ActivatedRoute
+    private actRoute: ActivatedRoute,
+    public router: Router,
+    private help: HelperService
   ) { }
 
   ngOnChanges() {
@@ -235,6 +238,10 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         setTimeout(() => {
           this.proprietaireForm.reset();
           this.postDone = false;
+          this.help.toTheUp();
+          this.router.navigate(['/contrat/list-global/list']).then(() => {
+            this.help.refrechPage()
+          });
         }, 2000);
       },
       (error) => {
