@@ -39,9 +39,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.proprietaireForm = new FormGroup({
       // Champs du propriètaire
-      cin: new FormControl('', []),
-      passport: new FormControl('',[]),
-      carte_sejour: new FormControl('', []),
+      cin: new FormControl('', [Validators.maxLength(8)]),
+      passport: new FormControl('',[Validators.maxLength(8)]),
+      carte_sejour: new FormControl('', [Validators.maxLength(8)]),
       nom_prenom: new FormControl('', [
         Validators.required,
         Validators.minLength(6),
@@ -52,16 +52,17 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       telephone: new FormControl('', [
         Validators.required,
         Validators.pattern('[0-9]*'),
+        Validators.maxLength(10)
       ]),
-      fax: new FormControl('', [Validators.pattern('[0-9]*')]),
+      fax: new FormControl('', [Validators.pattern('[0-9]*'),Validators.maxLength(10)]),
       adresse: new FormControl('', [Validators.required]),
       n_compte_bancaire: new FormControl('', [
         Validators.required,
-        Validators.pattern('[0-9]*'),
+        Validators.pattern('[0-9]{24}'),
       ]),
       banque: new FormControl('', [Validators.required]),
       nom_agence_bancaire: new FormControl('', []),
-      montant_loyer: new FormControl('', []),
+      montant_loyer: new FormControl('', [ Validators.pattern('[0-9]*')]),
       mandataire: new FormControl('', []),
 
       // Champs du mandataire

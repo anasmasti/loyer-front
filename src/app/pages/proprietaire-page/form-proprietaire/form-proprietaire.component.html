@@ -14,26 +14,47 @@
       <input type="text" class="form-control rounded-pill" formControlName="cin" [ngClass]="{
             'is-invalid': checkInputsValidation(cin)
           }" />
+           <!-- Error Message  -->
+      <div class="" *ngIf="checkInputsValidation(cin)">
+        <p class="text-danger" *ngIf="cin?.errors?.maxlength">
+          Vous devez entrer 8 chiffres au maximum
+        </p>
+      </div>
     </div>
 
     <div class="col-lg-3 form-group mt-4">
       <label for="">Passeport Propriétaire</label>
       <input type="text" class="form-control rounded-pill" formControlName="passport" [ngClass]="{
             'is-invalid': checkInputsValidation(passport)
+            
           }" />
+           <!-- Error Message  -->
+      <div class="" *ngIf="checkInputsValidation(passport)">
+        <p class="text-danger" *ngIf="passport?.errors?.maxlength">
+          Vous devez entrer 8 chiffres au maximum
+        </p>
+      </div>
     </div>
 
     <div class="col-lg-3 form-group mt-4">
       <label for="">Carte séjour Propriétaire</label>
       <input type="text" class="form-control rounded-pill" formControlName="carte_sejour" [ngClass]="{
             'is-invalid': checkInputsValidation(carte_sejour)
+            
           }" />
+           <!-- Error Message  -->
+      <div class="" *ngIf="checkInputsValidation(carte_sejour)">
+        <p class="text-danger" *ngIf="carte_sejour?.errors?.maxlength">
+          Vous devez entrer 8 chiffres au maximum
+        </p>
+      </div>
     </div>
 
     <div class="col-lg-3 form-group mt-4">
       <label for="">Raison sociale propriétaire</label>
       <input type="text" class="form-control rounded-pill" formControlName="raison_social" [ngClass]="{
             'is-invalid': checkInputsValidation(raison_social)
+            
           }" />
     </div>
   </div>
@@ -43,6 +64,7 @@
       <label for="">N° de registre du commerce</label>
       <input type="text" class="form-control rounded-pill" formControlName="n_registre_commerce" [ngClass]="{
             'is-invalid': checkInputsValidation(n_registre_commerce)
+            
           }" />
 
       <!-- Error Message  -->
@@ -89,6 +111,9 @@
         <p class="text-danger" *ngIf="telephone?.errors?.pattern">
           Vous devez entrer seulement des chiffres
         </p>
+        <p class="text-danger" *ngIf="telephone?.errors?.maxlength">
+          Vous devez entrer 10 chiffres au maximum
+        </p>
       </div>
     </div>
 
@@ -103,6 +128,9 @@
         <p class="text-danger" *ngIf="fax?.errors?.pattern">
           Vous devez entrer seulement des chiffres
         </p>
+        <p class="text-danger" *ngIf="fax?.errors?.maxlength">
+          Vous devez entrer 10 chiffres au maximum
+        </p>
       </div>
     </div>
   </div>
@@ -112,8 +140,15 @@
     <div class="col-lg-3 form-group mt-4">
       <label for="">Adresse du propriétaire</label>
       <input type="text" class="form-control rounded-pill" formControlName="adresse" [ngClass]="{
-            'is-invalid': checkInputsValidation(adresse)
+            'is-invalid': checkInputsValidation(adresse),
+            'is-valid': !adresse?.invalid
           }" />
+           <!-- Error Message  -->
+      <div class="" *ngIf="checkInputsValidation(adresse)">
+        <p class="text-danger" *ngIf="adresse?.errors?.required">
+          Veuillez remplir ce champ
+        </p>
+      </div>
     </div>
 
     <div class="col-lg-3 form-group mt-4">
@@ -129,7 +164,7 @@
           Veuillez remplir ce champ
         </p>
         <p class="text-danger" *ngIf="n_compte_bancaire?.errors?.pattern">
-          Vous devez entrer seulement des chiffres
+          Vous devez entrer 24 chiffres
         </p>
       </div>
     </div>
@@ -164,6 +199,12 @@
       <input type="text" class="form-control rounded-pill" formControlName="montant_loyer" [ngClass]="{
             'is-invalid': checkInputsValidation(montant_loyer)
           }" />
+            <!-- Error Message  -->
+      <div class="" *ngIf="checkInputsValidation(montant_loyer)">
+        <p class="text-danger" *ngIf="montant_loyer?.errors?.pattern">
+          Vous devez entrer seulement des chiffres
+        </p>
+      </div>
     </div>
   </div>
 
@@ -261,10 +302,10 @@
   <!-- Button Modifier & Ajouter -->
   <div class="form-group mt-4 col-lg-2 d-flex">
 
-    <button type="submit" class="btn second-btn form-control" *ngIf="proprietaire != ''">
+    <button type="submit" class="btn second-btn form-control" *ngIf="proprietaire != ''" [disabled]="proprietaireForm.invalid">
       Modifier
     </button>
-    <button type="submit" class="btn second-btn form-control" *ngIf="proprietaire == ''">
+    <button type="submit" class="btn second-btn form-control" *ngIf="proprietaire == ''" [disabled]="proprietaireForm.invalid">
       Ajouter
     </button>
   </div>
