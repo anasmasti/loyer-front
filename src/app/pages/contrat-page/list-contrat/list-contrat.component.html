@@ -60,7 +60,7 @@
         <td>{{ contrat.date_debut_loyer }}</td>
         <td>{{ contrat.date_fin_contrat }}</td>
         <td class="py-3 success-txt" *ngIf="contrat.etat_contrat?.libelle == 'Avenant'">
-          Active
+          Actif
           <span class="av p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Avenant">
             AV
           </span>
@@ -68,9 +68,9 @@
         <td class="py-3" [ngClass]="{
             'info-txt': contrat.etat_contrat?.libelle == 'Avenant',
             'danger-txt':
-              contrat.etat_contrat?.libelle == 'Suspension' ||
-              contrat.etat_contrat?.libelle == 'Résiliation',
-            'success-txt': contrat.etat_contrat?.libelle == 'Active'
+              contrat.etat_contrat?.libelle == 'Suspendu' ||
+              contrat.etat_contrat?.libelle == 'Résilié',
+            'success-txt': contrat.etat_contrat?.libelle == 'Actif'
           }" *ngIf="contrat.etat_contrat?.libelle != 'Avenant'">
           {{ this.contrat.etat_contrat?.libelle }}
         </td>
@@ -78,7 +78,7 @@
         <td>
           <div class="d-flex">
             <a [routerLink]="['list', contrat._id]" class="btn btn-sm main-btn me-2"><i class="fal fa-eye"></i></a>
-            <a *ngIf="this.contrat.etat_contrat?.libelle != 'Résiliation'" (click)="openEditModal(contrat)"
+            <a *ngIf="this.contrat.etat_contrat?.libelle != 'Résilié'" (click)="openEditModal(contrat)"
               class="btn btn-sm info-btn me-2"><i class="far fa-user-edit"></i></a>
             <a class="btn btn-sm danger-btn" (click)="openConfirmationContratModal(contrat._id)"><i
                 class="far fa-user-minus"></i></a>
@@ -95,12 +95,12 @@
             </a>
             <ul class="dropdown-menu p-3 main-card border-0" aria-labelledby="btnGroupDrop1">
               <li >
-                <h5 *ngIf="contrat.etat_contrat?.libelle != 'Résiliation'" class="main-title">
+                <h5 *ngIf="contrat.etat_contrat?.libelle != 'Résilié'" class="main-title">
                   Validation
                 </h5>
                 <div class="d-flex flex-column gap-2">
                   <div *ngIf="userRoles.includes('CDGSP')" >
-                    <button *ngIf="contrat.etat_contrat?.libelle != 'Résiliation'" class="btn" [ngClass]="
+                    <button *ngIf="contrat.etat_contrat?.libelle != 'Résilié'" class="btn" [ngClass]="
                         contrat.validation1_DMG ? 'success-btn' : 'second-btn'
                       " [id]="'vld1: ' + contrat._id" (click)="openConfirmationModalValidation1(contrat._id)"
                       [disabled]="contrat.validation1_DMG">
@@ -108,7 +108,7 @@
                     </button>
                   </div>
                   <div *ngIf="userRoles.includes('DAJC')">
-                    <button *ngIf="contrat.etat_contrat?.libelle != 'Résiliation' && contrats[0].validation1_DMG"
+                    <button *ngIf="contrat.etat_contrat?.libelle != 'Résilié' && contrats[0].validation1_DMG"
                       [ngClass]="
                         contrat.validation2_DAJC ? 'success-btn' : 'second-btn'
                       " [id]="'vld2: ' + contrat._id" (click)="

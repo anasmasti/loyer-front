@@ -244,20 +244,20 @@
         <label for="">Etat de contrat</label>
         <select class="form-select rounded-pill" formControlName="etat_contrat_libelle" [(ngModel)]="etatContratTypes"
           (change)="showEtatSection($event)">
-          <option value="Active">Active</option>
+          <option value="Actif">Actif</option>
           <!--  -->
           <option *ngIf="this.contrat.validation2_DAJC"
             [value]="etatContratTypes == 'Avenant' ? etatContratTypes : 'Avenant'">Avenant</option>
-          <option value="Suspension">Suspension</option>
-          <option value="Résiliation">Résiliation</option>
+          <option value="Suspendu">Suspendu</option>
+          <option value="Résilié">Résilié</option>
         </select>
       </div>
 
       <div class="mt-4">
         <div class="form-box mt-2">
           <div *ngIf="etatContratTypes == 'Avenant'; then AV"></div>
-          <div *ngIf="etatContratTypes == 'Suspension'; then SUS"></div>
-          <div *ngIf="etatContratTypes == 'Résiliation'; then RES"></div>
+          <div *ngIf="etatContratTypes == 'Suspendu'; then SUS"></div>
+          <div *ngIf="etatContratTypes == 'Résilié'; then RES"></div>
         </div>
       </div>
 
@@ -306,10 +306,10 @@
       </ng-template>
       <!-- Template Avenant end -->
 
-      <!-- Template Suspension start -->
+      <!-- Template Suspendu start -->
       <ng-template #SUS>
 
-        <h6>Etat du contrat: &nbsp;<span>Suspension</span></h6>
+        <h6>Etat du contrat: &nbsp;<span>Suspendu</span></h6>
         <div class="row">
           <div class="col-lg-3 form-group mt-4">
             <label for="">Intitulé de lieu</label>
@@ -317,29 +317,29 @@
           </div>
 
           <div class="col-lg-3 form-group mt-4">
-            <label for="">Date de suspension</label>
+            <label for="">Date de Suspendu</label>
             <input type="date" class="form-control rounded-pill" formControlName="etat_contrat_date_suspension">
           </div>
 
           <div class="col-lg-3 form-group mt-4">
-            <label for="">Durée de suspension</label>
+            <label for="">Durée de Suspendu</label>
             <input type="number" class="form-control rounded-pill" formControlName="etat_contrat_duree_suspension">
           </div>
 
           <div class="col-lg-3 form-group mt-4">
-            <label for="">Motif de suspension</label>
+            <label for="">Motif de Suspendu</label>
             <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_motif_suspension">
           </div>
 
         </div>
 
       </ng-template>
-      <!-- Template Suspension end -->
+      <!-- Template Suspendu end -->
 
       <!-- Template Resiliation start -->
       <ng-template #RES>
 
-        <h6>Etat du contrat: &nbsp;<span>Résiliation</span></h6>
+        <h6>Etat du contrat: &nbsp;<span>Résilié</span></h6>
 
         <div class="row">
           <div class="col-lg-3 form-group mt-4">
@@ -357,7 +357,7 @@
           </div>
 
           <div class="col-lg-3 form-group mt-4">
-            <label for="">Date de résiliation</label>
+            <label for="">Date de Résilié</label>
             <input type="date" class="form-control rounded-pill" (change)="calculMontant()"
               formControlName="etat_contrat_date_resiliation">
           </div>
@@ -380,7 +380,7 @@
           </div>
 
           <div class="col-lg-3 form-group mt-4">
-            <label for="">Piéce jointe (la lettre de résiliation scannée)</label>
+            <label for="">Piéce jointe (la lettre de Résilié scannée)</label>
             <input type="file" class="form-control btn success-btn"
               formControlName="etat_contrat_lettre_res_piece_jointe" accept=".pdf"
               (change)="onFileSelectedLettreRes($event)">

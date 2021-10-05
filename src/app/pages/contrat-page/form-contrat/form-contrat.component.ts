@@ -189,7 +189,7 @@ export class FormContratComponent implements OnInit {
     let monthResiliation = dateResiliation.getMonth() + 1;
 
     // ------First Condition--------
-    if (month == 1 && this.etatContratTypes != 'Résiliation') {
+    if (month == 1 && this.etatContratTypes != 'Résilié') {
       this.duree = 12;
       if (this.hasDeclarationOption === 'non') {
         if (montantLoyerForYear <= 30000) {
@@ -225,7 +225,7 @@ export class FormContratComponent implements OnInit {
       this.totalNetLoyer = this.montantApresImpot * this.duree;
     }
     // ------Seconde Condition--------
-    if (month != 1 && this.etatContratTypes != 'Résiliation') {
+    if (month != 1 && this.etatContratTypes != 'Résilié') {
       // nombre des mois louer
       let nbr_mois_louer = 12 - month + 1;
       this.duree = nbr_mois_louer;
@@ -268,7 +268,7 @@ export class FormContratComponent implements OnInit {
     }
 
     // ------Third Condition--------
-    if (this.etatContratTypes == 'Résiliation') {
+    if (this.etatContratTypes == 'Résilié') {
       // nombre des mois louer
       let nbr_mois_louer = monthResiliation - month + 1;
       this.duree = nbr_mois_louer;

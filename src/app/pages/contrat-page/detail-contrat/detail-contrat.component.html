@@ -168,7 +168,7 @@
     <h5 class="main-title mb-4">
         Etat de contrat:
         <span
-            [ngClass]="{'info-txt': contrat.etat_contrat?.libelle == 'Avenant', 'danger-txt': contrat.etat_contrat?.libelle == 'Suspension' || contrat.etat_contrat?.libelle == 'Résiliation', 'success-txt': contrat.etat_contrat?.libelle == 'En cours'}">
+            [ngClass]="{'info-txt': contrat.etat_contrat?.libelle == 'Avenant', 'danger-txt': contrat.etat_contrat?.libelle == 'Suspendu' || contrat.etat_contrat?.libelle == 'Résilié', 'success-txt': contrat.etat_contrat?.libelle == 'En cours'}">
             {{this.contrat.etat_contrat?.libelle}}
         </span>
     </h5>
@@ -214,12 +214,12 @@
 
 </div>
 
-<div *ngIf="contrat.etat_contrat?.libelle !== 'En cours' && contrat.etat_contrat?.libelle == 'Suspension'"
+<div *ngIf="contrat.etat_contrat?.libelle !== 'En cours' && contrat.etat_contrat?.libelle == 'Suspendu'"
     class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white">
     <h5 class="main-title mb-4">
         Etat de contrat:
         <span
-            [ngClass]="{'info-txt': contrat.etat_contrat?.libelle == 'Avenant', 'danger-txt': contrat.etat_contrat?.libelle == 'Suspension' || contrat.etat_contrat?.libelle == 'Résiliation', 'success-txt': contrat.etat_contrat?.libelle == 'En cours'}">
+            [ngClass]="{'info-txt': contrat.etat_contrat?.libelle == 'Avenant', 'danger-txt': contrat.etat_contrat?.libelle == 'Suspendu' || contrat.etat_contrat?.libelle == 'Résilié', 'success-txt': contrat.etat_contrat?.libelle == 'En cours'}">
             {{this.contrat.etat_contrat?.libelle}}
         </span>
     </h5>
@@ -230,28 +230,28 @@
             <p>{{contrat.etat_contrat?.etat?.intitule_lieu}}</p>
         </div>
         <div class="col-lg-3">
-            <h5 class="main-txt">Date de suspension</h5>
+            <h5 class="main-txt">Date de Suspendu</h5>
             <p>{{contrat.etat_contrat?.etat?.date_suspension}}</p>
         </div>
 
         <div class="col-lg-3">
-            <h5 class="main-txt">Durée de suspension</h5>
+            <h5 class="main-txt">Durée de Suspendu</h5>
             <p>{{contrat.etat_contrat?.etat?.duree_suspension}}</p>
         </div>
         <div class="col-lg-3">
-            <h5 class="main-txt">Motif suspension</h5>
+            <h5 class="main-txt">Motif Suspendu</h5>
             <p>{{contrat.etat_contrat?.etat?.motif_suspension}}</p>
         </div>
     </div>
 
 </div>
 
-<div *ngIf="contrat.etat_contrat?.libelle !== 'En cours' && contrat.etat_contrat?.libelle == 'Résiliation'"
+<div *ngIf="contrat.etat_contrat?.libelle !== 'En cours' && contrat.etat_contrat?.libelle == 'Résilié'"
     class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white">
     <h5 class="main-title mb-4">
         Etat de contrat:
         <span
-            [ngClass]="{'info-txt': contrat.etat_contrat?.libelle == 'Avenant', 'danger-txt': contrat.etat_contrat?.libelle == 'Suspension' || contrat.etat_contrat?.libelle == 'Résiliation', 'success-txt': contrat.etat_contrat?.libelle == 'En cours'}">
+            [ngClass]="{'info-txt': contrat.etat_contrat?.libelle == 'Avenant', 'danger-txt': contrat.etat_contrat?.libelle == 'Suspendu' || contrat.etat_contrat?.libelle == 'Résilié', 'success-txt': contrat.etat_contrat?.libelle == 'En cours'}">
             {{this.contrat.etat_contrat?.libelle}}
         </span>
     </h5>
@@ -278,7 +278,7 @@
 
     <div class="row">
         <div class="col-lg-3">
-            <h5 class="main-txt">Date de résiliation</h5>
+            <h5 class="main-txt">Date de Résilié</h5>
             <p>{{contrat.etat_contrat?.etat?.date_resiliation}}</p>
         </div>
         <div class="col-lg-3">
@@ -295,7 +295,7 @@
         </div>
 
         <div class="col-lg-3">
-            <h5 class="main-txt">La lettre de résiliation scannée</h5>
+            <h5 class="main-txt">La lettre de Résilié scannée</h5>
             <p>
                 <a class="btn second-btn" *ngIf="selected_lettre_res != undefined"
                     href="{{url}}{{selected_lettre_res?.image}}" download>
