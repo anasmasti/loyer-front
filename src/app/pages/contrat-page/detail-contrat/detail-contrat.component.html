@@ -83,8 +83,8 @@
                 <h5 class="main-txt">Pièce joint</h5>
                 <p>
                     <a class="btn second-btn" *ngIf="selectedPieceContrat != undefined"
-                        href="{{url}}{{selectedPieceContrat?.image}}" download>
-                        Télécharger
+                        href="{{url}}{{selectedPieceContrat?.image}}" target="_blank">
+                        Ouvrir
                     </a>
 
                     <span *ngIf="selectedPieceContrat == undefined">
@@ -286,7 +286,7 @@
             <p>
                 <a class="btn second-btn" *ngIf="selected_images_res_sortie != undefined"
                     href="{{url}}{{selected_images_res_sortie?.image}}" download>
-                    Télécharger
+                    Ouvrir
                 </a>
                 <span *ngIf="selected_images_res_sortie == undefined">
                     Aucun fichier
@@ -299,7 +299,7 @@
             <p>
                 <a class="btn second-btn" *ngIf="selected_lettre_res != undefined"
                     href="{{url}}{{selected_lettre_res?.image}}" download>
-                    Télécharger
+                    Ouvrir
                 </a>
                 <span *ngIf="selected_lettre_res == undefined">
                     Aucun fichier

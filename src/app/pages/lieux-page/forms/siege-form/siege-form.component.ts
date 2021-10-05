@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { HelperService } from 'src/app/services/helpers/helper.service';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { MainModalService } from './../../../../services/main-modal/main-modal.service';
@@ -43,6 +44,7 @@ export class SiegeFormComponent implements OnInit {
     private lieuService: LieuxService,
     private mainModalService: MainModalService,
     private help: HelperService,
+    private router: Router,
     @Inject(DOCUMENT) private document: Document
   ) { }
 
@@ -446,7 +448,9 @@ export class SiegeFormComponent implements OnInit {
         setTimeout(() => {
           this.siegeForm.reset();
           this.postDone = false;
-          this.help.refrechPage();
+          this.router.navigate(['/lieux/list']).then(() => {
+            this.help.refrechPage()
+          });
         }, 2000);
 
       },

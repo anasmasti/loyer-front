@@ -1,8 +1,9 @@
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { getCitiesAction } from './../../../../store/shared/shared.action';
 import { AppState } from './../../../../store/app.state';
 import { Component, Inject, Input, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup , Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { DOCUMENT } from '@angular/common';
@@ -24,7 +25,7 @@ export class DrFormComponent implements OnInit {
   PostSucces: string = 'Direction régionale ajouté avec succés';
   updateDone: boolean = false;
   updateSucces: string = 'Contrat modifié avec succés';
-  
+
   selectedFile!: File;
   drForm!: FormGroup;
   file!: string;
@@ -41,7 +42,7 @@ export class DrFormComponent implements OnInit {
   selectedImagesLieuEntrer!: [];
 
   userMatricule: any = localStorage.getItem('matricule')
-  
+
   cities!: any[]
   citiesSubscription$!: Subscription
 
@@ -50,8 +51,9 @@ export class DrFormComponent implements OnInit {
     private mainModalService: MainModalService,
     private help: HelperService,
     private store: Store<AppState>,
+    private router: Router,
     @Inject(DOCUMENT) private document: Document
-  ) {}
+  ) { }
 
   ngOnChanges() {
     if (this.Lieu !== '') {
@@ -63,18 +65,18 @@ export class DrFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.drForm = new FormGroup({
-      code_lieu: new FormControl('',[Validators.required,Validators.maxLength(3),Validators.pattern('[0-9]*')]),
-      intitule_lieu: new FormControl('',[Validators.required,Validators.pattern('[a-zA-Z ]*')]),
+      code_lieu: new FormControl('', [Validators.required, Validators.maxLength(3), Validators.pattern('[0-9]*')]),
+      intitule_lieu: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*')]),
       // intitule_DR: new FormControl('',),
-      adresse: new FormControl('',[Validators.required]),
-      ville: new FormControl('',[Validators.required]),
+      adresse: new FormControl('', [Validators.required]),
+      ville: new FormControl('', [Validators.required]),
       code_localite: new FormControl(''),
       desc_lieu_entrer: new FormControl(''),
       imgs_lieu_entrer: new FormControl(''),
       has_amenagements: new FormControl(''),
       superficie: new FormControl(''),
-      telephone: new FormControl('',[Validators.required,Validators.pattern('[0-9]*'),Validators.maxLength(10)]),
-      fax: new FormControl('',[Validators.required,Validators.pattern('[0-9]*'),Validators.maxLength(10)]),
+      telephone: new FormControl('', [Validators.required, Validators.pattern('[0-9]*'), Validators.maxLength(10)]),
+      fax: new FormControl('', [Validators.required, Validators.pattern('[0-9]*'), Validators.maxLength(10)]),
       etage: new FormControl(''),
       type_lieu: new FormControl(''),
       code_rattache_DR: new FormControl(''),
@@ -94,7 +96,7 @@ export class DrFormComponent implements OnInit {
   fetchCities() {
     this.store.dispatch(getCitiesAction())
   }
-  
+
   getCities() {
     this.citiesSubscription$ = this.store.select(getCities).subscribe(data => {
       if (data) this.cities = data;
@@ -404,7 +406,7 @@ export class DrFormComponent implements OnInit {
   onFileSelected(event: any) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
-      this.fd.append('imgs_lieu_entrer', this.selectedFile); 
+      this.fd.append('imgs_lieu_entrer', this.selectedFile);
     }
   }
 
@@ -441,7 +443,9 @@ export class DrFormComponent implements OnInit {
         setTimeout(() => {
           this.drForm.reset();
           this.postDone = false;
-          this.help.refrechPage();
+          this.router.navigate(['/lieux/list']).then(() => {
+            this.help.refrechPage()
+          });
         }, 2000);
       },
       (error) => {

@@ -94,8 +94,8 @@
                 <h5 class="main-txt">Images d'entrer</h5>
                 <div class="my-2">
                     <a *ngIf="selectedImageEntrer?.image" class="btn second-btn"
-                        href="{{url}}{{selectedImageEntrer?.image}}" download>
-                        Télécharger
+                        href="{{url}}{{selectedImageEntrer?.image}}" target="_blank">
+                        Ouvrir
                     </a>
                     <p *ngIf="selectedImageEntrer?.image == null" class="main-muted-text">
                         Il n'y a aucun fichier à télécharger
@@ -193,7 +193,7 @@
                 <p>
                     <a *ngIf="selectedAmenagementImage?.image" class="btn second-btn"
                         href="{{url}}{{selectedAmenagementImage?.image}}" download>
-                        Télécharger
+                        Ouvrir
                     </a>
                     <span *ngIf="!selectedAmenagementImage?.image" class="main-muted-text">
                         Il n'y a aucun fichier à télécharger
@@ -206,7 +206,7 @@
                 <p>
                     <a *ngIf="selectedAmenagementCroquis?.image" class="btn second-btn"
                         href="{{url}}{{selectedAmenagementCroquis?.image}}" download>
-                        Télécharger
+                        Ouvrir
                     </a>
                     <span *ngIf="!selectedAmenagementCroquis?.image" class="main-muted-text">
                         Il n'y a aucun fichier à télécharger

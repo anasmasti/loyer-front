@@ -20,6 +20,7 @@ import { Subscription } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { HelperService } from 'src/app/services/helpers/helper.service';
 import { getCities } from 'src/app/store/shared/shared.selector';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lf-form',
@@ -71,6 +72,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
     private help: HelperService,
     private lieuService: LieuxService,
     private store: Store<AppState>,
+    private router: Router,
     @Inject(DOCUMENT) private document: Document
   ) { }
 
@@ -655,7 +657,9 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
         setTimeout(() => {
           this.LfForm.reset();
           this.postDone = false;
-          this.help.refrechPage();
+          this.router.navigate(['/lieux/list']).then(() => {
+            this.help.refrechPage()
+          });
         }, 2000);
       },
       (error) => {
