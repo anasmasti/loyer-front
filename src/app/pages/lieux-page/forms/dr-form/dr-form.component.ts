@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { getCitiesAction } from './../../../../store/shared/shared.action';
 import { AppState } from './../../../../store/app.state';
@@ -50,6 +51,7 @@ export class DrFormComponent implements OnInit {
     private mainModalService: MainModalService,
     private help: HelperService,
     private store: Store<AppState>,
+    private router: Router,
     @Inject(DOCUMENT) private document: Document
   ) { }
 
@@ -441,7 +443,9 @@ export class DrFormComponent implements OnInit {
         setTimeout(() => {
           this.drForm.reset();
           this.postDone = false;
-          this.help.refrechPage();
+          this.router.navigate(['/lieux/list']).then(() => {
+            this.help.refrechPage()
+          });
         }, 2000);
       },
       (error) => {

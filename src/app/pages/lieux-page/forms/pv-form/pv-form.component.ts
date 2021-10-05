@@ -1,7 +1,6 @@
 import { getCitiesAction } from './../../../../store/shared/shared.action';
 import { AppState } from './../../../../store/app.state';
 import { MainModalService } from './../../../../services/main-modal/main-modal.service';
-import { ConfirmationModalService } from './../../../../services/confirmation-modal-service/confirmation-modal.service';
 import { LieuxService } from './../../../../services/lieux-service/lieux.service';
 import { Component, Inject, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
@@ -12,6 +11,7 @@ import { Subscription } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { HelperService } from 'src/app/services/helpers/helper.service';
 import { getCities } from 'src/app/store/shared/shared.selector';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'pv-form',
@@ -57,6 +57,8 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
     private mainModalService: MainModalService,
     private lieuService: LieuxService,
     private store: Store<AppState>,
+    private help: HelperService,
+    private router: Router,
     @Inject(DOCUMENT) private document: Document
   ) { }
 
@@ -437,8 +439,6 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
 
     }
 
-
-
     this.fd.append('data', JSON.stringify(pvData));
 
     this.lieuService.addLieu(this.fd, this.userMatricule).subscribe(
@@ -447,7 +447,9 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
         setTimeout(() => {
           this.PvForm.reset();
           this.postDone = false;
-          // this.help.refrechPage();
+          this.router.navigate(['/lieux/list']).then(() => {
+            this.help.refrechPage()
+          });
         }, 2000);
       },
       (error) => {

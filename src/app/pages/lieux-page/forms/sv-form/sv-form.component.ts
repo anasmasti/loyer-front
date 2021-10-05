@@ -1,7 +1,8 @@
+import { Router } from '@angular/router';
 import { getCitiesAction } from './../../../../store/shared/shared.action';
 import { AppState } from './../../../../store/app.state';
 import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormArray ,Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
@@ -53,6 +54,7 @@ export class SvFormComponent implements OnInit, OnDestroy {
     private mainModalService: MainModalService,
     private help: HelperService,
     private store: Store<AppState>,
+    private router: Router,
     @Inject(DOCUMENT) private document: Document
   ) { }
 
@@ -66,13 +68,13 @@ export class SvFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.svForm = new FormGroup({
-      code_lieu: new FormControl('' ,[Validators.required,Validators.maxLength(3),Validators.pattern('[0-9]*')]),
-      intitule_lieu: new FormControl('',[Validators.required,Validators.pattern('[a-zA-Z ]*')]),
-      intitule_DR: new FormControl('',[Validators.required]),
-      adresse: new FormControl('',[Validators.required]),
-      ville: new FormControl('',[Validators.required]),
+      code_lieu: new FormControl('', [Validators.required, Validators.maxLength(3), Validators.pattern('[0-9]*')]),
+      intitule_lieu: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*')]),
+      intitule_DR: new FormControl('', [Validators.required]),
+      adresse: new FormControl('', [Validators.required]),
+      ville: new FormControl('', [Validators.required]),
       code_localite: new FormControl(''),
-      desc_lieu_entrer: new FormControl('',[Validators.maxLength(250)]),
+      desc_lieu_entrer: new FormControl('', [Validators.maxLength(250)]),
       imgs_lieu_entrer: new FormControl(''),
       has_amenagements: new FormControl(''),
       etat_logement_fonction: new FormControl(''),
@@ -84,8 +86,8 @@ export class SvFormComponent implements OnInit, OnDestroy {
       centre_cout_siege: new FormControl(''),
       categorie_pointVente: new FormControl(''),
       telephone: new FormControl(''),
-      fax: new FormControl('',[Validators.required,Validators.pattern('[0-9]*'),Validators.maxLength(10)]),
-      superficie: new FormControl('',[Validators.required,Validators.pattern('[0-9]*'),Validators.maxLength(10)]),
+      fax: new FormControl('', [Validators.required, Validators.pattern('[0-9]*'), Validators.maxLength(10)]),
+      superficie: new FormControl('', [Validators.required, Validators.pattern('[0-9]*'), Validators.maxLength(10)]),
 
       //Aménagement
       amenagementForm: new FormArray([]),
@@ -401,10 +403,10 @@ export class SvFormComponent implements OnInit, OnDestroy {
     }
   }
 
-    // Check if all inputs has invalid errors
-    checkInputsValidation(targetInput: any) {
-      return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
-    }
+  // Check if all inputs has invalid errors
+  checkInputsValidation(targetInput: any) {
+    return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
+  }
 
   //Upload Image amenagement avant amenagement
   onFileSelected(event: any) {
@@ -450,7 +452,9 @@ export class SvFormComponent implements OnInit, OnDestroy {
         setTimeout(() => {
           this.svForm.reset();
           this.postDone = false;
-          this.help.refrechPage();
+          this.router.navigate(['/lieux/list']).then(() => {
+            this.help.refrechPage()
+          });
         }, 2000);
       },
       (error) => {
