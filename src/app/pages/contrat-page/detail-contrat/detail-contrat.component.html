@@ -202,8 +202,8 @@
             <h5 class="main-txt">Pièce jointe</h5>
             <p>
                 <a class="btn second-btn" *ngIf="selected_piece_jointe_avenant != undefined"
-                    href="{{url}}{{selected_piece_jointe_avenant?.image}}" download>
-                    Télécharger
+                    href="{{url}}{{selected_piece_jointe_avenant?.image}}" target="_blank">
+                    Ouvrir
                 </a>
                 <span *ngIf="selected_piece_jointe_avenant == undefined">
                     Aucun fichier
@@ -285,7 +285,7 @@
             <h5 class="main-txt">Images d'état des lieux de sortie</h5>
             <p>
                 <a class="btn second-btn" *ngIf="selected_images_res_sortie != undefined"
-                    href="{{url}}{{selected_images_res_sortie?.image}}" download>
+                    href="{{url}}{{selected_images_res_sortie?.image}}" target="_blank">
                     Ouvrir
                 </a>
                 <span *ngIf="selected_images_res_sortie == undefined">
@@ -298,7 +298,7 @@
             <h5 class="main-txt">La lettre de résiliation scannée</h5>
             <p>
                 <a class="btn second-btn" *ngIf="selected_lettre_res != undefined"
-                    href="{{url}}{{selected_lettre_res?.image}}" download>
+                    href="{{url}}{{selected_lettre_res?.image}}" target="_blank">
                     Ouvrir
                 </a>
                 <span *ngIf="selected_lettre_res == undefined">
