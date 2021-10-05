@@ -1,3 +1,4 @@
+import { environment } from './../../../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { ContratService } from 'src/app/services/contrat-service/contrat.service';
 import { Contrat } from '../../../models/Contrat';
@@ -14,7 +15,7 @@ export class DetailContratComponent implements OnInit {
   selected_images_res_sortie!: any;
   selected_lettre_res!: any;
   selected_piece_jointe_avenant!: any ;
-  url: string = 'http://192.168.11.110:5000/';
+  url: string = environment.API_URL_WITHOUT_PARAM;
 
   contrat!: Contrat
 

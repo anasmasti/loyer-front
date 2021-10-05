@@ -83,8 +83,8 @@
                 <h5 class="main-txt">Pièce joint</h5>
                 <p>
                     <a class="btn second-btn" *ngIf="selectedPieceContrat != undefined"
-                        href="{{url}}{{selectedPieceContrat?.image}}" download>
-                        Télécharger
+                        href="{{url}}{{selectedPieceContrat?.image}}" target="_blank">
+                        Voir
                     </a>
 
                     <span *ngIf="selectedPieceContrat == undefined">

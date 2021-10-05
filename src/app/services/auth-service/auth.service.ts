@@ -26,8 +26,8 @@ export class AuthService {
     }),
   };
 
-  logIn(Matricule: any) {
-    return this.http.get(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/${Matricule}`);
+  logIn(data: any) {
+    return this.http.post(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}`, data);
   }
 
   isLoggedIn(): boolean {
