@@ -239,7 +239,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
           this.proprietaireForm.reset();
           this.postDone = false;
           this.help.toTheUp();
-          this.router.navigate(['/contrat/list-global/list']).then(() => {
+          this.router.navigate(['/proprietaire/list-global/list']).then(() => {
             this.help.refrechPage()
           });
         }, 2000);
