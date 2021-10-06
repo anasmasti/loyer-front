@@ -91,8 +91,8 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
       centre_cout_siege: new FormControl(''),
       categorie_pointVente: new FormControl(''),
       superficie: new FormControl('',),
-      telephone: new FormControl('',[Validators.required,Validators.pattern('[0-9]*'),Validators.maxLength(10)]),
-      fax: new FormControl('',[Validators.required,Validators.pattern('[0-9]*'),Validators.maxLength(10)]),
+      telephone: new FormControl('',[Validators.pattern('[0-9]*'),Validators.maxLength(10)]),
+      fax: new FormControl('',[Validators.pattern('[0-9]*'),Validators.maxLength(10)]),
 
       //Aménagement
       amenagementForm: new FormArray([]),

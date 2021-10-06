@@ -86,7 +86,7 @@ export class SvFormComponent implements OnInit, OnDestroy {
       centre_cout_siege: new FormControl(''),
       categorie_pointVente: new FormControl(''),
       telephone: new FormControl(''),
-      fax: new FormControl('', [Validators.required, Validators.pattern('[0-9]*'), Validators.maxLength(10)]),
+      fax: new FormControl('', [Validators.pattern('[0-9]*'), Validators.maxLength(10)]),
       superficie: new FormControl('', [Validators.required, Validators.pattern('[0-9]*'), Validators.maxLength(10)]),
 
       //Aménagement

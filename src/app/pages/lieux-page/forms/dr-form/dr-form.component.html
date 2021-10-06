@@ -124,13 +124,10 @@
           <label for="">Fax</label>
           <input type="text" class="form-control rounded-pill" formControlName="fax" 
           [ngClass]="{
-            'is-invalid': checkInputsValidation(fax),
-            'is-valid': !fax?.invalid 
+            'is-invalid': checkInputsValidation(fax)
+            
           }"/>
           <div class="" *ngIf="checkInputsValidation(fax)">
-            <p class="text-danger" *ngIf="fax?.errors?.required">
-              Veuillez remplir ce champ
-            </p>
             <p class="text-danger" *ngIf="fax?.errors?.maxlength">
               Vous devez entrer 10 nombres au maximum
             </p>
@@ -147,15 +144,12 @@
             class="form-control rounded-pill"
             formControlName="telephone"
             [ngClass]="{
-              'is-invalid': checkInputsValidation(telephone),
-              'is-valid': !telephone?.invalid 
+              'is-invalid': checkInputsValidation(telephone)
+              
             }"
             
           />
           <div class="" *ngIf="checkInputsValidation(telephone)">
-            <p class="text-danger" *ngIf="telephone?.errors?.required">
-              Veuillez remplir ce champ
-            </p>
             <p class="text-danger" *ngIf="telephone?.errors?.maxlength">
               Vous devez entrer 10 nombres au maximum
             </p>
