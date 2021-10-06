@@ -33,8 +33,8 @@ export class DashboardComponent implements OnInit {
   xAxis: boolean = false;
   yAxis: boolean = false;
   xAxisLabel: string = '';
-  yAxisLabel1: string = 'Total du montant par type du foncier';
-  yAxisLabel2: string = 'Le nombre de fonciers par ville';
+  yAxisLabel1: string = 'Total des loyers par type du foncier';
+  yAxisLabel2: string = 'Nombre de fonciers par ville';
   showXAxisLabel: boolean = false;
   showYAxisLabel: boolean = true;
 

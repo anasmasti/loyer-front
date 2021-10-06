@@ -35,8 +35,8 @@ export class AdminService {
   }
 
   //getUsers list 
-  getUsersList(): Observable<User[]> {
-    return this.http.get<User[]>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/all `, { 'headers': this.httpOptions.headers });
+  getUsersList(matricule: any): Observable<User[]> {
+    return this.http.get<User[]>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/all/${matricule}`, { 'headers': this.httpOptions.headers });
   }
 
   // Get user by id 

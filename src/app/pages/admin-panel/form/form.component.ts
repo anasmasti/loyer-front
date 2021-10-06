@@ -220,13 +220,13 @@ export class FormComponent implements OnInit {
           this.clearCH();
           this.postDone = false;
           location.reload();
-        }, 1000);
+        }, 1500);
       },
       (error) => {
         this.errors = error.error.message;
         setTimeout(() => {
           this.showErrorMessage();
-        }, 2000);
+        }, 3000);
         this.hideErrorMessage();
       }
     );

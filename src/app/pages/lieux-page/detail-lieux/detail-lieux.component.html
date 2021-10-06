@@ -192,7 +192,7 @@
                 <h5 class="main-txt">Images du local après aménagement</h5>
                 <p>
                     <a *ngIf="selectedAmenagementImage?.image" class="btn second-btn"
-                        href="{{url}}{{selectedAmenagementImage?.image}}" download>
+                        href="{{url}}{{selectedAmenagementImage?.image}}" target="_blank">
                         Ouvrir
                     </a>
                     <span *ngIf="!selectedAmenagementImage?.image" class="main-muted-text">
@@ -205,7 +205,7 @@
                 <h5 class="main-txt">Croquis d’aménagement</h5>
                 <p>
                     <a *ngIf="selectedAmenagementCroquis?.image" class="btn second-btn"
-                        href="{{url}}{{selectedAmenagementCroquis?.image}}" download>
+                        href="{{url}}{{selectedAmenagementCroquis?.image}}" target="_blank">
                         Ouvrir
                     </a>
                     <span *ngIf="!selectedAmenagementCroquis?.image" class="main-muted-text">
