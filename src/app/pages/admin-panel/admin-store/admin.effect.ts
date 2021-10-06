@@ -11,6 +11,8 @@ import { User } from 'src/app/models/User';
 @Injectable()
 export class UsersEffects {
 
+    matricule: any = localStorage.getItem('matricule')
+
     constructor(
         private actions$: Actions,
         private userService: AdminService,
@@ -30,7 +32,7 @@ export class UsersEffects {
 
     // Load Users from service
     loadUsers() {
-        return this.userService.getUsersList().pipe(
+        return this.userService.getUsersList(this.matricule).pipe(
             map(
                 (users: User[]) => {
                     this.store.dispatch(setLoadingAction({ status: false }))

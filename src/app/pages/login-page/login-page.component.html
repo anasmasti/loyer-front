@@ -15,7 +15,7 @@
             Vous devez se connecter pour accéder à l'application.
         </p>
 
-        <form [formGroup]="loginForm" class="mt-4" (ngSubmit)="login()">
+        <form [formGroup]="loginForm" class="mt-4 d-flex flex-column" (ngSubmit)="login()">
             <div *ngIf="!matricule" class="form-group">
                 <label for="">Matricule</label>
                 <input type="text" placeholder="Matricule" class="form-control rounded-pill"
@@ -48,7 +48,7 @@
 
             <div class="form-group">
                 <label for="">Mot de passe</label>
-                <input type="text" placeholder="Mot de passe" class="form-control rounded-pill"
+                <input type="password" placeholder="Mot de passe" class="form-control rounded-pill"
                     formControlName="Password">
             </div>
             <div class="" *ngIf="checkInputsValidation(Password)">
