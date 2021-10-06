@@ -21,11 +21,14 @@ export class DashboardComponent implements OnInit {
   allCountSubscription$!: Subscription
 
   // View options
-  view: any[] = [700, 400];
+  view: [number, number] = [450, 900];
+  HBarview: [number, number] = [400, 300];
 
   // Legend options
   hasLegend: boolean = true
-  legendTitle: any = 'Titres';
+  villeTitle: any = 'Villes';
+  locauxTitle: any = 'Locaux';
+  contratTitle: any = 'Contrats';
   legendPositionRight: any = 'right';
   legendPositionBelow: any = 'below';
 
@@ -34,9 +37,9 @@ export class DashboardComponent implements OnInit {
   yAxis: boolean = false;
   xAxisLabel: string = '';
   yAxisLabel1: string = 'Total des loyers par type du foncier';
-  yAxisLabel2: string = 'Nombre de fonciers par ville';
+  yAxisLabel2: string = 'Nombre des locaux par ville';
   showXAxisLabel: boolean = false;
-  showYAxisLabel: boolean = true;
+  showYAxisLabel: boolean = false;
 
   // Ticks options
   maxXAxisTickLength: number = 16;
@@ -59,7 +62,8 @@ export class DashboardComponent implements OnInit {
   barPadding: number = 5
   tooltipDisabled: boolean = false;
   yScaleMax: number = 9000;
-  roundEdges: boolean = false;
+  roundEdges: boolean = true;
+  explodeSlices: boolean = true;
 
   statisticsBarV!: any
   statisticsBarH!: any
