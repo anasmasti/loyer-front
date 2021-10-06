@@ -311,7 +311,7 @@
                           <input type="text" class="form-control rounded-pill" formControlName="prenom" />
                         </div>
                         <div class="col-lg-3 form-group">
-                          <label for="">Amenagement éffectué</label>
+                          <label for="">Amenagement effectué</label>
                           <input type="text" class="form-control rounded-pill" formControlName="amenagement_effectue" />
                         </div>
                         <input type="hidden" id="{{ 'deleted ' + i + ' ' + j }}" formControlName="deleted" />
@@ -363,10 +363,10 @@
 
       <!-- Button Ajouter -->
       <div class="form-group mt-4 col-lg-2 d-flex">
-        <button type="submit" class="btn second-btn form-control" *ngIf="Lieu != ''" [disabled]="PvForm.invalid">
+        <button type="submit" class="btn second-btn form-control" *ngIf="Lieu != ''">
           Modifier
         </button>
-        <button type="submit" class="btn second-btn form-control" *ngIf="Lieu == ''" [disabled]="PvForm.invalid">
+        <button type="submit" class="btn second-btn form-control" *ngIf="Lieu == ''">
           Ajouter
         </button>
       </div>
