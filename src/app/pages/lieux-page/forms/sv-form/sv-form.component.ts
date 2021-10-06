@@ -69,7 +69,7 @@ export class SvFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.svForm = new FormGroup({
       code_lieu: new FormControl('', [Validators.required, Validators.maxLength(3), Validators.pattern('[0-9]*')]),
-      intitule_lieu: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*')]),
+      intitule_lieu: new FormControl('', [Validators.required]),
       intitule_DR: new FormControl('', [Validators.required]),
       adresse: new FormControl('', [Validators.required]),
       ville: new FormControl('', [Validators.required]),

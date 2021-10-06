@@ -17,7 +17,10 @@
            <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(cin)">
         <p class="text-danger" *ngIf="cin?.errors?.maxlength">
-          Vous devez entrer 8 chiffres au maximum
+          Ce champ ne doit pas dépasser 8 caractères
+        </p>
+        <p class="text-danger" *ngIf="cin?.errors?.required">
+          Veuillez remplir ce champ
         </p>
       </div>
     </div>
@@ -31,7 +34,7 @@
            <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(passport)">
         <p class="text-danger" *ngIf="passport?.errors?.maxlength">
-          Vous devez entrer 8 chiffres au maximum
+          Ce champ ne doit pas dépasser 8 caractères
         </p>
       </div>
     </div>
@@ -45,7 +48,7 @@
            <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(carte_sejour)">
         <p class="text-danger" *ngIf="carte_sejour?.errors?.maxlength">
-          Vous devez entrer 8 chiffres au maximum
+          Ce champ ne doit pas dépasser 8 caractères
         </p>
       </div>
     </div>

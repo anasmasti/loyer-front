@@ -42,7 +42,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.proprietaireForm = new FormGroup({
       // Champs du propriètaire
-      cin: new FormControl('', [Validators.maxLength(8)]),
+      cin: new FormControl('', [Validators.required,Validators.maxLength(8)]),
       passport: new FormControl('',[Validators.maxLength(8)]),
       carte_sejour: new FormControl('', [Validators.maxLength(8)]),
       nom_prenom: new FormControl('', [

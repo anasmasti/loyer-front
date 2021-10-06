@@ -74,7 +74,7 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit(): void {
     this.PvForm = new FormGroup({
       code_lieu: new FormControl('' ,[Validators.required,Validators.maxLength(3),Validators.pattern('[0-9]*')]),
-      intitule_lieu: new FormControl('',[Validators.required,Validators.pattern('[a-zA-Z]*')]),
+      intitule_lieu: new FormControl('',[Validators.required]),
       intitule_DR: new FormControl(''),
       adresse: new FormControl('',[Validators.required]),
       ville: new FormControl(''),

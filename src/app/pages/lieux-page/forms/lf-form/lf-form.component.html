@@ -87,7 +87,7 @@
           }"/>
           <div class="" *ngIf="checkInputsValidation(fax)">
             <p class="text-danger" *ngIf="fax?.errors?.maxlength">
-              Vous devez entrer 10 nombres au maximum
+              Ce champ ne doit pas dépasser 10 caractères
             </p>
             <p class="text-danger" *ngIf="fax?.errors?.pattern">
               Vous devez entrer seulement des chiffres
@@ -104,7 +104,7 @@
           }"/>
           <div class="" *ngIf="checkInputsValidation(telephone)">
             <p class="text-danger" *ngIf="telephone?.errors?.maxlength">
-              Vous devez entrer 10 nombres au maximum
+              Ce champ ne doit pas dépasser 10 caractères
             </p>
             <p class="text-danger" *ngIf="telephone?.errors?.pattern">
               Vous devez entrer seulement des chiffres
