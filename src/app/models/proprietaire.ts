@@ -10,6 +10,9 @@ export interface Proprietaire {
   fax: string;
   adresse: string;
   n_compte_bancaire: string;
+  banque_rib: string;
+  ville_rib:string;
+  cle_rib:string;
   banque: string;
   nom_agence_bancaire: string;
   montant_loyer: number;

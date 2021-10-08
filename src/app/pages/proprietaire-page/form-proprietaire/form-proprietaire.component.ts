@@ -60,8 +60,11 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       fax: new FormControl('', [Validators.pattern('[0-9]*'),Validators.maxLength(10)]),
       adresse: new FormControl('', [Validators.required]),
       n_compte_bancaire: new FormControl('', [
-        Validators.required,
+        Validators.required,Validators.pattern('[0-9]{16}'),Validators.maxLength(16)
       ]),
+      banque_rib: new FormControl('', [Validators.required,Validators.pattern('[0-9]{3}'),Validators.maxLength(3)]),
+      ville_rib: new FormControl('', [Validators.required,Validators.pattern('[0-9]{3}'),Validators.maxLength(3)]),
+      cle_rib: new FormControl('', [Validators.required,Validators.pattern('[0-9]{2}'),Validators.maxLength(2)]),
       banque: new FormControl('', [Validators.required]),
       nom_agence_bancaire: new FormControl('', []),
       montant_loyer: new FormControl('', [ Validators.pattern('[0-9]*')]),
@@ -180,6 +183,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         nom_agence_bancaire: this.proprietaire.nom_agence_bancaire,
         montant_loyer: this.proprietaire.montant_loyer,
         mandataire: this.proprietaire.mandataire,
+        banque_rib: this.proprietaire.banque_rib,
+        ville_rib: this.proprietaire.ville_rib,
+        cle_rib: this.proprietaire.cle_rib,
         // mandataire inputs
         // cin_mandataire: '',
         // nom_prenom_mandataire: '',
@@ -227,6 +233,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         ?.value,
       montant_loyer: this.proprietaireForm.get('montant_loyer')?.value,
       mandataire: this.proprietaireForm.get('mandataire')?.value,
+      banque_rib: this.proprietaireForm.get('banque_rib')?.value,
+      ville_rib: this.proprietaireForm.get('ville_rib')?.value,
+      cle_rib: this.proprietaireForm.get('cle_rib')?.value,
 
       // mandataire: this.proprietaireForm.get('mandataireForm')?.value,
       // deleted:false,
@@ -272,10 +281,11 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       banque: this.proprietaireForm.get('banque')?.value,
       nom_agence_bancaire: this.proprietaireForm.get('nom_agence_bancaire')
         ?.value,
-      montant_loyer : this.proprietaireForm.get('montant_loyer')?.value ,
+      montant_loyer: this.proprietaireForm.get('montant_loyer')?.value,
       mandataire: this.proprietaireForm.get('mandataire')?.value,
-
-      // mandataire: this.proprietaireForm.get('mandataireForm')?.value,
+      banque_rib: this.proprietaireForm.get('banque_rib')?.value,
+      ville_rib: this.proprietaireForm.get('ville_rib')?.value,
+      cle_rib: this.proprietaireForm.get('cle_rib')?.value,
     };
 
     this.proprietaireService.updateProprietaire(id, proprietaireData, this.userMatricule).subscribe(
@@ -338,8 +348,17 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   get montant_loyer() {
     return this.proprietaireForm.get('montant_loyer');
   }
+  get banque_rib() {
+    return this.proprietaireForm.get('banque_rib');
+  }
   get mandataire() {
     return this.proprietaireForm.get('mandataire');
+  }
+  get ville_rib() {
+    return this.proprietaireForm.get('ville_rib');
+  }
+  get cle_rib() {
+    return this.proprietaireForm.get('cle_rib');
   }
 
   // Mandataire
