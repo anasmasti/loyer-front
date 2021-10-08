@@ -8,7 +8,7 @@
 
   <div class="row mt-2">
     <div class="col-lg-3 form-group mt-2">
-      <label for="">Matricule</label>
+      <label for="">Matricule <span class="text-danger">*</span></label>
       <input type="text" id="Matricule" class="form-control rounded-pill" formControlName="Matricule" [ngClass]="{
         'is-invalid': checkInputsValidation(Matricule),
         'is-valid': !Matricule?.invalid
@@ -21,7 +21,7 @@
     </div>
 
     <div class="col-lg-3 form-group mt-2">
-      <label for="">Nom</label>
+      <label for="">Nom <span class="text-danger">*</span></label>
       <input type="text" id="nom" class="form-control rounded-pill" formControlName="Nom" [ngClass]="{
         'is-invalid': checkInputsValidation(Nom),
         'is-valid': !Nom?.invalid
@@ -34,7 +34,7 @@
     </div>
 
     <div class="col-lg-3 form-group mt-2">
-      <label for="">Prénom</label>
+      <label for="">Prénom <span class="text-danger">*</span></label>
       <input type="text" id="Prenom" class="form-control rounded-pill" formControlName="Prenom" [ngClass]="{
         'is-invalid': checkInputsValidation(Prenom),
         'is-valid': !Prenom?.invalid
@@ -47,7 +47,7 @@
     </div>
 
     <div class="col-lg-3 form-group mt-2">
-      <label for="">Code DR</label>
+      <label for="">Code DR <span class="text-danger">*</span></label>
       <input type="text" id="Code_DR" class="form-control rounded-pill" formControlName="Code_DR" [ngClass]="{
         'is-invalid': checkInputsValidation(Code_DR),
         'is-valid': !Code_DR?.invalid
