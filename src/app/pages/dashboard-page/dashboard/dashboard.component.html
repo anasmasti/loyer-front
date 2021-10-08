@@ -88,7 +88,7 @@
                     [tooltipDisabled]="tooltipDisabled" [roundEdges]="roundEdges" [legend]="hasLegend">
                 </ngx-charts-bar-vertical>
             </div>
-            <div class="col-12 col-lg-7 text-center">
+            <div class="col-12 col-lg-6 text-center left-border ms-lg-5">
                 <h6>{{yAxisLabel1}}</h6>
                 <ngx-charts-advanced-pie-chart [results]="statisticsBarV" [scheme]="colorScheme"
                     [animations]="animations">
@@ -101,7 +101,7 @@
     <div class="mt-5">
         <div class="row text-center">
 
-            <div class="col-12 col-lg-7 col-md-12">
+            <div class="col-12 col-lg-6 col-md-12">
                 <h6>{{yAxisLabel1}}</h6>
 
                 <ngx-charts-bar-horizontal [results]="statisticsBarH" [scheme]="colorScheme" [schemeType]="schemeType"
@@ -116,7 +116,7 @@
                 </ngx-charts-bar-horizontal>
             </div>
 
-            <div class="col-12 col-lg-5 col-md-12">
+            <div class="col-12 col-lg-5 col-md-12 left-border ms-lg-5">
                 <h6>Etats contrats</h6>
                 <ngx-charts-pie-chart [results]="statisticsCircle" [legendTitle]="contratTitle" [scheme]="colorScheme" [schemeType]="schemeType"
                     [gradient]="gradient" [legendPosition]="legendPositionRight" [animations]="animations" [labels]="true" [explodeSlices]="explodeSlices" [tooltipDisabled]="tooltipDisabled"
