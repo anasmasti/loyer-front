@@ -54,7 +54,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       raison_social: new FormControl('', [Validators.required]),
       n_registre_commerce: new FormControl('', [Validators.pattern('[0-9]*')]),
       telephone: new FormControl('', [
-        Validators.required,
         Validators.pattern('[0-9]*'),
         Validators.maxLength(10)
       ]),
