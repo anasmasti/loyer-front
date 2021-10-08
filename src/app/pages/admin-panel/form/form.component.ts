@@ -1,6 +1,6 @@
 
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormArray } from '@angular/forms';
+import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { User } from '../../../models/User';
 import { AdminService } from 'src/app/services/admin-service/admin.service';
 
@@ -23,7 +23,7 @@ export class FormComponent implements OnInit {
   Role2: boolean = false
   Role3: boolean = false
   Role4: boolean = false
-  
+
   userMatricule: any = localStorage.getItem('matricule')
 
 
@@ -35,7 +35,6 @@ export class FormComponent implements OnInit {
   ) { }
 
   ngOnChanges() {
-
     if ((this.userR != 'Ajouter') && (this.userR != null)) {
       this.fetchUser();
       this.userIsEmpty = false;
@@ -48,16 +47,15 @@ export class FormComponent implements OnInit {
       this.Role2 = false;
       this.Role3 = false;
       this.Role4 = false;
-      
-
     }
   }
 
   ngOnInit(): void {
     this.adminForm = new FormGroup({
-      Matricule: new FormControl('', []),
-      Nom: new FormControl('', []),
-      Prenom: new FormControl('', []),
+      Matricule: new FormControl('', [Validators.required]),
+      Nom: new FormControl('', [Validators.required]),
+      Prenom: new FormControl('', [Validators.required]),
+      Code_DR: new FormControl('', [Validators.required, Validators.maxLength(3), Validators.pattern('[0-9]*')]),
       Roles: new FormArray([]),
       deleted: new FormControl('',)
     });
@@ -74,17 +72,14 @@ export class FormComponent implements OnInit {
     this.Role2 = false;
     this.Role3 = false;
     this.Role4 = false;
- 
-
 
     // Fetch Info 
     this.adminForm.patchValue({
-
       Matricule: this.userR.userMatricul,
       Nom: this.userR.nom,
       Prenom: this.userR.prenom,
+      Code_DR: this.userR.code_dr,
       deleted: this.userR.deleted
-
     });
 
     // Fetch Roles
@@ -99,21 +94,15 @@ export class FormComponent implements OnInit {
         switch (Role.roleName) {
           case "Département Comptable": this.Role1 = true;
             break;
-
           case "Direction Affaires Juridiques et Conformité": this.Role2 = true;
             break;
-
-            case "Chargé de suivi des loyers et aménagements": this.Role3 = true;
+          case "Chargé de suivi des loyers et aménagements": this.Role3 = true;
             break;
-
-            case "Chef de département gestion et suivi du patrimoine": this.Role4 = true;
+          case "Chef de département gestion et suivi du patrimoine": this.Role4 = true;
             break;
         }
-  
       }
-      // make thes roles checked
     });
-    
   }
 
   AddRole(NewOrOld: any) {
@@ -126,7 +115,7 @@ export class FormComponent implements OnInit {
     (<FormArray>this.adminForm.get('Roles')).push(
       <FormGroup>RoleData
     );
-    
+
     return <FormGroup>RoleData;
   }
 
@@ -144,8 +133,6 @@ export class FormComponent implements OnInit {
       Tab[index] = Role.roleName;
     });
 
-    
-    
     if (element.checked) {
       if (Tab.includes(element.value)) {
         this.adminForm.get('Roles')?.value.forEach((Role: any) => {
@@ -166,7 +153,7 @@ export class FormComponent implements OnInit {
           if (Role.roleName == element.value) {
             if (Role.NewOrOld == 'Old') {
               Role.deleted = true;
-              
+
             }
             else {
               this.removeUser(index)
@@ -208,6 +195,7 @@ export class FormComponent implements OnInit {
       userMatricul: this.adminForm.get('Matricule')?.value,
       nom: this.adminForm.get('Nom')?.value,
       prenom: this.adminForm.get('Prenom')?.value,
+      code_dr: this.adminForm.get('Code_DR')?.value,
       userRoles: this.adminForm.get('Roles')?.value,
       deleted: false
     };
@@ -230,7 +218,6 @@ export class FormComponent implements OnInit {
         this.hideErrorMessage();
       }
     );
-
   }
 
   updateUserRole() {
@@ -238,6 +225,7 @@ export class FormComponent implements OnInit {
       userMatricul: this.adminForm.get('Matricule')?.value,
       nom: this.adminForm.get('Nom')?.value,
       prenom: this.adminForm.get('Prenom')?.value,
+      code_dr: this.adminForm.get('Code_DR')?.value,
       userRoles: this.adminForm.get('Roles')?.value,
       deleted: this.adminForm.get('deleted')?.value
     };
@@ -260,7 +248,6 @@ export class FormComponent implements OnInit {
         this.hideErrorMessage();
       }
     );
-    
   }
 
   clearCH() {
@@ -270,5 +257,26 @@ export class FormComponent implements OnInit {
         (rolesCH[index] as HTMLInputElement).checked = false;
       }
     }
+  }
+
+  // Check if all inputs has invalid errors
+  checkInputsValidation(targetInput: any) {
+    return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
+  }
+
+  get Matricule() {
+    return this.adminForm.get('Matricule')
+  }
+
+  get Nom() {
+    return this.adminForm.get('Nom')
+  }
+
+  get Prenom() {
+    return this.adminForm.get('Prenom')
+  }
+
+  get Code_DR() {
+    return this.adminForm.get('Code_DR')
   }
 }

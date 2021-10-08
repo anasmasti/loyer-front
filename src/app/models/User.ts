@@ -4,5 +4,6 @@ export interface User {
     userMatricul: String;
     nom: String;
     prenom: String;
+    code_dr: String;
     userRoles: Array<any>;
 }

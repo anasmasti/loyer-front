@@ -36,7 +36,7 @@ export class DashboardComponent implements OnInit {
   xAxis: boolean = false;
   yAxis: boolean = false;
   xAxisLabel: string = '';
-  yAxisLabel1: string = 'Total des loyers par type du foncier';
+  yAxisLabel1: string = 'Total des loyers par type du local';
   yAxisLabel2: string = 'Nombre des locaux par ville';
   showXAxisLabel: boolean = false;
   showYAxisLabel: boolean = false;
@@ -51,7 +51,7 @@ export class DashboardComponent implements OnInit {
   // Color options
   gradient: boolean = false;
   colorScheme = {
-    domain: ['#f9a11e', '#ffbb56', '#e25e2c', "#ff9a73"]
+    domain: ['#f9a11e', '#ffbb56', '#e25e2c', "#ffdf3e", "#ff9a73", "#eb7e53"]
   };
   schemeType: any = 'ordinal'; // 'ordinal' or 'linear'
 

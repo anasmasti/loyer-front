@@ -16,6 +16,7 @@ export class DetailComponent implements OnInit {
     userMatricul: "",
     nom: "",
     prenom: "",
+    code_dr: "",
     userRoles: [],
     deleted: false,
   };

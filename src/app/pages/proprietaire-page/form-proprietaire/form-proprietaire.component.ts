@@ -25,6 +25,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   userMatricule: any = localStorage.getItem('matricule')
 
 
+
   constructor(
     private proprietaireService: ProprietaireService,
     private mainModalService: MainModalService,
@@ -69,6 +70,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       nom_agence_bancaire: new FormControl('', []),
       montant_loyer: new FormControl('', [ Validators.pattern('[0-9]*')]),
       mandataire: new FormControl('', []),
+      taux_impot: new FormControl(),
+      retenue_source: new FormControl(),
+      montant_apres_impot: new FormControl(),
 
       // Champs du mandataire
       // mandataireForm: new FormArray([]),
@@ -78,6 +82,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       this.proprietaireForm.reset();
     }
   }
+
+
 
   // addFormMandateire() {
   //   const mandataireData = new FormGroup({
@@ -186,6 +192,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         banque_rib: this.proprietaire.banque_rib,
         ville_rib: this.proprietaire.ville_rib,
         cle_rib: this.proprietaire.cle_rib,
+        taux_impot: this.proprietaire.taux_impot,
+        retenue_source: this.proprietaire.retenue_source,
+        montant_apres_impot: this.proprietaire.montant_apres_impot,
         // mandataire inputs
         // cin_mandataire: '',
         // nom_prenom_mandataire: '',
@@ -236,6 +245,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       banque_rib: this.proprietaireForm.get('banque_rib')?.value,
       ville_rib: this.proprietaireForm.get('ville_rib')?.value,
       cle_rib: this.proprietaireForm.get('cle_rib')?.value,
+      taux_impot: this.proprietaireForm.get('taux_impot')?.value,
+      retenue_source: this.proprietaireForm.get('retenue_source')?.value,
+      montant_apres_impot: this.proprietaireForm.get('montant_apres_impot')?.value,
 
       // mandataire: this.proprietaireForm.get('mandataireForm')?.value,
       // deleted:false,
@@ -286,6 +298,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       banque_rib: this.proprietaireForm.get('banque_rib')?.value,
       ville_rib: this.proprietaireForm.get('ville_rib')?.value,
       cle_rib: this.proprietaireForm.get('cle_rib')?.value,
+      taux_impot: this.proprietaireForm.get('taux_impot')?.value,
+      retenue_source: this.proprietaireForm.get('retenue_source')?.value,
+      montant_apres_impot: this.proprietaireForm.get('montant_apres_impot')?.value,
     };
 
     this.proprietaireService.updateProprietaire(id, proprietaireData, this.userMatricule).subscribe(
@@ -360,7 +375,16 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   get cle_rib() {
     return this.proprietaireForm.get('cle_rib');
   }
+  get taux_impot() {
+    return this.proprietaireForm.get('taux_impot');
+  }
 
+  get retenue_source() {
+    return this.proprietaireForm.get('retenue_source');
+  }
+  get montant_apres_impot() {
+    return this.proprietaireForm.get('montant_apres_impot');
+  }
   // Mandataire
   // get mandataireForm(): FormArray {
   //   return <FormArray>this.proprietaireForm.get('mandataireForm');

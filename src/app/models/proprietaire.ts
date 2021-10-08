@@ -17,6 +17,9 @@ export interface Proprietaire {
   nom_agence_bancaire: string;
   montant_loyer: number;
   mandataire: boolean;
+  taux_impot: string;
+  retenue_source: string;
+  montant_apres_impot: number;
   // mandataire: [{
   //   cin_mandataire: string;
   //   nom_prenom_mandataire: string;

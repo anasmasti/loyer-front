@@ -14,3 +14,12 @@ a {
     text-decoration: none;
     color: color(dark);
 }
+
+.left-border {
+    border-left: 1px solid color(main-color);
+    @include mobile($min-screen, $max-screen) {
+        & {
+            border-left: none;
+        }
+    }
+}
