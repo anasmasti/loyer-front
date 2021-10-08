@@ -68,12 +68,14 @@ export class DashboardComponent implements OnInit {
   statisticsBarV!: any
   statisticsBarH!: any
   statisticsCircle!: any
+  statisticsAdvancedCircl!: any
 
   ngOnInit(): void {
     this.getAllCount()
     this.getChartBar()
     this.getChartCircl()
     this.getChartLine()
+    this.getChartAdvancedCircl()
   }
 
   getAllCount() {
@@ -117,6 +119,12 @@ export class DashboardComponent implements OnInit {
   getChartLine() {
     this.chartService.getChartBarH().subscribe((data) => {
       this.statisticsBarH = data;
+    })
+  }
+
+  getChartAdvancedCircl() {
+    this.chartService.getChartAdvancedCircl().subscribe((data) => {
+      this.statisticsAdvancedCircl = data
     })
   }
 
