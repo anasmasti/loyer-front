@@ -87,6 +87,38 @@
             </div>
         </div>
     </div>
+
+    <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-10 ms-5">
+        <div class="row">
+            <div class="col-lg-4">
+                <h5 class="main-txt">Banque RIB</h5>
+                <p>{{ proprietaire?.banque_rib }}</p>
+            </div>
+            <div class="col-lg-4">
+                <h5 class="main-txt">Ville RIB</h5>
+                <p>{{ proprietaire?.ville_rib }}</p>
+            </div>
+            <div class="col-lg-4">
+                <h5 class="main-txt">Clé RIB</h5>
+                <p>{{ proprietaire?.cle_rib }}</p>
+            </div>
+            <div class="col-lg-4">
+                <h5 class="main-txt">Taux de l'impôt</h5>
+                <p>{{ proprietaire?.taux_impot }}</p>
+            </div>
+            <div class="col-lg-4">
+                <h5 class="main-txt">Retenue à la source</h5>
+                <p>{{ proprietaire?.retenue_source }}</p>
+            </div>
+            <div class="col-lg-4">
+                <h5 class="main-txt">Montant aprés impôt</h5>
+                <p>{{ proprietaire?.montant_apres_impot }}</p>
+            </div>
+            
+        </div>
+
+    </div>
+
 </div>
 
 <div *ngIf="mandataire">
