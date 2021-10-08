@@ -26,58 +26,58 @@
         <div class="row">
             <div class="col-lg-6">
                 <h5 class="main-txt">Numero de contrat</h5>
-                <p>{{ contrat.numero_contrat }}</p>
+                <p>{{ contrat.numero_contrat != '' ? contrat.numero_contrat : '--'}}</p>
             </div>
             <div class="col-lg-6">
 
                 <h5 class="main-txt">Date de debut du loyer</h5>
-                <p>{{ contrat.date_debut_loyer }}</p>
+                <p>{{ contrat.date_debut_loyer != '' ? contrat.date_debut_loyer : '--'}}</p>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
                 <h5 class="main-txt">Date fin de contrat de bail</h5>
-                <p>{{ contrat.date_fin_contrat }}</p>
+                <p>{{ contrat.date_fin_contrat != '' ? contrat.date_fin_contrat : '--'}}</p>
             </div>
             <div class="col-lg-6">
                 <h5 class="main-txt">Durée de location</h5>
-                <p>{{ contrat.duree_location }}</p>
+                <p>{{ contrat.duree_location != undefined ? contrat.duree_location : '--'}}</p>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
                 <h5 class="main-txt">Périodicité de paiement</h5>
-                <p>{{ contrat.periodicite_paiement }}</p>
+                <p>{{ contrat.periodicite_paiement != '' ? contrat.periodicite_paiement : '--'}}</p>
             </div>
             <div class="col-lg-6">
                 <h5 class="main-txt">Montant du loyer</h5>
-                <p>{{ contrat.montant_loyer }}</p>
+                <p>{{ contrat.montant_loyer != undefined ? contrat.montant_loyer : '--'}}</p>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
                 <h5 class="main-txt">Taxe d'édilité comprise dans loyer</h5>
-                <p>{{contrat.taxe_edilite_loyer}}</p>
+                <p>{{contrat.taxe_edilite_loyer != '' ? contrat.taxe_edilite_loyer : '--'}}</p>
             </div>
             <div class="col-lg-6">
                 <h5 class="main-txt">Taxe d'édilité non comprise dans loyer</h5>
-                <p>{{ contrat.taxe_edilite_non_loyer }}</p>
+                <p>{{ contrat.taxe_edilite_non_loyer != '' ? contrat.taxe_edilite_non_loyer : '--'}}</p>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
                 <h5 class="main-txt">Déclaration d'option</h5>
-                <p>{{ contrat.declaration_option }}</p>
+                <p>{{ contrat.declaration_option != '' ? contrat.declaration_option : '--'}}</p>
             </div>
             <div class="col-lg-6">
                 <h5 class="main-txt">Taux de l'impot</h5>
-                <p>{{ contrat.taux_impot }}</p>
+                <p>{{ contrat.taux_impot != '' ? contrat.taux_impot : '--'}}</p>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
                 <h5 class="main-txt">Retenue à la source</h5>
-                <p>{{ contrat.retenue_source }}</p>
+                <p>{{ contrat.retenue_source != '' ? contrat.retenue_source : '--'}}</p>
             </div>
             <div class="col-lg-6">
                 <h5 class="main-txt">Pièce joint</h5>
@@ -101,61 +101,61 @@
         <div class="row">
             <div class="col-lg-6">
                 <h5 class="main-txt">Montant après impot</h5>
-                <p>{{ contrat.montant_apres_impot }}</p>
+                <p>{{ contrat.montant_apres_impot != undefined ? contrat.montant_apres_impot : '--'}}</p>
             </div>
             <div class="col-lg-6">
                 <h5 class="main-txt">Montant de la caution</h5>
-                <p>{{ contrat.montant_caution }}</p>
+                <p>{{ contrat.montant_caution != undefined ? contrat.montant_caution : '--'}}</p>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
                 <h5 class="main-txt">Effort de la caution</h5>
-                <p>{{ contrat.effort_caution }}</p>
+                <p>{{ contrat.effort_caution != '' ? contrat.effort_caution : '--'}}</p>
             </div>
             <div class="col-lg-6">
                 <h5 class="main-txt">Date de reprise de la caution</h5>
-                <p>{{ contrat.date_reprise_caution}}</p>
+                <p>{{ contrat.date_reprise_caution != '' ? contrat.date_reprise_caution : '--'}}</p>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
                 <h5 class="main-txt">Statut de la caution</h5>
-                <p>{{contrat.statut_caution }}</p>
+                <p>{{contrat.statut_caution != '' ? contrat.statut_caution : '--'}}</p>
             </div>
             <div class="col-lg-6">
                 <h5 class="main-txt">Montant de l'avance</h5>
-                <p>{{contrat.montant_avance}}</p>
+                <p>{{contrat.montant_avance != undefined ? contrat.montant_avance : '--'}}</p>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
                 <h5 class="main-txt">Date fin de l'avance</h5>
-                <p>{{contrat.date_fin_avance }}</p>
+                <p>{{contrat.date_fin_avance != '' ? contrat.date_fin_avance : '--'}}</p>
             </div>
             <div class="col-lg-6">
                 <h5 class="main-txt">Date 1er paiement</h5>
-                <p>{{contrat.date_premier_paiement}}</p>
+                <p>{{contrat.date_premier_paiement != '' ? contrat.date_premier_paiement : '--'}}</p>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
                 <h5 class="main-txt">Durée de l'avance</h5>
-                <p>{{contrat.duree_avance }}</p>
+                <p>{{contrat.duree_avance != undefined ? contrat.duree_avance : '--'}}</p>
             </div>
             <div class="col-lg-6">
                 <h5 class="main-txt">N° d'engagement de la dépense</h5>
-                <p>{{contrat.n_engagement_depense}}</p>
+                <p>{{contrat.n_engagement_depense != '' ? contrat.n_engagement_depense : '--'}}</p>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
                 <h5 class="main-txt">Echéance de révision du loyer</h5>
-                <p>{{contrat.echeance_revision_loyer }}</p>
+                <p>{{contrat.echeance_revision_loyer != '' ? contrat.echeance_revision_loyer : '--'}}</p>
             </div>
             <div class="col-lg-6">
                 <h5 class="main-txt">Etat de contrat</h5>
-                <p>{{this.contrat.etat_contrat?.libelle}}</p>
+                <p>{{this.contrat.etat_contrat?.libelle != '' ? this.contrat.etat_contrat?.libelle : '--'}}</p>
             </div>
         </div>
 
@@ -176,27 +176,27 @@
     <div class="row">
         <div class="col-lg-3">
             <h5 class="main-txt">N° avenant</h5>
-            <p>{{contrat.etat_contrat?.etat?.n_avenant}}</p>
+            <p>{{contrat.etat_contrat?.etat?.n_avenant != '' ? contrat.etat_contrat?.etat?.n_avenant : '--'}}</p>
         </div>
         <div class="col-lg-3">
             <h5 class="main-txt">Motif</h5>
-            <p>{{contrat.etat_contrat?.etat?.motif}}</p>
+            <p>{{contrat.etat_contrat?.etat?.motif != '' ? contrat.etat_contrat?.etat?.motif : '--'}}</p>
         </div>
 
         <div class="col-lg-3">
             <h5 class="main-txt">Montant nouveau loyer</h5>
-            <p>{{contrat.etat_contrat?.etat?.montant_nouveau_loyer}}</p>
+            <p>{{contrat.etat_contrat?.etat?.montant_nouveau_loyer != undefined ? contrat.etat_contrat?.etat?.montant_nouveau_loyer : '--'}}</p>
         </div>
         <div class="col-lg-3">
             <h5 class="main-txt">Signaletique successeur</h5>
-            <p>{{contrat.etat_contrat?.etat?.signaletique_successeur}}</p>
+            <p>{{contrat.etat_contrat?.etat?.signaletique_successeur != '' ? contrat.etat_contrat?.etat?.signaletique_successeur : '--'}}</p>
         </div>
     </div>
 
     <div class="row">
         <div class="col-lg-3">
             <h5 class="main-txt">Intitule lieu</h5>
-            <p>{{contrat.etat_contrat?.etat?.intitule_lieu}}</p>
+            <p>{{contrat.etat_contrat?.etat?.intitule_lieu != '' ? contrat.etat_contrat?.etat?.intitule_lieu : '--'}}</p>
         </div>
         <div class="col-lg-3">
             <h5 class="main-txt">Pièce jointe</h5>
@@ -227,20 +227,20 @@
     <div class="row">
         <div class="col-lg-3">
             <h5 class="main-txt">Intitule de lieu</h5>
-            <p>{{contrat.etat_contrat?.etat?.intitule_lieu}}</p>
+            <p>{{contrat.etat_contrat?.etat?.intitule_lieu != '' ? contrat.etat_contrat?.etat?.intitule_lieu : '--'}}</p>
         </div>
         <div class="col-lg-3">
             <h5 class="main-txt">Date de Suspendu</h5>
-            <p>{{contrat.etat_contrat?.etat?.date_suspension}}</p>
+            <p>{{contrat.etat_contrat?.etat?.date_suspension != '' ? contrat.etat_contrat?.etat?.date_suspension : '--'}}</p>
         </div>
 
         <div class="col-lg-3">
             <h5 class="main-txt">Durée de Suspendu</h5>
-            <p>{{contrat.etat_contrat?.etat?.duree_suspension}}</p>
+            <p>{{contrat.etat_contrat?.etat?.duree_suspension != undefined ? contrat.etat_contrat?.etat?.duree_suspension : '--'}}</p>
         </div>
         <div class="col-lg-3">
             <h5 class="main-txt">Motif Suspendu</h5>
-            <p>{{contrat.etat_contrat?.etat?.motif_suspension}}</p>
+            <p>{{contrat.etat_contrat?.etat?.motif_suspension != '' ? contrat.etat_contrat?.etat?.motif_suspension : '--'}}</p>
         </div>
     </div>
 
@@ -259,27 +259,27 @@
     <div class="row">
         <div class="col-lg-3">
             <h5 class="main-txt">Intitulé de lieu</h5>
-            <p>{{contrat.etat_contrat?.etat?.intitule_lieu}}</p>
+            <p>{{contrat.etat_contrat?.etat?.intitule_lieu != '' ? contrat.etat_contrat?.etat?.intitule_lieu : '--'}}</p>
         </div>
         <div class="col-lg-3">
             <h5 class="main-txt">Reprise caution</h5>
-            <p>{{contrat.etat_contrat?.etat?.reprise_caution}}</p>
+            <p>{{contrat.etat_contrat?.etat?.reprise_caution != '' ? contrat.etat_contrat?.etat?.reprise_caution : '--'}}</p>
         </div>
 
         <div class="col-lg-3">
             <h5 class="main-txt">Etat des lieux de sortie</h5>
-            <p>{{contrat.etat_contrat?.etat?.etat_lieu_sortie}}</p>
+            <p>{{contrat.etat_contrat?.etat?.etat_lieu_sortie != '' ? contrat.etat_contrat?.etat?.etat_lieu_sortie : '--'}}</p>
         </div>
         <div class="col-lg-3">
             <h5 class="main-txt">Préavis</h5>
-            <p>{{contrat.etat_contrat?.etat?.preavis}}</p>
+            <p>{{contrat.etat_contrat?.etat?.preavis != '' ? contrat.etat_contrat?.etat?.preavis : '--'}}</p>
         </div>
     </div>
 
     <div class="row">
         <div class="col-lg-3">
             <h5 class="main-txt">Date de Résilié</h5>
-            <p>{{contrat.etat_contrat?.etat?.date_resiliation}}</p>
+            <p>{{contrat.etat_contrat?.etat?.date_resiliation != '' ? contrat.etat_contrat?.etat?.date_resiliation : '--'}}</p>
         </div>
         <div class="col-lg-3">
             <h5 class="main-txt">Images d'état des lieux de sortie</h5>
