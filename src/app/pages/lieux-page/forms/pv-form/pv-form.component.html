@@ -30,7 +30,7 @@
       <!--Début 1er Row-->
       <div class="row">
         <div class="col-lg-3 form-group mt-4">
-          <label for="">Code point de vente</label>
+          <label for="">Code point de vente <span class="text-danger">*</span></label>
           <input type="text" class="form-control rounded-pill" formControlName="code_lieu" required [ngClass]="{
               'is-invalid': checkInputsValidation(code_lieu),
               'is-valid': !code_lieu?.invalid
@@ -49,7 +49,7 @@
         </div>
 
         <div class="col-lg-3 form-group mt-4">
-          <label for="">Point de Vente</label>
+          <label for="">Point de Vente <span class="text-danger">*</span></label>
           <input type="text" class="form-control rounded-pill" formControlName="intitule_lieu" [ngClass]="{
               'is-invalid': checkInputsValidation(intitule_lieu),
               'is-valid': !intitule_lieu?.invalid
@@ -71,7 +71,7 @@
         </div>
 
         <div class="col-lg-3 form-group mt-4">
-          <label for="">Code supervision</label>
+          <label for="">Code supervision <span class="text-danger">*</span></label>
           <select class="form-select rounded-pill" formControlName="code_rattache_SUP" [ngClass]="{
               'is-invalid': checkInputsValidation(code_rattache_SUP),
               'is-valid': !code_rattache_SUP?.invalid
@@ -97,7 +97,7 @@
         </div>
 
         <div class="col-lg-3 form-group mt-4">
-          <label for="">Code DR</label>
+          <label for="">Code DR <span class="text-danger">*</span></label>
           <select class="form-select rounded-pill" formControlName="code_rattache_DR" [ngClass]="{
               'is-invalid': checkInputsValidation(code_rattache_DR),
               'is-valid': !code_rattache_DR?.invalid
