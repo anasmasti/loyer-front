@@ -214,6 +214,19 @@
         <input type="text" class="form-control rounded-pill" formControlName="echeance_revision_loyer">
       </div>
 
+      <div *ngIf="update" class="col-lg-3 form-group mt-4">
+        <label for="">Etat de contrat</label>
+        <select class="form-select rounded-pill" formControlName="etat_contrat_libelle" [(ngModel)]="etatContratTypes"
+          (change)="showEtatSection($event)">
+          <option value="Actif">Actif</option>
+          <!--  -->
+          <option *ngIf="this.contrat.validation2_DAJC"
+            [value]="etatContratTypes == 'Avenant' ? etatContratTypes : 'Avenant'">à avener</option>
+          <option value="Suspendu">à suspendre</option>
+          <option value="Résilié">à résilier</option>
+        </select>
+      </div>
+
       <div *ngIf="!update && foncier" class="col-lg-3 form-group mt-4">
         <label for="">Addresse du foncier</label>
         <input type="hidden" [(ngModel)]="foncier._id" formControlName="foncier">
@@ -234,18 +247,7 @@
       </div>
 
 
-      <div *ngIf="update" class="col-lg-3 form-group mt-5">
-        <label for="">Etat de contrat</label>
-        <select class="form-select rounded-pill" formControlName="etat_contrat_libelle" [(ngModel)]="etatContratTypes"
-          (change)="showEtatSection($event)">
-          <option value="Actif">Actif</option>
-          <!--  -->
-          <option *ngIf="this.contrat.validation2_DAJC"
-            [value]="etatContratTypes == 'Avenant' ? etatContratTypes : 'Avenant'">à avener</option>
-          <option value="Suspendu">à suspendre</option>
-          <option value="Résilié">à résilier</option>
-        </select>
-      </div>
+      
 
       <div class="mt-4">
         <div class="form-box mt-2">
