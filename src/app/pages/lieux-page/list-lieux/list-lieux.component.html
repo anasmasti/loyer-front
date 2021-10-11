@@ -43,29 +43,39 @@
         placeholder="Rechercher par intitulé/ville..."
       />
     </div>
+    <div class="col-sm-1 my-2">
+      <!-- <label for="" class="main-muted-text">Non</label> -->
+      <input
+        id="non"
+        type="radio"
+        name="search-by-amenagement"
+        (click)="searchByAmenagement($event, 'all')"
+        class="rounded-pill"
+        [checked]='true'
+      /> Tout
+    </div>
 
     <div class="col-sm-1 my-2">
       <!-- <label for="" class="main-muted-text">Oui</label> -->
-      <!-- <input
+      <input
         id="oui"
         type="radio"
-        [(ngModel)]="checkAmenagement"
         name="search-by-amenagement"
-        (change)="searchByAmenagement($event, 'false')"
         class="rounded-pill"
-      /> Oui -->
+        (click)="searchByAmenagement($event, 'true')"
+      /> Oui
     </div>
     <div class="col-sm-1 my-2">
       <!-- <label for="" class="main-muted-text">Non</label> -->
-      <!-- <input
+      <input
         id="non"
         type="radio"
-        [(ngModel)]="checkAmenagement"
         name="search-by-amenagement"
-        (change)="searchByAmenagement($event, 'false')"
+        (click)="searchByAmenagement($event, 'false')"
         class="rounded-pill"
-      /> Non -->
+      /> Non
     </div>
+  
   </div>
 
   <table class="table">
@@ -81,7 +91,7 @@
       </tr>
     </thead>
 
-    <tbody *ngIf="lieux.length">
+    <tbody *ngIf="lieux?.length">
       <tr
         *ngFor="
           let lieu of lieux
