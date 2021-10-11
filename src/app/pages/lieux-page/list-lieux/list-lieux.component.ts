@@ -73,8 +73,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     if (this.findLieu != '') {
       this.lieux = this.lieux.filter((res: any) => {
         return (
-          res.type_foncier?.toLowerCase().match(this.findLieu.toLowerCase()) ||
-          res.ville?.toLowerCase().match(this.findLieu.toLowerCase())
+          res.intitule_lieu?.toLowerCase().match(this.findLieu.toLowerCase()) || res.ville?.toLowerCase().match(this.findLieu.toLowerCase())
         );
       });
     } else if (this.findLieu == '') {

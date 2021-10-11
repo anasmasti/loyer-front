@@ -108,9 +108,6 @@
 
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(telephone)">
-        <p class="text-danger" *ngIf="telephone?.errors?.required">
-          Veuillez remplir ce champ
-        </p>
         <p class="text-danger" *ngIf="telephone?.errors?.pattern">
           Vous devez entrer seulement des chiffres
         </p>
