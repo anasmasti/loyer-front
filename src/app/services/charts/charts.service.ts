@@ -22,6 +22,12 @@ export class ChartsService {
     );
   }
 
+  getChartAdvancedCircl() {
+    return this.http.get(
+      `${environment.API_URL_TEST + environment.API_VERSION}/chartAdvancedCircl`
+    );
+  }
+
   getChartBarH() {
     return this.http.get(
       `${environment.API_URL_TEST + environment.API_VERSION}/chartBarH`

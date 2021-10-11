@@ -30,7 +30,7 @@
       <!--Début 1er Row-->
       <div class="row">
         <div class="col-lg-3 form-group mt-4">
-          <label for="">Code point de vente</label>
+          <label for="">Code point de vente <span class="text-danger">*</span></label>
           <input type="text" class="form-control rounded-pill" formControlName="code_lieu" required [ngClass]="{
               'is-invalid': checkInputsValidation(code_lieu),
               'is-valid': !code_lieu?.invalid
@@ -49,7 +49,7 @@
         </div>
 
         <div class="col-lg-3 form-group mt-4">
-          <label for="">Point de Vente</label>
+          <label for="">Point de Vente <span class="text-danger">*</span></label>
           <input type="text" class="form-control rounded-pill" formControlName="intitule_lieu" [ngClass]="{
               'is-invalid': checkInputsValidation(intitule_lieu),
               'is-valid': !intitule_lieu?.invalid
@@ -57,9 +57,6 @@
           <div class="" *ngIf="checkInputsValidation(intitule_lieu)">
             <p class="text-danger" *ngIf="intitule_lieu?.errors?.required">
               Veuillez remplir ce champ
-            </p>
-            <p class="text-danger" *ngIf="intitule_lieu?.errors?.pattern">
-              Vous devez entrer seulement des alphabets
             </p>
           </div>
         </div>
@@ -74,7 +71,7 @@
         </div>
 
         <div class="col-lg-3 form-group mt-4">
-          <label for="">Code supervision</label>
+          <label for="">Code supervision <span class="text-danger">*</span></label>
           <select class="form-select rounded-pill" formControlName="code_rattache_SUP" [ngClass]="{
               'is-invalid': checkInputsValidation(code_rattache_SUP),
               'is-valid': !code_rattache_SUP?.invalid
@@ -100,7 +97,7 @@
         </div>
 
         <div class="col-lg-3 form-group mt-4">
-          <label for="">Code DR</label>
+          <label for="">Code DR <span class="text-danger">*</span></label>
           <select class="form-select rounded-pill" formControlName="code_rattache_DR" [ngClass]="{
               'is-invalid': checkInputsValidation(code_rattache_DR),
               'is-valid': !code_rattache_DR?.invalid
@@ -165,15 +162,11 @@
           <label for="">Fax</label>
           <input type="text" class="form-control rounded-pill" formControlName="fax"
           [ngClass]="{
-            'is-invalid': checkInputsValidation(fax),
-            'is-valid': !fax?.invalid 
+            'is-invalid': checkInputsValidation(fax)
           }"/>
           <div class="" *ngIf="checkInputsValidation(fax)">
-            <p class="text-danger" *ngIf="fax?.errors?.required">
-              Veuillez remplir ce champ
-            </p>
             <p class="text-danger" *ngIf="fax?.errors?.maxlength">
-              Vous devez entrer 10 nombres au maximum
+              Ce champ ne doit pas dépasser 10 caractères
             </p>
             <p class="text-danger" *ngIf="fax?.errors?.pattern">
               Vous devez entrer seulement des chiffres
@@ -185,15 +178,11 @@
           <label for="">Téléphone</label>
           <input type="text" class="form-control rounded-pill" formControlName="telephone"
           [ngClass]="{
-            'is-invalid': checkInputsValidation(telephone),
-            'is-valid': !telephone?.invalid 
+            'is-invalid': checkInputsValidation(telephone)
           }"/>
           <div class="" *ngIf="checkInputsValidation(telephone)">
-            <p class="text-danger" *ngIf="telephone?.errors?.required">
-              Veuillez remplir ce champ
-            </p>
             <p class="text-danger" *ngIf="telephone?.errors?.maxlength">
-              Vous devez entrer 10 nombres au maximum
+              Ce champ ne doit pas dépasser 10 caractères
             </p>
             <p class="text-danger" *ngIf="telephone?.errors?.pattern">
               Vous devez entrer seulement des chiffres
@@ -311,7 +300,7 @@
                           <input type="text" class="form-control rounded-pill" formControlName="prenom" />
                         </div>
                         <div class="col-lg-3 form-group">
-                          <label for="">Amenagement éffectué</label>
+                          <label for="">Amenagement effectué</label>
                           <input type="text" class="form-control rounded-pill" formControlName="amenagement_effectue" />
                         </div>
                         <input type="hidden" id="{{ 'deleted ' + i + ' ' + j }}" formControlName="deleted" />
@@ -363,10 +352,10 @@
 
       <!-- Button Ajouter -->
       <div class="form-group mt-4 col-lg-2 d-flex">
-        <button type="submit" class="btn second-btn form-control" *ngIf="Lieu != ''" [disabled]="PvForm.invalid">
+        <button type="submit" class="btn second-btn form-control" *ngIf="Lieu != ''">
           Modifier
         </button>
-        <button type="submit" class="btn second-btn form-control" *ngIf="Lieu == ''" [disabled]="PvForm.invalid">
+        <button type="submit" class="btn second-btn form-control" *ngIf="Lieu == ''">
           Ajouter
         </button>
       </div>

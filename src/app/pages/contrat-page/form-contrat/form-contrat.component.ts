@@ -84,6 +84,8 @@ export class FormContratComponent implements OnInit {
 
   userMatricule: any = localStorage.getItem('matricule')
 
+  statutCaution: string = 'En cours'
+
 
   constructor(
     private contratService: ContratService,

@@ -66,7 +66,7 @@ export class DrFormComponent implements OnInit {
   ngOnInit(): void {
     this.drForm = new FormGroup({
       code_lieu: new FormControl('', [Validators.required, Validators.maxLength(3), Validators.pattern('[0-9]*')]),
-      intitule_lieu: new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*')]),
+      intitule_lieu: new FormControl('', [Validators.required]),
       // intitule_DR: new FormControl('',),
       adresse: new FormControl('', [Validators.required]),
       ville: new FormControl('', [Validators.required]),
@@ -75,8 +75,8 @@ export class DrFormComponent implements OnInit {
       imgs_lieu_entrer: new FormControl(''),
       has_amenagements: new FormControl(''),
       superficie: new FormControl(''),
-      telephone: new FormControl('', [Validators.required, Validators.pattern('[0-9]*'), Validators.maxLength(10)]),
-      fax: new FormControl('', [Validators.required, Validators.pattern('[0-9]*'), Validators.maxLength(10)]),
+      telephone: new FormControl('', [Validators.pattern('[0-9]*'), Validators.maxLength(10)]),
+      fax: new FormControl('', [Validators.pattern('[0-9]*'), Validators.maxLength(10)]),
       etage: new FormControl(''),
       type_lieu: new FormControl(''),
       code_rattache_DR: new FormControl(''),

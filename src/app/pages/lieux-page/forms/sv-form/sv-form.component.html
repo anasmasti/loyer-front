@@ -31,7 +31,7 @@
       <!--Début 1er Row-->
       <div class="row">
         <div class="col-lg-3 form-group mt-4">
-          <label for="">Code SUP</label>
+          <label for="">Code SUP <span class="text-danger">*</span></label>
           <input
             type="text"
             class="form-control rounded-pill"
@@ -55,7 +55,7 @@
         </div>
 
         <div class="col-lg-3 form-group mt-4">
-          <label for="">Supervision</label>
+          <label for="">Supervision <span class="text-danger">*</span></label>
           <input
             type="text"
             class="form-control rounded-pill"
@@ -69,15 +69,11 @@
             <p class="text-danger" *ngIf="code_lieu?.errors?.required">
               Veuillez remplir ce champ
             </p>
-            <p class="text-danger" *ngIf="intitule_lieu?.errors?.pattern">
-              Vous devez entrer seulement des alphabets
-            </p>
-            
           </div>
         </div>
 
         <div class="col-lg-3 form-group mt-4">
-          <label for="">Code DR</label>
+          <label for="">Code DR <span class="text-danger">*</span></label>
           <select class="form-select rounded-pill" formControlName="code_rattache_DR" [ngClass]="{
               'is-invalid': checkInputsValidation(code_rattache_DR)
             }">
@@ -273,7 +269,7 @@
                           <input type="text" class="form-control rounded-pill" formControlName="prenom" />
                         </div>
                         <div class="col-lg-3 form-group">
-                          <label for="">Amenagement éffectué</label>
+                          <label for="">Amenagement effectué</label>
                           <input type="text" class="form-control rounded-pill" formControlName="amenagement_effectue" />
                         </div>
                         <input type="hidden" id="{{ 'deleted ' + i + ' ' + j }}" formControlName="deleted" />

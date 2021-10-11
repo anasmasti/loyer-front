@@ -1,11 +1,11 @@
 <div class="row title">
   <div class="col-lg-12 mt-3">
     <div class="d-flex justify-content-between">
-      <h3 class="main-title">Liste des fonciers</h3>
+      <h3 class="main-title">Liste des locaux</h3>
 
       <div class="d-none d-lg-block">
         <a class="btn btn-sm success-btn" [routerLink]="['/lieux']">
-          <i class="fal fa-plus-octagon"></i> Nouveau foncier
+          <i class="fal fa-plus-octagon"></i> Nouveau local
         </a>
         <a class="btn btn-sm second-btn mx-3" (click)="refrechPage()"><i class="far fa-undo-alt"></i>
           Rafraîchir la liste
@@ -58,13 +58,13 @@
   <table class="table">
     <thead>
       <tr>
-        <th>Type de foncier</th>
-        <th>Intitulé de foncier</th>
+        <th>Type de local</th>
+        <th>Intitulé de local</th>
         <th>Ville</th>
         <th>Aménagement</th>
         <th>Propriétaire</th>
         <th>Contrat</th>
-        <th>Autres</th>
+        <th>Actions</th>
       </tr>
     </thead>
 
@@ -108,7 +108,7 @@
         </td>
 
         <td>
-          <p *ngIf="lieu.has_contrat" class="info-txt">Ce foncier contient un contrat</p>
+          <p *ngIf="lieu.has_contrat" class="info-txt">Ce local contient un contrat</p>
           <a *ngIf="!lieu.has_contrat" [routerLink]="['/contrat',lieu._id]" class="btn btn-sm success-btn">Ajouter un contrat</a>
         </td>
 
@@ -157,7 +157,7 @@
     </tbody>
 
     <tbody *ngIf="!lieux.length && !accessError" class="w-100 d-flex align-items-center">
-      <h5 class="main-muted-text my-4">Aucun foncier à afficher</h5>
+      <h5 class="main-muted-text my-4">Aucun local à afficher</h5>
       <a class="btn btn-sm second-btn ms-2" [routerLink]="['/lieux']">
         + Nouveau lieu
       </a>

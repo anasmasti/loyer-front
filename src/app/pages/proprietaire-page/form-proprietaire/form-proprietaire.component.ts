@@ -25,6 +25,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   userMatricule: any = localStorage.getItem('matricule')
 
 
+
   constructor(
     private proprietaireService: ProprietaireService,
     private mainModalService: MainModalService,
@@ -42,7 +43,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.proprietaireForm = new FormGroup({
       // Champs du propriètaire
-      cin: new FormControl('', [Validators.maxLength(8)]),
+      cin: new FormControl('', [Validators.required,Validators.maxLength(8)]),
       passport: new FormControl('',[Validators.maxLength(8)]),
       carte_sejour: new FormControl('', [Validators.maxLength(8)]),
       nom_prenom: new FormControl('', [
@@ -53,19 +54,24 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       raison_social: new FormControl('', [Validators.required]),
       n_registre_commerce: new FormControl('', [Validators.pattern('[0-9]*')]),
       telephone: new FormControl('', [
-        Validators.required,
         Validators.pattern('[0-9]*'),
         Validators.maxLength(10)
       ]),
       fax: new FormControl('', [Validators.pattern('[0-9]*'),Validators.maxLength(10)]),
       adresse: new FormControl('', [Validators.required]),
       n_compte_bancaire: new FormControl('', [
-        Validators.required,
+        Validators.required,Validators.pattern('[0-9]{16}'),Validators.maxLength(16)
       ]),
+      banque_rib: new FormControl('', [Validators.required,Validators.pattern('[0-9]{3}'),Validators.maxLength(3)]),
+      ville_rib: new FormControl('', [Validators.required,Validators.pattern('[0-9]{3}'),Validators.maxLength(3)]),
+      cle_rib: new FormControl('', [Validators.required,Validators.pattern('[0-9]{2}'),Validators.maxLength(2)]),
       banque: new FormControl('', [Validators.required]),
       nom_agence_bancaire: new FormControl('', []),
       montant_loyer: new FormControl('', [ Validators.pattern('[0-9]*')]),
       mandataire: new FormControl('', []),
+      taux_impot: new FormControl(),
+      retenue_source: new FormControl(),
+      montant_apres_impot: new FormControl(),
 
       // Champs du mandataire
       // mandataireForm: new FormArray([]),
@@ -75,6 +81,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       this.proprietaireForm.reset();
     }
   }
+
+
 
   // addFormMandateire() {
   //   const mandataireData = new FormGroup({
@@ -180,6 +188,12 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         nom_agence_bancaire: this.proprietaire.nom_agence_bancaire,
         montant_loyer: this.proprietaire.montant_loyer,
         mandataire: this.proprietaire.mandataire,
+        banque_rib: this.proprietaire.banque_rib,
+        ville_rib: this.proprietaire.ville_rib,
+        cle_rib: this.proprietaire.cle_rib,
+        taux_impot: this.proprietaire.taux_impot,
+        retenue_source: this.proprietaire.retenue_source,
+        montant_apres_impot: this.proprietaire.montant_apres_impot,
         // mandataire inputs
         // cin_mandataire: '',
         // nom_prenom_mandataire: '',
@@ -227,6 +241,12 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         ?.value,
       montant_loyer: this.proprietaireForm.get('montant_loyer')?.value,
       mandataire: this.proprietaireForm.get('mandataire')?.value,
+      banque_rib: this.proprietaireForm.get('banque_rib')?.value,
+      ville_rib: this.proprietaireForm.get('ville_rib')?.value,
+      cle_rib: this.proprietaireForm.get('cle_rib')?.value,
+      taux_impot: this.proprietaireForm.get('taux_impot')?.value,
+      retenue_source: this.proprietaireForm.get('retenue_source')?.value,
+      montant_apres_impot: this.proprietaireForm.get('montant_apres_impot')?.value,
 
       // mandataire: this.proprietaireForm.get('mandataireForm')?.value,
       // deleted:false,
@@ -239,7 +259,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
           this.proprietaireForm.reset();
           this.postDone = false;
           this.help.toTheUp();
-          this.router.navigate(['/contrat/list-global/list']).then(() => {
+          this.router.navigate(['/proprietaire/list-global/list']).then(() => {
             this.help.refrechPage()
           });
         }, 2000);
@@ -272,10 +292,14 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       banque: this.proprietaireForm.get('banque')?.value,
       nom_agence_bancaire: this.proprietaireForm.get('nom_agence_bancaire')
         ?.value,
-      montant_loyer : this.proprietaireForm.get('montant_loyer')?.value ,
+      montant_loyer: this.proprietaireForm.get('montant_loyer')?.value,
       mandataire: this.proprietaireForm.get('mandataire')?.value,
-
-      // mandataire: this.proprietaireForm.get('mandataireForm')?.value,
+      banque_rib: this.proprietaireForm.get('banque_rib')?.value,
+      ville_rib: this.proprietaireForm.get('ville_rib')?.value,
+      cle_rib: this.proprietaireForm.get('cle_rib')?.value,
+      taux_impot: this.proprietaireForm.get('taux_impot')?.value,
+      retenue_source: this.proprietaireForm.get('retenue_source')?.value,
+      montant_apres_impot: this.proprietaireForm.get('montant_apres_impot')?.value,
     };
 
     this.proprietaireService.updateProprietaire(id, proprietaireData, this.userMatricule).subscribe(
@@ -338,10 +362,28 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   get montant_loyer() {
     return this.proprietaireForm.get('montant_loyer');
   }
+  get banque_rib() {
+    return this.proprietaireForm.get('banque_rib');
+  }
   get mandataire() {
     return this.proprietaireForm.get('mandataire');
   }
+  get ville_rib() {
+    return this.proprietaireForm.get('ville_rib');
+  }
+  get cle_rib() {
+    return this.proprietaireForm.get('cle_rib');
+  }
+  get taux_impot() {
+    return this.proprietaireForm.get('taux_impot');
+  }
 
+  get retenue_source() {
+    return this.proprietaireForm.get('retenue_source');
+  }
+  get montant_apres_impot() {
+    return this.proprietaireForm.get('montant_apres_impot');
+  }
   // Mandataire
   // get mandataireForm(): FormArray {
   //   return <FormArray>this.proprietaireForm.get('mandataireForm');

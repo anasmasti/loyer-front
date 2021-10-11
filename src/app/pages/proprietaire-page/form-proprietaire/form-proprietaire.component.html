@@ -17,7 +17,10 @@
            <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(cin)">
         <p class="text-danger" *ngIf="cin?.errors?.maxlength">
-          Vous devez entrer 8 chiffres au maximum
+          Ce champ ne doit pas dépasser 8 caractères
+        </p>
+        <p class="text-danger" *ngIf="cin?.errors?.required">
+          Veuillez remplir ce champ
         </p>
       </div>
     </div>
@@ -31,7 +34,7 @@
            <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(passport)">
         <p class="text-danger" *ngIf="passport?.errors?.maxlength">
-          Vous devez entrer 8 chiffres au maximum
+          Ce champ ne doit pas dépasser 8 caractères
         </p>
       </div>
     </div>
@@ -45,7 +48,7 @@
            <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(carte_sejour)">
         <p class="text-danger" *ngIf="carte_sejour?.errors?.maxlength">
-          Vous devez entrer 8 chiffres au maximum
+          Ce champ ne doit pas dépasser 8 caractères
         </p>
       </div>
     </div>
@@ -105,9 +108,6 @@
 
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(telephone)">
-        <p class="text-danger" *ngIf="telephone?.errors?.required">
-          Veuillez remplir ce champ
-        </p>
         <p class="text-danger" *ngIf="telephone?.errors?.pattern">
           Vous devez entrer seulement des chiffres
         </p>
@@ -159,14 +159,68 @@
           }" />
 
       <!-- Error Message  -->
-      <!-- <div class="" *ngIf="checkInputsValidation(n_compte_bancaire)">
+      <div class="" *ngIf="checkInputsValidation(n_compte_bancaire)">
         <p class="text-danger" *ngIf="n_compte_bancaire?.errors?.required">
           Veuillez remplir ce champ
         </p>
         <p class="text-danger" *ngIf="n_compte_bancaire?.errors?.pattern">
-          Vous devez entrer 24 chiffres
+          Vous devez entrer 16 caractères(chiffres)
         </p>
-      </div> -->
+      </div>
+    </div>
+
+    <div class="col-lg-3 form-group mt-4">
+      <label for="">Banque RIB</label>
+      <input type="text" class="form-control rounded-pill" formControlName="banque_rib" required [ngClass]="{
+            'is-invalid': checkInputsValidation(banque_rib),
+            'is-valid': !banque_rib?.invalid
+          }" />
+
+      <!-- Error Message  -->
+      <div class="" *ngIf="checkInputsValidation(banque_rib)">
+        <p class="text-danger" *ngIf="banque_rib?.errors?.required">
+          Veuillez remplir ce champ
+        </p>
+        <p class="text-danger" *ngIf="banque_rib?.errors?.pattern">
+          Vous devez entrer 3 caractères(chiffres)
+        </p>
+      </div>
+    </div>
+
+    <div class="col-lg-3 form-group mt-4">
+      <label for="">Ville RIB</label>
+      <input type="text" class="form-control rounded-pill" formControlName="ville_rib" required [ngClass]="{
+            'is-invalid': checkInputsValidation(ville_rib),
+            'is-valid': !ville_rib?.invalid
+          }" />
+
+      <!-- Error Message  -->
+      <div class="" *ngIf="checkInputsValidation(ville_rib)">
+        <p class="text-danger" *ngIf="ville_rib?.errors?.required">
+          Veuillez remplir ce champ
+        </p>
+        <p class="text-danger" *ngIf="ville_rib?.errors?.pattern">
+          Vous devez entrer 3 caractères(chiffres)
+        </p>
+      </div>
+    </div>
+
+    <div class="col-lg-3 form-group mt-4">
+      <label for="">Clé RIB</label>
+      <input type="text" class="form-control rounded-pill" formControlName="cle_rib" required [ngClass]="{
+            'is-invalid': checkInputsValidation(cle_rib),
+            'is-valid': !cle_rib?.invalid
+          }" />
+
+      <!-- Error Message  -->
+      <div class="" *ngIf="checkInputsValidation(cle_rib)">
+        <p class="text-danger" *ngIf="cle_rib?.errors?.required">
+          Veuillez remplir ce champ
+        </p>
+        <p class="text-danger" *ngIf="cle_rib?.errors?.pattern">
+          Vous devez entrer 2 caractères(chiffres)
+        </p>
+      </div>
     </div>
 
     <div class="col-lg-3 form-group mt-4">
@@ -205,6 +259,29 @@
           Vous devez entrer seulement des chiffres
         </p>
       </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-3 form-group mt-4">
+      <label for="">Taux de l’impôt</label>
+      <input type="text" class="form-control rounded-pill" formControlName="taux_impot" [ngClass]="{
+            'is-invalid': checkInputsValidation(taux_impot)
+          }" />
+    </div>
+
+    <div class="col-lg-3 form-group mt-4">
+      <label for="">Retenue à la source (Annuel)</label>
+      <input type="text" class="form-control rounded-pill" formControlName="retenue_source" [ngClass]="{
+            'is-invalid': checkInputsValidation(retenue_source)
+          }" />
+    </div>
+
+    <div class="col-lg-3 form-group mt-4">
+      <label for="">Montant après impôt (Mensuel)</label>
+      <input type="text" class="form-control rounded-pill" formControlName="montant_apres_impot" [ngClass]="{
+            'is-invalid': checkInputsValidation(montant_apres_impot)
+          }" />
     </div>
   </div>
 

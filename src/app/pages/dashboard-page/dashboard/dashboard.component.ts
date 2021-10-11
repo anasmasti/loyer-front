@@ -21,11 +21,14 @@ export class DashboardComponent implements OnInit {
   allCountSubscription$!: Subscription
 
   // View options
-  view: any[] = [700, 400];
+  view: [number, number] = [450, 900];
+  HBarview: [number, number] = [400, 300];
 
   // Legend options
   hasLegend: boolean = true
-  legendTitle: any = 'Titres';
+  villeTitle: any = 'Villes';
+  locauxTitle: any = 'Locaux';
+  contratTitle: any = 'Contrats';
   legendPositionRight: any = 'right';
   legendPositionBelow: any = 'below';
 
@@ -33,10 +36,10 @@ export class DashboardComponent implements OnInit {
   xAxis: boolean = false;
   yAxis: boolean = false;
   xAxisLabel: string = '';
-  yAxisLabel1: string = 'Total du montant par type du foncier';
-  yAxisLabel2: string = 'Le nombre de fonciers par ville';
+  yAxisLabel1: string = 'Total des loyers par type du local';
+  yAxisLabel2: string = 'Nombre des locaux par ville';
   showXAxisLabel: boolean = false;
-  showYAxisLabel: boolean = true;
+  showYAxisLabel: boolean = false;
 
   // Ticks options
   maxXAxisTickLength: number = 16;
@@ -48,7 +51,7 @@ export class DashboardComponent implements OnInit {
   // Color options
   gradient: boolean = false;
   colorScheme = {
-    domain: ['#f9a11e', '#ffbb56', '#e25e2c', "#ff9a73"]
+    domain: ['#f9a11e', '#ffbb56', '#e25e2c', "#ffdf3e", "#ff9a73", "#eb7e53"]
   };
   schemeType: any = 'ordinal'; // 'ordinal' or 'linear'
 
@@ -59,17 +62,20 @@ export class DashboardComponent implements OnInit {
   barPadding: number = 5
   tooltipDisabled: boolean = false;
   yScaleMax: number = 9000;
-  roundEdges: boolean = false;
+  roundEdges: boolean = true;
+  explodeSlices: boolean = true;
 
   statisticsBarV!: any
   statisticsBarH!: any
   statisticsCircle!: any
+  statisticsAdvancedCircl!: any
 
   ngOnInit(): void {
     this.getAllCount()
     this.getChartBar()
     this.getChartCircl()
     this.getChartLine()
+    this.getChartAdvancedCircl()
   }
 
   getAllCount() {
@@ -113,6 +119,12 @@ export class DashboardComponent implements OnInit {
   getChartLine() {
     this.chartService.getChartBarH().subscribe((data) => {
       this.statisticsBarH = data;
+    })
+  }
+
+  getChartAdvancedCircl() {
+    this.chartService.getChartAdvancedCircl().subscribe((data) => {
+      this.statisticsAdvancedCircl = data
     })
   }
 

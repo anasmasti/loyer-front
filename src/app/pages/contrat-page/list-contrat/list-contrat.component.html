@@ -41,7 +41,7 @@
         <th>Actions</th>
         <th *ngIf="
         userRoles.includes('CDGSP') || userRoles.includes('DAJC')
-      ">Autre</th>
+      ">Validation</th>
       </tr>
     </thead>
     <tbody *ngIf="contrats?.length">
@@ -87,7 +87,7 @@
         <td *ngIf="
         userRoles.includes('CDGSP') || userRoles.includes('DAJC')
       ">
-          <div class="btn-group" role="group">
+          <div class="btn-group" role="group" *ngIf="contrat.etat_contrat?.libelle != 'Résilié'">
             <a id="btnGroupDrop1" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
               <h4>
                 <i class="fal fa-ellipsis-v-alt"></i>
