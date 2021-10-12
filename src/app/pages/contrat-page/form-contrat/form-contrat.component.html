@@ -32,7 +32,7 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date de début du loyer</label>
-        <input type="date" [(ngModel)]="date_debut_loyer_" class="form-control rounded-pill" (change)="calculMontant();reinitialiserDates()"
+        <input type="date" class="form-control rounded-pill" (change)="calculMontant()"
           formControlName="date_debut_loyer" required [ngClass]="{
             'is-invalid': checkInputsValidation(date_debut_loyer),
             'is-valid': !date_debut_loyer?.invalid
@@ -48,7 +48,7 @@
       </div>
 
       <div class="col-lg-3 form-group mt-4">
-        <label for="">Montant du loyer</label>
+        <label for="">Montant du loyer (Mensuel)</label>
         <input type="number" [(ngModel)]="montantLoyer" (keyup)="calculMontant()" class="form-control rounded-pill"
           formControlName="montant_loyer" [ngClass]="{
             'is-invalid': checkInputsValidation(montant_loyer),
@@ -81,12 +81,9 @@
         <select class="form-select rounded-pill" formControlName="periodicite_paiement" [ngClass]="{
           'is-invalid': checkInputsValidation(periodicite_paiement),
           'is-valid': !periodicite_paiement?.invalid
-        }" 
-        [(ngModel)]="periodicite"
-        (change)="reinitialiserDates()"
-        >
-          <option value="mensuelle" >Mensuelle</option>
-          <option value="trimestrielle" >Trimestrielle</option>
+        }">
+          <option value="mensuelle">Mensuelle</option>
+          <option value="trimestrielle">Trimestrielle</option>
           <option value="annuelle">Annuelle</option>
         </select>
           <!-- Error Message  -->
@@ -148,7 +145,7 @@
       </div>
 
       <div class="col-lg-3 form-group mt-4">
-        <label for="">Montant après impôt</label>
+        <label for="">Montant après impôt (Mensuel)</label>
         <input type="number" class="form-control rounded-pill" [value]="montantApresImpot"
           formControlName="montant_apres_impot" readonly>
       </div>
@@ -190,10 +187,9 @@
       </div>
 
       <div class="col-lg-3 form-group mt-4">
-        <label for="">Durée de l’avance</label>
+        <label for="">Durée de l’avance(par mois)</label>
         <input type="number" class="form-control rounded-pill" [(ngModel)]="dureeAvance" (keyup)="calculDate()"
-        formControlName="duree_avance"
-        [readonly]="periodicite ? false : true">
+          formControlName="duree_avance">
       </div>
 
       <div class="col-lg-3 form-group mt-4">
@@ -204,8 +200,9 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date 1er paiement</label>
-        <input type="date" class="form-control rounded-pill" [value]="date_1er_paiment" formControlName="date_1er_paiement" readonly>
+        <input type="date" class="form-control rounded-pill" formControlName="date_1er_paiement">
       </div>
+
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">N° d’engagement de la dépense</label>
@@ -249,6 +246,9 @@
         <input type="hidden" formControlName="foncier">
       </div>
 
+
+      
+
       <div class="mt-4">
         <div class="form-box mt-2">
           <div *ngIf="etatContratTypes == 'Avenant'; then AV"></div>
@@ -256,6 +256,8 @@
           <div *ngIf="etatContratTypes == 'Résilié'; then RES"></div>
         </div>
       </div>
+
+
 
       <!-- Template Avenant start -->
       <ng-template #AV>

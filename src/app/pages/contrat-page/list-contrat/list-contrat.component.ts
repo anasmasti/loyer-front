@@ -44,10 +44,6 @@ export class ListContratComponent implements OnInit {
   user: any = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '') : [];
   userRoles: any[] = []; 
 
-  idModal : string = "listeProprietaires"
-  ProprietairesByContart : any[] = [];
-  num_contrat!: string;
-
 
   constructor(
     private contratService: ContratService,
@@ -61,10 +57,6 @@ export class ListContratComponent implements OnInit {
     setTimeout(() => {
       this.getContrat();
     }, 200);
-    setTimeout(() => {
-      console.log(this.contrats);
-      
-    }, 1000);
 
 
     if (localStorage.getItem('user')) {
@@ -88,7 +80,6 @@ export class ListContratComponent implements OnInit {
       }
     );
     
-    
   }
 
   // Filter by intitule
@@ -107,13 +98,6 @@ export class ListContratComponent implements OnInit {
   openEditModal(SelectedContrat: any) {
     this.mainModalService.open();
     this.targetContrat = SelectedContrat;
-  }
-
-  openListeProprietairesModal(SelectedContrat: any) {
-    this.mainModalService.open(this.id);
-    this.ProprietairesByContart = SelectedContrat.lieu.proprietaire
-    this.num_contrat = SelectedContrat.lieu.code_lieu + '/' + SelectedContrat.lieu.intitule_lieu
-    
   }
 
   openConfirmationContratModal(id: string) {

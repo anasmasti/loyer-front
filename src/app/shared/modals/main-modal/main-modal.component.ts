@@ -11,7 +11,6 @@ export class MainModalComponent implements OnInit {
 
   @Input() closeBtn: boolean = true
   @Input() mainHeight!: string;
-  @Input() id: string = 'mainModal'
 
   version!: string;
 
@@ -23,7 +22,7 @@ export class MainModalComponent implements OnInit {
   }
 
   closeModal() {
-    this.mainModalService.close( this.id );
+    this.mainModalService.close();
   }
 
   toggle = [false, true];
