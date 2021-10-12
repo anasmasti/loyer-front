@@ -19,6 +19,7 @@ import { getLieuxAction } from '../lieux-store/lieux.actions';
 export class ListLieuxComponent implements OnInit, OnDestroy {
   errors!: string;
   lieux!: Lieu[];
+  filtredLocaux!: Lieu[];
   lieuEmpty: boolean = true;
   targetlieu: Lieu[] = [];
   targetlieuId: string = '';
@@ -27,8 +28,6 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
   lieuxSubscription$!: Subscription;
   findLieu!: string;
   findAmenagement!: any;
-  checkAmenagementTrue!: any;
-  checkAmenagementFalse!: any;
 
   // Pagination options
   listLieuxPage: number = 1;
@@ -48,7 +47,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     private confirmationModalService: ConfirmationModalService,
     private helperService: HelperService,
     private store: Store<AppState>
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // Throw get lieux from server function
@@ -64,8 +63,8 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
       if (data) this.accessError = data
     })
 
-    
-  } 
+
+  }
 
   //=======================================================================================================
   // Filter by intitule
@@ -73,8 +72,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     if (this.findLieu != '') {
       this.lieux = this.lieux.filter((res: any) => {
         return (
-          res.type_foncier?.toLowerCase().match(this.findLieu.toLowerCase()) ||
-          res.ville?.toLowerCase().match(this.findLieu.toLowerCase())
+          res.intitule_lieu?.toLowerCase().match(this.findLieu.toLowerCase()) || res.ville?.toLowerCase().match(this.findLieu.toLowerCase())
         );
       });
     } else if (this.findLieu == '') {
@@ -82,30 +80,24 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     }
   }
 
-  // searchAmenagementFalse(event:any) {
-  //   if (event.target.checked) {
-  //     this.lieux = this.lieux.filter((res) => {
-  //       return (res.has_amenagements?.toString().match(this.checkAmenagementFalse = 'false'));
-  //     });
-  //   } 
-  //   else if (this.checkAmenagementFalse == '') {
-      
-  //      this.getAllLieux();
-  //   }
-  // }
+  searchByAmenagement(event: any, statut: string) {
+    this.getAllLieux()
 
-  // searchAmenagementTrue(event:any) {
-  //   if (event.target.checked) {
-  //     this.lieux = this.lieux.filter((res) => {
-  //       return (res.has_amenagements?.toString().match(this.checkAmenagementTrue = 'true'));
-  //     });
+    if (event.target.checked) {
+      if (statut == 'all') {
+        return this.lieux
+      }
 
-  //   } 
-  //   else if (this.checkAmenagementTrue == '') {
-     
-  //      this.getAllLieux();
-  //   }
-  // }
+      if (statut != 'all') {
+        this.filtredLocaux = this.lieux.filter((res) => {
+          return (res.has_amenagements?.toString().match(statut));
+        });
+        this.lieux = this.filtredLocaux
+      }
+    }
+
+    return
+  }
 
 
   //=======================================================================================================
