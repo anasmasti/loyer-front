@@ -12,25 +12,3 @@ th {
 #actions{
    min-height: 20px !important;
 }
-
-.checkbox-list-btns {
-   background-color: white;
-   color: color(main-color);
-   border: solid 1px color(main-color);
-   box-shadow: none;
-   outline: none;
-   cursor: pointer !important;
- 
-   &:focus {
-     border: none !important ;
-     box-shadow: none !important;
-   }
- }
-
- .check:checked ~ .checkbox-list-btns {
-   background-color: color(main-color);
-   color: white;
-   // border: solid 1px white;
-   box-shadow: none;
-   outline: none;
- }

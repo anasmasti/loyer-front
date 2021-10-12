@@ -26,7 +26,6 @@ export class FormComponent implements OnInit {
 
   userMatricule: any = localStorage.getItem('matricule')
 
-
   @Input() userR !: any;
   userIsEmpty: boolean = true;
 
