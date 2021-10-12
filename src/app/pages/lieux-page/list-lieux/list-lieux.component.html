@@ -25,24 +25,49 @@
 </div>
 
 <div class="main-card bg-white table-responsive p-lg-3 mt-4">
-  <div class="row">
+  <div class="row d-flex justify-content-between ">
     <div class="col-lg-4 mb-4">
       <label for="" class="main-muted-text"><i class="far fa-search"></i> Recherche</label>
       <input type="text" [(ngModel)]="findLieu" (input)="search()" class="form-control rounded-pill"
         placeholder="Rechercher par intitulé/ville..." />
     </div>
-    <div class="col-sm-1 my-2">
-      <input id="non" type="radio" name="search-by-amenagement" (click)="searchByAmenagement($event, 'all')"
-        class="rounded-pill" [checked]='true' /> Tout
-    </div>
-
-    <div class="col-sm-1 my-2">
-      <input id="oui" type="radio" name="search-by-amenagement" class="rounded-pill"
-        (click)="searchByAmenagement($event, 'true')" /> Oui
-    </div>
-    <div class="col-sm-1 my-2">
-      <input id="non" type="radio" name="search-by-amenagement" (click)="searchByAmenagement($event, 'false')"
-        class="rounded-pill" /> Non
+ 
+    <div class="d-flex justify-content-end col-lg-5 my-4">
+      <div class="">
+        <input
+          id="all"
+          type="radio"
+          name="search-by-amenagement"
+          (click)="searchByAmenagement($event, 'all')"
+          class="btn-check check"
+          [checked]='true'
+          autocomplete="off"
+        />
+        <label class="px-3 rounded-pill checkbox-list-btns" for="all">Tout</label> 
+      </div>
+  
+      <div class="">
+        <input
+          id="oui"
+          type="radio"
+          name="search-by-amenagement"
+          class="btn-check check"
+          (click)="searchByAmenagement($event, 'true')"
+          autocomplete="off"
+        />
+        <label class="px-3  mx-2 rounded-pill checkbox-list-btns" for="oui"> Avec aménagement</label>
+      </div>
+      <div class="col-sm-4">
+        <input
+          id="non"
+          type="radio"
+          name="search-by-amenagement"
+          (click)="searchByAmenagement($event, 'false')"
+          class="btn-check check"
+          autocomplete="off"
+        />
+        <label class="px-3  rounded-pill checkbox-list-btns" for="non"> Sans aménagement</label>
+      </div>
     </div>
   </div>
 
