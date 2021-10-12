@@ -48,10 +48,10 @@ export interface Lieu {
       valeur_nature_chargeFondation: string;
       numero_facture: string;
       numero_bon_commande: string;
-      date_passation_commande: string;
+      date_passation_commande: Date;
       evaluation_fournisseur: string;
-      date_fin_travaux: string;
-      date_livraison_local: string;
+      date_fin_travaux: Date;
+      date_livraison_local: Date;
       deleted?: boolean;
       images_apres_travaux: [];
       croquis_travaux: [];
