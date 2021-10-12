@@ -26,7 +26,10 @@ export class LoginPageComponent implements OnInit {
   errorMessage!: string
 
   ngOnInit(): void {
-    this.mainModalService.open();
+    setTimeout(() => {
+      this.mainModalService.open();
+    }, 100);
+    
 
     this.loginForm = new FormGroup({
       Matricule: new FormControl('', [Validators.required]),
