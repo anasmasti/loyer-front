@@ -427,7 +427,7 @@ export class FormContratComponent implements OnInit {
           this.postDone = false;
           this.help.toTheUp();
           this.router.navigate(['/contrat/list-global/list']).then(() => {
-            this.help.refrechPage()
+            this.help.refrechPage();
           });
         }, 2000);
       },

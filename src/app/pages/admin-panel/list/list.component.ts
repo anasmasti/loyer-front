@@ -31,6 +31,7 @@ export class ListComponent implements OnInit, OnDestroy {
   deleteDone: boolean = false;
   deleteSucces: string = 'Utilisateur supprimé avec succés'
 
+  userMatricule: any = localStorage.getItem('matricule')
 
   constructor(
     private mainModalService: MainModalService,
@@ -81,7 +82,7 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   deleteUserR() {
-    this.adminService.deleteUserById(this.deletedUser._id)
+    this.adminService.deleteUserById(this.deletedUser._id, this.userMatricule)
       .subscribe(
         (_) => {
           this.store.dispatch(getUsersAction())
@@ -101,19 +102,17 @@ export class ListComponent implements OnInit, OnDestroy {
       );
   }
 
-     // Filter by intitule
- search(){
-  if (this.findAdmin != "") {
-    this.users = this.users.filter((res) => {
-      return res.userMatricul?.toLowerCase().match(this.findAdmin.toLowerCase()) || res.nom?.toLowerCase().match(this.findAdmin.toLowerCase())
-             || res.prenom?.toLowerCase().match(this.findAdmin.toLowerCase());
-    });
-  } else if (this.findAdmin == "") {
-    this.getUsersList()
-    
+  // Filter by intitule
+  search() {
+    if (this.findAdmin != "") {
+      this.users = this.users.filter((res) => {
+        return res.userMatricul?.toLowerCase().match(this.findAdmin.toLowerCase()) || res.nom?.toLowerCase().match(this.findAdmin.toLowerCase())
+          || res.prenom?.toLowerCase().match(this.findAdmin.toLowerCase());
+      });
+    } else if (this.findAdmin == "") {
+      this.getUsersList()
+    }
   }
-}
-
 
   ngOnDestroy() {
     this.usersSubscription$.unsubscribe()
