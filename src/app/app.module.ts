@@ -16,6 +16,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FilesGenerationComponent } from './pages/files-generation/files-generation.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MainLayoutComponent,
     SideNavbarComponent,
     MainContentComponent,
-    FooterComponent
+    FooterComponent,
+    FilesGenerationComponent
   ],
   
   imports: [
