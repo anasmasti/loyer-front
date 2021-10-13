@@ -448,26 +448,26 @@ export class FormContratComponent implements OnInit {
     this.fd.append('data', JSON.stringify(ctr_data));
 
     // post the formdata (data+files)
-    // this.contratService.addContrat(this.fd, this.userMatricule).subscribe(
-    //   (_) => {
-    //     this.postDone = true;
-    //     setTimeout(() => {
-    //       this.contratForm.reset();
-    //       this.postDone = false;
-    //       this.help.toTheUp();
-    //       this.router.navigate(['/contrat/list-global/list']).then(() => {
-    //         // this.help.refrechPage();
-    //       });
-    //     }, 2000);
-    //   },
-    //   (error) => {
-    //     this.errors = error.error.message;
-    //     setTimeout(() => {
-    //       this.showErrorMessage();
-    //     }, 3000);
-    //     this.hideErrorMessage();
-    //   }
-    // );
+    this.contratService.addContrat(this.fd, this.userMatricule).subscribe(
+      (_) => {
+        this.postDone = true;
+        setTimeout(() => {
+          this.contratForm.reset();
+          this.postDone = false;
+          this.help.toTheUp();
+          this.router.navigate(['/contrat/list-global/list']).then(() => {
+            this.help.refrechPage();
+          });
+        }, 2000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+    );
   }
 
   // Check if all inputs has invalid errors
