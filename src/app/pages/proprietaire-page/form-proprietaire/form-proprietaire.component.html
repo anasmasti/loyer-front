@@ -101,9 +101,8 @@
 
     <div class="col-lg-3 form-group mt-4">
       <label for="">Téléphone du propriétaire</label>
-      <input type="text" class="form-control rounded-pill" formControlName="telephone" required [ngClass]="{
-            'is-invalid': checkInputsValidation(telephone),
-            'is-valid': !telephone?.invalid
+      <input type="text" class="form-control rounded-pill" formControlName="telephone" [ngClass]="{
+            'is-invalid': checkInputsValidation(telephone) 
           }" />
 
       <!-- Error Message  -->
@@ -269,20 +268,20 @@
             'is-invalid': checkInputsValidation(taux_impot)
           }" />
     </div>
-
+<!-- 
     <div class="col-lg-3 form-group mt-4">
       <label for="">Retenue à la source (Annuel)</label>
       <input type="text" class="form-control rounded-pill" formControlName="retenue_source" [ngClass]="{
             'is-invalid': checkInputsValidation(retenue_source)
           }" />
-    </div>
+    </div> -->
 
-    <div class="col-lg-3 form-group mt-4">
+    <!-- <div class="col-lg-3 form-group mt-4">
       <label for="">Montant après impôt (Mensuel)</label>
       <input type="text" class="form-control rounded-pill" formControlName="montant_apres_impot" [ngClass]="{
             'is-invalid': checkInputsValidation(montant_apres_impot)
           }" />
-    </div>
+    </div> -->
   </div>
 
   <div class="mt-2">Mandataire</div>
