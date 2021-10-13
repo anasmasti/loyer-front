@@ -28,7 +28,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   //les calcules
   montantLoyer!: any;
   tauxImpot!: any;
-  data!: any
+  contrat!: any[]
   retenueSource!: any;
   montantApresImpot!: number;
 
@@ -51,6 +51,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.lieu_id = this.actRoute.snapshot.paramMap.get('id_lieu') || '';
+
     this.proprietaireForm = new FormGroup({
       // Champs du propriètaire
       cin: new FormControl('', [Validators.required, Validators.maxLength(8)]),
@@ -109,17 +110,13 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     }
 
     this.getLieuBycontrat();
-    setTimeout(() => {
-     this.tauxImpot = this.data.taux_impot      
-    }, 1000);
+    // console.log("===> ",this.contrat);
+    // setTimeout(() => {
+    //  this.tauxImpot = this.contrat?.taux_impot      
+    // }, 1000);
   }
 
-  calculMontant() {
-    this.retenueSource = (this.montantLoyer * this.tauxImpot)/100;
-    this.montantApresImpot = this.montantLoyer - this.retenueSource;
-    return this.retenueSource;
-  }
-
+  
   // addFormMandateire() {
   //   const mandataireData = new FormGroup({
   //     cin_mandataire: new FormControl('', Validators.minLength(4)),
@@ -256,9 +253,15 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     $('.error-alert').removeClass('active');
   }
 
-  addProprietaire() {
-    let id_lieu = this.actRoute.snapshot.paramMap.get('id_lieu') || '';
+  calculMontant() {
+    this.retenueSource = (this.montantLoyer * this.tauxImpot)/100;
+    this.montantApresImpot = this.montantLoyer - this.retenueSource;
+    return this.retenueSource;
+  }
 
+
+  addProprietaire() {
+    
     let proprietaire_data: any = {
       // _id: this.proprietaireForm.get('_id').value ,
       cin: this.proprietaireForm.get('cin')?.value || '',
@@ -288,10 +291,13 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       // deleted:false,
     };
 
-    this.proprietaireService
-      .postProprietaire(proprietaire_data, id_lieu, this.userMatricule)
-      .subscribe(
+    console.log(proprietaire_data);
+    
+
+    this.proprietaireService.postProprietaire(proprietaire_data, this.lieu_id, this.userMatricule).subscribe(
         (_) => {
+          console.log('posted');
+          
           this.postDone = true;
           setTimeout(() => {
             this.proprietaireForm.reset();
@@ -305,7 +311,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
           }, 2000);
         },
         (error) => {
-          this.errors = error.error.message;
+          console.log(error);
+          
+          this.errors = error.error?.message;
           setTimeout(() => {
             this.showErrorMessage();
           }, 3000);
@@ -369,11 +377,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   getLieuBycontrat() {
     this.lieuService
       .getContratByLieu(this.lieu_id, this.userMatricule)
-      .subscribe((data) => (this.data = data));
-
-     
-      
-        
+      .subscribe((data) => {
+      });    
   }
 
   // Get proprietaire form controlers
