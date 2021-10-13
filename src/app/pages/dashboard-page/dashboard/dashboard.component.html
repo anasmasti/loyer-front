@@ -13,10 +13,11 @@
             <div class="col-lg-3 main-card bg-white p-4 count-card">
                 <h3>
                     <span class="count-number">{{allCount.countUser}}</span>
+                    
                     <span *ngIf="allCount.countUser">
-                        Utilisateur
+                        Utilisateur<span *ngIf="allCount.countUser > 1">s</span>
                     </span>
-                    <span *ngIf="allCount.countUser > 1">s</span>
+                    
                     <span *ngIf="!allCount.countUser">
                         Chargement...
                     </span>
@@ -25,10 +26,11 @@
             <div class="col-lg-3 main-card bg-white p-4 count-card">
                 <h3>
                     <span class="count-number">{{allCount.totalCountDirecteurRegional}}</span>
+
                     <span *ngIf="allCount.totalCountDirecteurRegional">
-                        Directeur
+                        Directeur<span *ngIf="allCount.totalCountDirecteurRegional > 1">s</span>
                     </span>
-                    <span *ngIf="allCount.totalCountDirecteurRegional > 1">s</span>
+                    
                     <span *ngIf="!allCount.totalCountDirecteurRegional">
                         Chargement...
                     </span>
@@ -40,9 +42,9 @@
                         <span class="count-number">{{allCount.countProprietaire}}</span>
 
                         <span *ngIf="allCount.countProprietaire">
-                            Propriétaire
+                            Propriétaire<span *ngIf="allCount.countProprietaire > 1">s</span>
                         </span>
-                        <span *ngIf="allCount.countProprietaire > 1">s</span>
+                        
                         <span *ngIf="!allCount.countProprietaire">
                             Chargement...
                         </span>
@@ -52,10 +54,11 @@
             <div class="col-lg-3 main-card bg-white p-4 count-card">
                 <h3>
                     <span class="count-number">{{allCount.countContrat}}</span>
+
                     <span *ngIf="allCount.countContrat">
-                        Contrat
+                        Contrat<span *ngIf="allCount.countContrat > 1">s</span>
                     </span>
-                    <span *ngIf="allCount.countContrat > 1">s</span>
+                    
                     <span *ngIf="!allCount.countContrat">
                         Chargement...
                     </span>
@@ -83,10 +86,11 @@
             <div class="col-lg-3 main-card bg-white p-4 count-card">
                 <h3>
                     <span class="count-number">{{allCount.totalCountAmenagements}}</span>
+
                     <span *ngIf="allCount.totalCountAmenagements">
-                        Aménagement
+                        Aménagement<span *ngIf="allCount.totalCountAmenagements > 1">s</span>
                     </span>
-                    <span *ngIf="allCount.totalCountAmenagements > 1">s</span>
+                    
                     <span *ngIf="!allCount.totalCountAmenagements">
                         Chargement...
                     </span>
@@ -95,10 +99,11 @@
             <div class="col-lg-3 main-card bg-white p-4 count-card">
                 <h3>
                     <span class="count-number">{{allCount.totalCountFournisseur}}</span>
+
                     <span *ngIf="allCount.totalCountFournisseur">
-                        Fournisseur
+                        Fournisseur<span *ngIf="allCount.totalCountFournisseur > 1">s</span>
                     </span>
-                    <span *ngIf="allCount.totalCountFournisseur > 1">s</span>
+
                     <span *ngIf="!allCount.totalCountFournisseur">
                         Chargement...
                     </span>
@@ -107,10 +112,11 @@
             <div class="col-lg-3 main-card bg-white p-4 count-card">
                 <h3>
                     <span class="count-number">{{allCount.countProprietaire}}</span>
+
                     <span *ngIf="allCount.countProprietaire">
-                        Mandataire
+                        Mandataire<span *ngIf="allCount.countProprietaire > 1">s</span>
                     </span>
-                    <span *ngIf="allCount.countProprietaire > 1">s</span>
+                    
                     <span *ngIf="!allCount.countProprietaire">
                         Chargement...
                     </span>
