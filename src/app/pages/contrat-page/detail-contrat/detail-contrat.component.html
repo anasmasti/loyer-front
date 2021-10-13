@@ -3,7 +3,7 @@
         <div class="d-flex justify-content-between">
 
             <h3 class="main-title">
-                <a [routerLink]="['/contrat/list']" class="goback-link">Détails de Contrat de bail</a>/<span
+                <a [routerLink]="['/contrat/list-global/list']" class="goback-link">Détails de Contrat de bail</a>/<span
                     class="selected-text">
                     {{contrat.numero_contrat}}
                 </span>
@@ -27,17 +27,20 @@
             <div class="col-lg-6">
                 <h5 class="main-txt">Numero de contrat</h5>
                 <p>{{ contrat.numero_contrat != '' ? contrat.numero_contrat : '--'}}</p>
+                <!-- <p>contrat.numero_contrat</p> -->
             </div>
             <div class="col-lg-6">
 
                 <h5 class="main-txt">Date de debut du loyer</h5>
-                <p>{{ contrat.date_debut_loyer != '' ? contrat.date_debut_loyer : '--'}}</p>
+                <p>{{ contrat.date_debut_loyer != null ? contrat.date_debut_loyer : '--'}}</p>
+                <!-- <p>{{ contrat.date_debut_loyer}}</p> -->
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
                 <h5 class="main-txt">Date fin de contrat de bail</h5>
-                <p>{{ contrat.date_fin_contrat != '' ? contrat.date_fin_contrat : '--'}}</p>
+                <p>{{ contrat.date_fin_contrat !=null ? contrat.date_fin_contrat : '--'}}</p>
+                <!-- <p>contrat.date_fin_contrat</p> -->
             </div>
             <div class="col-lg-6">
                 <h5 class="main-txt">Durée de location</h5>
@@ -115,7 +118,7 @@
             </div>
             <div class="col-lg-6">
                 <h5 class="main-txt">Date de reprise de la caution</h5>
-                <p>{{ contrat.date_reprise_caution != '' ? contrat.date_reprise_caution : '--'}}</p>
+                <p>{{ contrat.date_reprise_caution != null ? contrat.date_reprise_caution : '--'}}</p>
             </div>
         </div>
         <div class="row">
@@ -131,11 +134,11 @@
         <div class="row">
             <div class="col-lg-6">
                 <h5 class="main-txt">Date fin de l'avance</h5>
-                <p>{{contrat.date_fin_avance != '' ? contrat.date_fin_avance : '--'}}</p>
+                <p>{{contrat.date_fin_avance != null ? contrat.date_fin_avance : '--'}}</p>
             </div>
             <div class="col-lg-6">
                 <h5 class="main-txt">Date 1er paiement</h5>
-                <p>{{contrat.date_premier_paiement != '' ? contrat.date_premier_paiement : '--'}}</p>
+                <p>{{contrat.date_premier_paiement != null ? contrat.date_premier_paiement : '--'}}</p>
             </div>
         </div>
         <div class="row">
@@ -231,7 +234,7 @@
         </div>
         <div class="col-lg-3">
             <h5 class="main-txt">Date de Suspendu</h5>
-            <p>{{contrat.etat_contrat?.etat?.date_suspension != '' ? contrat.etat_contrat?.etat?.date_suspension : '--'}}</p>
+            <p>{{contrat.etat_contrat?.etat?.date_suspension != null ? contrat.etat_contrat?.etat?.date_suspension : '--'}}</p>
         </div>
 
         <div class="col-lg-3">
@@ -279,7 +282,7 @@
     <div class="row">
         <div class="col-lg-3">
             <h5 class="main-txt">Date de Résilié</h5>
-            <p>{{contrat.etat_contrat?.etat?.date_resiliation != '' ? contrat.etat_contrat?.etat?.date_resiliation : '--'}}</p>
+            <p>{{contrat.etat_contrat?.etat?.date_resiliation != null ? contrat.etat_contrat?.etat?.date_resiliation : '--'}}</p>
         </div>
         <div class="col-lg-3">
             <h5 class="main-txt">Images d'état des lieux de sortie</h5>

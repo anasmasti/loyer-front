@@ -6,7 +6,6 @@ import { ContratService } from 'src/app/services/contrat-service/contrat.service
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-form-contrat',
   templateUrl: './form-contrat.component.html',
@@ -78,14 +77,17 @@ export class FormContratComponent implements OnInit {
   duree!: number;
   retunue_source_par_mois!: number;
   totalBrutLoyer!: number;
-  totalNetLoyer!: number
+  totalNetLoyer!: number;
 
-  lieu_id!: string
+  lieu_id!: string;
 
-  userMatricule: any = localStorage.getItem('matricule')
+  userMatricule: any = localStorage.getItem('matricule');
 
-  statutCaution: string = 'En cours'
+  statutCaution: string = 'En cours';
 
+  periodicite!: string;
+  date_1er_paiment!: any;
+  date_debut_loyer_!: any
 
   constructor(
     private contratService: ContratService,
@@ -94,7 +96,7 @@ export class FormContratComponent implements OnInit {
     private foncierService: FoncierService,
     public router: Router,
     private actRoute: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnChanges() {
     if (this.update) {
@@ -106,8 +108,8 @@ export class FormContratComponent implements OnInit {
     this.lieu_id = this.actRoute.snapshot.paramMap.get('id_lieu') || '';
 
     if (this.lieu_id) {
-      this.getFoncierByID(this.lieu_id)
-    }    
+      this.getFoncierByID(this.lieu_id);
+    }
 
     // this.etatContratTypes = 'Avenant'
     this.contratForm = new FormGroup({
@@ -168,9 +170,11 @@ export class FormContratComponent implements OnInit {
   }
 
   getFoncierByID(FID: any) {
-    this.foncierService.getFoncierById(FID, this.userMatricule).subscribe(data => {
-      this.foncier = data
-    })
+    this.foncierService
+      .getFoncierById(FID, this.userMatricule)
+      .subscribe((data) => {
+        this.foncier = data;
+      });
   }
 
   // Calculer le montant
@@ -243,12 +247,14 @@ export class FormContratComponent implements OnInit {
           this.montantLoyer * nbr_mois_louer <= 120000
         ) {
           result = (this.montantLoyer * nbr_mois_louer * 10) / 100;
-          montantApresImpot = (this.montantLoyer * nbr_mois_louer - result) / nbr_mois_louer;
+          montantApresImpot =
+            (this.montantLoyer * nbr_mois_louer - result) / nbr_mois_louer;
           tauxImpot = 10;
         }
         if (this.montantLoyer * nbr_mois_louer > 120000) {
           result = (this.montantLoyer * nbr_mois_louer * 15) / 100;
-          montantApresImpot = (this.montantLoyer * nbr_mois_louer - result) / nbr_mois_louer;
+          montantApresImpot =
+            (this.montantLoyer * nbr_mois_louer - result) / nbr_mois_louer;
           tauxImpot = 15;
         }
       }
@@ -286,12 +292,14 @@ export class FormContratComponent implements OnInit {
           this.montantLoyer * nbr_mois_louer <= 120000
         ) {
           result = (this.montantLoyer * nbr_mois_louer * 10) / 100;
-          montantApresImpot = (this.montantLoyer * nbr_mois_louer - result) / nbr_mois_louer;
+          montantApresImpot =
+            (this.montantLoyer * nbr_mois_louer - result) / nbr_mois_louer;
           tauxImpot = 10;
         }
         if (this.montantLoyer * nbr_mois_louer > 120000) {
           result = (this.montantLoyer * nbr_mois_louer * 15) / 100;
-          montantApresImpot = (this.montantLoyer * nbr_mois_louer - result) / nbr_mois_louer;
+          montantApresImpot =
+            (this.montantLoyer * nbr_mois_louer - result) / nbr_mois_louer;
           tauxImpot = 15;
         }
       }
@@ -321,13 +329,49 @@ export class FormContratComponent implements OnInit {
     this.effortCaution = effortCaution;
   }
 
-  // calcul Date fin de l’avance
+  // calcul Date fin de l’avance et Date 1er de l'avance
   calculDate() {
     let date = new Date(this.contratForm.get('date_debut_loyer')?.value);
     let month = date.getMonth();
     this.dureeAvance = this.contratForm.get('duree_avance')?.value;
-    date.setMonth(month + this.dureeAvance);
+    switch (this.periodicite) {
+      case 'mensuelle':
+        month += this.dureeAvance;
+        break;
+      case 'trimestrielle':
+        month += this.dureeAvance * 3;
+        break;
+      case 'annuelle':
+        month += this.dureeAvance * 12;
+        break;
+      default:
+        console.log('Error ');
+
+        break;
+    }
+
+    // Date fin de l'avance
+    date.setMonth(month);
+    date.setDate(0)
     this.formattedDate = date.toISOString().slice(0, 10);
+
+    // Date 1er paiment 
+    let day = date.getDate()
+    date.setDate(day + 1)
+    this.date_1er_paiment = date.toISOString().slice(0, 10)
+  }
+
+  reinitialiserDates(){
+    this.dureeAvance = 0;
+    this.formattedDate = 0;
+    this.date_1er_paiment = 0
+    let date = new Date(this.contratForm.get('date_debut_loyer')?.value);
+    date.setDate(1);
+    this.date_debut_loyer_ = date.toISOString().slice(0, 10)
+    // let date3 = new Date()
+    // let date2 = new Date(date3.getFullYear , date3.getMonth + 1 , 0);
+    // console.log();
+    
   }
 
   //functions
@@ -419,26 +463,31 @@ export class FormContratComponent implements OnInit {
     this.fd.append('data', JSON.stringify(ctr_data));
 
     // post the formdata (data+files)
-    this.contratService.addContrat(this.fd, this.userMatricule).subscribe(
-      (_) => {
-        this.postDone = true;
-        setTimeout(() => {
-          this.contratForm.reset();
-          this.postDone = false;
-          this.help.toTheUp();
-          this.router.navigate(['/contrat/list-global/list']).then(() => {
-            this.help.refrechPage();
-          });
-        }, 2000);
-      },
-      (error) => {
-        this.errors = error.error.message;
-        setTimeout(() => {
-          this.showErrorMessage();
-        }, 3000);
-        this.hideErrorMessage();
-      }
-    );
+    // this.contratService.addContrat(this.fd, this.userMatricule).subscribe(
+    //   (_) => {
+    //     this.postDone = true;
+    //     setTimeout(() => {
+    //       this.contratForm.reset();
+    //       this.postDone = false;
+    //       this.help.toTheUp();
+    //       this.router.navigate(['/contrat/list-global/list']).then(() => {
+    //         // this.help.refrechPage();
+    //       });
+    //     }, 2000);
+    //   },
+    //   (error) => {
+    //     this.errors = error.error.message;
+    //     setTimeout(() => {
+    //       this.showErrorMessage();
+    //     }, 3000);
+    //     this.hideErrorMessage();
+    //   }
+    // );
+
+    console.log(ctr_data);
+    
+    
+
   }
 
   // Check if all inputs has invalid errors
@@ -625,21 +674,18 @@ export class FormContratComponent implements OnInit {
     return this.contratForm.get('date_debut_loyer');
   }
   get montant_loyer() {
-    return this.contratForm.get('montant_loyer')
+    return this.contratForm.get('montant_loyer');
   }
   get periodicite_paiement() {
-    return this.contratForm.get('periodicite_paiement')
+    return this.contratForm.get('periodicite_paiement');
   }
   get duree_location() {
-    return this.contratForm.get('duree_location')
+    return this.contratForm.get('duree_location');
   }
   get date_fin_contrat() {
-    return this.contratForm.get('date_fin_contrat')
+    return this.contratForm.get('date_fin_contrat');
   }
   get date_reprise_caution() {
-    return this.contratForm.get('date_reprise_caution')
+    return this.contratForm.get('date_reprise_caution');
   }
-
-
-
 }

@@ -2,11 +2,11 @@ export interface Contrat {
   _id: string;
   piece_joint_contrat: [];
   numero_contrat?: string;
-  date_debut_loyer?: string;
-  date_fin_contrat?: string;
-  date_reprise_caution?: string;
-  date_fin_avance: string;
-  date_premier_paiement: string;
+  date_debut_loyer?: Date;
+  date_fin_contrat?: Date;
+  date_reprise_caution?: Date;
+  date_fin_avance: Date;
+  date_premier_paiement: Date;
   montant_loyer: number;
   taxe_edilite_loyer: string;
   taxe_edilite_non_loyer: string;
@@ -26,6 +26,7 @@ export interface Contrat {
   type_lieu: string;
   lieu: {
     intitule_lieu: string;
+    code_lieu: number;
     _id: any;
   };
   foncier: {
@@ -40,11 +41,11 @@ export interface Contrat {
       montant_nouveau_loyer: number;
       signaletique_successeur: string;
       intitule_lieu: string;
-      date_suspension: string;
+      date_suspension: Date;
       duree_suspension: number;
       motif_suspension: string;
       reprise_caution: string;
-      date_resiliation: string;
+      date_resiliation: Date;
       etat_lieu_sortie: string;
       preavis: string;
       images_etat_res_lieu_sortie: [];
