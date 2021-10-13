@@ -45,8 +45,8 @@ export class AdminService {
   }
 
   //delete user 
-  deleteUserById(id: String) {
-    return this.http.put(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/delete/${id}`, { 'headers': this.httpOptions.headers });
+  deleteUserById(id: String, matricule: any) {
+    return this.http.put(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/delete/${id}/${matricule}`, { 'headers': this.httpOptions.headers });
   }
 
 }

@@ -32,7 +32,7 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date de début du loyer</label>
-        <input type="date" [(ngModel)]="date_debut_loyer_" class="form-control rounded-pill" (change)="calculMontant();reinitialiserDates()"
+        <input type="date" [(ngModel)]="date_debut_loyer_" class="form-control rounded-pill" (change)="calculMontant();reinitialiserDateDebut()"
           formControlName="date_debut_loyer" required [ngClass]="{
             'is-invalid': checkInputsValidation(date_debut_loyer),
             'is-valid': !date_debut_loyer?.invalid
@@ -383,11 +383,7 @@
         </div>
       </ng-template>
       <!-- Template Resiliation end -->
-
-
     </div>
-
-
 
     <!-- Button Ajouter -->
     <div class="form-group mt-5 col-lg-2 d-flex">
