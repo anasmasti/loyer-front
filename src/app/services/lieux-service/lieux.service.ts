@@ -73,5 +73,8 @@ export class LieuxService {
     return this.http.get(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/all-lieu/${matricule}`);
   }
 
+  getContratByLieu(id: any, matricule: any){
+    return this.http.get(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/contratByLieu/${id}/${matricule}`);
+  }
 
 }

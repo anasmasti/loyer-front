@@ -251,7 +251,7 @@
       <label for="">Montant de loyer</label>
       <input type="text" class="form-control rounded-pill" formControlName="montant_loyer" [ngClass]="{
             'is-invalid': checkInputsValidation(montant_loyer)
-          }" />
+          }"  [(ngModel)]="montantLoyer" (keyup)="calculMontant()"/>
             <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(montant_loyer)">
         <p class="text-danger" *ngIf="montant_loyer?.errors?.pattern">
@@ -266,22 +266,22 @@
       <label for="">Taux de l’impôt</label>
       <input type="text" class="form-control rounded-pill" formControlName="taux_impot" [ngClass]="{
             'is-invalid': checkInputsValidation(taux_impot)
-          }" />
+          }" [value]="tauxImpot + '%'" readonly/>
     </div>
-<!-- 
+
     <div class="col-lg-3 form-group mt-4">
       <label for="">Retenue à la source (Annuel)</label>
       <input type="text" class="form-control rounded-pill" formControlName="retenue_source" [ngClass]="{
             'is-invalid': checkInputsValidation(retenue_source)
-          }" />
-    </div> -->
+          }" [value]="retenueSource" readonly/>
+    </div>
 
-    <!-- <div class="col-lg-3 form-group mt-4">
+    <div class="col-lg-3 form-group mt-4">
       <label for="">Montant après impôt (Mensuel)</label>
       <input type="text" class="form-control rounded-pill" formControlName="montant_apres_impot" [ngClass]="{
             'is-invalid': checkInputsValidation(montant_apres_impot)
-          }" />
-    </div> -->
+          }" [value]="montantApresImpot" readonly/>
+    </div>
   </div>
 
   <div class="mt-2">Mandataire</div>

@@ -63,7 +63,6 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
       if (data) this.accessError = data
     })
 
-
   }
 
   //=======================================================================================================
@@ -182,4 +181,5 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
         }
       );
   }
+
 }
