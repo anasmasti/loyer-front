@@ -23,13 +23,15 @@
             <li class="nav-item">
                 <a [routerLink]="['']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact: true}"
                     class="nav-link main-btn">
-                    Tableau de bord
+                    <i class="fal fa-home"></i> Tableau de bord
                 </a>
             </li>
 
             <li class="nav-item my-4">
                 <a [routerLink]="['/lieux']" routerLinkActive="router-link-active" class="nav-link main-btn">
-                    <span (click)="showSubMenu('lieux')">Locaux</span>
+                    <span (click)="showSubMenu('lieux')">
+                        <i class="fal fa-building"></i>&nbsp;&nbsp;Locaux
+                    </span>
                 </a>
                 <ul class="sub-menu list-unstyled" id="lieux">
                     <li>
@@ -52,7 +54,7 @@
 
             <li class="nav-item">
                 <a [routerLink]="['/proprietaire/list-global/list']" routerLinkActive="router-link-active" class="nav-link main-btn">
-                    <span>Liste des propriétaires</span>
+                    <i class="fal fa-users"></i> Liste des propriétaires
                 </a>
                 <!-- <ul class="sub-menu list-unstyled" id="proprietaire">
                     <li>
@@ -83,7 +85,7 @@
             </li> -->
             <li class="nav-item my-4">
                 <a [routerLink]="['/contrat/list-global/list']" routerLinkActive="router-link-active" class="nav-link main-btn">
-                    <span>Liste des contrats</span>
+                    <i class="fal fa-file-signature"></i> Liste des contrats
                 </a>
                 <!-- <ul class="sub-menu list-unstyled" id="contrat">
                     <li>
@@ -94,17 +96,32 @@
 
                 </ul> -->
             </li>
-            <li *ngIf="isAdmin" class="nav-item">
-                <a [routerLink]="['/admin']" routerLinkActive="router-link-active" class="nav-link danger-btn">
-                    <span (click)="showSubMenu('admin')">Panneau d'administration</span>
+
+            <li class="nav-item">
+                <a [routerLink]="['/files']" routerLinkActive="router-link-active" class="nav-link success-btn">
+                    <i class="far fa-file-export"></i> Écritures éxportation
                 </a>
-                <ul class="sub-menu list-unstyled" id="admin">
+                <!-- <ul class="sub-menu list-unstyled" id="contrat">
+                    <li>
+                        <a [routerLink]="['/contrat/list']" class="nav-link sub-menu-btn">
+                            List des contrats
+                        </a>
+                    </li>
+
+                </ul> -->
+            </li>
+            
+            <li *ngIf="isAdmin" class="nav-item mt-4">
+                <a [routerLink]="['/admin']" routerLinkActive="router-link-active" class="nav-link danger-btn">
+                    <i class="far fa-user-shield"></i> Administration
+                </a>
+                <!-- <ul class="sub-menu list-unstyled" id="admin">
                     <li>
                         <a href="#" class="nav-link sub-menu-btn">
                             List des utilisateurs
                         </a>
                     </li>
-                </ul>
+                </ul> -->
             </li>
         </ul>
     </div>

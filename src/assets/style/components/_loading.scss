@@ -1,0 +1,8 @@
+@use "../helpers" as *;
+
+// Gobal skeleton loading
+.skeleton {
+    @include skeletonLoading(140px, 30px)
+}
+
+

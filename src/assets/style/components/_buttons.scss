@@ -1,13 +1,12 @@
-@use '../helpers' as *;
+@use "../helpers" as *;
 
-
-//  Main button 
+//  Main button
 .main-btn {
     background: color(light);
     box-shadow: $btn-box-shadow;
     color: color(dark);
     border-radius: $main-border-radius !important;
-    border: 0.1em solid color(light) ;
+    border: 0.1em solid color(light);
 
     &:hover {
         background: color(main-color);
@@ -30,13 +29,14 @@
     }
 }
 
-
 // Costumize the danger button
 .danger-btn {
     background: color(danger);
     box-shadow: $btn-box-shadow;
     color: color(light) !important;
     border-radius: $main-border-radius !important;
+    border: 0.1em solid color(danger) !important;
+
     &:hover {
         background: color(dark);
         color: color(light) !important;
@@ -45,17 +45,17 @@
 
 // Costumize the success button
 .success-btn {
-    background: color(success) !important;
+    background: color(success);
     box-shadow: $btn-box-shadow;
     color: color(light) !important;
     border-radius: $main-border-radius !important;
+    border: 0.1em solid color(success) !important;
 
     &:hover {
         background: color(dark) !important;
         color: color(light) !important;
     }
 }
-
 
 // Costumize the info button
 .info-btn {
@@ -97,12 +97,11 @@
 .short-link {
     text-decoration: none;
     font-size: small;
-    
+
     &:hover {
         color: color(dark) !important;
     }
 }
-
 
 // Checkbox style
 .check:checked ~ .checkbox-list-btns {
@@ -110,7 +109,7 @@
     color: white;
     box-shadow: none;
     outline: none;
-  }
+}
 
 .checkbox-list-btns {
     background-color: white;
@@ -119,12 +118,9 @@
     box-shadow: none;
     outline: none;
     cursor: pointer !important;
-  
+
     &:focus {
-      border: none !important ;
-      box-shadow: none !important;
+        border: none !important ;
+        box-shadow: none !important;
     }
-  }
- 
-
-
+}

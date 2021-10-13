@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'foncier', loadChildren: () => import('./pages/foncier-page/foncier-page.module').then(m => m.FoncierPageModule), canActivate: [AuthGuard] },
   { path: 'login', loadChildren: () => import('./pages/login-page/login.module').then(m => m.LoginModule) },
   { path: 'access-denied', loadChildren: () => import('./shared/access-denied/access-denied.module').then(m => m.AccessDeniedModule) },
+  { path: 'files', loadChildren: () => import('./pages/files-generation/files-generation.module').then(m => m.FilesGenerationModule) },
   { path: '**', loadChildren: () => import('./pages/notfound-page/notfound-page.module').then(m => m.NotfoundPageModule) },
 ];
 

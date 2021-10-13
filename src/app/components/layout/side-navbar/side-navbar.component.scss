@@ -28,26 +28,11 @@
 }
 
 // Submenu items
-.sub-menu#proprietaire.active {
-    display: flex !important;
-}
-
-.sub-menu#contrat.active {
-    display: flex !important;
-}
-
 .sub-menu#lieux.active {
     display: flex !important;
     flex-direction: column;
 }
 
-.sub-menu#foncier.active {
-    display: flex !important;
-}
-
-.sub-menu#admin.active {
-    display: flex !important;
-}
 
 @include mobile($min-screen, $max-screen) {
     .vertical-nav {

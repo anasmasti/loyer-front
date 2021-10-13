@@ -479,11 +479,6 @@ export class FormContratComponent implements OnInit {
     //     this.hideErrorMessage();
     //   }
     // );
-
-    console.log(ctr_data);
-    
-    
-
   }
 
   // Check if all inputs has invalid errors
