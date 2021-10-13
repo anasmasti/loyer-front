@@ -1,4 +1,4 @@
-import { FoncierService } from './../../../services/foncier-service/foncier.service';
+// import { FoncierService } from './../../../services/foncier-service/foncier.service';
 import { HelperService } from 'src/app/services/helpers/helper.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -93,7 +93,7 @@ export class FormContratComponent implements OnInit {
     private contratService: ContratService,
     private mainModalService: MainModalService,
     private help: HelperService,
-    private foncierService: FoncierService,
+    // private foncierService: FoncierService,
     public router: Router,
     private actRoute: ActivatedRoute
   ) {}
@@ -106,10 +106,6 @@ export class FormContratComponent implements OnInit {
 
   ngOnInit(): void {
     this.lieu_id = this.actRoute.snapshot.paramMap.get('id_lieu') || '';
-
-    if (this.lieu_id) {
-      this.getFoncierByID(this.lieu_id);
-    }
 
     // this.etatContratTypes = 'Avenant'
     this.contratForm = new FormGroup({
@@ -167,14 +163,6 @@ export class FormContratComponent implements OnInit {
       total_montant_brut_loyer: new FormControl(),
       total_montant_net_loyer: new FormControl(),
     });
-  }
-
-  getFoncierByID(FID: any) {
-    this.foncierService
-      .getFoncierById(FID, this.userMatricule)
-      .subscribe((data) => {
-        this.foncier = data;
-      });
   }
 
   // Calculer le montant
@@ -350,28 +338,27 @@ export class FormContratComponent implements OnInit {
         break;
     }
 
-    // Date fin de l'avance
+    // Date 1er paiment 
     date.setMonth(month);
+    this.date_1er_paiment = date.toISOString().slice(0, 10)
+
+    // Date fin de l'avance
     date.setDate(0)
     this.formattedDate = date.toISOString().slice(0, 10);
 
-    // Date 1er paiment 
-    let day = date.getDate()
-    date.setDate(day + 1)
-    this.date_1er_paiment = date.toISOString().slice(0, 10)
   }
 
-  reinitialiserDates(){
+  //Reinitialise dates :::///
+  reinitialiserDates() {
     this.dureeAvance = 0;
-    this.formattedDate = 0;
-    this.date_1er_paiment = 0
+    this.formattedDate = null;
+    this.date_1er_paiment = null;
+  }
+
+  reinitialiserDateDebut() {
     let date = new Date(this.contratForm.get('date_debut_loyer')?.value);
     date.setDate(1);
     this.date_debut_loyer_ = date.toISOString().slice(0, 10)
-    // let date3 = new Date()
-    // let date2 = new Date(date3.getFullYear , date3.getMonth + 1 , 0);
-    // console.log();
-    
   }
 
   //functions
