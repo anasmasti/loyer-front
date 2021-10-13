@@ -322,29 +322,38 @@ export class FormContratComponent implements OnInit {
     let date = new Date(this.contratForm.get('date_debut_loyer')?.value);
     let month = date.getMonth();
     this.dureeAvance = this.contratForm.get('duree_avance')?.value;
-    switch (this.periodicite) {
-      case 'mensuelle':
-        month += this.dureeAvance;
-        break;
-      case 'trimestrielle':
-        month += this.dureeAvance * 3;
-        break;
-      case 'annuelle':
-        month += this.dureeAvance * 12;
-        break;
-      default:
-        console.log('Error ');
+    
+    if (this.dureeAvance > 0) {
 
-        break;
+      switch (this.periodicite) {
+        case 'mensuelle':
+          month += this.dureeAvance;
+          break;
+        case 'trimestrielle':
+          month += this.dureeAvance * 3;
+          break;
+        case 'annuelle':
+          month += this.dureeAvance * 12;
+          break;
+        default:
+          console.log('Error ');
+  
+          break;
+      }
+  
+      // Date 1er paiment 
+      date.setMonth(month);
+      this.date_1er_paiment = date.toISOString().slice(0, 10)
+  
+      // Date fin de l'avance
+      date.setDate(0)
+      this.formattedDate = date.toISOString().slice(0, 10);
+      
     }
-
-    // Date 1er paiment 
-    date.setMonth(month);
-    this.date_1er_paiment = date.toISOString().slice(0, 10)
-
-    // Date fin de l'avance
-    date.setDate(0)
-    this.formattedDate = date.toISOString().slice(0, 10);
+    else {
+      this.date_1er_paiment = null
+      this.formattedDate = null
+    }
 
   }
 
