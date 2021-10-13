@@ -8,7 +8,7 @@ export const environment = {
   API_URL: 'https://loyer-api.herokuapp.com/api/',
   // Api test url 
   // Badr 
-  API_URL_TEST: 'http://192.168.11.116:5000/api/',
+  API_URL_TEST: 'http://192.168.11.1116:5000/api/',
   // Yassine
   // API_URL_TEST: 'http://192.168.11.124:5000/api/',
   // Api test url without param

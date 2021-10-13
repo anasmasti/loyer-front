@@ -333,8 +333,6 @@ export class FormContratComponent implements OnInit {
         month += this.dureeAvance * 12;
         break;
       default:
-        console.log('Error ');
-
         break;
     }
 
@@ -470,11 +468,6 @@ export class FormContratComponent implements OnInit {
     //     this.hideErrorMessage();
     //   }
     // );
-
-    console.log(ctr_data);
-    
-    
-
   }
 
   // Check if all inputs has invalid errors
