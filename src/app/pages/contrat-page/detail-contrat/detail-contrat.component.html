@@ -5,7 +5,7 @@
             <h3 class="main-title">
                 <a [routerLink]="['/contrat/list-global/list']" class="goback-link">Détails de Contrat de bail</a>/<span
                     class="selected-text">
-                    {{contrat.numero_contrat}}
+                    {{contrat?.numero_contrat}}
                 </span>
             </h3>
             <div class="d-none d-lg-block">
@@ -26,7 +26,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <h5 class="main-txt">Numero de contrat</h5>
-                <p>{{ contrat.numero_contrat != '' ? contrat.numero_contrat : '--'}}</p>
+                <p>{{ contrat?.numero_contrat != '' ? contrat?.numero_contrat : '--'}}</p>
                 <!-- <p>contrat.numero_contrat</p> -->
             </div>
             <div class="col-lg-6">
