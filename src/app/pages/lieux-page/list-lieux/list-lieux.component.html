@@ -90,20 +90,31 @@
         </td>
 
         <td>
-          <div *ngIf="lieu.proprietaire.length">
-            <span class="col-sm-6 danger-txt">
-              {{
-              lieu.proprietaire.length >= 1 ? lieu.proprietaire.length : ""
-              }}
-              propriétaire<span *ngIf="lieu.proprietaire.length > 1">s</span>
-            </span>
-            <span class="mx-1 text-secondary"> • </span>
-            <a [routerLink]="['/proprietaire', lieu._id]" class="short-link success-txt">
-              Ajouter un autre</a>
-          </div>
+          <div *ngIf="lieu.has_contrat">
 
-          <a *ngIf="!lieu.proprietaire.length" [routerLink]="['/proprietaire', lieu._id]"
-            class="btn btn-sm success-btn">Ajouter un propriétaire</a>
+            <div *ngIf="lieu.proprietaire.length">
+              <span class="col-sm-6 danger-txt">
+                {{
+                  lieu.proprietaire.length >= 1 ? lieu.proprietaire.length : ""
+                }}
+                propriétaire<span *ngIf="lieu.proprietaire.length > 1">s</span>
+              </span>
+              <span class="mx-1 text-secondary"> • </span>
+              <a
+                [routerLink]="['/proprietaire', lieu._id]"
+                class="short-link success-txt"
+              >
+                Ajouter un autre</a
+              >
+            </div>
+  
+            <a
+              *ngIf="!lieu.proprietaire.length"
+              [routerLink]="['/proprietaire', lieu._id]"
+              class="btn btn-sm success-btn"
+              >Ajouter un propriétaire</a
+            >
+          </div>
         </td>
 
         <td>

@@ -322,27 +322,36 @@ export class FormContratComponent implements OnInit {
     let date = new Date(this.contratForm.get('date_debut_loyer')?.value);
     let month = date.getMonth();
     this.dureeAvance = this.contratForm.get('duree_avance')?.value;
-    switch (this.periodicite) {
-      case 'mensuelle':
-        month += this.dureeAvance;
-        break;
-      case 'trimestrielle':
-        month += this.dureeAvance * 3;
-        break;
-      case 'annuelle':
-        month += this.dureeAvance * 12;
-        break;
-      default:
-        break;
+    
+    if (this.dureeAvance > 0) {
+
+      switch (this.periodicite) {
+        case 'mensuelle':
+          month += this.dureeAvance;
+          break;
+        case 'trimestrielle':
+          month += this.dureeAvance * 3;
+          break;
+        case 'annuelle':
+          month += this.dureeAvance * 12;
+          break;
+        default:
+          break;
+      }
+  
+      // Date 1er paiment 
+      date.setMonth(month);
+      this.date_1er_paiment = date.toISOString().slice(0, 10)
+  
+      // Date fin de l'avance
+      date.setDate(0)
+      this.formattedDate = date.toISOString().slice(0, 10);
+      
     }
-
-    // Date 1er paiment 
-    date.setMonth(month);
-    this.date_1er_paiment = date.toISOString().slice(0, 10)
-
-    // Date fin de l'avance
-    date.setDate(0)
-    this.formattedDate = date.toISOString().slice(0, 10);
+    else {
+      this.date_1er_paiment = null
+      this.formattedDate = null
+    }
 
   }
 
@@ -448,26 +457,26 @@ export class FormContratComponent implements OnInit {
     this.fd.append('data', JSON.stringify(ctr_data));
 
     // post the formdata (data+files)
-    // this.contratService.addContrat(this.fd, this.userMatricule).subscribe(
-    //   (_) => {
-    //     this.postDone = true;
-    //     setTimeout(() => {
-    //       this.contratForm.reset();
-    //       this.postDone = false;
-    //       this.help.toTheUp();
-    //       this.router.navigate(['/contrat/list-global/list']).then(() => {
-    //         // this.help.refrechPage();
-    //       });
-    //     }, 2000);
-    //   },
-    //   (error) => {
-    //     this.errors = error.error.message;
-    //     setTimeout(() => {
-    //       this.showErrorMessage();
-    //     }, 3000);
-    //     this.hideErrorMessage();
-    //   }
-    // );
+    this.contratService.addContrat(this.fd, this.userMatricule).subscribe(
+      (_) => {
+        this.postDone = true;
+        setTimeout(() => {
+          this.contratForm.reset();
+          this.postDone = false;
+          this.help.toTheUp();
+          this.router.navigate(['/contrat/list-global/list']).then(() => {
+            this.help.refrechPage();
+          });
+        }, 2000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+    );
   }
 
   // Check if all inputs has invalid errors
