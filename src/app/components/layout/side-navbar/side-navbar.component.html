@@ -94,7 +94,22 @@
 
                 </ul> -->
             </li>
-            <li *ngIf="isAdmin" class="nav-item">
+
+            <li class="nav-item">
+                <a [routerLink]="['/files']" routerLinkActive="router-link-active" class="nav-link success-btn">
+                    <span>Génération des écritures</span>
+                </a>
+                <!-- <ul class="sub-menu list-unstyled" id="contrat">
+                    <li>
+                        <a [routerLink]="['/contrat/list']" class="nav-link sub-menu-btn">
+                            List des contrats
+                        </a>
+                    </li>
+
+                </ul> -->
+            </li>
+            
+            <li *ngIf="isAdmin" class="nav-item mt-4">
                 <a [routerLink]="['/admin']" routerLinkActive="router-link-active" class="nav-link danger-btn">
                     <span (click)="showSubMenu('admin')">Panneau d'administration</span>
                 </a>
