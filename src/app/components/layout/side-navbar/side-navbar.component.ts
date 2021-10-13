@@ -20,11 +20,7 @@ export class SideNavbarComponent implements OnInit {
 
   // Toggel sub menu
   showSubMenu(targetId: string) {
-    if (targetId == 'proprietaire') $('.sub-menu#proprietaire').toggleClass('active'); // Check if the sub menu is proprietaire
     if (targetId == 'lieux') $('.sub-menu#lieux').toggleClass('active'); // Check if the sub menu is lieux
-    if (targetId == 'contrat') $('.sub-menu#contrat').toggleClass('active'); // Check if the sub menu is contrat
-    if (targetId == 'foncier') $('.sub-menu#foncier').toggleClass('active'); // Check if the sub menu is foncier
-    if (targetId == 'versement') $('.sub-menu#versement').toggleClass('active'); // Check if the sub menu is versement
     return false
   }
   displayMe(){

@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HeaderNavbarComponent } from './components/layout/header-navbar/header-navbar.component';
 import { SideNavbarComponent } from './components/layout/side-navbar/side-navbar.component';
 import { MainContentComponent } from './components/layout/main-content/main-content.component';
 import { HttpClientModule } from '@angular/common/http';

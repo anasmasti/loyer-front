@@ -13,7 +13,7 @@ import * as fileSaver from 'file-saver';
   styleUrls: ['./list-contrat.component.scss'],
 })
 export class ListContratComponent implements OnInit {
-  
+
   errors!: string;
   contrats!: Contrat[];
   id: string = '0';
@@ -42,10 +42,10 @@ export class ListContratComponent implements OnInit {
   accessError!: any;
 
   user: any = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '') : [];
-  userRoles: any[] = []; 
+  userRoles: any[] = [];
 
-  idModal : string = "listeProprietaires"
-  ProprietairesByContart : any[] = [];
+  idModal: string = "listeProprietaires"
+  ProprietairesByContart: any[] = [];
   num_contrat!: string;
 
 
@@ -55,27 +55,19 @@ export class ListContratComponent implements OnInit {
     private confirmationModalService: ConfirmationModalService,
     private helperService: HelperService,
     private downloadService: DownloadService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     setTimeout(() => {
       this.getContrat();
     }, 200);
-    setTimeout(() => {
-      console.log(this.contrats);
-      
-    }, 1000);
-
 
     if (localStorage.getItem('user')) {
-
       for (let index = 0; index < this.user.existedUser.userRoles.length; index++) {
         const element = this.user.existedUser.userRoles[index].roleCode;
         this.userRoles.push(element)
       }
-      
     }
-
   }
 
   getContrat() {
@@ -87,8 +79,6 @@ export class ListContratComponent implements OnInit {
         this.accessError = error.error.message;
       }
     );
-    
-    
   }
 
   // Filter by intitule
@@ -113,7 +103,7 @@ export class ListContratComponent implements OnInit {
     this.mainModalService.open(this.id);
     this.ProprietairesByContart = SelectedContrat.lieu.proprietaire
     this.num_contrat = SelectedContrat.lieu.code_lieu + '/' + SelectedContrat.lieu.intitule_lieu
-    
+
   }
 
   openConfirmationContratModal(id: string) {
