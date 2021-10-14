@@ -92,6 +92,8 @@ export class FormContratComponent implements OnInit {
   date_debut_loyer_!: any
   num_contrat!:string;
 
+  montant_avance_tax_!:number;
+
   constructor(
     private contratService: ContratService,
     private lieuxService : LieuxService,
@@ -168,6 +170,9 @@ export class FormContratComponent implements OnInit {
       retunue_source_par_mois: new FormControl(),
       total_montant_brut_loyer: new FormControl(),
       total_montant_net_loyer: new FormControl(),
+
+      // Calcul montant avance tax 
+      montant_avance_tax: new FormControl(),
     });
   }
 
@@ -330,6 +335,14 @@ export class FormContratComponent implements OnInit {
     this.montantCaution = montantCaution;
     this.effortCaution = effortCaution;
   }
+
+  calculMontantAvanceTax() {
+    let tauxImpot: number = this.contratForm.get('taux_impot')?.value;
+    let montantAvance: number = this.contratForm.get('montant_avance')?.value;
+    
+    this.montant_avance_tax_ = montantAvance * ( tauxImpot / 100 )
+  
+  }     
 
   // calcul Date fin de l’avance et Date 1er de l'avance
   calculDate() {
