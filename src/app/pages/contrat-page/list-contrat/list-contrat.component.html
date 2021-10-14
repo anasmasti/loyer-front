@@ -56,13 +56,8 @@
                   totalItems: count
                 }
         ">
-<<<<<<< HEAD
-        <td>{{ contrat.numero_contrat }}</td>
-        <td>{{ contrat.montant_loyer }}</td>
-=======
         <td>{{ contrat.lieu.code_lieu }}/{{ contrat.lieu.intitule_lieu }}</td>
         <td>{{ contrat.montant_loyer | currency:'MAD' }}</td>
->>>>>>> a2dcd130b6ee7ac4b1ab93992c8db476480bada8
         <td>{{ contrat.date_debut_loyer | date }}</td>
         <td>{{ contrat.date_fin_contrat | date }}</td>
 
