@@ -27,3 +27,9 @@
         box-shadow: none;
     }
 }
+
+@include mobile($min-screen-desktop, $max-screen-desktop) {
+    h3 {
+        display: none;
+    }
+}

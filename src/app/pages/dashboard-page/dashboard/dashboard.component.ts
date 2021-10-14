@@ -155,15 +155,16 @@ export class DashboardComponent implements OnInit {
   }
 
   putServerConnectivity() {
-    this.serverConnected = false
+    this.serverConnected = true
     this.errorMessage = ""
-
-    this.help.checkServerConnectivity().subscribe(data => {
-      if (data) this.serverConnected = true
-    }, (_) => {
-      this.serverConnected = false
-      this.errorMessage = "la connection au serveur a échoué, veuillez réessayer."
-    })
+    setTimeout(() => {
+      this.help.checkServerConnectivity().subscribe(data => {
+        if (data) this.serverConnected = true
+      }, (_) => {
+        this.serverConnected = false
+        this.errorMessage = "la connection au serveur a échoué, veuillez réessayer."
+      })
+    }, 1500);
   }
 
 }
