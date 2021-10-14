@@ -31,7 +31,10 @@ $font-sizes: (
     "large": 20px,
 );
 
+// Screens
 // Mobile screens 
 $min-screen : 320px;
 $max-screen : 490px;
-
+// Small desktop
+$min-screen-desktop : 980px;
+$max-screen-desktop : 1240px;
