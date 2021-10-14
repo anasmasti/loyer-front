@@ -58,6 +58,10 @@ export class ListContratComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    console.log('From list component');
+    
+
     setTimeout(() => {
       this.getContrat();
     }, 200);
@@ -102,7 +106,7 @@ export class ListContratComponent implements OnInit {
   openListeProprietairesModal(SelectedContrat: any) {
     this.mainModalService.open(this.id);
     this.ProprietairesByContart = SelectedContrat.lieu.proprietaire
-    this.num_contrat = SelectedContrat.lieu.code_lieu + '/' + SelectedContrat.lieu.intitule_lieu
+    this.num_contrat = SelectedContrat.numero_contrat
 
   }
 
