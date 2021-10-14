@@ -1,5 +1,9 @@
 <div class="row title">
     <div class="col-lg-12 mt-3">
+        <div class="w-100 d-flex justify-content-center">
+            <div *ngIf="!serverConnected" class="error-alert p-2 my-2">{{ errorMessage }}</div>
+        </div>
+
         <div class="d-lg-flex justify-content-lg-between">
             <h3 class="main-title">Tableau de bord</h3>
             <div>
@@ -18,7 +22,7 @@
                         Utilisateur<span *ngIf="allCount.countUser > 1">s</span>
                     </span>
 
-                    <div class="skeleton" *ngIf="!allCount.countUser"></div>
+                    <div *ngIf="!allCount.countUser" class="counts-skeleton"></div>
                 </h3>
             </div>
             <div class="col-lg-3 main-card bg-white p-4 count-card">
@@ -29,7 +33,7 @@
                         Directeur<span *ngIf="allCount.totalCountDirecteurRegional > 1">s</span>
                     </span>
 
-                    <div class="skeleton" *ngIf="!allCount.totalCountDirecteurRegional"></div>
+                    <div *ngIf="!allCount.totalCountDirecteurRegional" class="counts-skeleton"></div>
                 </h3>
             </div>
             <div class="col-lg-3 main-card bg-white p-4 count-card">
@@ -41,7 +45,7 @@
                             Propriétaire<span *ngIf="allCount.countProprietaire > 1">s</span>
                         </span>
 
-                        <div class="skeleton" *ngIf="!allCount.countProprietaire"></div>
+                        <div *ngIf="!allCount.countProprietaire" class="counts-skeleton"></div>
                     </h3>
                 </a>
             </div>
@@ -53,7 +57,7 @@
                         Contrat<span *ngIf="allCount.countContrat > 1">s</span>
                     </span>
 
-                    <div class="skeleton" *ngIf="!allCount.countContrat"></div>
+                    <div *ngIf="!allCount.countContrat" class="counts-skeleton"></div>
                 </h3>
             </div>
         </div>
@@ -70,7 +74,7 @@
                             Locaux
                         </span>
 
-                        <div class="skeleton" *ngIf="!allCount.countLieu"></div>
+                        <div *ngIf="!allCount.countLieu" class="counts-skeleton"></div>
                     </h3>
                 </a>
             </div>
@@ -82,7 +86,7 @@
                         Aménagement<span *ngIf="allCount.totalCountAmenagements > 1">s</span>
                     </span>
 
-                    <div class="skeleton" *ngIf="!allCount.totalCountAmenagements"></div>
+                    <div *ngIf="!allCount.totalCountAmenagements" class="counts-skeleton"></div>
                 </h3>
             </div>
             <div class="col-lg-3 main-card bg-white p-4 count-card">
@@ -93,7 +97,7 @@
                         Fournisseur<span *ngIf="allCount.totalCountFournisseur > 1">s</span>
                     </span>
 
-                    <div class="skeleton" *ngIf="!allCount.totalCountFournisseur"></div>
+                    <div *ngIf="!allCount.totalCountFournisseur" class="counts-skeleton"></div>
                 </h3>
             </div>
             <div class="col-lg-3 main-card bg-white p-4 count-card">
@@ -103,8 +107,8 @@
                     <span *ngIf="allCount.countProprietaire">
                         Mandataire<span *ngIf="allCount.countProprietaire > 1">s</span>
                     </span>
-                    
-                    <div class="skeleton" *ngIf="!allCount.countProprietaire"></div>
+
+                    <div *ngIf="!allCount.countProprietaire" class="counts-skeleton"></div>
                 </h3>
             </div>
         </div>
@@ -119,22 +123,42 @@
                 <h6>
                     {{yAxisLabelBarV}}
                 </h6>
-                <ngx-charts-bar-vertical [results]="statisticsBarV" [scheme]="colorScheme" [schemeType]="schemeType"
-                    [gradient]="gradient" [xAxis]="xAxis" [yAxis]="yAxis" [showXAxisLabel]="showXAxisLabel"
-                    [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [legendTitle]="villeTitle"
-                    [legendPosition]="legendPositionRight" [animations]="animations" [showGridLines]="showGridLines"
-                    [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
-                    [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
-                    [maxYAxisTickLength]="maxYAxisTickLength" [xAxisTickFormatting]="formatString"
-                    [yAxisTickFormatting]="formatNumber" [showDataLabel]="showDataLabel" [barPadding]="barPadding"
-                    [tooltipDisabled]="tooltipDisabled" [roundEdges]="roundEdges" [legend]="hasLegend">
-                </ngx-charts-bar-vertical>
+
+                <div *ngIf="statisticsBarV">
+                    <ngx-charts-bar-vertical [results]="statisticsBarV" [scheme]="colorScheme" [schemeType]="schemeType"
+                        [gradient]="gradient" [xAxis]="xAxis" [yAxis]="yAxis" [showXAxisLabel]="showXAxisLabel"
+                        [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [legendTitle]="villeTitle"
+                        [legendPosition]="legendPositionRight" [animations]="animations" [showGridLines]="showGridLines"
+                        [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                        [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
+                        [maxYAxisTickLength]="maxYAxisTickLength" [xAxisTickFormatting]="formatString"
+                        [yAxisTickFormatting]="formatNumber" [showDataLabel]="showDataLabel" [barPadding]="barPadding"
+                        [tooltipDisabled]="tooltipDisabled" [roundEdges]="roundEdges" [legend]="hasLegend">
+                    </ngx-charts-bar-vertical>
+                </div>
+
+                <div *ngIf="!statisticsBarV">
+                    <h5 class="danger-txt">
+                        Une erreur s'est produite, veuillez réessayer.
+                    </h5>
+                </div>
             </div>
             <div class="col-12 col-lg-6 text-center left-border ms-lg-5">
-                <h6>{{yAxisLabelAdvPie}}</h6>
-                <ngx-charts-advanced-pie-chart [results]="statisticsAdvancedCircl" [scheme]="colorScheme"
-                    [animations]="animations">
-                </ngx-charts-advanced-pie-chart>
+                <h6>
+                    {{yAxisLabelAdvPie}}
+                </h6>
+
+                <div *ngIf="statisticsAdvancedCircl">
+                    <ngx-charts-advanced-pie-chart [results]="statisticsAdvancedCircl" [scheme]="colorScheme"
+                        [animations]="animations">
+                    </ngx-charts-advanced-pie-chart>
+                </div>
+
+                <div *ngIf="!statisticsAdvancedCircl">
+                    <h5 class="danger-txt">
+                        Une erreur s'est produite, veuillez réessayer.
+                    </h5>
+                </div>
             </div>
 
         </div>
@@ -142,32 +166,51 @@
 
     <div class="mt-5">
         <div class="row text-center">
-
             <div class="col-12 col-lg-6 col-md-12">
-                <h6>{{yAxisLabelBarH}}</h6>
+                <h6>
+                    {{yAxisLabelBarH}}
+                </h6>
 
-                <ngx-charts-bar-horizontal [results]="statisticsBarH" [scheme]="colorScheme" [schemeType]="schemeType"
-                    [gradient]="gradient" [xAxis]="xAxis" [yAxis]="yAxis" [showXAxisLabel]="showXAxisLabel"
-                    [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [legendTitle]="locauxTitle"
-                    [legendPosition]="legendPositionRight" [animations]="animations" [showGridLines]="showGridLines"
-                    [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
-                    [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
-                    [maxYAxisTickLength]="maxYAxisTickLength" [xAxisTickFormatting]="formatString"
-                    [yAxisTickFormatting]="formatNumber" [showDataLabel]="showDataLabel" [barPadding]="barPadding"
-                    [tooltipDisabled]="tooltipDisabled" [roundEdges]="roundEdges" [legend]="hasLegend">
-                </ngx-charts-bar-horizontal>
+                <div *ngIf="statisticsBarH">
+                    <ngx-charts-bar-horizontal [results]="statisticsBarH" [scheme]="colorScheme"
+                        [schemeType]="schemeType" [gradient]="gradient" [xAxis]="xAxis" [yAxis]="yAxis"
+                        [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+                        [legendTitle]="locauxTitle" [legendPosition]="legendPositionRight" [animations]="animations"
+                        [showGridLines]="showGridLines" [trimXAxisTicks]="trimXAxisTicks"
+                        [trimYAxisTicks]="trimYAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks"
+                        [maxXAxisTickLength]="maxXAxisTickLength" [maxYAxisTickLength]="maxYAxisTickLength"
+                        [xAxisTickFormatting]="formatString" [yAxisTickFormatting]="formatNumber"
+                        [showDataLabel]="showDataLabel" [barPadding]="barPadding" [tooltipDisabled]="tooltipDisabled"
+                        [roundEdges]="roundEdges" [legend]="hasLegend">
+                    </ngx-charts-bar-horizontal>
+                </div>
+
+                <div *ngIf="!statisticsBarH">
+                    <h5 class="danger-txt">
+                        Une erreur s'est produite, veuillez réessayer.
+                    </h5>
+                </div>
             </div>
 
             <div class="col-12 col-lg-5 col-md-12 left-border ms-lg-5">
-                <h6>{{yAxisLabelPie}}</h6>
-                <ngx-charts-pie-chart [results]="statisticsCircle" [legendTitle]="contratTitle" [scheme]="colorScheme"
-                    [schemeType]="schemeType" [gradient]="gradient" [legendPosition]="legendPositionRight"
-                    [animations]="animations" [labels]="true" [explodeSlices]="explodeSlices"
-                    [tooltipDisabled]="tooltipDisabled" [legend]="hasLegend">
-                </ngx-charts-pie-chart>
+                <h6>
+                    {{yAxisLabelPie}}
+                </h6>
+
+                <div *ngIf="statisticsCircle">
+                    <ngx-charts-pie-chart [results]="statisticsCircle" [legendTitle]="contratTitle"
+                        [scheme]="colorScheme" [schemeType]="schemeType" [gradient]="gradient"
+                        [legendPosition]="legendPositionRight" [animations]="animations" [labels]="true"
+                        [explodeSlices]="explodeSlices" [tooltipDisabled]="tooltipDisabled" [legend]="hasLegend">
+                    </ngx-charts-pie-chart>
+                </div>
+
+                <div *ngIf="!statisticsCircle">
+                    <h5 class="danger-txt">
+                        Une erreur s'est produite, veuillez réessayer.
+                    </h5>
+                </div>
             </div>
-
-
         </div>
     </div>
 

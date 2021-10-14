@@ -23,3 +23,8 @@ a {
         }
     }
 }
+
+// Skeleton loading
+.counts-skeleton {
+    @include skeletonLoading(140px, 30px)
+}
