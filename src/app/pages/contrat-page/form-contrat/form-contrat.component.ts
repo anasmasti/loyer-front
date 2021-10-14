@@ -5,6 +5,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ContratService } from 'src/app/services/contrat-service/contrat.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
+import { Lieu } from 'src/app/models/Lieu';
 
 @Component({
   selector: 'app-form-contrat',
@@ -79,7 +81,7 @@ export class FormContratComponent implements OnInit {
   totalBrutLoyer!: number;
   totalNetLoyer!: number;
 
-  lieu_id!: string;
+  lieu_id: string = 'test';
 
   userMatricule: any = localStorage.getItem('matricule');
 
@@ -88,9 +90,11 @@ export class FormContratComponent implements OnInit {
   periodicite!: string;
   date_1er_paiment!: any;
   date_debut_loyer_!: any
+  num_contrat!:string;
 
   constructor(
     private contratService: ContratService,
+    private lieuxService : LieuxService,
     private mainModalService: MainModalService,
     private help: HelperService,
     // private foncierService: FoncierService,
@@ -105,7 +109,9 @@ export class FormContratComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.lieu_id = this.actRoute.snapshot.paramMap.get('id_lieu') || '';
+    this.lieu_id = this.actRoute.snapshot.paramMap.get('id_lieu') || 'test';
+
+    this.createNumContrat()
 
     // this.etatContratTypes = 'Avenant'
     this.contratForm = new FormGroup({
@@ -162,6 +168,14 @@ export class FormContratComponent implements OnInit {
       retunue_source_par_mois: new FormControl(),
       total_montant_brut_loyer: new FormControl(),
       total_montant_net_loyer: new FormControl(),
+    });
+  }
+
+  createNumContrat() {
+    this.lieuxService.getLieuById( this.lieu_id, this.userMatricule ).subscribe((data: Lieu) => {
+
+      this.num_contrat = data.code_lieu?.toString() + '/' + data.intitule_lieu
+      
     });
   }
 
@@ -413,7 +427,9 @@ export class FormContratComponent implements OnInit {
   //----------------- Update and Post  --------------------------
   //Add contrat
   addNewContrat() {
+
     let ctr_data: any = {
+      numero_contrat: this.num_contrat,
       date_debut_loyer: this.contratForm.get('date_debut_loyer')?.value || '',
       montant_loyer: this.contratForm.get('montant_loyer')?.value || '',
       taxe_edilite_loyer:
@@ -430,8 +446,7 @@ export class FormContratComponent implements OnInit {
       montant_apres_impot: this.montantApresImpot,
       montant_caution: this.contratForm.get('montant_caution')?.value || '',
       effort_caution: this.effortCaution,
-      date_reprise_caution:
-        this.contratForm.get('date_reprise_caution')?.value || '',
+      date_reprise_caution: this.contratForm.get('date_reprise_caution')?.value || '',
       statut_caution: this.contratForm.get('statut_caution')?.value || '',
       montant_avance: this.contratForm.get('montant_avance')?.value || '',
       date_fin_avance: this.formattedDate,
@@ -494,6 +509,8 @@ export class FormContratComponent implements OnInit {
   }
 
   fetchContrat() {
+
+    
     if (this.contrat) {
       this.contratForm?.patchValue({
         numero_contrat: this.contrat.numero_contrat,
@@ -522,42 +539,43 @@ export class FormContratComponent implements OnInit {
         n_engagement_depense: this.contrat.n_engagement_depense,
         lieu: this.contrat.lieu?._id,
         duree_location: this.contrat.duree_location,
-
+        
         etat_contrat_libelle: this.contrat.etat_contrat?.libelle,
         etat_contrat_n_avenant: this.contrat.etat_contrat?.etat?.n_avenant,
         etat_contrat_motif: this.contrat.etat_contrat?.etat?.motif,
         etat_contrat_montant_nouveau_loyer:
-          this.contrat.etat_contrat?.etat?.montant_nouveau_loyer,
+        this.contrat.etat_contrat?.etat?.montant_nouveau_loyer,
         etat_contrat_signaletique_successeur:
-          this.contrat.etat_contrat?.etat?.signaletique_successeur,
+        this.contrat.etat_contrat?.etat?.signaletique_successeur,
         etat_contrat_intitule_lieu:
-          this.contrat.etat_contrat?.etat?.intitule_lieu,
+        this.contrat.etat_contrat?.etat?.intitule_lieu,
         etat_contrat_date_suspension:
-          this.contrat.etat_contrat?.etat?.date_suspension,
+        this.contrat.etat_contrat?.etat?.date_suspension,
         etat_contrat_duree_suspension:
-          this.contrat.etat_contrat?.etat?.duree_suspension,
+        this.contrat.etat_contrat?.etat?.duree_suspension,
         etat_contrat_motif_suspension:
-          this.contrat.etat_contrat?.etat?.motif_suspension,
+        this.contrat.etat_contrat?.etat?.motif_suspension,
         etat_contrat_reprise_caution:
-          this.contrat.etat_contrat?.etat?.reprise_caution,
+        this.contrat.etat_contrat?.etat?.reprise_caution,
         etat_contrat_date_resiliation:
-          this.contrat.etat_contrat?.etat?.date_resiliation,
+        this.contrat.etat_contrat?.etat?.date_resiliation,
         etat_contrat_etat_lieu_sortie:
-          this.contrat.etat_contrat?.etat?.etat_lieu_sortie,
+        this.contrat.etat_contrat?.etat?.etat_lieu_sortie,
         etat_contrat_preavis: this.contrat.etat_contrat?.etat?.preavis,
         // etat_contrat_images_etat_res_lieu_sortie: this.contrat.etat_contrat?.etat?.images_etat_res_lieu_sortie,
         // etat_contrat_lettre_res_piece_jointe: this.contrat.etat_contrat?.etat?.lettre_res_piece_jointe,
         // etat_contrat_piece_jointe_avenant: this.contrat.etat_contrat?.etat?.piece_jointe_avenant,
       });
+      this.contrat.numero_contrat ? this.lieu_id = this.contrat.lieu._id : null
     }
   }
-
+  
   // Update contrat
   updateContrat() {
     let id = this.contrat._id;
-
+    
     let ctr_data: any = {
-      numero_contrat: this.contratForm.get('numero_contrat')?.value || '',
+      numero_contrat: this.num_contrat,
       date_debut_loyer: this.contratForm.get('date_debut_loyer')?.value || '',
       montant_loyer: this.contratForm.get('montant_loyer')?.value || '',
       taxe_edilite_loyer:

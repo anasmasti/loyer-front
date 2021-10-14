@@ -52,6 +52,10 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // Throw get lieux from server function
     this.getAllLieux();
+    setTimeout(() => {
+      console.log(this.lieux);
+    }, 1000);
+    
 
     // Check data loading status
     this.store.select(getLoading).subscribe((data) => {
