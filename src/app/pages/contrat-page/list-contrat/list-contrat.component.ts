@@ -85,7 +85,7 @@ export class ListContratComponent implements OnInit {
   search() {
     if (this.findContrat != '') {
       this.contrats = this.contrats.filter((res) => {
-        return res.lieu.code_lieu.toString()
+        return res.numero_contrat?.toString()
           ?.toLowerCase()
           .match(this.findContrat.toLowerCase());
       });

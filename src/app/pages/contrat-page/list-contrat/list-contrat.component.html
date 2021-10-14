@@ -79,9 +79,12 @@
         </td>
 
         <td>
-          <a class="btn btn-sm second-btn me-2" (click)="openListeProprietairesModal( contrat )">
-            <i class="fal fa-users"></i> Proprietaires
-          </a>
+          <span data-bs-toggle="tooltip" data-bs-placement="top" title="Ici vous pouvez consulter les proprietaires liés au contrat">
+            <a class="btn btn-sm second-btn me-2" (click)="openListeProprietairesModal( contrat )">
+              <i class="fal fa-users"></i> Proprietaires
+            </a>
+          </span>
+          
         </td>
 
         <td>
