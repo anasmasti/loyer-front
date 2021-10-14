@@ -1,9 +1,14 @@
-<form [formGroup]="proprietaireForm" (ngSubmit)="(proprietaire == '') ? addProprietaire() : updateProprietaire() ">
+<form
+  [formGroup]="proprietaireForm"
+  (ngSubmit)="proprietaire == '' ? addProprietaire() : updateProprietaire()"
+>
   <!-- Message d'ERREUR de serveur -->
   <div class="w-100 d-flex justify-content-center">
     <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
     <!-- Message de succés de serveur -->
-    <div *ngIf="updateDone" class="done-alert p-2 my-2">{{ Updatesuccess }}</div>
+    <div *ngIf="updateDone" class="done-alert p-2 my-2">
+      {{ Updatesuccess }}
+    </div>
     <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
   </div>
 
@@ -11,10 +16,15 @@
   <div class="row">
     <div class="col-lg-3 form-group mt-4">
       <label for="">N° CIN du Propriétaire</label>
-      <input type="text" class="form-control rounded-pill" formControlName="cin" [ngClass]="{
-            'is-invalid': checkInputsValidation(cin)
-          }" />
-           <!-- Error Message  -->
+      <input
+        type="text"
+        class="form-control rounded-pill"
+        formControlName="cin"
+        [ngClass]="{
+          'is-invalid': checkInputsValidation(cin)
+        }"
+      />
+      <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(cin)">
         <p class="text-danger" *ngIf="cin?.errors?.maxlength">
           Ce champ ne doit pas dépasser 8 caractères
@@ -27,11 +37,15 @@
 
     <div class="col-lg-3 form-group mt-4">
       <label for="">Passeport Propriétaire</label>
-      <input type="text" class="form-control rounded-pill" formControlName="passport" [ngClass]="{
-            'is-invalid': checkInputsValidation(passport)
-            
-          }" />
-           <!-- Error Message  -->
+      <input
+        type="text"
+        class="form-control rounded-pill"
+        formControlName="passport"
+        [ngClass]="{
+          'is-invalid': checkInputsValidation(passport)
+        }"
+      />
+      <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(passport)">
         <p class="text-danger" *ngIf="passport?.errors?.maxlength">
           Ce champ ne doit pas dépasser 8 caractères
@@ -41,11 +55,15 @@
 
     <div class="col-lg-3 form-group mt-4">
       <label for="">Carte séjour Propriétaire</label>
-      <input type="text" class="form-control rounded-pill" formControlName="carte_sejour" [ngClass]="{
-            'is-invalid': checkInputsValidation(carte_sejour)
-            
-          }" />
-           <!-- Error Message  -->
+      <input
+        type="text"
+        class="form-control rounded-pill"
+        formControlName="carte_sejour"
+        [ngClass]="{
+          'is-invalid': checkInputsValidation(carte_sejour)
+        }"
+      />
+      <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(carte_sejour)">
         <p class="text-danger" *ngIf="carte_sejour?.errors?.maxlength">
           Ce champ ne doit pas dépasser 8 caractères
@@ -55,20 +73,28 @@
 
     <div class="col-lg-3 form-group mt-4">
       <label for="">Raison sociale propriétaire</label>
-      <input type="text" class="form-control rounded-pill" formControlName="raison_social" [ngClass]="{
-            'is-invalid': checkInputsValidation(raison_social)
-            
-          }" />
+      <input
+        type="text"
+        class="form-control rounded-pill"
+        formControlName="raison_social"
+        [ngClass]="{
+          'is-invalid': checkInputsValidation(raison_social)
+        }"
+      />
     </div>
   </div>
   <!--Début 2éme Row-->
   <div class="row">
     <div class="col-lg-3 form-group mt-4">
       <label for="">N° de registre du commerce</label>
-      <input type="text" class="form-control rounded-pill" formControlName="n_registre_commerce" [ngClass]="{
-            'is-invalid': checkInputsValidation(n_registre_commerce)
-            
-          }" />
+      <input
+        type="text"
+        class="form-control rounded-pill"
+        formControlName="n_registre_commerce"
+        [ngClass]="{
+          'is-invalid': checkInputsValidation(n_registre_commerce)
+        }"
+      />
 
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(n_registre_commerce)">
@@ -80,10 +106,16 @@
 
     <div class="col-lg-3 form-group mt-4">
       <label for="">Nom et prénom propriétaire</label>
-      <input type="text" class="form-control rounded-pill" formControlName="nom_prenom" required [ngClass]="{
-            'is-invalid': checkInputsValidation(nom_prenom),
-            'is-valid': !nom_prenom?.invalid
-          }" />
+      <input
+        type="text"
+        class="form-control rounded-pill"
+        formControlName="nom_prenom"
+        required
+        [ngClass]="{
+          'is-invalid': checkInputsValidation(nom_prenom),
+          'is-valid': !nom_prenom?.invalid
+        }"
+      />
 
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(nom_prenom)">
@@ -101,9 +133,14 @@
 
     <div class="col-lg-3 form-group mt-4">
       <label for="">Téléphone du propriétaire</label>
-      <input type="text" class="form-control rounded-pill" formControlName="telephone" [ngClass]="{
-            'is-invalid': checkInputsValidation(telephone) 
-          }" />
+      <input
+        type="text"
+        class="form-control rounded-pill"
+        formControlName="telephone"
+        [ngClass]="{
+          'is-invalid': checkInputsValidation(telephone)
+        }"
+      />
 
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(telephone)">
@@ -118,9 +155,14 @@
 
     <div class="col-lg-3 form-group mt-4">
       <label for="">Fax du propriétaire</label>
-      <input type="text" class="form-control rounded-pill" formControlName="fax" [ngClass]="{
-            'is-invalid': checkInputsValidation(fax)
-          }" />
+      <input
+        type="text"
+        class="form-control rounded-pill"
+        formControlName="fax"
+        [ngClass]="{
+          'is-invalid': checkInputsValidation(fax)
+        }"
+      />
 
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(fax)">
@@ -138,11 +180,16 @@
   <div class="row">
     <div class="col-lg-3 form-group mt-4">
       <label for="">Adresse du propriétaire</label>
-      <input type="text" class="form-control rounded-pill" formControlName="adresse" [ngClass]="{
-            'is-invalid': checkInputsValidation(adresse),
-            'is-valid': !adresse?.invalid
-          }" />
-           <!-- Error Message  -->
+      <input
+        type="text"
+        class="form-control rounded-pill"
+        formControlName="adresse"
+        [ngClass]="{
+          'is-invalid': checkInputsValidation(adresse),
+          'is-valid': !adresse?.invalid
+        }"
+      />
+      <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(adresse)">
         <p class="text-danger" *ngIf="adresse?.errors?.required">
           Veuillez remplir ce champ
@@ -152,10 +199,16 @@
 
     <div class="col-lg-3 form-group mt-4">
       <label for="">N° de compte bancaire</label>
-      <input type="text" class="form-control rounded-pill" formControlName="n_compte_bancaire" required [ngClass]="{
-            'is-invalid': checkInputsValidation(n_compte_bancaire),
-            'is-valid': !n_compte_bancaire?.invalid
-          }" />
+      <input
+        type="text"
+        class="form-control rounded-pill"
+        formControlName="n_compte_bancaire"
+        required
+        [ngClass]="{
+          'is-invalid': checkInputsValidation(n_compte_bancaire),
+          'is-valid': !n_compte_bancaire?.invalid
+        }"
+      />
 
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(n_compte_bancaire)">
@@ -170,10 +223,16 @@
 
     <div class="col-lg-3 form-group mt-4">
       <label for="">Banque RIB</label>
-      <input type="text" class="form-control rounded-pill" formControlName="banque_rib" required [ngClass]="{
-            'is-invalid': checkInputsValidation(banque_rib),
-            'is-valid': !banque_rib?.invalid
-          }" />
+      <input
+        type="text"
+        class="form-control rounded-pill"
+        formControlName="banque_rib"
+        required
+        [ngClass]="{
+          'is-invalid': checkInputsValidation(banque_rib),
+          'is-valid': !banque_rib?.invalid
+        }"
+      />
 
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(banque_rib)">
@@ -188,10 +247,16 @@
 
     <div class="col-lg-3 form-group mt-4">
       <label for="">Ville RIB</label>
-      <input type="text" class="form-control rounded-pill" formControlName="ville_rib" required [ngClass]="{
-            'is-invalid': checkInputsValidation(ville_rib),
-            'is-valid': !ville_rib?.invalid
-          }" />
+      <input
+        type="text"
+        class="form-control rounded-pill"
+        formControlName="ville_rib"
+        required
+        [ngClass]="{
+          'is-invalid': checkInputsValidation(ville_rib),
+          'is-valid': !ville_rib?.invalid
+        }"
+      />
 
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(ville_rib)">
@@ -206,10 +271,16 @@
 
     <div class="col-lg-3 form-group mt-4">
       <label for="">Clé RIB</label>
-      <input type="text" class="form-control rounded-pill" formControlName="cle_rib" required [ngClass]="{
-            'is-invalid': checkInputsValidation(cle_rib),
-            'is-valid': !cle_rib?.invalid
-          }" />
+      <input
+        type="text"
+        class="form-control rounded-pill"
+        formControlName="cle_rib"
+        required
+        [ngClass]="{
+          'is-invalid': checkInputsValidation(cle_rib),
+          'is-valid': !cle_rib?.invalid
+        }"
+      />
 
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(cle_rib)">
@@ -224,10 +295,16 @@
 
     <div class="col-lg-3 form-group mt-4">
       <label for="">Banque</label>
-      <input type="text" class="form-control rounded-pill" formControlName="banque" required [ngClass]="{
-            'is-invalid': checkInputsValidation(banque),
-            'is-valid': !banque?.invalid
-          }" />
+      <input
+        type="text"
+        class="form-control rounded-pill"
+        formControlName="banque"
+        required
+        [ngClass]="{
+          'is-invalid': checkInputsValidation(banque),
+          'is-valid': !banque?.invalid
+        }"
+      />
 
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(banque)">
@@ -242,17 +319,29 @@
 
     <div class="col-lg-3 form-group mt-4">
       <label for="">Nom de l’Agence bancaire</label>
-      <input type="text" class="form-control rounded-pill" formControlName="nom_agence_bancaire" [ngClass]="{
-            'is-invalid': checkInputsValidation(nom_agence_bancaire)
-          }" />
+      <input
+        type="text"
+        class="form-control rounded-pill"
+        formControlName="nom_agence_bancaire"
+        [ngClass]="{
+          'is-invalid': checkInputsValidation(nom_agence_bancaire)
+        }"
+      />
     </div>
 
     <div class="col-lg-3 form-group mt-4">
       <label for="">Montant de loyer</label>
-      <input type="text" class="form-control rounded-pill" formControlName="montant_loyer" [ngClass]="{
-            'is-invalid': checkInputsValidation(montant_loyer)
-          }"  [(ngModel)]="montantLoyer" (keyup)="calculMontant()"/>
-            <!-- Error Message  -->
+      <input
+        type="text"
+        class="form-control rounded-pill"
+        formControlName="montant_loyer"
+        [ngClass]="{
+          'is-invalid': checkInputsValidation(montant_loyer)
+        }"
+        [(ngModel)]="montantLoyer"
+        (keyup)="calculMontant()"
+      />
+      <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(montant_loyer)">
         <p class="text-danger" *ngIf="montant_loyer?.errors?.pattern">
           Vous devez entrer seulement des chiffres
@@ -264,34 +353,67 @@
   <div class="row">
     <div class="col-lg-3 form-group mt-4">
       <label for="">Taux de l’impôt</label>
-      <input type="text" class="form-control rounded-pill" formControlName="taux_impot" [ngClass]="{
-            'is-invalid': checkInputsValidation(taux_impot)
-          }" [value]="tauxImpot + '%'" readonly/>
+      <input
+        type="text"
+        class="form-control rounded-pill"
+        formControlName="taux_impot"
+        [ngClass]="{
+          'is-invalid': checkInputsValidation(taux_impot)
+        }"
+        [value]="(tauxImpot && tauxImpot) + '%'"
+        readonly
+      />
     </div>
 
     <div class="col-lg-3 form-group mt-4">
       <label for="">Retenue à la source (Annuel)</label>
-      <input type="text" class="form-control rounded-pill" formControlName="retenue_source" [ngClass]="{
-            'is-invalid': checkInputsValidation(retenue_source)
-          }" [value]="retenueSource" readonly/>
+      <input
+        type="text"
+        class="form-control rounded-pill"
+        formControlName="retenue_source"
+        [ngClass]="{
+          'is-invalid': checkInputsValidation(retenue_source)
+        }"
+        [value]="retenueSource"
+        readonly
+      />
     </div>
 
     <div class="col-lg-3 form-group mt-4">
       <label for="">Montant après impôt (Mensuel)</label>
-      <input type="text" class="form-control rounded-pill" formControlName="montant_apres_impot" [ngClass]="{
-            'is-invalid': checkInputsValidation(montant_apres_impot)
-          }" [value]="montantApresImpot" readonly/>
+      <input
+        type="text"
+        class="form-control rounded-pill"
+        formControlName="montant_apres_impot"
+        [ngClass]="{
+          'is-invalid': checkInputsValidation(montant_apres_impot)
+        }"
+        [value]="montantApresImpot"
+        readonly
+      />
     </div>
   </div>
 
   <div class="mt-2">Mandataire</div>
   <div class="col-lg-3 form-group d-flex">
     <label for="">Oui</label>
-    <input type="radio" name="mandataire" [value]="true" class="form-check-input mx-2" [(ngModel)]="isMand"
-      formControlName="mandataire" />
+    <input
+      type="radio"
+      name="mandataire"
+      [value]="true"
+      class="form-check-input mx-2"
+      [(ngModel)]="isMand"
+      formControlName="mandataire"
+    />
     <label for="">Non</label>
-    <input type="radio" name="mandataire" [value]="false" class="form-check-input mx-2" [(ngModel)]="isMand"
-      formControlName="mandataire" />
+    <input
+      type="radio"
+      name="mandataire"
+      [value]="false"
+      class="form-check-input mx-2"
+      [(ngModel)]="isMand"
+      formControlName="mandataire"
+    />
   </div>
 
   <!-- Condition pour afficher ou cacher le formulaire de mandataire -->
@@ -377,11 +499,20 @@
 
   <!-- Button Modifier & Ajouter -->
   <div class="form-group mt-4 col-lg-2 d-flex">
-
-    <button type="submit" class="btn second-btn form-control" *ngIf="proprietaire != ''" [disabled]="proprietaireForm.invalid">
+    <button
+      type="submit"
+      class="btn second-btn form-control"
+      *ngIf="proprietaire != ''"
+      [disabled]="proprietaireForm.invalid"
+    >
       Modifier
     </button>
-    <button type="submit" class="btn second-btn form-control" *ngIf="proprietaire == ''" [disabled]="proprietaireForm.invalid">
+    <button
+      type="submit"
+      class="btn second-btn form-control"
+      *ngIf="proprietaire == ''"
+      [disabled]="proprietaireForm.invalid"
+    >
       Ajouter
     </button>
   </div>

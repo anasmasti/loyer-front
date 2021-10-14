@@ -6,7 +6,8 @@ import { MainModalService } from 'src/app/services/main-modal/main-modal.service
 import { ProprietaireService } from 'src/app/services/proprietaire-service/proprietaire.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
-
+import { Observable, throwError } from 'rxjs';
+import { ofType } from '@ngrx/effects';
 @Component({
   selector: 'app-form-proprietaire',
   templateUrl: './form-proprietaire.component.html',
@@ -28,8 +29,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   //les calcules
   montantLoyer!: any;
   tauxImpot!: any;
-  contrat!: any[]
-  retenueSource!: any;
+  contrat!: any[];
+  retenueSource!: number;
   montantApresImpot!: number;
 
   lieu_id!: string;
@@ -41,7 +42,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     public router: Router,
     private help: HelperService,
     private lieuService: LieuxService
-  ) { }
+  ) {}
 
   ngOnChanges() {
     if (this.proprietaire != '') {
@@ -109,9 +110,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       this.proprietaireForm.reset();
     }
 
-    this.getLieuByContrat();
+    this.getTauxImpot();
   }
-
 
   // addFormMandateire() {
   //   const mandataireData = new FormGroup({
@@ -250,13 +250,16 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
 
   calculMontant() {
-    this.retenueSource = (this.montantLoyer * this.tauxImpot) / 100;
-    this.montantApresImpot = this.montantLoyer - this.retenueSource;
-    return this.retenueSource;
+    if (!isNaN(this.montantLoyer)) {
+      
+      this.retenueSource = (this.montantLoyer * this.tauxImpot) / 100;
+      this.montantApresImpot = this.montantLoyer - this.retenueSource;
+      return this.retenueSource;
+    }
+    return
   }
 
   addProprietaire() {
-
     let proprietaire_data: any = {
       // _id: this.proprietaireForm.get('_id').value ,
       cin: this.proprietaireForm.get('cin')?.value || '',
@@ -286,20 +289,22 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       // deleted:false,
     };
 
-    this.proprietaireService.postProprietaire(proprietaire_data, this.lieu_id, this.userMatricule)
-      .subscribe((_) => {
-        this.postDone = true;
-        setTimeout(() => {
-          this.proprietaireForm.reset();
-          this.postDone = false;
-          this.help.toTheUp();
-          this.router
-            .navigate(['/proprietaire/list-global/list'])
-            .then(() => {
-              this.help.refrechPage();
-            });
-        }, 2000);
-      },
+    this.proprietaireService
+      .postProprietaire(proprietaire_data, this.lieu_id, this.userMatricule)
+      .subscribe(
+        (_) => {
+          this.postDone = true;
+          setTimeout(() => {
+            this.proprietaireForm.reset();
+            this.postDone = false;
+            this.help.toTheUp();
+            this.router
+              .navigate(['/proprietaire/list-global/list'])
+              .then(() => {
+                this.help.refrechPage();
+              });
+          }, 2000);
+        },
         (error) => {
           this.errors = error.error?.message;
           setTimeout(() => {
@@ -336,8 +341,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       taux_impot: this.tauxImpot,
       retenue_source: this.retenueSource,
       montant_apres_impot: this.montant_apres_impot,
-
-
     };
 
     this.proprietaireService
@@ -362,11 +365,11 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       );
   }
 
-  getLieuByContrat() {
+  getTauxImpot() {
     this.lieuService
       .getContratByLieu(this.lieu_id, this.userMatricule)
       .subscribe((data) => {
-        this.tauxImpot = data[0].taux_impot
+        if (data) this.tauxImpot = data[0]?.taux_impot;
       });
   }
 
