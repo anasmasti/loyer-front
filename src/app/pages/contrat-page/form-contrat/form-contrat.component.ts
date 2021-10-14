@@ -488,27 +488,26 @@ export class FormContratComponent implements OnInit {
     this.fd.append('data', JSON.stringify(ctr_data));
 
     // post the formdata (data+files)
-    // this.contratService.addContrat(this.fd, this.userMatricule).subscribe(
-    //   (_) => {
-    //     this.postDone = true;
-    //     setTimeout(() => {
-    //       this.contratForm.reset();
-    //       this.postDone = false;
-    //       this.help.toTheUp();
-    //       this.router.navigate(['/contrat/list-global/list']).then(() => {
-    //         this.help.refrechPage();
-    //       });
-    //     }, 2000);
-    //   },
-    //   (error) => {
-    //     this.errors = error.error.message;
-    //     setTimeout(() => {
-    //       this.showErrorMessage();
-    //     }, 3000);
-    //     this.hideErrorMessage();
-    //   }
-    // );
-    console.log(ctr_data);
+    this.contratService.addContrat(this.fd, this.userMatricule).subscribe(
+      (_) => {
+        this.postDone = true;
+        setTimeout(() => {
+          this.contratForm.reset();
+          this.postDone = false;
+          this.help.toTheUp();
+          this.router.navigate(['/contrat/list-global/list']).then(() => {
+            this.help.refrechPage();
+          });
+        }, 2000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+    );
     
   }
 
@@ -557,7 +556,7 @@ export class FormContratComponent implements OnInit {
         n_engagement_depense: this.contrat.n_engagement_depense,
         lieu: this.contrat.lieu?._id,
         duree_location: this.contrat.duree_location,
-        // montant_avance_tax: this.contrat.montant_avance_tax,
+        montant_avance_tax: this.contrat.montant_avance_tax,
         
         etat_contrat_libelle: this.contrat.etat_contrat?.libelle,
         etat_contrat_n_avenant: this.contrat.etat_contrat?.etat?.n_avenant,
@@ -672,6 +671,8 @@ export class FormContratComponent implements OnInit {
       validation1_DMG: this.contratForm.get('validation1_DMG')?.value || false,
       validation2_DAJC:
         this.contratForm.get('validation2_DAJC')?.value || false,
+
+      montant_avance_tax: this.montant_avance_tax_,
     };
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
