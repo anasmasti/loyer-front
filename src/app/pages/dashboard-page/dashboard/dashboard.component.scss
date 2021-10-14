@@ -5,8 +5,11 @@
     &-number {
         color: color(main-color);
     }
-    &-card {
-        max-width: 24%;
+
+    @include mobile($min-screen-desktop, $max-screen-desktop) {
+        &-label {
+            font-size: 23px;
+        }
     }
 }
 
@@ -26,5 +29,5 @@ a {
 
 // Skeleton loading
 .counts-skeleton {
-    @include skeletonLoading(140px, 30px)
+    @include skeletonLoading(140px, 30px);
 }
