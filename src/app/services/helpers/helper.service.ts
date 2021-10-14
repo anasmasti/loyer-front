@@ -2,13 +2,13 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { map, throttleTime, take, pluck, mergeMap, debounceTime } from 'rxjs/operators';
-import { from } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HelperService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -37,16 +37,20 @@ export class HelperService {
   getCities() {
     return this.http
       .get(
-        `${
-          environment.API_URL_TEST + environment.API_VERSION
+        `${environment.API_URL_TEST + environment.API_VERSION
         }/cities`
       )
-      
   }
 
   getCountries() {
     return this.http.get(
       `${environment.API_URL_TEST + environment.API_VERSION}/countries`
+    );
+  }
+
+  checkServerConnectivity(): Observable<Boolean> {
+    return this.http.get<Boolean>(
+      `${environment.API_URL_TEST + environment.API_VERSION}`
     );
   }
 }

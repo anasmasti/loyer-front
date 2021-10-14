@@ -63,7 +63,10 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Supervision</label>
-          <select class="form-select rounded-pill" formControlName="intitule_rattache_SUP_PV">
+          <p *ngIf="!Sup" class="danger-txt">
+            Une erreur s'est produite, veuillez réessayer plus tard.
+          </p>
+          <select *ngIf="Sup" class="form-select rounded-pill" formControlName="intitule_rattache_SUP_PV">
             <option [value]="supItem._id" *ngFor="let supItem of Sup">
               {{ supItem.intitule_lieu }}
             </option>
@@ -72,7 +75,10 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Code supervision <span class="text-danger">*</span></label>
-          <select class="form-select rounded-pill" formControlName="code_rattache_SUP" [ngClass]="{
+          <p *ngIf="!Sup" class="danger-txt">
+            Une erreur s'est produite, veuillez réessayer plus tard.
+          </p>
+          <select *ngIf="Sup" class="form-select rounded-pill" formControlName="code_rattache_SUP" [ngClass]="{
               'is-invalid': checkInputsValidation(code_rattache_SUP),
               'is-valid': !code_rattache_SUP?.invalid
             }">
@@ -89,7 +95,10 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Direction Régionale</label>
-          <select class="form-select rounded-pill" formControlName="intitule_DR">
+          <p *ngIf="!Dr" class="danger-txt">
+            Une erreur s'est produite, veuillez réessayer plus tard.
+          </p>
+          <select *ngIf="Dr" class="form-select rounded-pill" formControlName="intitule_DR">
             <option [value]="drItem._id" *ngFor="let drItem of Dr">
               {{ drItem.intitule_lieu }}
             </option>
@@ -98,12 +107,14 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Code DR <span class="text-danger">*</span></label>
-          <select class="form-select rounded-pill" formControlName="code_rattache_DR" [ngClass]="{
+          <p *ngIf="!Dr" class="danger-txt">
+            Une erreur s'est produite, veuillez réessayer plus tard.
+          </p>
+          <select *ngIf="Dr" class="form-select rounded-pill" formControlName="code_rattache_DR" [ngClass]="{
               'is-invalid': checkInputsValidation(code_rattache_DR),
               'is-valid': !code_rattache_DR?.invalid
               
             }">
-            <option value="" selected disabled>-----</option>
             <option [value]="drItem.code_lieu" *ngFor="let drItem of Dr">
               {{ drItem.code_lieu }}
             </option>
@@ -127,7 +138,10 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Ville</label>
-          <select class="form-select rounded-pill" formControlName="ville">
+          <p *ngIf="!cities.length" class="danger-txt">
+            Une erreur s'est produite, veuillez réessayer plus tard.
+          </p>
+          <select *ngIf="cities.length" class="form-select rounded-pill" formControlName="ville">
             <option *ngFor="let city of cities" [value]="city.name">{{city.name}}</option>
           </select>
         </div>

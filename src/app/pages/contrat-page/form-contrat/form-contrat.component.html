@@ -187,11 +187,6 @@
       </div>
 
       <div class="col-lg-3 form-group mt-4">
-        <label for="">Montant de l’avance</label>
-        <input type="number" class="form-control rounded-pill" formControlName="montant_avance">
-      </div>
-
-      <div class="col-lg-3 form-group mt-4">
         <label for="">Durée de l’avance</label>
         <input type="number" class="form-control rounded-pill" [(ngModel)]="dureeAvance" (keyup)="calculDate()"
         formControlName="duree_avance"
@@ -207,6 +202,11 @@
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date 1er paiement</label>
         <input type="date" class="form-control rounded-pill" [value]="date_1er_paiment" formControlName="date_1er_paiement" readonly>
+      </div>
+
+      <div class="col-lg-3 form-group mt-4">
+        <label for="">Montant de l’avance</label>
+        <input type="number" class="form-control rounded-pill" formControlName="montant_avance" (keyup)="calculMontantAvanceTax()" [readonly]="dureeAvance > 0 ? false : true">
       </div>
 
       <div class="col-lg-3 form-group mt-4">

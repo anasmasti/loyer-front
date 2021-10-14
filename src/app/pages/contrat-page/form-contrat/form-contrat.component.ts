@@ -111,7 +111,7 @@ export class FormContratComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.lieu_id = this.actRoute.snapshot.paramMap.get('id_lieu') || 'test';
+    this.lieu_id = this.actRoute.snapshot.paramMap.get('id_lieu') || 'Default';
 
     this.createNumContrat()
 
@@ -337,11 +337,13 @@ export class FormContratComponent implements OnInit {
   }
 
   calculMontantAvanceTax() {
-    let tauxImpot: number = this.contratForm.get('taux_impot')?.value;
-    let montantAvance: number = this.contratForm.get('montant_avance')?.value;
+    if (this.dureeAvance > 0 && this.hasDeclarationOption == "non") {
+      
+      let montantAvance: number = this.contratForm.get('montant_avance')?.value;
+      this.montant_avance_tax_ = montantAvance * ( this.tauxImpot / 100 )
+      console.log("montant : " , this.montant_avance_tax_);
     
-    this.montant_avance_tax_ = montantAvance * ( tauxImpot / 100 )
-  
+    }
   }     
 
   // calcul Date fin de l’avance et Date 1er de l'avance
@@ -351,7 +353,6 @@ export class FormContratComponent implements OnInit {
     this.dureeAvance = this.contratForm.get('duree_avance')?.value;
     
     if (this.dureeAvance > 0) {
-
       switch (this.periodicite) {
         case 'mensuelle':
           month += this.dureeAvance;
@@ -479,32 +480,36 @@ export class FormContratComponent implements OnInit {
       retunue_source_par_mois: this.retunue_source_par_mois || '',
       total_montant_brut_loyer: this.totalBrutLoyer || '',
       total_montant_net_loyer: this.totalNetLoyer || '',
+
+      montant_avance_tax: this.montant_avance_tax_,
     };
 
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
 
     // post the formdata (data+files)
-    this.contratService.addContrat(this.fd, this.userMatricule).subscribe(
-      (_) => {
-        this.postDone = true;
-        setTimeout(() => {
-          this.contratForm.reset();
-          this.postDone = false;
-          this.help.toTheUp();
-          this.router.navigate(['/contrat/list-global/list']).then(() => {
-            this.help.refrechPage();
-          });
-        }, 2000);
-      },
-      (error) => {
-        this.errors = error.error.message;
-        setTimeout(() => {
-          this.showErrorMessage();
-        }, 3000);
-        this.hideErrorMessage();
-      }
-    );
+    // this.contratService.addContrat(this.fd, this.userMatricule).subscribe(
+    //   (_) => {
+    //     this.postDone = true;
+    //     setTimeout(() => {
+    //       this.contratForm.reset();
+    //       this.postDone = false;
+    //       this.help.toTheUp();
+    //       this.router.navigate(['/contrat/list-global/list']).then(() => {
+    //         this.help.refrechPage();
+    //       });
+    //     }, 2000);
+    //   },
+    //   (error) => {
+    //     this.errors = error.error.message;
+    //     setTimeout(() => {
+    //       this.showErrorMessage();
+    //     }, 3000);
+    //     this.hideErrorMessage();
+    //   }
+    // );
+    console.log(ctr_data);
+    
   }
 
   // Check if all inputs has invalid errors
@@ -552,6 +557,7 @@ export class FormContratComponent implements OnInit {
         n_engagement_depense: this.contrat.n_engagement_depense,
         lieu: this.contrat.lieu?._id,
         duree_location: this.contrat.duree_location,
+        // montant_avance_tax: this.contrat.montant_avance_tax,
         
         etat_contrat_libelle: this.contrat.etat_contrat?.libelle,
         etat_contrat_n_avenant: this.contrat.etat_contrat?.etat?.n_avenant,

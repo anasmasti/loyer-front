@@ -32,14 +32,14 @@
             <div class="col-lg-6">
 
                 <h5 class="main-txt">Date de debut du loyer</h5>
-                <p>{{ contrat.date_debut_loyer != null ? contrat.date_debut_loyer : '--'}}</p>
+                <p>{{ contrat.date_debut_loyer != null ? (contrat.date_debut_loyer | date) : '--'}}</p>
                 <!-- <p>{{ contrat.date_debut_loyer}}</p> -->
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
                 <h5 class="main-txt">Date fin de contrat de bail</h5>
-                <p>{{ contrat.date_fin_contrat !=null ? contrat.date_fin_contrat : '--'}}</p>
+                <p>{{ contrat.date_fin_contrat !=null ? (contrat.date_fin_contrat | date) : '--'}}</p>
                 <!-- <p>contrat.date_fin_contrat</p> -->
             </div>
             <div class="col-lg-6">
@@ -118,7 +118,7 @@
             </div>
             <div class="col-lg-6">
                 <h5 class="main-txt">Date de reprise de la caution</h5>
-                <p>{{ contrat.date_reprise_caution != null ? contrat.date_reprise_caution : '--'}}</p>
+                <p>{{ contrat.date_reprise_caution != null ? (contrat.date_reprise_caution | date) : '--'}}</p>
             </div>
         </div>
         <div class="row">
@@ -134,11 +134,11 @@
         <div class="row">
             <div class="col-lg-6">
                 <h5 class="main-txt">Date fin de l'avance</h5>
-                <p>{{contrat.date_fin_avance != null ? contrat.date_fin_avance : '--'}}</p>
+                <p>{{contrat.date_fin_avance != null ? (contrat.date_fin_avance | date) : '--'}}</p>
             </div>
             <div class="col-lg-6">
                 <h5 class="main-txt">Date 1er paiement</h5>
-                <p>{{contrat.date_premier_paiement != null ? contrat.date_premier_paiement : '--'}}</p>
+                <p>{{contrat.date_premier_paiement != null ? (contrat.date_premier_paiement | date) : '--'}}</p>
             </div>
         </div>
         <div class="row">

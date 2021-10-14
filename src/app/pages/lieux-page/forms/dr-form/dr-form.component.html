@@ -91,7 +91,10 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Ville</label>
-          <select class="form-select rounded-pill" formControlName="ville">
+          <p *ngIf="!cities.length" class="danger-txt">
+            Une erreur s'est produite, veuillez réessayer plus tard.
+          </p>
+          <select *ngIf="cities.length" class="form-select rounded-pill" formControlName="ville">
             <option *ngFor="let city of cities" [value]="city.name">{{city.name}}</option>
           </select>
         </div>

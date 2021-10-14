@@ -1,3 +1,4 @@
+import { HelperService } from 'src/app/services/helpers/helper.service';
 import { getAllCounts } from './../../../store/shared/shared.selector';
 import { Subscription } from 'rxjs';
 import { AppState } from 'src/app/store/app.state';
@@ -15,7 +16,12 @@ import { ChartsService } from 'src/app/services/charts/charts.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private store: Store<AppState>, private downloadService: DownloadService, private chartService: ChartsService) { }
+  constructor(
+    private store: Store<AppState>,
+    private downloadService: DownloadService,
+    private chartService: ChartsService,
+    private help: HelperService
+  ) { }
 
   allCount!: any;
   allCountSubscription$!: Subscription
@@ -38,7 +44,7 @@ export class DashboardComponent implements OnInit {
   xAxisLabel: string = '';
 
   yAxisLabelBarH: string = 'Total des loyers par type du local';
-  yAxisLabelBarV: string = 'Nombre des locaux par ville';
+  yAxisLabelBarV: string = 'Nombre des directions régionales par ville';
   yAxisLabelPie: string = 'Etats contrats';
   yAxisLabelAdvPie: string = 'Locaux statistiques';
 
@@ -74,12 +80,16 @@ export class DashboardComponent implements OnInit {
   statisticsCircle!: any
   statisticsAdvancedCircl!: any
 
+  errorMessage!: string
+  serverConnected!: boolean
+
   ngOnInit(): void {
     this.getAllCount()
     this.getChartBar()
     this.getChartCircl()
     this.getChartLine()
     this.getChartAdvancedCircl()
+    this.putServerConnectivity()
   }
 
   getAllCount() {
@@ -141,6 +151,18 @@ export class DashboardComponent implements OnInit {
   getChartBar() {
     this.chartService.getChartBarV().subscribe((data) => {
       this.statisticsBarV = data
+    })
+  }
+
+  putServerConnectivity() {
+    this.serverConnected = false
+    this.errorMessage = ""
+
+    this.help.checkServerConnectivity().subscribe(data => {
+      if (data) this.serverConnected = true
+    }, (_) => {
+      this.serverConnected = false
+      this.errorMessage = "la connection au serveur a échoué, veuillez réessayer."
     })
   }
 

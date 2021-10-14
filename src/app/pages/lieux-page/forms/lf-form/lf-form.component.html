@@ -35,19 +35,20 @@
       <div class="row">
         <div class="col-lg-3 form-group mt-4">
           <label for="">Code DR</label>
-          <select class="form-select rounded-pill" formControlName="code_rattache_DR" >
+          <p *ngIf="!Dr" class="danger-txt">
+            Une erreur s'est produite, veuillez réessayer plus tard.
+          </p>
+          <select *ngIf="Dr" class="form-select rounded-pill" formControlName="code_rattache_DR">
             <option [value]="drItem.code_lieu" *ngFor="let drItem of Dr">{{ drItem.code_lieu }}</option>
           </select>
-        
         </div>
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Adresse</label>
-          <input type="text" class="form-control rounded-pill" formControlName="adresse" 
-          [ngClass]="{
+          <input type="text" class="form-control rounded-pill" formControlName="adresse" [ngClass]="{
             'is-invalid': checkInputsValidation(adresse),
             'is-valid': !adresse?.invalid 
-          }"/>
+          }" />
           <div class="" *ngIf="checkInputsValidation(adresse)">
             <p class="text-danger" *ngIf="adresse?.errors?.required">
               Veuillez remplir ce champ
@@ -57,7 +58,10 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Ville</label>
-          <select class="form-select rounded-pill" formControlName="ville">
+          <p *ngIf="!cities.length" class="danger-txt">
+            Une erreur s'est produite, veuillez réessayer plus tard.
+          </p>
+          <select *ngIf="cities.length" class="form-select rounded-pill" formControlName="ville">
             <option *ngFor="let city of cities" [value]="city.name">{{city.name}}</option>
           </select>
         </div>
@@ -80,11 +84,10 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Fax</label>
-          <input type="text" class="form-control rounded-pill" formControlName="fax" 
-          [ngClass]="{
+          <input type="text" class="form-control rounded-pill" formControlName="fax" [ngClass]="{
             'is-invalid': checkInputsValidation(fax)
           
-          }"/>
+          }" />
           <div class="" *ngIf="checkInputsValidation(fax)">
             <p class="text-danger" *ngIf="fax?.errors?.maxlength">
               Ce champ ne doit pas dépasser 10 caractères
@@ -93,15 +96,14 @@
               Vous devez entrer seulement des chiffres
             </p>
           </div>
-         
+
         </div>
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Téléphone</label>
-          <input type="text" class="form-control rounded-pill" formControlName="telephone" 
-          [ngClass]="{
+          <input type="text" class="form-control rounded-pill" formControlName="telephone" [ngClass]="{
             'is-invalid': checkInputsValidation(telephone)
-          }"/>
+          }" />
           <div class="" *ngIf="checkInputsValidation(telephone)">
             <p class="text-danger" *ngIf="telephone?.errors?.maxlength">
               Ce champ ne doit pas dépasser 10 caractères
