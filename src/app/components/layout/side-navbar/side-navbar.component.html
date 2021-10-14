@@ -41,7 +41,7 @@
                     </li>
                     <li>
                         <a [routerLink]="['/lieux/list']" class="nav-link sub-menu-btn">
-                           Ajouter un propriétaire
+                            Ajouter un propriétaire
                         </a>
                     </li>
                     <li>
@@ -53,7 +53,8 @@
             </li>
 
             <li class="nav-item">
-                <a [routerLink]="['/proprietaire/list-global/list']" routerLinkActive="router-link-active" class="nav-link main-btn">
+                <a [routerLink]="['/proprietaire/list-global/list']" routerLinkActive="router-link-active"
+                    class="nav-link main-btn">
                     <i class="fal fa-users"></i> Liste des propriétaires
                 </a>
                 <!-- <ul class="sub-menu list-unstyled" id="proprietaire">
@@ -62,14 +63,14 @@
                             Liste des propriétaires
                         </a>
                     </li> -->
-                    <!-- <li>
+                <!-- <li>
                     <a [routerLink]="['/proprietaire/detail']" class="nav-link sub-menu-btn">
                         Détails
                     </a>
                 </li> -->
                 <!-- </ul> -->
             </li>
-          
+
             <!-- <li class="nav-item my-4">
                 <a [routerLink]="['/foncier']" routerLinkActive="router-link-active" class="nav-link main-btn">
                     <span (click)="showSubMenu('foncier')">Foncier</span>
@@ -84,7 +85,8 @@
                 </ul>
             </li> -->
             <li class="nav-item my-4">
-                <a [routerLink]="['/contrat/list-global/list']" routerLinkActive="router-link-active" class="nav-link main-btn">
+                <a [routerLink]="['/contrat/list-global/list']" routerLinkActive="router-link-active"
+                    class="nav-link main-btn">
                     <i class="fal fa-file-signature"></i> Liste des contrats
                 </a>
                 <!-- <ul class="sub-menu list-unstyled" id="contrat">
@@ -110,7 +112,7 @@
 
                 </ul> -->
             </li>
-            
+
             <li *ngIf="isAdmin" class="nav-item mt-4">
                 <a [routerLink]="['/admin']" routerLinkActive="router-link-active" class="nav-link danger-btn">
                     <i class="far fa-user-shield"></i> Administration

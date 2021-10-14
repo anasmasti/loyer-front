@@ -350,8 +350,6 @@ export class FormContratComponent implements OnInit {
           month += this.dureeAvance * 12;
           break;
         default:
-          console.log('Error ');
-  
           break;
       }
   
