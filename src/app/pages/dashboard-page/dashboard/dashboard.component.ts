@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
   xAxisLabel: string = '';
 
   yAxisLabelBarH: string = 'Total des loyers par type du local';
-  yAxisLabelBarV: string = 'Nombre des locaux par ville';
+  yAxisLabelBarV: string = 'Nombre des directions régionales par ville';
   yAxisLabelPie: string = 'Etats contrats';
   yAxisLabelAdvPie: string = 'Locaux statistiques';
 

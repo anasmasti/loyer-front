@@ -124,18 +124,16 @@
                     {{yAxisLabelBarV}}
                 </h6>
 
-                <div *ngIf="statisticsBarV">
-                    <ngx-charts-bar-vertical [results]="statisticsBarV" [scheme]="colorScheme" [schemeType]="schemeType"
-                        [gradient]="gradient" [xAxis]="xAxis" [yAxis]="yAxis" [showXAxisLabel]="showXAxisLabel"
-                        [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [legendTitle]="villeTitle"
-                        [legendPosition]="legendPositionRight" [animations]="animations" [showGridLines]="showGridLines"
-                        [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
-                        [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
-                        [maxYAxisTickLength]="maxYAxisTickLength" [xAxisTickFormatting]="formatString"
-                        [yAxisTickFormatting]="formatNumber" [showDataLabel]="showDataLabel" [barPadding]="barPadding"
-                        [tooltipDisabled]="tooltipDisabled" [roundEdges]="roundEdges" [legend]="hasLegend">
-                    </ngx-charts-bar-vertical>
-                </div>
+                <ngx-charts-bar-vertical [results]="statisticsBarV" [scheme]="colorScheme" [schemeType]="schemeType"
+                    [gradient]="gradient" [xAxis]="xAxis" [yAxis]="yAxis" [showXAxisLabel]="showXAxisLabel"
+                    [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [legendTitle]="villeTitle"
+                    [legendPosition]="legendPositionRight" [animations]="animations" [showGridLines]="showGridLines"
+                    [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                    [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
+                    [maxYAxisTickLength]="maxYAxisTickLength" [xAxisTickFormatting]="formatString"
+                    [yAxisTickFormatting]="formatNumber" [showDataLabel]="showDataLabel" [barPadding]="barPadding"
+                    [tooltipDisabled]="tooltipDisabled" [roundEdges]="roundEdges" [legend]="hasLegend">
+                </ngx-charts-bar-vertical>
 
                 <div *ngIf="!statisticsBarV">
                     <h5 class="danger-txt">
@@ -148,11 +146,9 @@
                     {{yAxisLabelAdvPie}}
                 </h6>
 
-                <div *ngIf="statisticsAdvancedCircl">
-                    <ngx-charts-advanced-pie-chart [results]="statisticsAdvancedCircl" [scheme]="colorScheme"
-                        [animations]="animations">
-                    </ngx-charts-advanced-pie-chart>
-                </div>
+                <ngx-charts-advanced-pie-chart [results]="statisticsAdvancedCircl" [scheme]="colorScheme"
+                    [animations]="animations">
+                </ngx-charts-advanced-pie-chart>
 
                 <div *ngIf="!statisticsAdvancedCircl">
                     <h5 class="danger-txt">
@@ -171,19 +167,16 @@
                     {{yAxisLabelBarH}}
                 </h6>
 
-                <div *ngIf="statisticsBarH">
-                    <ngx-charts-bar-horizontal [results]="statisticsBarH" [scheme]="colorScheme"
-                        [schemeType]="schemeType" [gradient]="gradient" [xAxis]="xAxis" [yAxis]="yAxis"
-                        [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
-                        [legendTitle]="locauxTitle" [legendPosition]="legendPositionRight" [animations]="animations"
-                        [showGridLines]="showGridLines" [trimXAxisTicks]="trimXAxisTicks"
-                        [trimYAxisTicks]="trimYAxisTicks" [rotateXAxisTicks]="rotateXAxisTicks"
-                        [maxXAxisTickLength]="maxXAxisTickLength" [maxYAxisTickLength]="maxYAxisTickLength"
-                        [xAxisTickFormatting]="formatString" [yAxisTickFormatting]="formatNumber"
-                        [showDataLabel]="showDataLabel" [barPadding]="barPadding" [tooltipDisabled]="tooltipDisabled"
-                        [roundEdges]="roundEdges" [legend]="hasLegend">
-                    </ngx-charts-bar-horizontal>
-                </div>
+                <ngx-charts-bar-horizontal [results]="statisticsBarH" [scheme]="colorScheme" [schemeType]="schemeType"
+                    [gradient]="gradient" [xAxis]="xAxis" [yAxis]="yAxis" [showXAxisLabel]="showXAxisLabel"
+                    [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [legendTitle]="locauxTitle"
+                    [legendPosition]="legendPositionRight" [animations]="animations" [showGridLines]="showGridLines"
+                    [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                    [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength"
+                    [maxYAxisTickLength]="maxYAxisTickLength" [xAxisTickFormatting]="formatString"
+                    [yAxisTickFormatting]="formatNumber" [showDataLabel]="showDataLabel" [barPadding]="barPadding"
+                    [tooltipDisabled]="tooltipDisabled" [roundEdges]="roundEdges" [legend]="hasLegend">
+                </ngx-charts-bar-horizontal>
 
                 <div *ngIf="!statisticsBarH">
                     <h5 class="danger-txt">
@@ -197,13 +190,11 @@
                     {{yAxisLabelPie}}
                 </h6>
 
-                <div *ngIf="statisticsCircle">
-                    <ngx-charts-pie-chart [results]="statisticsCircle" [legendTitle]="contratTitle"
-                        [scheme]="colorScheme" [schemeType]="schemeType" [gradient]="gradient"
-                        [legendPosition]="legendPositionRight" [animations]="animations" [labels]="true"
-                        [explodeSlices]="explodeSlices" [tooltipDisabled]="tooltipDisabled" [legend]="hasLegend">
-                    </ngx-charts-pie-chart>
-                </div>
+                <ngx-charts-pie-chart [results]="statisticsCircle" [legendTitle]="contratTitle" [scheme]="colorScheme"
+                    [schemeType]="schemeType" [gradient]="gradient" [legendPosition]="legendPositionRight"
+                    [animations]="animations" [labels]="true" [explodeSlices]="explodeSlices"
+                    [tooltipDisabled]="tooltipDisabled" [legend]="hasLegend">
+                </ngx-charts-pie-chart>
 
                 <div *ngIf="!statisticsCircle">
                     <h5 class="danger-txt">
