@@ -118,6 +118,10 @@
         <h5 class="main-title mb-5">
             Quelques statistiques
         </h5>
+        <div class="w-100 d-flex justify-content-center">
+            <p *ngIf="!serverConnected" class="danger-txt my-2 mb-4">{{ errorMessage }}</p>
+        </div>
+
         <div class="row text-center">
             <div class="col-12 col-lg-5 col-md-12">
                 <h6>
@@ -134,12 +138,6 @@
                     [yAxisTickFormatting]="formatNumber" [showDataLabel]="showDataLabel" [barPadding]="barPadding"
                     [tooltipDisabled]="tooltipDisabled" [roundEdges]="roundEdges" [legend]="hasLegend">
                 </ngx-charts-bar-vertical>
-
-                <div *ngIf="!statisticsBarV">
-                    <h5 class="danger-txt">
-                        Une erreur s'est produite, veuillez réessayer.
-                    </h5>
-                </div>
             </div>
             <div class="col-12 col-lg-6 text-center left-border ms-lg-5">
                 <h6>
@@ -149,12 +147,6 @@
                 <ngx-charts-advanced-pie-chart [results]="statisticsAdvancedCircl" [scheme]="colorScheme"
                     [animations]="animations">
                 </ngx-charts-advanced-pie-chart>
-
-                <div *ngIf="!statisticsAdvancedCircl">
-                    <h5 class="danger-txt">
-                        Une erreur s'est produite, veuillez réessayer.
-                    </h5>
-                </div>
             </div>
 
         </div>
@@ -177,12 +169,6 @@
                     [yAxisTickFormatting]="formatNumber" [showDataLabel]="showDataLabel" [barPadding]="barPadding"
                     [tooltipDisabled]="tooltipDisabled" [roundEdges]="roundEdges" [legend]="hasLegend">
                 </ngx-charts-bar-horizontal>
-
-                <div *ngIf="!statisticsBarH">
-                    <h5 class="danger-txt">
-                        Une erreur s'est produite, veuillez réessayer.
-                    </h5>
-                </div>
             </div>
 
             <div class="col-12 col-lg-5 col-md-12 left-border ms-lg-5">
@@ -195,12 +181,6 @@
                     [animations]="animations" [labels]="true" [explodeSlices]="explodeSlices"
                     [tooltipDisabled]="tooltipDisabled" [legend]="hasLegend">
                 </ngx-charts-pie-chart>
-
-                <div *ngIf="!statisticsCircle">
-                    <h5 class="danger-txt">
-                        Une erreur s'est produite, veuillez réessayer.
-                    </h5>
-                </div>
             </div>
         </div>
     </div>
