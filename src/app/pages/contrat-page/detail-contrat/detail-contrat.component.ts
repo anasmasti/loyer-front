@@ -14,7 +14,7 @@ export class DetailContratComponent implements OnInit {
   selectedPieceContrat!: any;
   selected_images_res_sortie!: any;
   selected_lettre_res!: any;
-  selected_piece_jointe_avenant!: any ;
+  selected_piece_jointe_avenant!: any;
   url: string = environment.API_URL_WITHOUT_PARAM;
 
   contrat!: Contrat
@@ -25,33 +25,31 @@ export class DetailContratComponent implements OnInit {
   constructor(
     private contratService: ContratService,
     private actRoute: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-      this.getSelectedContrat();
+    this.getSelectedContrat();
   }
 
   getSelectedContrat() {
     const id = this.actRoute.snapshot.paramMap.get('id') || '';
-    
+
     this.contratService.getSelectedContrat(id).subscribe((data: any) => {
       this.contrat = data;
-      console.log(data);
-      
+
       this.contrat.piece_joint_contrat = data.piece_joint_contrat;
       this.contrat.etat_contrat = data.etat_contrat
-      
 
       for (let index = 0; index < 1; index++) {
         this.selectedPieceContrat = this.contrat.piece_joint_contrat[index];
-        this.selected_lettre_res =  this.contrat.etat_contrat?.etat.lettre_res_piece_jointe[index];
+        this.selected_lettre_res = this.contrat.etat_contrat?.etat.lettre_res_piece_jointe[index];
         this.selected_piece_jointe_avenant = this.contrat.etat_contrat?.etat.piece_jointe_avenant[index];
         this.selected_images_res_sortie = this.contrat.etat_contrat?.etat.images_etat_res_lieu_sortie[index];
       }
-     
+
     });
 
-    
+
   }
 
   scroll() {
