@@ -370,6 +370,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       .getContratByLieu(this.lieu_id, this.userMatricule)
       .subscribe((data) => {
         if (data) this.tauxImpot = data[0]?.taux_impot;
+        console.log(data);
+        
       });
   }
 
