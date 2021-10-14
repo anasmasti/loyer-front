@@ -338,7 +338,6 @@ export class FormContratComponent implements OnInit {
     this.dureeAvance = this.contratForm.get('duree_avance')?.value;
     
     if (this.dureeAvance > 0) {
-
       switch (this.periodicite) {
         case 'mensuelle':
           month += this.dureeAvance;

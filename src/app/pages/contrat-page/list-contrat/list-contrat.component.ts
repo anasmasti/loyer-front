@@ -59,9 +59,6 @@ export class ListContratComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log('From list component');
-    
-
     setTimeout(() => {
       this.getContrat();
     }, 200);

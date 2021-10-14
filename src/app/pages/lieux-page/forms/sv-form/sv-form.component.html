@@ -32,15 +32,10 @@
       <div class="row">
         <div class="col-lg-3 form-group mt-4">
           <label for="">Code SUP <span class="text-danger">*</span></label>
-          <input
-            type="text"
-            class="form-control rounded-pill"
-            formControlName="code_lieu"
-            [ngClass]="{
+          <input type="text" class="form-control rounded-pill" formControlName="code_lieu" [ngClass]="{
               'is-invalid': checkInputsValidation(code_lieu),
               'is-valid': !code_lieu?.invalid
-            }"
-          />
+            }" />
           <div class="" *ngIf="checkInputsValidation(code_lieu)">
             <p class="text-danger" *ngIf="code_lieu?.errors?.required">
               Veuillez remplir ce champ
@@ -56,15 +51,10 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Supervision <span class="text-danger">*</span></label>
-          <input
-            type="text"
-            class="form-control rounded-pill"
-            formControlName="intitule_lieu"
-            [ngClass]="{
+          <input type="text" class="form-control rounded-pill" formControlName="intitule_lieu" [ngClass]="{
               'is-invalid': checkInputsValidation(intitule_lieu),
               'is-valid': !intitule_lieu?.invalid 
-            }"
-          />
+            }" />
           <div class="" *ngIf="checkInputsValidation(intitule_lieu)">
             <p class="text-danger" *ngIf="code_lieu?.errors?.required">
               Veuillez remplir ce champ
@@ -74,7 +64,10 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Code DR <span class="text-danger">*</span></label>
-          <select class="form-select rounded-pill" formControlName="code_rattache_DR" [ngClass]="{
+          <p *ngIf="!Dr" class="danger-txt">
+            Une erreur s'est produite, veuillez réessayer plus tard.
+          </p>
+          <select *ngIf="Dr" class="form-select rounded-pill" formControlName="code_rattache_DR" [ngClass]="{
               'is-invalid': checkInputsValidation(code_rattache_DR)
             }">
             <option [value]="drItem.code_lieu" *ngFor="let drItem of Dr">
@@ -90,8 +83,10 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Direction Régionale</label>
-          <select class="form-select rounded-pill" formControlName="intitule_DR"
-          [ngClass]="{
+          <p *ngIf="!Dr" class="danger-txt">
+            Une erreur s'est produite, veuillez réessayer plus tard.
+          </p>
+          <select *ngIf="Dr" class="form-select rounded-pill" formControlName="intitule_DR" [ngClass]="{
             'is-invalid': checkInputsValidation(intitule_DR)}">
             <option [value]="drItem._id" *ngFor="let drItem of Dr">
               {{ drItem.intitule_lieu }}
@@ -106,11 +101,10 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Adresse de la Supervision</label>
-          <input type="text" class="form-control rounded-pill" formControlName="adresse" 
-          [ngClass]="{
+          <input type="text" class="form-control rounded-pill" formControlName="adresse" [ngClass]="{
             'is-invalid': checkInputsValidation(adresse),
             'is-valid': !adresse?.invalid
-          }"/>
+          }" />
           <div class="" *ngIf="checkInputsValidation(adresse)">
             <p class="text-danger" *ngIf="adresse?.errors?.required">
               Veuillez remplir ce champ
@@ -120,8 +114,10 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Ville</label>
-          <select class="form-select rounded-pill" formControlName="ville"
-          [ngClass]="{
+          <p *ngIf="!cities.length" class="danger-txt">
+            Une erreur s'est produite, veuillez réessayer plus tard.
+          </p>
+          <select *ngIf="cities.length" class="form-select rounded-pill" formControlName="ville" [ngClass]="{
             'is-invalid': checkInputsValidation(ville),
             'is-valid': !ville?.invalid
           }">
@@ -146,15 +142,14 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Descriptif du local</label>
-          <input type="text" class="form-control rounded-pill" formControlName="desc_lieu_entrer" 
-          [ngClass]="{
+          <input type="text" class="form-control rounded-pill" formControlName="desc_lieu_entrer" [ngClass]="{
             'is-invalid': checkInputsValidation(desc_lieu_entrer) 
-          }"/>
+          }" />
           <div class="" *ngIf="checkInputsValidation(desc_lieu_entrer)">
             <p class="text-danger" *ngIf="desc_lieu_entrer?.errors?.maxlength">
               Ce champ ne doit pas dépasser 250 caractères
             </p>
-            
+
           </div>
         </div>
 
