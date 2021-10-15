@@ -234,7 +234,7 @@
         </div>
         <div class="col-lg-3">
             <h5 class="main-txt">Date de Suspendu</h5>
-            <p>{{contrat.etat_contrat?.etat?.date_suspension != null ? contrat.etat_contrat?.etat?.date_suspension : '--'}}</p>
+            <p>{{contrat.etat_contrat?.etat?.date_suspension != null ? (contrat.etat_contrat?.etat?.date_suspension | date) : '--'}}</p>
         </div>
 
         <div class="col-lg-3">
@@ -282,7 +282,7 @@
     <div class="row">
         <div class="col-lg-3">
             <h5 class="main-txt">Date de Résilié</h5>
-            <p>{{contrat.etat_contrat?.etat?.date_resiliation != null ? contrat.etat_contrat?.etat?.date_resiliation : '--'}}</p>
+            <p>{{contrat.etat_contrat?.etat?.date_resiliation != null ? (contrat.etat_contrat?.etat?.date_resiliation | date) : '--'}}</p>
         </div>
         <div class="col-lg-3">
             <h5 class="main-txt">Images d'état des lieux de sortie</h5>
