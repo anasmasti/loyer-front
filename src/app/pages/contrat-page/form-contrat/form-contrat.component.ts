@@ -111,9 +111,9 @@ export class FormContratComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.lieu_id = this.actRoute.snapshot.paramMap.get('id_lieu') || 'Default';
+    this.lieu_id = this.actRoute.snapshot.paramMap.get('id_lieu') || '615c714d3500e8382c92fcda';
 
-    this.createNumContrat()
+  
 
     // this.etatContratTypes = 'Avenant'
     this.contratForm = new FormGroup({
@@ -176,13 +176,13 @@ export class FormContratComponent implements OnInit {
     });
   }
 
-  createNumContrat() {
-    this.lieuxService.getLieuById( this.lieu_id, this.userMatricule ).subscribe((data: Lieu) => {
+  // createNumContrat() {
+  //   this.lieuxService.getLieuById( this.lieu_id, this.userMatricule ).subscribe((data: Lieu) => {
 
-      this.num_contrat = data.code_lieu?.toString() + '/' + data.intitule_lieu
+  //     this.num_contrat = data.code_lieu?.toString() + '/' + data.intitule_lieu
       
-    });
-  }
+  //   });
+  // }
 
   // Calculer le montant
   calculMontant() {
@@ -344,7 +344,7 @@ export class FormContratComponent implements OnInit {
       console.log("montant : " , this.montant_avance_tax_);
     
     }
-  }     
+  }
 
   // calcul Date fin de l’avance et Date 1er de l'avance
   calculDate() {
@@ -508,6 +508,7 @@ export class FormContratComponent implements OnInit {
         this.hideErrorMessage();
       }
     );
+    
     
   }
 

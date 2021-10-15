@@ -34,11 +34,12 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date de début du loyer</label>
-        <input type="date" [(ngModel)]="date_debut_loyer_" class="form-control rounded-pill" (change)="calculMontant();reinitialiserDateDebut()"
+        <input type="date" [(ngModel)]="date_debut_loyer_" class="form-control rounded-pill" (change)="reinitialiserDateDebut()"
           formControlName="date_debut_loyer" required [ngClass]="{
             'is-invalid': checkInputsValidation(date_debut_loyer),
             'is-valid': !date_debut_loyer?.invalid
-          }"/>
+          }"
+          />
 
           <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(date_debut_loyer)">
@@ -51,7 +52,7 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Montant du loyer</label>
-        <input type="number" [(ngModel)]="montantLoyer" (keyup)="calculMontant()" class="form-control rounded-pill"
+        <input type="number" [(ngModel)]="montantLoyer" class="form-control rounded-pill"
           formControlName="montant_loyer" [ngClass]="{
             'is-invalid': checkInputsValidation(montant_loyer),
             'is-valid': !montant_loyer?.invalid
@@ -130,30 +131,30 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Déclaration d’option</label>
-        <select class="form-select rounded-pill" (change)="calculMontant()" [(ngModel)]="hasDeclarationOption"
+        <select class="form-select rounded-pill" [(ngModel)]="hasDeclarationOption"
           formControlName="declaration_option">
           <option value="oui">Oui</option>
           <option value="non">Non</option>
         </select>
       </div>
 
-      <div class="col-lg-3 form-group mt-4">
+      <!-- <div class="col-lg-3 form-group mt-4">
         <label for="">Taux de l’impôt</label>
         <input type="text" class="form-control rounded-pill" [value]="tauxImpot + '%'" formControlName="taux_impot"
           readonly>
-      </div>
+      </div> -->
 
-      <div class="col-lg-3 form-group mt-4">
+      <!-- <div class="col-lg-3 form-group mt-4">
         <label for="">Retenue à la source (Annuel) </label>
         <input type="text" [value]="retenueSource" class="form-control rounded-pill" formControlName="retenue_source"
           readonly>
-      </div>
+      </div> -->
 
-      <div class="col-lg-3 form-group mt-4">
+      <!-- <div class="col-lg-3 form-group mt-4">
         <label for="">Montant après impôt</label>
         <input type="number" class="form-control rounded-pill" [value]="montantApresImpot"
           formControlName="montant_apres_impot" readonly>
-      </div>
+      </div> -->
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Montant de la caution</label>
@@ -354,7 +355,7 @@
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Date de Résilié</label>
-            <input type="date" class="form-control rounded-pill" (change)="calculMontant()"
+            <input type="date" class="form-control rounded-pill" 
               formControlName="etat_contrat_date_resiliation">
           </div>
 

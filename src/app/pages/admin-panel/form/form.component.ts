@@ -23,6 +23,7 @@ export class FormComponent implements OnInit {
   Role2: boolean = false
   Role3: boolean = false
   Role4: boolean = false
+  Role5: boolean = false
 
   userMatricule: any = localStorage.getItem('matricule')
 
@@ -46,6 +47,7 @@ export class FormComponent implements OnInit {
       this.Role2 = false;
       this.Role3 = false;
       this.Role4 = false;
+      this.Role5 = false;
     }
   }
 
@@ -61,6 +63,9 @@ export class FormComponent implements OnInit {
   }
 
   fetchUser() {
+    console.log(this.userR);
+    
+
     // this.adminForm.reset();
     const control = <FormArray>this.adminForm.controls['Roles'];
     for (let i = control.length - 1; i >= 0; i--) {
@@ -71,6 +76,7 @@ export class FormComponent implements OnInit {
     this.Role2 = false;
     this.Role3 = false;
     this.Role4 = false;
+    this.Role5 = false;
 
     // Fetch Info 
     this.adminForm.patchValue({
@@ -98,6 +104,8 @@ export class FormComponent implements OnInit {
           case "Chargé de suivi des loyers et aménagements": this.Role3 = true;
             break;
           case "Chef de département gestion et suivi du patrimoine": this.Role4 = true;
+            break;
+          case "Admin": this.Role5 = true;
             break;
         }
       }
@@ -199,6 +207,8 @@ export class FormComponent implements OnInit {
       deleted: false
     };
 
+    
+
     this.adminService.addUser(userData, this.userMatricule).subscribe(
       (_) => {
         this.postDone = true;
@@ -217,6 +227,7 @@ export class FormComponent implements OnInit {
         this.hideErrorMessage();
       }
     );
+    
   }
 
   updateUserRole() {
@@ -247,6 +258,9 @@ export class FormComponent implements OnInit {
         this.hideErrorMessage();
       }
     );
+
+    // console.log(userData);
+    
   }
 
   clearCH() {

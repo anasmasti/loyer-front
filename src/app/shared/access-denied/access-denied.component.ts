@@ -24,7 +24,7 @@ export class AccessDeniedComponent implements OnInit {
 
   ngOnInit(): void {
     this.mainModalService.open();
-    this.role = this.actRoute.snapshot.paramMap.get('role') || ''
+    this.role = this.actRoute.snapshot.paramMap.get('role') || '615c714d3500e8382c92fcda'
   }
 
   logout() {
