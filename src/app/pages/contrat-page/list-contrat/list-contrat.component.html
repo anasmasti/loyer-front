@@ -38,7 +38,7 @@
         <th>Date début du loyer</th>
         <th>Date fin de contrat</th>
         <th>État</th>
-        <th>Proprietaires</th>
+        <th>Proprietaires liés</th>
         <th>Actions</th>
         <th *ngIf="userRoles.includes('CDGSP') || userRoles.includes('DAJC')">
           Validation
@@ -79,17 +79,18 @@
         </td>
 
         <td>
-          <span data-bs-toggle="tooltip" data-bs-placement="top" title="Ici vous pouvez consulter les proprietaires liés au contrat">
-            <a class="btn btn-sm second-btn me-2" (click)="openListeProprietairesModal( contrat )">
-              <i class="fal fa-users"></i> Proprietaires
-            </a>
+          <span data-bs-toggle="tooltip" data-bs-placement="top"
+            title="Ici vous pouvez consulter les proprietaires liés au contrat">
+            <div class="d-grid">
+              <a class="btn btn-sm second-btn me-2" (click)="openListeProprietairesModal( contrat )">
+                <i class="fal fa-users"></i> Voir
+              </a>
+            </div>
           </span>
-          
         </td>
 
         <td>
           <div class="d-flex">
-
             <a [routerLink]="['list', contrat._id]" class="btn btn-sm main-btn me-2"><i class="fal fa-eye"></i></a>
             <a *ngIf="this.contrat.etat_contrat?.libelle != 'Résilié'" (click)="openEditModal(contrat)"
               class="btn btn-sm info-btn me-2"><i class="far fa-user-edit"></i></a>
@@ -98,26 +99,25 @@
           </div>
         </td>
         <td *ngIf="userRoles.includes('CDGSP') || userRoles.includes('DAJC')">
-          <div class="btn-group" role="group" *ngIf="contrat.etat_contrat?.libelle != 'Résilié'">
-            <a id="btnGroupDrop1" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
-              <h4>
-                <i class="fal fa-ellipsis-v-alt"></i>
-              </h4>
+          <div class="btn-group d-grid" role="group" *ngIf="contrat.etat_contrat?.libelle != 'Résilié'">
+            <a id="btnGroupDrop1" class="btn btn-sm" [ngClass]="contrat.validation2_DAJC ? 'success-btn' : 'second-btn'" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <i class="fal fa-clipboard-check"></i>
+              <!-- <i class="fal fa-ellipsis-v-alt"></i> -->
             </a>
             <ul id="actions" class="dropdown-menu p-3 main-card border-0" aria-labelledby="btnGroupDrop1">
               <li>
-                <h5 *ngIf="contrat.etat_contrat?.libelle != 'Résilié'" class="main-title">
+                <!-- <h5 *ngIf="contrat.etat_contrat?.libelle != 'Résilié'" class="main-title">
                   Validation
-                </h5>
+                </h5> -->
                 <div class="d-flex flex-column gap-2">
                   <div *ngIf="userRoles.includes('CDGSP')">
-                    <button *ngIf="contrat.etat_contrat?.libelle != 'Résilié'" class="btn" [ngClass]="
-                        contrat.validation1_DMG ? 'success-btn' : 'second-btn'
-                      " [id]="'vld1: ' + contrat._id" (click)="openConfirmationModalValidation1(contrat._id)"
-                      [disabled]="contrat.validation1_DMG">
+                    <button *ngIf="contrat.etat_contrat?.libelle != 'Résilié'" class="btn"
+                      [ngClass]="contrat.validation1_DMG ? 'success-btn' : 'second-btn'" [id]="'vld1: ' + contrat._id"
+                      (click)="openConfirmationModalValidation1(contrat._id)" [disabled]="contrat.validation1_DMG">
                       {{
                       contrat.validation1_DMG
-                      ? "contrat validé"
+                      ? "Contrat validé"
                       : "Valider le contrat"
                       }}
                     </button>
@@ -136,7 +136,7 @@
                       " [disabled]="contrat.validation2_DAJC" class="btn">
                       {{
                       contrat.validation2_DAJC
-                      ? "contrat validé"
+                      ? "Contrat validé"
                       : "Valider le contrat"
                       }}
                     </button>

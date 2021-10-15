@@ -51,10 +51,12 @@
                 <td>{{ proprietaire.raison_social }}</td>
                 <td>{{ proprietaire.n_registre_commerce }} </td>
                 <td>
-                    <span class="p-1"
-                        [ngClass]="{'done-alert': proprietaire?.mandataire, 'error-alert': !proprietaire?.mandataire}">
-                        {{ checkAndPutText(proprietaire.mandataire) }}
-                    </span>
+                    <div class="d-grid">
+                        <span class="p-1"
+                            [ngClass]="{'done-alert': proprietaire?.mandataire, 'error-alert': !proprietaire?.mandataire}">
+                            {{ checkAndPutText(proprietaire.mandataire) }}
+                        </span>
+                    </div>
                 </td>
                 <td>
                     <a [routerLink]="['list', proprietaire._id]" class="btn btn-sm main-btn"><i

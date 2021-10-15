@@ -52,7 +52,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // Throw get lieux from server function
     this.getAllLieux();
-    
+
     // Check data loading status
     this.store.select(getLoading).subscribe((data) => {
       this.loading = data;
@@ -137,9 +137,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
   }
 
   checkAndPutText(value: any) {
-    let text!: string;
-    value ? (text = 'Oui') : (text = 'Non');
-    return text;
+    return this.helperService.booleanToText(value)
   }
 
   // Refrtech the page
