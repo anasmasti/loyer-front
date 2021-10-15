@@ -53,4 +53,10 @@ export class HelperService {
       `${environment.API_URL_TEST + environment.API_VERSION}`
     );
   }
+
+  booleanToText(value: boolean) {
+    let text!: string;
+    value ? (text = 'Oui') : (text = 'Non');
+    return text;
+  }
 }

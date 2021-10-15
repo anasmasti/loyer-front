@@ -80,13 +80,16 @@
         <td>{{ lieu.type_lieu }}</td>
         <td>{{ lieu.intitule_lieu }}</td>
         <td>{{ lieu.ville }}</td>
+
         <td>
-          <span class="p-1" [ngClass]="{
-              'done-alert': lieu.has_amenagements,
-              'error-alert': !lieu.has_amenagements
-            }">
-            {{ checkAndPutText(lieu.has_amenagements) }}
-          </span>
+          <div class="d-grid">
+            <span class="p-1" [ngClass]="{
+                'done-alert': lieu.has_amenagements,
+                'error-alert': !lieu.has_amenagements
+              }">
+              {{ checkAndPutText(lieu.has_amenagements) }}
+            </span>
+          </div>
         </td>
 
         <td>
