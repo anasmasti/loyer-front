@@ -16,7 +16,8 @@ import { AdminService } from 'src/app/services/admin-service/admin.service';
 })
 export class ListComponent implements OnInit, OnDestroy {
   errors!: string;
-  users!: User[];
+  Allusers!: User[];
+  users: User[] = [];
   targetUser!: User;
   usersSubscription$!: Subscription;
   deletedUser: any = ''
@@ -52,7 +53,15 @@ export class ListComponent implements OnInit, OnDestroy {
         // Dispatch action to handle the NgRx get users from server effect 
         this.store.dispatch(getUsersAction())
       }
-      this.users = data
+      // fetch only the deleted false users 
+      data.map((user:User) => {
+        // console.log('test');
+        
+        if (!user.deleted) {
+          console.log(user);
+          this.users.push(user)
+        }
+      })
 
     })
   }
@@ -91,6 +100,7 @@ export class ListComponent implements OnInit, OnDestroy {
           setTimeout(() => {
             this.deleteDone = false;
           }, 3000);
+          location.reload()
         },
         (error) => {
           this.errors = error.error.message;

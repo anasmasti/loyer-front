@@ -51,7 +51,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.lieu_id = this.actRoute.snapshot.paramMap.get('id_lieu') || 'Default';
+    this.lieu_id = this.actRoute.snapshot.paramMap.get('id_lieu') || '615c714d3500e8382c92fcda';
 
     this.proprietaireForm = new FormGroup({
       // Champs du propriètaire

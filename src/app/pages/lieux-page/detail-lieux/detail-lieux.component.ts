@@ -37,7 +37,7 @@ export class DetailLieuxComponent implements OnInit {
 
   // Get the Lieu data by id
   getLieuById() {
-    const id = this.actRoute.snapshot.paramMap.get('id') || '';
+    const id = this.actRoute.snapshot.paramMap.get('id') || '615c714d3500e8382c92fcda';
     this.lieuxService.getLieuById(id, this.userMatricule).subscribe((data: Lieu) => {
       this.lieu = data;
       

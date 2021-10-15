@@ -27,7 +27,7 @@ export class DetailComponent implements OnInit {
 
   // Get the user data by id
   getUserById() {
-    const id = this.actRoute.snapshot.paramMap.get('id') || '';
+    const id = this.actRoute.snapshot.paramMap.get('id') || '615c714d3500e8382c92fcda';
     this.userService.getUserById(id).subscribe((data: User) => {
       this.user = data;
     });
