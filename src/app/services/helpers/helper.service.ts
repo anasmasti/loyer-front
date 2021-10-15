@@ -1,14 +1,14 @@
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
-import { map, throttleTime, take, pluck, mergeMap, debounceTime } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HelperService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private pipeDate: DatePipe) {}
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -35,11 +35,9 @@ export class HelperService {
   }
 
   getCities() {
-    return this.http
-      .get(
-        `${environment.API_URL_TEST + environment.API_VERSION
-        }/cities`
-      )
+    return this.http.get(
+      `${environment.API_URL_TEST + environment.API_VERSION}/cities`
+    );
   }
 
   getCountries() {
@@ -58,5 +56,9 @@ export class HelperService {
     let text!: string;
     value ? (text = 'Oui') : (text = 'Non');
     return text;
+  }
+
+  formatDate(date: Date) {
+    return this.pipeDate.transform(date, 'yyyy-MM-dd');
   }
 }

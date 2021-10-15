@@ -26,10 +26,15 @@
                 <td>{{ user.nom }} {{ user.prenom }}</td>
                 <td class="d-flex justify-content-start gap-1 flex-column">
                     <ul *ngFor="let role of user.userRoles" class="main-txt px-2">
-                        <li>
+                        <li *ngIf="!role.deleted">
                             {{ role.roleName }}
                         </li>
                     </ul>
+                    <!-- <ul *ngIf="!role.deleted">
+                        <li *ngIf="!role.deleted">
+                            {{ role.roleName }}
+                        </li>
+                    </ul> -->
                 </td>
                 <td>
                     <a [routerLink]="['list', user._id]" class="btn btn-sm main-btn"><i class="fal fa-eye"></i></a>
