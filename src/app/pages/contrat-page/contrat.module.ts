@@ -1,6 +1,6 @@
 import { LieuxEffects } from './../lieux-page/lieux-store/lieux.effect';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { ContratComponent } from './contrat/contrat.component';
 import { FormContratComponent } from './form-contrat/form-contrat.component';
 import { EditContratComponent } from './edit-contrat/edit-contrat.component';

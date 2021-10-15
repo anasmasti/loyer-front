@@ -29,5 +29,5 @@ a {
 
 // Skeleton loading
 .counts-skeleton {
-    @include skeletonLoading(140px, 30px);
+    @include skeletonLoading(115px, 30px);
 }
