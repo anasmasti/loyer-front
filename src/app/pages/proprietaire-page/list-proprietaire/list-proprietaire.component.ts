@@ -73,9 +73,7 @@ export class ListProprietaireComponent implements OnInit {
   }
 
   checkAndPutText(value: boolean) {
-    let text!: string;
-    value ? (text = 'Oui') : (text = 'Non');
-    return text;
+    return this.helperService.booleanToText(value)
   }
 
   // Open confirmation modal
