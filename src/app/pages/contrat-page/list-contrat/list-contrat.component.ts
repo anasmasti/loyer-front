@@ -112,7 +112,6 @@ export class ListContratComponent implements OnInit {
         });
       }
     }
-
     return;
   }
 
