@@ -84,8 +84,8 @@
         <td>
           <div class="d-grid">
             <span class="p-1" [ngClass]="{
-                'done-alert': lieu.has_amenagements,
-                'error-alert': !lieu.has_amenagements
+                'success-txt': lieu.has_amenagements,
+                'danger-txt': !lieu.has_amenagements
               }">
               {{ checkAndPutText(lieu.has_amenagements) }}
             </span>
