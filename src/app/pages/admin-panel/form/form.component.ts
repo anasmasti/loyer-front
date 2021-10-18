@@ -209,24 +209,27 @@ export class FormComponent implements OnInit {
 
     
 
-    this.adminService.addUser(userData, this.userMatricule).subscribe(
-      (_) => {
-        this.postDone = true;
-        setTimeout(() => {
-          this.adminForm.reset();
-          this.clearCH();
-          this.postDone = false;
-          location.reload();
-        }, 1500);
-      },
-      (error) => {
-        this.errors = error.error.message;
-        setTimeout(() => {
-          this.showErrorMessage();
-        }, 3000);
-        this.hideErrorMessage();
-      }
-    );
+    // this.adminService.addUser(userData, this.userMatricule).subscribe(
+    //   (_) => {
+    //     this.postDone = true;
+    //     setTimeout(() => {
+    //       this.adminForm.reset();
+    //       this.clearCH();
+    //       this.postDone = false;
+    //       location.reload();
+    //     }, 1500);
+    //   },
+    //   (error) => {
+    //     this.errors = error.error.message;
+    //     setTimeout(() => {
+    //       this.showErrorMessage();
+    //     }, 3000);
+    //     this.hideErrorMessage();
+    //   }
+    // );
+
+    console.log(userData);
+    
     
   }
 
@@ -240,26 +243,26 @@ export class FormComponent implements OnInit {
       deleted: this.adminForm.get('deleted')?.value
     };
 
-    this.adminService.updateUser(userData, this.userR._id, this.userMatricule).subscribe(
-      (_) => {
-        this.updateDone = true;
-        setTimeout(() => {
-          this.adminForm.reset();
-          this.clearCH();
-          this.updateDone = false;
-          location.reload();
-        }, 1000);
-      },
-      (error) => {
-        this.errors = error.error.message;
-        setTimeout(() => {
-          this.showErrorMessage();
-        }, 2000);
-        this.hideErrorMessage();
-      }
-    );
+    // this.adminService.updateUser(userData, this.userR._id, this.userMatricule).subscribe(
+    //   (_) => {
+    //     this.updateDone = true;
+    //     setTimeout(() => {
+    //       this.adminForm.reset();
+    //       this.clearCH();
+    //       this.updateDone = false;
+    //       location.reload();
+    //     }, 1000);
+    //   },
+    //   (error) => {
+    //     this.errors = error.error.message;
+    //     setTimeout(() => {
+    //       this.showErrorMessage();
+    //     }, 2000);
+    //     this.hideErrorMessage();
+    //   }
+    // );
 
-    // console.log(userData);
+    console.log(userData);
     
   }
 
