@@ -91,6 +91,8 @@ export class FormContratComponent implements OnInit {
 
   montant_avance_tax_!:number;
 
+  montantAvance!: number;
+
   constructor(
     private contratService: ContratService,
     private mainModalService: MainModalService,
@@ -343,6 +345,7 @@ export class FormContratComponent implements OnInit {
 
   // calcul Date fin de l’avance et Date 1er de l'avance
   calculDate() {
+    let montant_loyer = parseInt(this.contratForm.get('montant_loyer')?.value, 10) ;
     let date = new Date(this.contratForm.get('date_debut_loyer')?.value);
     let month = date.getMonth();
     this.dureeAvance = this.contratForm.get('duree_avance')?.value;
@@ -369,11 +372,17 @@ export class FormContratComponent implements OnInit {
       // Date fin de l'avance
       date.setDate(0)
       this.formattedDate = date.toISOString().slice(0, 10);
+
+      // Montant de l'avance
+      this.montantAvance = montant_loyer * this.dureeAvance
+      console.log(this.montantAvance);
+      
       
     }
     else {
       this.date_premier_paiment = null
-      this.formattedDate = null
+      this.formattedDate = null;
+      this.montantAvance = 0 ;
     }
 
   }
@@ -383,6 +392,7 @@ export class FormContratComponent implements OnInit {
     this.dureeAvance = 0;
     this.formattedDate = null;
     this.date_premier_paiment = null;
+    this.montantAvance = 0 ;
   }
 
   reinitialiserDateDebut() {
