@@ -13,7 +13,6 @@ import * as fileSaver from 'file-saver';
   styleUrls: ['./list-contrat.component.scss'],
 })
 export class ListContratComponent implements OnInit {
-
   errors!: string;
   contrats!: Contrat[];
   id: string = '0';
@@ -41,13 +40,16 @@ export class ListContratComponent implements OnInit {
   userMatricule: any = localStorage.getItem('matricule');
   accessError!: any;
 
-  user: any = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '') : [];
+  user: any = localStorage.getItem('user')
+    ? JSON.parse(localStorage.getItem('user') || '')
+    : [];
   userRoles: any[] = [];
 
-  idModal: string = "listeProprietaires"
+  idModal: string = 'listeProprietaires';
   ProprietairesByContart: any[] = [];
   num_contrat!: string;
 
+  findStatus!: string;
 
   constructor(
     private contratService: ContratService,
@@ -55,18 +57,21 @@ export class ListContratComponent implements OnInit {
     private confirmationModalService: ConfirmationModalService,
     private helperService: HelperService,
     private downloadService: DownloadService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
     setTimeout(() => {
       this.getContrat();
     }, 200);
 
     if (localStorage.getItem('user')) {
-      for (let index = 0; index < this.user.existedUser.userRoles.length; index++) {
+      for (
+        let index = 0;
+        index < this.user.existedUser.userRoles.length;
+        index++
+      ) {
         const element = this.user.existedUser.userRoles[index].roleCode;
-        this.userRoles.push(element)
+        this.userRoles.push(element);
       }
     }
   }
@@ -86,13 +91,29 @@ export class ListContratComponent implements OnInit {
   search() {
     if (this.findContrat != '') {
       this.contrats = this.contrats.filter((res) => {
-        return res.numero_contrat?.toString()
+        return res.numero_contrat
+          ?.toString()
           ?.toLowerCase()
           .match(this.findContrat.toLowerCase());
       });
     } else if (this.findContrat == '') {
       this.getContrat();
     }
+  }
+
+  searchByEtat(event: any, statut: string) {
+    if (event.target.checked) {
+      if (statut == 'all') return this.getContrat();
+
+      if (statut != 'all') {
+        this.contrats = this.contrats.filter((res) => {
+          let data = new RegExp(`(${statut}|Avenant)`);
+          return res.etat_contrat?.libelle?.toString().match(data);
+        });
+      }
+    }
+
+    return;
   }
 
   openEditModal(SelectedContrat: any) {
@@ -102,9 +123,8 @@ export class ListContratComponent implements OnInit {
 
   openListeProprietairesModal(SelectedContrat: any) {
     this.mainModalService.open(this.id);
-    this.ProprietairesByContart = SelectedContrat.lieu.proprietaire
-    this.num_contrat = SelectedContrat.numero_contrat
-
+    this.ProprietairesByContart = SelectedContrat.lieu.proprietaire;
+    this.num_contrat = SelectedContrat.numero_contrat;
   }
 
   openConfirmationContratModal(id: string) {
