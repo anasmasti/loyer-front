@@ -188,7 +188,7 @@
       </div>
 
       <div class="col-lg-3 form-group mt-4">
-        <label for="">Durée de l’avance</label>
+        <label for="">Durée de l’avance ({{ periodicite ? periodicite : '--' }})</label>
         <input type="number" class="form-control rounded-pill" [(ngModel)]="dureeAvance" (keyup)="calculDate()"
         formControlName="duree_avance"
         [readonly]="periodicite ? false : true">
@@ -207,7 +207,7 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Montant de l’avance</label>
-        <input type="number" class="form-control rounded-pill" formControlName="montant_avance" (keyup)="calculMontantAvanceTax()" [readonly]="dureeAvance > 0 ? false : true">
+        <input type="number" class="form-control rounded-pill" formControlName="montant_avance" [(ngModel)]="montantAvance" (keyup)="calculMontantAvanceTax()" [readonly]="true">
       </div>
 
       <div class="col-lg-3 form-group mt-4">

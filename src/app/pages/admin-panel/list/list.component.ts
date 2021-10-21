@@ -55,10 +55,8 @@ export class ListComponent implements OnInit, OnDestroy {
       }
       // fetch only the deleted false users 
       data.map((user:User) => {
-        // console.log('test');
         
         if (!user.deleted) {
-          console.log(user);
           this.users.push(user)
         }
       })

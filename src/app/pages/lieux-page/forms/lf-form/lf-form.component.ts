@@ -145,6 +145,9 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
     this.removeAllAmenagement();
     this.RemoveAllDericteurs();
 
+    console.log(this.Lieu);
+    
+
     this.etatLogement = this.Lieu.etat_logement_fonction;
 
     this.hasAmenagement = true;
@@ -637,13 +640,14 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
       categorie_pointVente: this.LfForm.get('categorie_pointVente')?.value,
 
       // Directeur
-      directeur_regional: [
-        {
-          matricule: this.LfForm.get('matricule_directeur')?.value,
-          nom: this.LfForm.get('nom_directeur')?.value,
-          prenom: this.LfForm.get('prenom_directeur')?.value,
-        },
-      ],
+      // directeur_regional: [
+      //   {
+      //     matricule: this.LfForm.get('matricule_directeur')?.value,
+      //     nom: this.LfForm.get('nom_directeur')?.value,
+      //     prenom: this.LfForm.get('prenom_directeur')?.value,
+      //   },
+      // ],
+      directeur_regional: [],
 
       // Amenagement
       amenagement: this.LfForm.get('amenagementForm')?.value,
