@@ -30,7 +30,7 @@
       <!--Début 1er Row-->
       <div class="row">
         <div class="col-lg-3 form-group mt-4">
-          <label for="">Code DR <span class="text-danger">*</span></label>
+          <label for="">Code DR <span class="danger-txt">*</span></label>
           <input
             type="text"
             class="form-control rounded-pill"
@@ -41,17 +41,17 @@
             }"
           />
           <div class="" *ngIf="checkInputsValidation(code_lieu)">
-            <p class="text-danger" *ngIf="code_lieu?.errors?.required">
+            <p class="danger-txt" *ngIf="code_lieu?.errors?.required">
               Veuillez remplir ce champ
             </p>
-            <p class="text-danger" *ngIf="code_lieu?.errors?.maxlength">
+            <p class="danger-txt" *ngIf="code_lieu?.errors?.maxlength">
               Ce champ ne doit pas dépasser 3 caractères
             </p>
           </div>
         </div>
 
         <div class="col-lg-3 form-group mt-4">
-          <label for="">Direction Régionale <span class="text-danger">*</span></label>
+          <label for="">Direction Régionale <span class="danger-txt">*</span></label>
           <input
             type="text"
             class="form-control rounded-pill"
@@ -62,10 +62,10 @@
             }"
           />
           <div class="" *ngIf="checkInputsValidation(intitule_lieu)">
-            <p class="text-danger" *ngIf="intitule_lieu?.errors?.required">
+            <p class="danger-txt" *ngIf="intitule_lieu?.errors?.required">
               Veuillez remplir ce champ
             </p>
-            <p class="text-danger" *ngIf="intitule_lieu?.errors?.pattern">
+            <p class="danger-txt" *ngIf="intitule_lieu?.errors?.pattern">
               Vous devez entrer seulement des alphabets
             </p>
           </div>
@@ -83,7 +83,7 @@
             }"
           />
           <div class="" *ngIf="checkInputsValidation(adresse)">
-            <p class="text-danger" *ngIf="adresse?.errors?.required">
+            <p class="danger-txt" *ngIf="adresse?.errors?.required">
               Veuillez remplir ce champ
             </p>
           </div>
@@ -128,10 +128,10 @@
             
           }"/>
           <div class="" *ngIf="checkInputsValidation(fax)">
-            <p class="text-danger" *ngIf="fax?.errors?.maxlength">
+            <p class="danger-txt" *ngIf="fax?.errors?.maxlength">
               Ce champ ne doit pas dépasser 10 caractères
             </p>
-            <p class="text-danger" *ngIf="fax?.errors?.pattern">
+            <p class="danger-txt" *ngIf="fax?.errors?.pattern">
               Vous devez entrer seulement des chiffres
             </p>
           </div>
@@ -150,10 +150,10 @@
             
           />
           <div class="" *ngIf="checkInputsValidation(telephone)">
-            <p class="text-danger" *ngIf="telephone?.errors?.maxlength">
+            <p class="danger-txt" *ngIf="telephone?.errors?.maxlength">
               Ce champ ne doit pas dépasser 10 caractères
             </p>
-            <p class="text-danger" *ngIf="telephone?.errors?.pattern">
+            <p class="danger-txt" *ngIf="telephone?.errors?.pattern">
               Vous devez entrer seulement des chiffres
             </p>
           </div>

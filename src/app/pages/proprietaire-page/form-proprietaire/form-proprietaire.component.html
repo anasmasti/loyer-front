@@ -33,10 +33,10 @@
       />
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(cin)">
-        <p class="text-danger" *ngIf="cin?.errors?.maxlength">
+        <p class="danger-txt" *ngIf="cin?.errors?.maxlength">
           Ce champ ne doit pas dépasser 8 caractères
         </p>
-        <p class="text-danger" *ngIf="cin?.errors?.required">
+        <p class="danger-txt" *ngIf="cin?.errors?.required">
           Veuillez remplir ce champ
         </p>
       </div>
@@ -54,7 +54,7 @@
       />
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(passport)">
-        <p class="text-danger" *ngIf="passport?.errors?.maxlength">
+        <p class="danger-txt" *ngIf="passport?.errors?.maxlength">
           Ce champ ne doit pas dépasser 8 caractères
         </p>
       </div>
@@ -72,7 +72,7 @@
       />
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(carte_sejour)">
-        <p class="text-danger" *ngIf="carte_sejour?.errors?.maxlength">
+        <p class="danger-txt" *ngIf="carte_sejour?.errors?.maxlength">
           Ce champ ne doit pas dépasser 8 caractères
         </p>
       </div>
@@ -105,7 +105,7 @@
 
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(n_registre_commerce)">
-        <p class="text-danger" *ngIf="n_registre_commerce?.errors?.pattern">
+        <p class="danger-txt" *ngIf="n_registre_commerce?.errors?.pattern">
           Vous devez entrer des chiffres
         </p>
       </div>
@@ -126,13 +126,13 @@
 
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(nom_prenom)">
-        <p class="text-danger" *ngIf="nom_prenom?.errors?.required">
+        <p class="danger-txt" *ngIf="nom_prenom?.errors?.required">
           Veuillez remplir ce champ
         </p>
-        <p class="text-danger" *ngIf="nom_prenom?.errors?.minlength">
+        <p class="danger-txt" *ngIf="nom_prenom?.errors?.minlength">
           Vous devez entrer 6 caractères au moin
         </p>
-        <p class="text-danger" *ngIf="nom_prenom?.errors?.pattern">
+        <p class="danger-txt" *ngIf="nom_prenom?.errors?.pattern">
           Vous devez entrer seulement des alphabets
         </p>
       </div>
@@ -151,10 +151,10 @@
 
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(telephone)">
-        <p class="text-danger" *ngIf="telephone?.errors?.pattern">
+        <p class="danger-txt" *ngIf="telephone?.errors?.pattern">
           Vous devez entrer seulement des chiffres
         </p>
-        <p class="text-danger" *ngIf="telephone?.errors?.maxlength">
+        <p class="danger-txt" *ngIf="telephone?.errors?.maxlength">
           Vous devez entrer 10 chiffres au maximum
         </p>
       </div>
@@ -173,10 +173,10 @@
 
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(fax)">
-        <p class="text-danger" *ngIf="fax?.errors?.pattern">
+        <p class="danger-txt" *ngIf="fax?.errors?.pattern">
           Vous devez entrer seulement des chiffres
         </p>
-        <p class="text-danger" *ngIf="fax?.errors?.maxlength">
+        <p class="danger-txt" *ngIf="fax?.errors?.maxlength">
           Vous devez entrer 10 chiffres au maximum
         </p>
       </div>
@@ -198,7 +198,7 @@
       />
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(adresse)">
-        <p class="text-danger" *ngIf="adresse?.errors?.required">
+        <p class="danger-txt" *ngIf="adresse?.errors?.required">
           Veuillez remplir ce champ
         </p>
       </div>
@@ -219,10 +219,10 @@
 
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(n_compte_bancaire)">
-        <p class="text-danger" *ngIf="n_compte_bancaire?.errors?.required">
+        <p class="danger-txt" *ngIf="n_compte_bancaire?.errors?.required">
           Veuillez remplir ce champ
         </p>
-        <p class="text-danger" *ngIf="n_compte_bancaire?.errors?.pattern">
+        <p class="danger-txt" *ngIf="n_compte_bancaire?.errors?.pattern">
           Vous devez entrer 16 caractères(chiffres)
         </p>
       </div>
@@ -243,10 +243,10 @@
 
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(banque_rib)">
-        <p class="text-danger" *ngIf="banque_rib?.errors?.required">
+        <p class="danger-txt" *ngIf="banque_rib?.errors?.required">
           Veuillez remplir ce champ
         </p>
-        <p class="text-danger" *ngIf="banque_rib?.errors?.pattern">
+        <p class="danger-txt" *ngIf="banque_rib?.errors?.pattern">
           Vous devez entrer 3 caractères(chiffres)
         </p>
       </div>
@@ -267,10 +267,10 @@
 
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(ville_rib)">
-        <p class="text-danger" *ngIf="ville_rib?.errors?.required">
+        <p class="danger-txt" *ngIf="ville_rib?.errors?.required">
           Veuillez remplir ce champ
         </p>
-        <p class="text-danger" *ngIf="ville_rib?.errors?.pattern">
+        <p class="danger-txt" *ngIf="ville_rib?.errors?.pattern">
           Vous devez entrer 3 caractères(chiffres)
         </p>
       </div>
@@ -291,10 +291,10 @@
 
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(cle_rib)">
-        <p class="text-danger" *ngIf="cle_rib?.errors?.required">
+        <p class="danger-txt" *ngIf="cle_rib?.errors?.required">
           Veuillez remplir ce champ
         </p>
-        <p class="text-danger" *ngIf="cle_rib?.errors?.pattern">
+        <p class="danger-txt" *ngIf="cle_rib?.errors?.pattern">
           Vous devez entrer 2 caractères(chiffres)
         </p>
       </div>
@@ -315,10 +315,10 @@
 
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(banque)">
-        <p class="text-danger" *ngIf="banque?.errors?.required">
+        <p class="danger-txt" *ngIf="banque?.errors?.required">
           Veuillez remplir ce champ
         </p>
-        <!-- <p class="text-danger" *ngIf="banque.errors.minlength">
+        <!-- <p class="danger-txt" *ngIf="banque.errors.minlength">
             CIN doit être au moins 4 caractéres
           </p> -->
       </div>
@@ -350,7 +350,7 @@
       />
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(montant_loyer)">
-        <p class="text-danger" *ngIf="montant_loyer?.errors?.pattern">
+        <p class="danger-txt" *ngIf="montant_loyer?.errors?.pattern">
           Vous devez entrer seulement des chiffres
         </p>
       </div>

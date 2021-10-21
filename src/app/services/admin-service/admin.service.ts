@@ -49,4 +49,17 @@ export class AdminService {
     return this.http.put(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/delete/${id}/${matricule}`, { 'headers': this.httpOptions.headers });
   }
 
+  // check the deleted false user roles 
+  checkHasRoles(userRoles: any) {
+    let hasRoles = false
+
+    // See if there's some user role has a deleted false 
+    for (let index = 0; index < userRoles.length; index++)
+      if (!userRoles[index].deleted) hasRoles = true
+
+    if (!hasRoles) return 'Pas de roles insérés'
+
+    return null
+  }
+
 }

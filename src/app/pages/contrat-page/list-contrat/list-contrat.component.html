@@ -220,7 +220,7 @@
           </tbody>
 
           <tbody *ngIf="accessError" class="w-100 d-flex align-items-center">
-            <h5 class="text-danger my-4">{{ accessError }}</h5>
+            <h5 class="danger-txt my-4">{{ accessError }}</h5>
             <a class="btn btn-sm second-btn ms-3" [routerLink]="['/']">
               <i class="far fa-chevron-left"></i> Retour au tablau de bord
             </a>
@@ -291,7 +291,7 @@
     </tbody>
 
     <tbody *ngIf="accessError" class="w-100 d-flex align-items-center">
-      <h5 class="text-danger my-4">{{ accessError }}</h5>
+      <h5 class="danger-txt my-4">{{ accessError }}</h5>
       <a class="btn btn-sm second-btn ms-3" [routerLink]="['/']">
         <i class="far fa-chevron-left"></i> Retour au tablau de bors
       </a>

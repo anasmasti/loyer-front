@@ -1,38 +1,49 @@
-<div class="row title  ">
-    <div class="col-lg-12 mt-3">
-        <div class="d-flex justify-content-between">
-            <h3 class="main-title">
-                <a [routerLink]="['/admin']" class="goback-link">Liste des
-                    users</a>/<span class="selected-text">{{ user?.nom }}</span>
-            </h3>
-            <div class="d-none d-lg-block">
-                <a [routerLink]="['/admin']" class="btn btn-sm second-btn me-3 " data-bs-toggle="tooltip"
-                    data-bs-placement="top" title="Retour à la liste"><i class="far fa-arrow-left"></i>
-                    Retour à la liste des utilisateurs
-                </a>
-                <span data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Ici vous pouvez voir les détails de  proprietaire.nom_prenom ">
-                    <i class="fal fa-info"></i>
-                </span>
-            </div>
-        </div>
+<div class="row title">
+  <div class="col-lg-12 mt-3">
+    <div class="d-flex justify-content-between">
+      <h3 class="main-title">
+        <a [routerLink]="['/admin']" class="goback-link">Liste des users</a
+        >/<span class="selected-text">{{ user?.nom }}</span>
+      </h3>
+      <div class="d-none d-lg-block">
+        <a
+          [routerLink]="['/admin']"
+          class="btn btn-sm second-btn me-3"
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          title="Retour à la liste"
+          ><i class="far fa-arrow-left"></i>
+          Retour à la liste des utilisateurs
+        </a>
+        <span
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          title="Ici vous pouvez voir les détails de  proprietaire.nom_prenom "
+        >
+          <i class="fal fa-info"></i>
+        </span>
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="row d-flex justify-content-around">
-    <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-4">
-        <h5 class="main-txt">Nom</h5>
-        <p class="text-capitalize">{{user?.nom}}</p>
+  <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-4">
+    <h5 class="main-txt">Nom</h5>
+    <p class="text-capitalize">{{ user?.nom }}</p>
 
-        <h5 class="main-txt">Prenon</h5>
-        <p class="text-capitalize">{{user?.prenom}}</p>
-    </div>
-    <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-7">
-        <h5 class="main-txt">Roles</h5>
-        <ul *ngFor="let role of user?.userRoles" class="success-txt px-3">
-            <li>
-                {{role.roleName}}
-            </li>
-        </ul>
-    </div>
+    <h5 class="main-txt">Prenon</h5>
+    <p class="text-capitalize">{{ user?.prenom }}</p>
+  </div>
+  <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-7">
+    <h5 class="main-txt">Roles</h5>
+    <p class="danger-txt my-auto">
+      {{ checkHasRoles(user?.userRoles) }}
+    </p>
+    <ul *ngFor="let role of user?.userRoles" class="success-txt px-3">
+      <li *ngIf="!role.deleted">
+        {{ role.roleName }}
+      </li>
+    </ul>
+  </div>
 </div>

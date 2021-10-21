@@ -42,7 +42,7 @@
 
           <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(date_debut_loyer)">
-        <p class="text-danger" *ngIf="date_debut_loyer?.errors?.required">
+        <p class="danger-txt" *ngIf="date_debut_loyer?.errors?.required">
           Veuillez remplir ce champ
         </p>
       </div>
@@ -59,7 +59,7 @@
 
           <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(montant_loyer)">
-        <p class="text-danger" *ngIf="montant_loyer?.errors?.required">
+        <p class="danger-txt" *ngIf="montant_loyer?.errors?.required">
           Veuillez remplir ce champ
         </p>
       </div>
@@ -93,7 +93,7 @@
         </select>
           <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(periodicite_paiement)">
-        <p class="text-danger" *ngIf="periodicite_paiement?.errors?.required">
+        <p class="danger-txt" *ngIf="periodicite_paiement?.errors?.required">
           Veuillez remplir ce champ
         </p>
       </div>
@@ -108,7 +108,7 @@
         }"/>
          <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(duree_location)">
-        <p class="text-danger" *ngIf="duree_location?.errors?.required">
+        <p class="danger-txt" *ngIf="duree_location?.errors?.required">
           Veuillez remplir ce champ
         </p>
       </div>
@@ -122,7 +122,7 @@
         }">
             <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(date_fin_contrat)">
-        <p class="text-danger" *ngIf="date_fin_contrat?.errors?.required">
+        <p class="danger-txt" *ngIf="date_fin_contrat?.errors?.required">
           Veuillez remplir ce champ
         </p>
       </div>
@@ -175,7 +175,7 @@
         }">
          <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(date_reprise_caution)">
-        <p class="text-danger" *ngIf="date_reprise_caution?.errors?.required">
+        <p class="danger-txt" *ngIf="date_reprise_caution?.errors?.required">
           Veuillez remplir ce champ
         </p>
       </div>
