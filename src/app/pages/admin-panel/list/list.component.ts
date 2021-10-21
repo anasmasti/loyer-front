@@ -111,16 +111,7 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   checkHasRoles(userRoles: any) {
-    let hasRoles = false
-
-    // See if there's some user role has a deleted false 
-    for (let index = 0; index < userRoles.length; index++) {
-      if (!userRoles[index].deleted) hasRoles = true
-    }
-
-    if (!hasRoles) return 'Pas de roles insérés'
-
-    return ''
+    return this.adminService.checkHasRoles(userRoles);
   }
 
   // Filter by intitule
