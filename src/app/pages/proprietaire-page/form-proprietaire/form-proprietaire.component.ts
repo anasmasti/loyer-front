@@ -266,12 +266,10 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     $('.error-alert').removeClass('active');
   }
 
-
   getTauxImpot() {
     this.lieuService
       .getContratByLieu(this.lieu_id, this.userMatricule)
       .subscribe((data) => {
-        console.log('==>', data);
         if (data) this.contratByLieu = data;
       });
   }
