@@ -1,13 +1,11 @@
 import { HelperService } from 'src/app/services/helpers/helper.service';
-import { Proprietaire } from '../../../models/Proprietaire';
 import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { ProprietaireService } from 'src/app/services/proprietaire-service/proprietaire.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
-import { Observable, throwError } from 'rxjs';
-import { ofType } from '@ngrx/effects';
+
 @Component({
   selector: 'app-form-proprietaire',
   templateUrl: './form-proprietaire.component.html',
@@ -240,6 +238,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       taux_impot: this.proprietaire.taux_impot,
       retenue_source: this.proprietaire.retenue_source,
       montant_apres_impot: this.proprietaire.montant_apres_impot,
+
       // mandataire inputs
       // cin_mandataire: '',
       // nom_prenom_mandataire: '',
@@ -290,14 +289,12 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     let month = dateDebutLoyer.getMonth() + 1;
 
     // // Date resilition
-    let dateResiliation =
-      this.contratByLieu[0]?.etat_contrat?.etat?.date_resiliation;
+    let dateResiliation = this.contratByLieu[0]?.etat_contrat?.etat?.date_resiliation;
     dateResiliation = new Date(dateResiliation);
     let monthResiliation = dateResiliation.getMonth() + 1;
 
     let etatContratTypes = this.contratByLieu[0]?.etat_contrat?.libelle;
 
-    // let dureeAvance = this.contratByLieu[0]?.duree_avance
     // // ------First Condition--------
     if (month == 1 && etatContratTypes != 'Résilié') {
       this.duree = 12;
@@ -511,7 +508,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       cle_rib: this.proprietaireForm.get('cle_rib')?.value,
       taux_impot: this.tauxImpot,
       retenue_source: this.retenueSource,
-      montant_apres_impot: this.montant_apres_impot,
+      montant_apres_impot: this.montantApresImpot,
     };
 
     this.proprietaireService
@@ -527,13 +524,14 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         },
 
         (error) => {
-          this.errors = error.error.message;
+          this.errors = error.error.message
           setTimeout(() => {
             this.showErrorMessage();
           }, 4000);
           this.hideErrorMessage();
         }
       );
+      console.log(proprietaireData);
   }
 
   // Get proprietaire form controlers
