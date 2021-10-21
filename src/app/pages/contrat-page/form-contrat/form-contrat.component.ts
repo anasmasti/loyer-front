@@ -710,7 +710,6 @@ export class FormContratComponent implements OnInit {
         this.hideErrorMessage();
       }
     );
-    
   }
 
   get date_debut_loyer() {

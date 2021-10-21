@@ -32,9 +32,10 @@
                             {{ role.roleName }}
                         </li>
                     </ul>
-                    <!-- <p>
-                        Pas de roles insérés
-                    </p> -->
+                    
+                    <p class="danger-txt">
+                        {{ checkHasRoles(user.userRoles) }}
+                    </p>
                 </td>
                 <td>
                     <a [routerLink]="['list', user._id]" class="btn btn-sm main-btn"><i class="fal fa-eye"></i></a>

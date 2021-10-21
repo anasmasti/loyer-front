@@ -303,7 +303,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     let montantApresImpot: number = 0;
     let result: number = 0;
 
-
     // // Date debut de loyer
     let dateDebutLoyer = this.contratByLieu[0].date_debut_loyer
     
@@ -319,9 +318,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
     // let dureeAvance = this.contratByLieu[0]?.duree_avance
     
-    
-
- 
   
     // // ------First Condition--------
     if (month == 1 && etatContratTypes != 'Résilié') {

@@ -258,7 +258,6 @@ export class FormComponent implements OnInit {
       }
     );
 
-    
   }
 
   clearCH() {
