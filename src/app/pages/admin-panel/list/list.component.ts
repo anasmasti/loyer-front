@@ -34,6 +34,8 @@ export class ListComponent implements OnInit, OnDestroy {
 
   userMatricule: any = localStorage.getItem('matricule')
 
+  hasDeletedRole: boolean = false
+
   constructor(
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
