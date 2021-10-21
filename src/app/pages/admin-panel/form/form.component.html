@@ -8,55 +8,55 @@
 
   <div class="row mt-2">
     <div class="col-lg-3 form-group mt-2">
-      <label for="">Matricule <span class="text-danger">*</span></label>
+      <label for="">Matricule <span class="danger-txt">*</span></label>
       <input type="text" id="Matricule" class="form-control rounded-pill" formControlName="Matricule" [ngClass]="{
         'is-invalid': checkInputsValidation(Matricule),
         'is-valid': !Matricule?.invalid
       }" />
       <div class="" *ngIf="checkInputsValidation(Matricule)">
-        <p class="text-danger" *ngIf="Matricule?.errors?.required">
+        <p class="danger-txt" *ngIf="Matricule?.errors?.required">
           Veuillez remplir ce champ
         </p>
       </div>
     </div>
 
     <div class="col-lg-3 form-group mt-2">
-      <label for="">Nom <span class="text-danger">*</span></label>
+      <label for="">Nom <span class="danger-txt">*</span></label>
       <input type="text" id="nom" class="form-control rounded-pill" formControlName="Nom" [ngClass]="{
         'is-invalid': checkInputsValidation(Nom),
         'is-valid': !Nom?.invalid
       }" />
       <div class="" *ngIf="checkInputsValidation(Nom)">
-        <p class="text-danger" *ngIf="Nom?.errors?.required">
+        <p class="danger-txt" *ngIf="Nom?.errors?.required">
           Veuillez remplir ce champ
         </p>
       </div>
     </div>
 
     <div class="col-lg-3 form-group mt-2">
-      <label for="">Prénom <span class="text-danger">*</span></label>
+      <label for="">Prénom <span class="danger-txt">*</span></label>
       <input type="text" id="Prenom" class="form-control rounded-pill" formControlName="Prenom" [ngClass]="{
         'is-invalid': checkInputsValidation(Prenom),
         'is-valid': !Prenom?.invalid
       }" />
       <div class="" *ngIf="checkInputsValidation(Prenom)">
-        <p class="text-danger" *ngIf="Prenom?.errors?.required">
+        <p class="danger-txt" *ngIf="Prenom?.errors?.required">
           Veuillez remplir ce champ
         </p>
       </div>
     </div>
 
     <div class="col-lg-3 form-group mt-2">
-      <label for="">Code DR <span class="text-danger">*</span></label>
+      <label for="">Code DR <span class="danger-txt">*</span></label>
       <input type="text" id="Code_DR" class="form-control rounded-pill" formControlName="Code_DR" [ngClass]="{
         'is-invalid': checkInputsValidation(Code_DR),
         'is-valid': !Code_DR?.invalid
       }" />
       <div class="" *ngIf="checkInputsValidation(Code_DR)">
-        <p class="text-danger" *ngIf="Code_DR?.errors?.required">
+        <p class="danger-txt" *ngIf="Code_DR?.errors?.required">
           Veuillez remplir ce champ
         </p>
-        <p class="text-danger" *ngIf="Code_DR?.errors?.maxlength">
+        <p class="danger-txt" *ngIf="Code_DR?.errors?.maxlength">
           Ce champ ne doit pas dépasser 3 caractères
         </p>
       </div>
@@ -105,7 +105,7 @@
     <div class="mt-4">
       <!-- <h1>{{ userR._id }}</h1> -->
       <h5 class="main-muted-text mb-2">Les rôles à affecter</h5>
-      <div class="btn-group d-flex justify-content-between" role="group"
+      <div class="btn-group d-flex justify-content-lg-start gap-1 flex-lg-row flex-column" role="group"
         aria-label="Basic checkbox toggle button group">
         <div>
           <input type="checkbox" name="chk1" class="btn-check check" id="Update-role1" autocomplete="off"

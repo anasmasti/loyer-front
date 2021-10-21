@@ -40,7 +40,7 @@
     <p class="danger-txt my-auto">
       {{ checkHasRoles(user?.userRoles) }}
     </p>
-    <ul *ngFor="let role of user?.userRoles" class="success-txt p-2">
+    <ul *ngFor="let role of user?.userRoles" class="success-txt px-3">
       <li *ngIf="!role.deleted">
         {{ role.roleName }}
       </li>

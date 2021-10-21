@@ -52,20 +52,14 @@ export class AdminService {
   // check the deleted false user roles 
   checkHasRoles(userRoles: any) {
     let hasRoles = false
-    
-    // See if there's some user role has a deleted false 
-    for (let index = 0; index < userRoles.length; index++) {
-      if (!userRoles[index].deleted) {
-        hasRoles = true
-      }
-    }
 
-    if (!hasRoles) {
-      return 'Pas de roles insérés'
-    }
-    else{
-      return null
-    }
+    // See if there's some user role has a deleted false 
+    for (let index = 0; index < userRoles.length; index++)
+      if (!userRoles[index].deleted) hasRoles = true
+
+    if (!hasRoles) return 'Pas de roles insérés'
+
+    return null
   }
 
 }
