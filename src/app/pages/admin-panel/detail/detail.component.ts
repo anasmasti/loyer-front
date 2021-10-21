@@ -12,6 +12,8 @@ export class DetailComponent implements OnInit {
 
   constructor(private userService: AdminService, private actRoute: ActivatedRoute) { }
 
+  userMatricule: any = localStorage.getItem('matricule');
+
   user: User = {
     userMatricul: "",
     nom: "",
@@ -28,7 +30,7 @@ export class DetailComponent implements OnInit {
   // Get the user data by id
   getUserById() {
     const id = this.actRoute.snapshot.paramMap.get('id') || '615c714d3500e8382c92fcda';
-    this.userService.getUserById(id).subscribe((data: User) => {
+    this.userService.getUserById(id, this.userMatricule).subscribe((data: User) => {
       this.user = data;
     });
   }
