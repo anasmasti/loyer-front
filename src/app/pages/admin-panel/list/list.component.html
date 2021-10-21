@@ -21,20 +21,17 @@
         <tbody *ngIf="users.length">
             <tr
                 *ngFor="let user of users | paginate: { itemsPerPage: tableSize, currentPage: listUsersPage, id: 'listUsersPagination', totalItems: count }">
-                <!-- <td >{{ proprietaire._id }}</td> -->
                 <td>{{ user.userMatricul }}</td>
                 <td>{{ user.nom }} {{ user.prenom }}</td>
-                <td class="d-flex justify-content-start gap-1 flex-column">
+                <td class="justify-content-start gap-1 flex-column">
                     <ul *ngFor="let role of user.userRoles" class="main-txt px-2">
                         <li *ngIf="!role.deleted">
                             {{ role.roleName }}
                         </li>
                     </ul>
-                    <!-- <ul *ngIf="!role.deleted">
-                        <li *ngIf="!role.deleted">
-                            {{ role.roleName }}
-                        </li>
-                    </ul> -->
+                    <p class="danger-txt">
+                        {{ checkHasRoles(user.userRoles) }}
+                    </p>
                 </td>
                 <td>
                     <a [routerLink]="['list', user._id]" class="btn btn-sm main-btn"><i class="fal fa-eye"></i></a>

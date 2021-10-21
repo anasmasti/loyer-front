@@ -34,6 +34,7 @@ export class ListComponent implements OnInit, OnDestroy {
 
   userMatricule: any = localStorage.getItem('matricule')
 
+
   constructor(
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
@@ -108,6 +109,24 @@ export class ListComponent implements OnInit, OnDestroy {
           this.hideErrorMessage();
         }
       );
+  }
+
+  checkHasRoles(userRoles: any) {
+    let hasRoles = false
+    
+    // See if there's some user role has a deleted false 
+    for (let index = 0; index < userRoles.length; index++) {
+      if (!userRoles[index].deleted) {
+        hasRoles = true
+      }
+    }
+
+    if (!hasRoles) {
+      return 'Pas de roles insérés'
+    }
+    else{
+      return ''
+    }
   }
 
   // Filter by intitule
