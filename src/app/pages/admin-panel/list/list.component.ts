@@ -34,7 +34,6 @@ export class ListComponent implements OnInit, OnDestroy {
 
   userMatricule: any = localStorage.getItem('matricule')
 
-
   constructor(
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
@@ -55,8 +54,8 @@ export class ListComponent implements OnInit, OnDestroy {
         this.store.dispatch(getUsersAction())
       }
       // fetch only the deleted false users 
-      data.map((user:User) => {
-        
+      data.map((user: User) => {
+
         if (!user.deleted) {
           this.users.push(user)
         }

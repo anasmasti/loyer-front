@@ -209,7 +209,7 @@
                     'success-txt': proprietaire?.mandataire,
                     'danger-txt': !proprietaire?.mandataire
                   }">
-                  {{ (proprietaire?.mandataire) ? 'Oui' : 'Non' }}
+                  {{ checkAndPutText(proprietaire?.mandataire) }}
                 </span>
               </td>
             </tr>

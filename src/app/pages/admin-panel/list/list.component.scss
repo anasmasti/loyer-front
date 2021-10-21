@@ -2,5 +2,10 @@
 @use '../../../../assets/style/components' as *;
 
 th {
-   @extend .header-table
+   @extend .header-table;
+}
+
+// Skeleton loading
+.role-skeleton {
+    @include skeletonLoading(215px, 30px);
 }

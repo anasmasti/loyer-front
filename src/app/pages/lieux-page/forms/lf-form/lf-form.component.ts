@@ -145,9 +145,6 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
     this.removeAllAmenagement();
     this.RemoveAllDericteurs();
 
-    console.log(this.Lieu);
-    
-
     this.etatLogement = this.Lieu.etat_logement_fonction;
 
     this.hasAmenagement = true;
