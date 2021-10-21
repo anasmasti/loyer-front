@@ -23,7 +23,7 @@
             <tr
                 *ngFor="let user of users | paginate: { itemsPerPage: tableSize, currentPage: listUsersPage, id: 'listUsersPagination', totalItems: count }">
                 <td>{{ user.userMatricul }}</td>
-                <td>{{ user.nom }} {{ user.prenom }}</td>
+                <td class="text-capitalize">{{ user.nom }} {{ user.prenom }}</td>
                 <td>
                     <div *ngIf="!user.userRoles" class="userMatricul"></div>
                     
