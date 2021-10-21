@@ -40,8 +40,8 @@ export class AdminService {
   }
 
   // Get user by id 
-  getUserById(id: String): Observable<User> {
-    return this.http.get<User>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/detail/${id} `, { 'headers': this.httpOptions.headers });
+  getUserById(id: String, matricule: any): Observable<User> {
+    return this.http.get<User>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/detail/${id}/${matricule}`, { 'headers': this.httpOptions.headers });
   }
 
   //delete user 

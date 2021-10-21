@@ -18,18 +18,21 @@
         </div>
     </div>
 </div>
+
 <div class="row d-flex justify-content-around">
     <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-4">
         <h5 class="main-txt">Nom</h5>
-        <p>{{user?.nom}}</p>
+        <p class="text-capitalize">{{user?.nom}}</p>
 
         <h5 class="main-txt">Prenon</h5>
-        <p>{{user?.prenom}}</p>
+        <p class="text-capitalize">{{user?.prenom}}</p>
     </div>
     <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-7">
         <h5 class="main-txt">Roles</h5>
-        <div *ngFor="let role of user?.userRoles">
-            <p class="success-btn p-2"><strong>{{role.roleName}}</strong></p>
-        </div>
+        <ul *ngFor="let role of user?.userRoles" class="success-txt p-2">
+            <li>
+                {{role.roleName}}
+            </li>
+        </ul>
     </div>
 </div>
