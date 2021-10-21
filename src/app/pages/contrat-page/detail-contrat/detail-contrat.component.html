@@ -3,14 +3,15 @@
         <div class="d-flex justify-content-between">
 
             <h3 class="main-title">
-                <a [routerLink]="['/contrat/list-global/list']" class="goback-link">Détails de Contrat de bail</a>/<span
+                <a [routerLink]="['/contrat/list-global/list']" class="goback-link">Détails de contrat de bail</a>/<span
                     class="selected-text">
                     {{contrat.numero_contrat != undefined ? contrat.numero_contrat : '--'}}
                 </span>
             </h3>
             <div class="d-none d-lg-block">
-                <a [routerLink]="['/contrat/list-global/list']" class="btn btn-sm second-btn me-3 " data-bs-toggle="tooltip"
-                    data-bs-placement="top" title="Retour à la liste"><i class="far fa-arrow-left"></i>
+                <a [routerLink]="['/contrat/list-global/list']" class="btn btn-sm second-btn me-3 "
+                    data-bs-toggle="tooltip" data-bs-placement="top" title="Retour à la liste"><i
+                        class="far fa-arrow-left"></i>
                     Retour à la liste des contras
                 </a>
                 <span data-bs-toggle="tooltip" data-bs-placement="top" title="Ici vous pouvez voir les détails de   ">
@@ -158,7 +159,8 @@
             </div>
             <div class="col-lg-6">
                 <h5 class="main-txt">Etat de contrat</h5>
-                <p>{{this.contrat.etat_contrat?.libelle != '' ? this.contrat.etat_contrat?.libelle : '--'}}</p>
+                <p *ngIf="contrat.etat_contrat?.libelle == 'Actif'" class="success-txt">
+                    {{this.contrat.etat_contrat?.libelle != '' ? this.contrat.etat_contrat?.libelle : '--'}}</p>
             </div>
         </div>
 
@@ -166,12 +168,12 @@
 </div>
 
 
-<div *ngIf="contrat && contrat.etat_contrat?.libelle !== 'En cours' && contrat.etat_contrat?.libelle == 'Avenant'"
+<div *ngIf="contrat && contrat.etat_contrat?.libelle !== 'Actif' && contrat.etat_contrat?.libelle == 'Avenant'"
     class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white">
     <h5 class="main-title mb-4">
         Etat de contrat:
         <span
-            [ngClass]="{'info-txt': contrat.etat_contrat?.libelle == 'Avenant', 'danger-txt': contrat.etat_contrat?.libelle == 'Suspendu' || contrat.etat_contrat?.libelle == 'Résilié', 'success-txt': contrat.etat_contrat?.libelle == 'En cours'}">
+            [ngClass]="{'info-txt': contrat.etat_contrat?.libelle == 'Avenant', 'danger-txt': contrat.etat_contrat?.libelle == 'Suspendu' || contrat.etat_contrat?.libelle == 'Résilié', 'success-txt': contrat.etat_contrat?.libelle == 'Actif'}">
             {{this.contrat.etat_contrat?.libelle}}
         </span>
     </h5>
@@ -188,18 +190,21 @@
 
         <div class="col-lg-3">
             <h5 class="main-txt">Montant nouveau loyer</h5>
-            <p>{{contrat.etat_contrat?.etat?.montant_nouveau_loyer != undefined ? contrat.etat_contrat?.etat?.montant_nouveau_loyer : '--'}}</p>
+            <p>{{contrat.etat_contrat?.etat?.montant_nouveau_loyer != undefined ?
+                contrat.etat_contrat?.etat?.montant_nouveau_loyer : '--'}}</p>
         </div>
         <div class="col-lg-3">
             <h5 class="main-txt">Signaletique successeur</h5>
-            <p>{{contrat.etat_contrat?.etat?.signaletique_successeur != '' ? contrat.etat_contrat?.etat?.signaletique_successeur : '--'}}</p>
+            <p>{{contrat.etat_contrat?.etat?.signaletique_successeur != '' ?
+                contrat.etat_contrat?.etat?.signaletique_successeur : '--'}}</p>
         </div>
     </div>
 
     <div class="row">
         <div class="col-lg-3">
             <h5 class="main-txt">Intitule lieu</h5>
-            <p>{{contrat.etat_contrat?.etat?.intitule_lieu != '' ? contrat.etat_contrat?.etat?.intitule_lieu : '--'}}</p>
+            <p>{{contrat.etat_contrat?.etat?.intitule_lieu != '' ? contrat.etat_contrat?.etat?.intitule_lieu : '--'}}
+            </p>
         </div>
         <div class="col-lg-3">
             <h5 class="main-txt">Pièce jointe</h5>
@@ -217,12 +222,12 @@
 
 </div>
 
-<div *ngIf="contrat && contrat.etat_contrat?.libelle !== 'En cours' && contrat.etat_contrat?.libelle == 'Suspendu'"
+<div *ngIf="contrat && contrat.etat_contrat?.libelle !== 'Actif' && contrat.etat_contrat?.libelle == 'Suspendu'"
     class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white">
     <h5 class="main-title mb-4">
         Etat de contrat:
         <span
-            [ngClass]="{'info-txt': contrat.etat_contrat?.libelle == 'Avenant', 'danger-txt': contrat.etat_contrat?.libelle == 'Suspendu' || contrat.etat_contrat?.libelle == 'Résilié', 'success-txt': contrat.etat_contrat?.libelle == 'En cours'}">
+            [ngClass]="{'info-txt': contrat.etat_contrat?.libelle == 'Avenant', 'danger-txt': contrat.etat_contrat?.libelle == 'Suspendu' || contrat.etat_contrat?.libelle == 'Résilié', 'success-txt': contrat.etat_contrat?.libelle == 'Actif'}">
             {{this.contrat.etat_contrat?.libelle}}
         </span>
     </h5>
@@ -230,31 +235,35 @@
     <div class="row">
         <div class="col-lg-3">
             <h5 class="main-txt">Intitule de lieu</h5>
-            <p>{{contrat.etat_contrat?.etat?.intitule_lieu != '' ? contrat.etat_contrat?.etat?.intitule_lieu : '--'}}</p>
+            <p>{{contrat.etat_contrat?.etat?.intitule_lieu != '' ? contrat.etat_contrat?.etat?.intitule_lieu : '--'}}
+            </p>
         </div>
         <div class="col-lg-3">
             <h5 class="main-txt">Date de Suspendu</h5>
-            <p>{{contrat.etat_contrat?.etat?.date_suspension != null ? (contrat.etat_contrat?.etat?.date_suspension | date) : '--'}}</p>
+            <p>{{contrat.etat_contrat?.etat?.date_suspension != null ? (contrat.etat_contrat?.etat?.date_suspension |
+                date) : '--'}}</p>
         </div>
 
         <div class="col-lg-3">
             <h5 class="main-txt">Durée de Suspendu</h5>
-            <p>{{contrat.etat_contrat?.etat?.duree_suspension != undefined ? contrat.etat_contrat?.etat?.duree_suspension : '--'}}</p>
+            <p>{{contrat.etat_contrat?.etat?.duree_suspension != undefined ?
+                contrat.etat_contrat?.etat?.duree_suspension : '--'}}</p>
         </div>
         <div class="col-lg-3">
             <h5 class="main-txt">Motif Suspendu</h5>
-            <p>{{contrat.etat_contrat?.etat?.motif_suspension != '' ? contrat.etat_contrat?.etat?.motif_suspension : '--'}}</p>
+            <p>{{contrat.etat_contrat?.etat?.motif_suspension != '' ? contrat.etat_contrat?.etat?.motif_suspension :
+                '--'}}</p>
         </div>
     </div>
 
 </div>
 
-<div *ngIf="contrat && contrat.etat_contrat?.libelle !== 'En cours' && contrat.etat_contrat?.libelle == 'Résilié'"
+<div *ngIf="contrat && contrat.etat_contrat?.libelle !== 'Actif' && contrat.etat_contrat?.libelle == 'Résilié'"
     class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white">
     <h5 class="main-title mb-4">
         Etat de contrat:
         <span
-            [ngClass]="{'info-txt': contrat.etat_contrat?.libelle == 'Avenant', 'danger-txt': contrat.etat_contrat?.libelle == 'Suspendu' || contrat.etat_contrat?.libelle == 'Résilié', 'success-txt': contrat.etat_contrat?.libelle == 'En cours'}">
+            [ngClass]="{'info-txt': contrat.etat_contrat?.libelle == 'Avenant', 'danger-txt': contrat.etat_contrat?.libelle == 'Suspendu' || contrat.etat_contrat?.libelle == 'Résilié', 'success-txt': contrat.etat_contrat?.libelle == 'Actif'}">
             {{this.contrat.etat_contrat?.libelle}}
         </span>
     </h5>
@@ -262,16 +271,19 @@
     <div class="row">
         <div class="col-lg-3">
             <h5 class="main-txt">Intitulé de lieu</h5>
-            <p>{{contrat.etat_contrat?.etat?.intitule_lieu != '' ? contrat.etat_contrat?.etat?.intitule_lieu : '--'}}</p>
+            <p>{{contrat.etat_contrat?.etat?.intitule_lieu != '' ? contrat.etat_contrat?.etat?.intitule_lieu : '--'}}
+            </p>
         </div>
         <div class="col-lg-3">
             <h5 class="main-txt">Reprise caution</h5>
-            <p>{{contrat.etat_contrat?.etat?.reprise_caution != '' ? contrat.etat_contrat?.etat?.reprise_caution : '--'}}</p>
+            <p>{{contrat.etat_contrat?.etat?.reprise_caution != '' ? contrat.etat_contrat?.etat?.reprise_caution :
+                '--'}}</p>
         </div>
 
         <div class="col-lg-3">
             <h5 class="main-txt">Etat des lieux de sortie</h5>
-            <p>{{contrat.etat_contrat?.etat?.etat_lieu_sortie != '' ? contrat.etat_contrat?.etat?.etat_lieu_sortie : '--'}}</p>
+            <p>{{contrat.etat_contrat?.etat?.etat_lieu_sortie != '' ? contrat.etat_contrat?.etat?.etat_lieu_sortie :
+                '--'}}</p>
         </div>
         <div class="col-lg-3">
             <h5 class="main-txt">Préavis</h5>
@@ -282,7 +294,8 @@
     <div class="row">
         <div class="col-lg-3">
             <h5 class="main-txt">Date de Résilié</h5>
-            <p>{{contrat.etat_contrat?.etat?.date_resiliation != null ? (contrat.etat_contrat?.etat?.date_resiliation | date) : '--'}}</p>
+            <p>{{contrat.etat_contrat?.etat?.date_resiliation != null ? (contrat.etat_contrat?.etat?.date_resiliation |
+                date) : '--'}}</p>
         </div>
         <div class="col-lg-3">
             <h5 class="main-txt">Images d'état des lieux de sortie</h5>

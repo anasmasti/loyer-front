@@ -298,7 +298,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     let etatContratTypes = this.contratByLieu[0]?.etat_contrat?.libelle;
 
     // let dureeAvance = this.contratByLieu[0]?.duree_avance
-
     // // ------First Condition--------
     if (month == 1 && etatContratTypes != 'Résilié') {
       this.duree = 12;

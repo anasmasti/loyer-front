@@ -338,7 +338,6 @@ export class FormContratComponent implements OnInit {
       
       let montantAvance: number = this.contratForm.get('montant_avance')?.value;
       this.montant_avance_tax_ = montantAvance * ( this.tauxImpot / 100 )
-      console.log("montant : " , this.montant_avance_tax_);
     
     }
   }
@@ -375,9 +374,6 @@ export class FormContratComponent implements OnInit {
 
       // Montant de l'avance
       this.montantAvance = montant_loyer * this.dureeAvance
-      console.log(this.montantAvance);
-      
-      
     }
     else {
       this.date_premier_paiment = null
@@ -536,10 +532,6 @@ export class FormContratComponent implements OnInit {
   }
 
   fetchContrat() {
-
-   console.log(this.contrat);
-   
-    
     if (this.contrat) {
       // var date_debut_loyer = this.pipeDate.transform(this.contrat.date_debut_loyer, 'yyyy-MM-dd')
   
@@ -608,7 +600,6 @@ export class FormContratComponent implements OnInit {
       });
       this.contrat.numero_contrat ? this.lieu_id = this.contrat.lieu._id : null
     }
-    // console.log(this.contrat.date_debut_loyer);
   }
   
   // Update contrat
@@ -699,7 +690,6 @@ export class FormContratComponent implements OnInit {
     };
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
-    console.log(ctr_data);
     
 
     //patch the formdata (data+files)
@@ -720,8 +710,6 @@ export class FormContratComponent implements OnInit {
         this.hideErrorMessage();
       }
     );
-    console.log(ctr_data);
-    
   }
 
   get date_debut_loyer() {

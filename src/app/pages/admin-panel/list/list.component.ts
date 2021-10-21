@@ -54,8 +54,8 @@ export class ListComponent implements OnInit, OnDestroy {
         this.store.dispatch(getUsersAction())
       }
       // fetch only the deleted false users 
-      data.map((user:User) => {
-        
+      data.map((user: User) => {
+
         if (!user.deleted) {
           this.users.push(user)
         }
@@ -108,6 +108,19 @@ export class ListComponent implements OnInit, OnDestroy {
           this.hideErrorMessage();
         }
       );
+  }
+
+  checkHasRoles(userRoles: any) {
+    let hasRoles = false
+
+    // See if there's some user role has a deleted false 
+    for (let index = 0; index < userRoles.length; index++) {
+      if (!userRoles[index].deleted) hasRoles = true
+    }
+
+    if (!hasRoles) return 'Pas de roles insérés'
+
+    return ''
   }
 
   // Filter by intitule
