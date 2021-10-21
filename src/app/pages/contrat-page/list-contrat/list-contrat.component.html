@@ -206,8 +206,8 @@
               <td>{{ proprietaire.nom_agence_bancaire }}</td>
               <td>
                 <span class="p-1" [ngClass]="{
-                    'done-alert': proprietaire?.mandataire,
-                    'error-alert': !proprietaire?.mandataire
+                    'success-txt': proprietaire?.mandataire,
+                    'danger-txt': !proprietaire?.mandataire
                   }">
                   {{ (proprietaire?.mandataire) ? 'Oui' : 'Non' }}
                 </span>
