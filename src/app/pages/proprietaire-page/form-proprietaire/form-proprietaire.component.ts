@@ -285,16 +285,12 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     this.lieuService
       .getContratByLieu(this.lieu_id, this.userMatricule)
       .subscribe((data) => {
-        console.log('==>',data);
-        
-        if (data) 
-       {
+        if (data) {
         // this.tauxImpot = data[0]?.taux_impot;
         // this.dateDebutLoyer = data[0]?.date_debut_loyer
         // this.dateResiliation = data[0]?.etat_contrat?.etat?.date_resiliation
         // this.etatContratTypes = data[0]?.etat_contrat?.libelle
         this.contratByLieu = data
-        
       } 
     });   
 
@@ -310,7 +306,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
     // // Date debut de loyer
     let dateDebutLoyer = this.contratByLieu[0].date_debut_loyer
-    console.log(dateDebutLoyer);
     
     dateDebutLoyer = new Date(dateDebutLoyer);
     let month = dateDebutLoyer.getMonth() + 1;
