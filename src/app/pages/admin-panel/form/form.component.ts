@@ -63,7 +63,8 @@ export class FormComponent implements OnInit {
   }
 
   fetchUser() {
-    // this.adminForm.reset();
+    console.log(this.userR);
+    
     const control = <FormArray>this.adminForm.controls['Roles'];
     for (let i = control.length - 1; i >= 0; i--) {
       control.removeAt(i)
@@ -100,9 +101,9 @@ export class FormComponent implements OnInit {
             break;
           case "Chargé de suivi des loyers et aménagements": this.Role3 = true;
             break;
-          case "Chef de département gestion et suivi du patrimoine": this.Role4 = true;
+          case "Chef de Département Gestion et Suivi du Patrimoine": this.Role4 = true;
             break;
-          case "Admin": this.Role5 = true;
+          case "Administrateur": this.Role5 = true;
             break;
         }
       }
@@ -257,6 +258,7 @@ export class FormComponent implements OnInit {
         this.hideErrorMessage();
       }
     );
+    
 
   }
 
