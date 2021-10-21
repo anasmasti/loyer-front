@@ -23,6 +23,7 @@
                 *ngFor="let user of users | paginate: { itemsPerPage: tableSize, currentPage: listUsersPage, id: 'listUsersPagination', totalItems: count }">
                 <td>{{ user.userMatricul }}</td>
                 <td>{{ user.nom }} {{ user.prenom }}</td>
+                <td>Test</td>
                 <td class="justify-content-start gap-1 flex-column">
                     <ul *ngFor="let role of user.userRoles" class="main-txt px-2">
                         <li *ngIf="!role.deleted">

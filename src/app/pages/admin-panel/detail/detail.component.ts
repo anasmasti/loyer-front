@@ -34,4 +34,8 @@ export class DetailComponent implements OnInit {
       this.user = data;
     });
   }
+
+  checkHasRoles(userRoles : any) {
+    return this.userService.checkHasRoles(userRoles);
+  }
 }
