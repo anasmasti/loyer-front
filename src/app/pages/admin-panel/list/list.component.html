@@ -15,6 +15,7 @@
             <tr>
                 <th>Matricule</th>
                 <th>Nom complet</th>
+                <th>Email</th>
                 <th>Les rôles</th>
                 <th>Actions</th>
             </tr>
@@ -24,6 +25,7 @@
                 *ngFor="let user of users | paginate: { itemsPerPage: tableSize, currentPage: listUsersPage, id: 'listUsersPagination', totalItems: count }">
                 <td>{{ user.userMatricul }}</td>
                 <td class="text-capitalize">{{ user.nom }} {{ user.prenom }}</td>
+                <td class="text-capitalize">{{ user.email != '' ? user.email : '--' }}</td>
                 <td>
                     <div *ngIf="!user.userRoles" class="userMatricul"></div>
                     

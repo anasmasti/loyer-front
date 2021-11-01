@@ -19,6 +19,7 @@ export class DetailComponent implements OnInit {
     nom: "",
     prenom: "",
     code_dr: "",
+    email: "",
     userRoles: [],
     deleted: false,
   };
@@ -29,7 +30,7 @@ export class DetailComponent implements OnInit {
 
   // Get the user data by id
   getUserById() {
-    const id = this.actRoute.snapshot.paramMap.get('id') || '615c714d3500e8382c92fcda';
+    const id = this.actRoute.snapshot.paramMap.get('id') || '';
     this.userService.getUserById(id, this.userMatricule).subscribe((data: User) => {
       this.user = data;
     });

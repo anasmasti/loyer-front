@@ -108,7 +108,7 @@ export class FormContratComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.lieu_id = this.actRoute.snapshot.paramMap.get('id_lieu') || '615c714d3500e8382c92fcda';
+    this.lieu_id = this.actRoute.snapshot.paramMap.get('id_lieu') || '';
 
   
 

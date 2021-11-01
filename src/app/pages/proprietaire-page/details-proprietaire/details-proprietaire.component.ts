@@ -26,7 +26,7 @@ export class DetailsProprietaireComponent implements OnInit {
 
   // Get the proprietaire data by id
   getProprietaireById() {
-    const id = this.actRoute.snapshot.paramMap.get('id') || '615c714d3500e8382c92fcda';
+    const id = this.actRoute.snapshot.paramMap.get('id') || '';
     this.proprietaireService.getProprietaireById(id, this.userMatricule).subscribe((data) => {
       if (data) {
         this.proprietaire = data;

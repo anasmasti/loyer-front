@@ -58,6 +58,7 @@ export class FormComponent implements OnInit {
       Prenom: new FormControl('', [Validators.required]),
       Code_DR: new FormControl('', [Validators.required, Validators.maxLength(3), Validators.pattern('[0-9]*')]),
       Roles: new FormArray([]),
+      email: new FormControl('',[Validators.required,Validators.email]),
       deleted: new FormControl('',)
     });
   }
@@ -81,6 +82,7 @@ export class FormComponent implements OnInit {
       Nom: this.userR.nom,
       Prenom: this.userR.prenom,
       Code_DR: this.userR.code_dr,
+      email: this.userR.email,
       deleted: this.userR.deleted
     });
 
@@ -201,6 +203,7 @@ export class FormComponent implements OnInit {
       prenom: this.adminForm.get('Prenom')?.value,
       code_dr: this.adminForm.get('Code_DR')?.value,
       userRoles: this.adminForm.get('Roles')?.value,
+      email: this.adminForm.get('email')?.value,
       deleted: false
     };
 
@@ -236,6 +239,7 @@ export class FormComponent implements OnInit {
       prenom: this.adminForm.get('Prenom')?.value,
       code_dr: this.adminForm.get('Code_DR')?.value,
       userRoles: this.adminForm.get('Roles')?.value,
+      email: this.adminForm.get('email')?.value,
       deleted: this.adminForm.get('deleted')?.value
     };
 
@@ -288,5 +292,9 @@ export class FormComponent implements OnInit {
 
   get Code_DR() {
     return this.adminForm.get('Code_DR')
+  }
+
+  get email() {
+    return this.adminForm.get('email')
   }
 }
