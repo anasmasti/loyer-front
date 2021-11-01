@@ -34,5 +34,4 @@ export class AccessDeniedComponent implements OnInit {
   backToHome() {
     this.router.navigate([''])
   }
-
 }
