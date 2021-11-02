@@ -402,12 +402,12 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Tax d'avance propriètaire</label>
-          <input type="text" class="form-control rounded-pill" [value]="taxAvance" formControlName="tax_avance_proprietaire" readonly/>
+          <input type="text" class="form-control rounded-pill" [value]="taxAvance | number: '1.2-2'" formControlName="tax_avance_proprietaire" readonly/>
         </div>
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Tax par periodicité</label>
-          <input type="text" class="form-control rounded-pill" [value]="taxPeriodicite" formControlName="tax_par_periodicite" readonly/>
+          <input type="text" class="form-control rounded-pill" [value]="taxPeriodicite | number: '1.2-2'"  formControlName="tax_par_periodicite" readonly/>
         </div>
   </div>
 

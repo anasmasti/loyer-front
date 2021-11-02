@@ -57,7 +57,7 @@
             </div>
             <div class="col-lg-6">
                 <h5 class="main-txt">Montant d'avance du propriètaire</h5>
-                <p>{{ proprietaire?.montant_avance_proprietaire != undefined ? proprietaire?.montant_avance_proprietaire : '--' }}</p>
+                <p>{{ proprietaire?.montant_avance_proprietaire != undefined ? (proprietaire?.montant_avance_proprietaire | number : '1.2-2') : '--' }}</p>
             </div>
         </div>
     </div>
@@ -124,11 +124,11 @@
             </div>
             <div class="col-lg-6">
                 <h5 class="main-txt">Tax par periodicité propriètaire</h5>
-                <p>{{ proprietaire?.tax_par_periodicite != undefined ? proprietaire?.tax_par_periodicite : '--' }}</p>
+                <p>{{ proprietaire?.tax_par_periodicite != undefined ? (proprietaire?.tax_par_periodicite | number : '1.2-2') : '--' }}</p>
             </div>
             <div class="col-lg-6">
                 <h5 class="main-txt">Tax d'avance du propriètaire</h5>
-                <p>{{ proprietaire?.tax_avance_proprietaire != undefined ? proprietaire?.tax_avance_proprietaire : '--' }}</p>
+                <p>{{ proprietaire?.tax_avance_proprietaire != undefined ? (proprietaire?.tax_avance_proprietaire | number : '1.2-2') : '--' }}</p>
             </div>
             
         </div>
