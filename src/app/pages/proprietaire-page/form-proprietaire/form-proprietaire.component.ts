@@ -5,6 +5,8 @@ import { MainModalService } from 'src/app/services/main-modal/main-modal.service
 import { ProprietaireService } from 'src/app/services/proprietaire-service/proprietaire.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
+import { data } from 'jquery';
+import { Proprietaire } from 'src/app/models/proprietaire';
 
 @Component({
   selector: 'app-form-proprietaire',
@@ -13,6 +15,7 @@ import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 })
 export class FormProprietaireComponent implements OnInit, OnChanges {
   @Input() proprietaire!: any;
+  @Input() isInsertForm!: boolean;
   isMand: boolean = false;
   errors!: any;
   Updatesuccess: string = 'Propriétaire modifié avec succés';
@@ -26,7 +29,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
   contratByLieu!: any[];
 
-  lieu_id!: string;
+  lieu_id!: any;
 
   //les calcules
   montantLoyer!: any;
@@ -57,10 +60,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.lieu_id =
-      this.actRoute.snapshot.paramMap.get('id_lieu') ||
-      '';
-
     this.proprietaireForm = new FormGroup({
       // Champs du propriètaire
       cin: new FormControl('', [Validators.required, Validators.maxLength(8)]),
@@ -118,14 +117,16 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       // mandataireForm: new FormArray([]),
     });
 
-    if (this.proprietaire == '') {
+    if (this.isInsertForm) {
       this.proprietaireForm.reset();
+      this.lieu_id = this.actRoute.snapshot.paramMap.get('id_lieu')
+      setTimeout(() => {
+        this.getTauxImpot();
+      }, 500);
+      setTimeout(() => {
+        this.calculMontant();
+      }, 1000);
     }
-
-    this.getTauxImpot();
-    setTimeout(() => {
-      this.calculMontant();
-    }, 500);
   }
 
   // addFormMandateire() {
@@ -161,6 +162,14 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   // }
 
   fetchProprietaire() {
+
+      this.getLieuId()
+      setTimeout(() => {
+        this.getTauxImpot();
+      }, 500);
+      setTimeout(() => {
+      this.calculMontant();
+      }, 1000);
     // this.removeAllMandateires();
 
     // if (this.proprietaire.mandataire) {
@@ -250,6 +259,14 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     });
   }
 
+
+  // Get Lieu id By Proprietaire id 
+  getLieuId(){
+    this.proprietaireService.getLieuIdByProprietaire(this.proprietaire._id , this.userMatricule).subscribe((data: any) => {
+      this.lieu_id = data[0]._id
+    });
+  }
+
   // Check if all inputs has invalid errors
   checkInputsValidation(targetInput: any) {
     return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
@@ -270,6 +287,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       .getContratByLieu(this.lieu_id, this.userMatricule)
       .subscribe((data) => {
         if (data) this.contratByLieu = data;
+        console.log('contrat' , data);
+        
       });
   }
 
@@ -529,7 +548,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
           this.hideErrorMessage();
         }
       );
-      console.log(proprietaireData);
+    // console.log(this.lieu_id);
+
   }
 
   // Get proprietaire form controlers

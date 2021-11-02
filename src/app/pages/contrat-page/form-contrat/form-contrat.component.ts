@@ -15,6 +15,7 @@ export class FormContratComponent implements OnInit {
   @Input() update!: boolean;
   //incomming contrat from list in update case
   @Input() contrat?: any;
+  @Input() isInsertForm?: boolean;
   //incomming id from list (test)
   idContrat: String = '';
   //etat selectionner dans le form
@@ -108,9 +109,9 @@ export class FormContratComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.lieu_id = this.actRoute.snapshot.paramMap.get('id_lieu') || '';
-
-  
+    
+    if (this.isInsertForm) 
+      this.lieu_id = this.actRoute.snapshot.paramMap.get('id_lieu') || ''; 
 
     // this.etatContratTypes = 'Avenant'
     this.contratForm = new FormGroup({
@@ -172,14 +173,6 @@ export class FormContratComponent implements OnInit {
       montant_avance_tax: new FormControl(),
     });
   }
-
-  // createNumContrat() {
-  //   this.lieuxService.getLieuById( this.lieu_id, this.userMatricule ).subscribe((data: Lieu) => {
-
-  //     this.num_contrat = data.code_lieu?.toString() + '/' + data.intitule_lieu
-      
-  //   });
-  // }
 
   // Calculer le montant
   calculMontant() {
