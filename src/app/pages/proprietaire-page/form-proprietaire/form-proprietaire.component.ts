@@ -295,17 +295,12 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       .getContratByLieu(this.lieu_id, this.userMatricule)
       .subscribe((data) => {
         if (data) this.contratByLieu = data;
-        console.log('contrat' , data);
-        
       });
-      console.log('test' , this.lieu_id,);
-      
   }
 
   // Calculer le montant
   calculMontant() {
-    
-    console.log("date ==>",this.contratByLieu);
+
     // let montantLoyerForYear = this.montantLoyer * 12;
     let tauxImpot: number = 0;
     let montantApresImpot: number = 0;
@@ -456,15 +451,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       this.taxPeriodicite = this.retenueSource / (dureeLocation * 3);
     }
 
-    console.log('Contrat ',this.contratByLieu[0]);
-    // console.log('dureeAvance ',dureeAvance);
-    // console.log('dureeLocation ',dureeLocation);
-    // console.log('periodicite ',periodicite);
-
-    // console.log('montantAvance ',this.montantAvance);
-    // console.log('taxAvance ',this.taxAvance);
-    // console.log('taxPeriodicite ',this.taxPeriodicite);
-    
   }
 
   addProprietaire() {
@@ -560,8 +546,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       tax_par_periodicite: this.taxPeriodicite,
     };
 
-    console.log(proprietaireData);
-    
+
 
     this.proprietaireService
       .updateProprietaire(id, proprietaireData, this.userMatricule)
@@ -583,8 +568,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
           this.hideErrorMessage();
         }
       );
-    // console.log(this.lieu_id);
-
   }
 
   // Get proprietaire form controlers
