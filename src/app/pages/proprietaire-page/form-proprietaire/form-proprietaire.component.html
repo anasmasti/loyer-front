@@ -1,6 +1,6 @@
 <form
   [formGroup]="proprietaireForm"
-  (ngSubmit)="proprietaire == '' ? addProprietaire() : updateProprietaire()"
+  (ngSubmit)=" isInsertForm ? addProprietaire() : updateProprietaire()"
 >
   <!-- Message d'ERREUR de serveur -->
   <div class="w-100 d-flex justify-content-center">

@@ -55,7 +55,10 @@
                 <h5 class="main-txt">Adresse</h5>
                 <p>{{ proprietaire?.adresse != '' ? proprietaire?.adresse : '--' }}</p>
             </div>
-            <div class="col-lg-6"></div>
+            <div class="col-lg-6">
+                <h5 class="main-txt">Montant d'avance du propriètaire</h5>
+                <p>{{ proprietaire?.montant_avance_proprietaire != undefined ? proprietaire?.montant_avance_proprietaire : '--' }}</p>
+            </div>
         </div>
     </div>
     <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-7 ms-5">
@@ -118,6 +121,14 @@
             <div class="col-lg-4">
                 <h5 class="main-txt">Montant aprés impôt</h5>
                 <p>{{ proprietaire?.montant_apres_impot}}</p>
+            </div>
+            <div class="col-lg-6">
+                <h5 class="main-txt">Tax par periodicité propriètaire</h5>
+                <p>{{ proprietaire?.tax_par_periodicite != undefined ? proprietaire?.tax_par_periodicite : '--' }}</p>
+            </div>
+            <div class="col-lg-6">
+                <h5 class="main-txt">Tax d'avance du propriètaire</h5>
+                <p>{{ proprietaire?.tax_avance_proprietaire != undefined ? proprietaire?.tax_avance_proprietaire : '--' }}</p>
             </div>
             
         </div>
