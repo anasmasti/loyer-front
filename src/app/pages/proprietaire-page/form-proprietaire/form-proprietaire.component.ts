@@ -120,13 +120,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     if (this.isInsertForm) {
       this.proprietaireForm.reset();
       this.lieu_id = this.actRoute.snapshot.paramMap.get('id_lieu')
-      setTimeout(() => {
-        this.getTauxImpot();
-      }, 500);
-      setTimeout(() => {
-        this.calculMontant();
-      }, 1000);
+      this.callMethods();
     }
+    
   }
 
   // addFormMandateire() {
@@ -161,15 +157,27 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   //   (<FormArray>this.proprietaireForm.get('mandataireForm')).clear();
   // }
 
+  callMethods(){
+    this.getLieuId()
+    setTimeout(() => {
+      this.getTauxImpot();
+    }, 1000);
+    setTimeout(() => {
+    this.calculMontant();
+    }, 1000);
+  }
+
   fetchProprietaire() {
 
-      this.getLieuId()
-      setTimeout(() => {
-        this.getTauxImpot();
-      }, 1000);
-      setTimeout(() => {
-      this.calculMontant();
-      }, 1000);
+    // this.callMethods(),
+    this.getLieuId()
+    setTimeout(() => {
+      this.getTauxImpot();
+    }, 1000);
+    setTimeout(() => {
+    this.calculMontant();
+    }, 1000);
+      
     // this.removeAllMandateires();
 
     // if (this.proprietaire.mandataire) {
@@ -291,6 +299,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
 
   getTauxImpot() {
+    console.log(this.userMatricule);
     this.lieuService
       .getContratByLieu(this.lieu_id, this.userMatricule)
       .subscribe((data) => {
