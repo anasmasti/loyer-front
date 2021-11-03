@@ -42,6 +42,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   taxAvance!: number;
   taxPeriodicite!: number;
 
+  montantCautionProprietaire!: number;
+  pourcentageCaution!: number;
+
 
 
   constructor(
@@ -113,6 +116,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       tax_avance_proprietaire: new FormControl(),
       tax_par_periodicite: new FormControl(),
 
+      pourcentage_caution: new FormControl(),
+      caution_par_proprietaire: new FormControl(),
+
       // Champs du mandataire
       // mandataireForm: new FormArray([]),
     });
@@ -158,17 +164,19 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   // }
 
   callGetContratAndLieuMethods() {
-    this.getLieuId()
     setTimeout(() => {
       this.getTauxImpot();
     }, 500);
     setTimeout(() => {
     this.calculMontant();
     }, 1000);
+    setTimeout(() => {
+      this.calculCaution()
+    }, 1000);
   }
 
   fetchProprietaire() {
-
+    this.getLieuId()
     this.callGetContratAndLieuMethods(),
       
     // this.removeAllMandateires();
@@ -253,6 +261,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       tax_avance_proprietaire: this.proprietaire.tax_avance_proprietaire,
       tax_par_periodicite: this.proprietaire.tax_par_periodicite,
 
+      pourcentage_caution: this.proprietaire.pourcentage_caution,
+      caution_par_proprietaire: this.proprietaire.caution_par_proprietaire,
+
       // mandataire inputs
       // cin_mandataire: '',
       // nom_prenom_mandataire: '',
@@ -266,7 +277,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
 
   // Get Lieu id By Proprietaire id 
-  getLieuId() {
+  getLieuId() {    
     this.proprietaireService.getLieuIdByProprietaire(this.proprietaire._id , this.userMatricule).subscribe((data: any) => {
       this.lieu_id = data[0]._id
     });
@@ -291,9 +302,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     this.lieuService
       .getContratByLieu(this.lieu_id, this.userMatricule)
       .subscribe((data) => {
-        if (data) this.contratByLieu = data;
+        if (data){ this.contratByLieu = data;}
       });
-  }
+  } 
 
   // Calculer le montant
   calculMontant() {
@@ -440,12 +451,27 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     if (periodicite == 'mensuelle') {
       this.taxPeriodicite = this.retenueSource / dureeLocation;
     }
-
     if (periodicite == 'trimestrielle') {
       this.taxPeriodicite = this.retenueSource / (dureeLocation * 3);
     }
-
   }
+
+
+  calculCaution(){
+    
+    if(this.isMand){
+    let montantLoyerContrat = this.contratByLieu[0]?.montant_loyer;
+    let cautionContrat = this.contratByLieu[0]?.montant_caution;
+    
+    let pourcentage = ((this.montantLoyer * 100)/montantLoyerContrat);
+    let cautionProprietaire = (cautionContrat*pourcentage)/100;
+
+    this.pourcentageCaution = pourcentage;
+    this.montantCautionProprietaire = cautionProprietaire;
+    }
+  }
+
+
 
   addProprietaire() {
     let proprietaire_data: any = {
@@ -476,6 +502,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       montant_avance_proprietaire: this.montantAvance,
       tax_avance_proprietaire: this.taxAvance,
       tax_par_periodicite: this.taxPeriodicite,
+
+      pourcentage_caution: this.pourcentageCaution,
+      caution_par_proprietaire: this.montantCautionProprietaire,
 
 
       // mandataire: this.proprietaireForm.get('mandataireForm')?.value,
@@ -538,6 +567,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       montant_avance_proprietaire: this.montantAvance,
       tax_avance_proprietaire: this.taxAvance,
       tax_par_periodicite: this.taxPeriodicite,
+
+      pourcentage_caution: this.pourcentageCaution,
+      caution_par_proprietaire: this.montantCautionProprietaire,
     };
 
 
