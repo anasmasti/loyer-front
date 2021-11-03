@@ -6,7 +6,7 @@ import { ProprietaireService } from 'src/app/services/proprietaire-service/propr
 import { ActivatedRoute, Router } from '@angular/router';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { data } from 'jquery';
-import { Proprietaire } from 'src/app/models/proprietaire';
+import { Proprietaire } from 'src/app/models/Proprietaire';
 
 @Component({
   selector: 'app-form-proprietaire',
@@ -166,7 +166,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       this.getLieuId()
       setTimeout(() => {
         this.getTauxImpot();
-      }, 500);
+      }, 1000);
       setTimeout(() => {
       this.calculMontant();
       }, 1000);
@@ -295,29 +295,28 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       .getContratByLieu(this.lieu_id, this.userMatricule)
       .subscribe((data) => {
         if (data) this.contratByLieu = data;
+        console.log(this.contratByLieu);
+        
       });
   }
 
   // Calculer le montant
   calculMontant() {
+console.log(this.contratByLieu);
 
     // let montantLoyerForYear = this.montantLoyer * 12;
     let tauxImpot: number = 0;
     let montantApresImpot: number = 0;
     let result: number = 0;
-
     // // Date debut de loyer
     let dateDebutLoyer = this.contratByLieu[0].date_debut_loyer;
-    
-
     dateDebutLoyer = new Date(dateDebutLoyer);
     let month = dateDebutLoyer.getMonth() + 1;
-
     // // Date resilition
     let dateResiliation = this.contratByLieu[0]?.etat_contrat?.etat?.date_resiliation;
     dateResiliation = new Date(dateResiliation);
     let monthResiliation = dateResiliation.getMonth() + 1;
-
+    // Les etats de contrats
     let etatContratTypes = this.contratByLieu[0]?.etat_contrat?.libelle;
 
     // // ------First Condition--------
