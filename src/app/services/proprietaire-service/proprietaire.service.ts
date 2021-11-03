@@ -72,7 +72,7 @@ export class ProprietaireService {
     return this.http.get<Proprietaire>(
       `${
         environment.API_URL_TEST + environment.API_VERSION + this.param_url
-      }/lieu/lieubyproprietaire/${id}/${matricule}`,
+      }/lieu/lieu-by-proprietaire/${id}/${matricule}`,
       { headers: this.httpOptions.headers }
     );
   }
