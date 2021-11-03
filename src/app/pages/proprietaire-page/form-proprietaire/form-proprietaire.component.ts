@@ -120,7 +120,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     if (this.isInsertForm) {
       this.proprietaireForm.reset();
       this.lieu_id = this.actRoute.snapshot.paramMap.get('id_lieu')
-      this.callMethods();
+      this.callGetContratAndLieuMethods();
     }
     
   }
@@ -157,11 +157,11 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   //   (<FormArray>this.proprietaireForm.get('mandataireForm')).clear();
   // }
 
-  callMethods(){
+  callGetContratAndLieuMethods() {
     this.getLieuId()
     setTimeout(() => {
       this.getTauxImpot();
-    }, 1000);
+    }, 500);
     setTimeout(() => {
     this.calculMontant();
     }, 1000);
@@ -169,14 +169,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
   fetchProprietaire() {
 
-    // this.callMethods(),
-    this.getLieuId()
-    setTimeout(() => {
-      this.getTauxImpot();
-    }, 1000);
-    setTimeout(() => {
-    this.calculMontant();
-    }, 1000);
+    this.callGetContratAndLieuMethods(),
       
     // this.removeAllMandateires();
 
@@ -269,15 +262,11 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       // adresse_mandataire: '',
       // n_compte_bancaire_mandataire: '',
     });
-    setTimeout(() => {
-      
-      this.getTauxImpot();
-    }, 1000);
   }
 
 
   // Get Lieu id By Proprietaire id 
-  getLieuId(){
+  getLieuId() {
     this.proprietaireService.getLieuIdByProprietaire(this.proprietaire._id , this.userMatricule).subscribe((data: any) => {
       this.lieu_id = data[0]._id
     });
@@ -299,19 +288,16 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
 
   getTauxImpot() {
-    console.log(this.userMatricule);
     this.lieuService
       .getContratByLieu(this.lieu_id, this.userMatricule)
       .subscribe((data) => {
         if (data) this.contratByLieu = data;
-        console.log(this.contratByLieu);
-        
       });
   }
 
   // Calculer le montant
   calculMontant() {
-console.log(this.contratByLieu);
+// console.log(this.contratByLieu);
 
     // let montantLoyerForYear = this.montantLoyer * 12;
     let tauxImpot: number = 0;
