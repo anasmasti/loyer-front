@@ -47,6 +47,22 @@
     </div>
 
     <div class="col-lg-3 form-group mt-2">
+      <label for="">Email <span class="danger-txt">*</span></label>
+      <input type="text" id="email" class="form-control rounded-pill" formControlName="email" email [ngClass]="{
+        'is-invalid': checkInputsValidation(email),
+        'is-valid': !email?.invalid
+      }" />
+      <div class="" *ngIf="checkInputsValidation(email)">
+        <p class="danger-txt" *ngIf="email?.errors?.required">
+          Veuillez remplir ce champ
+        </p>
+        <p class="danger-txt" *ngIf="email?.errors?.email">
+          Ex: abcd@hotmail.com
+        </p>
+      </div>
+    </div>
+
+    <div class="col-lg-3 form-group mt-2">
       <label for="">Code DR <span class="danger-txt">*</span></label>
       <input type="text" id="Code_DR" class="form-control rounded-pill" formControlName="Code_DR" [ngClass]="{
         'is-invalid': checkInputsValidation(Code_DR),

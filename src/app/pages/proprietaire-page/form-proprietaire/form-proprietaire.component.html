@@ -15,12 +15,6 @@
   <!--Début 1er Row-->
   <div class="row">
 
-    <!-- Montant Avance Tax -->
-    <input type="hidden" class="form-control" [value]="montantAvance" formControlName="montant_avance_proprietaire" />
-    <input type="hidden" class="form-control" [value]="taxAvance" formControlName="tax_avance_proprietaire" />
-    <input type="hidden" class="form-control" [value]="taxPeriodicite" formControlName="tax_par_periodicite" />
-
-
     <div class="col-lg-3 form-group mt-4">
       <label for="">N° CIN du Propriétaire</label>
       <input
@@ -399,6 +393,22 @@
         readonly
       />
     </div>
+
+        <!-- Montant Avance Tax -->
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Montant d'avance de propriètaire</label>
+          <input type="text" class="form-control rounded-pill" [value]="montantAvance" formControlName="montant_avance_proprietaire" readonly/>  
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Tax d'avance propriètaire</label>
+          <input type="text" class="form-control rounded-pill" [value]="taxAvance | number: '1.2-2'" formControlName="tax_avance_proprietaire" readonly/>
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Tax par periodicité</label>
+          <input type="text" class="form-control rounded-pill" [value]="taxPeriodicite | number: '1.2-2'"  formControlName="tax_par_periodicite" readonly/>
+        </div>
   </div>
 
   <div class="mt-2">Mandataire</div>

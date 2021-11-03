@@ -457,7 +457,6 @@ export class DrFormComponent implements OnInit {
     //   }
     // );
 
-    console.log(this.drForm.get('amenagementForm')?.value.fournisseur);
     
   }
 

@@ -32,7 +32,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   lieu_id!: any;
 
   //les calcules
-  montantLoyer!: any;
+  montantLoyer!: number;
   tauxImpot!: any;
   contrat!: any[];
   retenueSource!: number;
@@ -248,6 +248,10 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       retenue_source: this.proprietaire.retenue_source,
       montant_apres_impot: this.proprietaire.montant_apres_impot,
 
+      montant_avance_proprietaire: this.proprietaire.montant_avance_proprietaire,
+      tax_avance_proprietaire: this.proprietaire.tax_avance_proprietaire,
+      tax_par_periodicite: this.proprietaire.tax_par_periodicite,
+
       // mandataire inputs
       // cin_mandataire: '',
       // nom_prenom_mandataire: '',
@@ -257,6 +261,10 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       // adresse_mandataire: '',
       // n_compte_bancaire_mandataire: '',
     });
+    setTimeout(() => {
+      
+      this.getTauxImpot();
+    }, 1000);
   }
 
 
@@ -287,13 +295,12 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       .getContratByLieu(this.lieu_id, this.userMatricule)
       .subscribe((data) => {
         if (data) this.contratByLieu = data;
-        console.log('contrat' , data);
-        
       });
   }
 
   // Calculer le montant
   calculMontant() {
+
     // let montantLoyerForYear = this.montantLoyer * 12;
     let tauxImpot: number = 0;
     let montantApresImpot: number = 0;
@@ -301,6 +308,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
     // // Date debut de loyer
     let dateDebutLoyer = this.contratByLieu[0].date_debut_loyer;
+    
 
     dateDebutLoyer = new Date(dateDebutLoyer);
     let month = dateDebutLoyer.getMonth() + 1;
@@ -420,10 +428,10 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         tauxImpot = 0;
       }
 
+    
       this.retenueSource = result;
       this.montantApresImpot = montantApresImpot;
       this.tauxImpot = tauxImpot;
-
     }
   }
 
@@ -442,6 +450,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     if (periodicite == 'trimestrielle') {
       this.taxPeriodicite = this.retenueSource / (dureeLocation * 3);
     }
+
   }
 
   addProprietaire() {
@@ -469,6 +478,11 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       taux_impot: this.tauxImpot,
       retenue_source: this.retenueSource,
       montant_apres_impot: this.montantApresImpot,
+
+      montant_avance_proprietaire: this.montantAvance,
+      tax_avance_proprietaire: this.taxAvance,
+      tax_par_periodicite: this.taxPeriodicite,
+
 
       // mandataire: this.proprietaireForm.get('mandataireForm')?.value,
       // deleted:false,
@@ -526,7 +540,13 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       taux_impot: this.tauxImpot,
       retenue_source: this.retenueSource,
       montant_apres_impot: this.montantApresImpot,
+
+      montant_avance_proprietaire: this.montantAvance,
+      tax_avance_proprietaire: this.taxAvance,
+      tax_par_periodicite: this.taxPeriodicite,
     };
+
+
 
     this.proprietaireService
       .updateProprietaire(id, proprietaireData, this.userMatricule)
@@ -548,8 +568,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
           this.hideErrorMessage();
         }
       );
-    // console.log(this.lieu_id);
-
   }
 
   // Get proprietaire form controlers
@@ -613,6 +631,18 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
   get montant_apres_impot() {
     return this.proprietaireForm.get('montant_apres_impot');
+  }
+
+  get montant_avance_proprietaire() {
+    return this.proprietaireForm.get('montant_avance_proprietaire');
+  }
+
+  get tax_avance_proprietaire() {
+    return this.proprietaireForm.get('tax_avance_proprietaire');
+  }
+
+  get tax_par_periodicite() {
+    return this.proprietaireForm.get('tax_par_periodicite');
   }
   // Mandataire
   // get mandataireForm(): FormArray {

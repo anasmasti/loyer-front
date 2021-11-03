@@ -19,6 +19,7 @@ export class DetailComponent implements OnInit {
     nom: "",
     prenom: "",
     code_dr: "",
+    email: "",
     userRoles: [],
     deleted: false,
   };

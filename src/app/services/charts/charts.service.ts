@@ -18,25 +18,25 @@ export class ChartsService {
 
   getChartCircl() {
     return this.http.get(
-      `${environment.API_URL_TEST + environment.API_VERSION}/chartCircl`
+      `${environment.API_URL_TEST + environment.API_VERSION}chart/circl`
     );
   }
 
   getChartAdvancedCircl() {
     return this.http.get(
-      `${environment.API_URL_TEST + environment.API_VERSION}/chartAdvancedCircl`
+      `${environment.API_URL_TEST + environment.API_VERSION}chart/advanced-circl`
     );
   }
 
   getChartBarH() {
     return this.http.get(
-      `${environment.API_URL_TEST + environment.API_VERSION}/chartBarH`
+      `${environment.API_URL_TEST + environment.API_VERSION}chart/bar-h`
     );
   }
 
   getChartBarV() {
     return this.http.get(
-      `${environment.API_URL_TEST + environment.API_VERSION}/chartBarV`
+      `${environment.API_URL_TEST + environment.API_VERSION}chart/bar-v`
     );
   }
 
