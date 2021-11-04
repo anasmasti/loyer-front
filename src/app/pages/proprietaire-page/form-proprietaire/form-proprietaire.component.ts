@@ -21,8 +21,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   errors!: any;
   Updatesuccess: string = 'Propriétaire modifié avec succés';
   PostSucces: string = 'Propriétaire ajouté avec succés';
-  // ErrorMontantLoyer: string = 'Erreur! Vous avez dépasser le montant de loyer global';
-  // checkMontant: boolean = false ;
   postDone: boolean = false;
   mandataireList: any = [];
   updateDone: boolean = false;
@@ -284,6 +282,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       // adresse_mandataire: '',
       // n_compte_bancaire_mandataire: '',
     });
+    this.montantLoyer = this.proprietaire.montant_loyer;
   }
 
 
