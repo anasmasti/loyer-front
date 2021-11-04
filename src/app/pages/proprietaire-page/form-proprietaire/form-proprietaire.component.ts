@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { data } from 'jquery';
 import { Proprietaire } from 'src/app/models/Proprietaire';
+import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
 
 @Component({
   selector: 'app-form-proprietaire',
@@ -57,7 +58,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     private actRoute: ActivatedRoute,
     public router: Router,
     private help: HelperService,
-    private lieuService: LieuxService
+    private lieuService: LieuxService,
+    private confirmationModalService:ConfirmationModalService,
   ) {}
 
   ngOnChanges() {
@@ -66,6 +68,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     }
   }
 
+ 
   ngOnInit(): void {
     this.proprietaireForm = new FormGroup({
       // Champs du propriètaire
@@ -492,12 +495,13 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     let CurrentProprietaireMontant = Number(this.proprietaireForm.get('montant_loyer')?.value);
     res  += CurrentProprietaireMontant;
     if(res > montantLoyerContrat) {
-      alert(`Erreur! Vous avez dépasser le montant de loyer global => ${montantLoyerContrat}MAD`)
-        // this.checkMontant = true 
+      this.openConfirmationModal();
     };
   }
 
-
+  openConfirmationModal() {
+    this.confirmationModalService.open(); // Open confirmation modal
+  }
 
   addProprietaire() {
     let proprietaire_data: any = {
@@ -620,6 +624,10 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
           this.hideErrorMessage();
         }
       );
+  }
+
+  RedirectTo(){
+    this.router.navigate(['/proprietaire/list-global/list'])
   }
 
   // Get proprietaire form controlers
