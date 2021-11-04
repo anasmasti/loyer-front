@@ -15,11 +15,6 @@
   <!--Début 1er Row-->
   <div class="row">
 
-    <!-- Montant Avance Tax -->
-    <input type="hidden" class="form-control" [value]="montantAvance" formControlName="montant_avance_proprietaire" />
-    <input type="hidden" class="form-control" [value]="taxAvance" formControlName="tax_avance_proprietaire" />
-    <input type="hidden" class="form-control" [value]="taxPeriodicite" formControlName="tax_par_periodicite" />
-
 
     <div class="col-lg-3 form-group mt-4">
       <label for="">N° CIN du Propriétaire</label>
@@ -336,71 +331,9 @@
       />
     </div>
 
-    <div class="col-lg-3 form-group mt-4">
-      <label for="">Montant de loyer</label>
-      <input
-        type="text"
-        class="form-control rounded-pill"
-        formControlName="montant_loyer"
-        [ngClass]="{
-          'is-invalid': checkInputsValidation(montant_loyer)
-        }"
-        [(ngModel)]="montantLoyer"
-        (keyup)="calculMontant();calculMontantAvance()"
-      />
-      <!-- Error Message  -->
-      <div class="" *ngIf="checkInputsValidation(montant_loyer)">
-        <p class="danger-txt" *ngIf="montant_loyer?.errors?.pattern">
-          Vous devez entrer seulement des chiffres
-        </p>
-      </div>
-    </div>
+    
   </div>
-
-  <div class="row">
-    <div class="col-lg-3 form-group mt-4">
-      <label for="">Taux de l’impôt</label>
-      <input
-        type="text"
-        class="form-control rounded-pill"
-        formControlName="taux_impot"
-        [ngClass]="{
-          'is-invalid': checkInputsValidation(taux_impot)
-        }"
-        [value]="(tauxImpot && tauxImpot) + '%'"
-        readonly
-      />
-    </div>
-
-    <div class="col-lg-3 form-group mt-4">
-      <label for="">Retenue à la source (Annuel)</label>
-      <input
-        type="text"
-        class="form-control rounded-pill"
-        formControlName="retenue_source"
-        [ngClass]="{
-          'is-invalid': checkInputsValidation(retenue_source)
-        }"
-        [value]="retenueSource"
-        readonly
-      />
-    </div>
-
-    <div class="col-lg-3 form-group mt-4">
-      <label for="">Montant après impôt (Mensuel)</label>
-      <input
-        type="text"
-        class="form-control rounded-pill"
-        formControlName="montant_apres_impot"
-        [ngClass]="{
-          'is-invalid': checkInputsValidation(montant_apres_impot)
-        }"
-        [value]="montantApresImpot"
-        readonly
-      />
-    </div>
-  </div>
-
+  
   <div class="mt-2">Mandataire</div>
   <div class="col-lg-3 form-group d-flex">
     <label for="">Oui</label>
@@ -422,6 +355,105 @@
       formControlName="mandataire"
     />
   </div>
+
+  <div *ngIf="isMand; then calcul"></div>
+      
+
+  <ng-template #calcul>
+    <div class="row">
+      
+      <div class="col-lg-3 form-group mt-4">
+        <label for="">Montant de loyer</label>
+        <input
+          type="text"
+          class="form-control rounded-pill"
+          formControlName="montant_loyer"
+          [ngClass]="{
+            'is-invalid': checkInputsValidation(montant_loyer)
+          }"
+          [(ngModel)]="montantLoyer"
+          (keyup)="calculMontant();calculMontantAvance();calculCaution();"
+        />
+        <!-- Error Message  -->
+        <div class="" *ngIf="checkInputsValidation(montant_loyer)">
+          <p class="danger-txt" *ngIf="montant_loyer?.errors?.pattern">
+            Vous devez entrer seulement des chiffres
+          </p>
+        </div>
+      </div>
+
+      <div class="col-lg-3 form-group mt-4">
+        <label for="">Taux de l’impôt</label>
+        <input
+          type="text"
+          class="form-control rounded-pill"
+          formControlName="taux_impot"
+          [ngClass]="{
+            'is-invalid': checkInputsValidation(taux_impot)
+          }"
+          [value]="(tauxImpot && tauxImpot) + '%'"
+          readonly
+        />
+      </div>
+  
+      <div class="col-lg-3 form-group mt-4">
+        <label for="">Retenue à la source (Annuel)</label>
+        <input
+          type="text"
+          class="form-control rounded-pill"
+          formControlName="retenue_source"
+          [ngClass]="{
+            'is-invalid': checkInputsValidation(retenue_source)
+          }"
+          [value]="retenueSource"
+          readonly
+        />
+      </div>
+  
+      <div class="col-lg-3 form-group mt-4">
+        <label for="">Montant après impôt (Mensuel)</label>
+        <input
+          type="text"
+          class="form-control rounded-pill"
+          formControlName="montant_apres_impot"
+          [ngClass]="{
+            'is-invalid': checkInputsValidation(montant_apres_impot)
+          }"
+          [value]="montantApresImpot"
+          readonly
+        />
+      </div>
+  
+          <!-- Montant Avance Tax -->
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Montant d'avance de propriètaire</label>
+            <input type="text" class="form-control rounded-pill" [value]="montantAvance" formControlName="montant_avance_proprietaire" readonly/>  
+          </div>
+  
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Tax d'avance propriètaire</label>
+            <input type="text" class="form-control rounded-pill" [value]="taxAvance | number: '1.2-2'" formControlName="tax_avance_proprietaire" readonly/>
+          </div>
+  
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Tax par periodicité</label>
+            <input type="text" class="form-control rounded-pill" [value]="taxPeriodicite | number: '1.2-2'"  formControlName="tax_par_periodicite" readonly/>
+          </div>
+  
+          
+      <div class="col-lg-3 form-group mt-4">
+        <label for="">Pourcentage</label>
+        <input type="text" class="form-control rounded-pill" [value]="pourcentageCaution | number: '1.2-2'"  formControlName="pourcentage_caution" readonly/>
+      </div>
+  
+      <div class="col-lg-3 form-group mt-4">
+        <label for="">Caution par proprietaire</label>
+        <input type="text" class="form-control rounded-pill" [value]="montantCautionProprietaire | number: '1.2-2'"  formControlName="caution_par_proprietaire" readonly/>
+      </div>
+      
+    </div>
+  
+  </ng-template>
 
   <!-- Condition pour afficher ou cacher le formulaire de mandataire -->
   <!-- <div *ngIf="isMand; then mandataire"></div> -->

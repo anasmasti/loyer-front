@@ -437,27 +437,26 @@ export class DrFormComponent implements OnInit {
     };
     this.fd.append('data', JSON.stringify(dr_data));
 
-    // this.lieuService.addLieu(this.fd, this.userMatricule).subscribe(
-    //   (_) => {
-    //     this.postDone = true;
-    //     setTimeout(() => {
-    //       this.drForm.reset();
-    //       this.postDone = false;
-    //       this.router.navigate(['/lieux/list']).then(() => {
-    //         this.help.refrechPage()
-    //       });
-    //     }, 2000);
-    //   },
-    //   (error) => {
-    //     this.errors = error.error.message;
-    //     setTimeout(() => {
-    //       this.showErrorMessage();
-    //     }, 3000);
-    //     this.hideErrorMessage();
-    //   }
-    // );
+    this.lieuService.addLieu(this.fd, this.userMatricule).subscribe(
+      (_) => {
+        this.postDone = true;
+        setTimeout(() => {
+          this.drForm.reset();
+          this.postDone = false;
+          this.router.navigate(['/lieux/list']).then(() => {
+            this.help.refrechPage()
+          });
+        }, 2000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+    );
 
-    console.log(this.drForm.get('amenagementForm')?.value.fournisseur);
     
   }
 

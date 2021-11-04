@@ -6,7 +6,7 @@ import { ProprietaireService } from 'src/app/services/proprietaire-service/propr
 import { ActivatedRoute, Router } from '@angular/router';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { data } from 'jquery';
-import { Proprietaire } from 'src/app/models/proprietaire';
+import { Proprietaire } from 'src/app/models/Proprietaire';
 
 @Component({
   selector: 'app-form-proprietaire',
@@ -32,7 +32,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   lieu_id!: any;
 
   //les calcules
-  montantLoyer!: any;
+  montantLoyer!: number;
   tauxImpot!: any;
   contrat!: any[];
   retenueSource!: number;
@@ -41,6 +41,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   montantAvance: number = 0;
   taxAvance!: number;
   taxPeriodicite!: number;
+
+  montantCautionProprietaire!: number;
+  pourcentageCaution!: number;
 
 
 
@@ -113,6 +116,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       tax_avance_proprietaire: new FormControl(),
       tax_par_periodicite: new FormControl(),
 
+      pourcentage_caution: new FormControl(),
+      caution_par_proprietaire: new FormControl(),
+
       // Champs du mandataire
       // mandataireForm: new FormArray([]),
     });
@@ -120,13 +126,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     if (this.isInsertForm) {
       this.proprietaireForm.reset();
       this.lieu_id = this.actRoute.snapshot.paramMap.get('id_lieu')
-      setTimeout(() => {
-        this.getTauxImpot();
-      }, 500);
-      setTimeout(() => {
-        this.calculMontant();
-      }, 1000);
+      this.callGetContratAndLieuMethods();
     }
+    
   }
 
   // addFormMandateire() {
@@ -161,15 +163,22 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   //   (<FormArray>this.proprietaireForm.get('mandataireForm')).clear();
   // }
 
-  fetchProprietaire() {
+  callGetContratAndLieuMethods() {
+    setTimeout(() => {
+      this.getTauxImpot();
+    }, 500);
+    setTimeout(() => {
+    this.calculMontant();
+    }, 1000);
+    setTimeout(() => {
+      this.calculCaution()
+    }, 1000);
+  }
 
-      this.getLieuId()
-      setTimeout(() => {
-        this.getTauxImpot();
-      }, 500);
-      setTimeout(() => {
-      this.calculMontant();
-      }, 1000);
+  fetchProprietaire() {
+    this.getLieuId()
+    this.callGetContratAndLieuMethods(),
+      
     // this.removeAllMandateires();
 
     // if (this.proprietaire.mandataire) {
@@ -248,6 +257,13 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       retenue_source: this.proprietaire.retenue_source,
       montant_apres_impot: this.proprietaire.montant_apres_impot,
 
+      montant_avance_proprietaire: this.proprietaire.montant_avance_proprietaire,
+      tax_avance_proprietaire: this.proprietaire.tax_avance_proprietaire,
+      tax_par_periodicite: this.proprietaire.tax_par_periodicite,
+
+      pourcentage_caution: this.proprietaire.pourcentage_caution,
+      caution_par_proprietaire: this.proprietaire.caution_par_proprietaire,
+
       // mandataire inputs
       // cin_mandataire: '',
       // nom_prenom_mandataire: '',
@@ -261,7 +277,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
 
   // Get Lieu id By Proprietaire id 
-  getLieuId(){
+  getLieuId() {    
     this.proprietaireService.getLieuIdByProprietaire(this.proprietaire._id , this.userMatricule).subscribe((data: any) => {
       this.lieu_id = data[0]._id
     });
@@ -286,30 +302,27 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     this.lieuService
       .getContratByLieu(this.lieu_id, this.userMatricule)
       .subscribe((data) => {
-        if (data) this.contratByLieu = data;
-        console.log('contrat' , data);
-        
+        if (data){ this.contratByLieu = data;}
       });
-  }
+  } 
 
   // Calculer le montant
   calculMontant() {
+// console.log(this.contratByLieu);
+
     // let montantLoyerForYear = this.montantLoyer * 12;
     let tauxImpot: number = 0;
     let montantApresImpot: number = 0;
     let result: number = 0;
-
     // // Date debut de loyer
     let dateDebutLoyer = this.contratByLieu[0].date_debut_loyer;
-
     dateDebutLoyer = new Date(dateDebutLoyer);
     let month = dateDebutLoyer.getMonth() + 1;
-
     // // Date resilition
     let dateResiliation = this.contratByLieu[0]?.etat_contrat?.etat?.date_resiliation;
     dateResiliation = new Date(dateResiliation);
     let monthResiliation = dateResiliation.getMonth() + 1;
-
+    // Les etats de contrats
     let etatContratTypes = this.contratByLieu[0]?.etat_contrat?.libelle;
 
     // // ------First Condition--------
@@ -420,10 +433,10 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         tauxImpot = 0;
       }
 
+    
       this.retenueSource = result;
       this.montantApresImpot = montantApresImpot;
       this.tauxImpot = tauxImpot;
-
     }
   }
 
@@ -438,11 +451,27 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     if (periodicite == 'mensuelle') {
       this.taxPeriodicite = this.retenueSource / dureeLocation;
     }
-
     if (periodicite == 'trimestrielle') {
       this.taxPeriodicite = this.retenueSource / (dureeLocation * 3);
     }
   }
+
+
+  calculCaution(){
+    
+    if(this.isMand){
+    let montantLoyerContrat = this.contratByLieu[0]?.montant_loyer;
+    let cautionContrat = this.contratByLieu[0]?.montant_caution;
+    
+    let pourcentage = ((this.montantLoyer * 100)/montantLoyerContrat);
+    let cautionProprietaire = (cautionContrat*pourcentage)/100;
+
+    this.pourcentageCaution = pourcentage;
+    this.montantCautionProprietaire = cautionProprietaire;
+    }
+  }
+
+
 
   addProprietaire() {
     let proprietaire_data: any = {
@@ -469,6 +498,14 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       taux_impot: this.tauxImpot,
       retenue_source: this.retenueSource,
       montant_apres_impot: this.montantApresImpot,
+
+      montant_avance_proprietaire: this.montantAvance,
+      tax_avance_proprietaire: this.taxAvance,
+      tax_par_periodicite: this.taxPeriodicite,
+
+      pourcentage_caution: this.pourcentageCaution,
+      caution_par_proprietaire: this.montantCautionProprietaire,
+
 
       // mandataire: this.proprietaireForm.get('mandataireForm')?.value,
       // deleted:false,
@@ -526,7 +563,16 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       taux_impot: this.tauxImpot,
       retenue_source: this.retenueSource,
       montant_apres_impot: this.montantApresImpot,
+
+      montant_avance_proprietaire: this.montantAvance,
+      tax_avance_proprietaire: this.taxAvance,
+      tax_par_periodicite: this.taxPeriodicite,
+
+      pourcentage_caution: this.pourcentageCaution,
+      caution_par_proprietaire: this.montantCautionProprietaire,
     };
+
+
 
     this.proprietaireService
       .updateProprietaire(id, proprietaireData, this.userMatricule)
@@ -548,8 +594,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
           this.hideErrorMessage();
         }
       );
-    // console.log(this.lieu_id);
-
   }
 
   // Get proprietaire form controlers
@@ -613,6 +657,18 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
   get montant_apres_impot() {
     return this.proprietaireForm.get('montant_apres_impot');
+  }
+
+  get montant_avance_proprietaire() {
+    return this.proprietaireForm.get('montant_avance_proprietaire');
+  }
+
+  get tax_avance_proprietaire() {
+    return this.proprietaireForm.get('tax_avance_proprietaire');
+  }
+
+  get tax_par_periodicite() {
+    return this.proprietaireForm.get('tax_par_periodicite');
   }
   // Mandataire
   // get mandataireForm(): FormArray {

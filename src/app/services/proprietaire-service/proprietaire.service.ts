@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Proprietaire } from '../../models/proprietaire';
+import { Proprietaire } from '../../models/Proprietaire';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -72,7 +72,7 @@ export class ProprietaireService {
     return this.http.get<Proprietaire>(
       `${
         environment.API_URL_TEST + environment.API_VERSION + this.param_url
-      }/lieu/lieubyproprietaire/${id}/${matricule}`,
+      }/lieu/lieu-by-proprietaire/${id}/${matricule}`,
       { headers: this.httpOptions.headers }
     );
   }

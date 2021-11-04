@@ -20,6 +20,13 @@ export interface Proprietaire {
   taux_impot: string;
   retenue_source: string;
   montant_apres_impot: number;
+
+  montant_avance_proprietaire: number,
+  tax_avance_proprietaire: number,
+  tax_par_periodicite: number,
+
+  pourcentage_caution: number,
+  caution_par_proprietaire: number,
   // mandataire: [{
   //   cin_mandataire: string;
   //   nom_prenom_mandataire: string;
