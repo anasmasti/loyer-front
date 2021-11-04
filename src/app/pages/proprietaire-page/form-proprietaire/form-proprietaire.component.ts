@@ -20,8 +20,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   errors!: any;
   Updatesuccess: string = 'Propriétaire modifié avec succés';
   PostSucces: string = 'Propriétaire ajouté avec succés';
-  ErrorMontantLoyer: string = 'Erreur! Vous avez dépasser le montant de loyer global';
-  checkMontant: boolean = false ;
+  // ErrorMontantLoyer: string = 'Erreur! Vous avez dépasser le montant de loyer global';
+  // checkMontant: boolean = false ;
   postDone: boolean = false;
   mandataireList: any = [];
   updateDone: boolean = false;
@@ -492,8 +492,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     let CurrentProprietaireMontant = Number(this.proprietaireForm.get('montant_loyer')?.value);
     res  += CurrentProprietaireMontant;
     if(res > montantLoyerContrat) {
-      // alert(`Erreur! Vous avez dépasser le montant de loyer global => ${montantLoyerContrat}MAD`)
-        this.checkMontant = true 
+      alert(`Erreur! Vous avez dépasser le montant de loyer global => ${montantLoyerContrat}MAD`)
+        // this.checkMontant = true 
     };
   }
 
