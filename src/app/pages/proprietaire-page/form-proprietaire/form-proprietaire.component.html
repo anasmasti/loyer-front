@@ -10,6 +10,7 @@
       {{ Updatesuccess }}
     </div>
     <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
+    <div *ngIf="checkMontant" class="error-alert p-2 my-2">{{ ErrorMontantLoyer }}</div>
   </div>
 
   <!--Début 1er Row-->
@@ -372,7 +373,7 @@
             'is-invalid': checkInputsValidation(montant_loyer)
           }"
           [(ngModel)]="montantLoyer"
-          (keyup)="calculMontant();calculMontantAvance();calculCaution();"
+          (keyup)="calculMontant();calculMontantAvance();calculCaution();controlleMontantContrat();"
         />
         <!-- Error Message  -->
         <div class="" *ngIf="checkInputsValidation(montant_loyer)">

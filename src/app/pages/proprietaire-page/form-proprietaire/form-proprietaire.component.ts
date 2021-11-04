@@ -20,6 +20,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   errors!: any;
   Updatesuccess: string = 'Propriétaire modifié avec succés';
   PostSucces: string = 'Propriétaire ajouté avec succés';
+  ErrorMontantLoyer: string = 'Erreur! Vous avez dépasser le montant de loyer global';
+  checkMontant: boolean = false ;
   postDone: boolean = false;
   mandataireList: any = [];
   updateDone: boolean = false;
@@ -44,6 +46,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
   montantCautionProprietaire!: number;
   pourcentageCaution!: number;
+
+  lengthProprietaire!: number;
 
 
 
@@ -169,9 +173,13 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     }, 500);
     setTimeout(() => {
     this.calculMontant();
+    // this.controlleMontantContrat();
+    }, 2000);
+    setTimeout(() => {
+      this.calculCaution();
     }, 1000);
     setTimeout(() => {
-      this.calculCaution()
+      this.controlleMontantContrat();
     }, 1000);
   }
 
@@ -303,6 +311,12 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       .getContratByLieu(this.lieu_id, this.userMatricule)
       .subscribe((data) => {
         if (data){ this.contratByLieu = data;}
+        this.lengthProprietaire = this.contratByLieu[0].lieu.proprietaire.length
+        // console.log(this.lengthProprietaire);   
+        // console.log(this.contratByLieu[0].lieu.proprietaire[0].montant_loyer);
+        console.log(this.contratByLieu[0].lieu.proprietaire);
+
+        
       });
   } 
 
@@ -456,19 +470,31 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     }
   }
 
-
   calculCaution(){
-    
     if(this.isMand){
     let montantLoyerContrat = this.contratByLieu[0]?.montant_loyer;
     let cautionContrat = this.contratByLieu[0]?.montant_caution;
-    
     let pourcentage = ((this.montantLoyer * 100)/montantLoyerContrat);
     let cautionProprietaire = (cautionContrat*pourcentage)/100;
 
     this.pourcentageCaution = pourcentage;
     this.montantCautionProprietaire = cautionProprietaire;
     }
+  }
+
+  controlleMontantContrat(){
+    let res = 0;
+    let montantLoyerContrat = this.contratByLieu[0].montant_loyer;
+    for (let i = 0; i < this.lengthProprietaire; i++) {
+      let montantLoyerProprietaire = this.contratByLieu[0].lieu.proprietaire[i].montant_loyer;
+      res  += montantLoyerProprietaire;
+    }
+    let CurrentProprietaireMontant = Number(this.proprietaireForm.get('montant_loyer')?.value);
+    res  += CurrentProprietaireMontant;
+    if(res > montantLoyerContrat) {
+      // alert(`Erreur! Vous avez dépasser le montant de loyer global => ${montantLoyerContrat}MAD`)
+        this.checkMontant = true 
+    };
   }
 
 
