@@ -1,7 +1,7 @@
 import { HelperService } from './../../../services/helpers/helper.service';
 import { ConfirmationModalService } from '../../../services/confirmation-modal-service/confirmation-modal.service';
 import { MainModalService } from '../../../services/main-modal/main-modal.service';
-import { Proprietaire } from '../../../models/proprietaire';
+import { Proprietaire } from '../../../models/Proprietaire';
 import { Component, OnInit } from '@angular/core';
 import { ProprietaireService } from 'src/app/services/proprietaire-service/proprietaire.service';
 
