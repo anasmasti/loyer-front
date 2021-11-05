@@ -1,6 +1,15 @@
 @use '../../../assets/style/helpers' as *;
 @use '../../../assets/style/components' as *;
 
-.cloture-bg {
-    background-color: #fce6e6;
+.danger-cloture-bg {
+    background-color: lighten(color(danger), 43%);
+}
+
+.success-cloture-bg {
+    background-color: lighten(color(success), 43%);
+}
+
+// Skeleton loading
+.cloture-skeleton {
+    @include skeletonLoading(615px, 60px);
 }

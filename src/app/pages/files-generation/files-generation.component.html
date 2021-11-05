@@ -12,10 +12,16 @@
 </div>
 
 <div class="row mt-4">
-    <div class="main-card col-lg-8 col-md-9 col-sm-12 cloture-bg d-flex align-items-lg-center justify-content-lg-between flex-row p-4">
-        <h4 class="danger-txt">
+    <div *ngIf="showClotureSection" class="main-card col-lg-8 col-md-9 col-sm-12 d-flex align-items-lg-center justify-content-lg-between flex-row p-4"
+        [ngClass]="{'success-cloture-bg success-txt': isCloture, 'danger-cloture-bg danger-txt': !isCloture}">
+        <h4 *ngIf="!isCloture">
             Clôture du mois October 2022
         </h4>
-        <a class="btn danger-btn">Clôturer ce mois</a>
+        <h4 *ngIf="isCloture">
+            Ce mois est clôturé
+        </h4>
+        <a *ngIf="!isCloture" class="btn danger-btn" (click)='cloture()'>Clôturer ce mois</a>
     </div>
+
+    <div *ngIf="!showClotureSection" class="cloture-skeleton"></div>
 </div>
