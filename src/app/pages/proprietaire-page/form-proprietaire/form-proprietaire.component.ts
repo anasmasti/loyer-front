@@ -25,6 +25,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   mandataireList: any = [];
   updateDone: boolean = false;
   proprietaireForm!: FormGroup;
+  @Input() update!: boolean;
 
   userMatricule: any = localStorage.getItem('matricule');
 
@@ -314,18 +315,11 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       .subscribe((data) => {
         if (data){ this.contratByLieu = data;}
         this.lengthProprietaire = this.contratByLieu[0].lieu.proprietaire.length
-        // console.log(this.lengthProprietaire);   
-        // console.log(this.contratByLieu[0].lieu.proprietaire[0].montant_loyer);
-        console.log(this.contratByLieu[0].lieu.proprietaire);
-
-        
       });
   } 
 
   // Calculer le montant
   calculMontant() {
-// console.log(this.contratByLieu);
-
     // let montantLoyerForYear = this.montantLoyer * 12;
     let tauxImpot: number = 0;
     let montantApresImpot: number = 0;
@@ -626,7 +620,10 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
 
   RedirectTo(){
-    this.router.navigate(['/proprietaire/list-global/list'])
+    if (this.update) {
+      this.help.refrechPage();
+    }
+    this.router.navigate(['/proprietaire/list-global/list']);
   }
 
   // Get proprietaire form controlers
