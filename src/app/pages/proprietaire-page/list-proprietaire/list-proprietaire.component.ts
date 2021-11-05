@@ -56,7 +56,6 @@ export class ListProprietaireComponent implements OnInit {
     }
   }
 
-
   // Get data from proprietaire service
   getAllProprietaires() {
     this.proprietaireService.getProprietaire(this.userMatricule).subscribe((data) => {
@@ -103,7 +102,6 @@ export class ListProprietaireComponent implements OnInit {
     };
     // Call detele proprietaire function from proprietaire service
     this.proprietaireService.deleteProprietaire(id, data, this.userMatricule).subscribe(
-
       (_) => {
         this.getAllProprietaires(); // Trow the fitching data
         this.confirmationModalService.close();
@@ -120,7 +118,6 @@ export class ListProprietaireComponent implements OnInit {
         this.hideErrorMessage();
       }
     );
-
   }
 
   // Get id of selected proprietaire
