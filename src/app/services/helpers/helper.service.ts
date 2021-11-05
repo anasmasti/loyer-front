@@ -61,4 +61,11 @@ export class HelperService {
   formatDate(date: Date) {
     return this.pipeDate.transform(date, 'yyyy-MM-dd');
   }
+
+  getNextClotureDate() {
+    return this.http.get(
+      `${environment.API_URL_TEST + environment.API_VERSION}/next-cloture`
+    );
+  }
+
 }
