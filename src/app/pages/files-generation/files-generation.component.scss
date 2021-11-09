@@ -2,7 +2,7 @@
 @use '../../../assets/style/components' as *;
 
 .danger-cloture-bg {
-    background-color: lighten(color(danger), 43%);
+    background-color: lighten(color(danger), 20%);
 }
 
 .success-cloture-bg {
