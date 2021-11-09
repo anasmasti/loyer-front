@@ -77,8 +77,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         Validators.minLength(6),
         Validators.pattern('[a-zA-Z ]*'),
       ]),
-      raison_social: new FormControl(''),
-      n_registre_commerce: new FormControl('', [Validators.pattern('[0-9]*')]),
+      raison_social: new FormControl('',[Validators.pattern('[a-zA-Z]*')]),
+      n_registre_commerce: new FormControl('',[Validators.pattern('[0-9]*')]),
       telephone: new FormControl('', [
         Validators.pattern('[0-9]*'),
         Validators.maxLength(10),
@@ -479,7 +479,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     }
   }
 
-  // check if montant loyer contart do not exceed the sum of montant loyer proprietaire if it is show an error model
+  // check if montant loyer contrat do not exceed the sum of montant loyer proprietaire if it is show an error model
   controlleMontantContrat() {
     let res = 0;
     let montantLoyerContrat = this.contratByLieu[0].montant_loyer;
@@ -531,7 +531,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
       pourcentage_caution: this.pourcentageCaution,
       caution_par_proprietaire: this.montantCautionProprietaire,
-
 
       // mandataire: this.proprietaireForm.get('mandataireForm')?.value,
       // deleted:false,
