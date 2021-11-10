@@ -307,6 +307,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     $('.error-alert').removeClass('active');
   }
 
+  // To get the contrat and proprietaire in lieux
   getTauxImpot() {
     this.lieuService
       .getContratByLieu(this.lieu_id, this.userMatricule)
@@ -316,7 +317,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       });
   }
 
-  // Calculer le montant
+  // Calculer le montant (retenue à la source / montant apres impot / TAX)
   calculMontant() {
     // let montantLoyerForYear = this.montantLoyer * 12;
     let tauxImpot: number = 0;
@@ -448,6 +449,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     }
   }
 
+  //calculate the montant avance and tax d'avance of each proprietaire
   calculMontantAvance() {
     let dureeAvance = this.contratByLieu[0]?.duree_avance;
     let dureeLocation = this.contratByLieu[0]?.duree_location;
@@ -464,6 +466,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     }
   }
 
+  // caluclate the caution of each proprietaire
   calculCaution() {
     if (this.isMand) {
       let montantLoyerContrat = this.contratByLieu[0]?.montant_loyer;
@@ -476,6 +479,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     }
   }
 
+  // check if montant loyer contart do not exceed the sum of montant loyer proprietaire if it is show an error model
   controlleMontantContrat() {
     let res = 0;
     let montantLoyerContrat = this.contratByLieu[0].montant_loyer;
@@ -490,6 +494,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     };
   }
 
+  // function to open model
   openConfirmationModal() {
     this.confirmationModalService.open(); // Open confirmation modal
   }
@@ -617,13 +622,16 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       );
   }
 
+  //if the montant loyer contrat < sum of montant loyer proprietaire then display an error and roolBack to initial data 
   roolBack() {
+    // check if it is in update form
     if (this.update) {
       this.closeModel()
       this.proprietaireForm.patchValue({
         montant_loyer: this.proprietaire.montant_loyer,
       })
     }
+     // check if it is in add form
     if (!this.update) {
       this.closeModel()
       this.proprietaireForm.patchValue({
@@ -640,6 +648,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     }
   }
 
+  // function to close the model
   closeModel() {
     this.confirmationModalService.close();
   }
