@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ContratService } from 'src/app/services/contrat-service/contrat.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-form-contrat',
@@ -89,6 +90,8 @@ export class FormContratComponent implements OnInit {
   date_premier_paiment!: any;
   date_debut_loyer_!: any
   num_contrat!:string;
+  date_preavis!: any;
+  dateResiliation!: any;
 
   montant_avance_tax_!:number;
 
@@ -321,7 +324,8 @@ export class FormContratComponent implements OnInit {
   calculEffortCaution() {
     let montantCaution: number = this.contratForm.get('montant_caution')?.value;
     let effortCaution!: number;
-    effortCaution = montantCaution / this.montantLoyer;
+     effortCaution = montantCaution / this.montantLoyer;
+
     this.montantCaution = montantCaution;
     this.effortCaution = effortCaution;
   }
@@ -373,7 +377,23 @@ export class FormContratComponent implements OnInit {
       this.formattedDate = null;
       this.montantAvance = 0 ;
     }
+  }
 
+  calculPreavis(){
+     let date_resiliation = new Date(this.contratForm.get('etat_contrat_date_resiliation')?.value);
+     this.dateResiliation = (this.contratForm.get('etat_contrat_date_resiliation')?.value);
+     let month = date_resiliation.getMonth();
+     let day = date_resiliation.getDate();
+
+    if(month + 1 == 3 && day == 31  ){
+       date_resiliation.setMonth(month);
+       date_resiliation.setDate(0);
+       this.date_preavis = date_resiliation.toISOString().slice(0,10);
+    }
+    else{
+      let date = moment(date_resiliation).subtract(1,"M");
+      this.date_preavis = date.toISOString().slice(0,10);
+    }
   }
 
   //Reinitialise dates :::///
@@ -661,7 +681,7 @@ export class FormContratComponent implements OnInit {
             this.contratForm.get('etat_contrat_date_resiliation')?.value || '',
           etat_lieu_sortie:
             this.contratForm.get('etat_contrat_etat_lieu_sortie')?.value || '',
-          preavis: this.contratForm.get('etat_contrat_preavis')?.value || '',
+          preavis:this.date_preavis,
           images_etat_res_lieu_sortie:
             this.contratForm.get('etat_contrat_images_etat_res_lieu_sortie')
               ?.value || '',
@@ -685,7 +705,7 @@ export class FormContratComponent implements OnInit {
     this.fd.append('data', JSON.stringify(ctr_data));
     
 
-    //patch the formdata (data+files)
+    // patch the formdata (data+files)
     this.contratService.updateContrat(id, this.fd).subscribe(
       (_) => {
         this.updateDone = true;
@@ -703,6 +723,7 @@ export class FormContratComponent implements OnInit {
         this.hideErrorMessage();
       }
     );
+    
   }
 
   get date_debut_loyer() {

@@ -355,7 +355,12 @@
           <div class="col-lg-3 form-group mt-4">
             <label for="">Date de Résilié</label>
             <input type="date" class="form-control rounded-pill" 
-              formControlName="etat_contrat_date_resiliation">
+              formControlName="etat_contrat_date_resiliation" [(ngModel)]="dateResiliation" (change)="calculPreavis()">
+          </div>
+
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Préavis</label>
+            <input type="date" class="form-control rounded-pill" [value]="date_preavis" formControlName="etat_contrat_preavis" readonly>
           </div>
 
           <div class="col-lg-3 form-group mt-4">
@@ -370,10 +375,6 @@
               (change)="onFileSelectedResLieuSortie($event)">
           </div>
 
-          <div class="col-lg-3 form-group mt-4">
-            <label for="">Préavis</label>
-            <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_preavis">
-          </div>
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Piéce jointe (la lettre de résiliation scannée)</label>

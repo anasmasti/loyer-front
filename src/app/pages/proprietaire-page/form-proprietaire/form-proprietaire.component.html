@@ -61,6 +61,14 @@
       <input type="text" class="form-control rounded-pill" formControlName="raison_social" [ngClass]="{
           'is-invalid': checkInputsValidation(raison_social)
         }" />
+
+          <!-- Error Message  -->
+      <div class="" *ngIf="checkInputsValidation(raison_social)">
+        <p class="danger-txt" *ngIf="raison_social?.errors?.pattern">
+          Vous devez entrer seulement des alphabets
+        </p>
+      </div>
+
     </div>
   </div>
   <!--Début 2éme Row-->

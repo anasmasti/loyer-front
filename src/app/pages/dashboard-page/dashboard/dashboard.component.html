@@ -53,6 +53,7 @@
                 </a>
             </div>
             <div class="col-lg-2 col-sm-12 col-12 main-card bg-white p-4 count-card">
+                <a [routerLink]="['/contrat/list-global/list']">
                 <h3>
                     <span *ngIf="allCount.countContrat" class="count-number">{{allCount.countContrat}}</span>
 
@@ -62,6 +63,7 @@
 
                     <div *ngIf="!allCount.countContrat" class="counts-skeleton"></div>
                 </h3>
+            </a>
             </div>
         </div>
 
@@ -108,6 +110,7 @@
                 </h3>
             </div>
             <div class="col-lg-3 col-sm-12 col-12 main-card bg-white p-4 count-card">
+                <a [routerLink]="['/proprietaire/list-global/list']">
                 <h3>
                     <span *ngIf="allCount.countProprietaire" class="count-number">{{allCount.countProprietaire}}</span>
 
@@ -117,6 +120,7 @@
 
                     <div *ngIf="!allCount.countProprietaire" class="counts-skeleton"></div>
                 </h3>
+            </a>
             </div>
         </div>
     </div>
