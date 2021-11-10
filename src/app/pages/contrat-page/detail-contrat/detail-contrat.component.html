@@ -287,7 +287,7 @@
         </div>
         <div class="col-lg-3">
             <h5 class="main-txt">Préavis</h5>
-            <p>{{contrat.etat_contrat?.etat?.preavis != '' ? contrat.etat_contrat?.etat?.preavis : '--'}}</p>
+            <p>{{contrat.etat_contrat?.etat?.preavis != '' ? (contrat.etat_contrat?.etat?.preavis | date) : '--'}}</p>
         </div>
     </div>
 
