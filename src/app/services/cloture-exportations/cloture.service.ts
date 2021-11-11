@@ -11,6 +11,8 @@ export class ClotureService {
   constructor(private http: HttpClient) { }
 
   param_url: string = 'cloture';
+  
+  // Header setup
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -18,6 +20,7 @@ export class ClotureService {
     }),
   };
 
+  // Cloture this month
   Cloture(date: any, matricule: any): Observable<any> {
     return this.http.post<any>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/${matricule}`, date);
   }

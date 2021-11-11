@@ -64,13 +64,16 @@ export class FilesGenerationComponent implements OnInit {
 
   // Cloture this month
   cloture() {
+    // Get date of now
     let today = new Date()
+
+    // Fill date cloture
     let date = {
       mois: today.getMonth() + 1,
       annee: today.getFullYear()
     }
-    console.log(date);
     
+    // Throw cloture function from cloture service
     this.clotureService.Cloture(date, this.userMatricule).subscribe(data => {
       if (data) this.isCloture = true;
     })
