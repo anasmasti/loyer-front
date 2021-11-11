@@ -11,20 +11,22 @@ import { AuthService } from 'src/app/services/auth-service/auth.service';
 
 export class HeaderNavbarComponent implements OnInit {
 
-  id: string = 'Deconnecter'
-  user: any = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '') : [];
-  userRole: any[] = localStorage.getItem('user') ? this.user.existedUser.userRoles[0].roleName : []
-
   constructor(
     private darkModeService: DarkModeService,
     private authService: AuthService,
     private confirmationModalService: ConfirmationModalService
   ) { }
 
+  id: string = 'Deconnecter'
+  user: any = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '') : [];
+  userRole: any[] = localStorage.getItem('user') ? this.user.existedUser.userRoles[0].roleName : []
+  theme!: any
+
   ngOnInit(): void { }
 
   doDarkMode() {
-    this.darkModeService.toggleDarkMode();
+    this.theme = localStorage.getItem('theme')
+    this.darkModeService.toggleDarkMode(this.theme);
   }
 
   logout() {

@@ -522,8 +522,6 @@ export class FormContratComponent implements OnInit {
         this.hideErrorMessage();
       }
     );
-
-
   }
 
   // Check if all inputs has invalid errors

@@ -7,8 +7,26 @@ export class DarkModeService {
 
   constructor() { }
 
-  toggleDarkMode() {
-    let mainBody = document.querySelector('body');
-    mainBody?.classList.toggle('darkmode-activated');
+  // Toggle between themes
+  toggleDarkMode(theme: any) {
+    theme == 'light' && this.addDarkMode()
+    theme == 'dark' && this.removeDarkMode()
   }
+
+  // Add dark mode
+  addDarkMode() {
+    let mainBody = document.querySelector('body');
+
+    mainBody?.classList.add('darkmode-activated');
+    localStorage.setItem('theme', 'dark')
+  }
+
+  // Remove dark mode
+  removeDarkMode() {
+    let mainBody = document.querySelector('body');
+
+    mainBody?.classList.remove('darkmode-activated');
+    localStorage.setItem('theme', 'light')
+  }
+
 }
