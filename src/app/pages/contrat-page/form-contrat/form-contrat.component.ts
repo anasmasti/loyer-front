@@ -335,7 +335,6 @@ export class FormContratComponent implements OnInit {
     //   }, 3000);
     // }
   }
-  
 
   calculMontantAvanceTax() {
     if (this.dureeAvance > 0 && this.hasDeclarationOption == "non") {
