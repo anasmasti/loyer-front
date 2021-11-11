@@ -324,11 +324,18 @@ export class FormContratComponent implements OnInit {
   calculEffortCaution() {
     let montantCaution: number = this.contratForm.get('montant_caution')?.value;
     let effortCaution!: number;
-     effortCaution = montantCaution / this.montantLoyer;
-
+    effortCaution = montantCaution / this.montantLoyer;
     this.montantCaution = montantCaution;
     this.effortCaution = effortCaution;
+    // if((montantCaution % this.montantLoyer) != 0){
+    //   setTimeout(() => {
+    //     alert("erreur")
+    //     effortCaution = 0;
+    //     this.effortCaution = effortCaution;
+    //   }, 3000);
+    // }
   }
+  
 
   calculMontantAvanceTax() {
     if (this.dureeAvance > 0 && this.hasDeclarationOption == "non") {
