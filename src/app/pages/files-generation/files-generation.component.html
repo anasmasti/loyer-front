@@ -30,7 +30,8 @@
 <div class="row mt-5">
     <div class="col-lg-12 d-flex align-items-lg-center justify-content-lg-between flex-row mt-lg-5">
         <h3 class="main-title col-4">Exportation des fichiers</h3>
-        <input type="date" class="form-control rounded-pill" (change)="showButtons()" formControlName="date_gen" [ngClass]="{
+        <input type="date" class="form-control rounded-pill" (change)="showButtons()" formControlName="date_gen"
+            [ngClass]="{
         'is-invalid': checkInputsValidation(date_gen),
         'is-valid': !date_gen?.invalid
       }">
@@ -39,10 +40,25 @@
 </div>
 
 <ng-template #Buttons>
-    <div class="col-lg-12 d-flex align-items-lg-center justify-content-lg-start gap-1 flex-row mt-4">
-        <a class="btn success-btn">Exporter le ficher comptable de paiement des loyers</a>
-        <a class="btn success-btn">Exporter le ficher comptable de paiement des cautions</a>
-        <a class="btn success-btn">Exporter le ficher ordre de virement</a>
+    <h5 class="mt-4">
+        Comptabilisation
+    </h5>
+    <div class="col-lg-12 d-flex align-items-lg-center justify-content-lg-start gap-1 flex-row">
+        <a class="btn second-btn">Exporter le ficher comptable de paiement des loyers</a>
+        <a class="btn second-btn">Exporter le ficher comptable de paiement des cautions</a>
+    </div>
+    <h5 class="mt-4">
+        Ordre de virements
+    </h5>
+    <div class="col-lg-12 d-flex align-items-lg-center justify-content-lg-start gap-1 flex-row">
+        <a class="btn second-btn">Exporter le ficher ordre de virements</a>
+    </div>
+    <h5 class="mt-4">
+        Maquettes télédeclaration et télépaiement
+    </h5>
+    <div class="col-lg-12 d-flex align-items-lg-center justify-content-lg-start gap-1 flex-row">
+        <a class="btn second-btn">Exporter maquette annex 1</a>
+        <a class="btn second-btn">Exporter maquette annex 2</a>
     </div>
 </ng-template>
 
