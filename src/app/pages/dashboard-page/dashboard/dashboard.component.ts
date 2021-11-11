@@ -128,6 +128,7 @@ export class DashboardComponent implements OnInit {
       }
     })
   }
+  
   // --------------End Download Files--------------
 
   getChartLine() {

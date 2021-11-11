@@ -1,6 +1,7 @@
 import { ConfirmationModalService } from './../../services/confirmation-modal-service/confirmation-modal.service';
 import { HelperService } from 'src/app/services/helpers/helper.service';
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'files-generation',
@@ -12,15 +13,21 @@ export class FilesGenerationComponent implements OnInit {
   constructor(
     private help: HelperService,
     private confirmationModalService: ConfirmationModalService
-    ) { }
+  ) { }
 
   today!: any;
   dateCloture!: any;
   isCloture: boolean = false;
   showClotureSection: boolean = false;
   hasNextCluture: boolean = false;
+  dateSelected: boolean = false;
+  filesForm!: FormGroup;
 
   ngOnInit(): void {
+    this.filesForm = new FormGroup({
+      date_gen: new FormControl('', [Validators.required])
+    });
+
     // Get next cloture date and check
     this.getNextClotureAndCheck();
 
@@ -46,8 +53,8 @@ export class FilesGenerationComponent implements OnInit {
     // Check if the next cloture's here 
     if (this.hasNextCluture) {
       // Put this month is cloture and show cloture section if next cloture match with today
-      if (this.dateCloture.annee == today.getFullYear() && this.dateCloture.mois == (today.getMonth() + 1)) return [ this.today = today, this.isCloture = false, this.showClotureSection = true ]
-      else return [ this.isCloture = true, this.showClotureSection = true ]
+      if (this.dateCloture.annee == today.getFullYear() && this.dateCloture.mois == (today.getMonth() + 1)) return [this.today = today, this.isCloture = false, this.showClotureSection = true]
+      else return [this.isCloture = true, this.showClotureSection = true]
     }
     else return this.showClotureSection = false
   }
@@ -65,6 +72,19 @@ export class FilesGenerationComponent implements OnInit {
   // Close confirmation modal
   closeConfirmationModal() {
     this.confirmationModalService.close(); // Close delete confirmation modal
+  }
+
+  // Check if all inputs has invalid errors
+  checkInputsValidation(targetInput: any) {
+    return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
+  }
+
+  showButtons() {
+    return this.dateSelected = true
+  }
+
+  get date_gen() {
+    return this.filesForm.get('date_gen');
   }
 
 }

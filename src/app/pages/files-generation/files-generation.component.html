@@ -12,7 +12,8 @@
 </div>
 
 <div class="row mt-4">
-    <div *ngIf="showClotureSection" class="main-card col-lg-8 col-md-9 col-sm-12 d-flex align-items-lg-center justify-content-lg-between flex-row p-4"
+    <div *ngIf="showClotureSection"
+        class="main-card col-lg-8 col-md-9 col-sm-12 d-flex align-items-lg-center justify-content-lg-between flex-row p-4"
         [ngClass]="{'success-cloture-bg success-txt': isCloture, 'danger-cloture-bg danger-txt': !isCloture}">
         <h4 *ngIf="!isCloture">
             Clôture du {{ today | date }}
@@ -25,6 +26,31 @@
 
     <div *ngIf="!showClotureSection" class="cloture-skeleton"></div>
 </div>
+
+<div class="row mt-5">
+    <div class="col-lg-12 d-flex align-items-lg-center justify-content-lg-between flex-row mt-lg-5">
+        <h3 class="main-title col-4">Exportation des fichiers</h3>
+        <input type="date" class="form-control rounded-pill" (change)="showButtons()" formControlName="date_gen" [ngClass]="{
+        'is-invalid': checkInputsValidation(date_gen),
+        'is-valid': !date_gen?.invalid
+      }">
+    </div>
+    <div *ngIf="dateSelected;then Buttons;else Error"></div>
+</div>
+
+<ng-template #Buttons>
+    <div class="col-lg-12 d-flex align-items-lg-center justify-content-lg-start gap-1 flex-row mt-4">
+        <a class="btn success-btn">Exporter le ficher comptable de paiement des loyers</a>
+        <a class="btn success-btn">Exporter le ficher comptable de paiement des cautions</a>
+        <a class="btn success-btn">Exporter le ficher ordre de virement</a>
+    </div>
+</ng-template>
+
+<ng-template #Error>
+    <h3 class="main-muted-text mt-4 text-center">
+        Choisissez une date s'il vous plait.
+    </h3>
+</ng-template>
 
 <app-confirmation-modal [closeBtn]='true'>
     <h3 class="main-title">Voulez-vous clôturer ce mois?</h3>
