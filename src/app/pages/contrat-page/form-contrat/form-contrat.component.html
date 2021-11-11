@@ -162,6 +162,9 @@
         <label for="">Effort de la caution</label>
         <input type="text" class="form-control rounded-pill" [value]="effortCaution" formControlName="effort_caution"
           readonly>
+          <p class="danger-txt" *ngIf="hasErrorEffort">
+            Effort de caution ne doit pas être un nombre décimal
+          </p>
       </div>
 
       <div class="col-lg-3 form-group mt-4">
