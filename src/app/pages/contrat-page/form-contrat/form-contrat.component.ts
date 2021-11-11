@@ -96,6 +96,7 @@ export class FormContratComponent implements OnInit {
   montant_avance_tax_!:number;
 
   montantAvance!: number;
+  hasErrorEffort: boolean = false;
 
   constructor(
     private contratService: ContratService,
@@ -327,14 +328,16 @@ export class FormContratComponent implements OnInit {
     effortCaution = montantCaution / this.montantLoyer;
     this.montantCaution = montantCaution;
     this.effortCaution = effortCaution;
-    // if((montantCaution % this.montantLoyer) != 0){
-    //   setTimeout(() => {
-    //     alert("erreur")
-    //     effortCaution = 0;
-    //     this.effortCaution = effortCaution;
-    //   }, 3000);
-    // }
+    if((montantCaution % this.montantLoyer) != 0){
+        this.hasErrorEffort = true
+    } else this.hasErrorEffort = false
   }
+
+  // checkEffort(){
+  //   if(this.montantCaution % this.montantLoyer != 0){
+  //     alert('Effort de caution ne doit pas être un nombre decimal')
+  //   }
+  // }
   
 
   calculMontantAvanceTax() {

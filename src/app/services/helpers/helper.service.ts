@@ -68,4 +68,9 @@ export class HelperService {
     );
   }
 
+    // Check if all inputs has invalid errors
+    // mainCheckInputsValidation(targetInput: any) {
+    //   return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
+    // }
+
 }
