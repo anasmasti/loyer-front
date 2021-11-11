@@ -59,8 +59,10 @@ body {
 // Active link setup
 .router-link-active {
   @extend .second-btn;
+
   &:hover {
     background: color(dark) !important;
+    border: 0.1em solid color(dark) !important;
   }
 }
 

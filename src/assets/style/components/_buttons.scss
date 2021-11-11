@@ -25,7 +25,7 @@
     &:hover {
         background: color(light) !important;
         color: color(dark) !important;
-        border: 0.1em solid color(main-color);
+        border: 0.1em solid color(main-color) !important;
     }
 }
 
@@ -35,11 +35,12 @@
     box-shadow: $btn-box-shadow;
     color: color(light) !important;
     border-radius: $main-border-radius !important;
-    border: 0.1em solid color(danger) !important;
+    border: 0.1em solid color(danger);
 
     &:hover {
         background: color(dark);
         color: color(light) !important;
+        border: 0.1em solid color(dark);
     }
 }
 
@@ -49,11 +50,12 @@
     box-shadow: $btn-box-shadow;
     color: color(light) !important;
     border-radius: $main-border-radius !important;
-    border: 0.1em solid color(success) !important;
+    border: 0.1em solid color(success);
 
     &:hover {
         background: color(dark) !important;
         color: color(light) !important;
+        border: 0.1em solid color(dark);
     }
 }
 
