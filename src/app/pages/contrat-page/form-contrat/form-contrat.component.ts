@@ -87,7 +87,7 @@ export class FormContratComponent implements OnInit {
   statutCaution: string = 'En cours';
 
   periodicite!: string;
-  date_premier_paiment!: any;
+  date_premier_paiement!: any;
   date_debut_loyer_!: any
   num_contrat!:string;
   date_preavis!: any;
@@ -95,7 +95,7 @@ export class FormContratComponent implements OnInit {
 
   montant_avance_tax_!:number;
 
-  montantAvance!: number;
+  montantAvance : number = 0;
 
   constructor(
     private contratService: ContratService,
@@ -137,7 +137,7 @@ export class FormContratComponent implements OnInit {
       statut_caution: new FormControl(),
       montant_avance: new FormControl('', [Validators.required]),
       date_fin_avance: new FormControl('', [Validators.required]),
-      date_premier_paiment: new FormControl('', [Validators.required]),
+      date_premier_paiement: new FormControl('', [Validators.required]),
       duree_avance: new FormControl('', [Validators.required]),
       n_engagement_depense: new FormControl(),
       echeance_revision_loyer: new FormControl(),
@@ -363,7 +363,7 @@ export class FormContratComponent implements OnInit {
   
       // Date 1er paiment 
       date.setMonth(month);
-      this.date_premier_paiment = date.toISOString().slice(0, 10)
+      this.date_premier_paiement = date.toISOString().slice(0, 10)
   
       // Date fin de l'avance
       date.setDate(0)
@@ -373,7 +373,7 @@ export class FormContratComponent implements OnInit {
       this.montantAvance = montant_loyer * this.dureeAvance
     }
     else {
-      this.date_premier_paiment = null
+      this.date_premier_paiement = null
       this.formattedDate = null;
       this.montantAvance = 0 ;
     }
@@ -400,7 +400,7 @@ export class FormContratComponent implements OnInit {
   reinitialiserDates() {
     this.dureeAvance = 0;
     this.formattedDate = null;
-    this.date_premier_paiment = null;
+    this.date_premier_paiement = null;
     this.montantAvance = 0 ;
   }
 
@@ -478,8 +478,8 @@ export class FormContratComponent implements OnInit {
       statut_caution: this.contratForm.get('statut_caution')?.value || '',
       montant_avance: this.contratForm.get('montant_avance')?.value || '',
       date_fin_avance: this.formattedDate,
-      date_premier_paiment:
-        this.contratForm.get('date_premier_paiment')?.value || '',
+      date_premier_paiement:
+        this.contratForm.get('date_premier_paiement')?.value || '',
       duree_avance: this.contratForm.get('duree_avance')?.value || '',
       echeance_revision_loyer:
         this.contratForm.get('echeance_revision_loyer')?.value || '',
@@ -510,7 +510,7 @@ export class FormContratComponent implements OnInit {
           this.postDone = false;
           this.help.toTheUp();
           this.router.navigate(['/contrat/list-global/list']).then(() => {
-            this.help.refrechPage();
+          this.help.refrechPage();
           });
         }, 2000);
       },
@@ -522,6 +522,9 @@ export class FormContratComponent implements OnInit {
         this.hideErrorMessage();
       }
     );
+
+    console.log(ctr_data);
+    
     
     
   }
@@ -553,7 +556,7 @@ export class FormContratComponent implements OnInit {
       var date_fin_contrat = new Date(this.contrat.date_fin_contrat)
       var date_reprise_caution = new Date(this.contrat.date_reprise_caution)
       var date_fin_avance = new Date(this.contrat.date_fin_avance)
-      var date_premier_paiment = new Date(this.contrat.date_premier_paiment)
+      var date_premier_paiement = new Date(this.contrat.date_premier_paiement)
       
       this.contratForm?.patchValue({
         numero_contrat: this.contrat.numero_contrat,
@@ -576,7 +579,7 @@ export class FormContratComponent implements OnInit {
         statut_caution: this.contrat.statut_caution,
         montant_avance: this.contrat.montant_avance,
         date_fin_avance: this.formatDate(this.contrat.date_fin_avance),
-        date_premier_paiment: this.formatDate(this.contrat.date_premier_paiment),
+        date_premier_paiement: this.formatDate(this.contrat.date_premier_paiement),
         duree_avance: this.contrat.duree_avance,
         echeance_revision_loyer: this.contrat.echeance_revision_loyer,
         foncier: this.contrat.foncier?._id,
@@ -642,7 +645,7 @@ export class FormContratComponent implements OnInit {
       statut_caution: this.contratForm.get('statut_caution')?.value || '',
       montant_avance: this.contratForm.get('montant_avance')?.value || '',
       date_fin_avance: this.formattedDate,
-      date_premier_paiment:
+      date_premier_paiement:
         this.contratForm.get('date_1er_paiement')?.value || '',
       duree_avance: this.contratForm.get('duree_avance')?.value || '',
       echeance_revision_loyer:
