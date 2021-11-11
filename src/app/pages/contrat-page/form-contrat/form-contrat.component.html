@@ -14,7 +14,8 @@
     <div class="row">
       <!-- Calcul retenue a la source par mois/ total brut loyer / total net loyer -->
       <input type="hidden" class="form-control" [value]="duree" formControlName="duree" />
-      <input type="hidden" class="form-control" [value]="retunue_source_par_mois" formControlName="retunue_source_par_mois" />
+      <input type="hidden" class="form-control" [value]="retunue_source_par_mois"
+        formControlName="retunue_source_par_mois" />
       <input type="hidden" class="form-control" [value]="totalBrutLoyer" formControlName="total_montant_brut_loyer" />
       <input type="hidden" class="form-control" [value]="totalNetLoyer" formControlName="total_montant_net_loyer" />
       <!-- Montant Avance Tax -->
@@ -33,19 +34,18 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date de début du loyer</label>
-        <input type="date" [(ngModel)]="date_debut_loyer_" class="form-control rounded-pill" (change)="reinitialiserDateDebut()"
-          formControlName="date_debut_loyer" required [ngClass]="{
+        <input type="date" [(ngModel)]="date_debut_loyer_" class="form-control rounded-pill"
+          (change)="reinitialiserDateDebut()" formControlName="date_debut_loyer" required [ngClass]="{
             'is-invalid': checkInputsValidation(date_debut_loyer),
             'is-valid': !date_debut_loyer?.invalid
-          }"
-          />
+          }" />
 
-          <!-- Error Message  -->
-      <div class="" *ngIf="checkInputsValidation(date_debut_loyer)">
-        <p class="danger-txt" *ngIf="date_debut_loyer?.errors?.required">
-          Veuillez remplir ce champ
-        </p>
-      </div>
+        <!-- Error Message  -->
+        <div class="" *ngIf="checkInputsValidation(date_debut_loyer)">
+          <p class="danger-txt" *ngIf="date_debut_loyer?.errors?.required">
+            Veuillez remplir ce champ
+          </p>
+        </div>
 
       </div>
 
@@ -55,14 +55,14 @@
           formControlName="montant_loyer" [ngClass]="{
             'is-invalid': checkInputsValidation(montant_loyer),
             'is-valid': !montant_loyer?.invalid
-          }"/>
+          }" />
 
-          <!-- Error Message  -->
-      <div class="" *ngIf="checkInputsValidation(montant_loyer)">
-        <p class="danger-txt" *ngIf="montant_loyer?.errors?.required">
-          Veuillez remplir ce champ
-        </p>
-      </div>
+        <!-- Error Message  -->
+        <div class="" *ngIf="checkInputsValidation(montant_loyer)">
+          <p class="danger-txt" *ngIf="montant_loyer?.errors?.required">
+            Veuillez remplir ce champ
+          </p>
+        </div>
       </div>
 
       <div class="col-lg-3 form-group mt-4">
@@ -83,20 +83,17 @@
         <select class="form-select rounded-pill" formControlName="periodicite_paiement" [ngClass]="{
           'is-invalid': checkInputsValidation(periodicite_paiement),
           'is-valid': !periodicite_paiement?.invalid
-        }" 
-        [(ngModel)]="periodicite"
-        (change)="reinitialiserDates()"
-        >
-          <option value="mensuelle" >Mensuelle</option>
-          <option value="trimestrielle" >Trimestrielle</option>
+        }" [(ngModel)]="periodicite" (change)="reinitialiserDates()">
+          <option value="mensuelle">Mensuelle</option>
+          <option value="trimestrielle">Trimestrielle</option>
           <option value="annuelle">Annuelle</option>
         </select>
-          <!-- Error Message  -->
-      <div class="" *ngIf="checkInputsValidation(periodicite_paiement)">
-        <p class="danger-txt" *ngIf="periodicite_paiement?.errors?.required">
-          Veuillez remplir ce champ
-        </p>
-      </div>
+        <!-- Error Message  -->
+        <div class="" *ngIf="checkInputsValidation(periodicite_paiement)">
+          <p class="danger-txt" *ngIf="periodicite_paiement?.errors?.required">
+            Veuillez remplir ce champ
+          </p>
+        </div>
       </div>
 
 
@@ -105,13 +102,13 @@
         <input type="number" class="form-control rounded-pill" formControlName="duree_location" [ngClass]="{
           'is-invalid': checkInputsValidation(duree_location),
           'is-valid': !duree_location?.invalid
-        }"/>
-         <!-- Error Message  -->
-      <div class="" *ngIf="checkInputsValidation(duree_location)">
-        <p class="danger-txt" *ngIf="duree_location?.errors?.required">
-          Veuillez remplir ce champ
-        </p>
-      </div>
+        }" />
+        <!-- Error Message  -->
+        <div class="" *ngIf="checkInputsValidation(duree_location)">
+          <p class="danger-txt" *ngIf="duree_location?.errors?.required">
+            Veuillez remplir ce champ
+          </p>
+        </div>
       </div>
 
       <div class="col-lg-3 form-group mt-4">
@@ -120,12 +117,12 @@
           'is-invalid': checkInputsValidation(date_fin_contrat),
           'is-valid': !date_fin_contrat?.invalid
         }">
-            <!-- Error Message  -->
-      <div class="" *ngIf="checkInputsValidation(date_fin_contrat)">
-        <p class="danger-txt" *ngIf="date_fin_contrat?.errors?.required">
-          Veuillez remplir ce champ
-        </p>
-      </div>
+        <!-- Error Message  -->
+        <div class="" *ngIf="checkInputsValidation(date_fin_contrat)">
+          <p class="danger-txt" *ngIf="date_fin_contrat?.errors?.required">
+            Veuillez remplir ce champ
+          </p>
+        </div>
       </div>
 
       <div class="col-lg-3 form-group mt-4">
@@ -173,24 +170,24 @@
           'is-invalid': checkInputsValidation(date_reprise_caution),
           'is-valid': !date_reprise_caution?.invalid
         }">
-         <!-- Error Message  -->
-      <div class="" *ngIf="checkInputsValidation(date_reprise_caution)">
-        <p class="danger-txt" *ngIf="date_reprise_caution?.errors?.required">
-          Veuillez remplir ce champ
-        </p>
-      </div>
+        <!-- Error Message  -->
+        <div class="" *ngIf="checkInputsValidation(date_reprise_caution)">
+          <p class="danger-txt" *ngIf="date_reprise_caution?.errors?.required">
+            Veuillez remplir ce champ
+          </p>
+        </div>
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Statut de la caution</label>
-        <input type="text" [(ngModel)]="statutCaution" class="form-control rounded-pill" formControlName="statut_caution" readonly>
+        <input type="text" [(ngModel)]="statutCaution" class="form-control rounded-pill"
+          formControlName="statut_caution" readonly>
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Durée de l’avance ({{ periodicite ? periodicite : '--' }})</label>
         <input type="number" class="form-control rounded-pill" [(ngModel)]="dureeAvance" (keyup)="calculDate()"
-        formControlName="duree_avance"
-        [readonly]="periodicite ? false : true">
+          formControlName="duree_avance" [readonly]="periodicite ? false : true">
       </div>
 
       <div class="col-lg-3 form-group mt-4">
@@ -201,12 +198,14 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date 1er paiement</label>
-        <input type="date" class="form-control rounded-pill" [value]="date_premier_paiment" formControlName="date_premier_paiment" readonly>
+        <input type="date" class="form-control rounded-pill" [value]="date_premier_paiment"
+          formControlName="date_premier_paiment" readonly>
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Montant de l’avance</label>
-        <input type="number" class="form-control rounded-pill" formControlName="montant_avance" [(ngModel)]="montantAvance" (keyup)="calculMontantAvanceTax()" [readonly]="true">
+        <input type="number" class="form-control rounded-pill" formControlName="montant_avance"
+          [(ngModel)]="montantAvance" (keyup)="calculMontantAvanceTax()" [readonly]="true">
       </div>
 
       <div class="col-lg-3 form-group mt-4">
@@ -354,13 +353,14 @@
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Date de Résilié</label>
-            <input type="date" class="form-control rounded-pill" 
-              formControlName="etat_contrat_date_resiliation" [(ngModel)]="dateResiliation" (change)="calculPreavis()">
+            <input type="date" class="form-control rounded-pill" formControlName="etat_contrat_date_resiliation"
+              [(ngModel)]="dateResiliation" (change)="calculPreavis()">
           </div>
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Préavis</label>
-            <input type="date" class="form-control rounded-pill" [value]="date_preavis" formControlName="etat_contrat_preavis" readonly>
+            <input type="date" class="form-control rounded-pill" [value]="date_preavis"
+              formControlName="etat_contrat_preavis" readonly>
           </div>
 
           <div class="col-lg-3 form-group mt-4">
@@ -390,7 +390,7 @@
 
     <!-- Button Ajouter -->
     <div class="form-group mt-5 col-lg-2 d-flex">
-    <button *ngIf="!update" type="submit" id="Ajouter" class="btn second-btn form-control" (click)="addNewContrat();">
+      <button *ngIf="!update" type="submit" id="Ajouter" class="btn second-btn form-control" (click)="addNewContrat();">
         Ajouter
       </button>
       <button *ngIf="update" type="submit" id="Modifier" class="btn second-btn form-control" (click)="updateContrat();">
