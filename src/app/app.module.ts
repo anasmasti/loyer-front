@@ -1,3 +1,4 @@
+import { InterceptorConfig } from './interceptors/config';
 import { HeaderNavbarModule } from './components/layout/header-navbar/header-navbar.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -37,7 +38,10 @@ import { DatePipe } from '@angular/common';
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
-  providers: [DatePipe],
+  providers: [
+    DatePipe,
+    InterceptorConfig
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

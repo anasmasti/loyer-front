@@ -10,13 +10,6 @@ import { DatePipe } from '@angular/common';
 export class HelperService {
   constructor(private http: HttpClient, private pipeDate: DatePipe) {}
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Api-Key-Access': environment.API_ACCESS_KEY,
-    }),
-  };
-
   // Reload page
   refrechPage() {
     location.reload();
@@ -29,8 +22,7 @@ export class HelperService {
   // Get all counts from server
   getAllCounts() {
     return this.http.get(
-      `${environment.API_URL_TEST + environment.API_VERSION}/count-all`,
-      { headers: this.httpOptions.headers }
+      `${environment.API_URL_TEST + environment.API_VERSION}/count-all`
     );
   }
 

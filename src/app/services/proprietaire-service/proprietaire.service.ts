@@ -8,72 +8,56 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ProprietaireService {
+
   param_url: string = 'proprietaire';
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Api-Key-Access': environment.API_ACCESS_KEY,
-    }),
-  };
-
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // Get list of all proprietaires from database
   getProprietaire(matricule: any): Observable<Proprietaire[]> {
     return this.http.get<Proprietaire[]>(
-      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/tous/${matricule}`,
-      { headers: this.httpOptions.headers }
+      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/tous/${matricule}`
     );
   }
 
   // Get one proprietaire by id from database
   getProprietaireById(id: string, matricule: any): Observable<Proprietaire> {
     return this.http.get<Proprietaire>(
-      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/${id}/${matricule}`,
-      { headers: this.httpOptions.headers }
+      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/${id}/${matricule}`
     );
   }
 
   // Push the proprietaire data to database
   postProprietaire(data: any, id_lieu: any, matricule: any): Observable<Proprietaire> {
     return this.http.post<Proprietaire>(
-      `${
-        environment.API_URL_TEST + environment.API_VERSION + this.param_url
+      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url
       }/ajouter/${id_lieu}/${matricule}`,
-      data,
-      { headers: this.httpOptions.headers }
+      data
     );
   }
 
   // Update the proprietaire
   updateProprietaire(id: string, data: Proprietaire, matricule: any): Observable<Proprietaire> {
     return this.http.put<Proprietaire>(
-      `${
-        environment.API_URL_TEST + environment.API_VERSION + this.param_url
+      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url
       }/modifier/${id}/${matricule}`,
-      data,
-      { headers: this.httpOptions.headers }
+      data
     );
   }
 
   // Delete the proprietaire
   deleteProprietaire(id: string, data: any, matricule: any): Observable<Proprietaire> {
     return this.http.put<Proprietaire>(
-      `${
-        environment.API_URL_TEST + environment.API_VERSION + this.param_url
+      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url
       }/supprimer/${id}/${matricule}`,
-      data,
-      { headers: this.httpOptions.headers }
+      data
     );
   }
 
   getLieuIdByProprietaire(id: string, matricule: any): Observable<Proprietaire> {
     return this.http.get<Proprietaire>(
-      `${
-        environment.API_URL_TEST + environment.API_VERSION + this.param_url
-      }/lieu/lieu-by-proprietaire/${id}/${matricule}`,
-      { headers: this.httpOptions.headers }
+      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url
+      }/lieu/lieu-by-proprietaire/${id}/${matricule}`
     );
   }
 }
