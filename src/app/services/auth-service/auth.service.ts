@@ -19,13 +19,6 @@ export class AuthService {
   roles: any[] = localStorage.getItem('user') ? this.user.existedUser.userRoles : []
   structuredRoles: any[] = []
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Api-Key-Access': environment.API_ACCESS_KEY,
-    }),
-  };
-
   logIn(data: any) {
     return this.http.post(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}`, data);
   }

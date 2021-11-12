@@ -1,3 +1,4 @@
+import { ClotureService } from './../../services/cloture-exportations/cloture.service';
 import { ConfirmationModalService } from './../../services/confirmation-modal-service/confirmation-modal.service';
 import { HelperService } from 'src/app/services/helpers/helper.service';
 import { Component, OnInit } from '@angular/core';
@@ -12,7 +13,8 @@ export class FilesGenerationComponent implements OnInit {
 
   constructor(
     private help: HelperService,
-    private confirmationModalService: ConfirmationModalService
+    private confirmationModalService: ConfirmationModalService,
+    private clotureService: ClotureService
   ) { }
 
   today!: any;
@@ -22,6 +24,7 @@ export class FilesGenerationComponent implements OnInit {
   hasNextCluture: boolean = false;
   dateSelected: boolean = false;
   filesForm!: FormGroup;
+  userMatricule: any = localStorage.getItem('matricule');
 
   ngOnInit(): void {
     this.filesForm = new FormGroup({
@@ -61,7 +64,19 @@ export class FilesGenerationComponent implements OnInit {
 
   // Cloture this month
   cloture() {
-    this.isCloture = true;
+    // Get date of now
+    let today = new Date()
+
+    // Fill date cloture
+    let date = {
+      mois: today.getMonth() + 1,
+      annee: today.getFullYear()
+    }
+    
+    // Throw cloture function from cloture service
+    this.clotureService.Cloture(date, this.userMatricule).subscribe(data => {
+      if (data) this.isCloture = true;
+    })
   }
 
   // Open confirmation modal
