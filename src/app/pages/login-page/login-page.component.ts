@@ -33,7 +33,7 @@ export class LoginPageComponent implements OnInit {
 
     this.loginForm = new FormGroup({
       Matricule: new FormControl('', [Validators.required]),
-      Password: new FormControl('', [Validators.required, Validators.maxLength(8)])
+      Password: new FormControl('', [Validators.required, Validators.minLength(8)])
     });
 
     this.matricule = localStorage.getItem('matricule') || '';

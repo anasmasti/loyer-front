@@ -117,17 +117,17 @@ export class DashboardComponent implements OnInit {
   }
 
   // --------------Start Download Files--------------
-  downloadFichierComptable() {
-    let today = new Date()
-    let currentMonthName = today.toLocaleString('default', { month: 'long' })
-    let currentYear = today.getFullYear()
-    let filename = 'FichierComptable ' + currentMonthName + ' ' + currentYear
-    this.downloadService.dowloadFileComptableLoyer(filename).subscribe(res => {
-      if (res) {
-        fileSaver.saveAs(res, filename);
-      }
-    })
-  }
+  // downloadFichierComptable() {
+  //   let today = new Date()
+  //   let currentMonthName = today.toLocaleString('default', { month: 'long' })
+  //   let currentYear = today.getFullYear()
+  //   let filename = 'FichierComptable ' + currentMonthName + ' ' + currentYear
+  //   this.downloadService.dowloadFileComptableLoyer(filename).subscribe(res => {
+  //     if (res) {
+  //       fileSaver.saveAs(res, filename);
+  //     }
+  //   })
+  // }
   
   // --------------End Download Files--------------
 

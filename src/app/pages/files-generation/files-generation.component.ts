@@ -1,3 +1,4 @@
+import { ClotureService } from '../../services/cloture/cloture.service';
 import { ConfirmationModalService } from './../../services/confirmation-modal-service/confirmation-modal.service';
 import { HelperService } from 'src/app/services/helpers/helper.service';
 import { Component, OnInit } from '@angular/core';
@@ -16,6 +17,7 @@ export class FilesGenerationComponent implements OnInit {
     private help: HelperService,
     private confirmationModalService: ConfirmationModalService,
     private downloadService: DownloadService,
+    private clotureService: ClotureService
   ) { }
 
   today!: any;
@@ -25,12 +27,13 @@ export class FilesGenerationComponent implements OnInit {
   hasNextCluture: boolean = false;
   dateSelected: boolean = false;
   filesForm!: FormGroup;
+  userMatricule: any = localStorage.getItem('matricule');
+
 
   ngOnInit(): void {
     this.filesForm = new FormGroup({
       date_gen: new FormControl('', [Validators.required])
     });
-
     // Get next cloture date and check
     this.getNextClotureAndCheck();
 
@@ -39,6 +42,7 @@ export class FilesGenerationComponent implements OnInit {
       this.getNextClotureAndCheck();
     }, 43200000)
   }
+
 
   // Get the next cloture date from the server and check if has data and throw the check function
   getNextClotureAndCheck() {
@@ -64,7 +68,19 @@ export class FilesGenerationComponent implements OnInit {
 
   // Cloture this month
   cloture() {
-    this.isCloture = true;
+    // Get date of now
+    let today = new Date()
+
+    // Fill date cloture
+    let date = {
+      mois: today.getMonth() + 1,
+      annee: today.getFullYear()
+    }
+    
+    // Throw cloture function from cloture service
+    this.clotureService.Cloture(date, this.userMatricule).subscribe(data => {
+      if (data) this.isCloture = true;
+    })
   }
 
   // Open confirmation modal
@@ -86,19 +102,25 @@ export class FilesGenerationComponent implements OnInit {
     return this.dateSelected = true
   }
 
-  downloadAnnex1() {
-    let today = new Date()
-    let currentMonthName = today.toLocaleString('default', { month: 'long' })
-    console.log(currentMonthName);
-    
-    let currentYear = today.getFullYear()
-    let filename = 'annex1' + currentMonthName + ' ' + currentYear
-    this.downloadService.dowloadFileAnnex1(filename).subscribe(res => {
+  downloadAnnex(param : number) {
+    // let today = new Date()
+   let date_gen = new Date(this.filesForm.get('date_gen')?.value)
+   // Fill date cloture
+   let date = {
+     mois: date_gen.getMonth() + 1,
+     annee: date_gen.getFullYear()
+   }
+     let filename = `annex${param}` + date
+    this.downloadService.dowloadFiles(filename,date,`annex${param}`).subscribe(res => {
       if (res) {
         fileSaver.saveAs(res, filename);
       }
     })
+    console.log(filename);
+    
   }
+
+
 
   get date_gen() {
     return this.filesForm.get('date_gen');
