@@ -9,13 +9,6 @@ export class ChartsService {
 
   constructor(private http: HttpClient) { }
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Api-Key-Access': environment.API_ACCESS_KEY,
-    }),
-  };
-
   getChartCircl() {
     return this.http.get(
       `${environment.API_URL_TEST + environment.API_VERSION}chart/circl`

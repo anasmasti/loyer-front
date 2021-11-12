@@ -6,19 +6,12 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
+
 export class ClotureService {
 
   constructor(private http: HttpClient) { }
 
   param_url: string = 'cloture';
-  
-  // Header setup
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Api-Key-Access': environment.API_ACCESS_KEY,
-    }),
-  };
 
   // Cloture this month
   Cloture(date: any, matricule: any): Observable<any> {
