@@ -25,7 +25,7 @@ export class FilesGenerationComponent implements OnInit {
   dateSelected: boolean = false;
   filesForm!: FormGroup;
   userMatricule: any = localStorage.getItem('matricule');
-  twelveHours: number = 1000*60*60*12
+  twelveHours: number = 1000 * 60 * 60 * 12
 
   ngOnInit(): void {
     // Instantiate form group for selected date
@@ -74,7 +74,7 @@ export class FilesGenerationComponent implements OnInit {
       mois: today.getMonth() + 1,
       annee: today.getFullYear()
     }
-    
+
     // Throw cloture function from cloture service
     this.clotureService.Cloture(date, this.userMatricule).subscribe(data => {
       if (data) this.isCloture = true;
