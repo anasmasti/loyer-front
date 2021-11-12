@@ -88,14 +88,14 @@ export class FormContratComponent implements OnInit {
 
   periodicite!: string;
   date_premier_paiement!: any;
-  date_debut_loyer_!: any
+  date_debut_loyer_!: any;
   num_contrat!: string;
   date_preavis!: any;
   dateResiliation!: any;
 
   montant_avance_tax_!: number;
 
-  montantAvance!: number;
+  montantAvance: number = 0;
   hasErrorEffort: boolean = false;
 
   constructor(
@@ -103,8 +103,8 @@ export class FormContratComponent implements OnInit {
     private mainModalService: MainModalService,
     private help: HelperService,
     public router: Router,
-    private actRoute: ActivatedRoute,
-  ) { }
+    private actRoute: ActivatedRoute
+  ) {}
 
   ngOnChanges() {
     if (this.update) {
@@ -113,7 +113,6 @@ export class FormContratComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     if (this.isInsertForm)
       this.lieu_id = this.actRoute.snapshot.paramMap.get('id_lieu') || '';
 
@@ -173,7 +172,7 @@ export class FormContratComponent implements OnInit {
       total_montant_brut_loyer: new FormControl(),
       total_montant_net_loyer: new FormControl(),
 
-      // Calcul montant avance tax 
+      // Calcul montant avance tax
       montant_avance_tax: new FormControl(),
     });
   }
@@ -328,23 +327,24 @@ export class FormContratComponent implements OnInit {
     effortCaution = montantCaution / this.montantLoyer;
     this.montantCaution = montantCaution;
     this.effortCaution = effortCaution;
-    if((montantCaution % this.montantLoyer) != 0){
-        this.hasErrorEffort = true
-    } else this.hasErrorEffort = false
+    if (montantCaution % this.montantLoyer != 0) {
+      this.hasErrorEffort = true;
+    } else this.hasErrorEffort = false;
   }
 
   calculMontantAvanceTax() {
-    if (this.dureeAvance > 0 && this.hasDeclarationOption == "non") {
-
+    if (this.dureeAvance > 0 && this.hasDeclarationOption == 'non') {
       let montantAvance: number = this.contratForm.get('montant_avance')?.value;
-      this.montant_avance_tax_ = montantAvance * (this.tauxImpot / 100)
-
+      this.montant_avance_tax_ = montantAvance * (this.tauxImpot / 100);
     }
   }
 
   // calcul Date fin de l’avance et Date 1er de l'avance
   calculDate() {
-    let montant_loyer = parseInt(this.contratForm.get('montant_loyer')?.value, 10);
+    let montant_loyer = parseInt(
+      this.contratForm.get('montant_loyer')?.value,
+      10
+    );
     let date = new Date(this.contratForm.get('date_debut_loyer')?.value);
     let month = date.getMonth();
     this.dureeAvance = this.contratForm.get('duree_avance')?.value;
@@ -364,27 +364,30 @@ export class FormContratComponent implements OnInit {
           break;
       }
 
-      // Date 1er paiment 
+      // Date 1er paiment
       date.setMonth(month);
-      this.date_premier_paiement = date.toISOString().slice(0, 10)
-  
+      this.date_premier_paiement = date.toISOString().slice(0, 10);
+
       // Date fin de l'avance
-      date.setDate(0)
+      date.setDate(0);
       this.formattedDate = date.toISOString().slice(0, 10);
 
       // Montant de l'avance
-      this.montantAvance = montant_loyer * this.dureeAvance
-    }
-    else {
-      this.date_premier_paiement = null
+      this.montantAvance = montant_loyer * this.dureeAvance;
+    } else {
+      this.date_premier_paiement = null;
       this.formattedDate = null;
       this.montantAvance = 0;
     }
   }
 
   calculPreavis() {
-    let date_resiliation = new Date(this.contratForm.get('etat_contrat_date_resiliation')?.value);
-    this.dateResiliation = (this.contratForm.get('etat_contrat_date_resiliation')?.value);
+    let date_resiliation = new Date(
+      this.contratForm.get('etat_contrat_date_resiliation')?.value
+    );
+    this.dateResiliation = this.contratForm.get(
+      'etat_contrat_date_resiliation'
+    )?.value;
     let month = date_resiliation.getMonth();
     let day = date_resiliation.getDate();
 
@@ -392,9 +395,8 @@ export class FormContratComponent implements OnInit {
       date_resiliation.setMonth(month);
       date_resiliation.setDate(0);
       this.date_preavis = date_resiliation.toISOString().slice(0, 10);
-    }
-    else {
-      let date = moment(date_resiliation).subtract(1, "M");
+    } else {
+      let date = moment(date_resiliation).subtract(1, 'M');
       this.date_preavis = date.toISOString().slice(0, 10);
     }
   }
@@ -404,13 +406,13 @@ export class FormContratComponent implements OnInit {
     this.dureeAvance = 0;
     this.formattedDate = null;
     this.date_premier_paiement = null;
-    this.montantAvance = 0 ;
+    this.montantAvance = 0;
   }
 
   reinitialiserDateDebut() {
     let date = new Date(this.contratForm.get('date_debut_loyer')?.value);
     date.setDate(1);
-    this.date_debut_loyer_ = date.toISOString().slice(0, 10)
+    this.date_debut_loyer_ = date.toISOString().slice(0, 10);
   }
 
   //functions
@@ -458,7 +460,6 @@ export class FormContratComponent implements OnInit {
   //----------------- Update and Post  --------------------------
   //Add contrat
   addNewContrat() {
-
     let ctr_data: any = {
       numero_contrat: this.num_contrat,
       date_debut_loyer: this.contratForm.get('date_debut_loyer')?.value || '',
@@ -477,7 +478,8 @@ export class FormContratComponent implements OnInit {
       montant_apres_impot: this.montantApresImpot,
       montant_caution: this.contratForm.get('montant_caution')?.value || '',
       effort_caution: this.effortCaution,
-      date_reprise_caution: this.contratForm.get('date_reprise_caution')?.value || '',
+      date_reprise_caution:
+        this.contratForm.get('date_reprise_caution')?.value || '',
       statut_caution: this.contratForm.get('statut_caution')?.value || '',
       montant_avance: this.contratForm.get('montant_avance')?.value || '',
       date_fin_avance: this.formattedDate,
@@ -512,7 +514,7 @@ export class FormContratComponent implements OnInit {
           this.postDone = false;
           this.help.toTheUp();
           this.router.navigate(['/contrat/list-global/list']).then(() => {
-          this.help.refrechPage();
+            this.help.refrechPage();
           });
         }, 2000);
       },
@@ -523,7 +525,7 @@ export class FormContratComponent implements OnInit {
         }, 3000);
         this.hideErrorMessage();
       }
-    );    
+    );
   }
 
   // Check if all inputs has invalid errors
@@ -541,20 +543,19 @@ export class FormContratComponent implements OnInit {
   }
 
   formatDate(date: Date) {
-    return this.help.formatDate(date)
+    return this.help.formatDate(date);
   }
 
   fetchContrat() {
     if (this.contrat) {
       // var date_debut_loyer = this.pipeDate.transform(this.contrat.date_debut_loyer, 'yyyy-MM-dd')
 
-
       // var date_debut_loyer = new Date(this.contrat.date_debut_loyer)
-      var date_fin_contrat = new Date(this.contrat.date_fin_contrat)
-      var date_reprise_caution = new Date(this.contrat.date_reprise_caution)
-      var date_fin_avance = new Date(this.contrat.date_fin_avance)
-      var date_premier_paiement = new Date(this.contrat.date_premier_paiement)
-      
+      var date_fin_contrat = new Date(this.contrat.date_fin_contrat);
+      var date_reprise_caution = new Date(this.contrat.date_reprise_caution);
+      var date_fin_avance = new Date(this.contrat.date_fin_avance);
+      var date_premier_paiement = new Date(this.contrat.date_premier_paiement);
+
       this.contratForm?.patchValue({
         numero_contrat: this.contrat.numero_contrat,
         validation1_DMG: this.contrat.validation1_DMG,
@@ -572,11 +573,15 @@ export class FormContratComponent implements OnInit {
         montant_apres_impot: this.contrat.montant_apres_impot,
         montant_caution: this.contrat.montant_caution,
         effort_caution: this.contrat.effort_caution,
-        date_reprise_caution: this.formatDate(this.contrat.date_reprise_caution),
+        date_reprise_caution: this.formatDate(
+          this.contrat.date_reprise_caution
+        ),
         statut_caution: this.contrat.statut_caution,
         montant_avance: this.contrat.montant_avance,
         date_fin_avance: this.formatDate(this.contrat.date_fin_avance),
-        date_premier_paiement: this.formatDate(this.contrat.date_premier_paiement),
+        date_premier_paiement: this.formatDate(
+          this.contrat.date_premier_paiement
+        ),
         duree_avance: this.contrat.duree_avance,
         echeance_revision_loyer: this.contrat.echeance_revision_loyer,
         foncier: this.contrat.foncier?._id,
@@ -611,7 +616,9 @@ export class FormContratComponent implements OnInit {
         // etat_contrat_lettre_res_piece_jointe: this.contrat.etat_contrat?.etat?.lettre_res_piece_jointe,
         // etat_contrat_piece_jointe_avenant: this.contrat.etat_contrat?.etat?.piece_jointe_avenant,
       });
-      this.contrat.numero_contrat ? this.lieu_id = this.contrat.lieu._id : null
+      this.contrat.numero_contrat
+        ? (this.lieu_id = this.contrat.lieu._id)
+        : null;
     }
   }
 
@@ -702,7 +709,6 @@ export class FormContratComponent implements OnInit {
     };
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
-
 
     // patch the formdata (data+files)
     this.contratService.updateContrat(id, this.fd).subscribe(
