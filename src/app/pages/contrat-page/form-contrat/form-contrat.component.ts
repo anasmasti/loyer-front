@@ -322,6 +322,8 @@ export class FormContratComponent implements OnInit {
     }
   }
 
+
+  // Calcul effort caution and show error if the outside is a decimal number
   calculEffortCaution() {
     let montantCaution: number = this.contratForm.get('montant_caution')?.value;
     let effortCaution!: number;

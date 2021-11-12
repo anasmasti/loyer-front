@@ -2,6 +2,8 @@ import { ConfirmationModalService } from './../../services/confirmation-modal-se
 import { HelperService } from 'src/app/services/helpers/helper.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import * as fileSaver from 'file-saver';
+import { DownloadService } from 'src/app/services/download-service/download.service';
 
 @Component({
   selector: 'files-generation',
@@ -12,7 +14,8 @@ export class FilesGenerationComponent implements OnInit {
 
   constructor(
     private help: HelperService,
-    private confirmationModalService: ConfirmationModalService
+    private confirmationModalService: ConfirmationModalService,
+    private downloadService: DownloadService,
   ) { }
 
   today!: any;
@@ -81,6 +84,20 @@ export class FilesGenerationComponent implements OnInit {
 
   showButtons() {
     return this.dateSelected = true
+  }
+
+  downloadAnnex1() {
+    let today = new Date()
+    let currentMonthName = today.toLocaleString('default', { month: 'long' })
+    console.log(currentMonthName);
+    
+    let currentYear = today.getFullYear()
+    let filename = 'annex1' + currentMonthName + ' ' + currentYear
+    this.downloadService.dowloadFileAnnex1(filename).subscribe(res => {
+      if (res) {
+        fileSaver.saveAs(res, filename);
+      }
+    })
   }
 
   get date_gen() {
