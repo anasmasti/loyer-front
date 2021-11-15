@@ -24,6 +24,7 @@ export class HeaderInterceptor implements HttpInterceptor {
       })
     })
 
-    return next.handle(header);
+    return next.handle(request);
   }
+  
 }
