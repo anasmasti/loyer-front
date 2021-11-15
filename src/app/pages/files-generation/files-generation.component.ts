@@ -113,7 +113,7 @@ export class FilesGenerationComponent implements OnInit {
       annee: date_gen.getFullYear()
     }
     // Path name
-    let filename = param + date;
+    let filename = param + `_${date.mois}-${date.annee}`;
 
     this.downloadService.dowloadFiles(filename, date, param).subscribe(res => {
       if (res) {
