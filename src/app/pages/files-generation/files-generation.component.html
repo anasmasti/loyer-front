@@ -28,13 +28,15 @@
 </div>
 
 <div class="row mt-5">
-    <div class="col-lg-12 d-flex align-items-lg-center justify-content-lg-between flex-row mt-lg-5">
-        <h3 class="main-title col-4">Exportation des fichiers</h3>
-        <input type="date" class="form-control rounded-pill" (change)="showButtons()" formControlName="date_gen"
-            [ngClass]="{
-        'is-invalid': checkInputsValidation(date_gen),
-        'is-valid': !date_gen?.invalid
-      }">
+    <div class="col-lg-12 d-flex align-items-lg-start justify-content-lg-start gap-1 flex-column mt-lg-5">
+        <h3 class="main-title">Exportation des fichiers</h3>
+        <form [formGroup]="filesForm" enctype="multipart/form-data" class="col-5">
+            <input type="date" class="form-control rounded-pill" (change)="showButtons()" formControlName="date_gen"
+                [ngClass]="{
+            'is-invalid': checkInputsValidation(date_gen),
+            'is-valid': !date_gen?.invalid
+          }">
+        </form>
     </div>
     <div *ngIf="dateSelected;then Buttons;else Error"></div>
 </div>
@@ -44,21 +46,31 @@
         Comptabilisation
     </h5>
     <div class="col-lg-12 d-flex align-items-lg-center justify-content-lg-start gap-1 flex-row">
-        <a class="btn second-btn">Exporter le ficher comptable de paiement des loyers</a>
-        <a class="btn second-btn">Exporter le ficher comptable de paiement des cautions</a>
+        <a class="btn second-btn" (click)="downloadAnnex('fichier-comptable-loyer')">
+            Exporter le ficher comptable de paiement des loyers
+        </a>
+        <a class="btn second-btn" (click)="downloadAnnex('fichier-comptable-caution')">
+            Exporter le ficher comptable de paiement des cautions
+        </a>
     </div>
     <h5 class="mt-4">
         Ordre de virements
     </h5>
     <div class="col-lg-12 d-flex align-items-lg-center justify-content-lg-start gap-1 flex-row">
-        <a class="btn second-btn">Exporter le ficher ordre de virements</a>
+        <a class="btn second-btn" (click)="downloadAnnex('fichier-ordre-virement')">
+            Exporter le ficher ordre de virements
+        </a>
     </div>
     <h5 class="mt-4">
-        Maquettes télédeclaration et télépaiement
+        Maquettes télédéclaration et télépaiement
     </h5>
     <div class="col-lg-12 d-flex align-items-lg-center justify-content-lg-start gap-1 flex-row">
-        <a class="btn second-btn">Exporter maquette annex 1</a>
-        <a class="btn second-btn">Exporter maquette annex 2</a>
+        <a class="btn second-btn" (click)="downloadAnnex('annex1')">
+            Exporter maquette annexe 1
+        </a>
+        <a class="btn second-btn" (click)="downloadAnnex('annex2')">
+            Exporter maquette annexe 2
+        </a>
     </div>
 </ng-template>
 

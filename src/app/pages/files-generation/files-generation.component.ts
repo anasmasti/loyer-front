@@ -1,8 +1,10 @@
-import { ClotureService } from './../../services/cloture-exportations/cloture.service';
+import { ClotureService } from '../../services/cloture/cloture.service';
 import { ConfirmationModalService } from './../../services/confirmation-modal-service/confirmation-modal.service';
 import { HelperService } from 'src/app/services/helpers/helper.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import * as fileSaver from 'file-saver';
+import { DownloadService } from 'src/app/services/download-service/download.service';
 
 @Component({
   selector: 'files-generation',
@@ -14,6 +16,7 @@ export class FilesGenerationComponent implements OnInit {
   constructor(
     private help: HelperService,
     private confirmationModalService: ConfirmationModalService,
+    private downloadService: DownloadService,
     private clotureService: ClotureService
   ) { }
 
@@ -25,20 +28,23 @@ export class FilesGenerationComponent implements OnInit {
   dateSelected: boolean = false;
   filesForm!: FormGroup;
   userMatricule: any = localStorage.getItem('matricule');
+  twelveHours: number = 1000 * 60 * 60 * 12
+
 
   ngOnInit(): void {
+    // Instantiate form group for selected date
     this.filesForm = new FormGroup({
       date_gen: new FormControl('', [Validators.required])
     });
-
     // Get next cloture date and check
     this.getNextClotureAndCheck();
 
     // Get the same function after 6 hours
     setInterval(() => {
       this.getNextClotureAndCheck();
-    }, 43200000)
+    }, this.twelveHours)
   }
+
 
   // Get the next cloture date from the server and check if has data and throw the check function
   getNextClotureAndCheck() {
@@ -72,7 +78,7 @@ export class FilesGenerationComponent implements OnInit {
       mois: today.getMonth() + 1,
       annee: today.getFullYear()
     }
-    
+
     // Throw cloture function from cloture service
     this.clotureService.Cloture(date, this.userMatricule).subscribe(data => {
       if (data) this.isCloture = true;
@@ -96,6 +102,24 @@ export class FilesGenerationComponent implements OnInit {
 
   showButtons() {
     return this.dateSelected = true
+  }
+
+  downloadAnnex(param: string) {
+    // let today = new Date()
+    let date_gen = new Date(this.filesForm.get('date_gen')?.value)
+    // Fill date cloture
+    let date = {
+      mois: date_gen.getMonth() + 1,
+      annee: date_gen.getFullYear()
+    }
+    // Path name
+    let filename = param + `_${date.mois}-${date.annee}`;
+
+    this.downloadService.dowloadFiles(filename, date, param).subscribe(res => {
+      if (res) {
+        fileSaver.saveAs(res, filename);
+      }
+    })
   }
 
   get date_gen() {

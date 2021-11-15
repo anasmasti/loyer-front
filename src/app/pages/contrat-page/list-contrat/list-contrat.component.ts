@@ -235,19 +235,19 @@ export class ListContratComponent implements OnInit {
     }, 400);
   }
 
-  downloadAnnex1(filename: string) {
-    this.downloadService.dowloadFileAnnex1(filename).subscribe((res) => {
-      if (res) {
-        fileSaver.saveAs(res, filename);
-      }
-    });
-  }
+  // downloadAnnex1(filename: string) {
+  //   this.downloadService.dowloadFileAnnex1(filename).subscribe((res) => {
+  //     if (res) {
+  //       fileSaver.saveAs(res, filename);
+  //     }
+  //   });
+  // }
 
-  downloadAnnex2(filename: string) {
-    this.downloadService.dowloadFileAnnex2(filename).subscribe((res) => {
-      if (res) {
-        fileSaver.saveAs(res, filename);
-      }
-    });
-  }
+  // downloadAnnex2(filename: string) {
+  //   this.downloadService.dowloadFileAnnex2(filename).subscribe((res) => {
+  //     if (res) {
+  //       fileSaver.saveAs(res, filename);
+  //     }
+  //   });
+  // }
 }
