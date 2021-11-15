@@ -105,7 +105,7 @@ export class FilesGenerationComponent implements OnInit {
   }
 
   downloadAnnex(param : number) {
-    // let today = new Date()
+    // get selection date
    let date_gen = new Date(this.filesForm.get('date_gen')?.value)
    // Fill date cloture
    let date = {
@@ -118,8 +118,7 @@ export class FilesGenerationComponent implements OnInit {
         fileSaver.saveAs(res, filename);
       }
     })
-    console.log(filename);
-    
+
   }
 
 
