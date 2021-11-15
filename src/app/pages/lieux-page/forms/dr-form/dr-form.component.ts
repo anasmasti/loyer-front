@@ -457,6 +457,9 @@ export class DrFormComponent implements OnInit {
       }
     );
 
+    console.log(dr_data);
+    
+
     
   }
 
