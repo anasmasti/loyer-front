@@ -25,12 +25,4 @@ export class DownloadService {
       responseType: 'blob',
     });
   }
-
-  // dowloadFileComptableLoyer(filename: string) {
-  //   return this.http.get(`${environment.API_URL_TEST + environment.API_VERSION}/fichier-comptable-loyer`, {
-  //     ...this.setFilename(filename),
-  //     responseType: 'blob',
-  //   });
-  // }
-
 }

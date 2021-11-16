@@ -104,24 +104,23 @@ export class FilesGenerationComponent implements OnInit {
     return this.dateSelected = true
   }
 
-  downloadAnnex(param : number) {
-    // get selection date
-   let date_gen = new Date(this.filesForm.get('date_gen')?.value)
-   // Fill date cloture
-   let date = {
-     mois: date_gen.getMonth() + 1,
-     annee: date_gen.getFullYear()
-   }
-     let filename = `annex${param}` + date
-    this.downloadService.dowloadFiles(filename,date,`annex${param}`).subscribe(res => {
+  downloadAnnex(param: string) {
+    // let today = new Date()
+    let date_gen = new Date(this.filesForm.get('date_gen')?.value)
+    // Fill date cloture
+    let date = {
+      mois: date_gen.getMonth() + 1,
+      annee: date_gen.getFullYear()
+    }
+    // Path name
+    let filename = param + `_${date.mois}-${date.annee}`;
+
+    this.downloadService.dowloadFiles(filename, date, param).subscribe(res => {
       if (res) {
         fileSaver.saveAs(res, filename);
       }
     })
-
   }
-
-
 
   get date_gen() {
     return this.filesForm.get('date_gen');
