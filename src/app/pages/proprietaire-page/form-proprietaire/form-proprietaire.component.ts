@@ -317,9 +317,15 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
           this.contratByLieu = data; 
           this.lengthProprietaire = this.contratByLieu[0].lieu.proprietaire.length
 
-          for (let index = 0; index < this.contratByLieu[0].lieu.proprietaire.length; index++) {
-            if (this.contratByLieu[0].lieu.proprietaire.is_mandataire == false) {
+          
+          for (let index = 0; index < this.lengthProprietaire; index++) {
+            if (this.contratByLieu[0].lieu.proprietaire[this.lengthProprietaire].is_mandataire == false) {
               this.proprietaires = this.contratByLieu[0].lieu.proprietaire
+              // if(this.proprietaires.length == 0)
+              // {
+              //  console.log("Aucun proprietaire");
+               
+              // }
             }
           }
           
