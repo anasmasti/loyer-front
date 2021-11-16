@@ -127,6 +127,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       pourcentage_caution: new FormControl(),
       caution_par_proprietaire: new FormControl(),
 
+      propietaire_list: new FormControl(),
+
       // Champs du mandataire
       // mandataireForm: new FormArray([]),
     });
