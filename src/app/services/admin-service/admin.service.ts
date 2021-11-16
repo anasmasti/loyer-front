@@ -35,7 +35,7 @@ export class AdminService {
 
   //delete user 
   deleteUserById(id: String, matricule: any) {
-    return this.http.put(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/delete/${matricule}`, id);
+    return this.http.put(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/delete/${id}/${matricule}`, null);
   }
 
   // check the deleted false user roles 

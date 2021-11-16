@@ -312,9 +312,13 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     this.lieuService
       .getContratByLieu(this.lieu_id, this.userMatricule)
       .subscribe((data) => {
-        if (data) { this.contratByLieu = data; }
-        this.lengthProprietaire = this.contratByLieu[0].lieu.proprietaire.length
+        if (data) { 
+          this.contratByLieu = data; 
+          this.lengthProprietaire = this.contratByLieu[0].lieu.proprietaire.length
+        }
       });
+      // console.log(this.contratByLieu);
+      
   }
 
   // Calculer le montant (retenue à la source / montant apres impot / TAX)
@@ -517,21 +521,21 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       nom_agence_bancaire: this.proprietaireForm.get('nom_agence_bancaire')
         ?.value,
       montant_loyer: this.proprietaireForm.get('montant_loyer')?.value,
-      mandataire: this.proprietaireForm.get('mandataire')?.value,
       banque_rib: this.proprietaireForm.get('banque_rib')?.value,
       ville_rib: this.proprietaireForm.get('ville_rib')?.value,
       cle_rib: this.proprietaireForm.get('cle_rib')?.value,
       taux_impot: this.tauxImpot,
       retenue_source: this.retenueSource,
       montant_apres_impot: this.montantApresImpot,
-
+      
       montant_avance_proprietaire: this.montantAvance,
       tax_avance_proprietaire: this.taxAvance,
       tax_par_periodicite: this.taxPeriodicite,
-
+      
       pourcentage_caution: this.pourcentageCaution,
       caution_par_proprietaire: this.montantCautionProprietaire,
-
+      
+      is_mandataire: this.proprietaireForm.get('mandataire')?.value,
       // mandataire: this.proprietaireForm.get('mandataireForm')?.value,
       // deleted:false,
     };
