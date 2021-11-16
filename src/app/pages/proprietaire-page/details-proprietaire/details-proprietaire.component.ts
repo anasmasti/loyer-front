@@ -30,7 +30,7 @@ export class DetailsProprietaireComponent implements OnInit {
     this.proprietaireService.getProprietaireById(id, this.userMatricule).subscribe((data) => {
       if (data) {
         this.proprietaire = data;
-        this.mandataire = data.mandataire;
+        this.mandataire = data.is_mandataire;
       }
     });
   }

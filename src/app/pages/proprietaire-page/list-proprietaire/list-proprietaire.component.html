@@ -53,8 +53,8 @@
                 <td>
                     <div class="d-grid">
                         <span class="p-1"
-                            [ngClass]="{'success-txt': proprietaire?.mandataire, 'danger-txt': !proprietaire?.mandataire}">
-                            {{ checkAndPutText(proprietaire.mandataire) }}
+                            [ngClass]="{'success-txt': proprietaire?.is_mandataire, 'danger-txt': !proprietaire?.is_mandataire}">
+                            {{ checkAndPutText(proprietaire.is_mandataire) }}
                         </span>
                     </div>
                 </td>
