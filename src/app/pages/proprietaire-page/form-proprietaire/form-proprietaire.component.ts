@@ -6,6 +6,7 @@ import { ProprietaireService } from 'src/app/services/proprietaire-service/propr
 import { ActivatedRoute, Router } from '@angular/router';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
+import { Proprietaire } from 'src/app/models/Proprietaire';
 
 @Component({
   selector: 'app-form-proprietaire',
@@ -47,7 +48,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
   lengthProprietaire!: number;
 
-  proprietaires!: any;
+  proprietaires: any = [];
 
   proprietaireList: any = [];
 
@@ -283,6 +284,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         // adresse_mandataire: '',
         // n_compte_bancaire_mandataire: '',
       });
+      this.proprietaires = this.proprietaire.proprietaire_list;
+      console.log("test" , this.proprietaires);
+    
     this.montantLoyer = this.proprietaire.montant_loyer;
   }
 
@@ -319,12 +323,11 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
           this.contratByLieu = data; 
           this.lengthProprietaire = this.contratByLieu[0].lieu.proprietaire.length
           
-          for (let index = 0; index < this.contratByLieu[0].lieu.proprietaire.length; index++) {
-            if (this.contratByLieu[0].lieu.proprietaire[index].is_mandataire != false &&
-              this.contratByLieu[0].lieu.proprietaire[index].has_mandataire ) {
-              this.proprietaires = this.contratByLieu[0].lieu.proprietaire
-              console.log("Teeeeeeeeeeeeest");
-                            
+          if (this.isInsertForm) {
+            for (let index = 0; index < this.contratByLieu[0].lieu.proprietaire.length; index++) {
+              if (this.contratByLieu[0].lieu.proprietaire[index].is_mandataire == false &&
+                this.contratByLieu[0].lieu.proprietaire[index].has_mandataire == null ) 
+                this.proprietaires.push(this.contratByLieu[0].lieu.proprietaire[index])
             }
           }
           // console.log(this.proprietaires);
@@ -514,18 +517,33 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     this.confirmationModalService.open(); // Open confirmation modal
   }
 
-  FillProprietaireList(ElementId: any) {
+  FillProprietaireList(ElementId: any , proprietaire:Proprietaire) {
     let InputElement = document.getElementById(ElementId) as HTMLInputElement
     if (InputElement.checked){
       // push selected proprietaire id to proprietaire list 
-      this.proprietaireList.push(InputElement.value)
+      this.proprietaireList.push({ id: InputElement.value })
+      // this.proprietaireList.push(
+      //   {
+      //     Id: InputElement.value,
+      //     Cin: proprietaire.cin,
+      //     FullName: proprietaire.nom_prenom
+      //   }
+      // )
     }
     else
     {
+      for (let i = 0; i < this.proprietaireList.length; i++) {
+        if (this.proprietaireList[i].id ==  InputElement.value ) {
+          // remove selected proprietaire id from proprietaire list
+          this.proprietaireList.splice(i , 1)
+        }
+        
+      }
       // remove selected proprietaire id from proprietaire list
-      let index = this.proprietaireList.indexOf( InputElement.value )
-      this.proprietaireList.splice(index , 1)
+      // let index = this.proprietaireList.indexOf(InputElement.value)
+      // this.proprietaireList.splice(index , 1)
     }
+    console.log(this.proprietaireList);
   }
 
   addProprietaire() {
