@@ -28,7 +28,7 @@ export interface Proprietaire {
   pourcentage_caution: number,
   caution_par_proprietaire: number,
 
-  propietaire_list:[],
+  proprietaire_list:[],
   // mandataire: [{
   //   cin_mandataire: string;
   //   nom_prenom_mandataire: string;

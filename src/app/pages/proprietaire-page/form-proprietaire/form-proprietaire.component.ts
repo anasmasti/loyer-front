@@ -318,8 +318,11 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
           this.lengthProprietaire = this.contratByLieu[0].lieu.proprietaire.length
           
           for (let index = 0; index < this.contratByLieu[0].lieu.proprietaire.length; index++) {
-            if (this.contratByLieu[0].lieu.proprietaire[index].is_mandataire == false) {
-              this.proprietaires = this.contratByLieu[0].lieu.proprietaire              
+            if (this.contratByLieu[0].lieu.proprietaire[index].is_mandataire != false &&
+              this.contratByLieu[0].lieu.proprietaire[index].has_mandataire ) {
+              this.proprietaires = this.contratByLieu[0].lieu.proprietaire
+              console.log("Teeeeeeeeeeeeest");
+                            
             }
           }
           // console.log(this.proprietaires);
@@ -557,7 +560,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       
       is_mandataire: this.proprietaireForm.get('is_mandataire')?.value,
 
-      propietaire_list: this.proprietaireList
+      proprietaire_list: this.proprietaireList
       // mandataire: this.proprietaireForm.get('mandataireForm')?.value,
       // deleted:false,
     };
@@ -625,7 +628,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       caution_par_proprietaire: this.montantCautionProprietaire,
       
       is_mandataire: this.proprietaireForm.get('is_mandataire')?.value,
-      propietaire_list: this.proprietaireList
+      proprietaire_list: this.proprietaireList
     };
 
 
