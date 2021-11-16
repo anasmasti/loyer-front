@@ -343,11 +343,11 @@
     <div class="mt-4" *ngIf="lengthProprietaire">
       <div class="mt-2" *ngFor="let proprietaire of proprietaires">
         <input type="checkbox" [name]="proprietaire._id" class="btn-check check" [id]="proprietaire._id"
-         autocomplete="off" [value]="proprietaire._id" (click)="FillProprietaireList(proprietaire._id)">
+         autocomplete="off" [value]="proprietaire._id" (click)="FillProprietaireList(proprietaire._id , proprietaire )">
         <label class="px-3 py-1 rounded-pill checkbox-list-btns" [for]="proprietaire._id">{{proprietaire.cin}}-{{proprietaire.nom_prenom}}</label>
       </div>
     </div>
-    <div class="mt-4" *ngIf="!lengthProprietaire">
+    <div class="mt-4" *ngIf="!proprietaires.length">
       <!-- Error message -->
       <span class="danger-txt"><i class="fas fa-exclamation-triangle"></i> Aucun proprietaire!</span>
     </div>
