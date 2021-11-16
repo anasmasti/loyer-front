@@ -127,6 +127,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       pourcentage_caution: new FormControl(),
       caution_par_proprietaire: new FormControl(),
 
+      propietaire_list: new FormControl(),
+
       // Champs du mandataire
       // mandataireForm: new FormArray([]),
     });
@@ -316,19 +318,13 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
           console.log(data);
           this.contratByLieu = data; 
           this.lengthProprietaire = this.contratByLieu[0].lieu.proprietaire.length
-
           
-          for (let index = 0; index < this.lengthProprietaire; index++) {
-            if (this.contratByLieu[0].lieu.proprietaire[this.lengthProprietaire].is_mandataire == false) {
-              this.proprietaires = this.contratByLieu[0].lieu.proprietaire
-              // if(this.proprietaires.length == 0)
-              // {
-              //  console.log("Aucun proprietaire");
-               
-              // }
+          for (let index = 0; index < this.contratByLieu[0].lieu.proprietaire.length; index++) {
+            if (this.contratByLieu[0].lieu.proprietaire[index].is_mandataire == false) {
+              this.proprietaires = this.contratByLieu[0].lieu.proprietaire              
             }
           }
-          
+          // console.log(this.proprietaires);
         }
       });
   }
@@ -567,6 +563,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       // mandataire: this.proprietaireForm.get('mandataireForm')?.value,
       // deleted:false,
     };
+
+    // console.log(proprietaire_data);
+    
 
     this.proprietaireService
       .postProprietaire(proprietaire_data, this.lieu_id, this.userMatricule)

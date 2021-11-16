@@ -335,15 +335,21 @@
       formControlName="is_mandataire" />
   </div>
 
+  <!-- If isMand true show list of proprietaire to checked -->
   <div *ngIf="isMand; then coproprietaire"></div>
 
+  <!-- Show the proprietaire list if the lengthProprietaire == 0 if not show an error message -->
   <ng-template #coproprietaire>
-    <div class="mt-4">
+    <div class="mt-4" *ngIf="lengthProprietaire">
       <div class="mt-2" *ngFor="let proprietaire of proprietaires">
         <input type="checkbox" [name]="proprietaire._id" class="btn-check check" [id]="proprietaire._id"
          autocomplete="off" [value]="proprietaire._id" (click)="FillProprietaireList(proprietaire._id)">
         <label class="px-3 py-1 rounded-pill checkbox-list-btns" [for]="proprietaire._id">{{proprietaire.cin}}-{{proprietaire.nom_prenom}}</label>
       </div>
+    </div>
+    <div class="mt-4" *ngIf="!lengthProprietaire">
+      <!-- Error message -->
+      <span class="danger-txt"><i class="fas fa-exclamation-triangle"></i> Aucun proprietaire!</span>
     </div>
   </ng-template>
 
