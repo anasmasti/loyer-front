@@ -128,7 +128,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       pourcentage_caution: new FormControl(),
       caution_par_proprietaire: new FormControl(),
 
-      propietaire_list: new FormControl(),
+      proprietaire_list: new FormControl(),
 
       // Champs du mandataire
       // mandataireForm: new FormArray([]),
@@ -231,21 +231,24 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       //     formGroup.controls.telephone_mandataire.setValue(
       //       mandataireControl.telephone_mandataire
       //     );
-
+      
       //     formGroup.controls.fax_mandataire.setValue(
-      //       mandataireControl.fax_mandataire
-      //     );
+        //       mandataireControl.fax_mandataire
+        //     );
+        
+        //     formGroup.controls.adresse_mandataire.setValue(
+          //       mandataireControl.adresse_mandataire
+          //     );
+          
+          //     formGroup.controls.n_compte_bancaire_mandataire.setValue(
+            //       mandataireControl.n_compte_bancaire_mandataire
+            //     );
+            //   }
+            // } else {
+              // this.isMand = false;
+              this.proprietaires = this.proprietaire.proprietaire_list;
 
-      //     formGroup.controls.adresse_mandataire.setValue(
-      //       mandataireControl.adresse_mandataire
-      //     );
 
-      //     formGroup.controls.n_compte_bancaire_mandataire.setValue(
-      //       mandataireControl.n_compte_bancaire_mandataire
-      //     );
-      //   }
-      // } else {
-      // this.isMand = false;
       this.proprietaireForm.patchValue({
         cin: this.proprietaire.cin,
         passport: this.proprietaire.passport,
@@ -274,6 +277,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
         pourcentage_caution: this.proprietaire.pourcentage_caution,
         caution_par_proprietaire: this.proprietaire.caution_par_proprietaire,
+        proprietaire_list: this.proprietaires,
 
         // mandataire inputs
         // cin_mandataire: '',
@@ -284,10 +288,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         // adresse_mandataire: '',
         // n_compte_bancaire_mandataire: '',
       });
-      this.proprietaires = this.proprietaire.proprietaire_list;
-      console.log("test" , this.proprietaires);
     
     this.montantLoyer = this.proprietaire.montant_loyer;
+
   }
 
 
@@ -319,7 +322,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       .getContratByLieu(this.lieu_id, this.userMatricule)
       .subscribe((data) => {
         if (data) { 
-          console.log(data);
           this.contratByLieu = data; 
           this.lengthProprietaire = this.contratByLieu[0].lieu.proprietaire.length
           
@@ -330,7 +332,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
                 this.proprietaires.push(this.contratByLieu[0].lieu.proprietaire[index])
             }
           }
-          // console.log(this.proprietaires);
         }
       });
   }
@@ -517,18 +518,18 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     this.confirmationModalService.open(); // Open confirmation modal
   }
 
-  FillProprietaireList(ElementId: any , proprietaire:Proprietaire) {
+  FillProprietaireList(ElementId: any) {
     let InputElement = document.getElementById(ElementId) as HTMLInputElement
     if (InputElement.checked){
       // push selected proprietaire id to proprietaire list 
-      this.proprietaireList.push({ id: InputElement.value })
-      // this.proprietaireList.push(
-      //   {
-      //     Id: InputElement.value,
-      //     Cin: proprietaire.cin,
-      //     FullName: proprietaire.nom_prenom
-      //   }
-      // )
+      this.proprietaireList.push({ idProprietaire: InputElement.value })
+        // this.proprietaireList.push(
+        //   {
+        //     Id: InputElement.value,
+        //     Cin: proprietaire.cin,
+        //     FullName: proprietaire.nom_prenom
+        //   }
+        // )
     }
     else
     {
@@ -540,10 +541,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         
       }
       // remove selected proprietaire id from proprietaire list
-      // let index = this.proprietaireList.indexOf(InputElement.value)
-      // this.proprietaireList.splice(index , 1)
+      let index = this.proprietaireList.indexOf(InputElement.value)
+      this.proprietaireList.splice(index , 1)
     }
-    console.log(this.proprietaireList);
   }
 
   addProprietaire() {
@@ -583,7 +583,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       // deleted:false,
     };
 
-    // console.log(proprietaire_data);
     
 
     this.proprietaireService
@@ -649,7 +648,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       proprietaire_list: this.proprietaireList
     };
 
-
+    
 
     this.proprietaireService
       .updateProprietaire(id, proprietaireData, this.userMatricule)
