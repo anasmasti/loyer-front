@@ -75,7 +75,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
 
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.proprietaireForm = new FormGroup({
       // Champs du propriètaire
       cin: new FormControl('', [Validators.required, Validators.maxLength(8)]),
@@ -183,10 +183,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       this.getTauxImpot();
     }, 1000);
     setTimeout(() => {
-      // this.controlleMontantContrat();
-      this.calculMontant();
       this.calculCaution();
-      this.controlleMontantContrat();
     }, 2000);
   }
 
@@ -323,6 +320,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
   // To get the contrat and proprietaire in lieux
   getTauxImpot() {
+    this.totalPourcentageProprietaires = 0;
     this.lieuService
       .getContratByLieu(this.lieu_id, this.userMatricule)
       .subscribe((data) => {
@@ -335,10 +333,11 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
               if (this.contratByLieu[0].lieu.proprietaire[index].is_mandataire == false &&
                 this.contratByLieu[0].lieu.proprietaire[index].has_mandataire == null && this.isInsertForm)
                 this.proprietaires.push(this.contratByLieu[0].lieu.proprietaire[index])
-                // 
-                this.totalPourcentageProprietaires += this.contratByLieu[0].lieu.proprietaire[index].pourcentage;
- 
-          }
+                this.totalPourcentageProprietaires += this.contratByLieu[0].lieu.proprietaire[index].pourcentage; 
+              }
+              if (this.update) {
+                this.totalPourcentageProprietaires = this.totalPourcentageProprietaires - this.proprietaire.pourcentage
+              }
         }
       });
   }
@@ -369,8 +368,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     // condition to control if the total pourcentage are > 100 the we show an error message and take 100 minus the total pourcentage and stock the result in the pourcentageProprietaire
     if( (this.totalPourcentageProprietaires + this.pourcentageProprietaire) > 100){
       this.pourcentageProprietaire = 100 - this.totalPourcentageProprietaires;
-      console.log("100 - ",this.totalPourcentageProprietaires , " = ",this.pourcentageProprietaire);
-      
       this.openConfirmationModal();
     }
     //  CALCULER LE MONTANT DE LOYER A PARTIR DE POURCENTAGE DONNE PAR L'UTILISATEUR
@@ -522,21 +519,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       let cautionProprietaire = (cautionContrat * this.pourcentageProprietaire) / 100;
       this.montantCautionProprietaire = cautionProprietaire;
     // }
-  }
-
-  // check if montant loyer contrat do not exceed the sum of montant loyer proprietaire if it is show an error model
-  controlleMontantContrat() {
-    // let res = 0;
-    // let montantLoyerContrat = this.contratByLieu[0].montant_loyer;
-    // for (let i = 0; i < this.lengthProprietaire; i++) {
-    //   let montantLoyerProprietaire = this.contratByLieu[0].lieu.proprietaire[i].montant_loyer;
-    //   res += montantLoyerProprietaire;
-    // }
-    // let CurrentProprietaireMontant = Number(this.proprietaireForm.get('montant_loyer')?.value);
-    // res += CurrentProprietaireMontant;
-    // if (res > montantLoyerContrat) {
-    //   this.openConfirmationModal();
-    // };
   }
 
   // function to open model
