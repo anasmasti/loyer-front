@@ -50,6 +50,29 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   lieuxSubscription$!: Subscription;
   proprietairesSubscription$!: Subscription;
 
+  types = [
+    {
+      id: 'DR',
+      name: 'Direction régionale',
+    },
+    {
+      id: 'LF',
+      name: 'Logement de fonction',
+    },
+    {
+      id: 'PV',
+      name: 'Point de vente',
+    },
+    {
+      id: 'Siege',
+      name: 'Siège',
+    },
+    {
+      id: 'SV',
+      name: 'Supervision',
+    },
+  ];
+
   constructor(
     private foncierService: FoncierService,
     private store: Store<AppState>,
