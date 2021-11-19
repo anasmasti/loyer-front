@@ -134,9 +134,7 @@ export class DrFormComponent implements OnInit {
         }, 3000);
         this.hideErrorMessage();
       }
-    );
-
-    console.log(dr_data);
+    ); 
   }
 
   //Patch Direction regional
