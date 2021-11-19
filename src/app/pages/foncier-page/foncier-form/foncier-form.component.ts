@@ -4,7 +4,7 @@ import { getPropWithLieuxAction } from './../foncier-store/foncier.actions';
 import { AppState } from 'src/app/store/app.state';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, Input, OnDestroy, Inject } from '@angular/core';
 import { getLieux, getProprietaires } from '../foncier-store/foncier.selector';
 import { debounceTime, delay, map } from 'rxjs/operators';
@@ -22,6 +22,7 @@ import { getCities } from 'src/app/store/shared/shared.selector';
 export class FoncierFormComponent implements OnInit, OnDestroy {
   @Input() formType!: string;
   @Input() foncier!: any;
+  @Input() update!: boolean;
 
   hasAmenagement: boolean = false;
   hasAmenagementCheck: string = '';
@@ -35,6 +36,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   userMatricule: any = localStorage.getItem('matricule');
   cities!: any[];
   citiesSubscription$!: Subscription;
+  selectedFile!: File;
 
   errors!: string;
   postDone: boolean = false;
@@ -47,12 +49,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   lieux!: any;
   lieuxSubscription$!: Subscription;
   proprietairesSubscription$!: Subscription;
-  countriesSubscription$!: Subscription;
-
-  cities!: any;
-  countries!: any;
-
-  userMatricule: any = localStorage.getItem('matricule');
 
   constructor(
     private foncierService: FoncierService,
@@ -64,26 +60,21 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.foncierForm = new FormGroup({
-      proprietaire: new FormControl(),
-      type_foncier: new FormControl(),
-      adresse: new FormControl(),
-      description: new FormControl(),
-      lieu: new FormControl(),
-      assure: new FormControl(),
-      etat_du_bien: new FormControl(),
-      ville: new FormControl(),
-      code_postal: new FormControl(),
-      pays: new FormControl(),
-      montant_loyer: new FormControl(),
-      meuble_equipe: new FormControl(),
+      type: new FormControl(''),
+      adresse: new FormControl('', [Validators.required]),
+      lieu: new FormControl(''),
+      ville: new FormControl('', [Validators.required]),
+      desc_lieu_entrer: new FormControl(''),
+      has_contrat: new FormControl(''),
+      has_amenagements: new FormControl(''),
+      superficie: new FormControl(''),
+      etage: new FormControl(''),
+      imgs_lieu_entrer: new FormControl(''),
+      // Amenagement
+      amenagementForm: new FormArray([]),
     });
     this.getCities();
-    this.getProprietaires();
     this.getLieux();
-    // this.getCountries()
-    setTimeout(() => {
-      // this.selectCountries();
-    }, 500);
   }
 
   fetchCities() {
@@ -111,24 +102,21 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     this.removeAllAmenagement();
 
     this.foncierForm.patchValue({
-      proprietaire: this.foncier.proprietaire,
-      type_foncier: this.foncier.type_foncier,
+      type: this.foncier.type,
       adresse: this.foncier.adresse,
-      description: this.foncier.description,
       lieu: this.foncier.lieu,
-      assure: this.foncier.assure,
-      etat_du_bien: this.foncier.etat_du_bien,
       ville: this.foncier.ville,
-      code_postal: this.foncier.code_postal,
-      pays: this.foncier.pays,
-      montant_loyer: this.foncier.montant_loyer,
-      meuble_equipe: this.foncier.meuble_equipe,
+      desc_lieu_entrer: this.foncier.desc_lieu_entrer,
+      has_contrat: this.foncier.has_contrat,
+      has_amenagements: this.foncier.has_amenagements,
+      superficie: this.foncier.superficie,
+      etage: this.foncier.etage,
     });
 
-    this.amenagementList = this.Lieu.amenagement;
+    this.amenagementList = this.foncier.amenagement;
 
     //amenagement inputs
-    this.Lieu.amenagement.forEach((amenagementControl: any) => {
+    this.foncier.amenagement.forEach((amenagementControl: any) => {
       let formGroupAmenagement = this.addAmenagement(
         'OldAmng',
         amenagementControl.deleted
@@ -226,14 +214,14 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     if (HasAmenagement == 'Oui') {
       this.hasAmenagement = true;
       this.hasAmenagementCheck = '';
-      this.drForm.patchValue({
+      this.foncierForm.patchValue({
         has_amenagements: this.hasAmenagement,
       });
     } else {
       if (HasAmenagement != 'Default') {
         this.hasAmenagement = false;
         this.hasAmenagementCheck = 'ButtonNon';
-        this.drForm.patchValue({
+        this.foncierForm.patchValue({
           has_amenagements: this.hasAmenagement,
         });
       }
@@ -263,7 +251,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       NewOrOld: new FormControl(NewOrOld),
     });
 
-    (<FormArray>this.drForm.get('amenagementForm')).push(
+    (<FormArray>this.foncierForm.get('amenagementForm')).push(
       <FormGroup>amenagementData
     );
 
@@ -271,12 +259,12 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   }
 
   removeAmenagement(index: number) {
-    // (<FormArray>this.drForm.get('amenagementForm')).removeAt(index)
+    // (<FormArray>this.foncierForm.get('amenagementForm')).removeAt(index)
 
-    let Amenagement = <FormArray>this.drForm.get('amenagementForm');
+    let Amenagement = <FormArray>this.foncierForm.get('amenagementForm');
 
     if (Amenagement.value[index].NewOrOld == 'NewAmng') {
-      (<FormArray>this.drForm.get('amenagementForm')).removeAt(index);
+      (<FormArray>this.foncierForm.get('amenagementForm')).removeAt(index);
     } else {
       let element = this.document.getElementById(
         'deleted ' + index
@@ -289,7 +277,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   }
 
   removeAllAmenagement() {
-    (<FormArray>this.drForm.get('amenagementForm')).clear();
+    (<FormArray>this.foncierForm.get('amenagementForm')).clear();
   }
 
   // FournisseurData
@@ -353,12 +341,12 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
         this.file = this.idm + index + this.imageExtension;
         this.fd.append('imgs_amenagement', this.selectedFile, this.file);
       }
-      if (this.update && this.Lieu.amenagement[index]?.idm === undefined) {
+      if (this.update && this.foncier.amenagement[index]?.idm === undefined) {
         this.file = this.idm + index + this.imageExtension;
         this.fd.append('imgs_amenagement', this.selectedFile, this.file);
       }
-      if (this.update && this.Lieu.amenagement[index]?.idm !== undefined) {
-        this.file = this.Lieu.amenagement[index]?.idm + this.imageExtension;
+      if (this.update && this.foncier.amenagement[index]?.idm !== undefined) {
+        this.file = this.foncier.amenagement[index]?.idm + this.imageExtension;
         this.fd.append('imgs_amenagement', this.selectedFile, this.file);
       }
     }
@@ -372,12 +360,12 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
         this.file = this.idm + index + this.imageExtension;
         this.fd.append('imgs_croquis', this.selectedFile, this.file);
       }
-      if (this.update && this.Lieu.amenagement[index]?.idm === undefined) {
+      if (this.update && this.foncier.amenagement[index]?.idm === undefined) {
         this.file = this.idm + index + this.imageExtension;
         this.fd.append('imgs_croquis', this.selectedFile, this.file);
       }
-      if (this.update && this.Lieu.amenagement[index]?.idm !== undefined) {
-        this.file = this.Lieu.amenagement[index]?.idm + this.imageExtension;
+      if (this.update && this.foncier.amenagement[index]?.idm !== undefined) {
+        this.file = this.foncier.amenagement[index]?.idm + this.imageExtension;
         this.fd.append('imgs_croquis', this.selectedFile, this.file);
       }
     }
@@ -408,17 +396,17 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   addFoncier() {
     let foncier: Foncier = {
       proprietaire: this.foncierForm.get('proprietaire')?.value,
-      type_foncier: this.foncierForm.get('type_foncier')?.value,
+      type: this.foncierForm.get('type')?.value,
       adresse: this.foncierForm.get('adresse')?.value,
-      description: this.foncierForm.get('description')?.value,
       lieu: this.foncierForm.get('lieu')?.value,
-      assure: this.foncierForm.get('assure')?.value,
-      etat_du_bien: this.foncierForm.get('etat_du_bien')?.value,
       ville: this.foncierForm.get('ville')?.value,
-      code_postal: this.foncierForm.get('code_postal')?.value,
-      pays: this.foncierForm.get('pays')?.value,
-      montant_loyer: this.foncierForm.get('montant_loyer')?.value,
-      meuble_equipe: this.foncierForm.get('meuble_equipe')?.value,
+      desc_lieu_entrer: this.foncierForm.get('desc_lieu_entrer')?.value,
+      has_contrat: this.foncierForm.get('has_contrat')?.value,
+      has_amenagements: this.foncierForm.get('has_amenagements')?.value,
+      superficie: this.foncierForm.get('superficie')?.value,
+      etage: this.foncierForm.get('etage')?.value,
+      // Amenagement
+      amenagement: this.foncierForm.get('amenagementForm')?.value,
     };
     this.fd.append('data', JSON.stringify(foncier));
     this.foncierService.addFoncier(this.fd, this.userMatricule).subscribe(
@@ -447,29 +435,28 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     if (this.hasAmenagementCheck == 'ButtonNon') {
       this.isAmenagementEmpty = false;
     } else {
-      this.drForm.get('amenagementForm')?.value.forEach((element: any) => {
+      this.foncierForm.get('amenagementForm')?.value.forEach((element: any) => {
         if (!element.deleted) {
           this.isAmenagementEmpty = true;
         }
       });
     }
-    this.selectedImagesLieuEntrer = this.Lieu.imgs_lieu_entrer;
+    this.selectedImagesLieuEntrer = this.foncier?.imgs_lieu_entrer;
 
-    let foncier: Foncier = {
+    let foncier: any = {
       proprietaire: this.foncierForm.get('proprietaire')?.value,
-      type_foncier: this.foncierForm.get('type_foncier')?.value,
       adresse: this.foncierForm.get('adresse')?.value,
-      description: this.foncierForm.get('description')?.value,
       lieu: this.foncierForm.get('lieu')?.value,
-      assure: this.foncierForm.get('assure')?.value,
       etat_du_bien: this.foncierForm.get('etat_du_bien')?.value,
       ville: this.foncierForm.get('ville')?.value,
-      code_postal: this.foncierForm.get('code_postal')?.value,
-      pays: this.foncierForm.get('pays')?.value,
-      montant_loyer: this.foncierForm.get('montant_loyer')?.value,
-      meuble_equipe: this.foncierForm.get('meuble_equipe')?.value,
       has_amenagements: this.isAmenagementEmpty,
       imgs_lieu_entrer: this.selectedImagesLieuEntrer,
+
+      type: this.foncierForm.get('type')?.value,
+      desc_lieu_entrer: this.foncierForm.get('desc_lieu_entrer')?.value,
+      has_contrat: this.foncierForm.get('has_contrat')?.value,
+      superficie: this.foncierForm.get('superficie')?.value,
+      etage: this.foncierForm.get('etage')?.value,
 
       // Amenagment
       amenagement: this.foncierForm.get('amenagementForm')?.value,
@@ -531,6 +518,14 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   }
 
   get amenagementForm(): FormArray {
-    return (<FormArray>this.siegeForm.get('amenagementForm'));
+    return (<FormArray>this.foncierForm.get('amenagementForm'));
+  }
+
+  get adresse() {
+    return this.foncierForm.get('adresse')
+  }
+
+  get ville() {
+    return this.foncierForm.get('ville')
   }
 }

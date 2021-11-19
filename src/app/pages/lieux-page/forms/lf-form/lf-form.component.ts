@@ -290,7 +290,6 @@ export class LfFormComponent implements OnInit, OnDestroy {
     let lfData: any = {
       code_lieu: this.LfForm.get('code_lieu')?.value,
       intitule_lieu: this.LfForm.get('intitule_lieu')?.value,
-      intitule_DR: this.LfForm.get('intitule_DR')?.value,
       adresse: this.LfForm.get('adresse')?.value,
       ville: this.LfForm.get('ville')?.value,
       code_localite: this.LfForm.get('code_localite')?.value,

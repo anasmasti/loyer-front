@@ -1,4 +1,3 @@
-import { getCitiesAction } from './../../../../store/shared/shared.action';
 import { AppState } from './../../../../store/app.state';
 import { MainModalService } from './../../../../services/main-modal/main-modal.service';
 import { LieuxService } from './../../../../services/lieux-service/lieux.service';
@@ -10,7 +9,6 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { HelperService } from 'src/app/services/helpers/helper.service';
-import { getCities } from 'src/app/store/shared/shared.selector';
 import { Router } from '@angular/router';
 
 @Component({
@@ -29,8 +27,6 @@ export class PvFormComponent implements OnInit, OnDestroy {
   Sup!: any;
   DrSubscription$!: Subscription;
   SupSubscription$!: Subscription;
-
-  i: any = 0;
 
   @Input() update!: boolean;
   @Input() Lieu!: any;

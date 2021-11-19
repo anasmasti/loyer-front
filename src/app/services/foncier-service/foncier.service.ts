@@ -29,7 +29,7 @@ export class FoncierService {
   }
 
   // Post foncier
-  addFoncier(data: Foncier, matricule: any): Observable<Foncier> {
+  addFoncier(data: FormData, matricule: any): Observable<Foncier> {
     return this.http.post<Foncier>(
       `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/ajouter/${matricule}`, data
     );

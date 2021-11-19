@@ -17,7 +17,8 @@ import { getFonciers, getError } from '../foncier-store/foncier.selector';
 })
 export class FoncierListComponent implements OnInit {
   errors!: string;
-  fonciers: any = [];
+  fonciers: Foncier[] = [];
+  filtredFonciers: Foncier[] = [];
   id: string = '0';
   targetFoncier!: Foncier;
   foncierSubscription$!: Subscription;
@@ -67,6 +68,10 @@ export class FoncierListComponent implements OnInit {
       });
   }
 
+  checkAndPutText(value: boolean) {
+    return this.helperService.booleanToText(value)
+  }
+  
   // Filter by intitule
   search() {
     if (this.findFoncier != '') {
@@ -81,6 +86,25 @@ export class FoncierListComponent implements OnInit {
     } else if (this.findFoncier == '') {
       this.getFoncier();
     }
+  }
+
+  searchByAmenagement(event: any, statut: string) {
+    this.getFoncier()
+
+    if (event.target.checked) {
+      if (statut == 'all') {
+        return this.fonciers
+      }
+
+      if (statut != 'all') {
+        this.filtredFonciers = this.fonciers.filter((res) => {
+          return (res.has_amenagements?.toString().match(statut));
+        });
+        this.fonciers = this.filtredFonciers
+      }
+    }
+
+    return
   }
 
   openEditModal(SelectedFoncier: any) {
@@ -134,7 +158,10 @@ export class FoncierListComponent implements OnInit {
         }
       );
   }
-
+  openModalAndPushFoncier(foncier: any) {
+    this.targetFoncier = foncier;
+    this.mainModalService.open(); // Open delete confirmation modal
+  }
   reload() {
     this.helperService.refrechPage();
   }

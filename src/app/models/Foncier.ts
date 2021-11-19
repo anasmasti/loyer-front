@@ -3,14 +3,13 @@ export interface Foncier {
   proprietaire: [];
   type: string;
   adresse: string;
-  description: string;
   lieu: [];
   ville: string;
   desc_lieu_entrer?: string;
-  imgs_lieu_entrer: [
+  imgs_lieu_entrer?: [
     {
-      _id: string;
-      image: string;
+      _id?: string;
+      image?: string;
     }
   ];
   has_contrat?: boolean;

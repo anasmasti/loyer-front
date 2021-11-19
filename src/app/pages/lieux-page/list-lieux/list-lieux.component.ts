@@ -79,24 +79,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     }
   }
 
-  searchByAmenagement(event: any, statut: string) {
-    this.getAllLieux()
-
-    if (event.target.checked) {
-      if (statut == 'all') {
-        return this.lieux
-      }
-
-      if (statut != 'all') {
-        this.filtredLocaux = this.lieux.filter((res) => {
-          return (res.has_amenagements?.toString().match(statut));
-        });
-        this.lieux = this.filtredLocaux
-      }
-    }
-
-    return
-  }
+ 
 
 
   //=======================================================================================================
