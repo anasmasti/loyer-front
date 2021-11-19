@@ -82,6 +82,7 @@ export class LfFormComponent implements OnInit, OnDestroy {
       centre_cout_siege: new FormControl(''),
       categorie_pointVente: new FormControl(''),
       deleted: new FormControl(''),
+      etat_logement_fonction: new FormControl(''),
 
       //Directeur
       matricule_directeur: new FormControl(''),
@@ -290,17 +291,10 @@ export class LfFormComponent implements OnInit, OnDestroy {
     let lfData: any = {
       code_lieu: this.LfForm.get('code_lieu')?.value,
       intitule_lieu: this.LfForm.get('intitule_lieu')?.value,
-      adresse: this.LfForm.get('adresse')?.value,
-      ville: this.LfForm.get('ville')?.value,
       code_localite: this.LfForm.get('code_localite')?.value,
-      desc_lieu_entrer: this.LfForm.get('desc_lieu_entrer')?.value,
-      imgs_lieu_entrer: this.LfForm.get('imgs_lieu_entrer')?.value,
-      has_amenagements: this.LfForm.get('has_amenagements')?.value,
-      superficie: this.LfForm.get('superficie')?.value,
       telephone: this.LfForm.get('telephone')?.value,
       fax: this.LfForm.get('fax')?.value,
       etat_logement_fonction: this.LfForm.get('etat_logement_fonction')?.value,
-      etage: this.LfForm.get('etage')?.value,
       type_lieu: this.LieuName,
       code_rattache_DR: this.LfForm.get('code_rattache_DR')?.value,
       code_rattache_SUP: this.LfForm.get('code_rattache_SUP')?.value,
