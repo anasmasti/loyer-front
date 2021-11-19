@@ -24,7 +24,7 @@ export class DrFormComponent implements OnInit {
   postDone: boolean = false;
   PostSucces: string = 'Direction régionale ajouté avec succés';
   updateDone: boolean = false;
-  updateSucces: string = 'Contrat modifié avec succés';
+  updateSucces: string = 'Direction régionale modifié avec succés';
 
   selectedFile!: File;
   drForm!: FormGroup;

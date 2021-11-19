@@ -28,7 +28,7 @@
             </li>
 
             <li class="nav-item my-4">
-                <a [routerLink]="['/foncier']" routerLinkActive="router-link-active" class="nav-link main-btn">
+                <a [routerLink]="['/lieux']" routerLinkActive="router-link-active" class="nav-link main-btn">
                     <span (click)="showSubMenu('entite')">
                         <i class="fal fa-building"></i>&nbsp;&nbsp;Entités organisat..
                     </span>
@@ -43,24 +43,24 @@
             </li>
 
             <li class="nav-item">
-                <a [routerLink]="['/lieux']" routerLinkActive="router-link-active" class="nav-link main-btn">
+                <a [routerLink]="['/foncier']" routerLinkActive="router-link-active" class="nav-link main-btn">
                     <span (click)="showSubMenu('lieux')">
                         <i class="fas fa-hotel"></i>&nbsp;&nbsp;Locaux
                     </span>
                 </a>
                 <ul class="sub-menu list-unstyled" id="lieux">
                     <li>
-                        <a [routerLink]="['/lieux/list']" class="nav-link sub-menu-btn">
+                        <a [routerLink]="['/foncier/list']" class="nav-link sub-menu-btn">
                             Liste des locaux
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/lieux/list']" class="nav-link sub-menu-btn">
+                        <a [routerLink]="['/foncier/list']" class="nav-link sub-menu-btn">
                             Ajouter un propriétaire
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/lieux/list']" class="nav-link sub-menu-btn">
+                        <a [routerLink]="['/foncier/list']" class="nav-link sub-menu-btn">
                             Ajouter un contrat
                         </a>
                     </li>
@@ -128,7 +128,7 @@
                 </ul> -->
             </li>
 
-            <li *ngIf="isAdmin" class="nav-item mt-4">
+            <li *ngIf="isAdmin" class="nav-item">
                 <a [routerLink]="['/admin']" routerLinkActive="router-link-active" class="nav-link danger-btn">
                     <i class="far fa-user-shield"></i> Administration
                 </a>

@@ -22,9 +22,9 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   @Input() foncier!: any;
   errors!: string;
   postDone: boolean = false;
-  PostSucces: string = 'Foncier ajouté avec succés';
+  PostSucces: string = 'Locale ajouté avec succés';
   updateDone: boolean = false;
-  updateSucces: string = 'Foncier modifié avec succés';
+  updateSucces: string = 'Locale modifié avec succés';
   foncierForm!: FormGroup;
 
   proprietaires!: any

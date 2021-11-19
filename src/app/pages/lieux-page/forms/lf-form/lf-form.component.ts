@@ -53,7 +53,7 @@ export class LfFormComponent implements OnInit, OnChanges, OnDestroy {
   postDone: boolean = false;
   PostSucces: string = 'Logement de fonction ajouté avec succés';
   updateDone: boolean = false;
-  updateSucces: string = 'Contrat modifié avec succés';
+  updateSucces: string = 'Logement de fonction modifié avec succés';
 
   selectedFile!: File;
   file!: string;
