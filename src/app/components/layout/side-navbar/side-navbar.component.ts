@@ -15,17 +15,15 @@ export class SideNavbarComponent implements OnInit {
   ngOnInit(): void {
     this.showAndHideMobileSideBarMenu() // Launch toggeling side menu for mobile
     this.isAdmin = this.authService.checkUserRole('Admin');
-
   }
 
   // Toggel sub menu
   showSubMenu(targetId: string) {
     if (targetId == 'lieux') $('.sub-menu#lieux').toggleClass('active'); // Check if the sub menu is lieux
+    if (targetId == 'entite') $('.sub-menu#entite').toggleClass('active'); // Check if the sub menu is entités organisationnelles
     return false
   }
-  displayMe(){
-    alert('in') ;
-  }
+
   // Toggel side menu for mobile
   showAndHideMobileSideBarMenu() {
     $('#sidebar-collapse-mobile').on('click', function () {
