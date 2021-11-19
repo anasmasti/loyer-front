@@ -192,7 +192,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
   fetchProprietaire() {
     this.getLieuId()
-    this.callGetContratAndLieuMethods(),
+    this.callGetContratAndLieuMethods()
 
       // this.removeAllMandateires();
 
@@ -333,7 +333,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
          
             for (let index = 0; index < this.contratByLieu[0].lieu.proprietaire.length; index++) {
               if (this.contratByLieu[0].lieu.proprietaire[index].is_mandataire == false &&
-                this.contratByLieu[0].lieu.proprietaire[index].has_mandataire == null && this.isInsertForm) 
+                this.contratByLieu[0].lieu.proprietaire[index].has_mandataire == null && this.isInsertForm)
                 this.proprietaires.push(this.contratByLieu[0].lieu.proprietaire[index])
                 // 
                 this.totalPourcentageProprietaires += this.contratByLieu[0].lieu.proprietaire[index].pourcentage;
@@ -369,6 +369,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     // condition to control if the total pourcentage are > 100 the we show an error message and take 100 minus the total pourcentage and stock the result in the pourcentageProprietaire
     if( (this.totalPourcentageProprietaires + this.pourcentageProprietaire) > 100){
       this.pourcentageProprietaire = 100 - this.totalPourcentageProprietaires;
+      console.log("100 - ",this.totalPourcentageProprietaires , " = ",this.pourcentageProprietaire);
+      
       this.openConfirmationModal();
     }
     //  CALCULER LE MONTANT DE LOYER A PARTIR DE POURCENTAGE DONNE PAR L'UTILISATEUR
@@ -511,12 +513,13 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   // caluclate the caution of each proprietaire
   calculCaution() {
     // if (this.isMand) {
-      let montantLoyerContrat = this.contratByLieu[0]?.montant_loyer;
+      // let montantLoyerContrat = this.contratByLieu[0]?.montant_loyer;
       let cautionContrat = this.contratByLieu[0]?.montant_caution;
-      let pourcentage = ((this.montantLoyer * 100) / montantLoyerContrat);
-      let cautionProprietaire = (cautionContrat * pourcentage) / 100;
+      // let pourcentage = ((this.montantLoyer * 100) / montantLoyerContrat);
+      // let cautionProprietaire = (cautionContrat * pourcentage) / 100;
+      // this.pourcentageCaution = pourcentage;
 
-      this.pourcentageCaution = pourcentage;
+      let cautionProprietaire = (cautionContrat * this.pourcentageProprietaire) / 100;
       this.montantCautionProprietaire = cautionProprietaire;
     // }
   }
@@ -600,6 +603,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     };
 
     
+console.log(proprietaire_data);
 
     this.proprietaireService
       .postProprietaire(proprietaire_data, this.lieu_id, this.userMatricule)

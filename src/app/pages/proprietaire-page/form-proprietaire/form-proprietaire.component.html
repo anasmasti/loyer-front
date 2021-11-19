@@ -259,7 +259,7 @@
     <div class="col-lg-3 form-group mt-4">
       <label for="">Pourcentage du montant %</label>
       <input type="text" class="form-control rounded-pill" formControlName="pourcentage"
-      (keyup)="calculMontant();controlleMontantContrat()"/>
+      (keyup)="calculMontant();calculMontantAvance();calculCaution()"/>
     </div>
 
     <div class="col-lg-3 form-group mt-4">
@@ -301,7 +301,7 @@
         
   
         <!-- Montant Avance Tax -->
-        <!-- <div class="col-lg-3 form-group mt-4">
+        <div class="col-lg-3 form-group mt-4">
           <label for="">Montant d'avance de propriètaire</label>
           <input type="text" class="form-control rounded-pill" [value]="montantAvance"
             formControlName="montant_avance_proprietaire" readonly />
@@ -320,17 +320,17 @@
         </div>
   
   
-        <div class="col-lg-3 form-group mt-4">
+        <!-- <div class="col-lg-3 form-group mt-4">
           <label for="">Pourcentage</label>
           <input type="text" class="form-control rounded-pill" [value]="pourcentageCaution  | number: '1.2-2'"
             formControlName="pourcentage_caution" readonly />
-        </div>
+        </div> -->
   
         <div class="col-lg-3 form-group mt-4">
           <label for="">Caution par proprietaire</label>
           <input type="text" class="form-control rounded-pill" [value]="montantCautionProprietaire | number: '1.2-2'"
             formControlName="caution_par_proprietaire" readonly />
-        </div> -->
+        </div>
 
   </div>
 
