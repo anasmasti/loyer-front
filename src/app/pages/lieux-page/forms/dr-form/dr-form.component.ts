@@ -103,7 +103,6 @@ export class DrFormComponent implements OnInit {
       code_localite: this.drForm.get('code_localite')?.value,
       desc_lieu_entrer: this.drForm.get('desc_lieu_entrer')?.value,
       has_amenagements: this.drForm.get('has_amenagements')?.value,
-      superficie: this.drForm.get('superficie')?.value,
       telephone: this.drForm.get('telephone')?.value,
       fax: this.drForm.get('fax')?.value,
       etage: this.drForm.get('etage')?.value,
@@ -148,8 +147,6 @@ export class DrFormComponent implements OnInit {
       ville: this.drForm.get('ville')?.value,
       code_localite: this.drForm.get('code_localite')?.value,
       desc_lieu_entrer: this.drForm.get('desc_lieu_entrer')?.value,
-
-      superficie: this.drForm.get('superficie')?.value,
       telephone: this.drForm.get('telephone')?.value,
       fax: this.drForm.get('fax')?.value,
       etage: this.drForm.get('etage')?.value,
