@@ -8,19 +8,19 @@ import { Foncier } from './../../../models/Foncier';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getFoncierAction } from '../foncier-store/foncier.actions';
-import { getFonciers , getError } from '../foncier-store/foncier.selector';
+import { getFonciers, getError } from '../foncier-store/foncier.selector';
 
 @Component({
   selector: 'app-foncier-list',
   templateUrl: './foncier-list.component.html',
-  styleUrls: ['./foncier-list.component.scss']
+  styleUrls: ['./foncier-list.component.scss'],
 })
 export class FoncierListComponent implements OnInit {
   errors!: string;
   fonciers: any = [];
   id: string = '0';
   targetFoncier!: Foncier;
-  foncierSubscription$!: Subscription
+  foncierSubscription$!: Subscription;
   findFoncier!: string;
   deletedFoncier!: Foncier;
 
@@ -31,12 +31,10 @@ export class FoncierListComponent implements OnInit {
 
   //Delete succes message
   deleteDone: boolean = false;
-  deleteSucces: string = 'Foncier supprimé avec succés'
+  deleteSucces: string = 'Localex supprimé avec succés';
 
-  userMatricule: any = localStorage.getItem('matricule')
+  userMatricule: any = localStorage.getItem('matricule');
   accessError!: any;
-
-
 
   constructor(
     private foncierService: FoncierService,
@@ -44,37 +42,43 @@ export class FoncierListComponent implements OnInit {
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
     private store: Store<AppState>
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.getFoncier()
+    this.getFoncier();
 
     // Check error
-    this.store.select(getError).subscribe(data => {
-      if (data) this.accessError = data
-    })
+    this.store.select(getError).subscribe((data) => {
+      if (data) this.accessError = data;
+    });
   }
 
   getFoncier() {
     // Select foncier from store
-    this.foncierSubscription$ = this.store.select(getFonciers).subscribe((data) => {
-      // Check if foncier data is empty then fetch it from server
-      if (data.length === 0) {
-        // Dispatch action to handle the NgRx get foncier from server effect 
-        this.store.dispatch(getFoncierAction())
-      }
-      this.fonciers = data
-    })
+    this.foncierSubscription$ = this.store
+      .select(getFonciers)
+      .subscribe((data) => {
+        // Check if foncier data is empty then fetch it from server
+        if (data.length === 0) {
+          // Dispatch action to handle the NgRx get foncier from server effect
+          this.store.dispatch(getFoncierAction());
+        }
+        this.fonciers = data;
+      });
   }
 
   // Filter by intitule
   search() {
-    if (this.findFoncier != "") {
-      this.fonciers = this.fonciers.filter((res:any) => {
-        return res.type_foncier?.toLowerCase().match(this.findFoncier.toLowerCase())
-        || res.ville?.toLowerCase().match(this.findFoncier.toLowerCase());
+    if (this.findFoncier != '') {
+      this.fonciers = this.fonciers.filter((res: any) => {
+        return (
+          res.type_foncier
+            ?.toLowerCase()
+            .match(this.findFoncier.toLowerCase()) ||
+          res.ville?.toLowerCase().match(this.findFoncier.toLowerCase())
+        );
       });
-    } else if (this.findFoncier == "") {
+    } else if (this.findFoncier == '') {
       this.getFoncier();
     }
   }
@@ -87,7 +91,7 @@ export class FoncierListComponent implements OnInit {
   openConfirmationModal(Foncier: any) {
     // this.id = id;
     this.confirmationModalService.open(); // Open delete confirmation modal
-    this.deletedFoncier = Foncier
+    this.deletedFoncier = Foncier;
   }
 
   // Close confirmation modal
@@ -107,7 +111,11 @@ export class FoncierListComponent implements OnInit {
   // Delete fonfier
   deleteFoncier() {
     this.foncierService
-      .deleteFoncier(this.deletedFoncier._id, { deleted: true }, this.userMatricule)
+      .deleteFoncier(
+        this.deletedFoncier._id,
+        { deleted: true },
+        this.userMatricule
+      )
       .subscribe(
         (_) => {
           this.store.dispatch(getFoncierAction());
@@ -128,6 +136,6 @@ export class FoncierListComponent implements OnInit {
   }
 
   reload() {
-    this.helperService.refrechPage()
+    this.helperService.refrechPage();
   }
 }

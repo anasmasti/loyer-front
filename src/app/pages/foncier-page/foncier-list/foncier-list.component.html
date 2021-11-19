@@ -2,10 +2,10 @@
   <div class="col-lg-12 mt-3">
     <div class="d-flex justify-content-between">
       <!-- <h3 class=""></h3> -->
-      <h3 class="main-title">Liste des fonciers</h3>
+      <h3 class="main-title">Liste des locaux</h3>
       <div class="d-none d-lg-block">
         <a class="btn btn-sm success-btn" [routerLink]="['/foncier']">
-          <i class="fal fa-plus-octagon"></i> Nouveau foncier
+          <i class="fal fa-plus-octagon"></i> Nouveau locale
         </a>
         <a class="btn btn-sm second-btn mx-3" (click)="reload()"
           ><i class="far fa-undo-alt"></i>
@@ -45,8 +45,7 @@
   <table class="table">
     <thead>
       <tr class="text-truncate">
-        <th>Type du foncier</th>
-        <th>Pays</th>
+        <th>Type</th>
         <th>Ville</th>
         <th>Montant loyer</th>
         <th>Contrat</th>
@@ -132,9 +131,9 @@
       *ngIf="!fonciers.length && !accessError"
       class="w-100 d-flex align-items-center"
     >
-      <h5 class="main-muted-text my-4">Aucun foncier à afficher</h5>
+      <h5 class="main-muted-text my-4">Aucun locale à afficher</h5>
       <a class="btn btn-sm second-btn ms-3" [routerLink]="['/foncier']">
-        + Nouveau foncier
+        + Nouveau locale
       </a>
     </tbody>
 
