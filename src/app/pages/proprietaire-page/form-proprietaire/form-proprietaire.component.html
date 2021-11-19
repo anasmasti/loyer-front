@@ -257,11 +257,17 @@
     </div>
 
     <div class="col-lg-3 form-group mt-4">
+      <label for="">Pourcentage du montant %</label>
+      <input type="text" class="form-control rounded-pill" formControlName="pourcentage"
+      (keyup)="calculMontant();controlleMontantContrat()"/>
+    </div>
+
+    <div class="col-lg-3 form-group mt-4">
       <label for="">Montant de loyer</label>
       <input type="text" class="form-control rounded-pill" formControlName="montant_loyer" [ngClass]="{
           'is-invalid': checkInputsValidation(montant_loyer)
-        }" [(ngModel)]="montantLoyer"
-        (keyup)="calculMontant();calculMontantAvance();calculCaution();controlleMontantContrat();" />
+        }" 
+         [value]="montantLoyer"/>
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(montant_loyer)">
         <p class="danger-txt" *ngIf="montant_loyer?.errors?.pattern">
@@ -269,6 +275,7 @@
         </p>
       </div>
     </div>
+
     
         <div class="col-lg-3 form-group mt-4">
           <label for="">Taux de l’impôt</label>
@@ -290,9 +297,11 @@
               'is-invalid': checkInputsValidation(montant_apres_impot)
             }" [value]="montantApresImpot" readonly />
         </div>
+
+        
   
         <!-- Montant Avance Tax -->
-        <div class="col-lg-3 form-group mt-4">
+        <!-- <div class="col-lg-3 form-group mt-4">
           <label for="">Montant d'avance de propriètaire</label>
           <input type="text" class="form-control rounded-pill" [value]="montantAvance"
             formControlName="montant_avance_proprietaire" readonly />
@@ -321,7 +330,7 @@
           <label for="">Caution par proprietaire</label>
           <input type="text" class="form-control rounded-pill" [value]="montantCautionProprietaire | number: '1.2-2'"
             formControlName="caution_par_proprietaire" readonly />
-        </div>
+        </div> -->
 
   </div>
 
@@ -336,15 +345,30 @@
   </div>
 
   <!-- If isMand true show list of proprietaire to checked -->
-  <div *ngIf="isMand; then coproprietaire"></div>
+  <div *ngIf="isMand && update; then coproprietaireUpdate"></div>
+  <div *ngIf="isMand && !update; then coproprietaireAdd"></div>
 
   <!-- Show the proprietaire list if the lengthProprietaire == 0 if not show an error message -->
-  <ng-template #coproprietaire>
+  <ng-template #coproprietaireUpdate>
     <div class="mt-4" *ngIf="lengthProprietaire">
       <div class="mt-2" *ngFor="let proprietaire of proprietaires">
         <input type="checkbox" [name]="proprietaire.idProprietaire._id" class="btn-check check" [id]="proprietaire.idProprietaire._id"
          autocomplete="off" [value]="proprietaire.idProprietaire._id" (click)="FillProprietaireList(proprietaire.idProprietaire._id)" formControlName="proprietaire_list">
         <label class="px-3 py-1 rounded-pill checkbox-list-btns" [for]="proprietaire.idProprietaire._id">{{proprietaire.idProprietaire.cin}}-{{proprietaire.idProprietaire.nom_prenom}}</label>
+      </div>
+    </div>
+    <div class="mt-4" *ngIf="!proprietaires.length">
+      <!-- Error message -->
+      <span class="danger-txt"><i class="fas fa-exclamation-triangle"></i> Aucun proprietaire!</span>
+    </div>
+  </ng-template>
+
+  <ng-template #coproprietaireAdd>
+    <div class="mt-4" *ngIf="lengthProprietaire">
+      <div class="mt-2" *ngFor="let proprietaire of proprietaires">
+        <input type="checkbox" [name]="proprietaire._id" class="btn-check check" [id]="proprietaire._id"
+         autocomplete="off" [value]="proprietaire._id" (click)="FillProprietaireList(proprietaire._id)" formControlName="proprietaire_list">
+        <label class="px-3 py-1 rounded-pill checkbox-list-btns" [for]="proprietaire._id">{{proprietaire.cin}}-{{proprietaire.nom_prenom}}</label>
       </div>
     </div>
     <div class="mt-4" *ngIf="!proprietaires.length">
@@ -359,7 +383,7 @@
 
   <app-confirmation-modal [closeBtn]='false'>
     <h3 class="danger-txt"><i class="fas fa-exclamation-triangle"></i> Attention</h3>
-    <p class="mt-2">Vous avez dépasser le montant de loyer global</p>
+    <p class="mt-2">Attention il vous reste seulement {{pourcentageProprietaire}}% du montant de loyer global</p>
     <div class="mt-3">
       <a class="btn danger-btn me-2" (click)='roolBack()'>Retour</a>
     </div>

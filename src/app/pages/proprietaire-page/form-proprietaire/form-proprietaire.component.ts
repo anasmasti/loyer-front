@@ -52,6 +52,10 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
   proprietaireList: any = [];
 
+  //Total des pourcentages des proprietaires
+  totalPourcentageProprietaires: number = 0;
+  pourcentageProprietaire: number = 0;
+
 
 
   constructor(
@@ -125,8 +129,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       tax_avance_proprietaire: new FormControl(),
       tax_par_periodicite: new FormControl(),
 
-      pourcentage_caution: new FormControl(),
       caution_par_proprietaire: new FormControl(),
+      pourcentage: new FormControl(),
 
       proprietaire_list: new FormControl(),
 
@@ -246,7 +250,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
             //   }
             // } else {
               // this.isMand = false;
-              this.proprietaires = this.proprietaire.proprietaire_list;
+  
+      this.proprietaires = this.proprietaire.proprietaire_list;
 
 
       this.proprietaireForm.patchValue({
@@ -275,7 +280,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         tax_avance_proprietaire: this.proprietaire.tax_avance_proprietaire,
         tax_par_periodicite: this.proprietaire.tax_par_periodicite,
 
-        pourcentage_caution: this.proprietaire.pourcentage_caution,
+        pourcentage: this.proprietaire.pourcentage,
         caution_par_proprietaire: this.proprietaire.caution_par_proprietaire,
         proprietaire_list: this.proprietaires,
 
@@ -325,16 +330,19 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
           this.contratByLieu = data; 
           this.lengthProprietaire = this.contratByLieu[0].lieu.proprietaire.length
           
-          if (this.isInsertForm) {
+         
             for (let index = 0; index < this.contratByLieu[0].lieu.proprietaire.length; index++) {
               if (this.contratByLieu[0].lieu.proprietaire[index].is_mandataire == false &&
-                this.contratByLieu[0].lieu.proprietaire[index].has_mandataire == null ) 
+                this.contratByLieu[0].lieu.proprietaire[index].has_mandataire == null && this.isInsertForm) 
                 this.proprietaires.push(this.contratByLieu[0].lieu.proprietaire[index])
-            }
+                // 
+                this.totalPourcentageProprietaires += this.contratByLieu[0].lieu.proprietaire[index].pourcentage;
+ 
           }
         }
       });
   }
+
 
   // Calculer le montant (retenue à la source / montant apres impot / TAX)
   calculMontant() {
@@ -352,6 +360,21 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     let monthResiliation = dateResiliation.getMonth() + 1;
     // Les etats de contrats
     let etatContratTypes = this.contratByLieu[0]?.etat_contrat?.libelle;
+
+    // Get value of input pourcentage
+    this.pourcentageProprietaire = Number(this.proprietaireForm.get('pourcentage')?.value);
+    //Get montant loyer from contrat (Montant de loyer Global)
+    let montantLoyerContrat = this.contratByLieu[0]?.montant_loyer;
+
+    // condition to control if the total pourcentage are > 100 the we show an error message and take 100 minus the total pourcentage and stock the result in the pourcentageProprietaire
+    if( (this.totalPourcentageProprietaires + this.pourcentageProprietaire) > 100){
+      this.pourcentageProprietaire = 100 - this.totalPourcentageProprietaires;
+      this.openConfirmationModal();
+    }
+    //  CALCULER LE MONTANT DE LOYER A PARTIR DE POURCENTAGE DONNE PAR L'UTILISATEUR
+    this.montantLoyer = ( this.pourcentageProprietaire * montantLoyerContrat ) / 100;
+
+
 
     // // ------First Condition--------
     if (month == 1 && etatContratTypes != 'Résilié') {
@@ -500,17 +523,17 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
   // check if montant loyer contrat do not exceed the sum of montant loyer proprietaire if it is show an error model
   controlleMontantContrat() {
-    let res = 0;
-    let montantLoyerContrat = this.contratByLieu[0].montant_loyer;
-    for (let i = 0; i < this.lengthProprietaire; i++) {
-      let montantLoyerProprietaire = this.contratByLieu[0].lieu.proprietaire[i].montant_loyer;
-      res += montantLoyerProprietaire;
-    }
-    let CurrentProprietaireMontant = Number(this.proprietaireForm.get('montant_loyer')?.value);
-    res += CurrentProprietaireMontant;
-    if (res > montantLoyerContrat) {
-      this.openConfirmationModal();
-    };
+    // let res = 0;
+    // let montantLoyerContrat = this.contratByLieu[0].montant_loyer;
+    // for (let i = 0; i < this.lengthProprietaire; i++) {
+    //   let montantLoyerProprietaire = this.contratByLieu[0].lieu.proprietaire[i].montant_loyer;
+    //   res += montantLoyerProprietaire;
+    // }
+    // let CurrentProprietaireMontant = Number(this.proprietaireForm.get('montant_loyer')?.value);
+    // res += CurrentProprietaireMontant;
+    // if (res > montantLoyerContrat) {
+    //   this.openConfirmationModal();
+    // };
   }
 
   // function to open model
@@ -523,13 +546,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     if (InputElement.checked){
       // push selected proprietaire id to proprietaire list 
       this.proprietaireList.push({ idProprietaire: InputElement.value })
-        // this.proprietaireList.push(
-        //   {
-        //     Id: InputElement.value,
-        //     Cin: proprietaire.cin,
-        //     FullName: proprietaire.nom_prenom
-        //   }
-        // )
     }
     else
     {
@@ -561,7 +577,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       n_compte_bancaire: this.proprietaireForm.get('n_compte_bancaire')?.value,
       banque: this.proprietaireForm.get('banque')?.value,
       nom_agence_bancaire: this.proprietaireForm.get('nom_agence_bancaire')?.value,
-      montant_loyer: this.proprietaireForm.get('montant_loyer')?.value,
+      montant_loyer: this.montantLoyer,
       banque_rib: this.proprietaireForm.get('banque_rib')?.value,
       ville_rib: this.proprietaireForm.get('ville_rib')?.value,
       cle_rib: this.proprietaireForm.get('cle_rib')?.value,
@@ -573,7 +589,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       tax_avance_proprietaire: this.taxAvance,
       tax_par_periodicite: this.taxPeriodicite,
       
-      pourcentage_caution: this.pourcentageCaution,
+      pourcentage: this.pourcentageProprietaire,
       caution_par_proprietaire: this.montantCautionProprietaire,
       
       is_mandataire: this.proprietaireForm.get('is_mandataire')?.value,
@@ -629,7 +645,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       banque: this.proprietaireForm.get('banque')?.value,
       nom_agence_bancaire: this.proprietaireForm.get('nom_agence_bancaire')
         ?.value,
-      montant_loyer: this.proprietaireForm.get('montant_loyer')?.value,
+      montant_loyer: this.montantLoyer,
       banque_rib: this.proprietaireForm.get('banque_rib')?.value,
       ville_rib: this.proprietaireForm.get('ville_rib')?.value,
       cle_rib: this.proprietaireForm.get('cle_rib')?.value,
@@ -641,7 +657,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       tax_avance_proprietaire: this.taxAvance,
       tax_par_periodicite: this.taxPeriodicite,
       
-      pourcentage_caution: this.pourcentageCaution,
+      pourcentage: this.pourcentageProprietaire,
       caution_par_proprietaire: this.montantCautionProprietaire,
       
       is_mandataire: this.proprietaireForm.get('is_mandataire')?.value,
@@ -678,22 +694,16 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     if (this.update) {
       this.closeModel()
       this.proprietaireForm.patchValue({
-        montant_loyer: this.proprietaire.montant_loyer,
+        pourcentage: this.proprietaire.pourcentage,
       })
     }
      // check if it is in add form
     if (!this.update) {
       this.closeModel()
       this.proprietaireForm.patchValue({
-        montant_loyer: 0,
-        taux_impot: 0,
-        retenue_source: 0,
-        montant_apres_impot: 0,
-        montant_avance_proprietaire: 0,
-        tax_avance_proprietaire: 0,
-        tax_par_periodicite: 0,
-        pourcentage_caution: 0,
-        caution_par_proprietaire: 0,
+        
+        pourcentage: this.pourcentageProprietaire,
+        
       })
     }
   }
