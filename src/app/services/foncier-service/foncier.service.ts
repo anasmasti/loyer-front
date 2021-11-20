@@ -1,7 +1,7 @@
 import { environment } from 'src/environments/environment';
 import { Foncier } from './../../models/Foncier';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -18,13 +18,6 @@ export class FoncierService {
   getFonciers(matricule: any): Observable<Foncier[]> {
     return this.http.get<Foncier[]>(
       `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/all/${matricule}`
-    );
-  }
-
-  // Get proprietaire and lieux ids 
-  getPropWithLieux(matricule: any): Observable<any> {
-    return this.http.get<any>(
-      `${environment.API_URL_TEST + environment.API_VERSION}/proprietaire-lieu/${matricule}`
     );
   }
 

@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import { setLoadingAction } from 'src/app/store/shared/shared.action';
 import { map, mergeMap , catchError } from 'rxjs/operators';
-import { getFoncierSuccessAction, getFoncierAction, getPropWithLieuxSuccessAction, getPropWithLieuxAction , setFonciersrrorAction } from './foncier.actions';
+import { getFoncierSuccessAction, getFoncierAction, setFonciersrrorAction } from './foncier.actions';
 import { throwError } from 'rxjs';
 
 @Injectable()
@@ -27,15 +27,6 @@ export class FoncierEffects {
             mergeMap(() => this.loadFonciers())
         )
     });
-
-    // Create effect to get proprietait and lieux ids
-    loadPropWithLieux$ = createEffect((): any => {
-        return this.actions$.pipe(
-            ofType(getPropWithLieuxAction),
-            mergeMap(() => this.loadPropWithLieux())
-        )
-    });
-
    
     ///////////////////////////////////////////////////////////////////
 
@@ -58,22 +49,4 @@ export class FoncierEffects {
             })
         )
     }
-
-    // Load Proprietaie With Lieux IDs
-    loadPropWithLieux() {
-        return this.foncierService.getPropWithLieux(this.userMatricule).pipe(
-            map(
-                (propWithLieux: any) => {
-                    if (propWithLieux.length !== 0) {
-                        this.store.dispatch(setLoadingAction({ status: false }))
-                        return getPropWithLieuxSuccessAction({ propWithLieux });
-                    } else {
-                        throw new Error("Il y'a aucun proprietaire avec Lieux")
-                    }
-                }
-            )
-        )
-    }
-
-   
 }

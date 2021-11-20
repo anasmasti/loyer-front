@@ -15,9 +15,4 @@ export const getFoncierAction = createAction(GET_FONCIERS)
 export const getFoncierSuccessAction = createAction(GET_FONCIERS_SUCCESS,
     props<{ fonciers: Foncier[] }>())
 
-// Get Proprietaire With Lieux Ids
-export const getPropWithLieuxAction = createAction(GET_PROPRIETAIR_LIEUX)
-export const getPropWithLieuxSuccessAction = createAction(GET_PROPRIETAIR_LIEUX_SUCCESS,
-    props<{ propWithLieux: any }>())
-
 export const setFonciersrrorAction = createAction(GET_ERROR_FONCIERS, props<{ error: string }>())

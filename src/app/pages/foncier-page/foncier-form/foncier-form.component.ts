@@ -1,18 +1,18 @@
 import { Foncier } from './../../../models/Foncier';
 import { FoncierService } from './../../../services/foncier-service/foncier.service';
-import { getPropWithLieuxAction } from './../foncier-store/foncier.actions';
 import { AppState } from 'src/app/store/app.state';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, Input, OnDestroy, Inject } from '@angular/core';
-import { getLieux, getProprietaires } from '../foncier-store/foncier.selector';
-import { debounceTime, delay, map } from 'rxjs/operators';
 import { HelperService } from 'src/app/services/helpers/helper.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { getCitiesAction } from 'src/app/store/shared/shared.action';
 import { DOCUMENT } from '@angular/common';
 import { getCities } from 'src/app/store/shared/shared.selector';
+import { getLieux, getLieuxByType } from '../../lieux-page/lieux-store/lieux.selector';
+import { Lieu } from 'src/app/models/Lieu';
+import { getLieuxAction } from '../../lieux-page/lieux-store/lieux.actions';
 
 @Component({
   selector: 'foncier-form',
@@ -73,6 +73,9 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     },
   ];
 
+  lieuxByType!: Lieu[];
+  selectedType!: string;
+
   constructor(
     private foncierService: FoncierService,
     private store: Store<AppState>,
@@ -96,12 +99,19 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       // Amenagement
       amenagementForm: new FormArray([]),
     });
+
     this.getCities();
-    this.getLieux();
+    
+    // Throw get lieux from server function
+    this.getAllLieux();
   }
 
   fetchCities() {
     this.store.dispatch(getCitiesAction());
+  }
+
+  fetchLieux() {
+    this.store.dispatch(getLieuxAction());
   }
 
   getCities() {
@@ -111,6 +121,23 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
         if (data) this.cities = data;
         if (data.length == 0) this.fetchCities();
       });
+  }
+
+  // Get all lieux
+  getAllLieux() {
+    // Select lieux from store
+    this.lieuxSubscription$ = this.store.select(getLieux).subscribe((data) => {
+      // Check if lieux data is empty then fetch it from server
+      if (data) this.lieux = data;
+      // Dispatch action to handle the NgRx get lieux from server effect
+      if (data.length == 0) this.fetchLieux();
+    });
+  }
+
+  getLieuxByType(type: string) {
+    this.store.select(getLieuxByType, { type_lieu: type }).subscribe((data) => {
+      this.lieuxByType = data;
+    });
   }
 
   ngOnChanges() {
@@ -431,6 +458,8 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       // Amenagement
       amenagement: this.foncierForm.get('amenagementForm')?.value,
     };
+    console.log(foncier);
+
     this.fd.append('data', JSON.stringify(foncier));
     this.foncierService.addFoncier(this.fd, this.userMatricule).subscribe(
       (_) => {
@@ -509,46 +538,20 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       );
   }
 
-  // Get Proprietaire With Lieux Ids from the server
-  getPropWithLieux() {
-    this.store.dispatch(getPropWithLieuxAction());
-  }
-
-  // Select Proprietaire ids
-  getProprietaires() {
-    this.proprietairesSubscription$ = this.store
-      .select(getProprietaires)
-      .pipe(debounceTime(500))
-      .subscribe((data) => {
-        if (data) this.proprietaires = data;
-        if (!data) this.getPropWithLieux();
-      });
-  }
-
-  // Select Lieux ids
-  getLieux() {
-    this.lieuxSubscription$ = this.store.select(getLieux).subscribe((data) => {
-      if (data) this.lieux = data;
-      if (!data) this.getPropWithLieux();
-    });
-  }
-  
   ngOnDestroy() {
     if (this.lieuxSubscription$) this.lieuxSubscription$.unsubscribe();
-    if (this.proprietairesSubscription$)
-      this.proprietairesSubscription$.unsubscribe();
     if (this.citiesSubscription$) this.citiesSubscription$.unsubscribe();
   }
 
   get amenagementForm(): FormArray {
-    return (<FormArray>this.foncierForm.get('amenagementForm'));
+    return <FormArray>this.foncierForm.get('amenagementForm');
   }
 
   get adresse() {
-    return this.foncierForm.get('adresse')
+    return this.foncierForm.get('adresse');
   }
 
   get ville() {
-    return this.foncierForm.get('ville')
+    return this.foncierForm.get('ville');
   }
 }

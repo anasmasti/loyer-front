@@ -13,20 +13,15 @@
     <div class="row">
       <div class="col-lg-3 form-group mt-4">
         <label for="">Type du locale</label>
-        <select class="form-select rounded-pill" formControlName="type">
-          <option *ngFor="let type of types" [value]="type.id">{{type.name}}</option>
+        <select class="form-select rounded-pill" formControlName="type" [(ngModel)]="selectedType" (change)='getLieuxByType(selectedType)'>
+          <option *ngFor="let type of types" [value]='type.name'>{{type.name}}</option>
         </select>
       </div>
-
-      <div class="col-lg-3 form-group mt-4">
-        <label for="">Adresse <span class="danger-txt">*</span></label>
-        <input type="text" class="form-control rounded-pill" formControlName="adresse" />
-      </div>
-
+      
       <div class="col-lg-3 form-group mt-4">
         <label for="">Lieu</label>
         <select class="form-select rounded-pill" formControlName="lieu">
-          <option [value]="lieu._id" *ngFor="let lieu of lieux">{{ lieu.code_lieu }}</option>
+          <option [value]="lieu._id" *ngFor="let lieu of lieuxByType">{{ lieu.code_lieu }}</option>
         </select>
       </div>
 
@@ -55,7 +50,7 @@
 
 
       <div class="col-lg-4 form-group mt-4">
-        <label for="">Adresse</label>
+        <label for="">Adresse <span class="danger-txt">*</span></label>
         <input type="text" class="form-control rounded-pill" formControlName="adresse" [ngClass]="{
           'is-invalid': checkInputsValidation(adresse),
           'is-valid': !adresse?.invalid 
