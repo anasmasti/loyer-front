@@ -1,6 +1,14 @@
-@use '../../../../assets/style/helpers' as *;
-@use '../../../../assets/style/components' as *;
+@use "../../../../assets/style/helpers" as *;
+@use "../../../../assets/style/components" as *;
 
 th {
-    @extend .header-table
- }
+  @extend .header-table;
+}
+
+.main-card {
+  min-height: 600px !important;
+}
+
+#actions {
+  min-height: 20px !important;
+}
