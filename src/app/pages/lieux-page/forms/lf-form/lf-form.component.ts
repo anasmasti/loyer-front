@@ -1,5 +1,5 @@
 import { getDrWithSupAction } from './../../lieux-store/lieux.actions';
-import { Component, Input, OnInit, OnDestroy, Inject } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, Inject, OnChanges } from '@angular/core';
 import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Lieu } from 'src/app/models/Lieu';
@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
   templateUrl: './lf-form.component.html',
   styleUrls: ['./lf-form.component.scss'],
 })
-export class LfFormComponent implements OnInit, OnDestroy {
+export class LfFormComponent implements OnInit, OnDestroy, OnChanges {
   modalHeight: string = '40vh';
   etatLogement = '';
   isReplace: string = '';
@@ -51,6 +51,14 @@ export class LfFormComponent implements OnInit, OnDestroy {
     private router: Router,
     @Inject(DOCUMENT) private document: Document
   ) {}
+
+  ngOnChanges() {
+    if (this.Lieu !== '') {
+      setTimeout(() => {
+        this.fetchLf();
+      }, 100);
+    }
+  }
 
   //////////////////////////////////////////////////////////////////////////////////
   showEtatLogement() {

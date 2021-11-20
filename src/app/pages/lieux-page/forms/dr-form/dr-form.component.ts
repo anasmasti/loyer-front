@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnChanges, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
@@ -11,7 +11,7 @@ import { HelperService } from 'src/app/services/helpers/helper.service';
   templateUrl: './dr-form.component.html',
   styleUrls: ['./dr-form.component.scss'],
 })
-export class DrFormComponent implements OnInit {
+export class DrFormComponent implements OnInit, OnChanges {
   errors!: string;
   postDone: boolean = false;
   PostSucces: string = 'Direction régionale ajouté avec succés';
@@ -34,6 +34,14 @@ export class DrFormComponent implements OnInit {
     private router: Router,
     @Inject(DOCUMENT) private document: Document
   ) {}
+
+  ngOnChanges() {
+    if (this.Lieu !== '') {
+      setTimeout(() => {
+        this.fetchDr();
+      }, 100);
+    }
+  }
 
   ngOnInit(): void {
     this.drForm = new FormGroup({
@@ -133,7 +141,7 @@ export class DrFormComponent implements OnInit {
         }, 3000);
         this.hideErrorMessage();
       }
-    ); 
+    );
   }
 
   //Patch Direction regional

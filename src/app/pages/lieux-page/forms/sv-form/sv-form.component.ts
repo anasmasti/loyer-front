@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { getCitiesAction } from './../../../../store/shared/shared.action';
 import { AppState } from './../../../../store/app.state';
-import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit, OnChanges } from '@angular/core';
 import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -18,7 +18,7 @@ import { getCities } from 'src/app/store/shared/shared.selector';
   templateUrl: './sv-form.component.html',
   styleUrls: ['./sv-form.component.scss'],
 })
-export class SvFormComponent implements OnInit, OnDestroy {
+export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
   svForm!: FormGroup;
   errors!: any;
   postDone: boolean = false;
@@ -43,6 +43,14 @@ export class SvFormComponent implements OnInit, OnDestroy {
     private router: Router,
     @Inject(DOCUMENT) private document: Document
   ) { }
+
+  ngOnChanges() {
+    if (this.Lieu !== '') {
+      setTimeout(() => {
+        this.fetchSv();
+      }, 100);
+    }
+  }
 
   ngOnInit(): void {
     this.svForm = new FormGroup({

@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnChanges, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HelperService } from 'src/app/services/helpers/helper.service';
@@ -11,7 +11,7 @@ import { MainModalService } from './../../../../services/main-modal/main-modal.s
   templateUrl: './siege-form.component.html',
   styleUrls: ['./siege-form.component.scss']
 })
-export class SiegeFormComponent implements OnInit {
+export class SiegeFormComponent implements OnInit, OnChanges {
 
   siegeForm!: FormGroup;
   postDone: boolean = false;
@@ -34,6 +34,14 @@ export class SiegeFormComponent implements OnInit {
     private router: Router,
     @Inject(DOCUMENT) private document: Document
   ) { }
+
+  ngOnChanges() {
+    if (this.Lieu !== '') {
+      setTimeout(() => {
+        this.fetchSg();
+      }, 100);
+    }
+  }
 
   ngOnInit(): void {
     this.siegeForm = new FormGroup({

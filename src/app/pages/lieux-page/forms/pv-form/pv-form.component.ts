@@ -1,7 +1,7 @@
 import { AppState } from './../../../../store/app.state';
 import { MainModalService } from './../../../../services/main-modal/main-modal.service';
 import { LieuxService } from './../../../../services/lieux-service/lieux.service';
-import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { getDrWithSupAction } from '../../lieux-store/lieux.actions';
 import { getDr, getSup } from '../../lieux-store/lieux.selector';
@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
   templateUrl: './pv-form.component.html',
   styleUrls: ['./pv-form.component.scss'],
 })
-export class PvFormComponent implements OnInit, OnDestroy {
+export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
   PvForm!: FormGroup;
   errors!: string;
   postDone: boolean = false;
@@ -42,6 +42,14 @@ export class PvFormComponent implements OnInit, OnDestroy {
     private router: Router,
     @Inject(DOCUMENT) private document: Document
   ) {}
+
+  ngOnChanges() {
+    if (this.Lieu !== '') {
+      setTimeout(() => {
+        this.fetchPv();
+      }, 100);
+    }
+  }
 
   ngOnInit(): void {
     this.PvForm = new FormGroup({
@@ -73,7 +81,7 @@ export class PvFormComponent implements OnInit, OnDestroy {
     this.getSup();
   }
 
-  fetchPv(HasAmenagement: string) {
+  fetchPv() {
     this.PvForm.patchValue({
       code_lieu: this.Lieu.code_lieu,
       intitule_lieu: this.Lieu.intitule_lieu,
