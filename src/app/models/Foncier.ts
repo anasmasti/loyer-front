@@ -1,6 +1,10 @@
 export interface Foncier {
   _id?: any;
-  proprietaire: [];
+  proprietaire: [
+    {
+      id: string
+    },
+  ];
   type: string;
   adresse: string;
   lieu: [];
@@ -16,7 +20,7 @@ export interface Foncier {
   has_amenagements?: boolean;
   superficie?: string;
   etage?: string;
-  amenagement?: [
+  amenagement: [
     {
       _id?: string;
       idm?: string;

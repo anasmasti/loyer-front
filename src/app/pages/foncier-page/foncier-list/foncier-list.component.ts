@@ -20,7 +20,11 @@ export class FoncierListComponent implements OnInit {
   fonciers: Foncier[] = [
     {
       _id: 'any',
-      proprietaire: [],
+      proprietaire: [
+        {
+          id: '',
+        }
+      ],
       type: 'DR',
       adresse: 'test',
       lieu: [],
@@ -91,7 +95,14 @@ export class FoncierListComponent implements OnInit {
     },
     {
       _id: 'any',
-      proprietaire: [],
+      proprietaire: [
+        {
+          id: '1',
+        },
+        // {
+        //   id: '2',
+        // }
+      ],
       type: 'LF',
       adresse: 'test',
       lieu: [],
