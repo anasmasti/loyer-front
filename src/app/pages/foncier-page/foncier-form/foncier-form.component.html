@@ -25,6 +25,11 @@
         </select>
       </div>
 
+      <div class="col-lg-4 form-group mt-4">
+        <label for="">Superficie</label>
+        <input type="text" class="form-control rounded-pill" formControlName="superficie" />
+      </div>
+
       <div class="col-lg-3 form-group mt-4">
         <label for="">Ville <span class="danger-txt">*</span></label>
         <p *ngIf="!cities.length" class="danger-txt">
@@ -47,7 +52,6 @@
         <label for="">Etage</label>
         <input type="text" class="form-control rounded-pill" formControlName="etage" />
       </div>
-
 
       <div class="col-lg-4 form-group mt-4">
         <label for="">Adresse <span class="danger-txt">*</span></label>

@@ -10,7 +10,10 @@ import { MainModalService } from 'src/app/services/main-modal/main-modal.service
 import { getCitiesAction } from 'src/app/store/shared/shared.action';
 import { DOCUMENT } from '@angular/common';
 import { getCities } from 'src/app/store/shared/shared.selector';
-import { getLieux, getLieuxByType } from '../../lieux-page/lieux-store/lieux.selector';
+import {
+  getLieux,
+  getLieuxByType,
+} from '../../lieux-page/lieux-store/lieux.selector';
 import { Lieu } from 'src/app/models/Lieu';
 import { getLieuxAction } from '../../lieux-page/lieux-store/lieux.actions';
 
@@ -75,6 +78,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
   lieuxByType!: Lieu[];
   selectedType!: string;
+  selectedLieux!: any;
 
   constructor(
     private foncierService: FoncierService,
@@ -88,7 +92,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     this.foncierForm = new FormGroup({
       type: new FormControl(''),
       adresse: new FormControl('', [Validators.required]),
-      lieu: new FormControl(''),
+      lieu: new FormControl(),
       ville: new FormControl('', [Validators.required]),
       desc_lieu_entrer: new FormControl(''),
       has_contrat: new FormControl(''),
@@ -101,7 +105,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     });
 
     this.getCities();
-    
+
     // Throw get lieux from server function
     this.getAllLieux();
   }
@@ -458,8 +462,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       // Amenagement
       amenagement: this.foncierForm.get('amenagementForm')?.value,
     };
-    console.log(foncier);
-
+    
     this.fd.append('data', JSON.stringify(foncier));
     this.foncierService.addFoncier(this.fd, this.userMatricule).subscribe(
       (_) => {
