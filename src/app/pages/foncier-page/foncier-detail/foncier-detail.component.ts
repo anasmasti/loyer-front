@@ -40,7 +40,7 @@ export class FoncierDetailComponent implements OnInit {
       .subscribe((data: Foncier) => {
         if (data != null) {
           this.foncier = data;
-
+          // @ts-ignore 
           if (data.amenagement.length.toString() == '0') {
             this.hasAmenagement = false;
           }
@@ -57,8 +57,10 @@ export class FoncierDetailComponent implements OnInit {
             // @ts-ignore: Object is possibly 'null'.
             this.selectedImageEntrer = this.foncier?.imgs_lieu_entrer[index];
             this.selectedAmenagementCroquis =
+            // @ts-ignore 
               this.foncier.amenagement[index]?.croquis_travaux[index];
             this.selectedAmenagementImage =
+            // @ts-ignore 
               this.foncier.amenagement[index]?.images_apres_travaux[index];
           }
         }

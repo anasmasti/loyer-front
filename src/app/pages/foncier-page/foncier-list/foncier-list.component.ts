@@ -17,7 +17,126 @@ import { getFonciers, getError } from '../foncier-store/foncier.selector';
 })
 export class FoncierListComponent implements OnInit {
   errors!: string;
-  fonciers: Foncier[] = [];
+  fonciers: Foncier[] = [
+    {
+      _id: 'any',
+      proprietaire: [],
+      type: 'DR',
+      adresse: 'test',
+      lieu: [],
+      ville: 'rabat',
+      desc_lieu_entrer: 'test',
+      imgs_lieu_entrer: [
+        {
+          _id: 'test',
+          image: 'test',
+        },
+      ],
+      has_contrat: false,
+      has_amenagements: true,
+      superficie: '35',
+      etage: '55',
+      amenagement: [
+        {
+          _id: 'testid',
+          idm: 'testidm',
+          nature_amenagement: 'test',
+          montant_amenagement: '74673',
+          valeur_nature_chargeProprietaire: 'test',
+          valeur_nature_chargeFondation: 'test',
+          numero_facture: '3535642',
+          numero_bon_commande: '454254',
+          date_passation_commande: new Date('22-03-2021'),
+          evaluation_fournisseur: 'test',
+          date_fin_travaux: new Date('22-03-2021'),
+          date_livraison_local: new Date('22-03-2021'),
+          deleted: false,
+          images_apres_travaux: [],
+          croquis_travaux: [],
+          fournisseur: [
+            {
+              nom: 'ahmad',
+              prenom: 'ahmad',
+              amenagement_effectue: 'test',
+              deleted: false,
+            },
+          ],
+        },
+        // {
+        //   _id: 'testid2',
+        //   idm: 'testidm2',
+        //   nature_amenagement: 'test2',
+        //   montant_amenagement: '74673e',
+        //   valeur_nature_chargeProprietaire: 'test2',
+        //   valeur_nature_chargeFondation: 'test2',
+        //   numero_facture: '3535642e',
+        //   numero_bon_commande: '454254',
+        //   date_passation_commande: new Date('22-03-2021'),
+        //   evaluation_fournisseur: 'test',
+        //   date_fin_travaux: new Date('22-03-2021'),
+        //   date_livraison_local: new Date('22-03-2021'),
+        //   deleted: false,
+        //   images_apres_travaux: [],
+        //   croquis_travaux: [],
+        //   fournisseur: [
+        //     {
+        //       nom: 'ahmad',
+        //       prenom: 'ahmad',
+        //       amenagement_effectue: 'test',
+        //       deleted: false,
+        //     },
+        //   ],
+        // }
+      ],
+    },
+    {
+      _id: 'any',
+      proprietaire: [],
+      type: 'LF',
+      adresse: 'test',
+      lieu: [],
+      ville: 'casa',
+      desc_lieu_entrer: 'test',
+      imgs_lieu_entrer: [
+        {
+          _id: 'test',
+          image: 'test',
+        },
+      ],
+      has_contrat: true,
+      has_amenagements: false,
+      superficie: '22',
+      etage: '4',
+      amenagement: [
+        {
+          _id: 'testid',
+          idm: 'testidm',
+          nature_amenagement: 'test',
+          montant_amenagement: '74673',
+          valeur_nature_chargeProprietaire: 'test',
+          valeur_nature_chargeFondation: 'test',
+          numero_facture: '3535642',
+          numero_bon_commande: '454254',
+          date_passation_commande: new Date('22-03-2021'),
+          evaluation_fournisseur: 'test',
+          date_fin_travaux: new Date('22-03-2021'),
+          date_livraison_local: new Date('22-03-2021'),
+          deleted: true,
+          images_apres_travaux: [],
+          croquis_travaux: [],
+          fournisseur: [
+            {
+              nom: 'ahmad',
+              prenom: 'ahmad',
+              amenagement_effectue: 'test',
+              deleted: true,
+            },
+          ],
+        },
+      ],
+    },
+  ];
+
   filtredFonciers: Foncier[] = [];
   id: string = '0';
   targetFoncier!: Foncier;
@@ -64,14 +183,14 @@ export class FoncierListComponent implements OnInit {
           // Dispatch action to handle the NgRx get foncier from server effect
           this.store.dispatch(getFoncierAction());
         }
-        this.fonciers = data;
+        // this.fonciers = data;
       });
   }
 
-  checkAndPutText(value: boolean) {
+  checkAndPutText(value: boolean | undefined) {
     return this.helperService.booleanToText(value)
   }
-  
+
   // Filter by intitule
   search() {
     if (this.findFoncier != '') {
@@ -89,22 +208,22 @@ export class FoncierListComponent implements OnInit {
   }
 
   searchByAmenagement(event: any, statut: string) {
-    this.getFoncier()
+    this.getFoncier();
 
     if (event.target.checked) {
       if (statut == 'all') {
-        return this.fonciers
+        return this.fonciers;
       }
 
       if (statut != 'all') {
         this.filtredFonciers = this.fonciers.filter((res) => {
-          return (res.has_amenagements?.toString().match(statut));
+          return res.has_amenagements?.toString().match(statut);
         });
-        this.fonciers = this.filtredFonciers
+        this.fonciers = this.filtredFonciers;
       }
     }
 
-    return
+    return;
   }
 
   openEditModal(SelectedFoncier: any) {

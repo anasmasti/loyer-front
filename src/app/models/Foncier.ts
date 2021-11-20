@@ -16,7 +16,7 @@ export interface Foncier {
   has_amenagements?: boolean;
   superficie?: string;
   etage?: string;
-  amenagement: [
+  amenagement?: [
     {
       _id?: string;
       idm?: string;

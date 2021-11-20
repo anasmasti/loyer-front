@@ -80,15 +80,15 @@
                 }
         "
       >
-        <!-- <td>{{ foncier.type_foncier }}</td> -->
-        <!-- <td>{{ foncier.ville }}</td> -->
+        <td>{{ foncier.type }}</td>
+        <td>{{ foncier.ville }}</td>
         <td>
           <div class="d-grid">
             <span class="p-1" [ngClass]="{
                 'success-txt': foncier.has_amenagements,
                 'danger-txt': !foncier.has_amenagements
               }">
-              <!-- {{ checkAndPutText(foncier?.has_amenagements) }} -->
+              {{ checkAndPutText(foncier?.has_amenagements) }}
             </span>
           </div>
         </td>
