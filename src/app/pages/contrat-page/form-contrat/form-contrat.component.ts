@@ -321,7 +321,6 @@ export class FormContratComponent implements OnInit {
     }
   }
 
-
   // Calcul effort caution and show error if the outside is a decimal number
   calculEffortCaution() {
     let montantCaution: number = this.contratForm.get('montant_caution')?.value;
@@ -491,44 +490,41 @@ export class FormContratComponent implements OnInit {
         this.contratForm.get('echeance_revision_loyer')?.value || '',
       n_engagement_depense:
         this.contratForm.get('n_engagement_depense')?.value || '',
-      // lieu: this.contratForm.get('lieu')?.value || '',
       foncier: this.foncier_id,
       duree_location: this.contratForm.get('duree_location')?.value || '',
-
       duree: this.duree || '',
       retunue_source_par_mois: this.retunue_source_par_mois || '',
       total_montant_brut_loyer: this.totalBrutLoyer || '',
       total_montant_net_loyer: this.totalNetLoyer || '',
-
       montant_avance_tax: this.montant_avance_tax_,
     };
 
-    console.log(JSON.stringify(ctr_data));
-    
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
 
     // post the formdata (data+files)
-    // this.contratService.addContrat(this.fd, this.userMatricule, this.foncier_id).subscribe(
-    //   (_) => {
-    //     this.postDone = true;
-    //     setTimeout(() => {
-    //       this.contratForm.reset();
-    //       this.postDone = false;
-    //       this.help.toTheUp();
-    //       this.router.navigate(['/contrat/list-global/list']).then(() => {
-    //         this.help.refrechPage();
-    //       });
-    //     }, 2000);
-    //   },
-    //   (error) => {
-    //     this.errors = error.error.message;
-    //     setTimeout(() => {
-    //       this.showErrorMessage();
-    //     }, 3000);
-    //     this.hideErrorMessage();
-    //   }
-    // );
+    this.contratService
+      .addContrat(this.fd, this.userMatricule, this.foncier_id)
+      .subscribe(
+        (_) => {
+          this.postDone = true;
+          setTimeout(() => {
+            this.contratForm.reset();
+            this.postDone = false;
+            this.help.toTheUp();
+            this.router.navigate(['/contrat/list-global/list']).then(() => {
+              this.help.refrechPage();
+            });
+          }, 2000);
+        },
+        (error) => {
+          this.errors = error.error.message;
+          setTimeout(() => {
+            this.showErrorMessage();
+          }, 3000);
+          this.hideErrorMessage();
+        }
+      );
   }
 
   // Check if all inputs has invalid errors
