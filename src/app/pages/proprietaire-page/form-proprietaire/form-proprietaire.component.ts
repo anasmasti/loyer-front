@@ -249,6 +249,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
               // this.isMand = false;
   
       this.proprietaires = this.proprietaire.proprietaire_list;
+      console.log(this.proprietaire);
+      // this.proprietaires = this.proprietaire.proprietaire_list;
 
 
       this.proprietaireForm.patchValue({
@@ -325,13 +327,15 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       .getContratByLieu(this.lieu_id, this.userMatricule)
       .subscribe((data) => {
         if (data) { 
+          console.log(data);
+          
           this.contratByLieu = data; 
           this.lengthProprietaire = this.contratByLieu[0].lieu.proprietaire.length
           
          
             for (let index = 0; index < this.contratByLieu[0].lieu.proprietaire.length; index++) {
               if (this.contratByLieu[0].lieu.proprietaire[index].is_mandataire == false &&
-                this.contratByLieu[0].lieu.proprietaire[index].has_mandataire == null && this.isInsertForm)
+                this.contratByLieu[0].lieu.proprietaire[index].has_mandataire == null )
                 this.proprietaires.push(this.contratByLieu[0].lieu.proprietaire[index])
                 this.totalPourcentageProprietaires += this.contratByLieu[0].lieu.proprietaire[index].pourcentage; 
               }
