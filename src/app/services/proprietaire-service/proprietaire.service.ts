@@ -54,10 +54,10 @@ export class ProprietaireService {
     );
   }
 
-  getLieuIdByProprietaire(id: string, matricule: any): Observable<Proprietaire> {
+  getFoncierIdByProprietaire(id: string, matricule: any): Observable<Proprietaire> {
     return this.http.get<Proprietaire>(
       `${environment.API_URL_TEST + environment.API_VERSION + this.param_url
-      }/lieu/lieu-by-proprietaire/${id}/${matricule}`
+      }/lieu/foncier-by-proprietaire/${id}/${matricule}`
     );
   }
 }

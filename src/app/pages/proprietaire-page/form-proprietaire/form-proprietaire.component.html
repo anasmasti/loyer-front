@@ -347,7 +347,7 @@
 
   <!-- If isMand true show list of proprietaire to checked -->
   <div *ngIf="isMand && update; then coproprietaireUpdate"></div>
-  <!-- <div *ngIf="isMand && !update; then coproprietaireAdd"></div> -->
+  <div *ngIf="isMand && !update; then coproprietaireAdd"></div>
 
   <!-- Show the proprietaire list if the lengthProprietaire == 0 if not show an error message -->
   <ng-template #coproprietaireUpdate>

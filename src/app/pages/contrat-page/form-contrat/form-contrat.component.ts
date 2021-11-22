@@ -501,6 +501,8 @@ export class FormContratComponent implements OnInit {
 
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
+    console.log(this.foncier_id);
+    
 
     // post the formdata (data+files)
     this.contratService
