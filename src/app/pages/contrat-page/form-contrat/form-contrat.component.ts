@@ -508,13 +508,17 @@ export class FormContratComponent implements OnInit {
     this.fd.append('data', JSON.stringify(ctr_data));
     console.log(ctr_data);
     
+    console.log("0");
 
     // post the formdata (data+files)
     this.contratService.addContrat(this.fd, this.userMatricule).subscribe(
       (_) => {
+        console.log("1");
+        
         this.postDone = true;
         setTimeout(() => {
-          this.contratForm.reset();
+        console.log("2");
+        this.contratForm.reset();
           this.postDone = false;
           this.help.toTheUp();
           this.router.navigate(['/contrat/list-global/list']).then(() => {
@@ -530,6 +534,24 @@ export class FormContratComponent implements OnInit {
         this.hideErrorMessage();
       }
     );
+
+    // this.contratService.updateContrat(id, this.fd).subscribe(
+    //   (_) => {
+    //     this.updateDone = true;
+    //     setTimeout(() => {
+    //       this.mainModalService.close();
+    //       this.updateDone = false;
+    //       this.help.refrechPage();
+    //     }, 2000);
+    //   },
+    //   (error) => {
+    //     this.errors = error.error.message;
+    //     setTimeout(() => {
+    //       this.showErrorMessage();
+    //     }, 3000);
+    //     this.hideErrorMessage();
+    //   }
+    // );
   }
 
   // Check if all inputs has invalid errors
@@ -552,6 +574,9 @@ export class FormContratComponent implements OnInit {
 
   fetchContrat() {
     if (this.contrat) {
+
+      console.log(this.contrat);
+      
       // var date_debut_loyer = this.pipeDate.transform(this.contrat.date_debut_loyer, 'yyyy-MM-dd')
 
       // var date_debut_loyer = new Date(this.contrat.date_debut_loyer)
