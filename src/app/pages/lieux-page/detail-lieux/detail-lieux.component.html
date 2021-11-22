@@ -3,12 +3,12 @@
         <div class="d-flex justify-content-between">
             <h3 class="main-title">
                 <a [routerLink]="['/lieux/list']" class="goback-link">Liste des
-                    locaux</a>/<span class="selected-text">{{ lieu?.intitule_lieu }}</span>
+                    entités organisationnelles</a>/<span class="selected-text">{{ lieu?.intitule_lieu }}</span>
             </h3>
             <div class="d-none d-lg-block">
                 <a [routerLink]="['/lieux/list']" class="btn btn-sm second-btn me-3 " data-bs-toggle="tooltip"
                     data-bs-placement="top" title="Retour à la liste"><i class="far fa-arrow-left"></i>
-                    Retour à la liste des locaux
+                    Retour à la liste
                 </a>
                 <span data-bs-toggle="tooltip" data-bs-placement="top"
                     title="Ici vous pouvez voir les détails de  proprietaire.nom_prenom ">
@@ -36,43 +36,25 @@
         <div class="row">
             <div class="col-lg-6">
                 <h5 class="main-txt">Direction régionale</h5>
-                <p>{{ lieu?.intitule_DR != '' ? lieu?.intitule_DR : '--'}}</p>
-            </div>
-            <div class="col-lg-6">
-                <h5 class="main-txt">Adresse</h5>
-                <p>{{ lieu?.adresse != '' ? lieu?.adresse : '--'}}</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <h5 class="main-txt">Ville</h5>
-                <p>{{ lieu?.ville != '' ? lieu?.ville : '--'}}</p>
+                <p>{{ lieu?.code_rattache_DR != '' ? lieu?.code_rattache_DR : '--'}}</p>
             </div>
             <div class="col-lg-6">
                 <h5 class="main-txt">Code localite</h5>
                 <p>{{ lieu?.code_localite != '' ? lieu?.code_localite : '--'}}</p>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <h5 class="main-txt">superficie</h5>
-                <p>{{ lieu?.superficie != '' ? lieu?.superficie : '--'}}</p>
-            </div>
-            <div class="col-lg-6">
-                <h5 class="main-txt">telephone</h5>
-                <p>{{ lieu?.telephone != '' ? lieu?.telephone : '--'}}</p>
-            </div>
-        </div>
+
         <div class="row">
             <div class="col-lg-6">
                 <h5 class="main-txt">fax</h5>
                 <p>{{ lieu?.fax != '' ? lieu?.fax : '--'}}</p>
             </div>
             <div class="col-lg-6">
-                <h5 class="main-txt">Etage</h5>
-                <p>{{ lieu?.etage != '' ? lieu?.etage : '--'}}</p>
+                <h5 class="main-txt">telephone</h5>
+                <p>{{ lieu?.telephone != '' ? lieu?.telephone : '--'}}</p>
             </div>
         </div>
+
         <div class="row">
             <div class="col-lg-6">
                 <h5 class="main-txt">Type</h5>
@@ -85,24 +67,7 @@
 
     <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-6">
 
-        <div class="row">
-            <div class="col-lg-6">
-                <h5 class="main-txt">Description d'entrer</h5>
-                <p>{{ lieu?.desc_lieu_entrer != '' ? lieu?.desc_lieu_entrer : '--'}}</p>
-            </div>
-            <div class="col-lg-6">
-                <h5 class="main-txt">Images d'entrer</h5>
-                <div class="my-2">
-                    <a *ngIf="selectedImageEntrer?.image" class="btn second-btn"
-                        href="{{url}}{{selectedImageEntrer?.image}}" target="_blank">
-                        Ouvrir
-                    </a>
-                    <p *ngIf="selectedImageEntrer?.image == null" class="main-muted-text">
-                        Il n'y a aucun fichier à télécharger
-                    </p>
-                </div>
-            </div>
-        </div>
+
 
         <div class="row">
             <div class="col-lg-6">
@@ -132,102 +97,5 @@
             <div class="col-lg-6"></div>
         </div>
 
-    </div>
-</div>
-
-
-<div *ngIf="hasAmenagement" class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white">
-    
-    <h4 class="main-title my-4">Aménagement</h4>
-
-    <div class="d-inline" *ngFor="let selected_amenagement of lieu?.amenagement; let i = index">
-        <button *ngIf="!selected_amenagement.deleted" class="btn second-btn me-3" type="button"
-            (click)="displayAmenagement(selected_amenagement._id);scroll();">
-            Aménagement {{ i + 1 }}
-        </button>
-    </div>
-
-    <!-- fin de division -->
-    <div class="mt-4" *ngIf="displayAmenagementSection">
-
-        <div class="row">
-            <div class="col-lg-4">
-                <h5 class="main-txt">Nature d'aménagement </h5>
-                <p> {{ selectedAmenagement?.nature_amenagement != '' ? selectedAmenagement?.nature_amenagement : '--'}} </p>
-            </div>
-            <div class="col-lg-4">
-                <h5 class="main-txt">Montant d'Aménagement </h5>
-                <p> {{ selectedAmenagement?.montant_amenagement != '' ? selectedAmenagement?.montant_amenagement : '--'}} </p>
-            </div>
-            <div class="col-lg-4">
-                <h5 class="main-txt">N° de facture</h5>
-                <p> {{ selectedAmenagement?.numero_facture != '' ? selectedAmenagement?.numero_facture : '--'}} </p>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-4">
-                <h5 class="main-txt">N° de bon de commande</h5>
-                <p> {{ selectedAmenagement?.numero_bon_commande != '' ? selectedAmenagement?.numero_bon_commande : '--'}} </p>
-            </div>
-            <div class="col-lg-4">
-                <h5 class="main-txt">Date de passation de la commande</h5>
-                <p> {{ selectedAmenagement?.date_passation_commande != '' ? selectedAmenagement?.date_passation_commande : '--'}} </p>
-            </div>
-            <div class="col-lg-4">
-                <h5 class="main-txt">Evaluation du fournisseur</h5>
-                <p> {{ selectedAmenagement?.evaluation_fournisseur != '' ? selectedAmenagement?.evaluation_fournisseur : '--'}} </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4">
-                <h5 class="main-txt">Date de fin de travaux</h5>
-                <p>{{ selectedAmenagement?.date_fin_travaux != '' ? selectedAmenagement?.date_fin_travaux : '--'}} </p>
-            </div>
-            <div class="col-lg-4">
-                <h5 class="main-txt">Date de livraison du local</h5>
-                <p>{{ selectedAmenagement?.date_livraison_local != '' ? selectedAmenagement?.date_livraison_local : '--'}} </p>
-            </div>
-            <div class="col-lg-4">
-                <h5 class="main-txt">Images du local après aménagement</h5>
-                <p>
-                    <a *ngIf="selectedAmenagementImage?.image" class="btn second-btn"
-                        href="{{url}}{{selectedAmenagementImage?.image}}" target="_blank">
-                        Ouvrir
-                    </a>
-                    <span *ngIf="!selectedAmenagementImage?.image" class="main-muted-text">
-                        Il n'y a aucun fichier à télécharger
-                    </span>
-                </p>
-            </div>
-
-            <div class="col-lg-4">
-                <h5 class="main-txt">Croquis d’aménagement</h5>
-                <p>
-                    <a *ngIf="selectedAmenagementCroquis?.image" class="btn second-btn"
-                        href="{{url}}{{selectedAmenagementCroquis?.image}}" target="_blank">
-                        Ouvrir
-                    </a>
-                    <span *ngIf="!selectedAmenagementCroquis?.image" class="main-muted-text">
-                        Il n'y a aucun fichier à télécharger
-                    </span>
-                </p>
-            </div>
-
-            <div class="col-lg-4"></div>
-        </div>
-        <div>
-            <h5 class="main-title">Fournisseurs</h5>
-            <div class="d-flex justify-content-between flex-row">
-                <div *ngFor="let selected_fournisseur of selectedAmenagement?.fournisseur" class="d-flex">
-                    <div *ngIf="!selected_fournisseur.deleted" class="main-card p-4 ">
-                        <h6 class="main-txt">Nom</h6>
-                        <p>{{ selected_fournisseur.nom != '' ? selected_fournisseur.nom : '--'}}</p>
-                        <h6 class="main-txt">Prenom</h6>
-                        <p>{{ selected_fournisseur.prenom != '' ? selected_fournisseur.prenom : '--'}}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>

@@ -1,3 +1,4 @@
+import { LieuxEffects } from './../lieux-page/lieux-store/lieux.effect';
 import { SharedEffects } from './../../store/shared/shared.effect';
 import { ConfirmationModalModule } from './../../shared/modals/confirmation-modal/confirmation-modal.module';
 import { MainModalModule } from 'src/app/shared/modals/main-modal/main-modal.module';
@@ -16,6 +17,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { FormsModule } from '@angular/forms';
+import { lieuxReducer } from '../lieux-page/lieux-store/lieux.reducer';
 
 
 const route: Routes = [
@@ -41,7 +43,8 @@ const route: Routes = [
     MainModalModule,
     ConfirmationModalModule,
     StoreModule.forFeature('foncier', foncierReducer),
-    EffectsModule.forFeature([FoncierEffects, SharedEffects]),
+    StoreModule.forFeature('lieux', lieuxReducer),
+    EffectsModule.forFeature([FoncierEffects, SharedEffects, LieuxEffects]),
     NgxPaginationModule,
     FormsModule
   ]
