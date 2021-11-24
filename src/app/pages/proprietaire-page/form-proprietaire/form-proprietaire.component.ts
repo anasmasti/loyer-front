@@ -51,11 +51,14 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
   proprietaires: any = [];
 
+  uncheckedProprietaires: any = [];
+
   proprietaireList: any = [];
 
   //Total des pourcentages des proprietaires
   totalPourcentageProprietaires: number = 0;
   pourcentageProprietaire: number = 0;
+
 
 
 
@@ -190,6 +193,10 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
 
   fetchProprietaire() {
+
+    
+              
+    console.log("Test",this.proprietaire);
     
     this.getFoncierId()
     this.callGetContratAndLieuMethods()
@@ -250,12 +257,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
             //   }
             // } else {
               // this.isMand = false;
-  
-      this.proprietaires = this.proprietaire.proprietaire_list;
-      // this.proprietaires = this.proprietaire.proprietaire_list;
-
-
-      this.proprietaireForm.patchValue({
+ 
+              
+        this.proprietaireForm.patchValue({
         cin: this.proprietaire.cin,
         passport: this.proprietaire.passport,
         carte_sejour: this.proprietaire.carte_sejour,
@@ -276,15 +280,15 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         taux_impot: this.proprietaire.taux_impot,
         retenue_source: this.proprietaire.retenue_source,
         montant_apres_impot: this.proprietaire.montant_apres_impot,
-
+        
         montant_avance_proprietaire: this.proprietaire.montant_avance_proprietaire,
         tax_avance_proprietaire: this.proprietaire.tax_avance_proprietaire,
         tax_par_periodicite: this.proprietaire.tax_par_periodicite,
 
         pourcentage: this.proprietaire.pourcentage,
         caution_par_proprietaire: this.proprietaire.caution_par_proprietaire,
-        proprietaire_list: this.proprietaires,
-
+        // proprietaire_list: this.proprietaires,
+        
         // mandataire inputs
         // cin_mandataire: '',
         // nom_prenom_mandataire: '',
@@ -294,16 +298,34 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         // adresse_mandataire: '',
         // n_compte_bancaire_mandataire: '',
       });
+      
+      this.montantLoyer = this.proprietaire.montant_loyer;
+
+      if (!this.isInsertForm) {
+        this.proprietaire.proprietaire_list.forEach((prop: any) => {
+          this.proprietaires.push(prop);
+        });
+        this.proprietaireForm.patchValue({
+                  proprietaire_list: this.proprietaires,
+                });
+      }
+      
+      
+      let listProp = this.proprietaire.proprietaire_list.reduce((list: any[], prop: any) => {
+        list = this.proprietaires
+        return list
+      }, [] ) 
     
-    this.montantLoyer = this.proprietaire.montant_loyer;
-
+      console.log("list prop",this.proprietaires);
+      
   }
-
-
+  
+  
   // Get Lieu id By Proprietaire id 
   getFoncierId() {
     this.proprietaireService.getFoncierIdByProprietaire(this.proprietaire._id, this.userMatricule).subscribe((data: any) => {
       // this.lieu_id = data[0]._id
+      console.log("getFoncierIdByProprietaire" ,this.proprietaire._id);
       
       this.foncier_id = data[0]._id
       console.log("===>",this.foncier_id);
@@ -338,16 +360,14 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
             for (let index = 0; index < this.contratByFoncier[0].foncier.proprietaire.length; index++) {
               if (this.contratByFoncier[0].foncier.proprietaire[index].is_mandataire == false &&
-                this.contratByFoncier[0].foncier.proprietaire[index].has_mandataire == null )
+                this.contratByFoncier[0].foncier.proprietaire[index].has_mandataire == null)
                 this.proprietaires.push(this.contratByFoncier[0].foncier.proprietaire[index])
+                // this.uncheckedProprietaires.push(this.contratByFoncier[0].foncier.proprietaire[index])
                 this.totalPourcentageProprietaires += this.contratByFoncier[0].foncier.proprietaire[index].pourcentage; 
               }
               if (this.update) {
                 this.totalPourcentageProprietaires = this.totalPourcentageProprietaires - this.proprietaire.pourcentage
               }
-              
-              console.log("=> ",this.proprietaires);
-              
             }
 
       });
@@ -541,7 +561,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     let InputElement = document.getElementById(ElementId) as HTMLInputElement
     if (InputElement.checked){
       // push selected proprietaire id to proprietaire list 
-      this.proprietaireList.push({ idProprietaire: InputElement.value })
+      this.proprietaireList.push(InputElement.value);
     }
     else
     {
@@ -553,8 +573,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         
       }
       // remove selected proprietaire id from proprietaire list
-      let index = this.proprietaireList.indexOf(InputElement.value)
-      this.proprietaireList.splice(index , 1)
+      // let index = this.proprietaireList.indexOf(InputElement.value)
+      // this.proprietaireList.splice(index , 1)
     }
   }
 
