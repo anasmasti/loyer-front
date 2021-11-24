@@ -53,7 +53,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   proprietaires!: any;
   lieux!: any;
   lieuxSubscription$!: Subscription;
-  currentLieu!: any;
+  currentLieu: any = null;
   foncierLieux: any[] = [];
   newLieu!: Lieu;
   proprietairesSubscription$!: Subscription;
@@ -90,6 +90,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   // modal id
   TransfereModalId: any = 'TransfererModalId';
   ATransfereModalId: any = 'ATransfererModalId';
+  AnnulerTransformationModalId: any = 'AnnulerTransformationModalId';
 
   constructor(
     private foncierService: FoncierService,
@@ -105,7 +106,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       type: new FormControl(''),
       adresse: new FormControl('', [Validators.required]),
       lieuForm: new FormArray([]),
-      // lieu: new FormControl(),
+      lieu: new FormControl(),
       ville: new FormControl('', [Validators.required]),
       desc_lieu_entrer: new FormControl(''),
       has_contrat: new FormControl(''),
@@ -116,7 +117,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       // Amenagement
       amenagementForm: new FormArray([]),
     });
-
     // this.lieuForm = new FormGroup({
     //   code_lieu: new FormControl(''),
     //   type_lieu: new FormControl(''),
@@ -176,15 +176,17 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     this.removeAllAmenagement();
 
     // console.log("foncier" , this.foncier);
+    console.log(this.foncier);
+    
 
     // this.currentLieu = this.foncier.lieu[0].lieu //!!!!!!!!!!!!!!!!!!!!!!!!!!!!;
 
     // Get all the lieux from this foncier ( deleted false & true )
-    for (let i = 0; i < this.foncier.lieu.length; i++) {
-      if (!this.foncier.lieu[i].deleted)
-        this.currentLieu = this.foncier.lieu[i];
-      else this.foncierLieux.push(this.foncier.lieu[i]);
-    }
+    // for (let i = 0; i < this.foncier.lieu.length; i++) {
+    //   if (!this.foncier.lieu[i].deleted)
+    //     this.currentLieu = this.foncier.lieu[i];
+    //   else this.foncierLieux.push(this.foncier.lieu[i]);
+    // }
 
     // Fill lieu form
     // this.lieuForm.patchValue({
@@ -192,8 +194,8 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     //   type_lieu: this.currentLieu.type_lieu,
     //   intitule_lieu: this.currentLieu.intitule_lieu,
     // });
-    this.CodeLieu = this.currentLieu.code_lieu;
-    console.log('Lieu', this.currentLieu);
+    // this.CodeLieu = this.currentLieu.code_lieu;
+    // console.log('Lieu', this.currentLieu);
 
     this.foncierForm.patchValue({
       type: this.foncier.type,
@@ -209,8 +211,11 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
     // Lieu form
     this.foncier.lieu.forEach((element:any) => {
+      if (!element.deleted) {
+        this.currentLieu = element.lieu
+      }
       let lieuForm = this.addLieuForm();
-      lieuForm.controls._id.setValue(element._id);
+      lieuForm.controls._id.setValue(element.lieu._id);
       lieuForm.controls.deleted.setValue(element.deleted)
       lieuForm.controls.transferer.setValue(element.transferer)
       lieuForm.controls.lieu.setValue(element.lieu._id)
@@ -631,23 +636,39 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   }
 
   ATransferer(lieu: any) {
-    lieu.transferer = true
+    console.log("Before" , lieu);
+    lieu.value.transferer = true
+    console.log("After" , lieu);
+    this.closeConfirmationModal(this.ATransfereModalId)
+    
   }
 
   Transferer(lieu: any) {
-    lieu.deleted = true
+    console.log("Before" , lieu);
+    lieu.value.deleted = true
+    this.currentLieu = null
+    console.log("After" , lieu);
+    this.closeConfirmationModal(this.TransfereModalId)
+  }
+
+  annulerTransformation(lieu:any) {
+    lieu.value.transferer = false
+    console.log(lieu);
+    this.closeConfirmationModal(this.AnnulerTransformationModalId)
   }
 
   addLieuForm() {
     const LieuData = new FormGroup({
-      deleted: new FormControl(''),
-      transferer: new FormControl(''),
       _id: new FormControl(''),
       lieu: new FormControl(''),
+      deleted: new FormControl(''),
+      transferer: new FormControl(''),
     });
 
     (<FormArray>this.foncierForm.get('lieuForm')).push(<FormGroup>LieuData);
 
+    console.log(this.foncierForm);
+    
     return <FormGroup>LieuData;
   }
 
@@ -656,7 +677,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   }
 
   get lieuForm(): FormArray {
-    return <FormArray>this.foncierForm.get('amenagementForm');
+    return <FormArray>this.foncierForm.get('lieuForm');
   }
 
   get adresse() {

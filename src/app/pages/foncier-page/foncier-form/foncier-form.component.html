@@ -402,128 +402,189 @@
     <!-- </div> -->
 
     <!-- Entité organisationnelle (Lieu)  -->
-    <!-- (ngSubmit)="foncier == '' ? addFoncier() : updateFoncier()" -->
-    <!-- <div class="main-card bg-white p-lg-5"> -->
-    <div class="d-lg-flex justify-content-lg-between">
-      <!-- <div class="d-flex justify-content-start"> -->
-      <h4 class="main-text">Entité organisationnell</h4>
-      <!-- </div> -->
-      <!-- <h3 class="main-title">Entité organisationnelle</h3> -->
-      <div>
-        <span
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-          title="Ici vous pouvez modifier le foncier"
-        >
-          <i class="fal fa-info"></i>
-        </span>
+    <div *ngIf="currentLieu != null">
+      <div class="d-lg-flex justify-content-lg-between">
+        <h4 class="main-text">Entité organisationnell</h4>
+        <div>
+          <span
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            title="Ici vous pouvez modifier le foncier"
+          >
+            <i class="fal fa-info"></i>
+          </span>
+        </div>
       </div>
-    </div>
-    <!-- <div class="row">
+      <!-- <div class="row">
           <p>Merci de choisir le nouveau local</p>
         </div> -->
-    <div
-      class="main-card mt-1 bg-white p-lg-4"
-      formArrayName="lieuForm"
-      *ngFor="let item of lieuForm.controls; let i = index"
-    >
-      <!-- *ngIf="!item.deleted" -->
-      <div class="w-100 d-flex justify-content-start"></div>
-      <div class="row">
-        <div class="col-lg-3 form-group mt-4">
-          <label for="">Lieu</label>
-          <select
-            *ngIf="ActiveForm == 'TransfererForm'"
-            class="form-select rounded-pill"
-            formControlName="code_lieu"
-            (change)="changeLieu($event)"
-          >
-            <option [value]="lieu._id" *ngFor="let lieu of lieux">
-              {{ lieu.code_lieu }}
-            </option>
-          </select>
-
-          <input
-            *ngIf="ActiveForm != 'TransfererForm'"
-            type="text"
-            class="form-control rounded-pill"
-            [value]="CodeLieu"
-            readonly
-          />
-        </div>
-
-        <div class="col-lg-3 form-group mt-4">
-          <label for="">Intitule lieu</label>
-          <input
-            type="text"
-            class="form-control rounded-pill"
-            formControlName="intitule_lieu"
-            readonly
-          />
-        </div>
-
-        <div class="col-lg-4 form-group mt-4">
-          <label for="">Type lieu</label>
-          <input
-            type="text"
-            class="form-control rounded-pill"
-            formControlName="type_lieu"
-            readonly
-          />
-        </div>
-      </div>
       <div
-        class="form-group my-4 col-lg-4 d-flex"
-        *ngIf="ActiveForm != 'TransfererForm'"
+        class="main-card mt-1 bg-white p-lg-4"
+        formArrayName="lieuForm"
+        *ngFor="let item of lieuForm.controls; let i = index"
       >
-        <button
-          id="Transferer"
-          class="btn second-btn form-control"
-          (click)="openConfirmationModal('ATransfererModalId')"
-        >
-          A Transférer
-        </button>
-        <button
-          type="submit"
-          id="supprimer"
-          class="btn btn-sm danger-btn form-control mx-3"
-          (click)="openConfirmationModal('TransfererModalId')"
-        >
-          Supprimer
-        </button>
-        <app-confirmation-modal [closeBtn]="true" [id]="TransfereModalId">
-          <h3 class="main-title">
-            Transferer
-            <i class="far fa-exclamation-circle"></i>
-          </h3>
-          <p class="mt-3">Voulez-vous supprimer ce foncier?</p>
-          <div class="d-inline-flex justify-content-start mt-5">
-            <a class="btn btn-lg px-lg-4 danger-btn me-2">Oui</a>
-            <!-- (click)="Transferer(item)" -->
-            <a
-              class="btn btn-lg px-lg-4 main-btn"
-              (click)="closeConfirmationModal('TransfererModalId')"
-              >Non</a
-            >
-          </div>
-        </app-confirmation-modal>
+        <div *ngIf="!item.value.deleted">
+          <div class="w-100 d-flex justify-content-start"></div>
+          <div class="row">
+            <div class="col-lg-3 form-group mt-4">
+              <label for="">Lieu</label>
+              <!-- <select
+                *ngIf="ActiveForm == 'TransfererForm'"
+                class="form-select rounded-pill"
+                formControlName="code_lieu"
+                (change)="changeLieu($event)"
+              >
+                <option [value]="lieu._id" *ngFor="let lieu of lieux">
+                  {{ lieu.code_lieu }}
+                </option>
+              </select> -->
 
-        <app-confirmation-modal [closeBtn]="true" [id]="ATransfereModalId">
-          <h3 class="main-title">
-            A transferer
-            <i class="far fa-exclamation-circle"></i>
-          </h3>
-          <p class="mt-3">Voulez-vous supprimer ce foncier?</p>
-          <div class="d-inline-flex justify-content-start mt-5">
-            <a class="btn btn-lg px-lg-4 danger-btn me-2">Oui</a>
-            <a
-              class="btn btn-lg px-lg-4 main-btn"
-              (click)="closeConfirmationModal('ATransfererModalId')"
-              >Non</a
-            >
+              <input
+                *ngIf="ActiveForm != 'TransfererForm'"
+                type="text"
+                class="form-control rounded-pill"
+                [value]="currentLieu.code_lieu"
+                readonly
+              />
+              <!-- [value]="CodeLieu" -->
+            </div>
+
+            <div class="col-lg-3 form-group mt-4">
+              <label for="">Intitule lieu</label>
+              <input
+                type="text"
+                class="form-control rounded-pill"
+                [value]="currentLieu.intitule_lieu"
+                readonly
+              />
+            </div>
+
+            <div class="col-lg-4 form-group mt-4">
+              <label for="">Type lieu</label>
+              <input
+                type="text"
+                class="form-control rounded-pill"
+                [value]="currentLieu.type_lieu"
+                readonly
+              />
+            </div>
           </div>
-        </app-confirmation-modal>
+          <div
+            class="form-group my-4 col-lg-4 d-flex"
+            *ngIf="ActiveForm != 'TransfererForm'"
+          >
+            <!-- A Transferer & Annuler la Transformation buttons  -->
+            <button
+              *ngIf="!item.value.transferer"
+              type="button"
+              id="Transferer"
+              class="btn second-btn form-control"
+              (click)="openConfirmationModal('ATransfererModalId')"
+            >
+              A Transférer
+            </button>
+            <button
+              *ngIf="item.value.transferer"
+              type="button"
+              id="Transferer"
+              class="btn second-btn form-control"
+              (click)="openConfirmationModal('AnnulerTransformationModalId')"
+            >
+              Annuler la Transformation
+            </button>
+
+            <!-- Supprimer button  -->
+            <button
+              type="button"
+              id="supprimer"
+              class="btn btn-sm danger-btn form-control mx-3"
+              (click)="openConfirmationModal('TransfererModalId')"
+            >
+              Supprimer
+            </button>
+
+            <!-- Transferer modal -->
+            <app-confirmation-modal [closeBtn]="true" [id]="TransfereModalId">
+              <h3 class="main-title">
+                Transferer
+                <i class="far fa-exclamation-circle"></i>
+              </h3>
+              <p class="mt-3">Voulez-vous supprimer ce foncier?</p>
+              <div class="d-inline-flex justify-content-start mt-5">
+                <a
+                  class="btn btn-lg px-lg-4 danger-btn me-2"
+                  (click)="Transferer(item)"
+                  >Oui</a
+                >
+                <!-- (click)="Transferer(item)" -->
+                <a
+                  class="btn btn-lg px-lg-4 main-btn"
+                  (click)="closeConfirmationModal('TransfererModalId')"
+                  >Non</a
+                >
+              </div>
+            </app-confirmation-modal>
+
+            <!-- A Transferer modal -->
+            <app-confirmation-modal [closeBtn]="true" [id]="ATransfereModalId">
+              <h3 class="main-title">
+                A transferer
+                <i class="far fa-exclamation-circle"></i>
+              </h3>
+              <p class="mt-3">Voulez-vous supprimer ce foncier?</p>
+              <div class="d-inline-flex justify-content-start mt-5">
+                <a
+                  class="btn btn-lg px-lg-4 danger-btn me-2"
+                  (click)="ATransferer(item)"
+                  >Oui</a
+                >
+                <a
+                  class="btn btn-lg px-lg-4 main-btn"
+                  (click)="closeConfirmationModal('ATransfererModalId')"
+                  >Non</a
+                >
+              </div>
+            </app-confirmation-modal>
+
+            <!-- Annuler la transformation -->
+            <app-confirmation-modal
+              [closeBtn]="true"
+              [id]="AnnulerTransformationModalId"
+            >
+              <h3 class="main-title">
+                A transferer
+                <i class="far fa-exclamation-circle"></i>
+              </h3>
+              <p class="mt-3">Voulez-vous supprimer ce foncier?</p>
+              <div class="d-inline-flex justify-content-start mt-5">
+                <a
+                  class="btn btn-lg px-lg-4 danger-btn me-2"
+                  (click)="annulerTransformation(item)"
+                  >Oui</a
+                >
+                <a
+                  class="btn btn-lg px-lg-4 main-btn"
+                  (click)="
+                    closeConfirmationModal('AnnulerTransformationModalId')
+                  "
+                  >Non</a
+                >
+              </div>
+            </app-confirmation-modal>
+          </div>
+        </div>
       </div>
+    </div>
+
+    <!-- Add new ( lieu ) -->
+    <div
+      *ngIf="currentLieu == null"
+      class="w-100 d-flex align-items-center"
+    >
+      <h5 class="main-muted-text my-4">Aucun locale à afficher</h5>
+      <a class="btn btn-sm second-btn ms-3" >
+        + Nouveau locale
+      </a>
     </div>
 
     <!-- Button Ajouter -->
