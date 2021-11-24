@@ -15,6 +15,8 @@ import { Proprietaire } from 'src/app/models/Proprietaire';
 })
 export class FormProprietaireComponent implements OnInit, OnChanges {
   @Input() proprietaire!: any;
+  @Input() update!: boolean;
+
   isMand: boolean = false;
   errors!: any;
   Updatesuccess: string = 'Propriétaire modifié avec succés';
@@ -23,7 +25,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   mandataireList: any = [];
   updateDone: boolean = false;
   proprietaireForm!: FormGroup;
-  @Input() update!: boolean;
 
   userMatricule: any = localStorage.getItem('matricule');
 
@@ -292,14 +293,14 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
     this.montantLoyer = this.proprietaire.montant_loyer;
 
-    if (this.update) {
+    
       this.proprietaire.proprietaire_list.forEach((prop: any) => {
         this.proprietaires.push(prop);
       });
       this.proprietaireForm.patchValue({
         proprietaire_list: this.proprietaires,
       });
-    }
+    
 
     let listProp = this.proprietaire.proprietaire_list.reduce(
       (list: any[], prop: any) => {
@@ -347,6 +348,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       .getContratByFoncier(this.foncier_id, this.userMatricule)
       .subscribe((data) => {
         if (data) {
+          console.log('data' , data);
+          
           this.contratByFoncier = data;
 
           this.lengthProprietaire =
@@ -377,6 +380,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
           }
         }
       });
+    console.log('list prop', this.proprietaires);
+
   }
 
   // Calculer le montant (retenue à la source / montant apres impot / TAX)
