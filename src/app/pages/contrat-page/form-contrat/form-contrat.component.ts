@@ -80,7 +80,7 @@ export class FormContratComponent implements OnInit {
   totalBrutLoyer!: number;
   totalNetLoyer!: number;
 
-  lieu_id: string = 'test';
+  foncier_id!: string;
 
   userMatricule: any = localStorage.getItem('matricule');
 
@@ -114,7 +114,7 @@ export class FormContratComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.isInsertForm)
-      this.lieu_id = this.actRoute.snapshot.paramMap.get('id_lieu') || '';
+      this.foncier_id = this.actRoute.snapshot.paramMap.get('id_foncier') || '';
 
     // this.etatContratTypes = 'Avenant'
     this.contratForm = new FormGroup({
@@ -321,7 +321,6 @@ export class FormContratComponent implements OnInit {
     }
   }
 
-
   // Calcul effort caution and show error if the outside is a decimal number
   calculEffortCaution() {
     let montantCaution: number = this.contratForm.get('montant_caution')?.value;
@@ -489,69 +488,43 @@ export class FormContratComponent implements OnInit {
       duree_avance: this.contratForm.get('duree_avance')?.value || '',
       echeance_revision_loyer:
         this.contratForm.get('echeance_revision_loyer')?.value || '',
-      foncier: this.contratForm.get('foncier')?.value || '',
       n_engagement_depense:
         this.contratForm.get('n_engagement_depense')?.value || '',
-      // lieu: this.contratForm.get('lieu')?.value || '',
-      lieu: this.lieu_id,
+      foncier: this.foncier_id,
       duree_location: this.contratForm.get('duree_location')?.value || '',
-
       duree: this.duree || '',
       retunue_source_par_mois: this.retunue_source_par_mois || '',
       total_montant_brut_loyer: this.totalBrutLoyer || '',
       total_montant_net_loyer: this.totalNetLoyer || '',
-
       montant_avance_tax: this.montant_avance_tax_,
     };
 
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
-    console.log(ctr_data);
-    
-    console.log("0");
 
     // post the formdata (data+files)
-    this.contratService.addContrat(this.fd, this.userMatricule).subscribe(
-      (_) => {
-        console.log("1");
-        
-        this.postDone = true;
-        setTimeout(() => {
-        console.log("2");
-        this.contratForm.reset();
-          this.postDone = false;
-          this.help.toTheUp();
-          this.router.navigate(['/contrat/list-global/list']).then(() => {
-            this.help.refrechPage();
-          });
-        }, 2000);
-      },
-      (error) => {
-        this.errors = error.error.message;
-        setTimeout(() => {
-          this.showErrorMessage();
-        }, 3000);
-        this.hideErrorMessage();
-      }
-    );
-
-    // this.contratService.updateContrat(id, this.fd).subscribe(
-    //   (_) => {
-    //     this.updateDone = true;
-    //     setTimeout(() => {
-    //       this.mainModalService.close();
-    //       this.updateDone = false;
-    //       this.help.refrechPage();
-    //     }, 2000);
-    //   },
-    //   (error) => {
-    //     this.errors = error.error.message;
-    //     setTimeout(() => {
-    //       this.showErrorMessage();
-    //     }, 3000);
-    //     this.hideErrorMessage();
-    //   }
-    // );
+    this.contratService
+      .addContrat(this.fd, this.userMatricule, this.foncier_id)
+      .subscribe(
+        (_) => {
+          this.postDone = true;
+          setTimeout(() => {
+            this.contratForm.reset();
+            this.postDone = false;
+            this.help.toTheUp();
+            this.router.navigate(['/contrat/list-global/list']).then(() => {
+              this.help.refrechPage();
+            });
+          }, 2000);
+        },
+        (error) => {
+          this.errors = error.error.message;
+          setTimeout(() => {
+            this.showErrorMessage();
+          }, 3000);
+          this.hideErrorMessage();
+        }
+      );
   }
 
   // Check if all inputs has invalid errors
@@ -646,7 +619,7 @@ export class FormContratComponent implements OnInit {
         // etat_contrat_piece_jointe_avenant: this.contrat.etat_contrat?.etat?.piece_jointe_avenant,
       });
       this.contrat.numero_contrat
-        ? (this.lieu_id = this.contrat.lieu._id)
+        ? (this.foncier_id = this.contrat.lieu._id)
         : null;
     }
   }

@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Contrat } from 'src/app/models/Contrat';
 import { environment } from 'src/environments/environment';
@@ -38,10 +38,10 @@ export class ContratService {
     );
   }
 
-  addContrat(formdata: any, matricule: any): Observable<any> {
+  addContrat(formdata: any, matricule: any, IdFoncier: any): Observable<any> {
     return this.http.post<any>(
       `${environment.API_URL_TEST + environment.API_VERSION + this.param_url
-      }/ajouter/${matricule}`,
+      }/ajouter/${IdFoncier}/${matricule}`,
       formdata
     );
   }

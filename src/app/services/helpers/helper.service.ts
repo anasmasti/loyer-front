@@ -44,7 +44,7 @@ export class HelperService {
     );
   }
 
-  booleanToText(value: boolean) {
+  booleanToText(value: boolean | undefined) {
     let text!: string;
     value ? (text = 'Oui') : (text = 'Non');
     return text;

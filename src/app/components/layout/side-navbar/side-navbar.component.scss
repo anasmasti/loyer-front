@@ -1,50 +1,53 @@
-@use '../../../../assets/style/helpers' as *;
-@use '../../../../assets/style/components' as *;
+@use "../../../../assets/style/helpers" as *;
+@use "../../../../assets/style/components" as *;
 
 .vertical-nav {
-    background: color(light);
-    min-width: 17rem;
-    width: 17rem;
-    height: 100vh;
-    position: fixed;
-    left: 1.5rem;
-    bottom: auto;
-    top: 2rem;
-    border-radius: $main-border-radius;
-    box-shadow: $card-box-shadow;
-    transition: all 0.4s;
+  background: color(light);
+  min-width: 17rem;
+  width: 17rem;
+  height: 100vh;
+  position: fixed;
+  left: 1.5rem;
+  bottom: auto;
+  top: 2rem;
+  border-radius: $main-border-radius;
+  box-shadow: $card-box-shadow;
+  transition: all 0.4s;
 }
 
 #sidebar.active {
-    margin-left: -(17rem + 1.6rem);
+  margin-left: -(17rem + 1.6rem);
 }
 
 #user-card-mobile {
-    display: none;
+  display: none;
 }
 
 .sub-menu {
-    display: none;
-}
+  display: none;
 
-// Submenu items
-.sub-menu#lieux.active {
+  // Submenu items
+  &#lieux.active {
     display: flex !important;
     flex-direction: column;
+  }
+  &#entite.active {
+    display: flex !important;
+    flex-direction: column;
+  }
 }
 
-
 @include mobile($min-screen, $max-screen) {
-    .vertical-nav {
-        margin-left: -(17rem + 1.6rem);
-    }
-    #sidebar.active {
-        margin-left: 0;
-    }
-    img {
-        display: none;
-    }
-    #user-card-mobile {
-        display: block;
-    }
+  .vertical-nav {
+    margin-left: -(17rem + 1.6rem);
+  }
+  #sidebar.active {
+    margin-left: 0;
+  }
+  img {
+    display: none;
+  }
+  #user-card-mobile {
+    display: block;
+  }
 }
