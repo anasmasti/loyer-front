@@ -15,7 +15,6 @@ import { Proprietaire } from 'src/app/models/Proprietaire';
 })
 export class FormProprietaireComponent implements OnInit, OnChanges {
   @Input() proprietaire!: any;
-  @Input() isInsertForm!: boolean;
   isMand: boolean = false;
   errors!: any;
   Updatesuccess: string = 'Propriétaire modifié avec succés';
@@ -59,9 +58,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   totalPourcentageProprietaires: number = 0;
   pourcentageProprietaire: number = 0;
 
-
-
-
   constructor(
     private proprietaireService: ProprietaireService,
     private mainModalService: MainModalService,
@@ -69,8 +65,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     public router: Router,
     private help: HelperService,
     private lieuService: LieuxService,
-    private confirmationModalService: ConfirmationModalService,
-  ) { }
+    private confirmationModalService: ConfirmationModalService
+  ) {}
 
   ngOnChanges() {
     if (this.proprietaire != '') {
@@ -78,8 +74,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     }
   }
 
-
-  ngOnInit(): void {    
+  ngOnInit(): void {
     this.proprietaireForm = new FormGroup({
       // Champs du propriètaire
       cin: new FormControl('', [Validators.required, Validators.maxLength(8)]),
@@ -90,8 +85,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         Validators.minLength(6),
         Validators.pattern('[a-zA-Z ]*'),
       ]),
-      raison_social: new FormControl('',[Validators.pattern('[a-zA-Z ]*')]),
-      n_registre_commerce: new FormControl('',[Validators.pattern('[0-9]*')]),
+      raison_social: new FormControl('', [Validators.pattern('[a-zA-Z ]*')]),
+      n_registre_commerce: new FormControl('', [Validators.pattern('[0-9]*')]),
       telephone: new FormControl('', [
         Validators.pattern('[0-9]*'),
         Validators.maxLength(10),
@@ -142,13 +137,12 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       // mandataireForm: new FormArray([]),
     });
 
-    if (this.isInsertForm) {
+    if (!this.update) {
       this.proprietaireForm.reset();
       // this.lieu_id = this.actRoute.snapshot.paramMap.get('id_lieu')
       this.foncier_id = this.actRoute.snapshot.paramMap.get('id_foncier') || '';
       this.callGetContratAndLieuMethods();
     }
-
   }
 
   // addFormMandateire() {
@@ -193,143 +187,142 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
 
   fetchProprietaire() {
+    console.log('Test', this.proprietaire);
 
-    
-              
-    console.log("Test",this.proprietaire);
-    
-    this.getFoncierId()
-    this.callGetContratAndLieuMethods()
+    this.getFoncierId();
+    this.callGetContratAndLieuMethods();
 
-      // this.removeAllMandateires();
+    // this.removeAllMandateires();
 
-      // if (this.proprietaire.mandataire) {
-      //   this.isMand = true;
-      //   this.mandataireList = this.proprietaire.mandataire[0];
-      //   this.proprietaireForm.patchValue({
-      //     cin: this.proprietaire.cin,
-      //     passport: this.proprietaire.passport,
-      //     carte_sejour: this.proprietaire.carte_sejour,
-      //     nom_prenom: this.proprietaire.nom_prenom,
-      //     raison_social: this.proprietaire.raison_social,
-      //     n_registre_commerce: this.proprietaire.n_registre_commerce,
-      //     telephone: this.proprietaire.telephone,
-      //     fax: this.proprietaire.fax,
-      //     adresse: this.proprietaire.adresse,
-      //     n_compte_bancaire: this.proprietaire.n_compte_bancaire,
-      //     banque: this.proprietaire.banque,
-      //     nom_agence_bancaire: this.proprietaire.nom_agence_bancaire,
-      //     mandataire: this.proprietaire.mandataire,
+    // if (this.proprietaire.mandataire) {
+    //   this.isMand = true;
+    //   this.mandataireList = this.proprietaire.mandataire[0];
+    //   this.proprietaireForm.patchValue({
+    //     cin: this.proprietaire.cin,
+    //     passport: this.proprietaire.passport,
+    //     carte_sejour: this.proprietaire.carte_sejour,
+    //     nom_prenom: this.proprietaire.nom_prenom,
+    //     raison_social: this.proprietaire.raison_social,
+    //     n_registre_commerce: this.proprietaire.n_registre_commerce,
+    //     telephone: this.proprietaire.telephone,
+    //     fax: this.proprietaire.fax,
+    //     adresse: this.proprietaire.adresse,
+    //     n_compte_bancaire: this.proprietaire.n_compte_bancaire,
+    //     banque: this.proprietaire.banque,
+    //     nom_agence_bancaire: this.proprietaire.nom_agence_bancaire,
+    //     mandataire: this.proprietaire.mandataire,
 
-      //   });
+    //   });
 
-      //   // mandataire inputs
-      //   for (let mandataireControl of this.proprietaire.mandataire) {
-      //     let formGroup = this.addFormMandateire();
+    //   // mandataire inputs
+    //   for (let mandataireControl of this.proprietaire.mandataire) {
+    //     let formGroup = this.addFormMandateire();
 
-      //     formGroup.controls.cin_mandataire.setValue(
-      //       mandataireControl.cin_mandataire
-      //     );
+    //     formGroup.controls.cin_mandataire.setValue(
+    //       mandataireControl.cin_mandataire
+    //     );
 
-      //     formGroup.controls.nom_prenom_mandataire.setValue(
-      //       mandataireControl.nom_prenom_mandataire
-      //     );
+    //     formGroup.controls.nom_prenom_mandataire.setValue(
+    //       mandataireControl.nom_prenom_mandataire
+    //     );
 
-      //     formGroup.controls.raison_social_mandataire.setValue(
-      //       mandataireControl.raison_social_mandataire
-      //     );
+    //     formGroup.controls.raison_social_mandataire.setValue(
+    //       mandataireControl.raison_social_mandataire
+    //     );
 
-      //     formGroup.controls.telephone_mandataire.setValue(
-      //       mandataireControl.telephone_mandataire
-      //     );
-      
-      //     formGroup.controls.fax_mandataire.setValue(
-        //       mandataireControl.fax_mandataire
-        //     );
-        
-        //     formGroup.controls.adresse_mandataire.setValue(
-          //       mandataireControl.adresse_mandataire
-          //     );
-          
-          //     formGroup.controls.n_compte_bancaire_mandataire.setValue(
-            //       mandataireControl.n_compte_bancaire_mandataire
-            //     );
-            //   }
-            // } else {
-              // this.isMand = false;
- 
-              
-        this.proprietaireForm.patchValue({
-        cin: this.proprietaire.cin,
-        passport: this.proprietaire.passport,
-        carte_sejour: this.proprietaire.carte_sejour,
-        nom_prenom: this.proprietaire.nom_prenom,
-        raison_social: this.proprietaire.raison_social,
-        n_registre_commerce: this.proprietaire.n_registre_commerce,
-        telephone: this.proprietaire.telephone,
-        fax: this.proprietaire.fax,
-        adresse: this.proprietaire.adresse,
-        n_compte_bancaire: this.proprietaire.n_compte_bancaire,
-        banque: this.proprietaire.banque,
-        nom_agence_bancaire: this.proprietaire.nom_agence_bancaire,
-        montant_loyer: this.proprietaire.montant_loyer,
-        is_mandataire: this.proprietaire.is_mandataire,
-        banque_rib: this.proprietaire.banque_rib,
-        ville_rib: this.proprietaire.ville_rib,
-        cle_rib: this.proprietaire.cle_rib,
-        taux_impot: this.proprietaire.taux_impot,
-        retenue_source: this.proprietaire.retenue_source,
-        montant_apres_impot: this.proprietaire.montant_apres_impot,
-        
-        montant_avance_proprietaire: this.proprietaire.montant_avance_proprietaire,
-        tax_avance_proprietaire: this.proprietaire.tax_avance_proprietaire,
-        tax_par_periodicite: this.proprietaire.tax_par_periodicite,
+    //     formGroup.controls.telephone_mandataire.setValue(
+    //       mandataireControl.telephone_mandataire
+    //     );
 
-        pourcentage: this.proprietaire.pourcentage,
-        caution_par_proprietaire: this.proprietaire.caution_par_proprietaire,
-        // proprietaire_list: this.proprietaires,
-        
-        // mandataire inputs
-        // cin_mandataire: '',
-        // nom_prenom_mandataire: '',
-        // raison_social_mandataire: '',
-        // telephone_mandataire: '',
-        // fax_mandataire: '',
-        // adresse_mandataire: '',
-        // n_compte_bancaire_mandataire: '',
-      });
-      
-      this.montantLoyer = this.proprietaire.montant_loyer;
+    //     formGroup.controls.fax_mandataire.setValue(
+    //       mandataireControl.fax_mandataire
+    //     );
 
-      if (!this.isInsertForm) {
-        this.proprietaire.proprietaire_list.forEach((prop: any) => {
-          this.proprietaires.push(prop);
-        });
-        this.proprietaireForm.patchValue({
-                  proprietaire_list: this.proprietaires,
-                });
-      }
-      
-      
-      let listProp = this.proprietaire.proprietaire_list.reduce((list: any[], prop: any) => {
-        list = this.proprietaires
-        return list
-      }, [] ) 
-    
-      console.log("list prop",this.proprietaires);
-      
-  }
-  
-  
-  // Get Lieu id By Proprietaire id 
-  getFoncierId() {
-    this.proprietaireService.getFoncierIdByProprietaire(this.proprietaire._id, this.userMatricule).subscribe((data: any) => {
-      // this.lieu_id = data[0]._id
-      console.log("getFoncierIdByProprietaire" ,this.proprietaire._id);
-      
-      this.foncier_id = data[0]._id
-      console.log("===>",this.foncier_id);
+    //     formGroup.controls.adresse_mandataire.setValue(
+    //       mandataireControl.adresse_mandataire
+    //     );
+
+    //     formGroup.controls.n_compte_bancaire_mandataire.setValue(
+    //       mandataireControl.n_compte_bancaire_mandataire
+    //     );
+    //   }
+    // } else {
+    // this.isMand = false;
+
+    this.proprietaireForm.patchValue({
+      cin: this.proprietaire.cin,
+      passport: this.proprietaire.passport,
+      carte_sejour: this.proprietaire.carte_sejour,
+      nom_prenom: this.proprietaire.nom_prenom,
+      raison_social: this.proprietaire.raison_social,
+      n_registre_commerce: this.proprietaire.n_registre_commerce,
+      telephone: this.proprietaire.telephone,
+      fax: this.proprietaire.fax,
+      adresse: this.proprietaire.adresse,
+      n_compte_bancaire: this.proprietaire.n_compte_bancaire,
+      banque: this.proprietaire.banque,
+      nom_agence_bancaire: this.proprietaire.nom_agence_bancaire,
+      montant_loyer: this.proprietaire.montant_loyer,
+      is_mandataire: this.proprietaire.is_mandataire,
+      banque_rib: this.proprietaire.banque_rib,
+      ville_rib: this.proprietaire.ville_rib,
+      cle_rib: this.proprietaire.cle_rib,
+      taux_impot: this.proprietaire.taux_impot,
+      retenue_source: this.proprietaire.retenue_source,
+      montant_apres_impot: this.proprietaire.montant_apres_impot,
+
+      montant_avance_proprietaire:
+        this.proprietaire.montant_avance_proprietaire,
+      tax_avance_proprietaire: this.proprietaire.tax_avance_proprietaire,
+      tax_par_periodicite: this.proprietaire.tax_par_periodicite,
+
+      pourcentage: this.proprietaire.pourcentage,
+      caution_par_proprietaire: this.proprietaire.caution_par_proprietaire,
+      // proprietaire_list: this.proprietaires,
+
+      // mandataire inputs
+      // cin_mandataire: '',
+      // nom_prenom_mandataire: '',
+      // raison_social_mandataire: '',
+      // telephone_mandataire: '',
+      // fax_mandataire: '',
+      // adresse_mandataire: '',
+      // n_compte_bancaire_mandataire: '',
     });
+
+    this.montantLoyer = this.proprietaire.montant_loyer;
+
+    if (this.update) {
+      this.proprietaire.proprietaire_list.forEach((prop: any) => {
+        this.proprietaires.push(prop);
+      });
+      this.proprietaireForm.patchValue({
+        proprietaire_list: this.proprietaires,
+      });
+    }
+
+    let listProp = this.proprietaire.proprietaire_list.reduce(
+      (list: any[], prop: any) => {
+        list = this.proprietaires;
+        return list;
+      },
+      []
+    );
+
+    console.log('list prop', this.proprietaires);
+  }
+
+  // Get Lieu id By Proprietaire id
+  getFoncierId() {
+    this.proprietaireService
+      .getFoncierIdByProprietaire(this.proprietaire._id, this.userMatricule)
+      .subscribe((data: any) => {
+        // this.lieu_id = data[0]._id
+        console.log('getFoncierIdByProprietaire', this.proprietaire._id);
+
+        this.foncier_id = data[0]._id;
+        console.log('===>', this.foncier_id);
+      });
   }
 
   // Check if all inputs has invalid errors
@@ -353,26 +346,38 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     this.lieuService
       .getContratByFoncier(this.foncier_id, this.userMatricule)
       .subscribe((data) => {
-        if (data) { 
-          this.contratByFoncier = data; 
+        if (data) {
+          this.contratByFoncier = data;
 
-          this.lengthProprietaire = this.contratByFoncier[0].foncier.proprietaire.length
+          this.lengthProprietaire =
+            this.contratByFoncier[0]?.foncier?.proprietaire.length;
 
-            for (let index = 0; index < this.contratByFoncier[0].foncier.proprietaire.length; index++) {
-              if (this.contratByFoncier[0].foncier.proprietaire[index].is_mandataire == false &&
-                this.contratByFoncier[0].foncier.proprietaire[index].has_mandataire == null)
-                this.proprietaires.push(this.contratByFoncier[0].foncier.proprietaire[index])
-                // this.uncheckedProprietaires.push(this.contratByFoncier[0].foncier.proprietaire[index])
-                this.totalPourcentageProprietaires += this.contratByFoncier[0].foncier.proprietaire[index].pourcentage; 
-              }
-              if (this.update) {
-                this.totalPourcentageProprietaires = this.totalPourcentageProprietaires - this.proprietaire.pourcentage
-              }
-            }
-
+          for (
+            let index = 0;
+            index < this.contratByFoncier[0]?.foncier?.proprietaire.length;
+            index++
+          ) {
+            if (
+              this.contratByFoncier[0].foncier.proprietaire[index]
+                .is_mandataire == false &&
+              this.contratByFoncier[0].foncier.proprietaire[index]
+                .has_mandataire == null
+            )
+              this.proprietaires.push(
+                this.contratByFoncier[0].foncier.proprietaire[index]
+              );
+            // this.uncheckedProprietaires.push(this.contratByFoncier[0].foncier.proprietaire[index])
+            this.totalPourcentageProprietaires +=
+              this.contratByFoncier[0].foncier.proprietaire[index].pourcentage;
+          }
+          if (this.update) {
+            this.totalPourcentageProprietaires =
+              this.totalPourcentageProprietaires -
+              this.proprietaire.pourcentage;
+          }
+        }
       });
   }
-
 
   // Calculer le montant (retenue à la source / montant apres impot / TAX)
   calculMontant() {
@@ -385,26 +390,31 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     dateDebutLoyer = new Date(dateDebutLoyer);
     let month = dateDebutLoyer.getMonth() + 1;
     // // Date resilition
-    let dateResiliation = this.contratByFoncier[0]?.etat_contrat?.etat?.date_resiliation;
+    let dateResiliation =
+      this.contratByFoncier[0]?.etat_contrat?.etat?.date_resiliation;
     dateResiliation = new Date(dateResiliation);
     let monthResiliation = dateResiliation.getMonth() + 1;
     // Les etats de contrats
     let etatContratTypes = this.contratByFoncier[0]?.etat_contrat?.libelle;
 
     // Get value of input pourcentage
-    this.pourcentageProprietaire = Number(this.proprietaireForm.get('pourcentage')?.value);
+    this.pourcentageProprietaire = Number(
+      this.proprietaireForm.get('pourcentage')?.value
+    );
     //Get montant loyer from contrat (Montant de loyer Global)
     let montantLoyerContrat = this.contratByFoncier[0]?.montant_loyer;
 
     // condition to control if the total pourcentage are > 100 the we show an error message and take 100 minus the total pourcentage and stock the result in the pourcentageProprietaire
-    if( (this.totalPourcentageProprietaires + this.pourcentageProprietaire) > 100){
+    if (
+      this.totalPourcentageProprietaires + this.pourcentageProprietaire >
+      100
+    ) {
       this.pourcentageProprietaire = 100 - this.totalPourcentageProprietaires;
       this.openConfirmationModal();
     }
     //  CALCULER LE MONTANT DE LOYER A PARTIR DE POURCENTAGE DONNE PAR L'UTILISATEUR
-    this.montantLoyer = ( this.pourcentageProprietaire * montantLoyerContrat ) / 100;
-
-
+    this.montantLoyer =
+      (this.pourcentageProprietaire * montantLoyerContrat) / 100;
 
     // // ------First Condition--------
     if (month == 1 && etatContratTypes != 'Résilié') {
@@ -438,7 +448,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       this.retenueSource = result;
       this.montantApresImpot = montantApresImpot;
       this.tauxImpot = tauxImpot;
-
     }
     // // ------Seconde Condition--------
     if (month != 1 && etatContratTypes != 'Résilié') {
@@ -477,7 +486,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       this.retenueSource = result;
       this.montantApresImpot = montantApresImpot;
       this.tauxImpot = tauxImpot;
-
     }
 
     // // ------Third Condition--------
@@ -514,7 +522,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         tauxImpot = 0;
       }
 
-
       this.retenueSource = result;
       this.montantApresImpot = montantApresImpot;
       this.tauxImpot = tauxImpot;
@@ -541,14 +548,15 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   // caluclate the caution of each proprietaire
   calculCaution() {
     // if (this.isMand) {
-      // let montantLoyerContrat = this.contratByFoncier[0]?.montant_loyer;
-      let cautionContrat = this.contratByFoncier[0]?.montant_caution;
-      // let pourcentage = ((this.montantLoyer * 100) / montantLoyerContrat);
-      // let cautionProprietaire = (cautionContrat * pourcentage) / 100;
-      // this.pourcentageCaution = pourcentage;
+    // let montantLoyerContrat = this.contratByFoncier[0]?.montant_loyer;
+    let cautionContrat = this.contratByFoncier[0]?.montant_caution;
+    // let pourcentage = ((this.montantLoyer * 100) / montantLoyerContrat);
+    // let cautionProprietaire = (cautionContrat * pourcentage) / 100;
+    // this.pourcentageCaution = pourcentage;
 
-      let cautionProprietaire = (cautionContrat * this.pourcentageProprietaire) / 100;
-      this.montantCautionProprietaire = cautionProprietaire;
+    let cautionProprietaire =
+      (cautionContrat * this.pourcentageProprietaire) / 100;
+    this.montantCautionProprietaire = cautionProprietaire;
     // }
   }
 
@@ -558,19 +566,16 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
 
   FillProprietaireList(ElementId: any) {
-    let InputElement = document.getElementById(ElementId) as HTMLInputElement
-    if (InputElement.checked){
-      // push selected proprietaire id to proprietaire list 
+    let InputElement = document.getElementById(ElementId) as HTMLInputElement;
+    if (InputElement.checked) {
+      // push selected proprietaire id to proprietaire list
       this.proprietaireList.push(InputElement.value);
-    }
-    else
-    {
+    } else {
       for (let i = 0; i < this.proprietaireList.length; i++) {
-        if (this.proprietaireList[i].id ==  InputElement.value ) {
+        if (this.proprietaireList[i].id == InputElement.value) {
           // remove selected proprietaire id from proprietaire list
-          this.proprietaireList.splice(i , 1)
+          this.proprietaireList.splice(i, 1);
         }
-        
       }
       // remove selected proprietaire id from proprietaire list
       // let index = this.proprietaireList.indexOf(InputElement.value)
@@ -586,13 +591,15 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       carte_sejour: this.proprietaireForm.get('carte_sejour')?.value || '',
       nom_prenom: this.proprietaireForm.get('nom_prenom')?.value,
       raison_social: this.proprietaireForm.get('raison_social')?.value,
-      n_registre_commerce: this.proprietaireForm.get('n_registre_commerce')?.value,
+      n_registre_commerce: this.proprietaireForm.get('n_registre_commerce')
+        ?.value,
       telephone: this.proprietaireForm.get('telephone')?.value,
       fax: this.proprietaireForm.get('fax')?.value,
       adresse: this.proprietaireForm.get('adresse')?.value,
       n_compte_bancaire: this.proprietaireForm.get('n_compte_bancaire')?.value,
       banque: this.proprietaireForm.get('banque')?.value,
-      nom_agence_bancaire: this.proprietaireForm.get('nom_agence_bancaire')?.value,
+      nom_agence_bancaire: this.proprietaireForm.get('nom_agence_bancaire')
+        ?.value,
       montant_loyer: this.montantLoyer,
       banque_rib: this.proprietaireForm.get('banque_rib')?.value,
       ville_rib: this.proprietaireForm.get('ville_rib')?.value,
@@ -600,17 +607,17 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       taux_impot: this.tauxImpot,
       retenue_source: this.retenueSource,
       montant_apres_impot: this.montantApresImpot,
-      
+
       montant_avance_proprietaire: this.montantAvance,
       tax_avance_proprietaire: this.taxAvance,
       tax_par_periodicite: this.taxPeriodicite,
-      
+
       pourcentage: this.pourcentageProprietaire,
       caution_par_proprietaire: this.montantCautionProprietaire,
-      
+
       is_mandataire: this.proprietaireForm.get('is_mandataire')?.value,
 
-      proprietaire_list: this.proprietaireList
+      proprietaire_list: this.proprietaireList,
       // mandataire: this.proprietaireForm.get('mandataireForm')?.value,
       // deleted:false,
     };
@@ -666,19 +673,17 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       taux_impot: this.tauxImpot,
       retenue_source: this.retenueSource,
       montant_apres_impot: this.montantApresImpot,
-      
+
       montant_avance_proprietaire: this.montantAvance,
       tax_avance_proprietaire: this.taxAvance,
       tax_par_periodicite: this.taxPeriodicite,
-      
+
       pourcentage: this.pourcentageProprietaire,
       caution_par_proprietaire: this.montantCautionProprietaire,
-      
-      is_mandataire: this.proprietaireForm.get('is_mandataire')?.value,
-      proprietaire_list: this.proprietaireList
-    };
 
-    
+      is_mandataire: this.proprietaireForm.get('is_mandataire')?.value,
+      proprietaire_list: this.proprietaireList,
+    };
 
     this.proprietaireService
       .updateProprietaire(id, proprietaireData, this.userMatricule)
@@ -693,7 +698,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         },
 
         (error) => {
-          this.errors = error.error.message
+          this.errors = error.error.message;
           setTimeout(() => {
             this.showErrorMessage();
           }, 4000);
@@ -702,23 +707,21 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       );
   }
 
-  //if the montant loyer contrat < sum of montant loyer proprietaire then display an error and roolBack to initial data 
+  //if the montant loyer contrat < sum of montant loyer proprietaire then display an error and roolBack to initial data
   roolBack() {
     // check if it is in update form
     if (this.update) {
-      this.closeModel()
+      this.closeModel();
       this.proprietaireForm.patchValue({
         pourcentage: this.proprietaire.pourcentage,
-      })
+      });
     }
-     // check if it is in add form
+    // check if it is in add form
     if (!this.update) {
-      this.closeModel()
+      this.closeModel();
       this.proprietaireForm.patchValue({
-        
         pourcentage: this.pourcentageProprietaire,
-        
-      })
+      });
     }
   }
 
