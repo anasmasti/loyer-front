@@ -188,8 +188,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
 
   fetchProprietaire() {
-    console.log('Test', this.proprietaire);
-
     this.getFoncierId();
     this.callGetContratAndLieuMethods();
 
@@ -293,24 +291,12 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
     this.montantLoyer = this.proprietaire.montant_loyer;
 
-    
-      this.proprietaire.proprietaire_list.forEach((prop: any) => {
-        this.proprietaires.push(prop);
-      });
-      this.proprietaireForm.patchValue({
-        proprietaire_list: this.proprietaires,
-      });
-    
-
-    let listProp = this.proprietaire.proprietaire_list.reduce(
-      (list: any[], prop: any) => {
-        list = this.proprietaires;
-        return list;
-      },
-      []
-    );
-
-    console.log('list prop', this.proprietaires);
+    // this.proprietaire.proprietaire_list.forEach((prop: any) => {
+    //   this.proprietaires.push(prop);
+    // });
+    this.proprietaireForm.patchValue({
+      proprietaire_list: this.proprietaires,
+    });
   }
 
   // Get Lieu id By Proprietaire id
@@ -318,11 +304,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     this.proprietaireService
       .getFoncierIdByProprietaire(this.proprietaire._id, this.userMatricule)
       .subscribe((data: any) => {
-        // this.lieu_id = data[0]._id
-        console.log('getFoncierIdByProprietaire', this.proprietaire._id);
-
         this.foncier_id = data[0]._id;
-        console.log('===>', this.foncier_id);
       });
   }
 
@@ -348,8 +330,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       .getContratByFoncier(this.foncier_id, this.userMatricule)
       .subscribe((data) => {
         if (data) {
-          console.log('data' , data);
-          
           this.contratByFoncier = data;
 
           this.lengthProprietaire =
@@ -380,8 +360,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
           }
         }
       });
-    console.log('list prop', this.proprietaires);
-
   }
 
   // Calculer le montant (retenue à la source / montant apres impot / TAX)
@@ -570,22 +548,27 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     this.confirmationModalService.open(); // Open confirmation modal
   }
 
-  FillProprietaireList(ElementId: any) {
+  // Select proprietaire
+  selectProp(ElementId: any) {
     let InputElement = document.getElementById(ElementId) as HTMLInputElement;
     if (InputElement.checked) {
       // push selected proprietaire id to proprietaire list
-      this.proprietaireList.push(InputElement.value);
+      this.proprietaireList.push({ id: InputElement.value, selected: true });
     } else {
-      for (let i = 0; i < this.proprietaireList.length; i++) {
-        if (this.proprietaireList[i].id == InputElement.value) {
+      this.proprietaireList.forEach((prop: any, i: number) => {
+        if (prop.id == InputElement.value) {
           // remove selected proprietaire id from proprietaire list
-          this.proprietaireList.splice(i, 1);
+          this.unselectProp(i);
         }
-      }
-      // remove selected proprietaire id from proprietaire list
-      // let index = this.proprietaireList.indexOf(InputElement.value)
-      // this.proprietaireList.splice(index , 1)
+      });
     }
+    console.log('props', this.proprietaires);
+    console.log('updated props', this.proprietaireList);
+  }
+
+  // Unselect proprietaire
+  unselectProp(index: number) {
+    this.proprietaireList.splice(index, 1);
   }
 
   addProprietaire() {

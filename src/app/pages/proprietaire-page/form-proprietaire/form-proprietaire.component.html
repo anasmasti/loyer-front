@@ -354,12 +354,12 @@
     <h6 class="mt-4">
       Propriétaires à sélectionner
     </h6>
-    <div class="mt-4" *ngIf="lengthProprietaire">
-      <div class="mt-2" *ngFor="let prop of proprietaires">
+    <div *ngIf="lengthProprietaire" class="d-flex justify-content-start align-items-center gap-2">
+      <div *ngFor="let prop of proprietaires">
         <input type="checkbox" [name]="prop?._id" class="btn-check check" [id]="prop?._id"
-         autocomplete="off" [value]="prop?._id" (click)="FillProprietaireList(prop?._id)" formControlName="proprietaire_list">
+         autocomplete="off" [value]="prop?._id" (click)="selectProp(prop?._id)" formControlName="proprietaire_list">
         <label class="px-3 py-1 rounded-pill checkbox-list-btns" [for]="prop?._id">
-          {{prop?.cin}}-{{prop?.nom_prenom}}
+          {{prop?.cin}} • {{prop?.nom_prenom}}
         </label>
       </div>
     </div>
@@ -373,11 +373,13 @@
     <h6 class="mt-4">
       Propriétaires à sélectionner
     </h6>
-    <div *ngIf="lengthProprietaire">
-      <div class="mt-2" *ngFor="let proprietaire of proprietaires">
+    <div *ngIf="lengthProprietaire" class="d-flex justify-content-start align-items-center gap-2">
+      <div *ngFor="let proprietaire of proprietaires">
         <input type="checkbox" [name]="proprietaire._id" class="btn-check check" [id]="proprietaire._id"
-         autocomplete="off" [value]="proprietaire._id" (click)="FillProprietaireList(proprietaire._id)" formControlName="proprietaire_list">
-        <label class="px-3 py-1 rounded-pill checkbox-list-btns" [for]="proprietaire._id">{{proprietaire.cin}}-{{proprietaire.nom_prenom}}</label>
+         autocomplete="off" [value]="proprietaire._id" (click)="selectProp(proprietaire._id)" formControlName="proprietaire_list">
+        <label class="px-3 py-1 rounded-pill checkbox-list-btns" [for]="proprietaire._id">
+          {{proprietaire.cin}} • {{proprietaire.nom_prenom}}
+        </label>
       </div>
     </div>
     <div class="mt-2" *ngIf="!proprietaires.length">
