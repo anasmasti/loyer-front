@@ -3,7 +3,7 @@
     <div class="d-lg-flex justify-content-lg-between">
       <h3 class="main-title">Propriétaire de local</h3>
       <div>
-        <a [routerLink]="['/proprietaire/list']" class="btn btn-sm main-btn">Voir la liste des propriétaires</a>
+        <a [routerLink]="['/proprietaire/list-global/list']" class="btn btn-sm main-btn">Voir la liste des propriétaires</a>
         <a class="text-dark ms-4" data-bs-toggle="tooltip" data-bs-placement="top"
           title="Ici vous pouvez ajouter un nouveau propriétaire"><i class="fal fa-info"></i></a>
       </div>
@@ -18,7 +18,7 @@
   <!--Début de Div qui contient le formulaire propriètaire de local-->
   <div class="form-box mt-4">
     <!--Début Formulaire propriètaire de local-->
-      <app-form-proprietaire [proprietaire]="Checkproprietaire" [isInsertForm]="true"></app-form-proprietaire>
+      <app-form-proprietaire [proprietaire]="Checkproprietaire" [update]="false"></app-form-proprietaire>
     <!-- Fin de formulaire-->
   </div>
   <!--Fin Div form propriètaire de local-->
