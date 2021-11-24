@@ -346,16 +346,16 @@
   </div>
 
   <!-- If isMand true show list of proprietaire to checked -->
-  <div *ngIf="isMand && update; then coproprietaireUpdate"></div>
-  <div *ngIf="isMand && !update; then coproprietaireAdd"></div>
+  <div *ngIf="isMand && update; then coProprietaireUpdate"></div>
+  <div *ngIf="isMand && !update; then coProprietaireAdd"></div>
 
   <!-- Show the proprietaire list if the lengthProprietaire == 0 if not show an error message -->
-  <ng-template #coproprietaireUpdate>
-    <h6 class="mt-4">
-      Propriétaires à sélectionner
-    </h6>
-    <div *ngIf="lengthProprietaire" class="d-flex justify-content-start align-items-center gap-2">
-      <div *ngFor="let prop of proprietaires">
+  <ng-template #coProprietaireUpdate>
+    <h5 class="mt-4">
+      Propriétaires sélectionnés
+    </h5>
+    <div *ngIf="lengthProprietaire" class="d-flex justify-content-start align-items-center flex-wrap gap-2">
+      <div *ngFor="let prop of proprietaire.proprietaire_list">
         <input type="checkbox" [name]="prop?._id" class="btn-check check" [id]="prop?._id"
          autocomplete="off" [value]="prop?._id" (click)="selectProp(prop?._id)" formControlName="proprietaire_list">
         <label class="px-3 py-1 rounded-pill checkbox-list-btns" [for]="prop?._id">
@@ -363,16 +363,33 @@
         </label>
       </div>
     </div>
-    <div class="mt-2" *ngIf="!proprietaires.length">
+    <div class="mt-1" *ngIf="!proprietaire.proprietaire_list.length">
       <!-- Error message -->
-      <p class="main-muted-text">Aucun propriétaires à afficher</p>
+      <p class="main-muted-text">Aucun propriétaire à sélectionné</p>
+    </div>
+
+    <h6 class="mt-3">
+      Propriétaires à sélectionner
+    </h6>
+    <div *ngIf="lengthProprietaire" class="d-flex justify-content-start align-items-center flex-wrap gap-2">
+      <div *ngFor="let proprietaire of proprietaires">
+        <input type="checkbox" [name]="proprietaire._id" class="btn-check check" [id]="proprietaire._id"
+         autocomplete="off" [value]="proprietaire._id" (click)="selectProp(proprietaire._id)" formControlName="new_proprietaire_list">
+        <label class="px-3 py-1 rounded-pill checkbox-list-btns" [for]="proprietaire._id">
+          {{proprietaire.cin}} • {{proprietaire.nom_prenom}}
+        </label>
+      </div>
+    </div>
+    <div class="mt-1" *ngIf="!proprietaires.length">
+      <!-- Error message -->
+      <p class="main-muted-text">Aucun propriétaire à afficher</p>
     </div>
   </ng-template>
 
-  <ng-template #coproprietaireAdd>
-    <h6 class="mt-4">
+  <ng-template #coProprietaireAdd>
+    <h5 class="mt-4">
       Propriétaires à sélectionner
-    </h6>
+    </h5>
     <div *ngIf="lengthProprietaire" class="d-flex justify-content-start align-items-center gap-2">
       <div *ngFor="let proprietaire of proprietaires">
         <input type="checkbox" [name]="proprietaire._id" class="btn-check check" [id]="proprietaire._id"
@@ -382,15 +399,11 @@
         </label>
       </div>
     </div>
-    <div class="mt-2" *ngIf="!proprietaires.length">
+    <div class="mt-1" *ngIf="!proprietaires.length">
       <!-- Error message -->
-      <p class="main-muted-text">Aucun propriétaires à afficher</p>
+      <p class="main-muted-text">Aucun propriétaire à afficher</p>
     </div>
   </ng-template>
-
-
-
-
 
   <app-confirmation-modal [closeBtn]='false'>
     <h3 class="danger-txt"><i class="fas fa-exclamation-triangle"></i> Attention</h3>

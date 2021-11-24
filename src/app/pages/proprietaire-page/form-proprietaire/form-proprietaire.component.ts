@@ -54,6 +54,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   uncheckedProprietaires: any = [];
 
   proprietaireList: any = [];
+  newProprietairesList: any = [];
 
   //Total des pourcentages des proprietaires
   totalPourcentageProprietaires: number = 0;
@@ -133,6 +134,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       pourcentage: new FormControl(),
 
       proprietaire_list: new FormControl(),
+      new_proprietaire_list: new FormControl(),
 
       // Champs du mandataire
       // mandataireForm: new FormArray([]),
@@ -277,7 +279,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
       pourcentage: this.proprietaire.pourcentage,
       caution_par_proprietaire: this.proprietaire.caution_par_proprietaire,
-      // proprietaire_list: this.proprietaires,
+      proprietaire_list: this.proprietaire.proprietaire_list,
 
       // mandataire inputs
       // cin_mandataire: '',
@@ -291,12 +293,14 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
     this.montantLoyer = this.proprietaire.montant_loyer;
 
+    // this.newProprietairesList = this.proprietaire.proprietaire_list;
+
     // this.proprietaire.proprietaire_list.forEach((prop: any) => {
     //   this.proprietaires.push(prop);
     // });
-    this.proprietaireForm.patchValue({
-      proprietaire_list: this.proprietaires,
-    });
+    // this.proprietaireForm.patchValue({
+    //   proprietaire_list: this.proprietaires,
+    // });
   }
 
   // Get Lieu id By Proprietaire id
@@ -334,6 +338,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
           this.lengthProprietaire =
             this.contratByFoncier[0]?.foncier?.proprietaire.length;
+
+          this.proprietaires = [];
 
           for (
             let index = 0;
@@ -553,22 +559,46 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     let InputElement = document.getElementById(ElementId) as HTMLInputElement;
     if (InputElement.checked) {
       // push selected proprietaire id to proprietaire list
-      this.proprietaireList.push({ id: InputElement.value, selected: true });
+      if (!this.update) this.proprietaireList.push(InputElement.value);
+      if (this.update) this.newProprietairesList.push(InputElement.value);
     } else {
-      this.proprietaireList.forEach((prop: any, i: number) => {
-        if (prop.id == InputElement.value) {
-          // remove selected proprietaire id from proprietaire list
-          this.unselectProp(i);
-        }
-      });
+      if (!this.update) {
+        this.proprietaireList.forEach((prop: any, i: number) => {
+          if (prop == InputElement.value) {
+            // remove selected proprietaire id from proprietaire list
+            this.unselectProp(i);
+          }
+        });
+      }
+      if (this.update) {
+         this.newProprietairesList.forEach((prop: any, i: number) => {
+          if (prop == InputElement.value) {
+            // remove selected proprietaire id from proprietaire list
+            console.log('match');
+  
+            this.unselectProp(i);
+          }
+        });
+         this.proprietaire.proprietaire_list.forEach(
+          (prop: any, i: number) => {
+            if (prop._id == InputElement.value) {
+              // remove selected proprietaire id from proprietaire list
+              console.log('proprietaire_list match');
+              this.proprietaire.proprietaire_list.splice(i, 1);
+              this.proprietaires.push(InputElement.value);
+            }
+          }
+        );
+      }
     }
-    console.log('props', this.proprietaires);
-    console.log('updated props', this.proprietaireList);
+    console.log('props', this.proprietaireList);
+    console.log('new props', this.newProprietairesList);
   }
 
   // Unselect proprietaire
   unselectProp(index: number) {
-    this.proprietaireList.splice(index, 1);
+    if (!this.update) this.proprietaireList.splice(index, 1);
+    if (this.update) this.newProprietairesList.splice(index, 1);
   }
 
   addProprietaire() {
@@ -638,6 +668,13 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
   updateProprietaire() {
     let id = this.proprietaire._id;
+
+    if (this.newProprietairesList) {
+      this.proprietaire.proprietaire_list.forEach((prop: any) => {
+        this.newProprietairesList.push(prop._id);
+      });
+    }
+
     let proprietaireData: any = {
       // _id: this.proprietaireForm.get('_id').value ,
       cin: this.proprietaireForm.get('cin')?.value,
@@ -673,26 +710,26 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       proprietaire_list: this.proprietaireList,
     };
 
-    this.proprietaireService
-      .updateProprietaire(id, proprietaireData, this.userMatricule)
-      .subscribe(
-        (_) => {
-          this.updateDone = true;
-          setTimeout(() => {
-            this.mainModalService.close();
-            this.updateDone = false;
-            location.reload();
-          }, 1000);
-        },
+    // this.proprietaireService
+    //   .updateProprietaire(id, proprietaireData, this.userMatricule)
+    //   .subscribe(
+    //     (_) => {
+    //       this.updateDone = true;
+    //       setTimeout(() => {
+    //         this.mainModalService.close();
+    //         this.updateDone = false;
+    //         location.reload();
+    //       }, 1000);
+    //     },
 
-        (error) => {
-          this.errors = error.error.message;
-          setTimeout(() => {
-            this.showErrorMessage();
-          }, 4000);
-          this.hideErrorMessage();
-        }
-      );
+    //     (error) => {
+    //       this.errors = error.error.message;
+    //       setTimeout(() => {
+    //         this.showErrorMessage();
+    //       }, 4000);
+    //       this.hideErrorMessage();
+    //     }
+    //   );
   }
 
   //if the montant loyer contrat < sum of montant loyer proprietaire then display an error and roolBack to initial data
