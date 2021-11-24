@@ -523,7 +523,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
             // remove selected proprietaire id from proprietaire list
             console.log('proprietaire_list match');
             this.proprietaire.proprietaire_list.splice(i, 1);
-            this.proprietaires.push(InputElement.value);
+            this.proprietaires.push(prop);
           }
         });
       }
