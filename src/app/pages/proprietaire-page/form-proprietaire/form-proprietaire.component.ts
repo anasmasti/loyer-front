@@ -30,7 +30,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
   contratByFoncier!: any[];
 
-  // lieu_id!: any;
   foncier_id!: string;
 
   //les calcules
@@ -144,12 +143,11 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
     if (this.isInsertForm) {
       this.proprietaireForm.reset();
-      // this.lieu_id = this.actRoute.snapshot.paramMap.get('id_lieu')
       this.foncier_id = this.actRoute.snapshot.paramMap.get('id_foncier') || '';
       this.callGetContratAndLieuMethods();
     }
 
-  }
+  }//End ngOnInit
 
   // addFormMandateire() {
   //   const mandataireData = new FormGroup({
@@ -194,10 +192,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
   fetchProprietaire() {
 
-    
-              
-    console.log("Test",this.proprietaire);
-    
     this.getFoncierId()
     this.callGetContratAndLieuMethods()
 
@@ -315,20 +309,13 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         list = this.proprietaires
         return list
       }, [] ) 
-    
-      console.log("list prop",this.proprietaires);
-      
   }
   
   
   // Get Lieu id By Proprietaire id 
   getFoncierId() {
     this.proprietaireService.getFoncierIdByProprietaire(this.proprietaire._id, this.userMatricule).subscribe((data: any) => {
-      // this.lieu_id = data[0]._id
-      console.log("getFoncierIdByProprietaire" ,this.proprietaire._id);
-      
       this.foncier_id = data[0]._id
-      console.log("===>",this.foncier_id);
     });
   }
 
@@ -354,8 +341,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       .getContratByFoncier(this.foncier_id, this.userMatricule)
       .subscribe((data) => {
         if (data) { 
-          this.contratByFoncier = data; 
-
+          this.contratByFoncier = data;
+          console.log(data);
+           
           this.lengthProprietaire = this.contratByFoncier[0].foncier.proprietaire.length
 
             for (let index = 0; index < this.contratByFoncier[0].foncier.proprietaire.length; index++) {
@@ -391,6 +379,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     // Les etats de contrats
     let etatContratTypes = this.contratByFoncier[0]?.etat_contrat?.libelle;
 
+    let dureeLocation = this.contratByFoncier[0].duree_location;
+
     // Get value of input pourcentage
     this.pourcentageProprietaire = Number(this.proprietaireForm.get('pourcentage')?.value);
     //Get montant loyer from contrat (Montant de loyer Global)
@@ -404,121 +394,59 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     //  CALCULER LE MONTANT DE LOYER A PARTIR DE POURCENTAGE DONNE PAR L'UTILISATEUR
     this.montantLoyer = ( this.pourcentageProprietaire * montantLoyerContrat ) / 100;
 
-
-
-    // // ------First Condition--------
-    if (month == 1 && etatContratTypes != 'Résilié') {
-      this.duree = 12;
-      if (this.contratByFoncier[0]?.declaration_option === 'non') {
-        if (this.montantLoyer * 12 <= 30000) {
+    // Condition for etat != resilié
+    if (etatContratTypes != 'Résilié') {
+      // Condition taux d'impot 0%
+      if ( (this.montantLoyer * dureeLocation) <= 30000){
           result = 0;
-          montantApresImpot = this.montantLoyer * 12;
+          montantApresImpot = (this.montantLoyer - (result / dureeLocation)) ;
           tauxImpot = 0;
-        }
-        if (
-          this.montantLoyer * 12 > 30000 &&
-          this.montantLoyer * 12 <= 120000
-        ) {
-          result = (this.montantLoyer * 12 * 10) / 100;
-          montantApresImpot = (this.montantLoyer * 12 - result) / 12;
+      }
+      // Condition taux d'impot 10%
+      if ( (this.montantLoyer * dureeLocation) > 30000 && (this.montantLoyer * this.contratByFoncier[0].duree_location) <= 120000){
+          result = ((this.montantLoyer *0.1) * dureeLocation );
+          montantApresImpot = (this.montantLoyer - (result / dureeLocation)) ;
           tauxImpot = 10;
-        }
-        if (this.montantLoyer * 12 > 120000) {
-          result = (this.montantLoyer * 12 * 15) / 100;
-          montantApresImpot = (this.montantLoyer * 12 - result) / 12;
+      }
+      // Condition taux d'impot 15%
+      if ( (this.montantLoyer * dureeLocation) > 120000){
+          result = ((this.montantLoyer *0.15) * dureeLocation );
+          montantApresImpot = (this.montantLoyer - (result / dureeLocation)) ;
           tauxImpot = 15;
-        }
       }
-      if (this.contratByFoncier[0]?.declaration_option === 'oui') {
-        result = 0;
-        montantApresImpot = this.montantLoyer * 12;
-        tauxImpot = 0;
-      }
+  } //End if (etatContratTypes != 'Résilié')
 
-      this.retenueSource = result;
-      this.montantApresImpot = montantApresImpot;
-      this.tauxImpot = tauxImpot;
+    
 
-    }
-    // // ------Seconde Condition--------
-    if (month != 1 && etatContratTypes != 'Résilié') {
-      // nombre des mois louer
-      let nbr_mois_louer = 12 - month + 1;
-      this.duree = nbr_mois_louer;
-
-      if (this.contratByFoncier[0]?.declaration_option === 'non') {
-        if (this.montantLoyer * nbr_mois_louer <= 30000) {
-          result = 0;
-          montantApresImpot = this.montantLoyer;
-          tauxImpot = 0;
-        }
-        if (
-          this.montantLoyer * nbr_mois_louer > 30000 &&
-          this.montantLoyer * nbr_mois_louer <= 120000
-        ) {
-          result = (this.montantLoyer * nbr_mois_louer * 10) / 100;
-          montantApresImpot =
-            (this.montantLoyer * nbr_mois_louer - result) / nbr_mois_louer;
-          tauxImpot = 10;
-        }
-        if (this.montantLoyer * nbr_mois_louer > 120000) {
-          result = (this.montantLoyer * nbr_mois_louer * 15) / 100;
-          montantApresImpot =
-            (this.montantLoyer * nbr_mois_louer - result) / nbr_mois_louer;
-          tauxImpot = 15;
-        }
-      }
-      if (this.contratByFoncier[0]?.declaration_option === 'oui') {
-        result = 0;
-        montantApresImpot = this.montantLoyer * nbr_mois_louer;
-        tauxImpot = 0;
-      }
-
-      this.retenueSource = result;
-      this.montantApresImpot = montantApresImpot;
-      this.tauxImpot = tauxImpot;
-
-    }
-
-    // // ------Third Condition--------
+    // Condition for etat resilié
     if (etatContratTypes == 'Résilié') {
       // nombre des mois louer
-      let nbr_mois_louer = monthResiliation - month + 1;
-      this.duree = nbr_mois_louer;
+      let nbr_mois_louer = dureeLocation - monthResiliation;
 
-      if (this.contratByFoncier[0]?.declaration_option === 'non') {
+      // Condition taux d'impot 0%
         if (this.montantLoyer * nbr_mois_louer <= 30000) {
           result = 0;
-          montantApresImpot = this.montantLoyer;
+          montantApresImpot = (this.montantLoyer - (result / nbr_mois_louer));
           tauxImpot = 0;
         }
-        if (
-          this.montantLoyer * nbr_mois_louer > 30000 &&
-          this.montantLoyer * nbr_mois_louer <= 120000
-        ) {
-          result = (this.montantLoyer * nbr_mois_louer * 10) / 100;
-          montantApresImpot =
-            (this.montantLoyer * nbr_mois_louer - result) / nbr_mois_louer;
+        // Condition taux d'impot 10%
+        if (this.montantLoyer * nbr_mois_louer > 30000 && this.montantLoyer * nbr_mois_louer <= 120000) {
+          result = ((this.montantLoyer *0.1) * nbr_mois_louer );
+          montantApresImpot = (this.montantLoyer - (result / nbr_mois_louer));
           tauxImpot = 10;
         }
+        // Condition taux d'impot 15%
         if (this.montantLoyer * nbr_mois_louer > 120000) {
-          result = (this.montantLoyer * nbr_mois_louer * 15) / 100;
-          montantApresImpot =
-            (this.montantLoyer * nbr_mois_louer - result) / nbr_mois_louer;
+          result = ((this.montantLoyer *0.15) * nbr_mois_louer );
+          montantApresImpot = (this.montantLoyer - (result / nbr_mois_louer));
           tauxImpot = 15;
         }
-      }
-      if (this.contratByFoncier[0]?.declaration_option === 'oui') {
-        result = 0;
-        montantApresImpot = this.montantLoyer * nbr_mois_louer;
-        tauxImpot = 0;
-      }
+      }// End if (etatContratTypes == 'Résilié')
 
+     this.retenueSource = result;
+     this.montantApresImpot = montantApresImpot;
+     this.tauxImpot = tauxImpot;
 
-      this.retenueSource = result;
-      this.montantApresImpot = montantApresImpot;
-      this.tauxImpot = tauxImpot;
-    }
   }
 
   //calculate the montant avance and tax d'avance of each proprietaire
@@ -540,16 +468,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
   // caluclate the caution of each proprietaire
   calculCaution() {
-    // if (this.isMand) {
-      // let montantLoyerContrat = this.contratByFoncier[0]?.montant_loyer;
       let cautionContrat = this.contratByFoncier[0]?.montant_caution;
-      // let pourcentage = ((this.montantLoyer * 100) / montantLoyerContrat);
-      // let cautionProprietaire = (cautionContrat * pourcentage) / 100;
-      // this.pourcentageCaution = pourcentage;
-
       let cautionProprietaire = (cautionContrat * this.pourcentageProprietaire) / 100;
       this.montantCautionProprietaire = cautionProprietaire;
-    // }
   }
 
   // function to open model
@@ -572,9 +493,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         }
         
       }
-      // remove selected proprietaire id from proprietaire list
-      // let index = this.proprietaireList.indexOf(InputElement.value)
-      // this.proprietaireList.splice(index , 1)
     }
   }
 
