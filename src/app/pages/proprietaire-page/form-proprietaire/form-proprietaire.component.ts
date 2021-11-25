@@ -333,7 +333,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       .subscribe((data) => {
         if (data) {
           this.contratByFoncier = data;
-
+          
           this.lengthProprietaire =
             this.contratByFoncier[0]?.foncier?.proprietaire.length;
 
@@ -522,8 +522,10 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
           if (prop._id == InputElement.value) {
             // remove selected proprietaire id from proprietaire list
             console.log('proprietaire_list match');
-            this.proprietaire.proprietaire_list.splice(i, 1);
+         
+            this.proprietaire.proprietaire_list.splice(i, 1);   
             this.proprietaires.push(prop);
+
           }
         });
       }
@@ -611,7 +613,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         this.newProprietairesList.push(prop._id);
       });
     }
-
+    
     let proprietaireData: any = {
       // _id: this.proprietaireForm.get('_id').value ,
       cin: this.proprietaireForm.get('cin')?.value,

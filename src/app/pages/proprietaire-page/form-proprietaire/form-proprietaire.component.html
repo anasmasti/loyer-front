@@ -62,7 +62,7 @@
           'is-invalid': checkInputsValidation(raison_social)
         }" />
 
-          <!-- Error Message  -->
+      <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(raison_social)">
         <p class="danger-txt" *ngIf="raison_social?.errors?.pattern">
           Vous devez entrer seulement des alphabets
@@ -259,16 +259,15 @@
     <div class="col-lg-3 form-group mt-4">
       <label for="">Pourcentage %</label>
       <input type="text" class="form-control rounded-pill" formControlName="pourcentage"
-      (keyup)="calculMontant();calculMontantAvance();calculCaution()"/>
-      
+        (keyup)="calculMontant();calculMontantAvance();calculCaution()" />
+
     </div>
 
     <div class="col-lg-3 form-group mt-4">
       <label for="">Montant de loyer</label>
       <input type="text" class="form-control rounded-pill" formControlName="montant_loyer" [ngClass]="{
           'is-invalid': checkInputsValidation(montant_loyer)
-        }" 
-         [value]="montantLoyer" readonly/>
+        }" [value]="montantLoyer" readonly/>
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(montant_loyer)">
         <p class="danger-txt" *ngIf="montant_loyer?.errors?.pattern">
@@ -277,61 +276,61 @@
       </div>
     </div>
 
-    
-        <div class="col-lg-3 form-group mt-4">
-          <label for="">Taux de l’impôt</label>
-          <input type="text" class="form-control rounded-pill" formControlName="taux_impot" [ngClass]="{
+
+    <div class="col-lg-3 form-group mt-4">
+      <label for="">Taux de l’impôt</label>
+      <input type="text" class="form-control rounded-pill" formControlName="taux_impot" [ngClass]="{
               'is-invalid': checkInputsValidation(taux_impot)
             }" [value]="(tauxImpot && tauxImpot) + '%'" readonly />
-        </div>
-  
-        <div class="col-lg-3 form-group mt-4">
-          <label for="">Retenue à la source (Annuel)</label>
-          <input type="text" class="form-control rounded-pill" formControlName="retenue_source" [ngClass]="{
+    </div>
+
+    <div class="col-lg-3 form-group mt-4">
+      <label for="">Retenue à la source (Annuel)</label>
+      <input type="text" class="form-control rounded-pill" formControlName="retenue_source" [ngClass]="{
               'is-invalid': checkInputsValidation(retenue_source)
             }" [value]="retenueSource" readonly />
-        </div>
-  
-        <div class="col-lg-3 form-group mt-4">
-          <label for="">Montant après impôt (Mensuel)</label>
-          <input type="text" class="form-control rounded-pill" formControlName="montant_apres_impot" [ngClass]="{
+    </div>
+
+    <div class="col-lg-3 form-group mt-4">
+      <label for="">Montant après impôt (Mensuel)</label>
+      <input type="text" class="form-control rounded-pill" formControlName="montant_apres_impot" [ngClass]="{
               'is-invalid': checkInputsValidation(montant_apres_impot)
             }" [value]="montantApresImpot" readonly />
-        </div>
+    </div>
 
-        
-  
-        <!-- Montant Avance Tax -->
-        <div class="col-lg-3 form-group mt-4">
-          <label for="">Montant d'avance de propriètaire</label>
-          <input type="text" class="form-control rounded-pill" [value]="montantAvance"
-            formControlName="montant_avance_proprietaire" readonly />
-        </div>
-  
-        <div class="col-lg-3 form-group mt-4">
-          <label for="">Tax d'avance propriètaire</label>
-          <input type="text" class="form-control rounded-pill" [value]="taxAvance | number: '1.2-2'"
-            formControlName="tax_avance_proprietaire" readonly />
-        </div>
-  
-        <div class="col-lg-3 form-group mt-4">
-          <label for="">Tax par periodicité</label>
-          <input type="text" class="form-control rounded-pill" [value]="taxPeriodicite | number: '1.2-2'"
-            formControlName="tax_par_periodicite" readonly />
-        </div>
-  
-  
-        <!-- <div class="col-lg-3 form-group mt-4">
+
+
+    <!-- Montant Avance Tax -->
+    <div class="col-lg-3 form-group mt-4">
+      <label for="">Montant d'avance de propriètaire</label>
+      <input type="text" class="form-control rounded-pill" [value]="montantAvance"
+        formControlName="montant_avance_proprietaire" readonly />
+    </div>
+
+    <div class="col-lg-3 form-group mt-4">
+      <label for="">Tax d'avance propriètaire</label>
+      <input type="text" class="form-control rounded-pill" [value]="taxAvance | number: '1.2-2'"
+        formControlName="tax_avance_proprietaire" readonly />
+    </div>
+
+    <div class="col-lg-3 form-group mt-4">
+      <label for="">Tax par periodicité</label>
+      <input type="text" class="form-control rounded-pill" [value]="taxPeriodicite | number: '1.2-2'"
+        formControlName="tax_par_periodicite" readonly />
+    </div>
+
+
+    <!-- <div class="col-lg-3 form-group mt-4">
           <label for="">Pourcentage</label>
           <input type="text" class="form-control rounded-pill" [value]="pourcentageCaution  | number: '1.2-2'"
             formControlName="pourcentage_caution" readonly />
         </div> -->
-  
-        <div class="col-lg-3 form-group mt-4">
-          <label for="">Caution par proprietaire</label>
-          <input type="text" class="form-control rounded-pill" [value]="montantCautionProprietaire | number: '1.2-2'"
-            formControlName="caution_par_proprietaire" readonly />
-        </div>
+
+    <div class="col-lg-3 form-group mt-4">
+      <label for="">Caution par proprietaire</label>
+      <input type="text" class="form-control rounded-pill" [value]="montantCautionProprietaire | number: '1.2-2'"
+        formControlName="caution_par_proprietaire" readonly />
+    </div>
 
   </div>
 
@@ -351,18 +350,19 @@
 
   <!-- Show the proprietaire list if the lengthProprietaire == 0 if not show an error message -->
   <ng-template #coProprietaireUpdate>
-    <h5 class="mt-4">
+    <h6 class="mt-4">
       Propriétaires sélectionnés
-    </h5>
+    </h6>
     <div *ngIf="lengthProprietaire" class="d-flex justify-content-start align-items-center flex-wrap gap-2">
       <div *ngFor="let prop of proprietaire.proprietaire_list">
-        <input type="checkbox" [name]="prop?._id" class="btn-check check" [id]="prop?._id"
-         autocomplete="off" [value]="prop?._id" (click)="selectProp(prop?._id)" formControlName="proprietaire_list">
+        <input type="checkbox" [name]="prop?._id" class="btn-check check" [id]="prop?._id" autocomplete="off"
+          [value]="prop?._id" (click)="selectProp(prop?._id)" formControlName="proprietaire_list">
         <label class="px-3 py-1 rounded-pill checkbox-list-btns" [for]="prop?._id">
           {{prop?.cin}} • {{prop?.nom_prenom}}
         </label>
       </div>
     </div>
+
     <div class="mt-1" *ngIf="!proprietaire.proprietaire_list.length">
       <!-- Error message -->
       <p class="main-muted-text">Aucun propriétaire à sélectionné</p>
@@ -374,7 +374,29 @@
     <div *ngIf="lengthProprietaire" class="d-flex justify-content-start align-items-center flex-wrap gap-2">
       <div *ngFor="let proprietaire of proprietaires">
         <input type="checkbox" [name]="proprietaire._id" class="btn-check check" [id]="proprietaire._id"
-         autocomplete="off" [value]="proprietaire._id" (click)="selectProp(proprietaire._id)" formControlName="new_proprietaire_list">
+          autocomplete="off" [value]="proprietaire._id" (click)="selectProp(proprietaire._id)"
+          formControlName="new_proprietaire_list">
+        <label class="px-3 py-1 rounded-pill checkbox-list-btns" [for]="proprietaire._id">
+          {{proprietaire.cin}} • {{proprietaire.nom_prenom}}
+        </label>
+      </div>
+    </div>
+    <div class="mt-1" *ngIf="!proprietaires.length">
+      <!-- Error message -->
+      <p class="main-muted-text">Aucun propriétaire à afficher</p>
+    </div>
+  </ng-template>
+    <!--End of coProprietaireUpdate template -->
+
+  <ng-template #coProprietaireAdd>
+    <h6 class="mt-4">
+      Propriétaires à sélectionner
+    </h6>
+    <div *ngIf="lengthProprietaire" class="d-flex justify-content-start align-items-center gap-2">
+      <div *ngFor="let proprietaire of proprietaires">
+        <input type="checkbox" [name]="proprietaire._id" class="btn-check check" [id]="proprietaire._id"
+          autocomplete="off" [value]="proprietaire._id" (click)="selectProp(proprietaire._id)"
+          formControlName="proprietaire_list">
         <label class="px-3 py-1 rounded-pill checkbox-list-btns" [for]="proprietaire._id">
           {{proprietaire.cin}} • {{proprietaire.nom_prenom}}
         </label>
@@ -386,24 +408,6 @@
     </div>
   </ng-template>
 
-  <ng-template #coProprietaireAdd>
-    <h5 class="mt-4">
-      Propriétaires à sélectionner
-    </h5>
-    <div *ngIf="lengthProprietaire" class="d-flex justify-content-start align-items-center gap-2">
-      <div *ngFor="let proprietaire of proprietaires">
-        <input type="checkbox" [name]="proprietaire._id" class="btn-check check" [id]="proprietaire._id"
-         autocomplete="off" [value]="proprietaire._id" (click)="selectProp(proprietaire._id)" formControlName="proprietaire_list">
-        <label class="px-3 py-1 rounded-pill checkbox-list-btns" [for]="proprietaire._id">
-          {{proprietaire.cin}} • {{proprietaire.nom_prenom}}
-        </label>
-      </div>
-    </div>
-    <div class="mt-1" *ngIf="!proprietaires.length">
-      <!-- Error message -->
-      <p class="main-muted-text">Aucun propriétaire à afficher</p>
-    </div>
-  </ng-template>
 
   <app-confirmation-modal [closeBtn]='false'>
     <h3 class="danger-txt"><i class="fas fa-exclamation-triangle"></i> Attention</h3>

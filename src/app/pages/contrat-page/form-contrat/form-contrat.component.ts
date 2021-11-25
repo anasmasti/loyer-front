@@ -188,9 +188,7 @@ export class FormContratComponent implements OnInit {
     dateDebutLoyer = new Date(dateDebutLoyer);
     let month = dateDebutLoyer.getMonth() + 1;
     // Date resilition
-    let dateResiliation = this.contratForm.get(
-      'etat_contrat_date_resiliation'
-    )?.value;
+    let dateResiliation = this.contratForm.get('etat_contrat_date_resiliation')?.value;
     dateResiliation = new Date(dateResiliation);
     let monthResiliation = dateResiliation.getMonth() + 1;
 
@@ -548,6 +546,7 @@ export class FormContratComponent implements OnInit {
   }
 
   fetchContrat() {
+    // console.log("==>",this.contrat);
     if (this.contrat) {
       // var date_debut_loyer = this.pipeDate.transform(this.contrat.date_debut_loyer, 'yyyy-MM-dd')
 
@@ -617,16 +616,23 @@ export class FormContratComponent implements OnInit {
         // etat_contrat_lettre_res_piece_jointe: this.contrat.etat_contrat?.etat?.lettre_res_piece_jointe,
         // etat_contrat_piece_jointe_avenant: this.contrat.etat_contrat?.etat?.piece_jointe_avenant,
       });
-      this.contrat.numero_contrat
-        ? (this.foncier_id = this.contrat.lieu._id)
+      
+      // this.contrat.numero_contrat
+      //   ? (this.foncier_id = this.contrat.lieu._id)
+      //   : null;
+        this.contrat.numero_contrat
+        ? (this.foncier_id = this.contrat.foncier)
         : null;
+
+        
+        
     }
   }
 
   // Update contrat
   updateContrat() {
     let id = this.contrat._id;
-
+    
     let ctr_data: any = {
       numero_contrat: this.contratForm.get('numero_contrat')?.value || '',
       date_debut_loyer: this.contratForm.get('date_debut_loyer')?.value || '',
@@ -710,7 +716,7 @@ export class FormContratComponent implements OnInit {
     };
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
-
+    
     // patch the formdata (data+files)
     this.contratService.updateContrat(id, this.fd).subscribe(
       (_) => {
