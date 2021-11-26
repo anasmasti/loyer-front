@@ -257,7 +257,7 @@
     </div>
 
     <div class="col-lg-3 form-group mt-4">
-      <label for="">Pourcentage du montant %</label>
+      <label for="">Pourcentage %</label>
       <input type="text" class="form-control rounded-pill" formControlName="pourcentage"
         (keyup)="calculMontant();calculMontantAvance();calculCaution()" />
 
@@ -267,7 +267,7 @@
       <label for="">Montant de loyer</label>
       <input type="text" class="form-control rounded-pill" formControlName="montant_loyer" [ngClass]="{
           'is-invalid': checkInputsValidation(montant_loyer)
-        }" [value]="montantLoyer" />
+        }" [value]="montantLoyer" readonly/>
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(montant_loyer)">
         <p class="danger-txt" *ngIf="montant_loyer?.errors?.pattern">
@@ -386,6 +386,7 @@
       <p class="main-muted-text">Aucun propriétaire à afficher</p>
     </div>
   </ng-template>
+    <!--End of coProprietaireUpdate template -->
 
   <ng-template #coProprietaireAdd>
     <h6 class="mt-4">
@@ -406,6 +407,7 @@
       <p class="main-muted-text">Aucun propriétaire à afficher</p>
     </div>
   </ng-template>
+
 
   <app-confirmation-modal [closeBtn]='false'>
     <h3 class="danger-txt"><i class="fas fa-exclamation-triangle"></i> Attention</h3>
