@@ -248,7 +248,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     // } else {
     // this.isMand = false;
 
-    this.proprietaireForm.patchValue({
+    let test = this.proprietaireForm.patchValue({
       cin: this.proprietaire.cin,
       passport: this.proprietaire.passport,
       carte_sejour: this.proprietaire.carte_sejour,
@@ -290,7 +290,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     });
 
     this.montantLoyer = this.proprietaire.montant_loyer;
-
     // this.newProprietairesList = this.proprietaire.proprietaire_list;
 
     // this.proprietaire.proprietaire_list.forEach((prop: any) => {
@@ -525,7 +524,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
          
             this.proprietaire.proprietaire_list.splice(i, 1);   
             this.proprietaires.push(prop);
-
           }
         });
       }
@@ -579,30 +577,30 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       // deleted:false,
     };
 
-    this.proprietaireService
-      .postProprietaire(proprietaire_data, this.foncier_id, this.userMatricule)
-      .subscribe(
-        (_) => {
-          this.postDone = true;
-          setTimeout(() => {
-            this.proprietaireForm.reset();
-            this.postDone = false;
-            this.help.toTheUp();
-            this.router
-              .navigate(['/proprietaire/list-global/list'])
-              .then(() => {
-                this.help.refrechPage();
-              });
-          }, 2000);
-        },
-        (error) => {
-          this.errors = error.error?.message;
-          setTimeout(() => {
-            this.showErrorMessage();
-          }, 3000);
-          this.hideErrorMessage();
-        }
-      );
+    // this.proprietaireService
+    //   .postProprietaire(proprietaire_data, this.foncier_id, this.userMatricule)
+    //   .subscribe(
+    //     (_) => {
+    //       this.postDone = true;
+    //       setTimeout(() => {
+    //         this.proprietaireForm.reset();
+    //         this.postDone = false;
+    //         this.help.toTheUp();
+    //         this.router
+    //           .navigate(['/proprietaire/list-global/list'])
+    //           .then(() => {
+    //             this.help.refrechPage();
+    //           });
+    //       }, 2000);
+    //     },
+    //     (error) => {
+    //       this.errors = error.error?.message;
+    //       setTimeout(() => {
+    //         this.showErrorMessage();
+    //       }, 3000);
+    //       this.hideErrorMessage();
+    //     }
+    //   );
   }
 
   updateProprietaire() {
@@ -646,29 +644,31 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       caution_par_proprietaire: this.montantCautionProprietaire,
 
       is_mandataire: this.proprietaireForm.get('is_mandataire')?.value,
-      proprietaire_list: this.proprietaireList,
+      proprietaire_list: this.newProprietairesList,
     };
 
-    // this.proprietaireService
-    //   .updateProprietaire(id, proprietaireData, this.userMatricule)
-    //   .subscribe(
-    //     (_) => {
-    //       this.updateDone = true;
-    //       setTimeout(() => {
-    //         this.mainModalService.close();
-    //         this.updateDone = false;
-    //         location.reload();
-    //       }, 1000);
-    //     },
+    console.log(proprietaireData);
+    
+    this.proprietaireService
+      .updateProprietaire(id, proprietaireData, this.userMatricule)
+      .subscribe(
+        (_) => {
+          this.updateDone = true;
+          setTimeout(() => {
+            this.mainModalService.close();
+            this.updateDone = false;
+            location.reload();
+          }, 1000);
+        },
 
-    //     (error) => {
-    //       this.errors = error.error.message;
-    //       setTimeout(() => {
-    //         this.showErrorMessage();
-    //       }, 4000);
-    //       this.hideErrorMessage();
-    //     }
-    //   );
+        (error) => {
+          this.errors = error.error.message;
+          setTimeout(() => {
+            this.showErrorMessage();
+          }, 4000);
+          this.hideErrorMessage();
+        }
+      );
   }
 
   //if the montant loyer contrat < sum of montant loyer proprietaire then display an error and roolBack to initial data

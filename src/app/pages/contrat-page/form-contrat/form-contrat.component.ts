@@ -546,13 +546,9 @@ export class FormContratComponent implements OnInit {
   }
 
   fetchContrat() {
-    // console.log("==>",this.contrat);
     if (this.contrat) {
 
-      console.log(this.contrat);
-      
       // var date_debut_loyer = this.pipeDate.transform(this.contrat.date_debut_loyer, 'yyyy-MM-dd')
-
       // var date_debut_loyer = new Date(this.contrat.date_debut_loyer)
       var date_fin_contrat = new Date(this.contrat.date_fin_contrat);
       var date_reprise_caution = new Date(this.contrat.date_reprise_caution);
@@ -619,7 +615,7 @@ export class FormContratComponent implements OnInit {
         // etat_contrat_lettre_res_piece_jointe: this.contrat.etat_contrat?.etat?.lettre_res_piece_jointe,
         // etat_contrat_piece_jointe_avenant: this.contrat.etat_contrat?.etat?.piece_jointe_avenant,
       });
-      
+
       // this.contrat.numero_contrat
       //   ? (this.foncier_id = this.contrat.lieu._id)
       //   : null;
