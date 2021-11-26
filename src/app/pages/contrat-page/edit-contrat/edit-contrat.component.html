@@ -1,3 +1,24 @@
+<div class="row title">
+  <div class="col-lg-12 mt-3">
+    <div class="d-lg-flex justify-content-lg-between">
+      <h3 class="main-title ">Modifier le Contrat N° <span class="text-capitalize selected-text">{{
+          contrat.numero_contrat }}</span> </h3>
+      <div>
+        <!-- <a [routerLink]="['/proprietaire/list']" class="btn main-btn"
+            >Voir la liste des propriétaires</a
+          > -->
+        <span data-bs-toggle="tooltip" data-bs-placement="top" title="Ici vous pouvez modifier le contrat {{
+          contrat.numero_contrat
+          }}">
+          <i class="fal fa-info"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 <div class="form-box mt-2">
   <!--Début Formulaire contrat -->
   <app-form-contrat [update]="true" [contrat]="contrat"></app-form-contrat>

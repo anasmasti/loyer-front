@@ -1,6 +1,6 @@
 import { Lieu } from 'src/app/models/Lieu';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 
@@ -78,7 +78,7 @@ export class LieuxService {
     );
   }
 
-  getContratByLieu(id: any, matricule: any): Observable<any> {
+  getContratByFoncier(id: any, matricule: any): Observable<any> {
     return this.http.get(
       `${environment.API_URL_TEST + environment.API_VERSION + this.param_url
       }/contratByLieu/${id}/${matricule}`

@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnChanges, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HelperService } from 'src/app/services/helpers/helper.service';
@@ -11,7 +11,7 @@ import { MainModalService } from './../../../../services/main-modal/main-modal.s
   templateUrl: './siege-form.component.html',
   styleUrls: ['./siege-form.component.scss']
 })
-export class SiegeFormComponent implements OnInit {
+export class SiegeFormComponent implements OnInit, OnChanges {
 
   siegeForm!: FormGroup;
   postDone: boolean = false;
@@ -19,25 +19,12 @@ export class SiegeFormComponent implements OnInit {
   updateDone: boolean = false;
   updateSucces: string = 'Siège modifié avec succés';
   errors!: any;
-  hasAmenagement: boolean = false;
-  hasAmenagementCheck: string = "";
-  isAmenagementEmpty: boolean = true
-  amenagementList: any = [];
-
-  selectedFile!: File;
-  file!: string;
-  fd: FormData = new FormData();
-  idm: any = JSON.stringify(Math.random());
-  imageExtension: string = '.pdf';
-  selectedImagesLieuEntrer!: [];
-
 
   @Input() update!: boolean;
   @Input() Lieu!: any;
   @Input() LieuName!: string;
 
   userMatricule: any = localStorage.getItem('matricule')
-
 
   constructor(
     private siegeService: LieuxService,
@@ -49,9 +36,9 @@ export class SiegeFormComponent implements OnInit {
   ) { }
 
   ngOnChanges() {
-    if (this.Lieu !== "") {
+    if (this.Lieu !== '') {
       setTimeout(() => {
-        this.fetchSg('Default');
+        this.fetchSg();
       }, 100);
     }
   }
@@ -60,27 +47,16 @@ export class SiegeFormComponent implements OnInit {
     this.siegeForm = new FormGroup({
       code_lieu: new FormControl('',[Validators.required,Validators.maxLength(3),Validators.pattern('[0-9]*')]),
       intitule_lieu: new FormControl('',[Validators.required]),
-      intitule_DR: new FormControl(''),
-      adresse: new FormControl(''),
-      ville: new FormControl(''),
       code_localite: new FormControl(''),
-      desc_lieu_entrer: new FormControl(''),
-      imgs_lieu_entrer: new FormControl(''),
-      has_amenagements: new FormControl(''),
       etat_logement_fonction: new FormControl(''),
-      etage: new FormControl(''),
       telephone: new FormControl('',[Validators.pattern('[0-9]*'),Validators.maxLength(10)]),
       fax: new FormControl('',[Validators.pattern('[0-9]*'),Validators.maxLength(10)]),
-      superficie: new FormControl(''),
       type_lieu: new FormControl(''),
       code_rattache_DR: new FormControl(''),
       code_rattache_SUP: new FormControl(''),
       intitule_rattache_SUP_PV: new FormControl(''),
       centre_cout_siege: new FormControl(''),
       categorie_pointVente: new FormControl(''),
-
-      //Aménagement
-      amenagementForm: new FormArray([]),
     })
   }
 
@@ -89,26 +65,14 @@ export class SiegeFormComponent implements OnInit {
       return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
     }
 
-  fetchSg(HasAmenagement: string) {
-
-
-    this.removeAllAmenagement();
-
+  fetchSg() {
     this.siegeForm.patchValue({
       code_lieu: this.Lieu.code_lieu,
       intitule_lieu: this.Lieu.intitule_lieu,
-      intitule_DR: this.Lieu.intitule_DR,
-      adresse: this.Lieu.adresse,
-      ville: this.Lieu.ville,
       code_localite: this.Lieu.code_localite,
-      desc_lieu_entrer: this.Lieu.desc_lieu_entrer,
-      // imgs_lieu_entrer: this.Lieu.imgs_lieu_entrer,
-      has_amenagements: this.Lieu.has_amenagements,
-      superficie: this.Lieu.superficie,
       telephone: this.Lieu.telephone,
       fax: this.Lieu.fax,
       etat_logement_fonction: this.Lieu.etat_logement_fonction,
-      etage: this.Lieu.etage,
       type_lieu: this.Lieu.type_lieu,
       code_rattache_DR: this.Lieu.code_rattache_DR,
       code_rattache_SUP: this.Lieu.code_rattache_SUP,
@@ -116,245 +80,6 @@ export class SiegeFormComponent implements OnInit {
       centre_cout_siege: this.Lieu.centre_cout_siege,
       categorie_pointVente: this.Lieu.categorie_pointVente,
     });
-
-
-    this.amenagementList = this.Lieu.amenagement;
-
-    //amenagement inputs
-    this.Lieu.amenagement.forEach((amenagementControl: any, index: any) => {
-
-
-      let formGroupAmenagement = this.addAmenagement('OldAmng', amenagementControl.deleted);
-
-      formGroupAmenagement.controls.idm.setValue(
-        amenagementControl.idm
-      );
-
-      formGroupAmenagement.controls.images_apres_travaux.setValue(
-        amenagementControl.images_apres_travaux
-      );
-
-      formGroupAmenagement.controls.croquis_travaux.setValue(
-        amenagementControl.croquis_travaux
-      );
-
-      formGroupAmenagement.controls.nature_amenagement.setValue(
-        amenagementControl.nature_amenagement
-      );
-
-      formGroupAmenagement.controls.montant_amenagement.setValue(
-        amenagementControl.montant_amenagement
-      );
-
-      formGroupAmenagement.controls.valeur_nature_chargeProprietaire.setValue(
-        amenagementControl.valeur_nature_chargeProprietaire
-      );
-
-      formGroupAmenagement.controls.valeur_nature_chargeFondation.setValue(
-        amenagementControl.valeur_nature_chargeFondation
-      );
-
-      formGroupAmenagement.controls.numero_facture.setValue(
-        amenagementControl.numero_facture
-      );
-
-      formGroupAmenagement.controls.numero_bon_commande.setValue(
-        amenagementControl.numero_bon_commande
-      );
-
-      formGroupAmenagement.controls.date_passation_commande.setValue(
-        amenagementControl.date_passation_commande
-      );
-
-      formGroupAmenagement.controls.evaluation_fournisseur.setValue(
-        amenagementControl.evaluation_fournisseur
-      );
-
-      formGroupAmenagement.controls.date_fin_travaux.setValue(
-        amenagementControl.date_fin_travaux
-      );
-
-      formGroupAmenagement.controls.date_livraison_local.setValue(
-        amenagementControl.date_livraison_local
-      );
-
-      formGroupAmenagement.controls.deleted.setValue(
-        amenagementControl.deleted
-      );
-
-
-      if (amenagementControl.fournisseur.length !== 0) {
-
-        for (let FourniseurControl of amenagementControl.fournisseur) {
-
-
-          let formGroupFournisseur = new FormGroup({
-            nom: new FormControl(''),
-            prenom: new FormControl(''),
-            amenagement_effectue: new FormControl(''),
-            deleted: new FormControl('Test'),
-            NewOrOld: new FormControl('old',),
-          });
-
-          (<FormArray>formGroupAmenagement.controls.fournisseur).push(<FormGroup>formGroupFournisseur)
-
-          formGroupFournisseur.controls.nom.setValue(
-            FourniseurControl.nom
-          );
-
-          formGroupFournisseur.controls.prenom.setValue(
-            FourniseurControl.prenom
-          );
-
-          formGroupFournisseur.controls.amenagement_effectue.setValue(
-            FourniseurControl.amenagement_effectue
-          );
-
-          formGroupFournisseur.controls.deleted.setValue(
-            FourniseurControl.deleted
-          );
-
-        }
-
-      }
-
-      if (!amenagementControl.deleted) {
-
-        this.hasAmenagement = true
-
-      }
-
-    });
-
-    if (HasAmenagement == "Oui") {
-
-      this.hasAmenagement = true;
-      this.hasAmenagementCheck = ""
-      this.siegeForm.patchValue({
-        has_amenagements: this.hasAmenagement
-      })
-
-    }
-    else {
-      if (HasAmenagement != "Default") {
-
-        this.hasAmenagement = false;
-        this.hasAmenagementCheck = "ButtonNon"
-        this.siegeForm.patchValue({
-          has_amenagements: this.hasAmenagement
-        })
-
-      }
-    }
-  }
-
-
-
-  // Amenagement
-  addAmenagement(NewOrOld: string, deleted: boolean) {
-    const amenagementData = new FormGroup({
-      idm: new FormControl(''),
-      nature_amenagement: new FormControl(''),
-      montant_amenagement: new FormControl(''),
-      valeur_nature_chargeProprietaire: new FormControl(''),
-      valeur_nature_chargeFondation: new FormControl(''),
-      numero_facture: new FormControl(''),
-      numero_bon_commande: new FormControl(''),
-      date_passation_commande: new FormControl(''),
-      evaluation_fournisseur: new FormControl(''),
-      date_fin_travaux: new FormControl(''),
-      date_livraison_local: new FormControl(''),
-      fournisseur: new FormArray([]),
-      images_apres_travaux_files: new FormControl(''),
-      images_apres_travaux: new FormControl(''),
-      croquis_travaux_files: new FormControl(''),
-      croquis_travaux: new FormControl(''),
-      deleted: new FormControl(deleted,),
-      NewOrOld: new FormControl(NewOrOld,),
-    });
-
-    (<FormArray>this.siegeForm.get('amenagementForm')).push(<FormGroup>amenagementData)
-
-    return (<FormGroup>amenagementData)
-
-  }
-
-
-
-  removeAmenagement(index: number) {
-    // (<FormArray>this.siegeForm.get('amenagementForm')).removeAt(index)
-
-    let Amenagement = <FormArray>this.siegeForm.get('amenagementForm');
-
-    if (Amenagement.value[index].NewOrOld == "NewAmng") {
-      (<FormArray>this.siegeForm.get('amenagementForm')).removeAt(index)
-    }
-    else {
-      let element = this.document.getElementById('deleted ' + index) as HTMLInputElement
-
-      element.value = "True"
-      this.document.getElementById(index.toString())?.classList.add('d-none');
-      Amenagement.value[index].deleted = true;
-    }
-  }
-
-
-  removeAllAmenagement() {
-    (<FormArray>this.siegeForm.get('amenagementForm')).clear();
-  }
-
-
-
-  // FournisseurData
-  addFournisseur(amenagementForm: any, index: number, NewOrOld: string) {
-    let fournisseurData = new FormGroup({
-      nom: new FormControl(''),
-      prenom: new FormControl(''),
-      amenagement_effectue: new FormControl(''),
-      deleted: new FormControl(''),
-      NewOrOld: new FormControl(NewOrOld,),
-    });
-
-    (<FormArray>amenagementForm.controls[index].controls.fournisseur).push(<FormGroup>fournisseurData)
-  }
-
-
-
-  removeFournisseur(amenagementForm: any, indexAmng: number, indexFourn: number) {
-
-    let fournisseur = <FormArray>amenagementForm.controls[indexAmng].controls.fournisseur;
-
-    if (fournisseur.value[indexFourn].NewOrOld == 'New') {
-
-      (<FormArray>amenagementForm.controls[indexAmng].controls.fournisseur).removeAt(indexFourn)
-
-    }
-    else {
-
-      let element = this.document.getElementById('deleted ' + indexAmng + ' ' + indexFourn.toString()) as HTMLInputElement
-      element.value = "True"
-      fournisseur.value[indexFourn].deleted = "true";
-
-    }
-
-
-  }
-
-
-
-  hasAmengmnt(HasAmng: string) {
-    if (HasAmng == 'Oui') {
-      this.hasAmenagement = true;
-      this.hasAmenagementCheck = ''
-    }
-    else {
-      this.hasAmenagement = false;
-      this.hasAmenagementCheck = 'ButtonNon'
-    }
-  }
-
-  getFournisseur(amenagementForm: any, i: number) {
-    return (amenagementForm.controls[i].controls.fournisseur).controls
   }
 
   // Afficher le message d'erreur de serveur
@@ -367,82 +92,23 @@ export class SiegeFormComponent implements OnInit {
     $('.error-alert').removeClass('active');
   }
 
-  //Upload Image amenagement après amenagement
-  onFileSelectedAmenagement(event: any, index: number) {
-    if (event.target.files.length > 0) {
-      this.selectedFile = event.target.files[0];
-      if (!this.update) {
-        this.file = this.idm + index + this.imageExtension;
-        this.fd.append('imgs_amenagement', this.selectedFile, this.file);
-      }
-      if (this.update && this.Lieu.amenagement[index]?.idm === undefined) {
-        this.file = this.idm + index + this.imageExtension;
-        this.fd.append('imgs_amenagement', this.selectedFile, this.file);
-      }
-      if (this.update && this.Lieu.amenagement[index]?.idm !== undefined) {
-        this.file = this.Lieu.amenagement[index]?.idm + this.imageExtension;
-        this.fd.append('imgs_amenagement', this.selectedFile, this.file);
-      }
-    }
-  }
-
-  //Upload Croquis
-  onFileSelectedCroquis(event: any, index: number) {
-    if (event.target.files.length > 0) {
-      this.selectedFile = event.target.files[0];
-      if (!this.update) {
-        this.file = this.idm + index + this.imageExtension;
-        this.fd.append('imgs_croquis', this.selectedFile, this.file);
-      }
-      if (this.update && this.Lieu.amenagement[index]?.idm === undefined) {
-        this.file = this.idm + index + this.imageExtension;
-        this.fd.append('imgs_croquis', this.selectedFile, this.file);
-      }
-      if (this.update && this.Lieu.amenagement[index]?.idm !== undefined) {
-        this.file = this.Lieu.amenagement[index]?.idm + this.imageExtension;
-        this.fd.append('imgs_croquis', this.selectedFile, this.file);
-      }
-    }
-  }
-
-  //Upload Image amenagement avant amenagement
-  onFileSelected(event: any) {
-    if (event.target.files.length > 0) {
-      this.selectedFile = event.target.files[0];
-      this.fd.append('imgs_lieu_entrer', this.selectedFile);
-    }
-  }
-
   onAddsiege() {
     let siegeData: any = {
       code_lieu: this.siegeForm.get('code_lieu')?.value,
-      intitule_lieu: this.siegeForm.get('intitule_lieu')?.value,
-      intitule_DR: this.siegeForm.get('intitule_DR')?.value,
-      adresse: this.siegeForm.get('adresse')?.value,
-      ville: this.siegeForm.get('ville')?.value,
+      intitule_lieu: this.siegeForm.get('intitule_lieu')?.value, 
       code_localite: this.siegeForm.get('code_localite')?.value,
-      desc_lieu_entrer: this.siegeForm.get('desc_lieu_entrer')?.value,
-      imgs_lieu_entrer: this.siegeForm.get('imgs_lieu_entrer')?.value,
-      has_amenagements: this.siegeForm.get('has_amenagements')?.value,
-      superficie: this.siegeForm.get('superficie')?.value,
       telephone: this.siegeForm.get('telephone')?.value,
       fax: this.siegeForm.get('fax')?.value,
       etat_logement_fonction: this.siegeForm.get('etat_logement_fonction')?.value,
-      etage: this.siegeForm.get('etage')?.value,
       type_lieu: this.LieuName,
       code_rattache_DR: this.siegeForm.get('code_rattache_DR')?.value,
       code_rattache_SUP: this.siegeForm.get('code_rattache_SUP')?.value,
       intitule_rattache_SUP_PV: this.siegeForm.get('intitule_rattache_SUP_PV')?.value,
       centre_cout_siege: this.siegeForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.siegeForm.get('categorie_pointVente')?.value,
-
-      //Aménagement
-      amenagement: this.siegeForm.get('amenagementForm')?.value,
     }
 
-    this.fd.append('data', JSON.stringify(siegeData));
-
-    this.siegeService.addLieu(this.fd, this.userMatricule).subscribe(
+    this.siegeService.addLieu(siegeData, this.userMatricule).subscribe(
       (_) => {
         this.postDone = true;
         setTimeout(() => {
@@ -462,59 +128,29 @@ export class SiegeFormComponent implements OnInit {
         this.hideErrorMessage();
       }
     );
-
   }
 
 
 
   updateSg() {
-
     let id = this.Lieu._id;
-    this.isAmenagementEmpty = false;
-
-    if (this.hasAmenagementCheck == "ButtonNon") {
-      this.isAmenagementEmpty = false;
-    }
-    else {
-      this.siegeForm.get('amenagementForm')?.value.forEach((element: any) => {
-
-        if (!element.deleted) {
-          this.isAmenagementEmpty = true;
-        }
-      });
-    }
-
-    this.selectedImagesLieuEntrer = this.Lieu.imgs_lieu_entrer;
 
     let sgData: any = {
       code_lieu: this.siegeForm.get('code_lieu')?.value,
       intitule_lieu: this.siegeForm.get('intitule_lieu')?.value,
-      intitule_DR: this.siegeForm.get('intitule_DR')?.value,
-      adresse: this.siegeForm.get('adresse')?.value,
-      ville: this.siegeForm.get('ville')?.value,
       code_localite: this.siegeForm.get('code_localite')?.value,
-      desc_lieu_entrer: this.siegeForm.get('desc_lieu_entrer')?.value,
-      imgs_lieu_entrer: this.selectedImagesLieuEntrer,
-      has_amenagements: this.isAmenagementEmpty,
-      superficie: this.siegeForm.get('superficie')?.value,
       telephone: this.siegeForm.get('telephone')?.value,
       fax: this.siegeForm.get('fax')?.value,
       etat_logement_fonction: this.siegeForm.get('etat_logement_fonction')?.value,
-      etage: this.siegeForm.get('etage')?.value,
       type_lieu: this.siegeForm.get('type_lieu')?.value,
       code_rattache_DR: this.siegeForm.get('code_rattache_DR')?.value,
       code_rattache_SUP: this.siegeForm.get('code_rattache_SUP')?.value,
       intitule_rattache_SUP_PV: this.siegeForm.get('intitule_rattache_SUP_PV')?.value,
       centre_cout_siege: this.siegeForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.siegeForm.get('categorie_pointVente')?.value,
-
-      // Amenagement
-      amenagement: this.siegeForm.get('amenagementForm')?.value,
     }
 
-    this.fd.append('data', JSON.stringify(sgData));
-
-    this.lieuService.updateLieux(id, this.fd, this.userMatricule).subscribe(
+    this.lieuService.updateLieux(id, sgData, this.userMatricule).subscribe(
       (_) => {
         this.updateDone = true;
         setTimeout(() => {
@@ -534,8 +170,6 @@ export class SiegeFormComponent implements OnInit {
     )
   }
 
-
-
   get code_lieu() {
     return this.siegeForm.get('code_lieu');
   }
@@ -544,44 +178,12 @@ export class SiegeFormComponent implements OnInit {
     return this.siegeForm.get('intitule_lieu');
   }
 
-  get intitule_DR() {
-    return this.siegeForm.get('intitule_DR');
-  }
-
-  get adresse() {
-    return this.siegeForm.get('adresse');
-  }
-
-  get ville() {
-    return this.siegeForm.get('ville');
-  }
-
   get code_localite() {
     return this.siegeForm.get('code_localite');
   }
 
-  get desc_lieu_entrer() {
-    return this.siegeForm.get('desc_lieu_entrer');
-  }
-
-  get imgs_lieu_entrer() {
-    return this.siegeForm.get('imgs_lieu_entrer');
-  }
-
-  get has_amenagements() {
-    return this.siegeForm.get('has_amenagements');
-  }
-
-  get amenagements() {
-    return this.siegeForm.get('amenagements');
-  }
-
   get etat_logement_fonction() {
     return this.siegeForm.get('etat_logement_fonction');
-  }
-
-  get etage() {
-    return this.siegeForm.get('etage');
   }
 
   get telephone() {
@@ -590,10 +192,6 @@ export class SiegeFormComponent implements OnInit {
 
   get fax() {
     return this.siegeForm.get('fax');
-  }
-
-  get superficie() {
-    return this.siegeForm.get('superficie');
   }
 
   get type_lieu() {
@@ -618,10 +216,5 @@ export class SiegeFormComponent implements OnInit {
 
   get categorie_pointVente() {
     return this.siegeForm.get('categorie_pointVente');
-  }
-
-
-  get amenagementForm(): FormArray {
-    return (<FormArray>this.siegeForm.get('amenagementForm'));
   }
 }

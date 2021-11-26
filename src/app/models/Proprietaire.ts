@@ -16,7 +16,7 @@ export interface Proprietaire {
   banque: string;
   nom_agence_bancaire: string;
   montant_loyer: number;
-  mandataire: boolean;
+  is_mandataire: boolean;
   taux_impot: string;
   retenue_source: string;
   montant_apres_impot: number;
@@ -27,6 +27,8 @@ export interface Proprietaire {
 
   pourcentage_caution: number,
   caution_par_proprietaire: number,
+
+  proprietaire_list:[],
   // mandataire: [{
   //   cin_mandataire: string;
   //   nom_prenom_mandataire: string;

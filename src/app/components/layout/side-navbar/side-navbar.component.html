@@ -13,7 +13,9 @@
                 <h6 class="mainText">
                     Ahmad Alaoui
                 </h6>
-                <span class="badge danger-btn">Administrateur</span>
+                <span class="badge danger-btn">
+                    Administrateur
+                </span>
             </div>
         </div>
     </div>
@@ -29,30 +31,45 @@
 
             <li class="nav-item my-4">
                 <a [routerLink]="['/lieux']" routerLinkActive="router-link-active" class="nav-link main-btn">
-                    <span (click)="showSubMenu('lieux')">
-                        <i class="fal fa-building"></i>&nbsp;&nbsp;Locaux
+                    <span (click)="showSubMenu('entite')">
+                        <i class="fal fa-building"></i>&nbsp;&nbsp;Entités organisat..
                     </span>
                 </a>
-                <ul class="sub-menu list-unstyled" id="lieux">
+                <ul class="sub-menu list-unstyled" id="entite">
                     <li>
                         <a [routerLink]="['/lieux/list']" class="nav-link sub-menu-btn">
-                            Liste des locaux
-                        </a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/lieux/list']" class="nav-link sub-menu-btn">
-                            Ajouter un propriétaire
-                        </a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/lieux/list']" class="nav-link sub-menu-btn">
-                            Ajouter un contrat
+                            Liste des entités organisationnelles
                         </a>
                     </li>
                 </ul>
             </li>
 
             <li class="nav-item">
+                <a [routerLink]="['/foncier']" routerLinkActive="router-link-active" class="nav-link main-btn">
+                    <span (click)="showSubMenu('lieux')">
+                        <i class="fas fa-hotel"></i>&nbsp;&nbsp;Locaux
+                    </span>
+                </a>
+                <ul class="sub-menu list-unstyled" id="lieux">
+                    <li>
+                        <a [routerLink]="['/foncier/list']" class="nav-link sub-menu-btn">
+                            Liste des locaux
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/foncier/list']" class="nav-link sub-menu-btn">
+                            Ajouter un propriétaire
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/foncier/list']" class="nav-link sub-menu-btn">
+                            Ajouter un contrat
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item my-4">
                 <a [routerLink]="['/proprietaire/list-global/list']" routerLinkActive="router-link-active"
                     class="nav-link main-btn">
                     <i class="fal fa-users"></i> Liste des propriétaires
@@ -84,7 +101,7 @@
 
                 </ul>
             </li> -->
-            <li class="nav-item my-4">
+            <li class="nav-item">
                 <a [routerLink]="['/contrat/list-global/list']" routerLinkActive="router-link-active"
                     class="nav-link main-btn">
                     <i class="fal fa-file-signature"></i> Liste des contrats
@@ -99,7 +116,7 @@
                 </ul> -->
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item my-4">
                 <a [routerLink]="['/files']" routerLinkActive="router-link-active" class="nav-link success-btn">
                     <i class="far fa-file-export"></i> Clôture et écritures
                 </a>
@@ -113,7 +130,7 @@
                 </ul> -->
             </li>
 
-            <li *ngIf="isAdmin" class="nav-item mt-4">
+            <li *ngIf="isAdmin" class="nav-item">
                 <a [routerLink]="['/admin']" routerLinkActive="router-link-active" class="nav-link danger-btn">
                     <i class="far fa-user-shield"></i> Administration
                 </a>

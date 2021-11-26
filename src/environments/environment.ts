@@ -7,9 +7,6 @@ export const environment = {
   // Api url
   API_URL: 'https://loyer-api.herokuapp.com/api/',
   // Api test url 
-  // Badr 
-  // API_URL_TEST: 'http://192.168.11.116:5000/api/',
-  // Yassine
   API_URL_TEST: 'http://192.168.11.119:5000/api/',
   // Api test url without param
   API_URL_WITHOUT_PARAM: 'http://192.168.11.119:5000/',
@@ -18,7 +15,7 @@ export const environment = {
   // Api version
   API_VERSION: 'v1/',
   // Application version
-  APP_VERSION: '1 (Beta2)'
+  APP_VERSION: '1 (Beta2 Dev)'
 };
 
 /*

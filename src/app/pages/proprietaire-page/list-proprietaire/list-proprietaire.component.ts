@@ -29,6 +29,8 @@ export class ListProprietaireComponent implements OnInit {
 
   userMatricule: any = localStorage.getItem('matricule')
 
+  id: string = "DeleteConfirmation"
+
   constructor(
     private proprietaireService: ProprietaireService,
     private mainModalService: MainModalService,
@@ -60,6 +62,7 @@ export class ListProprietaireComponent implements OnInit {
   getAllProprietaires() {
     this.proprietaireService.getProprietaire(this.userMatricule).subscribe((data) => {
       this.proprietaires = data;
+   
     }, error => {
       this.accessError = error.error.message
     });
@@ -77,13 +80,13 @@ export class ListProprietaireComponent implements OnInit {
   }
 
   // Open confirmation modal
-  openConfirmationModal() {
-    this.confirmationModalService.open(); // Open delete confirmation modal
+  openDeleteConfirmationModal() {
+    this.confirmationModalService.open(this.id); // Open delete confirmation modal
   }
 
   // Close confirmation modal
-  closeConfirmationModal() {
-    this.confirmationModalService.close(); // Close delete confirmation modal
+  closeDeleteConfirmationModal() {
+    this.confirmationModalService.close(this.id); // Close delete confirmation modal
   }
 
   showErrorMessage() {
@@ -104,7 +107,7 @@ export class ListProprietaireComponent implements OnInit {
     this.proprietaireService.deleteProprietaire(id, data, this.userMatricule).subscribe(
       (_) => {
         this.getAllProprietaires(); // Trow the fitching data
-        this.confirmationModalService.close();
+        this.closeDeleteConfirmationModal()
         this.deleteDone = true;
         setTimeout(() => {
           this.deleteDone = false;
@@ -121,7 +124,7 @@ export class ListProprietaireComponent implements OnInit {
   }
 
   // Get id of selected proprietaire
-  getProprietaireId(id: string) {
+  getProprietaireId(id: any) {
     this.targetProprietaireId = id;
   }
 

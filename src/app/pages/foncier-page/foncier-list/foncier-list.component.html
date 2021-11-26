@@ -2,10 +2,10 @@
   <div class="col-lg-12 mt-3">
     <div class="d-flex justify-content-between">
       <!-- <h3 class=""></h3> -->
-      <h3 class="main-title">Liste des fonciers</h3>
+      <h3 class="main-title">Liste des locaux</h3>
       <div class="d-none d-lg-block">
         <a class="btn btn-sm success-btn" [routerLink]="['/foncier']">
-          <i class="fal fa-plus-octagon"></i> Nouveau foncier
+          <i class="fal fa-plus-octagon"></i> Nouveau locale
         </a>
         <a class="btn btn-sm second-btn mx-3" (click)="reload()"
           ><i class="far fa-undo-alt"></i>
@@ -29,28 +29,42 @@
 </div>
 
 <div class="main-card bg-white table-responsive p-lg-3 mt-4">
-  <div class="col-lg-4 mb-4">
-    <label for="" class="main-muted-text"
-      ><i class="far fa-search"></i> Recherche</label
-    >
-    <input
-      type="text"
-      [(ngModel)]="findFoncier"
-      (input)="search()"
-      class="form-control rounded-pill"
-      placeholder="Rechercher par type foncier ou par ville..."
-    />
+  <div class="row d-flex justify-content-between ">
+    <div class="col-lg-4 mb-4">
+      <label for="" class="main-muted-text"><i class="far fa-search"></i> Recherche</label>
+      <input type="text" [(ngModel)]="findFoncier" (input)="search()" class="form-control rounded-pill"
+        placeholder="Rechercher par intitulé/ville..." />
+    </div>
+
+    <div class="d-flex justify-content-end col-lg-7 my-4">
+      <div class="">
+        <input id="all" type="radio" name="search-by-amenagement" (click)="searchByAmenagement($event, 'all')"
+          class="btn-check check" [checked]='true' autocomplete="off" />
+        <label class="px-3 rounded-pill checkbox-list-btns" for="all">Tout</label>
+      </div>
+
+      <div class="">
+        <input id="oui" type="radio" name="search-by-amenagement" class="btn-check check"
+          (click)="searchByAmenagement($event, 'true')" autocomplete="off" />
+        <label class="px-3  mx-2 rounded-pill checkbox-list-btns" for="oui"> Avec aménagement</label>
+      </div>
+      <div class="col-sm-4">
+        <input id="non" type="radio" name="search-by-amenagement" (click)="searchByAmenagement($event, 'false')"
+          class="btn-check check" autocomplete="off" />
+        <label class="px-3  rounded-pill checkbox-list-btns" for="non"> Sans aménagement</label>
+      </div>
+    </div>
   </div>
 
   <table class="table">
     <thead>
       <tr class="text-truncate">
-        <th>Type du foncier</th>
-        <th>Pays</th>
+        <th>Type</th>
         <th>Ville</th>
-        <th>Montant loyer</th>
+        <th>Aménagement</th>
+        <th>Propriétaires</th>
         <th>Contrat</th>
-        <th>Action</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody *ngIf="fonciers.length">
@@ -66,31 +80,77 @@
                 }
         "
       >
-        <td>{{ foncier.type_foncier }}</td>
-        <td>{{ foncier.pays }}</td>
+        <td>{{ foncier.type }}</td>
         <td>{{ foncier.ville }}</td>
-        <td>{{ foncier.montant_loyer }}</td>
         <td>
-          <a
-            [routerLink]="['/contrat', foncier._id]"
-            class="btn btn-sm success-btn"
-            >Ajouter un contrat</a
-          >
+          <div class="d-grid">
+            <span class="p-1" [ngClass]="{
+                'success-txt': foncier.has_amenagements,
+                'danger-txt': !foncier.has_amenagements
+              }">
+              {{ checkAndPutText(foncier?.has_amenagements) }}
+            </span>
+          </div>
         </td>
 
         <td>
-          <div class="d-inline">
-            <a [routerLink]="['list', foncier._id]" class="btn btn-sm main-btn"
-              ><i class="fal fa-eye"></i
-            ></a>
-            <a (click)="openEditModal(foncier)" class="btn btn-sm info-btn mx-2"
-              ><i class="far fa-user-edit"></i
-            ></a>
+          <div *ngIf="foncier.has_contrat">
+
+            <div *ngIf="foncier.proprietaire.length">
+              <span class="col-sm-6 danger-txt">
+                {{
+                  foncier.proprietaire.length >= 1 ? foncier.proprietaire.length : ""
+                }}
+                propriétaire<span *ngIf="foncier.proprietaire.length > 1">s</span>
+              </span>
+              <span class="mx-1 text-secondary"> • </span>
+              <a
+                [routerLink]="['/proprietaire', foncier._id]"
+                class="short-link success-txt"
+              >
+                Ajouter un autre</a
+              >
+            </div>
+  
             <a
-              class="btn btn-sm danger-btn"
-              (click)="openConfirmationModal(foncier)"
-              ><i class="far fa-user-minus"></i
-            ></a>
+              *ngIf="!foncier.proprietaire.length"
+              [routerLink]="['/proprietaire', foncier._id]"
+              class="btn btn-sm success-btn"
+              >Ajouter un propriétaire</a
+            >
+          </div>
+          <p *ngIf="!foncier.has_contrat" class="info-txt">
+            Vous devez créer un contrat avant d'ajouter un proprietaire
+          </p>
+        </td>
+
+          <td>
+          <p *ngIf="foncier.has_contrat" class="info-txt">
+            Ce local contient un contrat
+          </p>
+          <a *ngIf="!foncier.has_contrat" [routerLink]="['/contrat', foncier._id]" class="btn btn-sm success-btn">Ajouter un
+            contrat</a>
+        </td>
+
+        <td>
+          <div class="btn-group" role="group">
+            <a id="btnGroupDrop1" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
+              <h4>
+                <i class="fal fa-ellipsis-v-alt"></i>
+              </h4>
+            </a>
+            <ul class="dropdown-menu p-3 main-card border-0" id="actions" aria-labelledby="btnGroupDrop1">
+              <li>
+                <h5 class="main-title">Actions</h5>
+                <div class="d-flex">
+                  <a [routerLink]="['list', foncier._id]" class="btn btn-sm main-btn"><i class="fal fa-eye"></i></a>
+                  <a class="btn btn-sm info-btn mx-2" (click)="openModalAndPushFoncier(foncier)"><i
+                      class="far fa-user-edit"></i></a>
+                  <a class="btn btn-sm danger-btn" (click)="openConfirmationModal(foncier)"><i
+                      class="far fa-user-minus"></i></a>
+                </div>
+              </li>
+            </ul>
           </div>
         </td>
       </tr>
@@ -132,9 +192,9 @@
       *ngIf="!fonciers.length && !accessError"
       class="w-100 d-flex align-items-center"
     >
-      <h5 class="main-muted-text my-4">Aucun foncier à afficher</h5>
+      <h5 class="main-muted-text my-4">Aucun locale à afficher</h5>
       <a class="btn btn-sm second-btn ms-3" [routerLink]="['/foncier']">
-        + Nouveau foncier
+        + Nouveau locale
       </a>
     </tbody>
 
