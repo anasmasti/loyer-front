@@ -12,13 +12,13 @@ export const environment = {
   // Yassine
   API_URL_TEST: 'http://192.168.11.119:5000/api/',
   // Api test url without param
-  API_URL_WITHOUT_PARAM: 'http://192.168.11.116:5000/',
+  API_URL_WITHOUT_PARAM: 'http://192.168.11.119:5000/',
   // Api access key
   API_ACCESS_KEY: 'take$the#whole!bull',
   // Api version
   API_VERSION: 'v1/',
   // Application version
-  APP_VERSION: 'Beta1(Dev)'
+  APP_VERSION: '1 (Beta2)'
 };
 
 /*
