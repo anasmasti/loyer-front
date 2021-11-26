@@ -41,7 +41,7 @@ export class FoncierService {
   }
 
   updateFoncier(id: any, data: any, matricule: any): Observable<any> {
-    return this.http.patch<any>(
+    return this.http.put<any>(
       `${
         environment.API_URL_TEST + environment.API_VERSION + this.param_url
       }/modifier/${id}/${matricule}`,
