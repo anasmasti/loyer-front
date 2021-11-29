@@ -293,28 +293,11 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
     this.montantLoyer = this.proprietaire.montant_loyer;
     this.fillProprietaireInfos();
-    // for (let i = 0; i < this.proprietaire.proprietaire_list.length; i++) {
-    //   this.newProprietairesList.push(
-    //     this.proprietaire.proprietaire_list[i]._id
-    //   );
-    // }
-    console.log('proprietaireList', this.proprietaireList);
-
-    // this.newProprietairesList = this.proprietaire.proprietaire_list;
-
-    // this.proprietaire.proprietaire_list.forEach((prop: any) => {
-    //   this.proprietaires.push(prop);
-    // });
-    // this.proprietaireForm.patchValue({
-    //   proprietaire_list: this.proprietaires,
-    // });
   }
 
   fillProprietaireInfos() {
-    console.log(this.proprietaire);
     this.proprietaireList = [];
     this.oldProprietairesList = [];
-    // if (this.isMand) {
     this.proprietaire.proprietaire_list.forEach((element: any) => {
       this.proprietaireList.push(element);
     });
@@ -368,7 +351,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
               this.contratByFoncier[0].foncier.proprietaire[index]
                 .is_mandataire == false &&
               this.contratByFoncier[0].foncier.proprietaire[index]
-                .has_mandataire == null
+                .has_mandataire == null &&
+                this.contratByFoncier[0].foncier.proprietaire[index]
+                ._id != this.proprietaire._id
             )
               this.proprietaires.push(
                 this.contratByFoncier[0].foncier.proprietaire[index]
@@ -377,7 +362,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
             this.totalPourcentageProprietaires +=
               this.contratByFoncier[0].foncier.proprietaire[index].pourcentage;
           }
-          console.log('proprietaires', this.proprietaires);
           if (this.update) {
             this.totalPourcentageProprietaires =
               this.totalPourcentageProprietaires -
@@ -558,7 +542,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         this.proprietaires.push(Element);
       }
     }
-    console.log('test', this.proprietaire.proprietaire_list);
   }
 
   // Unselect proprietaire
@@ -678,7 +661,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       old_proprietaires_list: this.oldProprietairesList,
     };
 
-    console.log(proprietaireData);
 
     this.proprietaireService
       .updateProprietaire(id, proprietaireData, this.userMatricule)
@@ -733,15 +715,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         this.oldProprietairesList.push(element._id);
       });
       this.proprietaireList = []
-      console.log('oldProprietairesList', this.oldProprietairesList);
     }
-    // }
   }
 
-  // nonMandataire() {
-  //   this.proprietaireList = this.proprietaire.proprietaire_list;
-  //   this.getTauxImpot();
-  // }
 
   // Get proprietaire form controlers
   get cin() {

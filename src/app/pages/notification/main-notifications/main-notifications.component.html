@@ -1,17 +1,40 @@
 <div class="row title">
-    <div class="col-lg-12 mt-3">
-        <div class="d-lg-flex justify-content-lg-between">
-            <h3 class="main-title">Notifications</h3>
-            <div>
-                <a class="btn btn-sm main-btn me-4" [routerLink]="['/']">
-                    <i class="fal fa-home"></i> Tableau de board
-                </a>
-                <a lass="text-dark ms-5" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Ici vous pouvez consulter les notifications et les alerts"><i class="fal fa-info"></i></a>
-            </div>
-        </div>
+  <div class="col-lg-12 mt-3">
+    <div class="d-lg-flex justify-content-lg-between">
+      <h3 class="main-title">Notifications</h3>
+      <div>
+        <a class="btn btn-sm main-btn me-4" [routerLink]="['/']">
+          <i class="fal fa-home"></i> Tableau de board
+        </a>
+        <a
+          lass="text-dark ms-5"
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          title="Ici vous pouvez consulter les notifications et les alerts"
+        >
+          <i class="fal fa-info"></i>
+        </a>
+      </div>
     </div>
+  </div>
 </div>
 <div class="my-5">
-    <coming-soon></coming-soon>
+  <div *ngIf="!hasError">
+    <h6>Aujourd'hui</h6>
+    <div
+      *ngFor="let notif of notifications"
+      class="alert alert-dismissible fade show notif-section mt-3"
+      role="alert"
+    >
+      <strong>{{ notif.message }}</strong> {{ notif.created_at | date }}
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+  </div>
+
+  <div *ngIf="hasError" class="notif-skeleton"></div>
 </div>

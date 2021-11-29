@@ -358,7 +358,7 @@
         <input type="checkbox" [name]="prop?._id" class="btn-check check" [id]="prop?._id" autocomplete="off"
           [value]="prop?._id" (click)="selectProp(prop)" checked>
         <label class="px-3 py-1 rounded-pill checkbox-list-btns" [for]="prop?._id">
-          {{prop?._id}} • {{prop?.nom_prenom}}
+          {{prop?.cin}} • {{prop?.nom_prenom}}
         </label>
       </div>
     </div>
@@ -376,7 +376,7 @@
         <input type="checkbox" [name]="proprietaire._id" class="btn-check check" [id]="proprietaire._id"
           autocomplete="off" [value]="proprietaire._id" (click)="selectProp(proprietaire)">
         <label class="px-3 py-1 rounded-pill checkbox-list-btns" [for]="proprietaire._id">
-          {{proprietaire._id}} • {{proprietaire.nom_prenom}}
+          {{proprietaire.cin}} • {{proprietaire.nom_prenom}}
         </label>
       </div>
     </div>
