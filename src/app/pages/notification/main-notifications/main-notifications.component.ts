@@ -23,11 +23,11 @@ export class MainNotificationsComponent implements OnInit {
   getNotifications() {
     this.notif.getLatestNotifications(this.userMatricule).subscribe(
       (notifs) => {
-        this.notifications = notifs;
+        if (notifs) this.notifications = notifs;
+        if (!notifs) this.hasError = true;
       },
       (error) => {
         this.errorMessage = error;
-        this.hasError = true
       }
     );
   }

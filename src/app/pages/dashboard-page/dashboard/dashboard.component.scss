@@ -2,32 +2,45 @@
 @use "../../../../assets/style/components" as *;
 
 .count {
-    &-number {
-        color: color(main-color);
-    }
+  &-number {
+    color: color(main-color);
+  }
 
-    @include mobile($min-screen-desktop, $max-screen-desktop) {
-        &-label {
-            font-size: 23px;
-        }
+  @include mobile($min-screen-desktop, $max-screen-desktop) {
+    &-label {
+      font-size: 23px;
     }
+  }
 }
 
 a {
-    text-decoration: none;
-    color: color(dark);
+  text-decoration: none;
+  color: color(dark);
 }
 
 .left-border {
-    border-left: 1px solid color(main-color);
-    @include mobile($min-screen, $max-screen) {
-        & {
-            border-left: none;
-        }
+  border-left: 1px solid color(main-color);
+  @include mobile($min-screen, $max-screen) {
+    & {
+      border-left: none;
     }
+  }
 }
 
 // Skeleton loading
 .counts-skeleton {
-    @include skeletonLoading(115px, 30px);
+  @include skeletonLoading(115px, 30px);
+}
+
+// Notifications UI
+.notif-section {
+  @include notifSection(color(main-color))
+}
+
+.see-more-btn {
+  color: color(main-color);
+
+  &:hover {
+    color: color(dark-body);
+  }
 }

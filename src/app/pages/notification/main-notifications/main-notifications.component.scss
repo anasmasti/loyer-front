@@ -1,6 +1,10 @@
-@use '../../../../assets/style/helpers' as *;
-@use '../../../../assets/style/components' as *;
+@use "../../../../assets/style/helpers" as *;
+@use "../../../../assets/style/components" as *;
 
 .notif-skeleton {
-    @include skeletonLoading(715px, 330px);
+  @include skeletonLoading(715px, 330px);
+}
+
+.notif-section {
+  @include notifSection(color(main-color));
 }

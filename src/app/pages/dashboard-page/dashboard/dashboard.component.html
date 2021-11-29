@@ -291,17 +291,13 @@
       <div class="col-12 col-lg-6">
         <h5 class="main-title">
           Dernières notifications
-          <!-- (<span class="count-number">5</span>) -->
+          <span> <a href="/notification" class="see-more-btn ms-1 h6"> Voir plus </a> </span>
         </h5>
-        <div class="col-12 col-lg-6 mt-4">
+        <div class="col-12 col-lg-8 mt-4">
           <div *ngIf="!notifHasError">
-            <div *ngFor="let notif of notifications">
-              <h5>
-                {{ notif.message }}
-              </h5>
-              <p>
-                {{ notif.created_at }}
-              </p>
+            <div  *ngFor="let notif of notifications" class="alert alert-dismissible fade show notif-section" role="alert">
+              <strong>{{ notif.message }}</strong> {{ notif.created_at | date }}
+              <button type="button" class="btn-close main-txt" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
           </div>
 
@@ -309,7 +305,7 @@
         </div>
       </div>
 
-      <div class="col-12 col-lg-6">
+      <div class="col-12 col-lg-4">
         <h5 class="main-title">Liens rapides</h5>
         <div class="col-12 col-lg-6 mt-4 d-flex gap-2">
           <a href="/contrat/list-global/list" class="btn second-btn">
