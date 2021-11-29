@@ -55,7 +55,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   lieuxSubscription$!: Subscription;
   currentLieu: any = null;
   foncierLieux: any[] = [];
-  newLieu!: Lieu;
   proprietairesSubscription$!: Subscription;
 
   types = [
@@ -83,14 +82,15 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
   lieuxByType!: Lieu[];
   selectedType!: string;
-  selectedLieux!: any;
+  selectedLieuId!: string;
+  Intituler_lieu:string = '';
   ActiveForm!: any;
   CodeLieu!: any;
 
-  // modal id
+  // modals id
   TransfereModalId: any = 'TransfererModalId';
   ATransfereModalId: any = 'ATransfererModalId';
-  AnnulerTransformationModalId: any = 'AnnulerTransformationModalId';
+  AnnulerTransfereModalId: any = 'AnnulerTransféreModalId';
 
   constructor(
     private foncierService: FoncierService,
@@ -105,7 +105,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     this.foncierForm = new FormGroup({
       type: new FormControl(''),
       adresse: new FormControl('', [Validators.required]),
-      lieuForm: new FormArray([]),
       lieu: new FormControl(),
       ville: new FormControl('', [Validators.required]),
       desc_lieu_entrer: new FormControl(''),
@@ -117,11 +116,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       // Amenagement
       amenagementForm: new FormArray([]),
     });
-    // this.lieuForm = new FormGroup({
-    //   code_lieu: new FormControl(''),
-    //   type_lieu: new FormControl(''),
-    //   intitule_lieu: new FormControl(''),
-    // });
 
     this.getCities();
 
@@ -162,6 +156,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       this.lieuxByType = data;
       console.log('data', data);
     });
+    this.Intituler_lieu = '';
   }
 
   ngOnChanges() {
@@ -175,27 +170,12 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   fetchFc(HasAmenagement: string) {
     this.removeAllAmenagement();
 
-    // console.log("foncier" , this.foncier);
-    console.log(this.foncier);
-    
-
-    // this.currentLieu = this.foncier.lieu[0].lieu //!!!!!!!!!!!!!!!!!!!!!!!!!!!!;
-
-    // Get all the lieux from this foncier ( deleted false & true )
-    // for (let i = 0; i < this.foncier.lieu.length; i++) {
-    //   if (!this.foncier.lieu[i].deleted)
-    //     this.currentLieu = this.foncier.lieu[i];
-    //   else this.foncierLieux.push(this.foncier.lieu[i]);
-    // }
-
-    // Fill lieu form
-    // this.lieuForm.patchValue({
-    //   code_lieu: this.currentLieu.code_lieu,
-    //   type_lieu: this.currentLieu.type_lieu,
-    //   intitule_lieu: this.currentLieu.intitule_lieu,
-    // });
-    // this.CodeLieu = this.currentLieu.code_lieu;
-    // console.log('Lieu', this.currentLieu);
+    // reintialise variables 
+    this.currentLieu = null;
+    this.foncierLieux = []
+    this.selectedLieuId = '';
+    this.selectedType = '';
+    this.Intituler_lieu = '';
 
     this.foncierForm.patchValue({
       type: this.foncier.type,
@@ -209,16 +189,12 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       etage: this.foncier.etage,
     });
 
-    // Lieu form
-    this.foncier.lieu.forEach((element:any) => {
-      if (!element.deleted) {
-        this.currentLieu = element.lieu
-      }
-      let lieuForm = this.addLieuForm();
-      lieuForm.controls._id.setValue(element.lieu._id);
-      lieuForm.controls.deleted.setValue(element.deleted)
-      lieuForm.controls.transferer.setValue(element.transferer)
-      lieuForm.controls.lieu.setValue(element.lieu._id)
+    // Fetch lieu
+    this.foncier.lieu.forEach((element: any) => {
+      if (!element.deleted) 
+        this.fillCurrentLieuObject(element);
+       else 
+        this.pushIntoFoncierLieux(element)
     });
 
     this.amenagementList = this.foncier.amenagement;
@@ -537,8 +513,8 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   }
 
   updateFoncier() {
+    this.pushIntoFoncierLieux(this.currentLieu)
     let id = this.foncier._id;
-    this.foncierLieux.push(this.currentLieu);
 
     this.isAmenagementEmpty = false;
 
@@ -557,7 +533,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       proprietaire: this.foncierForm.get('proprietaire')?.value,
       adresse: this.foncierForm.get('adresse')?.value,
       // lieu: this.foncierLieux,
-      lieu: this.foncierForm.get('lieu')?.value,
+      lieu: this.foncierLieux,
       etat_du_bien: this.foncierForm.get('etat_du_bien')?.value,
       ville: this.foncierForm.get('ville')?.value,
       has_amenagements: this.isAmenagementEmpty,
@@ -574,9 +550,10 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     };
 
     this.fd.append('data', JSON.stringify(foncier));
+    
 
     this.foncierService
-      .updateFoncier(this.fd, foncier, this.userMatricule)
+      .updateFoncier( id ,this.fd, this.userMatricule)
       .subscribe(
         (_) => {
           this.updateDone = true;
@@ -602,29 +579,40 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     if (this.citiesSubscription$) this.citiesSubscription$.unsubscribe();
   }
 
-  // Set Active form to Transfere Form
-  SetActiveForm(ActiveForm: any) {
-    this.ActiveForm = ActiveForm;
+// Foncier Lieu is the Array that has All this foncier's lieux , that's gonna be stored in the DB 
+  pushIntoFoncierLieux(lieu:any) {
+    this.foncierLieux.push({
+      deleted: lieu.deleted,
+      transferer: lieu.transferer,
+      lieu: lieu.lieu._id
+    })
+  }
 
-    if (ActiveForm == 'annuler') {
-      this.fetchFc('Default');
+  // Current Lieu is the lieu object that its rendreing now
+  fillCurrentLieuObject(lieu:any) {
+    this.currentLieu = {
+      deleted: lieu.deleted,
+      transferer:lieu.transferer,
+      lieu: lieu.lieu
+    }
+    
+    this.selectedLieuId = ''
+  }
+
+  // find the ( lieu ) by its _id from the lieu list
+  findLieu(lieuId: any) {
+    for (let index = 0; index < this.lieux.length; index++) {
+      if (this.lieux[index]._id == lieuId) {
+        return this.lieux[index]
+      }
     }
   }
 
-  // changing transfered lieu with the new one
-  changeLieu(event: any) {
-    let selectedLieu = event.target.value;
-    for (let index = 0; index < this.lieux.length; index++) {
-      if (this.lieux[index]._id == selectedLieu) {
-        this.currentLieu = this.lieux[index];
-      }
-    }
-
-    // Refetch the lieu data
-    // this.lieuForm.patchValue({
-    //   type_lieu: this.currentLieu.type_lieu,
-    //   intitule_lieu: this.currentLieu.intitule_lieu,
-    // });
+  // put a value in Intitule lieu field 
+  getIntitulerLieu() {
+    let Lieu= this.findLieu(this.selectedLieuId);
+    if (Lieu)
+      this.Intituler_lieu = Lieu.intitule_lieu;
   }
 
   openConfirmationModal(id: any) {
@@ -635,55 +623,61 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     this.ConfirmationModalService.close(id);
   }
 
-  ATransferer(lieu: any) {
-    console.log("Before" , lieu);
-    lieu.value.transferer = true
-    console.log("After" , lieu);
-    this.closeConfirmationModal(this.ATransfereModalId)
-    
+  ATransferer() {
+    this.currentLieu.transferer = true
+    this.closeConfirmationModal(this.ATransfereModalId);
   }
 
-  Transferer(lieu: any) {
-    console.log("Before" , lieu);
-    lieu.value.deleted = true
+  Transferer() {
+    this.currentLieu.deleted = true
+    this.pushIntoFoncierLieux(this.currentLieu)
+
+    this.closeConfirmationModal(this.TransfereModalId);
     this.currentLieu = null
-    console.log("After" , lieu);
-    this.closeConfirmationModal(this.TransfereModalId)
+    this.selectedLieuId = ''
+    this.selectedType = ''
+    this.Intituler_lieu = '';
+    this.lieuxByType = []
+    console.log("foncier list" , this.foncierLieux);
   }
 
-  annulerTransformation(lieu:any) {
-    lieu.value.transferer = false
-    console.log(lieu);
-    this.closeConfirmationModal(this.AnnulerTransformationModalId)
+  annulerTransfere() {
+    this.currentLieu.transferer = false;
+    this.closeConfirmationModal(this.AnnulerTransfereModalId);
   }
-
-  addLieuForm() {
-    const LieuData = new FormGroup({
-      _id: new FormControl(''),
-      lieu: new FormControl(''),
-      deleted: new FormControl(''),
-      transferer: new FormControl(''),
-    });
-
-    (<FormArray>this.foncierForm.get('lieuForm')).push(<FormGroup>LieuData);
-
-    console.log(this.foncierForm);
+  
+  addNewLocal() {
+    // let Lieu = this.findLieu(this.selectedLieuId)
+    let Lieu = this.findLieu(this.selectedLieuId)
     
-    return <FormGroup>LieuData;
+
+    // Create the ( lieu ) structure with the inserted data 
+    let lieuData = {
+      deleted: false,
+      transferer: false,
+      lieu: {
+        _id: Lieu._id,
+        code_lieu : Lieu.code_lieu,
+        type_lieu : Lieu.type_lieu,
+        intitule_lieu : Lieu.intitule_lieu,
+      }
+    }
+
+    this.fillCurrentLieuObject(lieuData)
   }
 
   get amenagementForm(): FormArray {
     return <FormArray>this.foncierForm.get('amenagementForm');
   }
-
+  
   get lieuForm(): FormArray {
     return <FormArray>this.foncierForm.get('lieuForm');
   }
-
+  
   get adresse() {
     return this.foncierForm.get('adresse');
   }
-
+  
   get ville() {
     return this.foncierForm.get('ville');
   }
