@@ -20,9 +20,19 @@
 </div>
 <div class="my-5">
   <div *ngIf="!hasError">
-    <div  *ngFor="let notif of notifications" class="alert alert-dismissible fade show notif-section" role="alert">
+    <h6>Aujourd'hui</h6>
+    <div
+      *ngFor="let notif of notifications"
+      class="alert alert-dismissible fade show notif-section mt-3"
+      role="alert"
+    >
       <strong>{{ notif.message }}</strong> {{ notif.created_at | date }}
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
     </div>
   </div>
 
