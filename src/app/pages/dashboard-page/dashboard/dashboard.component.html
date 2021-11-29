@@ -291,7 +291,7 @@
       <div class="col-12 col-lg-6">
         <h5 class="main-title">
           Dernières notifications
-          <span> <a href="/notification" class="see-more-btn ms-1 h6"> Voir plus </a> </span>
+          <span> <a [routerLink]="['/notification']" class="see-more-btn ms-1 h6"> Voir plus </a> </span>
         </h5>
         <div class="col-12 col-lg-8 mt-4">
           <div *ngIf="!notifHasError">
@@ -308,19 +308,19 @@
       <div class="col-12 col-lg-4">
         <h5 class="main-title">Liens rapides</h5>
         <div class="col-12 col-lg-6 mt-4 d-flex gap-2">
-          <a href="/contrat/list-global/list" class="btn second-btn">
+          <a [routerLink]="['/contrat/list-global/list']" class="btn second-btn">
             Accéder à la list des contrats
           </a>
-          <a href="/proprietaire/list-global/list" class="btn second-btn">
+          <a [routerLink]="['/proprietaire/list-global/list']" class="btn second-btn">
             Accéder à la list des propriétaires
           </a>
-          <a href="/files" class="btn second-btn">
+          <a [routerLink]="['/files']" class="btn second-btn">
             Exporter les fichiers comptable
           </a>
-          <a href="/lieux/list" class="btn second-btn">
+          <a [routerLink]="['/lieux/list']" class="btn second-btn">
             Accéder à la list des entités organisationnelles
           </a>
-          <a href="/foncier/list" class="btn second-btn">
+          <a [routerLink]="['/foncier/list']" class="btn second-btn">
             Accéder à la list des locaux
           </a>
         </div>
