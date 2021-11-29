@@ -98,6 +98,10 @@ export class FormContratComponent implements OnInit {
   montantAvance: number = 0;
   hasErrorEffort: boolean = false;
 
+  // repriseCaution!: string;
+
+  repriseCaution!: string;
+
   constructor(
     private contratService: ContratService,
     private mainModalService: MainModalService,
@@ -632,6 +636,7 @@ export class FormContratComponent implements OnInit {
     }
   }
 
+  
   // Update contrat
   updateContrat() {
     let id = this.contrat._id;
@@ -738,8 +743,6 @@ export class FormContratComponent implements OnInit {
         this.hideErrorMessage();
       }
     );
-
-    
   }
 
   get date_debut_loyer() {

@@ -347,13 +347,13 @@
           <div class="col-lg-3 form-group mt-4">
             <label for="">Reprise caution</label>
             <!-- <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_reprise_caution"> -->
-            <select class="form-select rounded-pill" formControlName="etat_contrat_reprise_caution">
+            <select class="form-select rounded-pill" formControlName="etat_contrat_reprise_caution" [(ngModel)]="repriseCaution">
               <option value="Consommée">Consommée</option>
               <option value="Récupérée">Récupérée</option>
             </select>
           </div>
 
-          <div class="col-lg-3 form-group mt-4" *ngIf="">
+          <div class="col-lg-3 form-group mt-4" *ngIf="repriseCaution == 'Consommée'">
             <label for="">Etat caution consommée</label>
             <select class="form-select rounded-pill" formControlName="etat_caution_consomme">
               <option value="partial">Partial</option>

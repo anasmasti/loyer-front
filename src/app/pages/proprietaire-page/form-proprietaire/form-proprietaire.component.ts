@@ -708,13 +708,15 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
 
   CheckMandataire(isMand: boolean) {
-    if (isMand) {
-      this.fillProprietaireInfos();
-    } else {
-      this.proprietaire.proprietaire_list.forEach((element: any) => {
-        this.oldProprietairesList.push(element._id);
-      });
-      this.proprietaireList = []
+    if (this.update) {
+      if (isMand) {
+        this.fillProprietaireInfos();
+      } else {
+        this.proprietaire.proprietaire_list.forEach((element: any) => {
+          this.oldProprietairesList.push(element._id);
+        });
+        this.proprietaireList = []
+      }
     }
   }
 
