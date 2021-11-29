@@ -5,7 +5,6 @@ import { AppState } from 'src/app/store/app.state';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getAllCountsAction } from 'src/app/store/shared/shared.action';
-import { DownloadService } from 'src/app/services/download-service/download.service';
 import { ChartsService } from 'src/app/services/charts/charts.service';
 
 @Component({
