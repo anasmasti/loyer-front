@@ -1,2 +1,6 @@
 @use '../../../../assets/style/helpers' as *;
 @use '../../../../assets/style/components' as *;
+
+.notif-skeleton {
+    @include skeletonLoading(715px, 330px);
+}

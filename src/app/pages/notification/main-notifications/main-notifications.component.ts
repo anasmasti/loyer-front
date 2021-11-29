@@ -11,10 +11,12 @@ export class MainNotificationsComponent implements OnInit {
   userMatricule: any = localStorage.getItem('matricule');
   notifications!: Notif[];
   errorMessage!: string;
+  hasError!: boolean;
 
   constructor(private notif: NotificationsService) {}
 
   ngOnInit(): void {
+    this.hasError = false
     this.getNotifications();
   }
 
@@ -25,6 +27,7 @@ export class MainNotificationsComponent implements OnInit {
       },
       (error) => {
         this.errorMessage = error;
+        this.hasError = true
       }
     );
   }

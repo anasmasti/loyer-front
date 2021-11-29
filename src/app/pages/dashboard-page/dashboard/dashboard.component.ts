@@ -78,7 +78,8 @@ export class DashboardComponent implements OnInit {
 
   userMatricule: any = localStorage.getItem('matricule');
   notifications!: Notif[];
-  notifError!: string;
+  notifErrorMessage!: string;
+  notifHasError!: boolean;
 
   constructor(
     private store: Store<AppState>,
@@ -88,6 +89,7 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.notifHasError = false
     this.getAllCount()
     this.getChartBar()
     this.getChartCircl()
@@ -153,7 +155,8 @@ export class DashboardComponent implements OnInit {
         this.notifications = notifs;
       },
       (error) => {
-        this.notifError = error;
+        this.notifErrorMessage = error;
+        this.notifHasError = true
       }
     );
   }

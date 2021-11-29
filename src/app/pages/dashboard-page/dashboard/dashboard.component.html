@@ -294,14 +294,18 @@
           <!-- (<span class="count-number">5</span>) -->
         </h5>
         <div class="col-12 col-lg-6 mt-4">
-          <div *ngFor="let notif of notifications">
-            <h5>
-              {{ notif.message }}
-            </h5>
-            <p>
-              {{ notif.created_at }}
-            </p>
+          <div *ngIf="!notifHasError">
+            <div *ngFor="let notif of notifications">
+              <h5>
+                {{ notif.message }}
+              </h5>
+              <p>
+                {{ notif.created_at }}
+              </p>
+            </div>
           </div>
+
+          <div *ngIf="notifHasError" class="counts-skeleton"></div>
         </div>
       </div>
 
