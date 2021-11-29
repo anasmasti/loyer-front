@@ -38,7 +38,7 @@ export class FormContratComponent implements OnInit {
   retenueSource: number = 0;
   tauxImpot: number = 0;
 
-  effortCaution: number = 0;
+  dureeCaution: number = 0;
   montantCaution: number = 0;
 
   dureeAvance: number = 0;
@@ -97,10 +97,15 @@ export class FormContratComponent implements OnInit {
 
   montantAvance: number = 0;
   hasErrorEffort: boolean = false;
+  hasErrordurreeRecuperer: boolean = false;
 
   // repriseCaution!: string;
 
   repriseCaution!: string;
+  cautionConsommee!: string;
+
+  durreConsommee: number = 0;
+  durreeRecuperer: number = 0;
 
   constructor(
     private contratService: ContratService,
@@ -136,7 +141,7 @@ export class FormContratComponent implements OnInit {
       retenue_source: new FormControl(),
       montant_apres_impot: new FormControl(),
       montant_caution: new FormControl(),
-      effort_caution: new FormControl(),
+      duree_caution: new FormControl(),
       date_reprise_caution: new FormControl('', [Validators.required]),
       statut_caution: new FormControl(),
       montant_avance: new FormControl('', [Validators.required]),
@@ -330,10 +335,10 @@ export class FormContratComponent implements OnInit {
   // Calcul effort caution and show error if the outside is a decimal number
   calculEffortCaution() {
     let montantCaution: number = this.contratForm.get('montant_caution')?.value;
-    let effortCaution!: number;
-    effortCaution = montantCaution / this.montantLoyer;
+    let dureeCaution!: number;
+    dureeCaution = montantCaution / this.montantLoyer;
     this.montantCaution = montantCaution;
-    this.effortCaution = effortCaution;
+    this.dureeCaution = dureeCaution;
     if (montantCaution % this.montantLoyer != 0) {
       this.hasErrorEffort = true;
     } else this.hasErrorEffort = false;
@@ -344,6 +349,20 @@ export class FormContratComponent implements OnInit {
       let montantAvance: number = this.contratForm.get('montant_avance')?.value;
       this.montant_avance_tax_ = montantAvance * (this.tauxImpot / 100);
     }
+  }
+
+  calculCautionDurreeRecuperer(){
+    this.durreConsommee = this.contratForm.get('duree_consomme')?.value;
+
+    
+    // this.dureeCaution = this.contrat.duree_caution;
+
+    console.log("dureeCaution",this.dureeCaution);
+    
+    this.durreeRecuperer = this.dureeCaution - this.durreConsommee;
+    if (this.durreeRecuperer < 0) {
+      this.hasErrordurreeRecuperer = true;
+    } else this.hasErrordurreeRecuperer = false;
   }
 
   // calcul Date fin de l’avance et Date 1er de l'avance
@@ -484,7 +503,7 @@ export class FormContratComponent implements OnInit {
       retenue_source: this.retenueSource,
       montant_apres_impot: this.montantApresImpot,
       montant_caution: this.contratForm.get('montant_caution')?.value || '',
-      effort_caution: this.effortCaution,
+      duree_caution: this.dureeCaution,
       date_reprise_caution:
         this.contratForm.get('date_reprise_caution')?.value || '',
       statut_caution: this.contratForm.get('statut_caution')?.value || '',
@@ -579,7 +598,7 @@ export class FormContratComponent implements OnInit {
         retenue_source: this.contrat.retenue_source,
         montant_apres_impot: this.contrat.montant_apres_impot,
         montant_caution: this.contrat.montant_caution,
-        effort_caution: this.contrat.effort_caution,
+        duree_caution: this.contrat.duree_caution,
         date_reprise_caution: this.formatDate(
           this.contrat.date_reprise_caution
         ),
@@ -658,7 +677,7 @@ export class FormContratComponent implements OnInit {
       retenue_source: this.retenueSource,
       montant_apres_impot: this.montantApresImpot,
       montant_caution: this.contratForm.get('montant_caution')?.value || '',
-      effort_caution: this.effortCaution,
+      duree_caution: this.dureeCaution,
       date_reprise_caution:
         this.contratForm.get('date_reprise_caution')?.value || '',
       statut_caution: this.contratForm.get('statut_caution')?.value || '',
@@ -712,6 +731,11 @@ export class FormContratComponent implements OnInit {
           piece_jointe_avenant:
             this.contratForm.get('etat_contrat_piece_jointe_avenant')?.value ||
             '',
+            etat_caution_consomme: this.contratForm.get('etat_caution_consomme')?.value ||
+            '',
+            duree_consomme: this.contratForm.get('duree_consomme')?.value ||
+            '',
+            duree_a_recupere: this.durreeRecuperer || 0,
         },
       },
 
@@ -724,25 +748,27 @@ export class FormContratComponent implements OnInit {
     };
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
+    console.log(ctr_data);
+    
     
     // patch the formdata (data+files)
-    this.contratService.updateContrat(id, this.fd).subscribe(
-      (_) => {
-        this.updateDone = true;
-        setTimeout(() => {
-          this.mainModalService.close();
-          this.updateDone = false;
-          this.help.refrechPage();
-        }, 2000);
-      },
-      (error) => {
-        this.errors = error.error.message;
-        setTimeout(() => {
-          this.showErrorMessage();
-        }, 3000);
-        this.hideErrorMessage();
-      }
-    );
+    // this.contratService.updateContrat(id, this.fd).subscribe(
+    //   (_) => {
+    //     this.updateDone = true;
+    //     setTimeout(() => {
+    //       this.mainModalService.close();
+    //       this.updateDone = false;
+    //       this.help.refrechPage();
+    //     }, 2000);
+    //   },
+    //   (error) => {
+    //     this.errors = error.error.message;
+    //     setTimeout(() => {
+    //       this.showErrorMessage();
+    //     }, 3000);
+    //     this.hideErrorMessage();
+    //   }
+    // );
   }
 
   get date_debut_loyer() {
