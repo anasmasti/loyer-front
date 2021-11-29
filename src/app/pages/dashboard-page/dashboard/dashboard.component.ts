@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getAllCountsAction } from 'src/app/store/shared/shared.action';
 import { DownloadService } from 'src/app/services/download-service/download.service';
-import * as fileSaver from 'file-saver';
 import { ChartsService } from 'src/app/services/charts/charts.service';
 
 @Component({
@@ -18,7 +17,6 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
-    private downloadService: DownloadService,
     private chartService: ChartsService,
     private help: HelperService
   ) { }
@@ -115,19 +113,6 @@ export class DashboardComponent implements OnInit {
   formatNumber(input: number): number {
     return input
   }
-
-  // --------------Start Download Files--------------
-  // downloadFichierComptable() {
-  //   let today = new Date()
-  //   let currentMonthName = today.toLocaleString('default', { month: 'long' })
-  //   let currentYear = today.getFullYear()
-  //   let filename = 'FichierComptable ' + currentMonthName + ' ' + currentYear
-  //   this.downloadService.dowloadFileComptableLoyer(filename).subscribe(res => {
-  //     if (res) {
-  //       fileSaver.saveAs(res, filename);
-  //     }
-  //   })
-  // }
   
   // --------------End Download Files--------------
 
