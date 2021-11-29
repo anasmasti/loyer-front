@@ -353,6 +353,14 @@
             </select>
           </div>
 
+          <div class="col-lg-3 form-group mt-4" *ngIf="">
+            <label for="">Etat caution consommée</label>
+            <select class="form-select rounded-pill" formControlName="etat_caution_consomme">
+              <option value="partial">Partial</option>
+              <option value="total">Total</option>
+            </select>
+          </div>
+
           <div class="col-lg-3 form-group mt-4">
             <label for="">Date de Résilié</label>
             <input type="date" class="form-control rounded-pill" formControlName="etat_contrat_date_resiliation"

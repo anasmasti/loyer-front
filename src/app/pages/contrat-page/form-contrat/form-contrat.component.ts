@@ -161,6 +161,10 @@ export class FormContratComponent implements OnInit {
       etat_contrat_images_etat_res_lieu_sortie: new FormControl(),
       etat_contrat_lettre_res_piece_jointe: new FormControl(),
       etat_contrat_piece_jointe_avenant: new FormControl(),
+      //caution consommé
+      etat_caution_consomme: new FormControl(),
+      duree_consomme: new FormControl(),
+      duree_a_recupere: new FormControl(),
 
       // Validation
       validation1_DMG: new FormControl(),
@@ -734,6 +738,8 @@ export class FormContratComponent implements OnInit {
         this.hideErrorMessage();
       }
     );
+
+    
   }
 
   get date_debut_loyer() {
