@@ -2,35 +2,44 @@ import { ConfirmationModalService } from './../../../services/confirmation-modal
 import { DarkModeService } from './../../../services/dark-mode/dark-mode.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
+import { NotificationsService } from 'src/app/services/notifications-service/notifications.service';
 
 @Component({
   selector: 'app-header-navbar',
   templateUrl: './header-navbar.component.html',
   styleUrls: ['./header-navbar.component.scss'],
 })
-
 export class HeaderNavbarComponent implements OnInit {
-
   constructor(
     private darkModeService: DarkModeService,
     private authService: AuthService,
-    private confirmationModalService: ConfirmationModalService
-  ) { }
+    private confirmationModalService: ConfirmationModalService,
+    private notif: NotificationsService
+  ) {}
 
-  id: string = 'Deconnecter'
-  user: any = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '') : [];
-  userRole: any[] = localStorage.getItem('user') ? this.user.existedUser.userRoles[0].roleName : []
-  theme!: any
+  id: string = 'Deconnecter';
+  user: any = localStorage.getItem('user')
+    ? JSON.parse(localStorage.getItem('user') || '')
+    : [];
+  userRole: any[] = localStorage.getItem('user')
+    ? this.user.existedUser.userRoles[0].roleName
+    : [];
+  userMatricule: any = localStorage.getItem('matricule');
 
-  ngOnInit(): void { }
+  theme!: any;
+
+  notifCount!: number;
+  notifCountError!: number;
+
+  ngOnInit(): void {}
 
   doDarkMode() {
-    this.theme = localStorage.getItem('theme')
+    this.theme = localStorage.getItem('theme');
     this.darkModeService.toggleDarkMode(this.theme);
   }
 
   logout() {
-    this.authService.logOut()
+    this.authService.logOut();
   }
 
   openConfirmationModal() {
@@ -40,5 +49,16 @@ export class HeaderNavbarComponent implements OnInit {
   // Close confirmation modal
   closeConfirmationModal() {
     this.confirmationModalService.close(this.id); // Close delete confirmation modal
+  }
+
+  getNotificationCount() {
+    this.notif.getNotificationsCount(this.userMatricule).subscribe(
+      (count) => {
+        this.notifCount = count;
+      },
+      (error) => {
+        this.notifCountError = error;
+      }
+    );
   }
 }

@@ -1,14 +1,31 @@
 import { Component, OnInit } from '@angular/core';
+import { Notif } from 'src/app/models/Notification';
+import { NotificationsService } from 'src/app/services/notifications-service/notifications.service';
 
 @Component({
   selector: 'app-main-notifications',
   templateUrl: './main-notifications.component.html',
-  styleUrls: ['./main-notifications.component.scss']
+  styleUrls: ['./main-notifications.component.scss'],
 })
 export class MainNotificationsComponent implements OnInit {
-  nomber!: 0
-  constructor() { }
+  userMatricule: any = localStorage.getItem('matricule');
+  notifications!: Notif[];
+  errorMessage!: string;
+
+  constructor(private notif: NotificationsService) {}
 
   ngOnInit(): void {
+    this.getNotifications();
+  }
+
+  getNotifications() {
+    this.notif.getLatestNotifications(this.userMatricule).subscribe(
+      (notifs) => {
+        this.notifications = notifs;
+      },
+      (error) => {
+        this.errorMessage = error;
+      }
+    );
   }
 }

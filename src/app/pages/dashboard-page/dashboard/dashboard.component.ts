@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getAllCountsAction } from 'src/app/store/shared/shared.action';
 import { ChartsService } from 'src/app/services/charts/charts.service';
+import { NotificationsService } from 'src/app/services/notifications-service/notifications.service';
+import { Notif } from 'src/app/models/Notification';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,12 +15,6 @@ import { ChartsService } from 'src/app/services/charts/charts.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
-  constructor(
-    private store: Store<AppState>,
-    private chartService: ChartsService,
-    private help: HelperService
-  ) { }
 
   allCount!: any;
   allCountSubscription$!: Subscription
@@ -80,6 +76,17 @@ export class DashboardComponent implements OnInit {
   errorMessage!: string
   serverConnected!: boolean
 
+  userMatricule: any = localStorage.getItem('matricule');
+  notifications!: Notif[];
+  notifError!: string;
+
+  constructor(
+    private store: Store<AppState>,
+    private chartService: ChartsService,
+    private help: HelperService,
+    private notif: NotificationsService,
+  ) { }
+
   ngOnInit(): void {
     this.getAllCount()
     this.getChartBar()
@@ -87,6 +94,7 @@ export class DashboardComponent implements OnInit {
     this.getChartLine()
     this.getChartAdvancedCircl()
     this.putServerConnectivity()
+    this.getNotifications()
   }
 
   getAllCount() {
@@ -139,6 +147,17 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  getNotifications() {
+    this.notif.getLatestNotifications(this.userMatricule).subscribe(
+      (notifs) => {
+        this.notifications = notifs;
+      },
+      (error) => {
+        this.notifError = error;
+      }
+    );
+  }
+
   putServerConnectivity() {
     this.serverConnected = true
     this.errorMessage = ""
@@ -151,5 +170,4 @@ export class DashboardComponent implements OnInit {
       })
     }, 1500);
   }
-
 }
