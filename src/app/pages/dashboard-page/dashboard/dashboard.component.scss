@@ -36,3 +36,8 @@ a {
 .notif-section {
   @include notifSection(color(main-color))
 }
+
+.quick-links{
+  color: color(third-color) !important;
+  font-weight: bold;
+}
