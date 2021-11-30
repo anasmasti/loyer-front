@@ -7,7 +7,7 @@ export interface Foncier {
       cin?: string;
     }
   ];
-  type: string;
+  type_lieu: string;
   adresse: string;
   lieu: [
     {
