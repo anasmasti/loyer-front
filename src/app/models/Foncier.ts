@@ -2,12 +2,19 @@ export interface Foncier {
   _id?: any;
   proprietaire: [
     {
-      id: string
-    },
+      id?: string;
+      nom_prenom?: string;
+      cin?: string;
+    }
   ];
   type: string;
   adresse: string;
-  lieu: [];
+  lieu: [
+    {
+      lieu?: any;
+      deleted?: boolean;
+    }
+  ];
   ville: string;
   desc_lieu_entrer?: string;
   imgs_lieu_entrer?: [
