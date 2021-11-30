@@ -23,3 +23,16 @@
     color: color(info) !important;
     font-weight: bold;
 }
+
+.second-txt{
+    // #e25e2c
+    color: color(main-color) !important;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: small;
+
+    &:hover {
+        color: color(dark) !important;
+    }
+}
+
