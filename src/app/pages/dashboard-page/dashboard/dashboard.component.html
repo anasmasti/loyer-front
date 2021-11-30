@@ -285,12 +285,12 @@
   </div>
 
   <div class="mt-5">
-    <div class="row">
+    <div class="row w-100">
       <div class="col-12 col-lg-6">
         <h5 class="main-title">
           Dernières notifications
           <span>
-            <a [routerLink]="['/notification']" class="see-more-btn ms-1 h6">
+            <a [routerLink]="['/notification']" class="main-txt short-link ms-1">
               Voir plus
             </a>
           </span>
@@ -318,28 +318,44 @@
 
       <div class="col-12 col-lg-4">
         <h5 class="main-title">Liens rapides</h5>
-        <div class="col-12 col-lg-6 mt-4 d-flex gap-2">
-          <a
-            [routerLink]="['/contrat/list-global/list']"
-            class="btn second-btn"
-          >
-            Accéder à la list des contrats
-          </a>
-          <a
-            [routerLink]="['/proprietaire/list-global/list']"
-            class="btn second-btn"
-          >
-            Accéder à la list des propriétaires
-          </a>
-          <a [routerLink]="['/files']" class="btn second-btn">
-            Exporter les fichiers comptable
-          </a>
-          <a [routerLink]="['/lieux/list']" class="btn second-btn">
-            Accéder à la list des entités organisationnelles
-          </a>
-          <a [routerLink]="['/foncier/list']" class="btn second-btn">
-            Accéder à la list des locaux
-          </a>
+        <div class="row mt-4">
+          <div class="col-6">
+            <a
+              [routerLink]="['/contrat/list-global/list']"
+              class="success-txt short-link"
+            >
+              • Accéder à la list des contrats
+            </a>
+          </div>
+          <div class="col-6">
+            <a
+              [routerLink]="['/proprietaire/list-global/list']"
+              class="success-txt short-link"
+            >
+              • Accéder à la list des propriétaires
+            </a>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-6">
+            <a [routerLink]="['/files']" class="success-txt short-link">
+              • Exporter les fichiers comptable
+            </a>
+          </div>
+          <div class="col-6">
+            <a [routerLink]="['/foncier/list']" class="success-txt short-link">
+              • Accéder à la list des locaux
+            </a>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-12">
+            <a [routerLink]="['/lieux/list']" class="success-txt short-link">
+              • Accéder à la list des entités organisationnelles
+            </a>
+          </div>
         </div>
         <!-- <coming-soon></coming-soon> -->
       </div>

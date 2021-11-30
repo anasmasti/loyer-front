@@ -36,11 +36,3 @@ a {
 .notif-section {
   @include notifSection(color(main-color))
 }
-
-.see-more-btn {
-  color: color(main-color);
-
-  &:hover {
-    color: color(dark-body);
-  }
-}
