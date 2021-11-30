@@ -21,7 +21,7 @@ export class MainNotificationsComponent implements OnInit {
   }
 
   getNotifications() {
-    this.notif.getLatestNotifications(this.userMatricule).subscribe(
+    this.notif.getAllNotifications(this.userMatricule).subscribe(
       (notifs) => {
         if (notifs) this.notifications = notifs;
         if (!notifs) this.hasError = true;

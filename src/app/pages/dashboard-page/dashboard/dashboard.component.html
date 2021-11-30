@@ -148,22 +148,20 @@
         </h3>
       </div>
       <div class="col-lg-3 col-sm-12 col-12 main-card bg-white p-4 count-card">
-        <a [routerLink]="['/proprietaire/list-global/list']">
-          <h3>
-            <span *ngIf="allCount.countProprietaire" class="count-number">{{
-              allCount.countProprietaire
-            }}</span>
+        <h3>
+          <span *ngIf="allCount.countProprietaire" class="count-number">{{
+            allCount.countMandataire
+          }}</span>
 
-            <span *ngIf="allCount.countProprietaire" class="count-label">
-              Mandataire<span *ngIf="allCount.countProprietaire > 1">s</span>
-            </span>
+          <span *ngIf="allCount.countProprietaire" class="count-label">
+            Mandataire<span *ngIf="allCount.countMandataire > 1">s</span>
+          </span>
 
-            <div
-              *ngIf="!allCount.countProprietaire"
-              class="counts-skeleton"
-            ></div>
-          </h3>
-        </a>
+          <div
+            *ngIf="!allCount.countProprietaire"
+            class="counts-skeleton"
+          ></div>
+        </h3>
       </div>
     </div>
   </div>
@@ -291,13 +289,26 @@
       <div class="col-12 col-lg-6">
         <h5 class="main-title">
           Dernières notifications
-          <span> <a href="/notification" class="see-more-btn ms-1 h6"> Voir plus </a> </span>
+          <span>
+            <a [routerLink]="['/notification']" class="see-more-btn ms-1 h6">
+              Voir plus
+            </a>
+          </span>
         </h5>
         <div class="col-12 col-lg-8 mt-4">
           <div *ngIf="!notifHasError">
-            <div  *ngFor="let notif of notifications" class="alert alert-dismissible fade show notif-section" role="alert">
+            <div
+              *ngFor="let notif of notifications"
+              class="alert alert-dismissible fade show notif-section"
+              role="alert"
+            >
               <strong>{{ notif.message }}</strong> {{ notif.created_at | date }}
-              <button type="button" class="btn-close main-txt" data-bs-dismiss="alert" aria-label="Close"></button>
+              <button
+                type="button"
+                class="btn-close main-txt"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+              ></button>
             </div>
           </div>
 
@@ -308,19 +319,25 @@
       <div class="col-12 col-lg-4">
         <h5 class="main-title">Liens rapides</h5>
         <div class="col-12 col-lg-6 mt-4 d-flex gap-2">
-          <a href="/contrat/list-global/list" class="btn second-btn">
+          <a
+            [routerLink]="['/contrat/list-global/list']"
+            class="btn second-btn"
+          >
             Accéder à la list des contrats
           </a>
-          <a href="/proprietaire/list-global/list" class="btn second-btn">
+          <a
+            [routerLink]="['/proprietaire/list-global/list']"
+            class="btn second-btn"
+          >
             Accéder à la list des propriétaires
           </a>
-          <a href="/files" class="btn second-btn">
+          <a [routerLink]="['/files']" class="btn second-btn">
             Exporter les fichiers comptable
           </a>
-          <a href="/lieux/list" class="btn second-btn">
+          <a [routerLink]="['/lieux/list']" class="btn second-btn">
             Accéder à la list des entités organisationnelles
           </a>
-          <a href="/foncier/list" class="btn second-btn">
+          <a [routerLink]="['/foncier/list']" class="btn second-btn">
             Accéder à la list des locaux
           </a>
         </div>

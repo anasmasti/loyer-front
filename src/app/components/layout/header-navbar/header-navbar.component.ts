@@ -10,13 +10,6 @@ import { NotificationsService } from 'src/app/services/notifications-service/not
   styleUrls: ['./header-navbar.component.scss'],
 })
 export class HeaderNavbarComponent implements OnInit {
-  constructor(
-    private darkModeService: DarkModeService,
-    private authService: AuthService,
-    private confirmationModalService: ConfirmationModalService,
-    private notif: NotificationsService
-  ) {}
-
   id: string = 'Deconnecter';
   user: any = localStorage.getItem('user')
     ? JSON.parse(localStorage.getItem('user') || '')
@@ -31,7 +24,16 @@ export class HeaderNavbarComponent implements OnInit {
   notifCount!: number;
   notifCountError!: number;
 
-  ngOnInit(): void {}
+  constructor(
+    private darkModeService: DarkModeService,
+    private authService: AuthService,
+    private confirmationModalService: ConfirmationModalService,
+    private notif: NotificationsService
+  ) {}
+
+  ngOnInit(): void {
+    this.getNotificationCount();
+  }
 
   doDarkMode() {
     this.theme = localStorage.getItem('theme');
