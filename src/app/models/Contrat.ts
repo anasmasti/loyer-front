@@ -43,6 +43,10 @@ export interface Contrat {
       images_etat_res_lieu_sortie: [];
       lettre_res_piece_jointe: [];
       piece_jointe_avenant: [];
+       //caution consommé
+       etat_caution_consomme: string;
+       duree_consomme: number;
+       duree_a_recupere: number;
     };
   };
   deleted: boolean;

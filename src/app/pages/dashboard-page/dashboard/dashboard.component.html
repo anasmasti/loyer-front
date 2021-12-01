@@ -148,22 +148,20 @@
         </h3>
       </div>
       <div class="col-lg-3 col-sm-12 col-12 main-card bg-white p-4 count-card">
-        <a [routerLink]="['/proprietaire/list-global/list']">
-          <h3>
-            <span *ngIf="allCount.countProprietaire" class="count-number">{{
-              allCount.countProprietaire
-            }}</span>
+        <h3>
+          <span *ngIf="allCount.countProprietaire" class="count-number">{{
+            allCount.countMandataire
+          }}</span>
 
-            <span *ngIf="allCount.countProprietaire" class="count-label">
-              Mandataire<span *ngIf="allCount.countProprietaire > 1">s</span>
-            </span>
+          <span *ngIf="allCount.countProprietaire" class="count-label">
+            Mandataire<span *ngIf="allCount.countMandataire > 1">s</span>
+          </span>
 
-            <div
-              *ngIf="!allCount.countProprietaire"
-              class="counts-skeleton"
-            ></div>
-          </h3>
-        </a>
+          <div
+            *ngIf="!allCount.countProprietaire"
+            class="counts-skeleton"
+          ></div>
+        </h3>
       </div>
     </div>
   </div>
@@ -177,7 +175,7 @@
     </div>
 
     <div class="row text-center">
-      <div class="col-12 col-lg-6 col-md-12">
+      <div class="col-12 col-lg-6 col-md-12 me-2 me-lg-5">
         <h6>
           {{ yAxisLabelBarV }}
         </h6>
@@ -193,7 +191,7 @@
           [showYAxisLabel]="true"
           [xAxisLabel]="xAxisLabel"
           [legendTitle]="villeTitle"
-          [legendPosition]="legendPositionBelow"
+          [legendPosition]="legendPositionRight"
           [animations]="animations"
           [showGridLines]="showGridLines"
           [trimXAxisTicks]="trimXAxisTicks"
@@ -201,8 +199,6 @@
           [rotateXAxisTicks]="rotateXAxisTicks"
           [maxXAxisTickLength]="maxXAxisTickLength"
           [maxYAxisTickLength]="maxYAxisTickLength"
-          [xAxisTickFormatting]="formatString"
-          [yAxisTickFormatting]="formatNumber"
           [showDataLabel]="true"
           [barPadding]="barPadding"
           [tooltipDisabled]="tooltipDisabled"
@@ -211,7 +207,7 @@
         >
         </ngx-charts-bar-vertical>
       </div>
-      <div class="col-12 col-lg-6 text-center left-border">
+      <div class="col-12 col-lg-4 text-center left-border">
         <h6>
           {{ yAxisLabelAdvPie }}
         </h6>
@@ -238,22 +234,20 @@
           [scheme]="colorScheme"
           [schemeType]="schemeType"
           [gradient]="gradient"
-          [xAxis]="xAxis"
+          [xAxis]="true"
           [yAxis]="yAxis"
-          [showXAxisLabel]="showXAxisLabel"
-          [showYAxisLabel]="showYAxisLabel"
+          [showXAxisLabel]="false"
+          [showYAxisLabel]="false"
           [xAxisLabel]="xAxisLabel"
           [legendTitle]="locauxTitle"
           [legendPosition]="legendPositionRight"
           [animations]="animations"
-          [showGridLines]="showGridLines"
+          [showGridLines]="true"
           [trimXAxisTicks]="trimXAxisTicks"
           [trimYAxisTicks]="trimYAxisTicks"
           [rotateXAxisTicks]="rotateXAxisTicks"
           [maxXAxisTickLength]="maxXAxisTickLength"
           [maxYAxisTickLength]="maxYAxisTickLength"
-          [xAxisTickFormatting]="formatString"
-          [yAxisTickFormatting]="formatNumber"
           [showDataLabel]="showDataLabel"
           [barPadding]="barPadding"
           [tooltipDisabled]="tooltipDisabled"
@@ -287,17 +281,33 @@
   </div>
 
   <div class="mt-5">
-    <div class="row">
+    <div class="row w-100">
       <div class="col-12 col-lg-6">
         <h5 class="main-title">
           Dernières notifications
-          <span> <a [routerLink]="['/notification']" class="see-more-btn ms-1 h6"> Voir plus </a> </span>
+          <span>
+            <a
+              [routerLink]="['/notification']"
+              class="main-txt short-link ms-1"
+            >
+              Voir plus
+            </a>
+          </span>
         </h5>
         <div class="col-12 col-lg-8 mt-4">
           <div *ngIf="!notifHasError">
-            <div  *ngFor="let notif of notifications" class="alert alert-dismissible fade show notif-section" role="alert">
+            <div
+              *ngFor="let notif of notifications"
+              class="alert alert-dismissible fade show notif-section"
+              role="alert"
+            >
               <strong>{{ notif.message }}</strong> {{ notif.created_at | date }}
-              <button type="button" class="btn-close main-txt" data-bs-dismiss="alert" aria-label="Close"></button>
+              <button
+                type="button"
+                class="btn-close main-txt"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+              ></button>
             </div>
           </div>
 
@@ -305,24 +315,46 @@
         </div>
       </div>
 
-      <div class="col-12 col-lg-4">
+      <div class="col-12 col-lg-6">
         <h5 class="main-title">Liens rapides</h5>
-        <div class="col-12 col-lg-6 mt-4 d-flex gap-2">
-          <a [routerLink]="['/contrat/list-global/list']" class="btn second-btn">
-            Accéder à la list des contrats
-          </a>
-          <a [routerLink]="['/proprietaire/list-global/list']" class="btn second-btn">
-            Accéder à la list des propriétaires
-          </a>
-          <a [routerLink]="['/files']" class="btn second-btn">
-            Exporter les fichiers comptable
-          </a>
-          <a [routerLink]="['/lieux/list']" class="btn second-btn">
-            Accéder à la list des entités organisationnelles
-          </a>
-          <a [routerLink]="['/foncier/list']" class="btn second-btn">
-            Accéder à la list des locaux
-          </a>
+        <div class="row mt-4">
+          <div class="col-8 bg-links rounded-pill">
+            <a
+              [routerLink]="['/contrat/list-global/list']"
+              class="short-link quick-links"
+            >
+            • &nbsp;<i class="fal fa-file-signature"></i> Accéder à la list des contrats
+            </a>
+          </div>
+          <div class="col-8 mt-2 bg-links rounded-pill">
+            <a
+              [routerLink]="['/proprietaire/list-global/list']"
+              class="short-link quick-links"
+            >
+            • &nbsp;<i class="fal fa-users"></i> Accéder à la list des propriétaires
+            </a>
+          </div>
+        </div>
+
+        <div class="row mt-2 ">
+          <div class="col-8 bg-links rounded-pill">
+            <a [routerLink]="['/files']" class="short-link quick-links">
+              • &nbsp;<i class="far fa-file-export"></i> Exporter les fichiers comptable
+            </a>
+          </div>
+          <div class="col-8 mt-2 bg-links rounded-pill">
+            <a [routerLink]="['/foncier/list']" class="short-link quick-links">
+              • &nbsp;<i class="fas fa-hotel"></i> Accéder à la list des locaux
+            </a>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-9 bg-links rounded-pill">
+            <a [routerLink]="['/lieux/list']" class="short-link quick-links">
+              • &nbsp;<i class="fal fa-building"></i> Accéder à la list des entités organisationnelles
+            </a>
+          </div>
         </div>
         <!-- <coming-soon></coming-soon> -->
       </div>

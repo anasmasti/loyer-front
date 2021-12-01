@@ -19,7 +19,7 @@
         <label for="">Type du locale</label>
         <select
           class="form-select rounded-pill"
-          formControlName="type"
+          formControlName="type_lieu"
           [(ngModel)]="selectedType"
           (change)="getLieuxByType(selectedType)"
         >
@@ -543,7 +543,7 @@
             <label for="">Type du locale</label>
             <select
               class="form-select rounded-pill"
-              formControlName="type"
+              formControlName="type_lieu"
               [(ngModel)]="selectedType"
               (change)="getLieuxByType(selectedType)"
             >

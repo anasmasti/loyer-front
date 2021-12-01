@@ -37,10 +37,12 @@ a {
   @include notifSection(color(main-color))
 }
 
-.see-more-btn {
-  color: color(main-color);
+.quick-links{
+  color: color(second-color) !important;
+  font-weight: bold;
+  font-size: 15px;
+}
 
-  &:hover {
-    color: color(dark-body);
-  }
+.bg-links{
+  background: #fde5da;
 }
