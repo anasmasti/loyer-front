@@ -24,7 +24,7 @@ export interface Contrat {
   n_engagement_depense: string;
   echeance_revision_loyer: string;
   type_lieu: string;
-  foncier: string;
+  foncier: any;
   etat_contrat?: {
     libelle: string;
     etat: {
