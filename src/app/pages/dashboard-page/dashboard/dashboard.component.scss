@@ -37,12 +37,8 @@ a {
   @include notifSection(color(main-color))
 }
 
-.quick-links{
+.quick-links {
   color: color(second-color) !important;
   font-weight: bold;
   font-size: 15px;
-}
-
-.bg-links{
-  background: #fde5da;
 }
