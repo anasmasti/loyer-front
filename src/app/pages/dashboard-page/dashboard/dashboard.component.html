@@ -38,13 +38,11 @@
       <div class="col-lg-3 col-sm-12 col-12 main-card bg-white p-4 count-card">
         <h3>
           <span
-            *ngIf="allCount.totalCountDirecteurRegional"
             class="count-number"
             >{{ allCount.totalCountDirecteurRegional }}</span
           >
 
           <span
-            *ngIf="allCount.totalCountDirecteurRegional"
             class="count-label"
           >
             Directeur<span *ngIf="allCount.totalCountDirecteurRegional > 1"
@@ -52,10 +50,10 @@
             >
           </span>
 
-          <div
+          <!-- <div
             *ngIf="!allCount.totalCountDirecteurRegional"
             class="counts-skeleton"
-          ></div>
+          ></div> -->
         </h3>
       </div>
       <div class="col-lg-3 col-12 main-card bg-white p-4 count-card">
