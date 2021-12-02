@@ -1,26 +1,22 @@
-@use '../../../../assets/style/helpers' as *;
-@use '../../../../assets/style/components' as *;
+@use "../../../../assets/style/helpers" as *;
+@use "../../../../assets/style/components" as *;
 
 th {
-   @extend .header-table
+  @extend .header-table;
 }
 
 .av {
-    background: color(info);
-    color: color(light);
-    border-radius: $main-border-radius;
-    width: auto;
-    text-align: center;
+  background: color(info);
+  color: color(light);
+  border-radius: $main-border-radius;
+  width: auto;
+  text-align: center;
 }
 
-.main-card{
-    min-height: 100px !important;
- }
+.main-muted-text {
+  font-weight: 500;
+}
 
- .main-muted-text{
-     font-weight: 500;
- }
- 
-#actions{
-    min-height: 20px !important;
- }
+#actions {
+  min-height: 20px !important;
+}
