@@ -148,7 +148,7 @@
                 class="btn btn-sm second-btn me-2"
                 (click)="openListeProprietairesModal(contrat)"
               >
-                <i class="fal fa-users"></i> Voir
+                <i class="fal fa-users"></i> Voir ({{ contrat.foncier.proprietaire?.length }})
               </a>
             </div>
           </span>
@@ -325,16 +325,16 @@
                   <li>
                     <h5 class="main-title mb-3">Montant global</h5>
                     <p class="main-muted-text">
-                      Total des montants Net :
-                      <span class="text-capitalize selected-text">{{ mntNetGlobal }}</span>
+                      Total des montants nets :
+                      <span class="text-capitalize selected-text">{{ mntNetGlobal }}MAD</span>
                     </p>
                     <p class="main-muted-text">
-                      Total des montants Brut :
-                      <span class="text-capitalize selected-text">{{ mntBrutGlobal }}</span>
+                      Total des montants bruts :
+                      <span class="text-capitalize selected-text">{{ mntBrutGlobal }}MAD</span>
                     </p>
                     <p class="main-muted-text">
-                      Total des montants Taxes :
-                      <span class="text-capitalize selected-text">{{ mntTaxGlobal }}</span>
+                      Total des montants taxes :
+                      <span class="text-capitalize selected-text">{{ mntTaxGlobal }}MAD</span>
                     </p>
                   </li>
                   <li *ngFor="let prop of proprietaire.proprietaire_list">
