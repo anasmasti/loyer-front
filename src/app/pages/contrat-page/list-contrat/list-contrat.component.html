@@ -148,7 +148,9 @@
                 class="btn btn-sm second-btn me-2"
                 (click)="openListeProprietairesModal(contrat)"
               >
-                <i class="fal fa-users"></i> Voir
+                <i class="fal fa-users"></i> Voir ({{
+                  contrat.foncier.proprietaire?.length
+                }})
               </a>
             </div>
           </span>
@@ -292,7 +294,10 @@
 
           <tbody *ngIf="ProprietairesByContart.length">
             <tr
-              *ngFor="let proprietaire of selectedContrat.foncier.proprietaire; let i = index"
+              *ngFor="
+                let proprietaire of selectedContrat.foncier.proprietaire;
+                let i = index
+              "
             >
               <!-- <td >{{ proprietaire._id }}</td> -->
               <td>{{ proprietaire.nom_prenom }}</td>
@@ -314,47 +319,54 @@
                   aria-expanded="false"
                   *ngIf="proprietaire.proprietaire_list.length"
                   (click)="calculeMontantGlobal(proprietaire)"
-                  >
-                  <i class="fal fa-users"></i> {{proprietaire.proprietaire_list.length}} Proprietaires
+                >
+                  <i class="fal fa-users"></i>
+                  {{ proprietaire.proprietaire_list.length }} Proprietaires
                 </a>
                 <ul
                   id="proprietaireListDropdown"
                   class="dropdown-menu p-4 main-card border-0"
                   aria-labelledby="proprietaireList"
                 >
-                  <li class="bg-danger">
-                    <h5 class="main-title mb-3">Montant global</h5>
-                    <p class="main-muted-text ">
-                      Total des montants Net :
-                      <span class="text-capitalize selected-text">{{ mntNetGlobal }}</span>
+                  <li>
+                    <h5 class="main-title">Montant global</h5>
+                    <p class="main-muted-text my-0">
+                      Total des montants nets :
+                      <span class="selected-text">{{ mntNetGlobal }} MAD</span>
+                    </p>
+                    <p class="main-muted-text my-0">
+                      Total des montants bruts :
+                      <span class="selected-text">{{ mntBrutGlobal }} MAD</span>
                     </p>
                     <p class="main-muted-text">
-                      Total des montants Brut :
-                      <span class="text-capitalize selected-text">{{ mntBrutGlobal }}</span>
-                    </p>
-                    <p class="main-muted-text">
-                      Total des montants Taxes :
-                      <span class="text-capitalize selected-text">{{ mntTaxGlobal }}</span>
+                      Total des montants taxes :
+                      <span class="selected-text">{{ mntTaxGlobal }} MAD</span>
                     </p>
                   </li>
                   <li *ngFor="let prop of proprietaire.proprietaire_list">
                     <hr />
-                    <h5 class="main-title mb-3">
+                    <h6 class="header-title">
                       {{ prop.nom_prenom }} ({{
                         prop.cin || prop.carte_sejour || prop.passport
                       }})
-                    </h5>
-                    <p class="main-muted-text">
-                      Montant Net :
-                      <span class="text-capitalize selected-text">{{ prop.montant_apres_impot }}</span>
+                    </h6>
+                    <p class="main-muted-text my-0">
+                      Montant net :
+                      <span class="selected-text"
+                        >{{ prop.montant_apres_impot }} MAD</span
+                      >
+                    </p>
+                    <p class="main-muted-text my-0">
+                      Montant brut :
+                      <span class="selected-text"
+                        >{{ prop.montant_loyer }} MAD</span
+                      >
                     </p>
                     <p class="main-muted-text">
-                      Montant Brut :
-                      <span class="text-capitalize selected-text">{{ prop.montant_loyer }}</span>
-                    </p>
-                    <p class="main-muted-text">
-                      Montant Taxe :
-                      <span class="text-capitalize selected-text">{{ prop.tax_par_periodicite }}</span>
+                      Montant taxe :
+                      <span class="selected-text"
+                        >{{ prop.tax_par_periodicite }} MAD</span
+                      >
                     </p>
                   </li>
                 </ul>
