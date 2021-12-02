@@ -318,7 +318,7 @@
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                   *ngIf="proprietaire.proprietaire_list.length"
-                  (click)="calculeMontantGlobal(proprietaire)"
+                  (click)="calculMontantsGlobal(proprietaire)"
                 >
                   <i class="fal fa-users"></i>
                   {{ proprietaire.proprietaire_list.length }} Proprietaires
@@ -353,19 +353,28 @@
                     <p class="main-muted-text my-0">
                       Montant net :
                       <span class="selected-text"
-                        >{{ prop.montant_apres_impot }} MAD</span
+                        >{{
+                          calculMontantsProprietaire(prop, "mntNet")
+                        }}
+                        MAD</span
                       >
                     </p>
                     <p class="main-muted-text my-0">
                       Montant brut :
                       <span class="selected-text"
-                        >{{ prop.montant_loyer }} MAD</span
+                        >{{
+                          calculMontantsProprietaire(prop, "mntBrut")
+                        }}
+                        MAD</span
                       >
                     </p>
                     <p class="main-muted-text">
                       Montant taxe :
                       <span class="selected-text"
-                        >{{ prop.tax_par_periodicite }} MAD</span
+                        >{{
+                          calculMontantsProprietaire(prop, "mntTaxe")
+                        }}
+                        MAD</span
                       >
                     </p>
                   </li>

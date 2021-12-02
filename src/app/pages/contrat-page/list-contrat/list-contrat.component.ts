@@ -244,7 +244,7 @@ export class ListContratComponent implements OnInit {
     }, 400);
   }
 
-  calculeMontantGlobal(proprietaire: any) {
+  calculMontantsGlobal(proprietaire: any) {
     let mntLoyerGlobal = 0,
       mntAvanceGlobal = 0,
       mntCautionGlobal = 0,
@@ -289,7 +289,42 @@ export class ListContratComponent implements OnInit {
       // Calcul montant tax global
       this.mntTaxGlobal = mntTaxPeriodiciteGlobal + mntTaxAvanceGlobal;
     }
+  }
 
+  calculMontantsProprietaire(proprietaire: any, field: string) {
+    let mntNet, mntBrut, mntTaxe;
+
+    if (
+      this.selectedContrat.avance_versee &&
+      this.selectedContrat.caution_versee
+    ) {
+      mntNet = proprietaire.montant_apres_impot;
+      mntBrut = proprietaire.montant_loyer;
+      mntTaxe = proprietaire.tax_par_periodicite;
+    } else {
+      mntNet =
+      proprietaire.montant_apres_impot +
+      (proprietaire.montant_avance_proprietaire -
+        proprietaire.tax_avance_proprietaire) +
+        proprietaire.caution_par_proprietaire;
+        mntBrut =
+        proprietaire.montant_loyer +
+        proprietaire.montant_avance_proprietaire +
+        proprietaire.caution_par_proprietaire;
+        mntTaxe =
+        proprietaire.tax_avance_proprietaire + proprietaire.tax_par_periodicite;
+    }
+
+    switch (field) {
+      case 'mntNet':
+        return mntNet;
+      case 'mntBrut':
+        return mntBrut;
+      case 'mntTaxe':
+        return mntTaxe;
+      default:
+        return null;
+    }
   }
 
   // downloadAnnex1(filename: string) {
