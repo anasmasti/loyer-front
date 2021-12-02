@@ -106,6 +106,9 @@ export class LfFormComponent implements OnInit, OnDestroy, OnChanges {
   fetchLf() {
     this.RemoveAllDericteurs();
 
+    console.log(this.Lieu);
+    
+
     this.etatLogement = this.Lieu.etat_logement_fonction;
 
     this.LfForm.patchValue({
@@ -312,14 +315,14 @@ export class LfFormComponent implements OnInit, OnDestroy, OnChanges {
       categorie_pointVente: this.LfForm.get('categorie_pointVente')?.value,
 
       // Directeur
-      // directeur_regional: [
-      //   {
-      //     matricule: this.LfForm.get('matricule_directeur')?.value,
-      //     nom: this.LfForm.get('nom_directeur')?.value,
-      //     prenom: this.LfForm.get('prenom_directeur')?.value,
-      //   },
-      // ],
-      directeur_regional: [],
+      directeur_regional: [
+        {
+          matricule: this.LfForm.get('matricule_directeur')?.value,
+          nom: this.LfForm.get('nom_directeur')?.value,
+          prenom: this.LfForm.get('prenom_directeur')?.value,
+        },
+      ],
+      // directeur_regional: [],
 
       // Amenagement
       amenagement: this.LfForm.get('amenagementForm')?.value,
@@ -343,7 +346,7 @@ export class LfFormComponent implements OnInit, OnDestroy, OnChanges {
         }, 3000);
         this.hideErrorMessage();
       }
-    );
+    );    
   }
 
   //////////////////////////////////////////////////////////////////////////////////
