@@ -735,7 +735,7 @@ export class FormContratComponent implements OnInit {
             '',
             duree_consomme: this.contratForm.get('duree_consomme')?.value ||
             '',
-            duree_a_recupere: this.durreeRecuperer || 0,
+            duree_a_recupere: this.durreeRecuperer ,
         },
       },
 
