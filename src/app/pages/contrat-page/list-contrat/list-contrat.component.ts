@@ -262,9 +262,8 @@ export class ListContratComponent implements OnInit {
       mntCautionGlobal += prop.caution_par_proprietaire;
       mntApresImpotGlobal += prop.montant_apres_impot;
       mntTaxAvanceGlobal += prop.tax_avance_proprietaire;
-      mntTaxPeriodiciteGlobal += prop.tax_par_periodicite
+      mntTaxPeriodiciteGlobal += prop.tax_par_periodicite;
     });
-
     if (
       this.selectedContrat.avance_versee &&
       this.selectedContrat.caution_versee
@@ -290,6 +289,7 @@ export class ListContratComponent implements OnInit {
       // Calcul montant tax global
       this.mntTaxGlobal = mntTaxPeriodiciteGlobal + mntTaxAvanceGlobal;
     }
+
   }
 
   // downloadAnnex1(filename: string) {
