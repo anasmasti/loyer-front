@@ -47,9 +47,14 @@ export class ListContratComponent implements OnInit {
 
   idModal: string = 'listeProprietaires';
   ProprietairesByContart: any[] = [];
+  selectedContrat!: any;
   num_contrat!: string;
 
   findStatus!: string;
+
+  mntNetGlobal!: number;
+  mntBrutGlobal!: number;
+  mntTaxGlobal!: number;
 
   constructor(
     private contratService: ContratService,
@@ -80,6 +85,7 @@ export class ListContratComponent implements OnInit {
     this.contratService.getContrat().subscribe(
       (data: any) => {
         this.contrats = data;
+        console.log(data);
       },
       (error: any) => {
         this.accessError = error.error.message;
@@ -88,7 +94,7 @@ export class ListContratComponent implements OnInit {
   }
 
   checkAndPutText(value: boolean) {
-    return this.helperService.booleanToText(value)
+    return this.helperService.booleanToText(value);
   }
 
   // Filter by intitule
@@ -126,7 +132,10 @@ export class ListContratComponent implements OnInit {
 
   openListeProprietairesModal(SelectedContrat: any) {
     this.mainModalService.open(this.id);
-    this.ProprietairesByContart = SelectedContrat.lieu.proprietaire;
+    this.ProprietairesByContart = SelectedContrat.foncier.proprietaire;
+    this.selectedContrat = SelectedContrat;
+    console.log(SelectedContrat.foncier.proprietaire);
+
     this.num_contrat = SelectedContrat.numero_contrat;
   }
 
@@ -233,6 +242,54 @@ export class ListContratComponent implements OnInit {
     setTimeout(() => {
       location.reload();
     }, 400);
+  }
+
+  calculeMontantGlobal(proprietaire: any) {
+    let mntLoyerGlobal = 0,
+      mntAvanceGlobal = 0,
+      mntCautionGlobal = 0,
+      mntTaxAvanceGlobal = 0,
+      mntTaxPeriodiciteGlobal = 0,
+      mntApresImpotGlobal = 0;
+
+    this.mntBrutGlobal = 0;
+    this.mntNetGlobal = 0;
+    this.mntTaxGlobal = 0;
+
+    proprietaire.proprietaire_list.forEach((prop: any) => {
+      mntLoyerGlobal += prop.montant_loyer;
+      mntAvanceGlobal += prop.montant_avance_proprietaire;
+      mntCautionGlobal += prop.caution_par_proprietaire;
+      mntApresImpotGlobal += prop.montant_apres_impot;
+      mntTaxAvanceGlobal += prop.tax_avance_proprietaire;
+      mntTaxPeriodiciteGlobal += prop.tax_par_periodicite
+    });
+
+    if (
+      this.selectedContrat.avance_versee &&
+      this.selectedContrat.caution_versee
+    ) {
+      // Calcul montant net global
+      this.mntNetGlobal = mntApresImpotGlobal;
+
+      // Calcul montant brut global
+      this.mntBrutGlobal = mntLoyerGlobal;
+
+      // Calcul montant tax global
+      this.mntTaxGlobal = mntTaxPeriodiciteGlobal;
+    } else {
+      // Calcul montant net global
+      this.mntNetGlobal =
+        mntApresImpotGlobal +
+        (mntAvanceGlobal - mntTaxAvanceGlobal) +
+        mntCautionGlobal;
+
+      // Calcul montant brut global
+      this.mntBrutGlobal = mntLoyerGlobal + mntAvanceGlobal + mntCautionGlobal;
+
+      // Calcul montant tax global
+      this.mntTaxGlobal = mntTaxPeriodiciteGlobal + mntTaxAvanceGlobal;
+    }
   }
 
   // downloadAnnex1(filename: string) {

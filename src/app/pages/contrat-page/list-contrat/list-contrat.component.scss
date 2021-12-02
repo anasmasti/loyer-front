@@ -14,9 +14,12 @@ th {
 }
 
 .main-card{
-    min-height: 600px !important;
+    min-height: 100px !important;
  }
 
+ .main-muted-text{
+     font-weight: 500;
+ }
  
 #actions{
     min-height: 20px !important;
