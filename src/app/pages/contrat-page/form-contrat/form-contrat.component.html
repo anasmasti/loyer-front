@@ -361,7 +361,7 @@
             </select>
           </div>
 
-          <div class="row" *ngIf="cautionConsommee == 'partial'">
+          <div class="row" *ngIf="cautionConsommee == 'partial' && repriseCaution == 'Consommée'">
             <div class="col-lg-3 form-group mt-4">
               <label for="">Durée consommée</label>
               <input type="number" class="form-control rounded-pill" formControlName="duree_consomme" (keyup)="calculCautionDurreeRecuperer()">
