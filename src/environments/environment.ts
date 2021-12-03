@@ -6,16 +6,16 @@ export const environment = {
   production: false,
   // Api url
   API_URL: 'https://loyer-api.herokuapp.com/api/',
-  // Api test url 
-  API_URL_TEST: 'http://192.168.11.109:5000/api/',
+  // Api test url
+  API_URL_TEST: 'http://192.168.11.108:5000/api/',
   // Api test url without param
-  API_URL_WITHOUT_PARAM: 'http://192.168.11.109:5000/',
+  API_URL_WITHOUT_PARAM: 'http://192.168.11.108:5000/',
   // Api access key
   API_ACCESS_KEY: 'take$the#whole!bull',
   // Api version
   API_VERSION: 'v1/',
   // Application version
-  APP_VERSION: '1 (Beta3 Dev)'
+  APP_VERSION: '1 (Beta3 Dev)',
 };
 
 /*

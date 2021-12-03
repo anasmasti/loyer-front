@@ -36,7 +36,7 @@ import { DatePipe } from '@angular/common';
     HeaderNavbarModule,
     StoreModule.forRoot(appReducer),
     EffectsModule.forRoot([]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
+    environment.production == true ? [] : StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [
     DatePipe,

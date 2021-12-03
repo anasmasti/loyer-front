@@ -36,10 +36,8 @@
         <thead>
             <tr>
                 <th>Nom complet</th>
-                <th>Raison sociale</th>
-                <th>N° de registre commerce</th>
-                <th>Mandataire</th>
-                <th>Mandataire</th>
+                <th>CIN</th>
+                <th>Numéro de téléphone</th>
                 <th>Mandataire</th>
                 <th>Actions</th>
             </tr>
@@ -50,10 +48,8 @@
                 *ngFor="let proprietaire of proprietaires | paginate: { itemsPerPage: tableSize, currentPage: listProprietairePage, id: 'listProprietaitePagination', totalItems: count }; let i = index">
                 <!-- <td >{{ proprietaire._id }}</td> -->
                 <td>{{ proprietaire.nom_prenom }}</td>
-                <td>test</td>
-                <td>test</td>
-                <td>{{ proprietaire.raison_social }}</td>
-                <td>{{ proprietaire.n_registre_commerce }} </td>
+                <td>{{ proprietaire.cin }}</td>
+                <td>{{ proprietaire.telephone }}</td>
                 
                 <td>
                     <div class="d-grid">
