@@ -72,7 +72,24 @@
           >Contrats actifs</label
         >
       </div>
+      <div class="">
+        <input
+          id="st_caution"
+          type="radio"
+          name="search-by-libelle"
+          class="btn-check check"
+          (click)="searchByStatutCaution($event, 'En cours')"
+          autocomplete="off"
+        />
+        <label class="px-3 mx-2 rounded-pill checkbox-list-btns" for="st_caution">
+          Caution en cours
+        </label>
+      </div>
+
     </div>
+    <!-- /////////////////////////////////////////////////////////////// -->
+    
+    <!-- //////////////////////////////////////////////////////////////// -->
   </div>
 
   <table class="table">
@@ -82,6 +99,7 @@
         <th>Montant loyer</th>
         <th>Date début du loyer</th>
         <th>Date fin de contrat</th>
+        <th>Statut de la caution</th>
         <th>État</th>
         <th>Proprietaires liés</th>
         <th>Actions</th>
@@ -107,6 +125,11 @@
         <td>{{ contrat.montant_loyer | currency: "MAD" }}</td>
         <td>{{ contrat.date_debut_loyer | date }}</td>
         <td>{{ contrat.date_fin_contrat | date }}</td>
+        <td [ngClass]="{
+          'info-txt': contrat.statut_caution == 'Récupérée',
+          'danger-txt': contrat.statut_caution == 'Consommée',
+          'success-txt': contrat.statut_caution == 'En cours'
+        }">{{ contrat.statut_caution }}</td>
 
         <td
           class="py-3 success-txt"

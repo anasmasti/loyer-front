@@ -125,6 +125,18 @@ export class ListContratComponent implements OnInit {
     return;
   }
 
+  searchByStatutCaution(event: any,statut: string) {
+    if (event.target.checked) {
+      this.contrats = this.contrats.filter((res) => {
+        return res.statut_caution
+          ?.toString()
+          ?.toLowerCase()
+          .match(statut.toLowerCase());
+          // En cours
+      });
+    } 
+  }
+
   openEditModal(SelectedContrat: any) {
     this.mainModalService.open();
     this.targetContrat = SelectedContrat;
