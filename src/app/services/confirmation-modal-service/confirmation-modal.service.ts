@@ -10,7 +10,6 @@ export class ConfirmationModalService {
   // Open the modal
   open(id: string = 'confirmationModal') {
     let mainModal = this.document.getElementById(id); // Get modal from the DOM by id
-    // console.log(mainModal);
 
     mainModal?.classList.add('open'); // Open it by add open class to the selected modal element
   }
