@@ -106,9 +106,6 @@ export class LfFormComponent implements OnInit, OnDestroy, OnChanges {
   fetchLf() {
     this.RemoveAllDericteurs();
 
-    console.log(this.Lieu);
-    
-
     this.etatLogement = this.Lieu.etat_logement_fonction;
 
     this.LfForm.patchValue({

@@ -154,7 +154,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   getLieuxByType(type: string) {
     this.store.select(getLieuxByType, { type_lieu: type }).subscribe((data) => {
       this.lieuxByType = data;
-      console.log('data', data);
     });
     this.Intituler_lieu = '';
   }
@@ -634,7 +633,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     this.selectedType = '';
     this.Intituler_lieu = '';
     this.lieuxByType = [];
-    console.log('foncier list', this.foncierLieux);
   }
 
   annulerTransfere() {
