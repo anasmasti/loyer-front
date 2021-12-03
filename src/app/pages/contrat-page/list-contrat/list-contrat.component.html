@@ -332,15 +332,15 @@
                     <h5 class="main-title">Montant global</h5>
                     <p class="main-muted-text my-0">
                       Total des montants nets :
-                      <span class="selected-text">{{ mntNetGlobal }} MAD</span>
+                      <span class="selected-text">{{ mntNetGlobal | currency: "MAD"}}</span>
                     </p>
                     <p class="main-muted-text my-0">
                       Total des montants bruts :
-                      <span class="selected-text">{{ mntBrutGlobal }} MAD</span>
+                      <span class="selected-text">{{ mntBrutGlobal | currency: "MAD"}}</span>
                     </p>
                     <p class="main-muted-text">
                       Total des montants taxes :
-                      <span class="selected-text">{{ mntTaxGlobal }} MAD</span>
+                      <span class="selected-text">{{ mntTaxGlobal | currency: "MAD"}}</span>
                     </p>
                   </li>
                   <li *ngFor="let prop of proprietaire.proprietaire_list">
@@ -353,19 +353,19 @@
                     <p class="main-muted-text my-0">
                       Montant net :
                       <span class="selected-text"
-                        >{{ prop.montant_apres_impot }} MAD</span
+                        >{{ prop.montant_apres_impot | currency: "MAD"}}</span
                       >
                     </p>
                     <p class="main-muted-text my-0">
                       Montant brut :
                       <span class="selected-text"
-                        >{{ prop.montant_loyer }} MAD</span
+                        >{{ prop.montant_loyer | currency: "MAD"}}</span
                       >
                     </p>
                     <p class="main-muted-text">
                       Montant taxe :
                       <span class="selected-text"
-                        >{{ prop.tax_par_periodicite }} MAD</span
+                        >{{ prop.tax_par_periodicite | currency: "MAD"}}</span
                       >
                     </p>
                   </li>
