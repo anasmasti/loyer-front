@@ -318,7 +318,7 @@
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                   *ngIf="proprietaire.proprietaire_list.length"
-                  (click)="calculeMontantGlobal(proprietaire)"
+                  (click)="calculMontantsGlobal(proprietaire)"
                 >
                   <i class="fal fa-users"></i>
                   {{ proprietaire.proprietaire_list.length }} Proprietaires
@@ -332,15 +332,21 @@
                     <h5 class="main-title">Montant global</h5>
                     <p class="main-muted-text my-0">
                       Total des montants nets :
-                      <span class="selected-text">{{ mntNetGlobal | currency: "MAD"}}</span>
+                      <span class="selected-text">{{
+                        mntNetGlobal | currency: "MAD"
+                      }}</span>
                     </p>
                     <p class="main-muted-text my-0">
                       Total des montants bruts :
-                      <span class="selected-text">{{ mntBrutGlobal | currency: "MAD"}}</span>
+                      <span class="selected-text">{{
+                        mntBrutGlobal | currency: "MAD"
+                      }}</span>
                     </p>
                     <p class="main-muted-text">
                       Total des montants taxes :
-                      <span class="selected-text">{{ mntTaxGlobal | currency: "MAD"}}</span>
+                      <span class="selected-text">{{
+                        mntTaxGlobal | currency: "MAD"
+                      }}</span>
                     </p>
                   </li>
                   <li *ngFor="let prop of proprietaire.proprietaire_list">
@@ -352,21 +358,27 @@
                     </h6>
                     <p class="main-muted-text my-0">
                       Montant net :
-                      <span class="selected-text"
-                        >{{ prop.montant_apres_impot | currency: "MAD"}}</span
-                      >
+                      <span class="selected-text">
+                        {{
+                          calculMontantsProprietaire(prop, "mntNet") | currency: "MAD"
+                        }}
+                      </span>
                     </p>
                     <p class="main-muted-text my-0">
                       Montant brut :
-                      <span class="selected-text"
-                        >{{ prop.montant_loyer | currency: "MAD"}}</span
-                      >
+                      <span class="selected-text">
+                        {{
+                          calculMontantsProprietaire(prop, "mntBrut") | currency: "MAD"
+                        }}
+                      </span>
                     </p>
                     <p class="main-muted-text">
                       Montant taxe :
-                      <span class="selected-text"
-                        >{{ prop.tax_par_periodicite | currency: "MAD"}}</span
-                      >
+                      <span class="selected-text">
+                        {{
+                          calculMontantsProprietaire(prop, "mntTaxe") | currency: "MAD"
+                        }}
+                      </span>
                     </p>
                   </li>
                 </ul>
