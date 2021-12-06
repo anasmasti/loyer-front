@@ -356,8 +356,6 @@ export class FormContratComponent implements OnInit {
 
     
     // this.dureeCaution = this.contrat.duree_caution;
-
-    console.log("dureeCaution",this.dureeCaution);
     
     this.durreeRecuperer = this.dureeCaution - this.durreConsommee;
     if (this.durreeRecuperer < 0) {
@@ -526,8 +524,6 @@ export class FormContratComponent implements OnInit {
 
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
-    console.log(this.foncier_id);
-    
 
     // post the formdata (data+files)
     this.contratService
@@ -748,7 +744,6 @@ export class FormContratComponent implements OnInit {
     };
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
-    console.log(ctr_data);
     
     
     // patch the formdata (data+files)

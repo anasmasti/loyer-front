@@ -85,7 +85,6 @@ export class ListContratComponent implements OnInit {
     this.contratService.getContrat().subscribe(
       (data: any) => {
         this.contrats = data;
-        console.log(data);
       },
       (error: any) => {
         this.accessError = error.error.message;
@@ -146,7 +145,6 @@ export class ListContratComponent implements OnInit {
     this.mainModalService.open(this.id);
     this.ProprietairesByContart = SelectedContrat.foncier.proprietaire;
     this.selectedContrat = SelectedContrat;
-    console.log(SelectedContrat.foncier.proprietaire);
 
     this.num_contrat = SelectedContrat.numero_contrat;
   }

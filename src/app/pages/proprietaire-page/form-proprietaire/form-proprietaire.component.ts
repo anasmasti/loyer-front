@@ -483,6 +483,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     if (periodicite == 'trimestrielle') {
       this.taxPeriodicite = this.retenueSource / (dureeLocation * 3);
     }
+    if (periodicite == 'annuelle') {
+      this.taxPeriodicite = this.retenueSource / 12;
+    }
   }
 
   // caluclate the caution of each proprietaire
