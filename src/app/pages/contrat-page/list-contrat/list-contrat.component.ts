@@ -337,6 +337,11 @@ export class ListContratComponent implements OnInit {
     }
   }
 
+  downloadContratReporting() {
+    console.log('done');
+    
+  }
+
   // downloadAnnex1(filename: string) {
   //   this.downloadService.dowloadFileAnnex1(filename).subscribe((res) => {
   //     if (res) {

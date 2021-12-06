@@ -41,6 +41,13 @@
     <div *ngIf="dateSelected;then Buttons;else Error"></div>
 </div>
 
+<div class="row mt-5">
+    <div class="col-lg-12 d-flex align-items-lg-start justify-content-lg-start gap-1 flex-column mt-lg-5">
+        <h3 class="main-title">Génération des reportings</h3>
+        <a class="btn second-btn mt-3" (click)="generateReportings()">Générer les reportings</a>  
+    </div>
+</div>
+
 <ng-template #Buttons>
     <h5 class="mt-4">
         Comptabilisation

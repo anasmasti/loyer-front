@@ -163,4 +163,9 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
       );
   }
 
+  downloadLieuxReporting() {
+    console.log('done');
+    
+  }
+
 }

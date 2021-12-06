@@ -122,6 +122,11 @@ export class FilesGenerationComponent implements OnInit {
     })
   }
 
+  generateReportings() {
+    console.log('generate done');
+    
+  }
+
   get date_gen() {
     return this.filesForm.get('date_gen');
   }
