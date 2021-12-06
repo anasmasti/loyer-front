@@ -1,4 +1,3 @@
-import { Lieu } from 'src/app/models/Lieu';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({

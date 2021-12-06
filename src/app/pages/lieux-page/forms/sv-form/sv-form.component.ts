@@ -1,8 +1,7 @@
 import { Router } from '@angular/router';
-import { getCitiesAction } from './../../../../store/shared/shared.action';
 import { AppState } from './../../../../store/app.state';
 import { Component, Inject, Input, OnDestroy, OnInit, OnChanges } from '@angular/core';
-import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
@@ -11,7 +10,6 @@ import { getDrWithSupAction } from '../../lieux-store/lieux.actions';
 import { getDr } from '../../lieux-store/lieux.selector';
 import { DOCUMENT } from '@angular/common';
 import { HelperService } from 'src/app/services/helpers/helper.service';
-import { getCities } from 'src/app/store/shared/shared.selector';
 
 @Component({
   selector: 'sv-form',

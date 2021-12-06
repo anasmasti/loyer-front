@@ -2,7 +2,7 @@ import { AppState } from './../../../../store/app.state';
 import { MainModalService } from './../../../../services/main-modal/main-modal.service';
 import { LieuxService } from './../../../../services/lieux-service/lieux.service';
 import { Component, Inject, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormControl, FormGroup,Validators } from '@angular/forms';
 import { getDrWithSupAction } from '../../lieux-store/lieux.actions';
 import { getDr, getSup } from '../../lieux-store/lieux.selector';
 import { Store } from '@ngrx/store';
