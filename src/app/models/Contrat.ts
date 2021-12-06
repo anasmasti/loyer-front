@@ -17,7 +17,7 @@ export interface Contrat {
   retenue_source: string;
   montant_apres_impot: number;
   montant_caution: number;
-  effort_caution: string;
+  duree_caution: string;
   statut_caution: string;
   montant_avance: number;
   duree_avance: number;

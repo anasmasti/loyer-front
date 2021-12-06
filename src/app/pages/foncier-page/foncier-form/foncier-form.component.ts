@@ -153,7 +153,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
   getLieuxByType(type: string) {
     this.store.select(getLieuxByType, { type_lieu: type }).subscribe((data) => {
-      this.lieuxByType = data;
+      if(data) this.lieuxByType = data;
     });
     this.Intituler_lieu = '';
   }

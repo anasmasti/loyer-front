@@ -33,7 +33,7 @@
         <label for="">Lieu</label>
         <select class="form-select rounded-pill" formControlName="lieu">
           <option [value]="lieu._id" *ngFor="let lieu of lieuxByType">
-            {{ lieu.code_lieu }}
+            {{ lieu.type_lieu == 'Logement de fonction' ? lieu.code_localite : lieu.code_lieu}}
           </option>
         </select>
       </div>
