@@ -200,6 +200,9 @@
           </div>
         </td>
         <td *ngIf="userRoles.includes('CDGSP') || userRoles.includes('DAJC')">
+          <div class="text-center danger-txt" *ngIf="contrat.etat_contrat?.libelle == 'Résilié'">
+            ---
+          </div>
           <div
             class="btn-group d-grid"
             role="group"
@@ -239,9 +242,7 @@
                       [disabled]="contrat.validation1_DMG"
                     >
                       {{
-                        contrat.validation1_DMG
-                          ? "Contrat validé"
-                          : "Valider le contrat"
+                        contrat.validation1_DMG? "Contrat validé" : "Valider le contrat"
                       }}
                     </button>
                   </div>
