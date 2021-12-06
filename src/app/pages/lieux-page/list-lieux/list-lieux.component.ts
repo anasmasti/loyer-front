@@ -1,3 +1,4 @@
+import { ReportingService } from './../../../services/reporting/reporting.service';
 import { Lieu } from '../../../models/Lieu';
 import { HelperService } from './../../../services/helpers/helper.service';
 import { getLoading } from './../../../store/shared/shared.selector';
@@ -46,6 +47,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
     private helperService: HelperService,
+    private reportingService: ReportingService,
     private store: Store<AppState>
   ) { }
 
@@ -164,8 +166,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
   }
 
   downloadLieuxReporting() {
-    console.log('done');
-    
+    this.reportingService.downloadLieuxReporting()
   }
 
 }

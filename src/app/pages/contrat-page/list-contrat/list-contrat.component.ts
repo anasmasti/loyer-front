@@ -1,3 +1,4 @@
+import { ReportingService } from './../../../services/reporting/reporting.service';
 import { HelperService } from './../../../services/helpers/helper.service';
 import { Component, OnInit } from '@angular/core';
 import { Contrat } from 'src/app/models/Contrat';
@@ -61,7 +62,7 @@ export class ListContratComponent implements OnInit {
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
     private helperService: HelperService,
-    private downloadService: DownloadService
+    private reportingService: ReportingService
   ) {}
 
   ngOnInit(): void {
@@ -338,8 +339,7 @@ export class ListContratComponent implements OnInit {
   }
 
   downloadContratReporting() {
-    console.log('done');
-    
+   this.reportingService.downloadContratReporting()
   }
 
   // downloadAnnex1(filename: string) {
