@@ -8,9 +8,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class LieuxService {
-  constructor(private http: HttpClient) { }
-
   param_url: string = 'lieu';
+  
+  constructor(private http: HttpClient) { }
 
   // Get list of all lieux from database
   getLieux(matricule: any): Observable<Lieu[]> | any {

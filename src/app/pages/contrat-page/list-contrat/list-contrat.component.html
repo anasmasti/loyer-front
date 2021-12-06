@@ -4,12 +4,15 @@
       <!-- <h3 class=""></h3> -->
       <h3 class="main-title">Liste des contrats</h3>
       <div class="d-none d-lg-block">
-        <a class="btn btn-sm success-btn" [routerLink]="['/']">
+        <a class="btn btn-sm main-btn" [routerLink]="['/']">
           <i class="fal fa-home"></i> Tableau de board
         </a>
         <a class="btn btn-sm second-btn mx-3" (click)="reload()"
           ><i class="far fa-undo-alt"></i>
           Rafraîchir la liste
+        </a>
+        <a class="btn btn-sm success-btn me-3" (click)="downloadContratReporting()"><i class="fal fa-file-download"></i>
+          Télécharger les reportings
         </a>
         <span
           data-bs-toggle="tooltip"

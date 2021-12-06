@@ -1,3 +1,4 @@
+import { ReportingService } from './../../services/reporting/reporting.service';
 import { ClotureService } from '../../services/cloture/cloture.service';
 import { ConfirmationModalService } from './../../services/confirmation-modal-service/confirmation-modal.service';
 import { HelperService } from 'src/app/services/helpers/helper.service';
@@ -17,7 +18,8 @@ export class FilesGenerationComponent implements OnInit {
     private help: HelperService,
     private confirmationModalService: ConfirmationModalService,
     private downloadService: DownloadService,
-    private clotureService: ClotureService
+    private clotureService: ClotureService,
+    private reportingService: ReportingService
   ) { }
 
   today!: any;
@@ -120,6 +122,12 @@ export class FilesGenerationComponent implements OnInit {
         fileSaver.saveAs(res, filename);
       }
     })
+  }
+
+  generateReportings() {
+    this.reportingService.generateReportings('jfjf', 'hrfh')
+
+    
   }
 
   get date_gen() {
