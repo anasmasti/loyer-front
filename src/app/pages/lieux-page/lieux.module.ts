@@ -19,7 +19,7 @@ import { lieuxReducer } from './lieux-store/lieux.reducer';
 import { LieuxEffects } from './lieux-store/lieux.effect';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
-import { ListReportingLieuxComponent } from './list-reporting-lieux/list-reporting-lieux/list-reporting-lieux.component';
+import { ListReportingLieuxComponent } from './list-reporting-lieux/list-reporting-lieux.component';
 
 
 const route: Routes = [

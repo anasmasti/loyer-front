@@ -17,7 +17,7 @@ import { StoreModule } from '@ngrx/store';
 import { foncierReducer } from '../foncier-page/foncier-store/foncier.reducer';
 import { FoncierEffects } from '../foncier-page/foncier-store/foncier.effect';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { ListReportingContratComponent } from './list-reporting-contrat/list-reporting-contrat/list-reporting-contrat.component';
+import { ListReportingContratComponent } from './list-reporting-contrat/list-reporting-contrat.component';
 
 
 const route: Routes = [
