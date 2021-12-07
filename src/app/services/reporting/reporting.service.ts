@@ -12,21 +12,19 @@ export class ReportingService {
   constructor(private http: HttpClient) { }
 
   // Generate reportings
-  generateReportings(matricule: any, data: any,type_lieux: any): Observable<any> {
+  generateReportings(matricule: any, data: any,type_reporting: any): Observable<any> {
     return this.http.post<any>(
       `${environment.API_URL_TEST + environment.API_VERSION + this.param_url
-      }/generate/${matricule}`, data, type_lieux
+      }/generate/${matricule}/${type_reporting}`, data
     );
   }
 
   downloadLieuxReporting() {
     console.log('done');
-    
   }
 
   downloadContratReporting() {
     console.log('done');
-    
   }
 
 }

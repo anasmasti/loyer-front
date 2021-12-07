@@ -5,6 +5,7 @@ import { Contrat } from 'src/app/models/Contrat';
 import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
 import { ContratService } from 'src/app/services/contrat-service/contrat.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
+import { SearchServiceService } from 'src/app/services/search-service/search-service.service';
 
 @Component({
   selector: 'app-list-contrat',
@@ -19,6 +20,7 @@ export class ListContratComponent implements OnInit {
   findContrat!: string;
   Class: string = '';
   disabledEtat: boolean = false;
+  idReport: string = '1';
 
   //Validation 1
   isValidate!: boolean;
@@ -55,12 +57,15 @@ export class ListContratComponent implements OnInit {
   mntBrutGlobal!: number;
   mntTaxGlobal!: number;
 
+  statut!: string;
+
   constructor(
     private contratService: ContratService,
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
     private helperService: HelperService,
-    private reportingService: ReportingService
+    private reportingService: ReportingService,
+    private searchService: SearchServiceService
   ) {}
 
   ngOnInit(): void {
@@ -98,12 +103,13 @@ export class ListContratComponent implements OnInit {
   // Filter by intitule
   search() {
     if (this.findContrat != '') {
-      this.contrats = this.contrats.filter((res) => {
-        return res.numero_contrat
-          ?.toString()
-          ?.toLowerCase()
-          .match(this.findContrat.toLowerCase());
-      });
+      this.searchService.mainSearch(
+        this.contrats = this.contrats.filter((res) => {
+          return res.numero_contrat
+            ?.toString()
+            ?.toLowerCase()
+            .match(this.findContrat.toLowerCase());
+        }));
     } else if (this.findContrat == '') {
       this.getContrat();
     }
@@ -123,21 +129,25 @@ export class ListContratComponent implements OnInit {
     return;
   }
 
-  searchByStatutCaution(event: any,statut: string) {
+  searchByStatutCaution(event: any, statut: string) {
     if (event.target.checked) {
       this.contrats = this.contrats.filter((res) => {
         return res.statut_caution
           ?.toString()
           ?.toLowerCase()
           .match(statut.toLowerCase());
-          // En cours
+        // En cours
       });
-    } 
+    }
   }
 
   openEditModal(SelectedContrat: any) {
     this.mainModalService.open();
     this.targetContrat = SelectedContrat;
+  }
+
+  openListReportingModal() {
+    this.mainModalService.open(this.idReport);
   }
 
   openListeProprietairesModal(SelectedContrat: any) {
@@ -312,15 +322,15 @@ export class ListContratComponent implements OnInit {
       mntTaxe = proprietaire.tax_par_periodicite;
     } else {
       mntNet =
-      proprietaire.montant_apres_impot +
-      (proprietaire.montant_avance_proprietaire -
-        proprietaire.tax_avance_proprietaire) +
+        proprietaire.montant_apres_impot +
+        (proprietaire.montant_avance_proprietaire -
+          proprietaire.tax_avance_proprietaire) +
         proprietaire.caution_par_proprietaire;
-        mntBrut =
+      mntBrut =
         proprietaire.montant_loyer +
         proprietaire.montant_avance_proprietaire +
         proprietaire.caution_par_proprietaire;
-        mntTaxe =
+      mntTaxe =
         proprietaire.tax_avance_proprietaire + proprietaire.tax_par_periodicite;
     }
 
@@ -337,7 +347,7 @@ export class ListContratComponent implements OnInit {
   }
 
   downloadContratReporting() {
-   this.reportingService.downloadContratReporting()
+    this.reportingService.downloadContratReporting();
   }
 
   // downloadAnnex1(filename: string) {

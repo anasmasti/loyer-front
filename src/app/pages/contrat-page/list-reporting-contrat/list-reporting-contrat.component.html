@@ -1,1 +1,83 @@
-<p>list-reporting-contrat works!</p>
+<section class="row title">
+    <div class="col-lg-12 mt-3">
+      <div class="d-flex justify-content-between">
+        <!-- <h3 class=""></h3> -->
+        <h3 class="main-title">Génération des reportings des contrats</h3>
+        <div class="d-none d-lg-block">
+         
+          <a class="btn success-btn me-3" (click)="downloadContratReporting()"><i class="fal fa-file-export"></i>
+            Générer reportings
+          </a>
+          <span
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          title="Ici vous pouvez consulter la list des reportings contrat"
+        >
+          <i class="fal fa-info"></i>
+        </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="main-card bg-white table-responsive p-lg-3 mt-4">
+    <div class="row d-flex justify-content-between">
+      <div class="col-lg-4 mb-4">
+        <label for="" class="main-muted-text"
+          ><i class="far fa-search"></i> Recherche par année</label
+        >
+        <input
+          type="text"
+          class="form-control rounded-pill"
+          placeholder="Rechercher par année..."
+          [(ngModel)]="findDate"
+          (input)="search('annee')"
+        />
+      </div>
+
+      <div class="col-lg-4 mb-4">
+        <label for="" class="main-muted-text"
+          ><i class="far fa-search"></i> Recherche par mois</label
+        >
+        <select class="form-control rounded-pill" (change)="search('mois')" [(ngModel)]="findDate">
+          <option *ngFor="let date of dateList" [value]="date.number">{{date.name}}</option>
+        </select>
+      </div>
+  <table class="table">
+    <thead>
+      <tr class="text-truncate">
+        <th>N° contrat</th>
+        <th>Mois</th>
+        <th>Année</th>
+        <th>Exportation</th>
+      </tr>
+    </thead>
+
+
+    <tbody *ngIf="reportings">
+      <tr class="text-truncate" *ngFor="let reporting of reportings | paginate
+      : {
+          itemsPerPage: tableSize,
+          currentPage: listReportingContratPage,
+          id: 'listReportingContratPage',
+          totalItems: count
+        }" >
+        <td>---</td>
+        <td>---</td>
+        <td>
+          <a class="btn success-btn me-3"><i class="fal fa-file-download" (click)="downloadContratReporting()"></i>
+          Exporter
+          </a> 
+        </td>
+      </tr>
+      <pagination-controls id="listReportingContratPage" (pageChange)="listReportingContratPage = $event" previousLabel="Précédent"
+        nextLabel="Suivant"></pagination-controls>
+    </tbody>
+
+    <tbody *ngIf="!reportings" class="w-100 d-flex align-items-center">
+      <h5 class="main-muted-text my-4">Aucun reporting à afficher</h5>  
+  </tbody>
+
+    </table>
+    </div>
+    </div>

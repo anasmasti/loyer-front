@@ -18,13 +18,14 @@ import { StoreModule } from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePipe } from '@angular/common';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     MainLayoutComponent,
     SideNavbarComponent,
     MainContentComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
