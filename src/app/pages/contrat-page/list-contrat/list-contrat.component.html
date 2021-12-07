@@ -11,8 +11,8 @@
           ><i class="far fa-undo-alt"></i>
           Rafraîchir la liste
         </a>
-        <a class="btn btn-sm success-btn me-3" (click)="downloadContratReporting()"><i class="fal fa-file-download"></i>
-          Télécharger les reportings
+        <a class="btn btn-sm success-btn me-3"  (click)="openListReportingModal()"><i class="fal fa-list-alt"></i>
+          Voir list des reportings
         </a>
         <span
           data-bs-toggle="tooltip"
@@ -299,6 +299,11 @@
 
       <app-main-modal [closeBtn]="true">
         <app-edit-contrat [contrat]="targetContrat"> </app-edit-contrat>
+      </app-main-modal>
+
+
+      <app-main-modal [closeBtn]="true" [id]="idReport">
+        <app-list-reporting-contrat> </app-list-reporting-contrat>
       </app-main-modal>
 
       <!-- List des proprietaires -->

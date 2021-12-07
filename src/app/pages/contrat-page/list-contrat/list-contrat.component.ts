@@ -19,6 +19,7 @@ export class ListContratComponent implements OnInit {
   findContrat!: string;
   Class: string = '';
   disabledEtat: boolean = false;
+  idReport: string = '1';
 
   //Validation 1
   isValidate!: boolean;
@@ -54,6 +55,8 @@ export class ListContratComponent implements OnInit {
   mntNetGlobal!: number;
   mntBrutGlobal!: number;
   mntTaxGlobal!: number;
+
+  statut!: string;
 
   constructor(
     private contratService: ContratService,
@@ -138,6 +141,10 @@ export class ListContratComponent implements OnInit {
   openEditModal(SelectedContrat: any) {
     this.mainModalService.open();
     this.targetContrat = SelectedContrat;
+  }
+
+  openListReportingModal(){
+    this.mainModalService.open(this.idReport);
   }
 
   openListeProprietairesModal(SelectedContrat: any) {
