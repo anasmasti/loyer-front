@@ -60,9 +60,64 @@ export class HelperService {
     );
   }
 
-    // Check if all inputs has invalid errors
-    // mainCheckInputsValidation(targetInput: any) {
-    //   return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
-    // }
+  getMounths(): any[] {
+    let dateList: any[] = [
+      {
+        number: 1,
+        name: 'Janvier',
+      },
+      {
+        number: 2,
+        name: 'Février',
+      },
+      {
+        number: 3,
+        name: 'Mars',
+      },
+      {
+        number: 4,
+        name: 'Avril',
+      },
+      {
+        number: 5,
+        name: 'Mai',
+      },
+      {
+        number: 6,
+        name: 'Juin',
+      },
+      {
+        number: 7,
+        name: 'Juillet',
+      },
+      {
+        number: 8,
+        name: 'Août',
+      },
+      {
+        number: 9,
+        name: 'Janvier',
+      },
+      {
+        number: 10,
+        name: 'Septembre',
+      },
+      {
+        number: 11,
+        name: 'Novembre',
+      },
+      {
+        number: 12,
+        name: 'Décembre',
+      },
+    ];
 
+    return dateList
+  }
+
+
+  // Check if all inputs has invalid errors
+  // mainCheckInputsValidation(targetInput: any) {
+  //   return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
+  // }
 }

@@ -24,26 +24,44 @@
     <div class="row d-flex justify-content-between">
       <div class="col-lg-4 mb-4">
         <label for="" class="main-muted-text"
-          ><i class="far fa-search"></i> Recherche</label
+          ><i class="far fa-search"></i> Recherche par année</label
         >
         <input
           type="text"
-         
           class="form-control rounded-pill"
-          placeholder="Rechercher par mois ou année..."
+          placeholder="Rechercher par année..."
+          [(ngModel)]="findDate"
+          (input)="search('annee')"
         />
+      </div>
+
+      <div class="col-lg-4 mb-4">
+        <label for="" class="main-muted-text"
+          ><i class="far fa-search"></i> Recherche par mois</label
+        >
+        <select class="form-control rounded-pill" (change)="search('mois')" [(ngModel)]="findDate">
+          <option *ngFor="let date of dateList" [value]="date.number">{{date.name}}</option>
+        </select>
       </div>
   <table class="table">
     <thead>
       <tr class="text-truncate">
         <th>N° contrat</th>
-        <th>Montant loyer</th>
+        <th>Mois</th>
+        <th>Année</th>
         <th>Exportation</th>
       </tr>
     </thead>
 
-    <tbody>
-      <tr class="text-truncate">
+
+    <tbody *ngIf="reportings">
+      <tr class="text-truncate" *ngFor="let reporting of reportings | paginate
+      : {
+          itemsPerPage: tableSize,
+          currentPage: listReportingContratPage,
+          id: 'listReportingContratPage',
+          totalItems: count
+        }" >
         <td>---</td>
         <td>---</td>
         <td>
@@ -52,7 +70,14 @@
           </a> 
         </td>
       </tr>
+      <pagination-controls id="listReportingContratPage" (pageChange)="listReportingContratPage = $event" previousLabel="Précédent"
+        nextLabel="Suivant"></pagination-controls>
     </tbody>
+
+    <tbody *ngIf="!reportings" class="w-100 d-flex align-items-center">
+      <h5 class="main-muted-text my-4">Aucun reporting à afficher</h5>  
+  </tbody>
+
     </table>
     </div>
     </div>
