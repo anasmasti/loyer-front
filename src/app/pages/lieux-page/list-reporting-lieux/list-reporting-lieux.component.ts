@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { ReportingService } from './../../../services/reporting/reporting.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -17,6 +18,8 @@ export class ListReportingLieuxComponent implements OnInit {
   errors!: string;
   reportings!: any[];
   findReporting!: any;
+
+  url: string = environment.API_URL_WITHOUT_PARAM;
 
   lieux = [
     {
@@ -43,10 +46,14 @@ export class ListReportingLieuxComponent implements OnInit {
 
   constructor(private reportingService: ReportingService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getReportings();
+  }
 
-  downloadLieuxReporting() {
-    this.reportingService.downloadLieuxReporting();
+  getReportings() {
+    this.reportingService.getReportings('lieux').subscribe((data) => {
+      this.reportings = data;
+    });
   }
 
   search() {

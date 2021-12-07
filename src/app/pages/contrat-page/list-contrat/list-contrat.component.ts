@@ -345,24 +345,4 @@ export class ListContratComponent implements OnInit {
         return null;
     }
   }
-
-  downloadContratReporting() {
-    this.reportingService.downloadContratReporting();
-  }
-
-  // downloadAnnex1(filename: string) {
-  //   this.downloadService.dowloadFileAnnex1(filename).subscribe((res) => {
-  //     if (res) {
-  //       fileSaver.saveAs(res, filename);
-  //     }
-  //   });
-  // }
-
-  // downloadAnnex2(filename: string) {
-  //   this.downloadService.dowloadFileAnnex2(filename).subscribe((res) => {
-  //     if (res) {
-  //       fileSaver.saveAs(res, filename);
-  //     }
-  //   });
-  // }
 }

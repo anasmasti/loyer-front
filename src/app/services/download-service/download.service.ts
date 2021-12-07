@@ -9,7 +9,6 @@ export class DownloadService {
 
   constructor(private http: HttpClient) { }
 
-  // param_url: string = 'annex1';
   setFilename(filename: string) {
     const param = new HttpParams().set('filename', filename);
     const options = {

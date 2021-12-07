@@ -5,7 +5,7 @@
         <h3 class="main-title">Génération des reportings des contrats</h3>
         <div class="d-none d-lg-block">
          
-          <a class="btn success-btn me-3" (click)="downloadContratReporting()"><i class="fal fa-file-export"></i>
+          <a class="btn success-btn me-3" (click)="generatContratReportings()"><i class="fal fa-file-export"></i>
             Générer reportings
           </a>
           <span
@@ -54,7 +54,7 @@
     </thead>
 
 
-    <tbody *ngIf="reportings">
+    <tbody *ngIf="reportings?.length">
       <tr class="text-truncate" *ngFor="let reporting of reportings | paginate
       : {
           itemsPerPage: tableSize,
@@ -65,16 +65,26 @@
         <td>---</td>
         <td>---</td>
         <td>
-          <a class="btn success-btn me-3"><i class="fal fa-file-download" (click)="downloadContratReporting()"></i>
-          Exporter
-          </a> 
+          <div class="my-2">
+            <a
+              *ngIf="reporting?.image"
+              class="btn btn-sm success-btn"
+              href="{{ url }}{{ reporting?.image }}"
+              target="_blank"
+            >
+            Expoter les reportings
+            </a>
+            <p *ngIf="reporting?.image == null" class="main-muted-text">
+              Il n'y a aucun fichier à télécharger
+            </p>
+          </div>
         </td>
       </tr>
       <pagination-controls id="listReportingContratPage" (pageChange)="listReportingContratPage = $event" previousLabel="Précédent"
         nextLabel="Suivant"></pagination-controls>
     </tbody>
 
-    <tbody *ngIf="!reportings" class="w-100 d-flex align-items-center">
+    <tbody *ngIf="!reportings?.length" class="w-100 d-flex align-items-center">
       <h5 class="main-muted-text my-4">Aucun reporting à afficher</h5>  
   </tbody>
 

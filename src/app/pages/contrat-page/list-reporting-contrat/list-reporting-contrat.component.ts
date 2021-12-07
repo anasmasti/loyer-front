@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { HelperService } from 'src/app/services/helpers/helper.service';
 import { ReportingService } from 'src/app/services/reporting/reporting.service';
@@ -9,16 +10,18 @@ import { SearchServiceService } from 'src/app/services/search-service/search-ser
   styleUrls: ['./list-reporting-contrat.component.scss'],
 })
 export class ListReportingContratComponent implements OnInit {
-  data!: any;
   dateList!: any[];
   findDate!: string;
   reportings!: any;
   userMatricule: any = localStorage.getItem('matricule');
 
-   // Pagination options
-   listReportingContratPage: number = 1;
-   count: number = 0;
-   tableSize: number = 4;
+  // Pagination options
+  listReportingContratPage: number = 1;
+  count: number = 0;
+  tableSize: number = 4;
+
+  url: string = environment.API_URL_WITHOUT_PARAM;
+
   constructor(
     private reportingService: ReportingService,
     private helpService: HelperService,
@@ -27,7 +30,7 @@ export class ListReportingContratComponent implements OnInit {
 
   ngOnInit(): void {
     this.dateList = this.helpService.getMounths();
-    console.log(this.dateList);
+    this.getReportings();
   }
 
   // Afficher le message d'erreur de serveur
@@ -41,13 +44,17 @@ export class ListReportingContratComponent implements OnInit {
   }
 
   generatContratReportings() {
+    let data;
+
     this.reportingService
-      .generateReportings(this.userMatricule, this.data, 'contrat')
+      .generateReportings(this.userMatricule, data, 'contrat')
       .subscribe();
   }
 
-  downloadContratReporting() {
-    this.reportingService.downloadContratReporting();
+  getReportings() {
+    this.reportingService.getReportings('lieux').subscribe((data) => {
+      this.reportings = data;
+    });
   }
 
   search(type: string) {
