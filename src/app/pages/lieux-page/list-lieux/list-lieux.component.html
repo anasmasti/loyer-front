@@ -7,13 +7,19 @@
         <a class="btn btn-sm main-btn" [routerLink]="['/lieux']">
           <i class="fal fa-plus-octagon"></i> Nouvelle entité organisationnelle
         </a>
-        <a class="btn btn-sm second-btn mx-3" (click)="refrechPage()"><i class="far fa-undo-alt"></i>
+        <a class="btn btn-sm second-btn mx-3" (click)="refrechPage()"
+          ><i class="far fa-undo-alt"></i>
           Rafraîchir la liste
         </a>
-        <a class="btn btn-sm success-btn me-3" (click)="openReportingLieux()"><i class="fal fa-list-alt"></i>
+        <a class="btn btn-sm success-btn me-3" (click)="openReportingLieux()"
+          ><i class="fal fa-list-alt"></i>
           Voir la liste des reportings
         </a>
-        <span data-bs-toggle="tooltip" data-bs-placement="top" title="Ici vous pouvez consulter la list des entités organisationnelles">
+        <span
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          title="Ici vous pouvez consulter la list des entités organisationnelles"
+        >
           <i class="fal fa-info"></i>
         </span>
       </div>
@@ -28,11 +34,18 @@
 </div>
 
 <div class="main-card bg-white table-responsive p-lg-3 mt-4">
-  <div class="row d-flex justify-content-between ">
+  <div class="row d-flex justify-content-between">
     <div class="col-lg-4 mb-4">
-      <label for="" class="main-muted-text"><i class="far fa-search"></i> Recherche</label>
-      <input type="text" [(ngModel)]="findLieu" (input)="search()" class="form-control rounded-pill"
-        placeholder="Rechercher par intitulé/ville..." />
+      <label for="" class="main-muted-text"
+        ><i class="far fa-search"></i> Recherche</label
+      >
+      <input
+        type="text"
+        [(ngModel)]="findLieu"
+        (input)="search()"
+        class="form-control rounded-pill"
+        placeholder="Rechercher par intitulé/ville..."
+      />
     </div>
   </div>
 
@@ -46,7 +59,8 @@
     </thead>
 
     <tbody *ngIf="lieux?.length">
-      <tr *ngFor="
+      <tr
+        *ngFor="
           let lieu of lieux
             | paginate
               : {
@@ -55,19 +69,32 @@
                   id: 'listLieuxPagination',
                   totalItems: count
                 }
-        ">
+        "
+      >
         <!-- <td >{{ proprietaire._id }}</td> -->
         <td>{{ lieu.type_lieu }}</td>
         <td>{{ lieu.intitule_lieu }}</td>
         <td>
-          <a [routerLink]="['list', lieu._id]" class="btn btn-sm main-btn"><i class="fal fa-eye"></i></a>
-          <a class="btn btn-sm info-btn mx-2" (click)="openModalAndPushLieu(lieu)"><i class="far fa-user-edit"></i></a>
-          <a class="btn btn-sm danger-btn" (click)="openConfirmationModal(lieu)"><i class="far fa-user-minus"></i></a>
+          <a [routerLink]="['list', lieu._id]" class="btn btn-sm main-btn"
+            ><i class="fal fa-eye"></i
+          ></a>
+          <a
+            class="btn btn-sm info-btn mx-2"
+            (click)="openModalAndPushLieu(lieu)"
+            ><i class="far fa-user-edit"></i
+          ></a>
+          <a class="btn btn-sm danger-btn" (click)="openConfirmationModal(lieu)"
+            ><i class="far fa-user-minus"></i
+          ></a>
         </td>
       </tr>
 
-      <pagination-controls id="listLieuxPagination" (pageChange)="listLieuxPage = $event" previousLabel="Précédent"
-        nextLabel="Suivant"></pagination-controls>
+      <pagination-controls
+        id="listLieuxPagination"
+        (pageChange)="listLieuxPage = $event"
+        previousLabel="Précédent"
+        nextLabel="Suivant"
+      ></pagination-controls>
 
       <app-main-modal [closeBtn]="true">
         <app-edit-lieux [Lieu]="targetlieu"></app-edit-lieux>
@@ -80,14 +107,25 @@
         </h3>
         <p class="mt-3">Voulez-vous supprimer ce propriétaire?</p>
         <div class="d-inline-flex justify-content-start mt-5">
-          <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)="deleteLieu()">Oui</a>
-          <a class="btn btn-lg px-lg-4 main-btn" (click)="closeConfirmationModal()">Non</a>
+          <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)="deleteLieu()"
+            >Oui</a
+          >
+          <a
+            class="btn btn-lg px-lg-4 main-btn"
+            (click)="closeConfirmationModal()"
+            >Non</a
+          >
         </div>
       </app-confirmation-modal>
     </tbody>
 
-    <tbody *ngIf="!lieux.length && !accessError" class="w-100 d-flex align-items-center">
-      <h5 class="main-muted-text my-4">Aucune entité organisationnelle à afficher</h5>
+    <tbody
+      *ngIf="!lieux.length && !accessError"
+      class="w-100 d-flex align-items-center"
+    >
+      <h5 class="main-muted-text my-4">
+        Aucune entité organisationnelle à afficher
+      </h5>
       <a class="btn btn-sm second-btn ms-2" [routerLink]="['/lieux']">
         + Nouvelle entité organisationnelle
       </a>
@@ -101,7 +139,7 @@
     </tbody>
   </table>
 
-  <app-main-modal [id]='reportingModalId' [closeBtn]="true">
+  <app-main-modal [id]="reportingModalId" [closeBtn]="true">
     <reporting-lieux></reporting-lieux>
   </app-main-modal>
 </div>

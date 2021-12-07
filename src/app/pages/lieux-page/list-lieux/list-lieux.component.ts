@@ -36,12 +36,12 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
 
   //Delete succes message
   deleteDone: boolean = false;
-  deleteSucces: string = 'Entités organisationnelles supprimé avec succés'
+  deleteSucces: string = 'Entités organisationnelles supprimé avec succés';
 
-  userMatricule: any = localStorage.getItem('matricule')
+  userMatricule: any = localStorage.getItem('matricule');
   accessError!: any;
 
-  reportingModalId: string = 'lieuxRep'
+  reportingModalId: string = 'lieuxRep';
 
   constructor(
     private lieuxService: LieuxService,
@@ -49,7 +49,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     private confirmationModalService: ConfirmationModalService,
     private helperService: HelperService,
     private store: Store<AppState>
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     // Throw get lieux from server function
@@ -61,10 +61,9 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     });
 
     // Check error
-    this.store.select(getError).subscribe(data => {
-      if (data) this.accessError = data
-    })
-
+    this.store.select(getError).subscribe((data) => {
+      if (data) this.accessError = data;
+    });
   }
 
   //=======================================================================================================
@@ -73,7 +72,8 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     if (this.findLieu != '') {
       this.lieux = this.lieux.filter((res: any) => {
         return (
-          res.intitule_lieu?.toLowerCase().match(this.findLieu.toLowerCase()) || res.ville?.toLowerCase().match(this.findLieu.toLowerCase())
+          res.intitule_lieu?.toLowerCase().match(this.findLieu.toLowerCase()) ||
+          res.ville?.toLowerCase().match(this.findLieu.toLowerCase())
         );
       });
     } else if (this.findLieu == '') {
@@ -123,7 +123,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
   }
 
   checkAndPutText(value: any) {
-    return this.helperService.booleanToText(value)
+    return this.helperService.booleanToText(value);
   }
 
   // Refrtech the page

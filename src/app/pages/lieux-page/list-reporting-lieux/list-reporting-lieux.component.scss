@@ -1,10 +1,10 @@
-@use '../../../../assets/style/helpers' as *;
-@use '../../../../assets/style/components' as *;
+@use "../../../../assets/style/helpers" as *;
+@use "../../../../assets/style/components" as *;
 
 th {
-   @extend .header-table
+  @extend .header-table;
 }
 
 section {
-    width: 100vw;
+  width: 100vw;
 }
