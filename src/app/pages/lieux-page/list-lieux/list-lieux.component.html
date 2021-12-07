@@ -10,8 +10,8 @@
         <a class="btn btn-sm second-btn mx-3" (click)="refrechPage()"><i class="far fa-undo-alt"></i>
           Rafraîchir la liste
         </a>
-        <a class="btn btn-sm success-btn me-3" (click)="downloadLieuxReporting()"><i class="fal fa-file-download"></i>
-          Télécharger les reportings
+        <a class="btn btn-sm success-btn me-3" (click)="openReportingLieux()"><i class="fal fa-eye"></i>
+          Voir la liste des reportings
         </a>
         <span data-bs-toggle="tooltip" data-bs-placement="top" title="Ici vous pouvez consulter la list des entités organisationnelles">
           <i class="fal fa-info"></i>
@@ -100,4 +100,8 @@
       </a>
     </tbody>
   </table>
+
+  <app-main-modal [id]='reportingModalId' [closeBtn]="true">
+    <reporting-lieux></reporting-lieux>
+  </app-main-modal>
 </div>

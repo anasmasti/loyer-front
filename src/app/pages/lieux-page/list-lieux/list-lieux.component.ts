@@ -1,4 +1,3 @@
-import { ReportingService } from './../../../services/reporting/reporting.service';
 import { Lieu } from '../../../models/Lieu';
 import { HelperService } from './../../../services/helpers/helper.service';
 import { getLoading } from './../../../store/shared/shared.selector';
@@ -42,12 +41,13 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
   userMatricule: any = localStorage.getItem('matricule')
   accessError!: any;
 
+  reportingModalId: string = 'lieuxRep'
+
   constructor(
     private lieuxService: LieuxService,
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
     private helperService: HelperService,
-    private reportingService: ReportingService,
     private store: Store<AppState>
   ) { }
 
@@ -81,9 +81,6 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     }
   }
 
- 
-
-
   //=======================================================================================================
 
   getAllLieux() {
@@ -114,6 +111,10 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
 
     this.mainModalService.open(); // Open delete confirmation modal
     // }, 100);
+  }
+
+  openReportingLieux() {
+    this.mainModalService.open('lieuxRep');
   }
 
   // Close confirmation modal
@@ -164,9 +165,4 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
         }
       );
   }
-
-  downloadLieuxReporting() {
-    this.reportingService.downloadLieuxReporting()
-  }
-
 }
