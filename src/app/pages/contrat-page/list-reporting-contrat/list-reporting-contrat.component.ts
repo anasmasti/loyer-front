@@ -54,7 +54,16 @@ export class ListReportingContratComponent implements OnInit {
 
     this.reportingService
       .generateReportings(this.userMatricule, data, 'contrat')
-      .subscribe();
+      .subscribe(
+        (_) => {},
+        (error) => {
+          this.errors = error.error.message;
+          setTimeout(() => {
+            this.showErrorMessage();
+          }, 2000);
+          this.hideErrorMessage();
+        }
+      );
   }
 
   getReportings() {
@@ -94,7 +103,7 @@ export class ListReportingContratComponent implements OnInit {
         }))
       );
     } else if (this.findDate == '') {
-      // this.getContrat();
+      this.getReportings();
     }
   }
 }

@@ -110,11 +110,22 @@ export class ListReportingLieuxComponent implements OnInit {
         }))
       );
     } else if (this.findDate == '') {
-      // this.getContrat();
+      this.getReportings();
     }
   }
 
   generateReportingsLieux(lieu: string) {
-    this.reportingService.generateReportings(this.userMatricule, 'hrfh', lieu);
+    this.reportingService
+      .generateReportings(this.userMatricule, 'hrfh', lieu)
+      .subscribe(
+        (_) => {},
+        (error) => {
+          this.errors = error.error.message;
+          setTimeout(() => {
+            this.showErrorMessage();
+          }, 2000);
+          this.hideErrorMessage();
+        }
+      );
   }
 }
