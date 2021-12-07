@@ -35,15 +35,30 @@
   <div class="row d-flex justify-content-between">
     <div class="col-lg-4 mb-4">
       <label for="" class="main-muted-text"
-        ><i class="far fa-search"></i> Recherche
-      </label>
+        ><i class="far fa-search"></i> Recherche par année</label
+      >
       <input
         type="text"
-        [(ngModel)]="findReporting"
-        (input)="search()"
         class="form-control rounded-pill"
-        placeholder="Rechercher par mois ou année.."
+        placeholder="Rechercher par année..."
+        [(ngModel)]="findDate"
+        (input)="search('annee')"
       />
+    </div>
+
+    <div class="col-lg-4 mb-4">
+      <label for="" class="main-muted-text"
+        ><i class="far fa-search"></i> Recherche par mois</label
+      >
+      <select
+        class="form-control rounded-pill"
+        (change)="search('mois')"
+        [(ngModel)]="findDate"
+      >
+        <option *ngFor="let date of dateList" [value]="date.number">
+          {{ date.name }}
+        </option>
+      </select>
     </div>
   </div>
 
@@ -80,7 +95,7 @@
               href="{{ url }}{{ reporting?.image }}"
               target="_blank"
             >
-            Expoter les reportings
+              Expoter les reportings
             </a>
             <p *ngIf="reporting?.image == null" class="main-muted-text">
               Il n'y a aucun fichier à télécharger

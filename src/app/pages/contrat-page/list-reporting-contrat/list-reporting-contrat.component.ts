@@ -14,6 +14,8 @@ export class ListReportingContratComponent implements OnInit {
   findDate!: string;
   reportings!: any;
   userMatricule: any = localStorage.getItem('matricule');
+  accessError!: any;
+  errors!: string;
 
   // Pagination options
   listReportingContratPage: number = 1;
@@ -29,8 +31,12 @@ export class ListReportingContratComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.dateList = this.helpService.getMounths();
     this.getReportings();
+    this.fillMounths();
+  }
+
+  fillMounths() {
+    this.dateList = this.helpService.getMounths();
   }
 
   // Afficher le message d'erreur de serveur
@@ -52,9 +58,18 @@ export class ListReportingContratComponent implements OnInit {
   }
 
   getReportings() {
-    this.reportingService.getReportings('lieux').subscribe((data) => {
-      this.reportings = data;
-    });
+    this.reportingService.getReportings('contrat').subscribe(
+      (data) => {
+        this.reportings = data;
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 2000);
+        this.hideErrorMessage();
+      }
+    );
   }
 
   search(type: string) {

@@ -1,3 +1,5 @@
+import { HelperService } from 'src/app/services/helpers/helper.service';
+import { SearchServiceService } from 'src/app/services/search-service/search-service.service';
 import { environment } from 'src/environments/environment';
 import { ReportingService } from './../../../services/reporting/reporting.service';
 import { Component, OnInit } from '@angular/core';
@@ -12,6 +14,8 @@ export class ListReportingLieuxComponent implements OnInit {
   listReportingPage: number = 1;
   count: number = 0;
   tableSize: number = 10;
+  findDate!: string;
+  dateList!: any[];
 
   userMatricule: any = localStorage.getItem('matricule');
   accessError!: any;
@@ -44,33 +48,70 @@ export class ListReportingLieuxComponent implements OnInit {
     },
   ];
 
-  constructor(private reportingService: ReportingService) {}
+  constructor(
+    private reportingService: ReportingService,
+    private helpService: HelperService,
+    private searchService: SearchServiceService
+  ) {}
 
   ngOnInit(): void {
     this.getReportings();
+    this.fillMounths();
+  }
+
+  fillMounths() {
+    this.dateList = this.helpService.getMounths();
+  }
+
+  // Afficher le message d'erreur de serveur
+  showErrorMessage() {
+    $('.error-alert').addClass('active');
+  }
+
+  // hide le message d'erreur de serveur
+  hideErrorMessage() {
+    $('.error-alert').removeClass('active');
   }
 
   getReportings() {
-    this.reportingService.getReportings('lieux').subscribe((data) => {
-      this.reportings = data;
-    });
+    this.reportingService.getReportings('lieux').subscribe(
+      (data) => {
+        this.reportings = data;
+      },
+      (error) => {
+        this.errors = error.error;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+    );
   }
 
-  search() {
-    if (this.findReporting != '') {
-      this.reportings = this.reportings.filter((res: any) => {
-        return (
-          res.date?.toLowerCase().match(this.findReporting.toLowerCase()) ||
-          res.date?.toLowerCase().match(this.findReporting.toLowerCase())
-        );
-      });
-    } else if (this.findReporting == '') {
-      this.getReportingLieuxList();
+  search(type: string) {
+    let isAnnee: boolean;
+
+    if (type == 'annee') isAnnee = true;
+
+    if (this.findDate != '') {
+      this.searchService.mainSearch(
+        (this.reportings = this.reportings.filter((res: any) => {
+          if (isAnnee) {
+            return res.annee
+              ?.toString()
+              ?.toLowerCase()
+              .match(this.findDate.toLowerCase());
+          } else {
+            return res.mois
+              ?.toString()
+              ?.toLowerCase()
+              .match(this.findDate.toLowerCase());
+          }
+        }))
+      );
+    } else if (this.findDate == '') {
+      // this.getContrat();
     }
-  }
-
-  getReportingLieuxList() {
-    throw new Error('Method not implemented.');
   }
 
   generateReportingsLieux(lieu: string) {
