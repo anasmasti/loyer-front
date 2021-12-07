@@ -17,7 +17,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePipe } from '@angular/common';
-import { ListReportingContratComponent } from './src/app/pages/contrat-page/list-reporting-contrat/list-reporting-contrat/list-reporting-contrat.component';
 
 @NgModule({
   declarations: [
@@ -25,8 +24,7 @@ import { ListReportingContratComponent } from './src/app/pages/contrat-page/list
     MainLayoutComponent,
     SideNavbarComponent,
     MainContentComponent,
-    FooterComponent,
-    ListReportingContratComponent
+    FooterComponent
   ],
   imports: [
     BrowserModule,
