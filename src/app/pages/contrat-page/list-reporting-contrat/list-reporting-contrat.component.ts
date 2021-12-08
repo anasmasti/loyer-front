@@ -18,7 +18,8 @@ export class ListReportingContratComponent implements OnInit {
   errors!: string;
 
   // Pagination options
-  listReportingContratPage: number = 1;
+  listReportingCautiontPage: number = 1;
+  listReportingContratEcheancePage: number = 1;
   count: number = 0;
   tableSize: number = 4;
 
@@ -31,7 +32,8 @@ export class ListReportingContratComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getReportings('contrat');
+    this.getReportings('contrat/caution-en-cours','cautions_en_cours');
+    this.getReportings('generate/contrat/echeances','echeances_de_contrats');
     this.fillMounths();
   }
 
@@ -65,8 +67,8 @@ export class ListReportingContratComponent implements OnInit {
       );
   }
 
-  getReportings(type: string) {
-    this.reportingService.getReportings(type).subscribe(
+  getReportings(route: string,data: string) {
+    this.reportingService.getReportings(route,data).subscribe(
       (data) => {
         this.reportings = data;
       },
@@ -102,7 +104,8 @@ export class ListReportingContratComponent implements OnInit {
         }))
       );
     } else if (this.findDate == '') {
-      this.getReportings('contrat');
+      this.getReportings('/contrat/caution-en-cours','cautions_en_cours');
+      this.getReportings('/generate/contrat/echeances','echeances_de_contrats');
     }
   }
-}
+} 

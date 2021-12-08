@@ -6,7 +6,11 @@
       <div class="d-none d-lg-block">
         <a class="btn second-btn me-3" (click)="generatContratReportings('contrat/caution-en-cours')"
           ><i class="fal fa-file-export"></i>
-          Générer reportings
+          Générer reportings des cautions en cours
+        </a>
+        <a class="btn second-btn me-3" (click)="generatContratReportings('contrat/echeances')"
+          ><i class="fal fa-file-export"></i>
+          Générer reportings des écheances de contrat
         </a>
         <span
           data-bs-toggle="tooltip"
@@ -25,6 +29,7 @@
 </div>
 
 <div class="main-card bg-white table-responsive p-lg-3 mt-4">
+  <h4 class="main-title mb-4">Génération des reportings des cautions en cours</h4>
   <div class="row d-flex justify-content-between">
     <div class="col-lg-4 mb-4">
       <label for="" class="main-muted-text"
@@ -71,8 +76,8 @@
               | paginate
                 : {
                     itemsPerPage: tableSize,
-                    currentPage: listReportingContratPage,
-                    id: 'listReportingContratPage',
+                    currentPage: listReportingCautiontPage,
+                    id: 'listReportingCautiontPage',
                     totalItems: count
                   }
           "
@@ -96,8 +101,98 @@
           </td>
         </tr>
         <pagination-controls
-          id="listReportingContratPage"
-          (pageChange)="listReportingContratPage = $event"
+          id="listReportingCautiontPage"
+          (pageChange)="listReportingCautiontPage = $event"
+          previousLabel="Précédent"
+          nextLabel="Suivant"
+        ></pagination-controls>
+      </tbody>
+
+      <tbody
+        *ngIf="!reportings?.length"
+        class="w-100 d-flex align-items-center"
+      >
+        <h5 class="main-muted-text my-4">Aucun reporting à afficher</h5>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="main-card bg-white table-responsive p-lg-3 mt-4">
+  <h4 class="main-title mb-4">Génération des reportings des écheances du contrat</h4>
+  <div class="row d-flex justify-content-between">
+    <div class="col-lg-4 mb-4">
+      <label for="" class="main-muted-text"
+        ><i class="far fa-search"></i> Recherche par année</label
+      >
+      <input
+        type="text"
+        class="form-control rounded-pill"
+        placeholder="Rechercher par année..."
+        [(ngModel)]="findDate"
+        (input)="search('annee')"
+      />
+    </div>
+
+    <div class="col-lg-4 mb-4">
+      <label for="" class="main-muted-text"
+        ><i class="far fa-search"></i> Recherche par mois</label
+      >
+      <select
+        class="form-select rounded-pill"
+        (change)="search('mois')"
+        [(ngModel)]="findDate"
+      >
+        <option *ngFor="let date of dateList" [value]="date.number">
+          {{ date.name }}
+        </option>
+      </select>
+    </div>
+    <table class="table">
+      <thead>
+        <tr class="text-truncate">
+          <th>N° contrat</th>
+          <th>Mois</th>
+          <th>Année</th>
+          <th>Exportation</th>
+        </tr>
+      </thead>
+
+      <tbody *ngIf="reportings?.length">
+        <tr
+          class="text-truncate"
+          *ngFor="
+            let reporting of reportings
+              | paginate
+                : {
+                    itemsPerPage: tableSize,
+                    currentPage: listReportingContratEcheancePage,
+                    id: 'listReportingContratEcheancePage',
+                    totalItems: count
+                  }
+          "
+        >
+          <td>---</td>
+          <td>---</td>
+          <td>
+            <div class="my-2">
+              <a
+                *ngIf="reporting?.image"
+                class="btn btn-sm success-btn"
+                href="{{ url }}{{ reporting?.image }}"
+                target="_blank"
+              >
+                Expoter les reportings
+              </a>
+              <p *ngIf="reporting?.image == null" class="main-muted-text">
+                Il n'y a aucun fichier à télécharger
+              </p>
+            </div>
+          </td>
+        </tr>
+        <pagination-controls
+          id="listReportingContratEcheancePage"
+          (pageChange)="listReportingContratEcheancePage = $event"
           previousLabel="Précédent"
           nextLabel="Suivant"
         ></pagination-controls>

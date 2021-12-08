@@ -29,22 +29,27 @@ export class ListReportingLieuxComponent implements OnInit {
     {
       id: 'DR',
       name: 'Direction régionale',
+      data: 'directions_régionales'
     },
     {
       id: 'LF',
       name: 'Logement de fonction',
+      data: 'logements_de_fonction'
     },
     {
       id: 'PV',
       name: 'Point de vente',
+      data: 'points_de_vente'
     },
     {
       id: 'Siege',
       name: 'Siège',
+      data: 'siège'
     },
     {
       id: 'SV',
       name: 'Supervision',
+      data: 'supervisions'
     },
   ];
 
@@ -55,7 +60,9 @@ export class ListReportingLieuxComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getReportings();
+    this.lieux.forEach(lieu => {
+      this.getReportings(lieu.id,lieu.data);
+    })
     this.fillMounths();
   }
 
@@ -73,8 +80,8 @@ export class ListReportingLieuxComponent implements OnInit {
     $('.error-alert').removeClass('active');
   }
 
-  getReportings() {
-    this.reportingService.getReportings('lieux').subscribe(
+  getReportings(route: string, data: string) {
+    this.reportingService.getReportings(route, data).subscribe(
       (data) => {
         this.reportings = data;
       },
@@ -110,7 +117,9 @@ export class ListReportingLieuxComponent implements OnInit {
         }))
       );
     } else if (this.findDate == '') {
-      this.getReportings();
+      this.lieux.forEach(lieu => {
+        this.getReportings(lieu.id,lieu.data);
+      })
     }
   }
 

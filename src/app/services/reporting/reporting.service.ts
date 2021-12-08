@@ -12,19 +12,19 @@ export class ReportingService {
   constructor(private http: HttpClient) {}
 
   // Generate reportings
-  generateReportings(type_reporting: any): Observable<any> {
+  generateReportings(route: any): Observable<any> {
     return this.http.get<any>(
       `${
-        environment.API_URL_TEST + environment.API_VERSION + this.param_url
-      }/generate/${type_reporting}`
+        environment.API_URL_TEST + environment.API_VERSION
+      }generate/${route}`
     );
   }
 
-  getReportings(type_reporting: string): Observable<any> {
-    return this.http.get<any>(
+  getReportings(route: string, data: string): Observable<any> {
+    return this.http.post<any>(
       `${
-        environment.API_URL_TEST + environment.API_VERSION + this.param_url
-      }/${type_reporting}`
+        environment.API_URL_TEST + environment.API_VERSION 
+      }${route}`, data
     );
   }
 }

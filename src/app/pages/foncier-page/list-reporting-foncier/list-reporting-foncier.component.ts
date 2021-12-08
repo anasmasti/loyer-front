@@ -33,7 +33,8 @@ export class ListReportingFoncierComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getReportings('foncier');
+    this.getReportings('amenagement','amenagements_realises');
+    this.getReportings('locaux_fermes','locaux_fermes');
     this.fillMounths();
   }
 
@@ -55,7 +56,10 @@ export class ListReportingFoncierComponent implements OnInit {
     this.reportingService
       .generateReportings(type)
       .subscribe(
-        (_) => {},
+        (data) => {
+          console.log(data);
+          this.reportings = data
+        },
         (error) => {
           this.errors = error.error.message;
           setTimeout(() => {
@@ -66,8 +70,8 @@ export class ListReportingFoncierComponent implements OnInit {
       );
   }
 
-  getReportings(type: string) {
-    this.reportingService.getReportings(type).subscribe(
+  getReportings(route: string, data: string) {
+    this.reportingService.getReportings(route, data).subscribe(
       (data) => {
         this.reportings = data;
       },
@@ -103,7 +107,8 @@ export class ListReportingFoncierComponent implements OnInit {
         }))
       );
     } else if (this.findDate == '') {
-      this.getReportings('foncier');
+      this.getReportings('amenagement','amenagements_realises');
+      this.getReportings('locaux_fermes','locaux_fermes');
     }
   }
 

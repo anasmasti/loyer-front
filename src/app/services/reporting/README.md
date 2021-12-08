@@ -7,7 +7,7 @@
 
 ###GET LIST
 
-- "aménagements_réalisés",
+- /amenagement", aménagements_réalisés,
 - "locaux_fermés",
 
 ---
@@ -22,21 +22,21 @@
 "/generate/SV",
 
 ###GET LIST
-"siège",
-"points_de_vente",
-"supervisions",
-"directions_régionales",
-"logements_de_fonction",
+/Siege, "siège"
+"points_de_vente"
+"supervisions"
+"directions_régionales"
+"logements_de_fonction"
 
 ---
 
 #CONTRAT
 
 ###GENERATE
-
 - "/generate/contrat/caution-en-cours",
 - "/generate/contrat/echeances",
 
 ###GET LIST
-"cautions_en_cours",
-"échéances_de_contrats",
+- "/contrat/caution-en-cours", cautions_en_cours
+- "/generate/contrat/echeances", échéances_de_contrats
+
