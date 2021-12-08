@@ -11,10 +11,13 @@
           ><i class="far fa-undo-alt"></i>
           Rafraîchir la liste
         </a>
+        <a class="btn btn-sm info-btn me-3"  (click)="openListReportingModal()"><i class="fal fa-list-alt"></i>
+          Voir list des reportings
+        </a>
         <span
           data-bs-toggle="tooltip"
           data-bs-placement="top"
-          title="Ici vous pouvez consulter la list des fonciers"
+          title="Ici vous pouvez consulter la list des locaux"
         >
           <i class="fal fa-info"></i>
         </span>
@@ -226,6 +229,10 @@
 
       <app-main-modal [closeBtn]="true">
         <edit-foncier [foncier]="targetFoncier"> </edit-foncier>
+      </app-main-modal>
+
+      <app-main-modal [closeBtn]="true" [id]="idReport">
+        <app-list-reporting-foncier> </app-list-reporting-foncier>
       </app-main-modal>
 
       <app-confirmation-modal [closeBtn]="true">

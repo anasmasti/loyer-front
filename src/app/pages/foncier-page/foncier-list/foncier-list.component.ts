@@ -18,6 +18,7 @@ import { getFonciers, getError } from '../foncier-store/foncier.selector';
 export class FoncierListComponent implements OnInit {
   errors!: string;
   fonciers: Foncier[] = [];
+  idReport: string = '1';
 
   filtredFonciers: Foncier[] = [];
   id: string = '0';
@@ -106,6 +107,10 @@ export class FoncierListComponent implements OnInit {
     }
 
     return;
+  }
+
+  openListReportingModal() {
+    this.mainModalService.open(this.idReport);
   }
 
   openEditModal(SelectedFoncier: any) {
