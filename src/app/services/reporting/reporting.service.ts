@@ -31,16 +31,5 @@ export class ReportingService {
 
 
 
-// {  
-// "/generate/contrat/caution-en-cours",
-// "/generate/contrat/echeances",
 
-// "/generate/amenagement",
-// "/generate/locaux-fermes",
 
-// "/generate/Siege",
-// "/generate/DR",
-// "/generate/LF",
-// "/generate/PV",
-// "/generate/SV",
-// }
