@@ -30,30 +30,3 @@ export class ReportingService {
 }
 
 
-
-// {  
-// "/generate/contrat/caution-en-cours",
-// "/generate/contrat/echeances",
-
-// "/generate/amenagement",
-// "/generate/locaux-fermes",
-
-// "/generate/Siege",
-// "/generate/DR",
-// "/generate/LF",
-// "/generate/PV",
-// "/generate/SV",
-// }
-
-// {
-//   "siège",
-//   "points_de_vente",
-//   "supervisions",
-//   "directions_régionales",
-//   "logements_de_fonction",
-//   "aménagements_réalisés",
-//   "locaux_fermés",
-//   "cautions_en_cours",
-//   "reprises_sur_cautions",
-//   "échéances_de_contrats",
-// }
