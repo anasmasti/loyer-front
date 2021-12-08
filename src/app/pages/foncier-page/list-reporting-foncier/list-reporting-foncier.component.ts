@@ -20,6 +20,7 @@ export class ListReportingFoncierComponent implements OnInit {
 
   // Pagination options
   listReportingFoncierPage: number = 1;
+  listReportingAmenagementPage: number = 1;
   count: number = 0;
   tableSize: number = 4;
 
@@ -32,7 +33,7 @@ export class ListReportingFoncierComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getReportings();
+    this.getReportings('foncier');
     this.fillMounths();
   }
 
@@ -50,11 +51,9 @@ export class ListReportingFoncierComponent implements OnInit {
     $('.error-alert').removeClass('active');
   }
 
-  generatFoncierReportings() {
-    let data;
-
+  generatFoncierReportings(type: string) {
     this.reportingService
-      .generateReportings('locaux-fermes')
+      .generateReportings(type)
       .subscribe(
         (_) => {},
         (error) => {
@@ -67,8 +66,8 @@ export class ListReportingFoncierComponent implements OnInit {
       );
   }
 
-  getReportings() {
-    this.reportingService.getReportings('foncier').subscribe(
+  getReportings(type: string) {
+    this.reportingService.getReportings(type).subscribe(
       (data) => {
         this.reportings = data;
       },
@@ -104,7 +103,7 @@ export class ListReportingFoncierComponent implements OnInit {
         }))
       );
     } else if (this.findDate == '') {
-      this.getReportings();
+      this.getReportings('foncier');
     }
   }
 

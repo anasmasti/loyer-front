@@ -44,3 +44,16 @@ export class ReportingService {
 // "/generate/PV",
 // "/generate/SV",
 // }
+
+// {
+//   "siège",
+//   "points_de_vente",
+//   "supervisions",
+//   "directions_régionales",
+//   "logements_de_fonction",
+//   "aménagements_réalisés",
+//   "locaux_fermés",
+//   "cautions_en_cours",
+//   "reprises_sur_cautions",
+//   "échéances_de_contrats",
+// }
