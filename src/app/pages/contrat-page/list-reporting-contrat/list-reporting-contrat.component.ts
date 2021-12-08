@@ -31,7 +31,7 @@ export class ListReportingContratComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getReportings();
+    this.getReportings('contrat');
     this.fillMounths();
   }
 
@@ -49,11 +49,10 @@ export class ListReportingContratComponent implements OnInit {
     $('.error-alert').removeClass('active');
   }
 
-  generatContratReportings() {
-    let data;
+  generatContratReportings(type: string) {
 
     this.reportingService
-      .generateReportings(this.userMatricule, data, 'contrat')
+      .generateReportings(type)
       .subscribe(
         (_) => {},
         (error) => {
@@ -66,8 +65,8 @@ export class ListReportingContratComponent implements OnInit {
       );
   }
 
-  getReportings() {
-    this.reportingService.getReportings('contrat').subscribe(
+  getReportings(type: string) {
+    this.reportingService.getReportings(type).subscribe(
       (data) => {
         this.reportings = data;
       },
@@ -103,7 +102,7 @@ export class ListReportingContratComponent implements OnInit {
         }))
       );
     } else if (this.findDate == '') {
-      this.getReportings();
+      this.getReportings('contrat');
     }
   }
 }

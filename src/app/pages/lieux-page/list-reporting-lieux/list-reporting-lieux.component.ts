@@ -116,7 +116,7 @@ export class ListReportingLieuxComponent implements OnInit {
 
   generateReportingsLieux(lieu: string) {
     this.reportingService
-      .generateReportings(this.userMatricule, 'hrfh', lieu)
+      .generateReportings(lieu)
       .subscribe(
         (_) => {},
         (error) => {

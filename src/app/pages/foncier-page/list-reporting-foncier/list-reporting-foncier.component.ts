@@ -54,7 +54,7 @@ export class ListReportingFoncierComponent implements OnInit {
     let data;
 
     this.reportingService
-      .generateReportings(this.userMatricule, data, 'foncier')
+      .generateReportings('locaux-fermes')
       .subscribe(
         (_) => {},
         (error) => {

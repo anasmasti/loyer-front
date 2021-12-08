@@ -12,16 +12,11 @@ export class ReportingService {
   constructor(private http: HttpClient) {}
 
   // Generate reportings
-  generateReportings(
-    matricule: any,
-    data: any,
-    type_reporting: any
-  ): Observable<any> {
-    return this.http.post<any>(
+  generateReportings(type_reporting: any): Observable<any> {
+    return this.http.get<any>(
       `${
         environment.API_URL_TEST + environment.API_VERSION + this.param_url
-      }/generate/${matricule}/${type_reporting}`,
-      data
+      }/generate/${type_reporting}`
     );
   }
 
@@ -33,3 +28,19 @@ export class ReportingService {
     );
   }
 }
+
+
+
+// {  
+// "/generate/contrat/caution-en-cours",
+// "/generate/contrat/echeances",
+
+// "/generate/amenagement",
+// "/generate/locaux-fermes",
+
+// "/generate/Siege",
+// "/generate/DR",
+// "/generate/LF",
+// "/generate/PV",
+// "/generate/SV",
+// }

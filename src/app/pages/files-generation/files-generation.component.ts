@@ -125,7 +125,7 @@ export class FilesGenerationComponent implements OnInit {
   }
 
   generateReportings() {
-    this.reportingService.generateReportings('jfjf', 'hrfh', 'hr')
+    this.reportingService.generateReportings('all')
   }
 
   get date_gen() {
