@@ -28,7 +28,7 @@
     <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
   </div>
   
-  <div class="main-card bg-white table-responsive p-lg-3 mt-4">
+  <!-- <div class="main-card bg-white table-responsive p-lg-3 mt-4">
     <div class="row d-flex justify-content-between">
       <div class="col-lg-4 mb-4">
         <label for="" class="main-muted-text"
@@ -57,7 +57,7 @@
           </option>
         </select>
       </div>
-      <!-- Table reporting foncier fermés -->
+      <!-- Table reporting foncier fermés 
       <table class="table">
         <thead>
           <tr class="text-truncate">
@@ -116,11 +116,11 @@
         </tbody>
       </table>
     </div>
-  </div>
+  </div> -->
   
 
   <div class="main-card bg-white table-responsive p-lg-3 mt-4">
-    <h4 class="main-title mb-4">Génération des reportings des aménagements</h4>
+    <!-- <h4 class="main-title mb-4">Génération des reportings des aménagements</h4> -->
     <div class="row d-flex justify-content-between">
       <div class="col-lg-4 mb-4">
         <label for="" class="main-muted-text"
@@ -154,7 +154,7 @@
       <table class="table">
         <thead>
           <tr class="text-truncate">
-            <th>Nature d'aménagement</th>
+            <!-- <th>Nature d'aménagement</th> -->
             <th>Mois</th>
             <th>Année</th>
             <th>Exportation</th>
@@ -175,14 +175,14 @@
                     }
             "
           >
-            <td>---</td>
-            <td>---</td>
+            <td>{{reporting.mois}}</td>
+            <td>{{reporting.annee}}</td>
             <td>
               <div class="my-2">
                 <a
                   *ngIf="reporting?.reportingPaths"
                   class="btn btn-sm success-btn"
-                  href="{{ url }}{{ reporting?.reportingPaths?.amenagements_realises}}"
+                  href="http://192.168.11.108:5000/download/generated reporting/aménagements_réalisés/reporting aménagements_réalisés 2021-12-09.pdf"
                   target="_blank"
                 >
                   Expoter les reportings
