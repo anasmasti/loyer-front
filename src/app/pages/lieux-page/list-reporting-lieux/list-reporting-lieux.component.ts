@@ -53,6 +53,19 @@ export class ListReportingLieuxComponent implements OnInit {
     },
   ];
 
+  lieuxList =  [
+    "siège",
+    "points_de_vente",
+    "supervisions",
+    "directions_régionales",
+    "logements_de_fonction",
+    "aménagements_réalisés",
+    "locaux_fermés",
+    "cautions_en_cours",
+    "reprises_sur_cautions",
+    "échéances_de_contrats"
+  ] 
+
   constructor(
     private reportingService: ReportingService,
     private helpService: HelperService,
@@ -60,9 +73,9 @@ export class ListReportingLieuxComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.lieux.forEach(lieu => {
-      this.getReportings(lieu.id,lieu.data);
-    })
+    // this.lieux.forEach(lieu => {
+      this.getReportings('reporting/all',this.lieuxList);
+    // })
     this.fillMounths();
   }
 
@@ -80,10 +93,15 @@ export class ListReportingLieuxComponent implements OnInit {
     $('.error-alert').removeClass('active');
   }
 
-  getReportings(route: string, data: string) {
+  getReportings(route: string, data: any) {
+    console.log("data",data);
+        console.log("route",route);
+    
     this.reportingService.getReportings(route, data).subscribe(
       (data) => {
         this.reportings = data;
+        console.log("data",data);
+        console.log("route",route);
       },
       (error) => {
         this.errors = error.error;

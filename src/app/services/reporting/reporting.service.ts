@@ -20,7 +20,7 @@ export class ReportingService {
     );
   }
 
-  getReportings(route: string, data: string): Observable<any> {
+  getReportings(route: string, data: any): Observable<any> {
     return this.http.post<any>(
       `${
         environment.API_URL_TEST + environment.API_VERSION 

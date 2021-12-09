@@ -67,8 +67,9 @@
   <table class="table">
     <thead>
       <tr>
-        <th>Type</th>
-        <th>Date</th>
+        <th>Type de l'entité organisationnelle</th>
+        <th>Mois</th>
+        <th>Année</th>
         <th>Exportation</th>
       </tr>
     </thead>
@@ -86,20 +87,20 @@
                 }
         "
       >
-        <!-- <td >{{ proprietaire._id }}</td> -->
         <td>{{ reporting.type_lieu }}</td>
-        <td>{{ reporting.intitule_lieu }}</td>
+        <td >{{ reporting.mois }}</td>
+        <td>{{ reporting.annee }}</td>
         <td>
           <div class="my-2">
             <a
-              *ngIf="reporting?.image"
+              *ngIf="reporting?.reportingPaths"
               class="btn btn-sm success-btn"
-              href="{{ url }}{{ reporting?.image }}"
+              href="{{ url }}{{ reporting?.reportingPaths }}"
               target="_blank"
             >
               Expoter les reportings
             </a>
-            <p *ngIf="reporting?.image == null" class="main-muted-text">
+            <p *ngIf="reporting?.reportingPaths == null" class="main-muted-text">
               Il n'y a aucun fichier à télécharger
             </p>
           </div>

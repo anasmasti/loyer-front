@@ -29,7 +29,6 @@
   </div>
   
   <div class="main-card bg-white table-responsive p-lg-3 mt-4">
-    <h4 class="main-title mb-4">Génération des reportings des locaux fermés</h4>
     <div class="row d-flex justify-content-between">
       <div class="col-lg-4 mb-4">
         <label for="" class="main-muted-text"
@@ -181,14 +180,14 @@
             <td>
               <div class="my-2">
                 <a
-                  *ngIf="reporting?.image"
+                  *ngIf="reporting?.reportingPaths"
                   class="btn btn-sm success-btn"
-                  href="{{ url }}{{ reporting?.image }}"
+                  href="{{ url }}{{ reporting?.reportingPaths?.amenagements_realises}}"
                   target="_blank"
                 >
                   Expoter les reportings
                 </a>
-                <p *ngIf="reporting?.image == null" class="main-muted-text">
+                <p *ngIf="reporting?.reportingPaths == null" class="main-muted-text">
                   Il n'y a aucun fichier à télécharger
                 </p>
               </div>

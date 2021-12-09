@@ -25,6 +25,11 @@ export class ListReportingContratComponent implements OnInit {
 
   url: string = environment.API_URL_WITHOUT_PARAM;
 
+  contratList =  [
+    "cautions_en_cours",
+    "échéances_de_contrats"
+  ] 
+
   constructor(
     private reportingService: ReportingService,
     private helpService: HelperService,
@@ -32,8 +37,8 @@ export class ListReportingContratComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getReportings('contrat/caution-en-cours','cautions_en_cours');
-    this.getReportings('generate/contrat/echeances','echeances_de_contrats');
+    this.getReportings('contrat/caution-en-cours',this.contratList);
+    this.getReportings('generate/contrat/echeances',this.contratList);
     this.fillMounths();
   }
 
@@ -67,7 +72,7 @@ export class ListReportingContratComponent implements OnInit {
       );
   }
 
-  getReportings(route: string,data: string) {
+  getReportings(route: string,data: any) {
     this.reportingService.getReportings(route,data).subscribe(
       (data) => {
         this.reportings = data;
@@ -104,8 +109,8 @@ export class ListReportingContratComponent implements OnInit {
         }))
       );
     } else if (this.findDate == '') {
-      this.getReportings('/contrat/caution-en-cours','cautions_en_cours');
-      this.getReportings('/generate/contrat/echeances','echeances_de_contrats');
+      this.getReportings('contrat/caution-en-cours',this.contratList);
+      this.getReportings('generate/contrat/echeances',this.contratList);
     }
   }
 } 

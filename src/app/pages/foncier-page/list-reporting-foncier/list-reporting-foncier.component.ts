@@ -26,6 +26,12 @@ export class ListReportingFoncierComponent implements OnInit {
 
   url: string = environment.API_URL_WITHOUT_PARAM;
 
+  foncierList =  [
+    "amenagements_realises",
+    "locaux_fermes"
+  ] 
+
+
   constructor(
     private reportingService: ReportingService,
     private helpService: HelperService,
@@ -33,8 +39,8 @@ export class ListReportingFoncierComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getReportings('amenagement','amenagements_realises');
-    this.getReportings('locaux_fermes','locaux_fermes');
+    this.getReportings('reporting/all',this.foncierList);
+    // this.getReportings('reporting/all',this.foncierList);
     this.fillMounths();
   }
 
@@ -70,10 +76,14 @@ export class ListReportingFoncierComponent implements OnInit {
       );
   }
 
-  getReportings(route: string, data: string) {
+  getReportings(route: string, data: any) {
+    console.log(data);
+    
     this.reportingService.getReportings(route, data).subscribe(
       (data) => {
         this.reportings = data;
+        console.log(data);
+        
       },
       (error) => {
         this.errors = error.error.message;
@@ -107,8 +117,8 @@ export class ListReportingFoncierComponent implements OnInit {
         }))
       );
     } else if (this.findDate == '') {
-      this.getReportings('amenagement','amenagements_realises');
-      this.getReportings('locaux_fermes','locaux_fermes');
+      this.getReportings('reporting/all',this.foncierList);
+      // this.getReportings('reporting/all',this.foncierList);
     }
   }
 
