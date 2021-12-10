@@ -112,15 +112,15 @@
             </div>
             <div class="col-lg-4">
                 <h5 class="main-txt">Taux de l'impôt</h5>
-                <p>{{ proprietaire?.taux_impot != '' ? proprietaire?.taux_impot : '--' }}</p>
+                <p>{{ proprietaire?.taux_impot != undefined ? proprietaire?.taux_impot : '--' }}</p>
             </div>
             <div class="col-lg-4">
                 <h5 class="main-txt">Retenue à la source</h5>
-                <p>{{ proprietaire?.retenue_source != '' ? proprietaire?.retenue_source : '--' }}</p>
+                <p>{{ proprietaire?.retenue_source != undefined ? proprietaire?.retenue_source : '--' }}</p>
             </div>
             <div class="col-lg-4">
                 <h5 class="main-txt">Montant aprés impôt</h5>
-                <p>{{ proprietaire?.montant_apres_impot}}</p>
+                <p>{{ proprietaire?.montant_apres_impot != undefined ? proprietaire?.montant_apres_impot : '--'}}</p>
             </div>
             <div class="col-lg-6">
                 <h5 class="main-txt">Tax par periodicité propriètaire</h5>
