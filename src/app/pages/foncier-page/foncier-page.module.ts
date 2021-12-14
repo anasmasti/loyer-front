@@ -25,7 +25,8 @@ const route: Routes = [
   { path: '', component: FoncierComponent },
   { path: 'list/list/:id', component: FoncierDetailComponent },
   { path: 'list', component: FoncierListComponent },
-  { path: 'list/edit/:id', component: FoncierEditComponent }
+  { path: 'list/edit/:id', component: FoncierEditComponent },
+  { path: 'list/list-reporting', component: ListReportingFoncierComponent }
 ];
 
 

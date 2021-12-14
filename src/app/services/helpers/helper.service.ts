@@ -96,11 +96,11 @@ export class HelperService {
       },
       {
         number: 9,
-        name: 'Janvier',
+        name: 'Septembre',
       },
       {
         number: 10,
-        name: 'Septembre',
+        name: 'Octobre',
       },
       {
         number: 11,
