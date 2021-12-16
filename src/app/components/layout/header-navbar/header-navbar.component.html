@@ -25,7 +25,7 @@
                         <a class="nav-link" href="#">-</a>
                     </li> -->
         </ul>
-        <div id="#user-card" class="card border-0 me-5 mt-5 main-card">
+        <div id="#user-card" class="card border-0 me-5 main-card">
           <div *ngIf="user.existedUser" class="card-body">
             <h6 class="mainText text-capitalize">
               {{ user.existedUser.nom }} {{ user.existedUser.prenom }}
@@ -35,7 +35,7 @@
               </span>
             </h6>
             <div *ngFor="let userR of user.existedUser.userRoles">
-              <span class="badge user-admin-title" *ngIf="!userR.deleted">{{ userR.roleName }}</span>
+              <span class="badge user-admin-title" *ngIf="!userR.deleted" >{{ userR.roleName }}</span>
             </div>
           </div>
           <div *ngIf="!user.existedUser" class="card-body">
