@@ -25,6 +25,7 @@ const route: Routes = [
   { path: 'list-global/list/list/:id', component: DetailContratComponent },
   { path: 'list-global/list', component: ListContratComponent },
   { path: 'list/edit/:id', component: EditContratComponent },
+  { path: 'list-global/list/list-reporting', component: ListReportingContratComponent }
 ];
 
 @NgModule({

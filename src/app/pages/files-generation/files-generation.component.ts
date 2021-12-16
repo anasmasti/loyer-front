@@ -106,7 +106,7 @@ export class FilesGenerationComponent implements OnInit {
     return this.dateSelected = true
   }
 
-  downloadAnnex(param: string) {
+  downloadFiles(param: string) {
     // let today = new Date()
     let date_gen = new Date(this.filesForm.get('date_gen')?.value)
     // Fill date cloture

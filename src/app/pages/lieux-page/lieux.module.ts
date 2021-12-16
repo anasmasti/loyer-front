@@ -26,7 +26,8 @@ const route: Routes = [
   { path: '', component: LieuxComponent },
   { path: 'list/list/:id', component: DetailLieuxComponent },
   { path: 'list', component: ListLieuxComponent },
-  { path: 'list/edit/:id', component:EditLieuxComponent}
+  { path: 'list/edit/:id', component:EditLieuxComponent},
+  { path: 'list/list-reporting', component: ListReportingLieuxComponent }
 ];
 
 @NgModule({

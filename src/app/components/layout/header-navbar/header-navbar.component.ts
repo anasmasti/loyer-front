@@ -32,8 +32,6 @@ export class HeaderNavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.getNotificationCount();
-
-    
   }
 
   doDarkMode() {
@@ -48,7 +46,8 @@ export class HeaderNavbarComponent implements OnInit {
   }
 
   openConfirmationModal() {
-    this.confirmationModalService.open(this.id); // Open delete confirmation modal
+    this.confirmationModalService.open(this.id); 
+    console.log(this.userRole);// Open delete confirmation modal
   }
 
   // Close confirmation modal
