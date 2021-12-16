@@ -14,7 +14,6 @@ export class HeaderNavbarComponent implements OnInit {
   user: any = localStorage.getItem('user')
     ? JSON.parse(localStorage.getItem('user') || '')
     : [];
-  // userRole!: any[];
   userRole: any[] = localStorage.getItem('user') ? this.user.existedUser.userRoles : [];
   userMatricule: any = localStorage.getItem('matricule');
 
@@ -65,16 +64,4 @@ export class HeaderNavbarComponent implements OnInit {
       }
     );
   }
-
-  // getUserRole() {
-  //   if (localStorage.getItem('user')) {
-  //     for (let index = 0; index < this.user.existedUser.userRoles.length; index++) {
-        
-  //       if (!this.user.existedUser.userRoles[index].deleted) {
-  //         this.userRole.push(this.user.existedUser.userRoles[index]) 
-  //       }
-        
-  //     }
-  //   }
-  // }
 }
