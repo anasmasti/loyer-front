@@ -36,8 +36,6 @@ export class HeaderNavbarComponent implements OnInit {
   doDarkMode() {
     this.theme = localStorage.getItem('theme');
     this.darkModeService.toggleDarkMode(this.theme);
-    console.log(this.userRole);
-    
   }
 
   logout() {
@@ -45,8 +43,7 @@ export class HeaderNavbarComponent implements OnInit {
   }
 
   openConfirmationModal() {
-    this.confirmationModalService.open(this.id); 
-    console.log(this.userRole);// Open delete confirmation modal
+    this.confirmationModalService.open(this.id); // Open delete confirmation modal
   }
 
   // Close confirmation modal

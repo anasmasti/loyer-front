@@ -58,7 +58,6 @@ export class ListReportingFoncierComponent implements OnInit {
   generatFoncierReportings(type: string) {
     this.reportingService.generateReportings(type).subscribe(
       (data) => {
-        console.log(data);
         this.reportings = data;
       },
       (error) => {
@@ -72,12 +71,9 @@ export class ListReportingFoncierComponent implements OnInit {
   }
 
   getReportings(route: string, data: any) {
-    console.log(data);
-
     this.reportingService.getReportings(route, data).subscribe(
       (data) => {
         this.reportings = data;
-        console.log(data);
       },
       (error) => {
         this.errors = error.error.message;
@@ -98,8 +94,6 @@ export class ListReportingFoncierComponent implements OnInit {
       this.searchService.mainSearch(
         (this.reportings = this.reportings.filter((res: any) => {
           if (isAnnee) {
-            console.log('annee', this.findAnnee);
-
             return res.annee
               ?.toString()
               ?.toLowerCase()

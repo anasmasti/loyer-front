@@ -93,15 +93,10 @@ export class ListReportingLieuxComponent implements OnInit {
     $('.error-alert').removeClass('active');
   }
 
-  getReportings(route: string, data: any) {
-    console.log("data",data);
-        console.log("route",route);
-    
+  getReportings(route: string, data: any) { 
     this.reportingService.getReportings(route, data).subscribe(
       (data) => {
         this.reportings = data;
-        console.log("data",data);
-        console.log("route",route);
       },
       (error) => {
         this.errors = error.error;
