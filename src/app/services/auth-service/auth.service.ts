@@ -43,7 +43,9 @@ export class AuthService {
     if (this.user) {
       if (this.roles) {
         this.roles.forEach(role => {
-          this.structuredRoles.push(role.roleCode)
+          if (!role.deleted) {
+            this.structuredRoles.push(role.roleCode)
+          }
         })
         hasAccess = this.structuredRoles.includes(role)
         if (hasAccess) {

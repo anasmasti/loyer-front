@@ -14,9 +14,8 @@ export class HeaderNavbarComponent implements OnInit {
   user: any = localStorage.getItem('user')
     ? JSON.parse(localStorage.getItem('user') || '')
     : [];
-  userRole: any[] = localStorage.getItem('user')
-    ? this.user.existedUser.userRoles[0].roleName
-    : [];
+  // userRole!: any[];
+  userRole: any[] = localStorage.getItem('user') ? this.user.existedUser.userRoles : [];
   userMatricule: any = localStorage.getItem('matricule');
 
   theme!: any;
@@ -33,11 +32,15 @@ export class HeaderNavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.getNotificationCount();
+
+    
   }
 
   doDarkMode() {
     this.theme = localStorage.getItem('theme');
     this.darkModeService.toggleDarkMode(this.theme);
+    console.log(this.userRole);
+    
   }
 
   logout() {
@@ -63,4 +66,16 @@ export class HeaderNavbarComponent implements OnInit {
       }
     );
   }
+
+  // getUserRole() {
+  //   if (localStorage.getItem('user')) {
+  //     for (let index = 0; index < this.user.existedUser.userRoles.length; index++) {
+        
+  //       if (!this.user.existedUser.userRoles[index].deleted) {
+  //         this.userRole.push(this.user.existedUser.userRoles[index]) 
+  //       }
+        
+  //     }
+  //   }
+  // }
 }
