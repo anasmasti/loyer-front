@@ -54,7 +54,6 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // Throw get lieux from server function
     this.getAllLieux();
-
     // Check data loading status
     this.store.select(getLoading).subscribe((data) => {
       this.loading = data;
@@ -72,8 +71,10 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     if (this.findLieu != '') {
       this.lieux = this.lieux.filter((res: any) => {
         return (
-          res.intitule_lieu?.toLowerCase().match(this.findLieu.toLowerCase()) ||
-          res.ville?.toLowerCase().match(this.findLieu.toLowerCase())
+          res.type_lieu?.toLowerCase().match(this.findLieu.toLowerCase()) ||
+          res.intitule_lieu?.toLowerCase().match(this.findLieu.toLowerCase())
+          //  ||
+          // res.ville?.toLowerCase().match(this.findLieu.toLowerCase())
         );
       });
     } else if (this.findLieu == '') {
