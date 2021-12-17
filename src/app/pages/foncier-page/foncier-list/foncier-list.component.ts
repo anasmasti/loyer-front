@@ -79,7 +79,7 @@ export class FoncierListComponent implements OnInit {
     if (this.findFoncier != '') {
       this.fonciers = this.fonciers.filter((res: any) => {
         return (
-          res.type_foncier
+          res.type_lieu
             ?.toLowerCase()
             .match(this.findFoncier.toLowerCase()) ||
           res.ville?.toLowerCase().match(this.findFoncier.toLowerCase())
