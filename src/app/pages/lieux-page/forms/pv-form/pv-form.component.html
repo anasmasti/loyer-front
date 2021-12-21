@@ -67,6 +67,9 @@
             Une erreur s'est produite, veuillez réessayer plus tard.
           </p>
           <select *ngIf="Sup" class="form-select rounded-pill" formControlName="intitule_rattache_SUP_PV">
+            <option [value]="'---'" selected >
+              ---
+            </option>
             <option [value]="supItem._id" *ngFor="let supItem of Sup">
               {{ supItem.intitule_lieu }}
             </option>
@@ -82,6 +85,9 @@
               'is-invalid': checkInputsValidation(code_rattache_SUP),
               'is-valid': !code_rattache_SUP?.invalid
             }">
+            <option [value]="'---'" selected >
+              ---
+            </option>
             <option [value]="supItem._id" *ngFor="let supItem of Sup">
               {{ supItem.code_lieu }}
             </option>
@@ -103,6 +109,9 @@
               'is-valid': !code_rattache_DR?.invalid
               
             }">
+            <option [value]="'---'" selected >
+              ---
+            </option>
             <option [value]="drItem.code_lieu" *ngFor="let drItem of Dr">
               {{ drItem.intitule_lieu }}
             </option>

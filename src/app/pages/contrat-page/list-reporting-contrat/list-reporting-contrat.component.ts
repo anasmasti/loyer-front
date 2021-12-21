@@ -37,7 +37,7 @@ export class ListReportingContratComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getReportings('contrat/caution-en-cours',this.contratList);
+    this.getReportings('generate/contrat/caution-en-cours',this.contratList);
     this.getReportings('generate/contrat/echeances',this.contratList);
     this.fillMounths();
   }
@@ -61,7 +61,10 @@ export class ListReportingContratComponent implements OnInit {
     this.reportingService
       .generateReportings(type)
       .subscribe(
-        (_) => {},
+        (data) => {
+          console.log('Generate',data);
+          
+        },
         (error) => {
           this.errors = error.error.message;
           setTimeout(() => {
@@ -76,6 +79,7 @@ export class ListReportingContratComponent implements OnInit {
     this.reportingService.getReportings(route,data).subscribe(
       (data) => {
         this.reportings = data;
+        console.log('Get',data);
       },
       (error) => {
         this.errors = error.error.message;
@@ -109,7 +113,7 @@ export class ListReportingContratComponent implements OnInit {
         }))
       );
     } else if (this.findDate == '') {
-      this.getReportings('contrat/caution-en-cours',this.contratList);
+      this.getReportings('generate/contrat/caution-en-cours',this.contratList);
       this.getReportings('generate/contrat/echeances',this.contratList);
     }
   }
