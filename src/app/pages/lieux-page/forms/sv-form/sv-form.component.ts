@@ -32,7 +32,7 @@ export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
   updateSucces: string = 'Supervision modifié avec succés';
   Dr!: any;
   DrSubscription$!: Subscription;
-  intitule_rattache_DR!: Subscription;
+  intitule_rattache_DR: any = '';
 
   @Input() update!: boolean;
   @Input() Lieu!: any;

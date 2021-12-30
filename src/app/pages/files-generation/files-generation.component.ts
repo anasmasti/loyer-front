@@ -6,22 +6,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as fileSaver from 'file-saver';
 import { DownloadService } from 'src/app/services/download-service/download.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'files-generation',
   templateUrl: './files-generation.component.html',
-  styleUrls: ['./files-generation.component.scss']
+  styleUrls: ['./files-generation.component.scss'],
 })
 export class FilesGenerationComponent implements OnInit {
-
-  constructor(
-    private help: HelperService,
-    private confirmationModalService: ConfirmationModalService,
-    private downloadService: DownloadService,
-    private clotureService: ClotureService,
-    private reportingService: ReportingService
-  ) { }
-
   today!: any;
   dateCloture!: any;
   isCloture: boolean = false;
@@ -30,13 +22,23 @@ export class FilesGenerationComponent implements OnInit {
   dateSelected: boolean = false;
   filesForm!: FormGroup;
   userMatricule: any = localStorage.getItem('matricule');
-  twelveHours: number = 1000 * 60 * 60 * 12
+  twelveHours: number = 1000 * 60 * 60 * 12;
+  reporting: boolean;
 
+  constructor(
+    private help: HelperService,
+    private confirmationModalService: ConfirmationModalService,
+    private downloadService: DownloadService,
+    private clotureService: ClotureService,
+    private reportingService: ReportingService
+  ) {
+    this.reporting = environment.REPORTING;
+  }
 
   ngOnInit(): void {
     // Instantiate form group for selected date
     this.filesForm = new FormGroup({
-      date_gen: new FormControl('', [Validators.required])
+      date_gen: new FormControl('', [Validators.required]),
     });
     // Get next cloture date and check
     this.getNextClotureAndCheck();
@@ -44,47 +46,54 @@ export class FilesGenerationComponent implements OnInit {
     // Get the same function after 6 hours
     setInterval(() => {
       this.getNextClotureAndCheck();
-    }, this.twelveHours)
+    }, this.twelveHours);
   }
-
 
   // Get the next cloture date from the server and check if has data and throw the check function
   getNextClotureAndCheck() {
-    this.help.getNextClotureDate().subscribe(date => {
+    this.help.getNextClotureDate().subscribe((date) => {
       this.dateCloture = date;
-      if (this.dateCloture.annee && this.dateCloture.mois) this.hasNextCluture = true;
+      if (this.dateCloture.annee && this.dateCloture.mois)
+        this.hasNextCluture = true;
       this.checkNextCloture();
-    })
+    });
   }
 
   // Check the next cloture
   checkNextCloture() {
     let today: Date = new Date();
 
-    // Check if the next cloture's here 
+    // Check if the next cloture's here
     if (this.hasNextCluture) {
       // Put this month is cloture and show cloture section if next cloture match with today
-      if (this.dateCloture.annee == today.getFullYear() && this.dateCloture.mois == (today.getMonth() + 1)) return [this.today = today, this.isCloture = false, this.showClotureSection = true]
-      else return [this.isCloture = true, this.showClotureSection = true]
-    }
-    else return this.showClotureSection = false
+      if (
+        this.dateCloture.annee == today.getFullYear() &&
+        this.dateCloture.mois == today.getMonth() + 1
+      )
+        return [
+          (this.today = today),
+          (this.isCloture = false),
+          (this.showClotureSection = true),
+        ];
+      else return [(this.isCloture = true), (this.showClotureSection = true)];
+    } else return (this.showClotureSection = false);
   }
 
   // Cloture this month
   cloture() {
     // Get date of now
-    let today = new Date()
+    let today = new Date();
 
     // Fill date cloture
     let date = {
       mois: today.getMonth() + 1,
-      annee: today.getFullYear()
-    }
+      annee: today.getFullYear(),
+    };
 
     // Throw cloture function from cloture service
-    this.clotureService.Cloture(date, this.userMatricule).subscribe(data => {
+    this.clotureService.Cloture(date, this.userMatricule).subscribe((data) => {
       if (data) this.isCloture = true;
-    })
+    });
   }
 
   // Open confirmation modal
@@ -103,33 +112,34 @@ export class FilesGenerationComponent implements OnInit {
   }
 
   showButtons() {
-    return this.dateSelected = true
+    return (this.dateSelected = true);
   }
 
   downloadFiles(param: string) {
     // let today = new Date()
-    let date_gen = new Date(this.filesForm.get('date_gen')?.value)
+    let date_gen = new Date(this.filesForm.get('date_gen')?.value);
     // Fill date cloture
     let date = {
       mois: date_gen.getMonth() + 1,
-      annee: date_gen.getFullYear()
-    }
+      annee: date_gen.getFullYear(),
+    };
     // Path name
     let filename = param + `_${date.mois}-${date.annee}`;
 
-    this.downloadService.dowloadFiles(filename, date, param).subscribe(res => {
-      if (res) {
-        fileSaver.saveAs(res, filename);
-      }
-    })
+    this.downloadService
+      .dowloadFiles(filename, date, param)
+      .subscribe((res) => {
+        if (res) {
+          fileSaver.saveAs(res, filename);
+        }
+      });
   }
 
   generateReportings() {
-    this.reportingService.generateReportings('all')
+    this.reportingService.generateReportings('all');
   }
 
   get date_gen() {
     return this.filesForm.get('date_gen');
   }
-
 }

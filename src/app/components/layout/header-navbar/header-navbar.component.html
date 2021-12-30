@@ -34,9 +34,9 @@
                 {{ user.existedUser.userMatricul }}
               </span>
             </h6>
-            <div *ngFor="let userR of user.existedUser.userRoles">
-              <span class="badge user-admin-title" *ngIf="!userR.deleted" >{{ userR.roleName }}</span>
-            </div>
+            <!-- <div *ngFor="let userR of user.existedUser.userRoles"> -->
+              <span class="badge user-admin-title" *ngIf="!userRole[0].deleted" >{{ userRole[0].roleName }}</span>
+            <!-- </div> -->
           </div>
           <div *ngIf="!user.existedUser" class="card-body">
             <h6 class="mainText">Vous devez se connecter.</h6>
