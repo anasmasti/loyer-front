@@ -67,7 +67,7 @@
             Une erreur s'est produite, veuillez réessayer plus tard.
           </p>
           <select *ngIf="Sup" class="form-select rounded-pill" formControlName="intitule_rattache_SUP_PV">
-            <option [value]="'---'" selected >
+            <option [value]="'---'"  >
               ---
             </option>
             <option [value]="supItem._id" *ngFor="let supItem of Sup">

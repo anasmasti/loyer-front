@@ -1,6 +1,13 @@
 import { Router } from '@angular/router';
 import { AppState } from './../../../../store/app.state';
-import { Component, Inject, Input, OnDestroy, OnInit, OnChanges } from '@angular/core';
+import {
+  Component,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  OnChanges,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -25,12 +32,13 @@ export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
   updateSucces: string = 'Supervision modifié avec succés';
   Dr!: any;
   DrSubscription$!: Subscription;
+  intitule_rattache_DR!: Subscription;
 
   @Input() update!: boolean;
   @Input() Lieu!: any;
   @Input() LieuName!: string;
 
-  userMatricule: any = localStorage.getItem('matricule')
+  userMatricule: any = localStorage.getItem('matricule');
 
   constructor(
     private svService: LieuxService,
@@ -40,11 +48,13 @@ export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
     private store: Store<AppState>,
     private router: Router,
     @Inject(DOCUMENT) private document: Document
-  ) { }
+  ) {}
 
   ngOnChanges() {
     if (this.Lieu !== '') {
       setTimeout(() => {
+        // console.log(this.fetchSv());
+
         this.fetchSv();
       }, 100);
     }
@@ -52,7 +62,11 @@ export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnInit(): void {
     this.svForm = new FormGroup({
-      code_lieu: new FormControl('', [Validators.required, Validators.maxLength(3), Validators.pattern('[0-9]*')]),
+      code_lieu: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(3),
+        Validators.pattern('[0-9]*'),
+      ]),
       intitule_lieu: new FormControl('', [Validators.required]),
       code_localite: new FormControl(''),
       etat_logement_fonction: new FormControl(''),
@@ -63,13 +77,18 @@ export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
       centre_cout_siege: new FormControl(''),
       categorie_pointVente: new FormControl(''),
       telephone: new FormControl(''),
-      fax: new FormControl('', [Validators.pattern('[0-9]*'), Validators.maxLength(10)]),
+      fax: new FormControl('', [
+        Validators.pattern('[0-9]*'),
+        Validators.maxLength(10),
+      ]),
     });
 
     this.getDr();
   }
 
   fetchSv() {
+    console.log(this.Lieu);
+
     this.svForm.patchValue({
       code_lieu: this.Lieu.code_lieu,
       intitule_lieu: this.Lieu.intitule_lieu,
@@ -125,7 +144,7 @@ export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
           this.svForm.reset();
           this.postDone = false;
           this.router.navigate(['/lieux/list']).then(() => {
-            this.help.refrechPage()
+            this.help.refrechPage();
           });
         }, 2000);
       },
@@ -158,6 +177,8 @@ export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
       categorie_pointVente: this.svForm.get('categorie_pointVente')?.value,
     };
 
+    console.log('SvData', SvData);
+
     this.lieuService.updateLieux(id, SvData, this.userMatricule).subscribe(
       (_) => {
         this.updateDone = true;
@@ -182,13 +203,27 @@ export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
   getDrSup() {
     this.store.dispatch(getDrWithSupAction());
   }
-  
+
   // Select Dr
   getDr() {
-    this.DrSubscription$ = this.store.select(getDr).subscribe(data => {
-      if (data) this.Dr = data;
-      if (!data) this.getDrSup()
-    })
+    this.DrSubscription$ = this.store.select(getDr).subscribe((data) => {
+      if (data) {this.Dr = data;
+      this.displayIntituleDR();}
+      if (!data) this.getDrSup();
+      // fetch intitule Dr
+      console.log(this.Dr);
+    });
+  }
+
+  displayIntituleDR() {
+    const codeDR = this.svForm.get('code_rattache_DR')?.value;
+
+    for (let i = 0; i < this.Dr.length; i++) {
+      if (this.Dr[i]._id == codeDR) {
+        console.log(codeDR);
+        this.intitule_rattache_DR = this.Dr[i].intitule_lieu;
+      }
+    }
   }
 
   ngOnDestroy() {

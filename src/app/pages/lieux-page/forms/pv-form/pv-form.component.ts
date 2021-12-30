@@ -170,24 +170,27 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
       categorie_pointVente: this.PvForm.get('categorie_pointVente')?.value,
     };
 
-    this.lieuService.updateLieux(id, pvData, this.userMatricule).subscribe(
-      (_) => {
-        this.updateDone = true;
-        setTimeout(() => {
-          this.mainModalService.close();
-          this.PvForm.reset();
-          this.updateDone = false;
-          location.reload();
-        }, 2000);
-      },
-      (error) => {
-        this.errors = error.error.message;
-        setTimeout(() => {
-          this.showErrorMessage();
-        }, 3000);
-        this.hideErrorMessage();
-      }
-    );
+
+    console.log("pvData",pvData);
+    
+    // this.lieuService.updateLieux(id, pvData, this.userMatricule).subscribe(
+    //   (_) => {
+    //     this.updateDone = true;
+    //     setTimeout(() => {
+    //       this.mainModalService.close();
+    //       this.PvForm.reset();
+    //       this.updateDone = false;
+    //       location.reload();
+    //     }, 2000);
+    //   },
+    //   (error) => {
+    //     this.errors = error.error.message;
+    //     setTimeout(() => {
+    //       this.showErrorMessage();
+    //     }, 3000);
+    //     this.hideErrorMessage();
+    //   }
+    // );
   }
 
   // Get Dr and Sup from the server
