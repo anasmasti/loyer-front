@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { getError, getLieux } from '../lieux-store/lieux.selector';
 import { getLieuxAction } from '../lieux-store/lieux.actions';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-list-lieux',
@@ -42,6 +43,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
   accessError!: any;
 
   reportingModalId: string = 'lieuxRep';
+  reporting: boolean;
 
   constructor(
     private lieuxService: LieuxService,
@@ -49,7 +51,9 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     private confirmationModalService: ConfirmationModalService,
     private helperService: HelperService,
     private store: Store<AppState>
-  ) {}
+  ) {
+    this.reporting = environment.REPORTING;
+  }
 
   ngOnInit(): void {
     // Throw get lieux from server function

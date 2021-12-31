@@ -8,6 +8,7 @@ import { getAllCountsAction } from 'src/app/store/shared/shared.action';
 import { ChartsService } from 'src/app/services/charts/charts.service';
 import { NotificationsService } from 'src/app/services/notifications-service/notifications.service';
 import { Notif } from 'src/app/models/Notification';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-dashboard',
@@ -80,12 +81,16 @@ export class DashboardComponent implements OnInit {
   notifErrorMessage!: string;
   notifHasError!: boolean;
 
+  reporting: boolean;
+
   constructor(
     private store: Store<AppState>,
     private chartService: ChartsService,
     private help: HelperService,
     private notif: NotificationsService
-  ) {}
+  ) {
+    this.reporting = environment.REPORTING;
+  }
 
   ngOnInit(): void {
     this.notifHasError = false;

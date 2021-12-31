@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getFoncierAction } from '../foncier-store/foncier.actions';
 import { getFonciers, getError } from '../foncier-store/foncier.selector';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-foncier-list',
@@ -38,6 +39,7 @@ export class FoncierListComponent implements OnInit {
 
   userMatricule: any = localStorage.getItem('matricule');
   accessError!: any;
+  reporting: boolean;
 
   constructor(
     private foncierService: FoncierService,
@@ -45,7 +47,9 @@ export class FoncierListComponent implements OnInit {
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
     private store: Store<AppState>
-  ) {}
+  ) {
+    this.reporting = environment.REPORTING;
+  }
 
   ngOnInit(): void {
     this.getFoncier();
