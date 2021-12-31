@@ -61,28 +61,20 @@
           </div>
         </div>
 
-        <div class="col-lg-3 form-group mt-4">
-          <label for="">Supervision</label>
-          <p *ngIf="!Sup" class="danger-txt">
-            Une erreur s'est produite, veuillez réessayer plus tard.
-          </p>
-          <select *ngIf="Sup" class="form-select rounded-pill" formControlName="intitule_rattache_SUP_PV">
-            <option [value]="supItem._id" *ngFor="let supItem of Sup">
-              {{ supItem.intitule_lieu }}
-            </option>
-          </select>
-        </div>
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Code supervision <span class="danger-txt">*</span></label>
           <p *ngIf="!Sup" class="danger-txt">
             Une erreur s'est produite, veuillez réessayer plus tard.
           </p>
-          <select *ngIf="Sup" class="form-select rounded-pill" formControlName="code_rattache_SUP" [ngClass]="{
+          <select *ngIf="Sup" class="form-select rounded-pill" (change)="displayIntituleSup()" formControlName="code_rattache_SUP" [ngClass]="{
               'is-invalid': checkInputsValidation(code_rattache_SUP),
               'is-valid': !code_rattache_SUP?.invalid
             }">
-            <option [value]="supItem._id" *ngFor="let supItem of Sup">
+            <option [value]="'---'" selected >
+              ---
+            </option>
+            <option [value]="supItem.code_lieu" *ngFor="let supItem of Sup">
               {{ supItem.code_lieu }}
             </option>
           </select>
@@ -91,6 +83,23 @@
               Veuillez remplir ce champ
             </p>
           </div>
+        </div>
+
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Supervision</label>
+          <input type="text" class="form-control rounded-pill" [value]="intitule_rattache_SUP" readonly>
+          <!-- <p *ngIf="!Sup" class="danger-txt">
+            Une erreur s'est produite, veuillez réessayer plus tard.
+          </p>
+          <select *ngIf="Sup" class="form-select rounded-pill" formControlName="intitule_rattache_SUP_PV">
+            <option [value]="'---'"  >
+              ---
+            </option>
+            <option [value]="supItem._id" *ngFor="let supItem of Sup">
+              {{ supItem.intitule_lieu }}
+            </option>
+          </select> -->
         </div>
 
         <div class="col-lg-3 form-group mt-4">
@@ -103,6 +112,9 @@
               'is-valid': !code_rattache_DR?.invalid
               
             }">
+            <option [value]="'---'" selected >
+              ---
+            </option>
             <option [value]="drItem.code_lieu" *ngFor="let drItem of Dr">
               {{ drItem.intitule_lieu }}
             </option>

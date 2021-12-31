@@ -37,7 +37,7 @@ export class ListReportingContratComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getReportings('contrat/caution-en-cours',this.contratList);
+    this.getReportings('generate/contrat/caution-en-cours',this.contratList);
     this.getReportings('generate/contrat/echeances',this.contratList);
     this.fillMounths();
   }
@@ -58,33 +58,37 @@ export class ListReportingContratComponent implements OnInit {
 
   generatContratReportings(type: string) {
 
-    this.reportingService
-      .generateReportings(type)
-      .subscribe(
-        (_) => {},
-        (error) => {
-          this.errors = error.error.message;
-          setTimeout(() => {
-            this.showErrorMessage();
-          }, 2000);
-          this.hideErrorMessage();
-        }
-      );
+    // this.reportingService
+    //   .generateReportings(type)
+    //   .subscribe(
+    //     (data) => {
+    //       console.log('Generate',data);
+          
+    //     },
+    //     (error) => {
+    //       this.errors = error.error.message;
+    //       setTimeout(() => {
+    //         this.showErrorMessage();
+    //       }, 2000);
+    //       this.hideErrorMessage();
+    //     }
+    //   );
   }
 
   getReportings(route: string,data: any) {
-    this.reportingService.getReportings(route,data).subscribe(
-      (data) => {
-        this.reportings = data;
-      },
-      (error) => {
-        this.errors = error.error.message;
-        setTimeout(() => {
-          this.showErrorMessage();
-        }, 2000);
-        this.hideErrorMessage();
-      }
-    );
+    // this.reportingService.getReportings(route,data).subscribe(
+    //   (data) => {
+    //     this.reportings = data;
+    //     console.log('Get',data);
+    //   },
+    //   (error) => {
+    //     this.errors = error.error.message;
+    //     setTimeout(() => {
+    //       this.showErrorMessage();
+    //     }, 2000);
+    //     this.hideErrorMessage();
+    //   }
+    // );
   }
 
   search(type: string) {
@@ -109,7 +113,7 @@ export class ListReportingContratComponent implements OnInit {
         }))
       );
     } else if (this.findDate == '') {
-      this.getReportings('contrat/caution-en-cours',this.contratList);
+      this.getReportings('generate/contrat/caution-en-cours',this.contratList);
       this.getReportings('generate/contrat/echeances',this.contratList);
     }
   }

@@ -258,7 +258,7 @@
 
     <div class="col-lg-3 form-group mt-4">
       <label for="">Pourcentage %</label>
-      <input type="text" class="form-control rounded-pill" formControlName="pourcentage"
+      <input type="number" class="form-control rounded-pill" formControlName="pourcentage"
         (keyup)="calculMontant();calculMontantAvance();calculCaution()" />
 
     </div>
@@ -285,14 +285,14 @@
     </div>
 
     <div class="col-lg-3 form-group mt-4">
-      <label for="">Retenue à la source (Annuel)</label>
+      <label for="">Retenue à la source</label>
       <input type="text" class="form-control rounded-pill" formControlName="retenue_source" [ngClass]="{
               'is-invalid': checkInputsValidation(retenue_source)
             }" [value]="retenueSource" readonly />
     </div>
 
     <div class="col-lg-3 form-group mt-4">
-      <label for="">Montant après impôt (Mensuel)</label>
+      <label for="">Montant après impôt</label>
       <input type="text" class="form-control rounded-pill" formControlName="montant_apres_impot" [ngClass]="{
               'is-invalid': checkInputsValidation(montant_apres_impot)
             }" [value]="montantApresImpot" readonly />
@@ -300,21 +300,21 @@
 
 
 
-    <!-- Montant Avance Tax -->
+    <!-- Montant Avance Taxe -->
     <div class="col-lg-3 form-group mt-4">
-      <label for="">Montant d'avance de propriètaire</label>
+      <label for="">Montant d'avance de propriétaire</label>
       <input type="text" class="form-control rounded-pill" [value]="montantAvance"
         formControlName="montant_avance_proprietaire" readonly />
     </div>
 
     <div class="col-lg-3 form-group mt-4">
-      <label for="">Tax d'avance propriètaire</label>
+      <label for="">Taxe d'avance propriétaire</label>
       <input type="text" class="form-control rounded-pill" [value]="taxAvance | number: '1.2-2'"
         formControlName="tax_avance_proprietaire" readonly />
     </div>
 
     <div class="col-lg-3 form-group mt-4">
-      <label for="">Tax par periodicité</label>
+      <label for="">Taxe par périodicité</label>
       <input type="text" class="form-control rounded-pill" [value]="taxPeriodicite | number: '1.2-2'"
         formControlName="tax_par_periodicite" readonly />
     </div>
@@ -327,7 +327,7 @@
         </div> -->
 
     <div class="col-lg-3 form-group mt-4">
-      <label for="">Caution par proprietaire</label>
+      <label for="">Caution par propriétaire</label>
       <input type="text" class="form-control rounded-pill" [value]="montantCautionProprietaire | number: '1.2-2'"
         formControlName="caution_par_proprietaire" readonly />
     </div>

@@ -1,8 +1,15 @@
 import { AppState } from './../../../../store/app.state';
 import { MainModalService } from './../../../../services/main-modal/main-modal.service';
 import { LieuxService } from './../../../../services/lieux-service/lieux.service';
-import { Component, Inject, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup,Validators } from '@angular/forms';
+import {
+  Component,
+  Inject,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { getDrWithSupAction } from '../../lieux-store/lieux.actions';
 import { getDr, getSup } from '../../lieux-store/lieux.selector';
 import { Store } from '@ngrx/store';
@@ -27,6 +34,7 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
   Sup!: any;
   DrSubscription$!: Subscription;
   SupSubscription$!: Subscription;
+  intitule_rattache_SUP!: any;
 
   @Input() update!: boolean;
   @Input() Lieu!: any;
@@ -124,31 +132,33 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
       type_lieu: this.LieuName,
       code_rattache_DR: this.PvForm.get('code_rattache_DR')?.value,
       code_rattache_SUP: this.PvForm.get('code_rattache_SUP')?.value,
-      intitule_rattache_SUP_PV: this.PvForm.get('intitule_rattache_SUP_PV')
-        ?.value,
+      intitule_rattache_SUP_PV: this.intitule_rattache_SUP,
       centre_cout_siege: this.PvForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.PvForm.get('categorie_pointVente')?.value,
     };
 
-    this.lieuService.addLieu(pvData, this.userMatricule).subscribe(
-      (_) => {
-        this.postDone = true;
-        setTimeout(() => {
-          this.PvForm.reset();
-          this.postDone = false;
-          this.router.navigate(['/lieux/list']).then(() => {
-            this.help.refrechPage();
-          });
-        }, 2000);
-      },
-      (error) => {
-        this.errors = error.error.message;
-        setTimeout(() => {
-          this.showErrorMessage();
-        }, 3000);
-        this.hideErrorMessage();
-      }
-    );
+    console.log(pvData);
+    
+
+    // this.lieuService.addLieu(pvData, this.userMatricule).subscribe(
+    //   (_) => {
+    //     this.postDone = true;
+    //     setTimeout(() => {
+    //       this.PvForm.reset();
+    //       this.postDone = false;
+    //       this.router.navigate(['/lieux/list']).then(() => {
+    //         this.help.refrechPage();
+    //       });
+    //     }, 2000);
+    //   },
+    //   (error) => {
+    //     this.errors = error.error.message;
+    //     setTimeout(() => {
+    //       this.showErrorMessage();
+    //     }, 3000);
+    //     this.hideErrorMessage();
+    //   }
+    // );
   }
 
   updatePv() {
@@ -164,30 +174,51 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
       type_lieu: this.PvForm.get('type_lieu')?.value,
       code_rattache_DR: this.PvForm.get('code_rattache_DR')?.value,
       code_rattache_SUP: this.PvForm.get('code_rattache_SUP')?.value,
-      intitule_rattache_SUP_PV: this.PvForm.get('intitule_rattache_SUP_PV')
-        ?.value,
+      intitule_rattache_SUP_PV: this.intitule_rattache_SUP,
       centre_cout_siege: this.PvForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.PvForm.get('categorie_pointVente')?.value,
     };
 
-    this.lieuService.updateLieux(id, pvData, this.userMatricule).subscribe(
-      (_) => {
-        this.updateDone = true;
-        setTimeout(() => {
-          this.mainModalService.close();
-          this.PvForm.reset();
-          this.updateDone = false;
-          location.reload();
-        }, 2000);
-      },
-      (error) => {
-        this.errors = error.error.message;
-        setTimeout(() => {
-          this.showErrorMessage();
-        }, 3000);
-        this.hideErrorMessage();
+    console.log('pvData', pvData);
+
+    // this.lieuService.updateLieux(id, pvData, this.userMatricule).subscribe(
+    //   (_) => {
+    //     this.updateDone = true;
+    //     setTimeout(() => {
+    //       this.mainModalService.close();
+    //       this.PvForm.reset();
+    //       this.updateDone = false;
+    //       location.reload();
+    //     }, 2000);
+    //   },
+    //   (error) => {
+    //     this.errors = error.error.message;
+    //     setTimeout(() => {
+    //       this.showErrorMessage();
+    //     }, 3000);
+    //     this.hideErrorMessage();
+    //   }
+    // );
+  }
+
+  displayIntituleSup() {
+    const codeSup = this.PvForm.get('code_rattache_SUP')?.value;
+    let check = false
+
+    for (let i = 0; i < this.Sup.length; i++) {
+      if (this.Sup[i].code_lieu == codeSup) {
+        check = true
+        if (codeSup != undefined) {
+          this.intitule_rattache_SUP = this.Sup[i].intitule_lieu;
+        } else {
+          this.intitule_rattache_SUP = '';
+        }
       }
-    );
+    }    
+
+    if (!check) {
+      this.intitule_rattache_SUP = '';
+    }
   }
 
   // Get Dr and Sup from the server
@@ -204,8 +235,13 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
   // Select Sup
   getSup() {
     this.SupSubscription$ = this.store.select(getSup).subscribe((data) => {
-      if (data) this.Sup = data;
+      if (data) {
+        this.Sup = data;
+        this.displayIntituleSup();
+      }
       if (!data) this.getDrSup();
+      console.log(this.Sup);
+      
     });
   }
 

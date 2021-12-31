@@ -1,8 +1,8 @@
 import { ActivatedRoute } from '@angular/router';
-import { FoncierService } from './../../../services/foncier-service/foncier.service';
+import { FoncierService } from '@services/foncier-service/foncier.service';
 import { Foncier } from './../../../models/Foncier';
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-foncier-detail',
@@ -64,7 +64,9 @@ export class FoncierDetailComponent implements OnInit {
               this.foncier.amenagement[index]?.images_apres_travaux[index];
           }
         }
+        console.log(this.foncier);
       });
+      
   }
 
   displayAmenagement(id: any) {

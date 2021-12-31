@@ -11,9 +11,11 @@
           ><i class="far fa-undo-alt"></i>
           Rafraîchir la liste
         </a>
+        <ng-container *ngIf="reporting">
         <a class="btn btn-sm success-btn me-3"  (click)="openListReportingModal()"><i class="fal fa-list-alt"></i>
           Voir list des reportings
         </a>
+      </ng-container>
         <span
           data-bs-toggle="tooltip"
           data-bs-placement="top"
@@ -42,7 +44,7 @@
         [(ngModel)]="findFoncier"
         (input)="search()"
         class="form-control rounded-pill"
-        placeholder="Rechercher par intitulé/ville..."
+        placeholder="Rechercher par type/ville..."
       />
     </div>
 

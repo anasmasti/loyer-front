@@ -35,7 +35,7 @@
               </span>
             </h6>
             <!-- <div *ngFor="let userR of user.existedUser.userRoles"> -->
-              <span class="badge user-admin-title" *ngIf="!userRole[0].deleted">{{ userRole[0].roleName }}</span>
+              <span class="badge user-admin-title" *ngIf="!userRole[0].deleted" >{{ userRole[0].roleName }}</span>
             <!-- </div> -->
           </div>
           <div *ngIf="!user.existedUser" class="card-body">
