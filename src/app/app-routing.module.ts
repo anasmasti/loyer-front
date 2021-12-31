@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './middleware/auth.guard';
 import { AdminGuard } from './middleware/roles/admin/admin.guard';
-// import { CDGSPGuard } from './middleware/roles/cdgsp/cdgsp.guard';
-// import { CSLAGuard } from './middleware/roles/csla/csla.guard';
-// import { DCGuard } from './middleware/roles/dc/dc.guard';
-// import { DAJCGuard } from './middleware/roles/dajc/dajc.guard';
+import { CDGSPGuard } from './middleware/roles/cdgsp/cdgsp.guard';
+import { CSLAGuard } from './middleware/roles/csla/csla.guard';
+import { DCGuard } from './middleware/roles/dc/dc.guard';
+import { DAJCGuard } from './middleware/roles/dajc/dajc.guard';
 
 const routes: Routes = [
   {
@@ -14,7 +14,7 @@ const routes: Routes = [
       import('./pages/dashboard-page/dashboard.module').then(
         (m) => m.DashboardModule
       ),
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard,  CDGSPGuard, CSLAGuard, DCGuard, DAJCGuard]
   },
   {
     path: 'proprietaire',
