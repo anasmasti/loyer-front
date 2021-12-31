@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 export class AccessDeniedComponent implements OnInit {
 
+  id: string;
   role!: string
 
   constructor(
@@ -20,10 +21,12 @@ export class AccessDeniedComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private HelperService: HelperService,
-  ) { }
+  ) { 
+    this.id = 'access-denied'
+  }
 
   ngOnInit(): void {
-    this.mainModalService.open();
+    this.mainModalService.open(this.id);
     this.role = this.actRoute.snapshot.paramMap.get('role') || ''
   }
 

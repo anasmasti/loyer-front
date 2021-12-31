@@ -93,6 +93,8 @@ export class FormContratComponent implements OnInit {
   date_preavis!: any;
   dateResiliation!: any;
 
+  // date_de_suspendu!: any; 
+
   montant_avance_tax_!: number;
 
   montantAvance: number = 0;
@@ -106,6 +108,7 @@ export class FormContratComponent implements OnInit {
 
   durreConsommee: number = 0;
   durreeRecuperer: number = 0;
+
 
   constructor(
     private contratService: ContratService,
@@ -524,6 +527,7 @@ export class FormContratComponent implements OnInit {
 
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
+    
 
     // post the formdata (data+files)
     this.contratService
@@ -570,6 +574,9 @@ export class FormContratComponent implements OnInit {
 
   fetchContrat() {
     if (this.contrat) {
+
+      console.log(this.contrat);
+      
 
       // var date_debut_loyer = this.pipeDate.transform(this.contrat.date_debut_loyer, 'yyyy-MM-dd')
       // var date_debut_loyer = new Date(this.contrat.date_debut_loyer)

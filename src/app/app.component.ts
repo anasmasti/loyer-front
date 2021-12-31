@@ -1,5 +1,6 @@
 import { DarkModeService } from './services/dark-mode/dark-mode.service';
 import { Component, OnInit } from '@angular/core';
+// import testData from './db.json';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
+
+
 
   constructor(
     private darkModeService: DarkModeService
