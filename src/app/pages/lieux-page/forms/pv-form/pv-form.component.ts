@@ -140,25 +140,25 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
     console.log(pvData);
     
 
-    // this.lieuService.addLieu(pvData, this.userMatricule).subscribe(
-    //   (_) => {
-    //     this.postDone = true;
-    //     setTimeout(() => {
-    //       this.PvForm.reset();
-    //       this.postDone = false;
-    //       this.router.navigate(['/lieux/list']).then(() => {
-    //         this.help.refrechPage();
-    //       });
-    //     }, 2000);
-    //   },
-    //   (error) => {
-    //     this.errors = error.error.message;
-    //     setTimeout(() => {
-    //       this.showErrorMessage();
-    //     }, 3000);
-    //     this.hideErrorMessage();
-    //   }
-    // );
+    this.lieuService.addLieu(pvData, this.userMatricule).subscribe(
+      (_) => {
+        this.postDone = true;
+        setTimeout(() => {
+          this.PvForm.reset();
+          this.postDone = false;
+          this.router.navigate(['/lieux/list']).then(() => {
+            this.help.refrechPage();
+          });
+        }, 2000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+    );
   }
 
   updatePv() {
@@ -181,24 +181,24 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
 
     console.log('pvData', pvData);
 
-    // this.lieuService.updateLieux(id, pvData, this.userMatricule).subscribe(
-    //   (_) => {
-    //     this.updateDone = true;
-    //     setTimeout(() => {
-    //       this.mainModalService.close();
-    //       this.PvForm.reset();
-    //       this.updateDone = false;
-    //       location.reload();
-    //     }, 2000);
-    //   },
-    //   (error) => {
-    //     this.errors = error.error.message;
-    //     setTimeout(() => {
-    //       this.showErrorMessage();
-    //     }, 3000);
-    //     this.hideErrorMessage();
-    //   }
-    // );
+    this.lieuService.updateLieux(id, pvData, this.userMatricule).subscribe(
+      (_) => {
+        this.updateDone = true;
+        setTimeout(() => {
+          this.mainModalService.close();
+          this.PvForm.reset();
+          this.updateDone = false;
+          location.reload();
+        }, 2000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+    );
   }
 
   displayIntituleSup() {
