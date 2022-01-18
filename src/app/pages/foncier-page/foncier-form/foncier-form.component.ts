@@ -175,6 +175,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     this.selectedLieuId = '';
     this.selectedType = '';
     this.Intituler_lieu = '';
+    
 
     this.foncierForm.patchValue({
       type_lieu: this.foncier.type_lieu,
@@ -458,6 +459,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       this.selectedFile = event.target.files[0];
       this.fd.append('imgs_lieu_entrer', this.selectedFile);
     }
+    console.log(this.selectedFile);
   }
 
   // Afficher le message d'erreur de serveur
@@ -491,6 +493,9 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     };
     
     this.fd.append('data', JSON.stringify(foncier));
+
+    console.log('data' , foncier);
+    
     this.foncierService.addFoncier(this.fd, this.userMatricule).subscribe(
       (_) => {
         this.postDone = true;
@@ -511,6 +516,8 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   }
 
   updateFoncier() {
+    console.log('image:' , this.foncier);
+    
     this.pushIntoFoncierLieux(this.currentLieu);
     let id = this.foncier._id;
 
@@ -548,6 +555,9 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     };
 
     this.fd.append('data', JSON.stringify(foncier));
+
+    console.log(foncier);
+    
 
     this.foncierService
       .updateFoncier(id, this.fd, this.userMatricule)

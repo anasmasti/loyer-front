@@ -201,7 +201,9 @@ export class FormContratComponent implements OnInit {
     dateDebutLoyer = new Date(dateDebutLoyer);
     let month = dateDebutLoyer.getMonth() + 1;
     // Date resilition
-    let dateResiliation = this.contratForm.get('etat_contrat_date_resiliation')?.value;
+    let dateResiliation = this.contratForm.get(
+      'etat_contrat_date_resiliation'
+    )?.value;
     dateResiliation = new Date(dateResiliation);
     let monthResiliation = dateResiliation.getMonth() + 1;
 
@@ -351,12 +353,11 @@ export class FormContratComponent implements OnInit {
     }
   }
 
-  calculCautionDurreeRecuperer(){
+  calculCautionDurreeRecuperer() {
     this.durreConsommee = this.contratForm.get('duree_consomme')?.value;
 
-    
     // this.dureeCaution = this.contrat.duree_caution;
-    
+
     this.durreeRecuperer = this.dureeCaution - this.durreConsommee;
     if (this.durreeRecuperer < 0) {
       this.hasErrordurreeRecuperer = true;
@@ -570,6 +571,7 @@ export class FormContratComponent implements OnInit {
 
   fetchContrat() {
     if (this.contrat) {
+      console.log(this.contrat);
 
       // var date_debut_loyer = this.pipeDate.transform(this.contrat.date_debut_loyer, 'yyyy-MM-dd')
       // var date_debut_loyer = new Date(this.contrat.date_debut_loyer)
@@ -577,6 +579,9 @@ export class FormContratComponent implements OnInit {
       var date_reprise_caution = new Date(this.contrat.date_reprise_caution);
       var date_fin_avance = new Date(this.contrat.date_fin_avance);
       var date_premier_paiement = new Date(this.contrat.date_premier_paiement);
+      var date_suspension = new Date(
+        this.contrat.etat_contrat?.etat?.date_suspension
+      );
 
       this.contratForm?.patchValue({
         numero_contrat: this.contrat.numero_contrat,
@@ -621,19 +626,23 @@ export class FormContratComponent implements OnInit {
           this.contrat.etat_contrat?.etat?.signaletique_successeur,
         etat_contrat_intitule_lieu:
           this.contrat.etat_contrat?.etat?.intitule_lieu,
-        etat_contrat_date_suspension:
-          this.contrat.etat_contrat?.etat?.date_suspension,
+        etat_contrat_date_suspension: this.formatDate(
+          this.contrat.etat_contrat?.etat?.date_suspension
+        ),
         etat_contrat_duree_suspension:
           this.contrat.etat_contrat?.etat?.duree_suspension,
         etat_contrat_motif_suspension:
           this.contrat.etat_contrat?.etat?.motif_suspension,
         etat_contrat_reprise_caution:
           this.contrat.etat_contrat?.etat?.reprise_caution,
-        etat_contrat_date_resiliation:
-          this.contrat.etat_contrat?.etat?.date_resiliation,
+        etat_contrat_date_resiliation: this.formatDate(
+          this.contrat.etat_contrat?.etat?.date_resiliation
+        ),
         etat_contrat_etat_lieu_sortie:
           this.contrat.etat_contrat?.etat?.etat_lieu_sortie,
-        etat_contrat_preavis: this.contrat.etat_contrat?.etat?.preavis,
+        etat_contrat_preavis: this.formatDate(
+          this.contrat.etat_contrat?.etat?.preavis
+        ),
         // etat_contrat_images_etat_res_lieu_sortie: this.contrat.etat_contrat?.etat?.images_etat_res_lieu_sortie,
         // etat_contrat_lettre_res_piece_jointe: this.contrat.etat_contrat?.etat?.lettre_res_piece_jointe,
         // etat_contrat_piece_jointe_avenant: this.contrat.etat_contrat?.etat?.piece_jointe_avenant,
@@ -642,20 +651,16 @@ export class FormContratComponent implements OnInit {
       // this.contrat.numero_contrat
       //   ? (this.foncier_id = this.contrat.lieu._id)
       //   : null;
-        this.contrat.numero_contrat
+      this.contrat.numero_contrat
         ? (this.foncier_id = this.contrat.foncier)
         : null;
-
-        
-        
     }
   }
 
-  
   // Update contrat
   updateContrat() {
     let id = this.contrat._id;
-    
+
     let ctr_data: any = {
       numero_contrat: this.contratForm.get('numero_contrat')?.value || '',
       date_debut_loyer: this.contratForm.get('date_debut_loyer')?.value || '',
@@ -727,11 +732,10 @@ export class FormContratComponent implements OnInit {
           piece_jointe_avenant:
             this.contratForm.get('etat_contrat_piece_jointe_avenant')?.value ||
             '',
-            etat_caution_consomme: this.contratForm.get('etat_caution_consomme')?.value ||
-            '',
-            duree_consomme: this.contratForm.get('duree_consomme')?.value ||
-            '',
-            duree_a_recupere: this.durreeRecuperer ,
+          etat_caution_consomme:
+            this.contratForm.get('etat_caution_consomme')?.value || '',
+          duree_consomme: this.contratForm.get('duree_consomme')?.value || '',
+          duree_a_recupere: this.durreeRecuperer,
         },
       },
 
@@ -744,8 +748,7 @@ export class FormContratComponent implements OnInit {
     };
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
-    
-    
+
     // patch the formdata (data+files)
     this.contratService.updateContrat(id, this.fd).subscribe(
       (_) => {

@@ -8,7 +8,6 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./main-modal.component.scss']
 })
 export class MainModalComponent implements OnInit {
-
   @Input() closeBtn: boolean = true
   @Input() mainHeight!: string;
   @Input() id: string = 'mainModal'
@@ -25,11 +24,4 @@ export class MainModalComponent implements OnInit {
   closeModal() {
     this.mainModalService.close( this.id );
   }
-
-  toggle = [false, true];
-
-  getReplaceValue(event: any) {
-    this.toggle.push(event);
-  }
-
 }
