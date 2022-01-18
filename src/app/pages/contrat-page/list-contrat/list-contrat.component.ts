@@ -82,10 +82,14 @@ export class ListContratComponent implements OnInit {
         index < this.user.existedUser.userRoles.length;
         index++
       ) {
-        const element = this.user.existedUser.userRoles[index].roleCode;
-        this.userRoles.push(element);
+        if(!this.user.existedUser.userRoles[index].deleted) {
+          const element = this.user.existedUser.userRoles[index].roleCode;
+          this.userRoles.push(element);
+        }
       }
     }
+    console.log('roles' , this.userRoles);
+    
   }
 
   getContrat() {
