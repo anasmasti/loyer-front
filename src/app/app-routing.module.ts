@@ -14,7 +14,7 @@ const routes: Routes = [
       import('./pages/dashboard-page/dashboard.module').then(
         (m) => m.DashboardModule
       ),
-    canActivate: [AuthGuard,  CDGSPGuard, CSLAGuard, DCGuard, DAJCGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'proprietaire',
