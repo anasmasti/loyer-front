@@ -40,11 +40,9 @@ export class LoginPageComponent implements OnInit {
   }
 
   login() {
-    type RoutesByRole = [string, string, string, string, string];
     let matricule = this.loginForm.get('Matricule')?.value;
     let password = this.loginForm.get('Password')?.value;
     let data: any;
-    let routesByRole: RoutesByRole = ['admin', 'CDGSP', 'CSLA', 'DAJC', 'DC'];
 
     if (!this.matricule) {
       localStorage.setItem('matricule', matricule);
@@ -59,14 +57,19 @@ export class LoginPageComponent implements OnInit {
     this.authService.logIn(data).subscribe(
       (userData) => {
         localStorage.setItem('user', JSON.stringify(userData));
-        let user: any = localStorage.getItem('user');
-        let userRoles = JSON.parse(user);
+        // let user: any = localStorage.getItem('user');
+        // let userRoles = JSON.parse(user);
+        // let isAdmin: boolean = false;
 
-        userRoles.existedUser.userRoles.forEach((role: any) => {
-          if (role.roleCode === 'admin') this.goTo('admin');
-        });
-
-        this.goTo('');
+        // userRoles.existedUser.userRoles.forEach((role: any) => {
+        //   if (role.roleCode == 'Admin' && !role.deleted) {
+        //     isAdmin = true;
+        //     return;
+        //   }
+        // });
+        
+       this.goTo('');
+     
       },
       (error) => {
         this.hasError = true;

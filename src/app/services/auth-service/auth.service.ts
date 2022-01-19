@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { share, shareReplay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class AuthService {
   structuredRoles: any[] = []
 
   logIn(data: any) {
-    return this.http.post(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}`, data);
+    return this.http.post(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url}`, data).pipe(shareReplay());
   }
 
   isLoggedIn(): boolean {
