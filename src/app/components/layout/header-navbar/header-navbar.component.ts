@@ -3,6 +3,7 @@ import { DarkModeService } from './../../../services/dark-mode/dark-mode.service
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { NotificationsService } from 'src/app/services/notifications-service/notifications.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header-navbar',
