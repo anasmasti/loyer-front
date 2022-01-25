@@ -221,13 +221,7 @@
         </td>
       </tr>
 
-      <pagination-controls
-        id="listFoncierPagination"
-        (pageChange)="listFoncierPage = $event"
-        previousLabel="Précédent"
-        nextLabel="Suivant"
-      >
-      </pagination-controls>
+     
 
       <app-main-modal [closeBtn]="true">
         <edit-foncier [foncier]="targetFoncier"> </edit-foncier>
@@ -275,4 +269,11 @@
       </a>
     </tbody>
   </table>
+  <pagination-controls
+  id="listFoncierPagination"
+  (pageChange)="listFoncierPage = $event"
+  previousLabel="Précédent"
+  nextLabel="Suivant"
+>
+</pagination-controls>
 </div>

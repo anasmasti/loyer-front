@@ -92,12 +92,7 @@
         </td>
       </tr>
 
-      <pagination-controls
-        id="listLieuxPagination"
-        (pageChange)="listLieuxPage = $event"
-        previousLabel="Précédent"
-        nextLabel="Suivant"
-      ></pagination-controls>
+      
 
       <app-main-modal [closeBtn]="true">
         <app-edit-lieux [Lieu]="targetlieu"></app-edit-lieux>
@@ -141,6 +136,12 @@
       </a>
     </tbody>
   </table>
+  <pagination-controls
+  id="listLieuxPagination"
+  (pageChange)="listLieuxPage = $event"
+  previousLabel="Précédent"
+  nextLabel="Suivant"
+></pagination-controls> 
 
   <app-main-modal [id]="reportingModalId" [closeBtn]="true">
     <reporting-lieux></reporting-lieux>
