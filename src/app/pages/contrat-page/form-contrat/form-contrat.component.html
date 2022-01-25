@@ -97,19 +97,19 @@
       </div>
 
 
-      <div class="col-lg-3 form-group mt-4">
+      <!-- <div class="col-lg-3 form-group mt-4">
         <label for="">Durée de location</label>
         <input type="number" class="form-control rounded-pill" formControlName="duree_location" [ngClass]="{
           'is-invalid': checkInputsValidation(duree_location),
           'is-valid': !duree_location?.invalid
         }" />
-        <!-- Error Message  -->
+         --Error Message--
         <div class="" *ngIf="checkInputsValidation(duree_location)">
           <p class="danger-txt" *ngIf="duree_location?.errors?.required">
             Veuillez remplir ce champ
           </p>
         </div>
-      </div>
+      </div> -->
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date fin de contrat de bail</label>
@@ -211,10 +211,10 @@
           [(ngModel)]="montantAvance" (keyup)="calculMontantAvanceTax()" [readonly]="true">
       </div>
 
-      <div class="col-lg-3 form-group mt-4">
+      <!-- <div class="col-lg-3 form-group mt-4">
         <label for="">N° d’engagement de la dépense</label>
         <input type="text" class="form-control rounded-pill" formControlName="n_engagement_depense">
-      </div>
+      </div> -->
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Echéance de révision du loyer</label>
