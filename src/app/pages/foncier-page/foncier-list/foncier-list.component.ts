@@ -35,7 +35,7 @@ export class FoncierListComponent implements OnInit {
 
   //Delete succes message
   deleteDone: boolean = false;
-  deleteSucces: string = 'Localex supprimé avec succés';
+  deleteSucces: string = 'Local supprimé avec succés';
 
   userMatricule: any = localStorage.getItem('matricule');
   accessError!: any;

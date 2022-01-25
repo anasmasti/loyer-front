@@ -545,7 +545,8 @@ export class FormContratComponent implements OnInit {
           this.errors = error.error.message;
           setTimeout(() => {
             this.showErrorMessage();
-          }, 3000);
+            // this.contratForm.reset();
+          }, 5000);
           this.hideErrorMessage();
         }
       );

@@ -5,7 +5,7 @@
       <h3 class="main-title">Liste des locaux</h3>
       <div class="d-none d-lg-block">
         <a class="btn btn-sm main-btn" [routerLink]="['/foncier']">
-          <i class="fal fa-plus-octagon"></i> Nouveau locale
+          <i class="fal fa-plus-octagon"></i> Nouveau local
         </a>
         <a class="btn btn-sm second-btn mx-3" (click)="reload()"
           ><i class="far fa-undo-alt"></i>
@@ -262,9 +262,9 @@
       *ngIf="!fonciers.length && !accessError"
       class="w-100 d-flex align-items-center"
     >
-      <h5 class="main-muted-text my-4">Aucun locale à afficher</h5>
+      <h5 class="main-muted-text my-4">Aucun local à afficher</h5>
       <a class="btn btn-sm second-btn ms-3" [routerLink]="['/foncier']">
-        + Nouveau locale
+        + Nouveau local
       </a>
     </tbody>
 

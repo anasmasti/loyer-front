@@ -119,6 +119,8 @@ body {
 
 // Setup pagination
 .ngx-pagination {
+  width: 100% !important;
+  display: flex;
   padding-left: 0px !important;
   & .current,
   .btn-info {

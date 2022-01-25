@@ -16,26 +16,43 @@
     <!--Début 1er Row-->
     <div class="row">
       <div *ngIf="!update" class="col-lg-3 form-group mt-4">
-        <label for="">Type du locale <span class="danger-txt">*</span></label>
+        <label for="">Type du local <span class="danger-txt">*</span></label>
         <select
           class="form-select rounded-pill"
           formControlName="type_lieu"
           [(ngModel)]="selectedType"
           (change)="getLieuxByType(selectedType)"
+          [ngClass]="{
+            'is-invalid': checkInputsValidation(type_lieu),
+            'is-valid': !type_lieu?.invalid
+          }"
         >
           <option *ngFor="let type of types" [value]="type.name">
             {{ type.name }}
           </option>
         </select>
+        <div class="" *ngIf="checkInputsValidation(type_lieu)">
+          <p class="danger-txt" *ngIf="type_lieu?.errors?.required">
+            Veuillez remplir ce champ
+          </p>
+        </div>
       </div>
 
       <div *ngIf="!update" class="col-lg-3 form-group mt-4">
         <label for="">Code du local <span class="danger-txt">*</span></label>
-        <select class="form-select rounded-pill" formControlName="lieu">
+        <select class="form-select rounded-pill" formControlName="lieu" [ngClass]="{
+          'is-invalid': checkInputsValidation(lieu),
+          'is-valid': !lieu?.invalid
+        }">
           <option [value]="lieu._id" *ngFor="let lieu of lieuxByType">
             {{ lieu.type_lieu == 'Logement de fonction' ? lieu.code_localite : lieu.code_lieu}}
           </option>
         </select>
+        <div class="" *ngIf="checkInputsValidation(lieu)">
+          <p class="danger-txt" *ngIf="lieu?.errors?.required">
+            Veuillez remplir ce champ
+          </p>
+        </div>
       </div>
 
       <div class="col-lg-4 form-group mt-4">
@@ -410,7 +427,7 @@
       <div class="mt-1" *ngIf="currentLieu != null">
         <div class="row">
           <div class="col-lg-4 form-group mt-2">
-            <label for="">Type du locale</label>
+            <label for="">Type du local</label>
             <input
               type="text"
               class="form-control rounded-pill"
@@ -540,7 +557,7 @@
       <div *ngIf="currentLieu == null">
         <div class="row">
           <div class="col-lg-3 form-group mt-2">
-            <label for="">Type du locale</label>
+            <label for="">Type du local</label>
             <select
               class="form-select rounded-pill"
               formControlName="type_lieu"
@@ -599,6 +616,7 @@
         type="submit"
         id="Ajouter"
         class="btn second-btn form-control mt-4"
+        [disabled]="foncierForm.invalid"
       >
         Ajouter
       </button>
