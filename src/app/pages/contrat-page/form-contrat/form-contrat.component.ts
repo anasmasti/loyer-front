@@ -572,7 +572,7 @@ export class FormContratComponent implements OnInit {
 
   fetchContrat() {
     if (this.contrat) {
-      console.log(this.contrat);
+      console.log("data contrat",this.contrat);
 
       // var date_debut_loyer = this.pipeDate.transform(this.contrat.date_debut_loyer, 'yyyy-MM-dd')
       // var date_debut_loyer = new Date(this.contrat.date_debut_loyer)
