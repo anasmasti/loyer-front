@@ -373,6 +373,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
   // Calculer le montant (retenue à la source / montant apres impot / TAX)
   calculMontant() {
+    
+    
     // let montantLoyerForYear = this.montantLoyer * 12;
     let tauxImpot: number = 0;
     let montantApresImpot: number = 0;
@@ -398,6 +400,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       this.pourcentageProprietaire = 100 - this.totalPourcentageProprietaires;
       this.openConfirmationModal();
     }
+    
     //  CALCULER LE MONTANT DE LOYER A PARTIR DE POURCENTAGE DONNE PAR L'UTILISATEUR
     this.montantLoyer = ( this.pourcentageProprietaire * montantLoyerContrat ) / 100;
 
@@ -510,11 +513,13 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         montantApresImpot = this.montantLoyer * nbr_mois_louer;
         tauxImpot = 0;
       }
+      
 
 
       this.retenueSource = result;
       this.montantApresImpot = montantApresImpot;
       this.tauxImpot = tauxImpot;
+
     }
   }
 
@@ -620,10 +625,13 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   calculMontantAvance() {
     let dureeAvance = this.contratByFoncier[0]?.duree_avance;
     let dureeLocation = this.contratByFoncier[0]?.duree_location;
+    // let dureeLocation = 2;
     let periodicite = this.contratByFoncier[0]?.periodicite_paiement;
 
     this.montantAvance = this.montantLoyer * dureeAvance;
     this.taxAvance = (this.retenueSource / dureeLocation) * dureeAvance;
+    console.log(this.taxAvance);
+    
 
     if (periodicite == 'mensuelle') {
       this.taxPeriodicite = this.retenueSource / dureeLocation;

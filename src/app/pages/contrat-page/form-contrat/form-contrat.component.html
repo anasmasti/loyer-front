@@ -55,7 +55,7 @@
           formControlName="montant_loyer" [ngClass]="{
             'is-invalid': checkInputsValidation(montant_loyer),
             'is-valid': !montant_loyer?.invalid
-          }" />
+          }"  (keyup)="calculTaxeNonComprise()"/>
 
         <!-- Error Message  -->
         <div class="" *ngIf="checkInputsValidation(montant_loyer)">
@@ -67,13 +67,13 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Taxe d’édilité comprise dans le loyer</label>
-        <input type="text" class="form-control rounded-pill" formControlName="taxe_edilite_comprise_loyer" />
+        <input type="text" class="form-control rounded-pill" formControlName="taxe_edilite_comprise_loyer" (keyup)="calculTaxeNonComprise()"/>
       </div>
 
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Taxe d’édilité non comprise dans le loyer</label>
-        <input type="text" class="form-control rounded-pill" formControlName="taxe_edilite_noncomprise_loyer" />
+        <input type="text" [value]="taxNonComprise" class="form-control rounded-pill" formControlName="taxe_edilite_noncomprise_loyer" readonly/>
       </div>
 
 
