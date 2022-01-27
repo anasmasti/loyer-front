@@ -33,7 +33,7 @@
       </div>
 
       <div class="col-lg-3 form-group mt-4">
-        <label for="">Date de début du loyer</label>
+        <label for="">Date de début du loyer <span class="danger-txt">*</span></label>
         <input type="date" [(ngModel)]="date_debut_loyer_" class="form-control rounded-pill"
           (change)="reinitialiserDateDebut()" formControlName="date_debut_loyer" required [ngClass]="{
             'is-invalid': checkInputsValidation(date_debut_loyer),
@@ -50,7 +50,7 @@
       </div>
 
       <div class="col-lg-3 form-group mt-4">
-        <label for="">Montant du loyer</label>
+        <label for="">Montant du loyer <span class="danger-txt">*</span></label>
         <input type="number" [(ngModel)]="montantLoyer" class="form-control rounded-pill"
           formControlName="montant_loyer" [ngClass]="{
             'is-invalid': checkInputsValidation(montant_loyer),
@@ -78,7 +78,7 @@
 
 
       <div class="col-lg-3 form-group mt-4">
-        <label for="">Périodicité de paiement</label>
+        <label for="">Périodicité de paiement <span class="danger-txt">*</span></label>
         <!-- <input type="text" class="form-control rounded-pill" formControlName="periodicite_paiement" /> -->
         <select class="form-select rounded-pill" formControlName="periodicite_paiement" [ngClass]="{
           'is-invalid': checkInputsValidation(periodicite_paiement),
@@ -340,10 +340,10 @@
         <h6>Etat du contrat: &nbsp;<span>Résilié</span></h6>
 
         <div class="row">
-          <!-- <div class="col-lg-3 form-group mt-4">
+          <div class="col-lg-3 form-group mt-4">
             <label for="">Intitulé de lieu</label>
             <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_intitule_lieu" [value]="">
-          </div> -->
+          </div>
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Reprise caution</label>

@@ -131,7 +131,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       tax_par_periodicite: new FormControl(),
 
       caution_par_proprietaire: new FormControl(),
-      pourcentage: new FormControl(),
+      pourcentage: new FormControl('', [Validators.required]),
 
       proprietaire_list: new FormControl(),
       new_proprietaire_list: new FormControl(),
@@ -945,6 +945,10 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
   get tax_par_periodicite() {
     return this.proprietaireForm.get('tax_par_periodicite');
+  }
+
+  get pourcentage() {
+    return this.proprietaireForm.get('pourcentage');
   }
   // Mandataire
   // get mandataireForm(): FormArray {
