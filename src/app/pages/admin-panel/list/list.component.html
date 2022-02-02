@@ -48,8 +48,7 @@
                 </td>
             </tr>
 
-            <pagination-controls id="listUsersPagination" (pageChange)="listUsersPage = $event"
-                previousLabel="Précédent" nextLabel="Suivant"></pagination-controls>
+            
 
             <app-main-modal [closeBtn]="true">
                 <user-edit [User]="targetUser"></user-edit>
@@ -72,4 +71,6 @@
             <h5 class="main-muted-text my-4">Aucun utilisateur à afficher</h5>
         </tbody>
     </table>
+    <pagination-controls id="listUsersPagination" (pageChange)="listUsersPage = $event"
+                previousLabel="Précédent" nextLabel="Suivant"></pagination-controls>
 </div>

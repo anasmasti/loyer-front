@@ -291,14 +291,6 @@
         </td>
       </tr>
 
-      <pagination-controls
-        id="listContratPagination"
-        (pageChange)="listContratPage = $event"
-        previousLabel="Précédent"
-        nextLabel="Suivant"
-      >
-      </pagination-controls>
-
       <app-main-modal [closeBtn]="true">
         <app-edit-contrat [contrat]="targetContrat"> </app-edit-contrat>
       </app-main-modal>
@@ -532,4 +524,12 @@
       </a>
     </tbody>
   </table>
+
+  <pagination-controls
+  id="listContratPagination"
+  (pageChange)="listContratPage = $event"
+  previousLabel="Précédent"
+  nextLabel="Suivant"
+>
+</pagination-controls>
 </div>

@@ -44,9 +44,9 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
   errors!: string;
   postDone: boolean = false;
-  PostSucces: string = 'Locale ajouté avec succés';
+  PostSucces: string = 'Local ajouté avec succés';
   updateDone: boolean = false;
-  updateSucces: string = 'Locale modifié avec succés';
+  updateSucces: string = 'Local modifié avec succés';
   foncierForm!: FormGroup;
   // lieuForm!: FormGroup;
 
@@ -103,9 +103,9 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.foncierForm = new FormGroup({
-      type_lieu: new FormControl(''),
+      type_lieu: new FormControl('',[Validators.required]),
       adresse: new FormControl('', [Validators.required]),
-      lieu: new FormControl(),
+      lieu: new FormControl('',[Validators.required]),
       ville: new FormControl('', [Validators.required]),
       desc_lieu_entrer: new FormControl(''),
       has_contrat: new FormControl(''),
@@ -687,5 +687,13 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
   get ville() {
     return this.foncierForm.get('ville');
+  }
+
+  get type_lieu() {
+    return this.foncierForm.get('type_lieu');
+  }
+
+  get lieu() {
+    return this.foncierForm.get('lieu');
   }
 }

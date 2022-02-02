@@ -107,6 +107,8 @@ export class FormContratComponent implements OnInit {
   durreConsommee: number = 0;
   durreeRecuperer: number = 0;
 
+  taxNonComprise: number = 0;
+
   constructor(
     private contratService: ContratService,
     private mainModalService: MainModalService,
@@ -426,6 +428,15 @@ export class FormContratComponent implements OnInit {
     }
   }
 
+  //Calcul taxe d'édilité
+  calculTaxeNonComprise() {
+    let taxComprise = this.contratForm.get('taxe_edilite_comprise_loyer')?.value;
+    if(taxComprise != 0 && taxComprise != null) 
+      this.taxNonComprise = 0;
+    else
+      this.taxNonComprise = this.montantLoyer * (10.5 / 100);
+  }
+
   //Reinitialise dates :::///
   reinitialiserDates() {
     this.dureeAvance = 0;
@@ -489,10 +500,10 @@ export class FormContratComponent implements OnInit {
       numero_contrat: this.num_contrat,
       date_debut_loyer: this.contratForm.get('date_debut_loyer')?.value || '',
       montant_loyer: this.contratForm.get('montant_loyer')?.value || '',
-      taxe_edilite_loyer:
+      taxe_edilite_loyer: 
         this.contratForm.get('taxe_edilite_comprise_loyer')?.value || '',
-      taxe_edilite_non_loyer:
-        this.contratForm.get('taxe_edilite_noncomprise_loyer')?.value || '',
+      taxe_edilite_non_loyer: this.taxNonComprise,
+        // this.contratForm.get('taxe_edilite_noncomprise_loyer')?.value || '',
       periodicite_paiement:
         this.contratForm.get('periodicite_paiement')?.value || '',
       date_fin_contrat: this.contratForm.get('date_fin_contrat')?.value || '',
@@ -525,6 +536,8 @@ export class FormContratComponent implements OnInit {
 
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
+    console.log("data ==>",ctr_data);
+    
 
     // post the formdata (data+files)
     this.contratService
@@ -545,7 +558,8 @@ export class FormContratComponent implements OnInit {
           this.errors = error.error.message;
           setTimeout(() => {
             this.showErrorMessage();
-          }, 3000);
+            // this.contratForm.reset();
+          }, 5000);
           this.hideErrorMessage();
         }
       );
@@ -571,7 +585,7 @@ export class FormContratComponent implements OnInit {
 
   fetchContrat() {
     if (this.contrat) {
-      console.log(this.contrat);
+      console.log("data contrat",this.contrat);
 
       // var date_debut_loyer = this.pipeDate.transform(this.contrat.date_debut_loyer, 'yyyy-MM-dd')
       // var date_debut_loyer = new Date(this.contrat.date_debut_loyer)
@@ -667,8 +681,8 @@ export class FormContratComponent implements OnInit {
       montant_loyer: this.contratForm.get('montant_loyer')?.value || '',
       taxe_edilite_loyer:
         this.contratForm.get('taxe_edilite_comprise_loyer')?.value || '',
-      taxe_edilite_non_loyer:
-        this.contratForm.get('taxe_edilite_noncomprise_loyer')?.value || '',
+      taxe_edilite_non_loyer: this.taxNonComprise,
+        // this.contratForm.get('taxe_edilite_noncomprise_loyer')?.value || '',
       periodicite_paiement:
         this.contratForm.get('periodicite_paiement')?.value || '',
       date_fin_contrat: this.contratForm.get('date_fin_contrat')?.value || '',
