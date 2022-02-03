@@ -172,19 +172,19 @@
           Veuillez remplir ce champ
         </p>
         <p class="danger-txt" *ngIf="n_compte_bancaire?.errors?.pattern">
-          Vous devez entrer 16 caractères(chiffres)
+          Vous devez entrer 24 caractères(chiffres)
         </p>
       </div>
     </div>
 
-    <div class="col-lg-3 form-group mt-4">
+    <!-- <div class="col-lg-3 form-group mt-4">
       <label for="">Banque RIB</label>
       <input type="text" class="form-control rounded-pill" formControlName="banque_rib" required [ngClass]="{
           'is-invalid': checkInputsValidation(banque_rib),
           'is-valid': !banque_rib?.invalid
         }" />
 
-      <!-- Error Message  -->
+      Error Message 
       <div class="" *ngIf="checkInputsValidation(banque_rib)">
         <p class="danger-txt" *ngIf="banque_rib?.errors?.required">
           Veuillez remplir ce champ
@@ -193,16 +193,16 @@
           Vous devez entrer 3 caractères(chiffres)
         </p>
       </div>
-    </div>
+    </div> -->
 
-    <div class="col-lg-3 form-group mt-4">
+    <!-- <div class="col-lg-3 form-group mt-4">
       <label for="">Ville RIB</label>
       <input type="text" class="form-control rounded-pill" formControlName="ville_rib" required [ngClass]="{
           'is-invalid': checkInputsValidation(ville_rib),
           'is-valid': !ville_rib?.invalid
         }" />
 
-      <!-- Error Message  -->
+      Error Message 
       <div class="" *ngIf="checkInputsValidation(ville_rib)">
         <p class="danger-txt" *ngIf="ville_rib?.errors?.required">
           Veuillez remplir ce champ
@@ -211,16 +211,16 @@
           Vous devez entrer 3 caractères(chiffres)
         </p>
       </div>
-    </div>
+    </div> -->
 
-    <div class="col-lg-3 form-group mt-4">
+    <!-- <div class="col-lg-3 form-group mt-4">
       <label for="">Clé RIB</label>
       <input type="text" class="form-control rounded-pill" formControlName="cle_rib" required [ngClass]="{
           'is-invalid': checkInputsValidation(cle_rib),
           'is-valid': !cle_rib?.invalid
         }" />
 
-      <!-- Error Message  -->
+      Error Message 
       <div class="" *ngIf="checkInputsValidation(cle_rib)">
         <p class="danger-txt" *ngIf="cle_rib?.errors?.required">
           Veuillez remplir ce champ
@@ -229,7 +229,7 @@
           Vous devez entrer 2 caractères(chiffres)
         </p>
       </div>
-    </div>
+    </div> -->
 
     <div class="col-lg-3 form-group mt-4">
       <label for="">Banque</label>

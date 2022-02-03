@@ -100,24 +100,24 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       adresse: new FormControl('', [Validators.required]),
       n_compte_bancaire: new FormControl('', [
         Validators.required,
-        Validators.pattern('[0-9]{16}'),
-        Validators.maxLength(16),
+        Validators.pattern('[0-9]{24}'),
+        Validators.maxLength(24),
       ]),
-      banque_rib: new FormControl('', [
-        Validators.required,
-        Validators.pattern('[0-9]{3}'),
-        Validators.maxLength(3),
-      ]),
-      ville_rib: new FormControl('', [
-        Validators.required,
-        Validators.pattern('[0-9]{3}'),
-        Validators.maxLength(3),
-      ]),
-      cle_rib: new FormControl('', [
-        Validators.required,
-        Validators.pattern('[0-9]{2}'),
-        Validators.maxLength(2),
-      ]),
+      // banque_rib: new FormControl('', [
+      //   Validators.required,
+      //   Validators.pattern('[0-9]{3}'),
+      //   Validators.maxLength(3),
+      // ]),
+      // ville_rib: new FormControl('', [
+      //   Validators.required,
+      //   Validators.pattern('[0-9]{3}'),
+      //   Validators.maxLength(3),
+      // ]),
+      // cle_rib: new FormControl('', [
+      //   Validators.required,
+      //   Validators.pattern('[0-9]{2}'),
+      //   Validators.maxLength(2),
+      // ]),
       banque: new FormControl('', [Validators.required]),
       nom_agence_bancaire: new FormControl('', []),
       montant_loyer: new FormControl('', [Validators.pattern('[0-9]*')]),
