@@ -25,6 +25,8 @@ export interface Contrat {
   echeance_revision_loyer: string;
   type_lieu: string;
   foncier: any;
+  //new
+  montant_loyer_ttc: number;
   etat_contrat?: {
     libelle: string;
     etat: {

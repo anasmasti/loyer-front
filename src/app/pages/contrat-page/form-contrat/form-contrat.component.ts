@@ -108,6 +108,7 @@ export class FormContratComponent implements OnInit {
   durreeRecuperer: number = 0;
 
   taxNonComprise: number = 0;
+  montantLoyerTTC : number = 0;
 
   constructor(
     private contratService: ContratService,
@@ -154,6 +155,7 @@ export class FormContratComponent implements OnInit {
       echeance_revision_loyer: new FormControl(),
       foncier: new FormControl(),
       lieu: new FormControl(),
+      montant_loyer_ttc: new FormControl(''),
 
       // Etat
       etat_contrat_libelle: new FormControl(),
@@ -434,7 +436,11 @@ export class FormContratComponent implements OnInit {
     if(taxComprise != 0 && taxComprise != null) 
       this.taxNonComprise = 0;
     else
-      this.taxNonComprise = this.montantLoyer * (10.5 / 100);
+      this.taxNonComprise = this.montantLoyer  * (10.5 / 100);
+  }
+
+  calculMontantLoyerTTC(){
+    this.montantLoyerTTC = this.montantLoyer * 1.105;
   }
 
   //Reinitialise dates :::///
@@ -500,8 +506,8 @@ export class FormContratComponent implements OnInit {
       numero_contrat: this.num_contrat,
       date_debut_loyer: this.contratForm.get('date_debut_loyer')?.value || '',
       montant_loyer: this.contratForm.get('montant_loyer')?.value || '',
-      taxe_edilite_loyer: 
-        this.contratForm.get('taxe_edilite_comprise_loyer')?.value || '',
+      taxe_edilite_loyer: this.taxNonComprise,
+        // this.contratForm.get('taxe_edilite_comprise_loyer')?.value || '',
       taxe_edilite_non_loyer: this.taxNonComprise,
         // this.contratForm.get('taxe_edilite_noncomprise_loyer')?.value || '',
       periodicite_paiement:
@@ -532,6 +538,7 @@ export class FormContratComponent implements OnInit {
       total_montant_brut_loyer: this.totalBrutLoyer || '',
       total_montant_net_loyer: this.totalNetLoyer || '',
       montant_avance_tax: this.montant_avance_tax_,
+      montant_loyer_ttc: this.montantLoyerTTC,
     };
 
     //Append contrat-data in formdata
@@ -630,6 +637,7 @@ export class FormContratComponent implements OnInit {
         lieu: this.contrat.lieu?._id,
         duree_location: this.contrat.duree_location,
         montant_avance_tax: this.contrat.montant_avance_tax,
+        montant_loyer_ttc: this.contrat.montant_loyer_ttc,
 
         etat_contrat_libelle: this.contrat.etat_contrat?.libelle,
         etat_contrat_n_avenant: this.contrat.etat_contrat?.etat?.n_avenant,
@@ -759,6 +767,7 @@ export class FormContratComponent implements OnInit {
         this.contratForm.get('validation2_DAJC')?.value || false,
 
       montant_avance_tax: this.montant_avance_tax_,
+      montant_loyer_ttc: this.montantLoyerTTC,
     };
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
