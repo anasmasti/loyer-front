@@ -88,8 +88,7 @@ export class ListContratComponent implements OnInit {
         }
       }
     }
-    console.log('roles' , this.userRoles);
-    
+
   }
 
   getContrat() {

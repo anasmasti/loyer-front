@@ -150,7 +150,6 @@ export class ListReportingFoncierComponent implements OnInit {
       this.searchService.mainSearch(
         (this.reportings = this.reportings.filter((res: any) => {
           // if (isAnnee) {
-            console.log("Teeeets" , res);
             res.map((element:any) => {
               if (element.mois == this.findMois) {
                 result.push(element)

@@ -243,9 +243,6 @@ export class FormComponent implements OnInit {
       deleted: this.adminForm.get('deleted')?.value
     };
 
-    console.log(userData);
-    
-
     this.adminService.updateUser(userData, this.userR._id, this.userMatricule).subscribe(
       (_) => {
         this.updateDone = true;

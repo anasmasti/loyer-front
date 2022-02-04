@@ -197,9 +197,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   fetchFc(HasAmenagement: string) {
     this.removeAllAmenagement();
 
-    console.log(this.foncier);
-    
-
     // reintialise variables
     this.currentLieu = null;
     this.foncierLieux = [];
@@ -490,7 +487,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       this.selectedFile = event.target.files[0];
       this.fd.append('imgs_lieu_entrer', this.selectedFile);
     }
-    console.log(this.selectedFile);
   }
 
   // Afficher le message d'erreur de serveur
@@ -546,7 +542,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   }
 
   updateFoncier() {
-    console.log('image:' , this.foncier);
     
     this.pushIntoFoncierLieux(this.currentLieu);
     let id = this.foncier._id;
@@ -585,9 +580,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     };
 
     this.fd.append('data', JSON.stringify(foncier));
-
-    console.log(foncier);
-    
 
     this.foncierService
       .updateFoncier(id, this.fd, this.userMatricule)

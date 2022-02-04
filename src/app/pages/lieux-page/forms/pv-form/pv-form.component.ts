@@ -137,9 +137,7 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
       centre_cout_siege: this.PvForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.PvForm.get('categorie_pointVente')?.value,
     };
-
-    console.log(pvData);
-    
+  
 
     this.lieuService.addLieu(pvData, this.userMatricule).subscribe(
       (_) => {
@@ -179,8 +177,6 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
       centre_cout_siege: this.PvForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.PvForm.get('categorie_pointVente')?.value,
     };
-
-    console.log('pvData', pvData);
 
     this.lieuService.updateLieux(id, pvData, this.userMatricule).subscribe(
       (_) => {

@@ -638,8 +638,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     this.montantAvance = this.montantLoyer * dureeAvance;
     // this.taxAvance = (this.retenueSource / dureeLocation) * dureeAvance;
      this.taxAvance = this.retenueSource  * dureeAvance;
-    console.log(this.taxAvance);
-    
 
     if (periodicite == 'mensuelle') {
       this.taxPeriodicite = this.retenueSource / dureeLocation;

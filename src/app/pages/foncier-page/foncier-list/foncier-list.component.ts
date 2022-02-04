@@ -41,8 +41,6 @@ export class FoncierListComponent implements OnInit {
   accessError!: any;
   reporting: boolean;
 
-  intituleLieu: string | undefined = ''
-
   constructor(
     private foncierService: FoncierService,
     private helperService: HelperService,
@@ -73,7 +71,6 @@ export class FoncierListComponent implements OnInit {
           this.store.dispatch(getFoncierAction());
         }
         this.fonciers = data;
-        console.log("===",this.fonciers);
         
       });
   }
@@ -91,6 +88,8 @@ export class FoncierListComponent implements OnInit {
             ?.toLowerCase()
             .match(this.findFoncier.toLowerCase()) ||
           res.ville?.toLowerCase().match(this.findFoncier.toLowerCase())
+          ||
+          res.lieu[0].lieu.code_lieu?.toLowerCase().match(this.findFoncier.toLowerCase())
         );
       });
     } else if (this.findFoncier == '') {
