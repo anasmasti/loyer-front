@@ -26,13 +26,13 @@
       <input type="hidden" class="form-control btn success-btn" formControlName="validation2_DAJC" />
       <input type="hidden" class="form-control btn success-btn" formControlName="numero_contrat" />
 
-      <div class="col-lg-5 form-group mt-4">
+      <div class="col-lg-3 form-group mt-4">
         <label for="">Pièce jointe</label>
         <input type="file" class="form-control btn success-btn" formControlName="piece_jointe" accept=".pdf"
           (change)="onFileSelected($event)" />
       </div>
 
-      <div class="col-lg-5 form-group mt-4">
+      <div class="col-lg-3 form-group mt-4">
         <label for="" >Date de début du loyer <span class="danger-txt">*</span></label>
         <input type="date" [(ngModel)]="date_debut_loyer_" class="form-control rounded-pill"
           (change)="reinitialiserDateDebut()" formControlName="date_debut_loyer" required [ngClass]="{
@@ -49,14 +49,14 @@
 
       </div>
 
-      <div class="row">
-        <div class="col-lg-4 form-group mt-4">
+        <div class="col-lg-3 form-group mt-4">
           <label for="">Montant du loyer <span class="danger-txt">*</span></label>
           <input type="number" [(ngModel)]="montantLoyer" class="form-control rounded-pill"
             formControlName="montant_loyer" [ngClass]="{
               'is-invalid': checkInputsValidation(montant_loyer),
               'is-valid': !montant_loyer?.invalid
-            }"  (keyup)="calculTaxeNonComprise();calculMontantLoyerTTC()"/>
+            }"  />
+            <!-- (keyup)="calculTaxeNonComprise();calculMontantLoyerTTC()" -->
   
           <!-- Error Message  -->
           <div class="" *ngIf="checkInputsValidation(montant_loyer)">
@@ -65,20 +65,32 @@
             </p>
           </div>
         </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Taxe d’édilité comprise dans le loyer</label>
+          <input type="text" class="form-control rounded-pill" formControlName="taxe_edilite_comprise_loyer" />
+        </div>
+  
+  
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Taxe d’édilité non comprise dans le loyer</label>
+          <input type="text" class="form-control rounded-pill" formControlName="taxe_edilite_noncomprise_loyer" />
+        </div>
+        
+    
   
         <!-- <div class="col-lg-3 form-group mt-4">
           <label for="">Taxe d’édilité comprise dans le loyer</label>
           <input type="text" class="form-control rounded-pill" formControlName="taxe_edilite_comprise_loyer" (keyup)="calculTaxeNonComprise()"/>
         </div> -->
-  
-  
-        <div class="col-lg-4 form-group mt-4">
-          <label for="">Taxe d’édilité non comprise dans le loyer</label>
-          <input type="text" [value]="taxNonComprise" class="form-control rounded-pill" formControlName="taxe_edilite_noncomprise_loyer" readonly/>
-        </div>
-      </div>
 
+  
+  <!-- //////////// The last solution of Taxe d'édilité ////////////////// -->
 
+      <!-- <div class="col-lg-4 form-group mt-4">
+        <label for="">Taxe d’édilité non comprise dans le loyer</label>
+        <input type="text" [value]="taxNonComprise" class="form-control rounded-pill" formControlName="taxe_edilite_noncomprise_loyer" readonly/>
+     </div>
       <div class="row">
         <div class="col-lg-4 form-group mt-4">
           <label for="">Montant du loyer TTC</label>
@@ -90,8 +102,8 @@
           <label for="">Taxe d’édilité comprise dans le loyer</label>
           <input type="text" class="form-control rounded-pill" formControlName="taxe_edilite_comprise_loyer" (keyup)="calculTaxeNonComprise()" [value]="taxNonComprise" readonly/>
         </div>
-      </div>
-
+      </div> -->
+<!-- ///////////////////////////////////////////////// -->
 
 
 
@@ -121,7 +133,7 @@
           'is-invalid': checkInputsValidation(duree_location),
           'is-valid': !duree_location?.invalid
         }" />
-         --Error Message--
+          --Error Message-- 
         <div class="" *ngIf="checkInputsValidation(duree_location)">
           <p class="danger-txt" *ngIf="duree_location?.errors?.required">
             Veuillez remplir ce champ
