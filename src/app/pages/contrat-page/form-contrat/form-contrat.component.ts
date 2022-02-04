@@ -431,17 +431,17 @@ export class FormContratComponent implements OnInit {
   }
 
   //Calcul taxe d'édilité
-  calculTaxeNonComprise() {
-    let taxComprise = this.contratForm.get('taxe_edilite_comprise_loyer')?.value;
-    if(taxComprise != 0 && taxComprise != null) 
-      this.taxNonComprise = 0;
-    else
-      this.taxNonComprise = this.montantLoyer  * (10.5 / 100);
-  }
+  // calculTaxeNonComprise() {
+  //   // let taxComprise = this.contratForm.get('taxe_edilite_comprise_loyer')?.value;
+  //   // if(taxComprise != 0 && taxComprise != null) 
+  //   //   this.taxNonComprise = 0;
+  //   // else
+  //     this.taxNonComprise = this.montantLoyer  * (10.5 / 100);
+  // }
 
-  calculMontantLoyerTTC(){
-    this.montantLoyerTTC = this.montantLoyer * 1.105;
-  }
+  // calculMontantLoyerTTC(){
+  //   this.montantLoyerTTC = this.montantLoyer * 1.105;
+  // }
 
   //Reinitialise dates :::///
   reinitialiserDates() {
@@ -506,10 +506,10 @@ export class FormContratComponent implements OnInit {
       numero_contrat: this.num_contrat,
       date_debut_loyer: this.contratForm.get('date_debut_loyer')?.value || '',
       montant_loyer: this.contratForm.get('montant_loyer')?.value || '',
-      taxe_edilite_loyer: this.taxNonComprise,
-        // this.contratForm.get('taxe_edilite_comprise_loyer')?.value || '',
-      taxe_edilite_non_loyer: this.taxNonComprise,
-        // this.contratForm.get('taxe_edilite_noncomprise_loyer')?.value || '',
+      taxe_edilite_loyer: this.contratForm.get('taxe_edilite_comprise_loyer')?.value || '',
+      // taxe_edilite_loyer: this.taxNonComprise,
+      taxe_edilite_non_loyer: this.contratForm.get('taxe_edilite_noncomprise_loyer')?.value || '',
+      // taxe_edilite_non_loyer: this.taxNonComprise,
       periodicite_paiement:
         this.contratForm.get('periodicite_paiement')?.value || '',
       date_fin_contrat: this.contratForm.get('date_fin_contrat')?.value || '',
@@ -543,9 +543,7 @@ export class FormContratComponent implements OnInit {
 
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
-    console.log("data ==>",ctr_data);
     
-
     // post the formdata (data+files)
     this.contratService
       .addContrat(this.fd, this.userMatricule, this.foncier_id)
@@ -592,8 +590,6 @@ export class FormContratComponent implements OnInit {
 
   fetchContrat() {
     if (this.contrat) {
-      console.log("data contrat",this.contrat);
-
       // var date_debut_loyer = this.pipeDate.transform(this.contrat.date_debut_loyer, 'yyyy-MM-dd')
       // var date_debut_loyer = new Date(this.contrat.date_debut_loyer)
       var date_fin_contrat = new Date(this.contrat.date_fin_contrat);
@@ -689,8 +685,8 @@ export class FormContratComponent implements OnInit {
       montant_loyer: this.contratForm.get('montant_loyer')?.value || '',
       taxe_edilite_loyer:
         this.contratForm.get('taxe_edilite_comprise_loyer')?.value || '',
-      taxe_edilite_non_loyer: this.taxNonComprise,
-        // this.contratForm.get('taxe_edilite_noncomprise_loyer')?.value || '',
+      // taxe_edilite_non_loyer: this.taxNonComprise,
+        taxe_edilite_non_loyer: this.contratForm.get('taxe_edilite_noncomprise_loyer')?.value || '',
       periodicite_paiement:
         this.contratForm.get('periodicite_paiement')?.value || '',
       date_fin_contrat: this.contratForm.get('date_fin_contrat')?.value || '',
@@ -771,6 +767,7 @@ export class FormContratComponent implements OnInit {
     };
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
+    
 
     // patch the formdata (data+files)
     this.contratService.updateContrat(id, this.fd).subscribe(

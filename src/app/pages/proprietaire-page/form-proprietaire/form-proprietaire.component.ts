@@ -371,6 +371,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       });
   }
 
+
   // Calculer le montant (retenue à la source / montant apres impot / TAX)
   calculMontant() {
     // let montantLoyerForYear = this.montantLoyer * 12;
@@ -417,13 +418,17 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
           this.montantLoyer * 12 > 30000 &&
           this.montantLoyer * 12 <= 120000
         ) {
-          result = (this.montantLoyer * 12 * 10) / 100;
-          montantApresImpot = (this.montantLoyer * 12 - result) / 12;
+          // result = (this.montantLoyer * 12 * 10) / 100;
+          result = (this.montantLoyer) * (10 / 100);
+          // montantApresImpot = (this.montantLoyer * 12 - result) / 12;
+          montantApresImpot = this.montantLoyer - result;
           tauxImpot = 10;
         }
         if (this.montantLoyer * 12 > 120000) {
-          result = (this.montantLoyer * 12 * 15) / 100;
-          montantApresImpot = (this.montantLoyer * 12 - result) / 12;
+          // result = (this.montantLoyer * 12 * 15) / 100;
+           result = (this.montantLoyer) * (15 / 100);
+          // montantApresImpot = (this.montantLoyer * 12 - result) / 12;
+          montantApresImpot = this.montantLoyer - result;
           tauxImpot = 15;
         }
       }
@@ -454,15 +459,19 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
           this.montantLoyer * nbr_mois_louer > 30000 &&
           this.montantLoyer * nbr_mois_louer <= 120000
         ) {
-          result = (this.montantLoyer * nbr_mois_louer * 10) / 100;
-          montantApresImpot =
-            (this.montantLoyer * nbr_mois_louer - result) / nbr_mois_louer;
+          // result = (this.montantLoyer * nbr_mois_louer * 10) / 100;
+          result = (this.montantLoyer) * (10 / 100);
+          // montantApresImpot =
+          //   (this.montantLoyer * nbr_mois_louer - result) / nbr_mois_louer;
+          montantApresImpot = this.montantLoyer - result;
           tauxImpot = 10;
         }
         if (this.montantLoyer * nbr_mois_louer > 120000) {
-          result = (this.montantLoyer * nbr_mois_louer * 15) / 100;
-          montantApresImpot =
-            (this.montantLoyer * nbr_mois_louer - result) / nbr_mois_louer;
+          // result = (this.montantLoyer * nbr_mois_louer * 15) / 100;
+          result = (this.montantLoyer) * (15 / 100);
+          // montantApresImpot =
+          //   (this.montantLoyer * nbr_mois_louer - result) / nbr_mois_louer;
+          montantApresImpot = this.montantLoyer - result;
           tauxImpot = 15;
         }
       }
@@ -524,7 +533,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   //Fake calcul
   // // Calculer le montant (retenue à la source / montant apres impot / TAX)
   // calculMontant() {
-  //   // let montantLoyerForYear = this.montantLoyer * 12;
+    // let montantLoyerForYear = this.montantLoyer * 12;
   //   let tauxImpot: number = 0;
   //   let montantApresImpot: number = 0;
   //   let result: number = 0;
@@ -627,7 +636,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     let periodicite = this.contratByFoncier[0]?.periodicite_paiement;
 
     this.montantAvance = this.montantLoyer * dureeAvance;
-    this.taxAvance = (this.retenueSource / dureeLocation) * dureeAvance;
+    // this.taxAvance = (this.retenueSource / dureeLocation) * dureeAvance;
+     this.taxAvance = this.retenueSource  * dureeAvance;
     console.log(this.taxAvance);
     
 
