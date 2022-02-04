@@ -41,6 +41,8 @@ export class FoncierListComponent implements OnInit {
   accessError!: any;
   reporting: boolean;
 
+  intituleLieu: string | undefined = ''
+
   constructor(
     private foncierService: FoncierService,
     private helperService: HelperService,
@@ -71,6 +73,8 @@ export class FoncierListComponent implements OnInit {
           this.store.dispatch(getFoncierAction());
         }
         this.fonciers = data;
+        console.log("===",this.fonciers);
+        
       });
   }
 
