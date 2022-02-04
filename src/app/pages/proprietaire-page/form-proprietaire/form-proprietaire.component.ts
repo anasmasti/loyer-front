@@ -640,13 +640,17 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
      this.taxAvance = this.retenueSource  * dureeAvance;
 
     if (periodicite == 'mensuelle') {
-      this.taxPeriodicite = this.retenueSource / dureeLocation;
+      // this.taxPeriodicite = this.retenueSource / dureeLocation;
+      this.taxPeriodicite = this.retenueSource;
     }
     if (periodicite == 'trimestrielle') {
-      this.taxPeriodicite = this.retenueSource / (dureeLocation * 3);
+      // this.taxPeriodicite = this.retenueSource / (dureeLocation * 3);
+       this.taxPeriodicite = this.retenueSource  * 3;
     }
     if (periodicite == 'annuelle') {
-      this.taxPeriodicite = this.retenueSource / 12;
+      // this.taxPeriodicite = this.retenueSource / 12;
+       this.taxPeriodicite = this.retenueSource * 12;
+
     }
   }
 

@@ -1,11 +1,2 @@
 @use '../../../../assets/style/helpers' as *;
 @use '../../../../assets/style/components' as *;
-
-th {
-   @extend .header-table
-}
-
-span {
-   color: color(main-color);
-   font-size: 25px;
-}
