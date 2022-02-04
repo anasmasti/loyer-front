@@ -13,6 +13,7 @@
   border-radius: $main-border-radius;
   box-shadow: $card-box-shadow;
   transition: all 0.4s;
+  overflow-y: scroll;
 }
 
 #sidebar.active {
