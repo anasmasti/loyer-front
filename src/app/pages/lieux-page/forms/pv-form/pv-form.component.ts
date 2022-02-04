@@ -35,6 +35,7 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
   DrSubscription$!: Subscription;
   SupSubscription$!: Subscription;
   intitule_rattache_SUP!: any;
+  intitule_rattache_DR!: any;
 
   @Input() update!: boolean;
   @Input() Lieu!: any;
@@ -221,6 +222,27 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
+
+  displayIntituleDR() {
+    const codeDR = this.PvForm.get('code_rattache_DR')?.value;
+    let check = false
+
+    for (let i = 0; i < this.Dr.length; i++) {
+      if (this.Dr[i].code_lieu == codeDR) {
+        check = true
+        if (codeDR != undefined) {
+          this.intitule_rattache_DR = this.Dr[i].intitule_lieu;
+        } else {
+          this.intitule_rattache_DR = '';
+        }
+      }
+    }    
+
+    if (!check) {
+      this.intitule_rattache_DR = '';
+    }
+  }
+
   // Get Dr and Sup from the server
   getDrSup() {
     this.store.dispatch(getDrWithSupAction());
@@ -228,7 +250,12 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
   // Select Dr
   getDr() {
     this.DrSubscription$ = this.store.select(getDr).subscribe((data) => {
-      if (data) this.Dr = data;
+      // if (data) this.Dr = data;
+      // if (!data) this.getDrSup();
+      if (data) {
+        this.Dr = data;
+        this.displayIntituleDR();
+      }
       if (!data) this.getDrSup();
     });
   }
@@ -240,8 +267,6 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
         this.displayIntituleSup();
       }
       if (!data) this.getDrSup();
-      console.log(this.Sup);
-      
     });
   }
 
