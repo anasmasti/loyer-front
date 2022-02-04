@@ -167,9 +167,9 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   }
 
   fetchFc(HasAmenagement: string) {
+    console.log(this.foncier);
     this.removeAllAmenagement();
 
-    console.log(this.foncier);
     
 
     // reintialise variables

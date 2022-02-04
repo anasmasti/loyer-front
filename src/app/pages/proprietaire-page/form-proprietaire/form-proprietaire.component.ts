@@ -373,8 +373,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
   // Calculer le montant (retenue à la source / montant apres impot / TAX)
   calculMontant() {
-    
-    
     // let montantLoyerForYear = this.montantLoyer * 12;
     let tauxImpot: number = 0;
     let montantApresImpot: number = 0;
