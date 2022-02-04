@@ -45,9 +45,9 @@
             </li>
 
             <li class="nav-item">
-                <a [routerLink]="['/foncier']" routerLinkActive="router-link-active" class="nav-link main-btn">
-                    <span (click)="showSubMenu('lieux')">
-                        <i class="fas fa-hotel"></i>&nbsp;&nbsp;Locaux
+                <a [routerLink]="['/foncier']" routerLinkActive="router-link-active" class="nav-link main-btn" (click)="showSubMenu('lieux')">
+                    <span >
+                        <i class="fas fa-hotel"></i>&nbsp;&nbsp;Ajouter des locaux
                     </span>
                 </a>
                 <ul class="sub-menu list-unstyled" id="lieux">

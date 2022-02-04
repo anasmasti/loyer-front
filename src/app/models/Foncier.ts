@@ -11,7 +11,10 @@ export interface Foncier {
   adresse: string;
   lieu: [
     {
-      lieu?: any;
+      lieu?: {
+        intitule_lieu: string,
+        type_lieu: string
+      };
       deleted?: boolean;
     }
   ];
