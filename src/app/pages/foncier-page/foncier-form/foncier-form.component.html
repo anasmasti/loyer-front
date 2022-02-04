@@ -40,12 +40,20 @@
 
       <div *ngIf="!update" class="col-lg-3 form-group mt-4">
         <label for="">Code du local <span class="danger-txt">*</span></label>
-        <select class="form-select rounded-pill" formControlName="lieu" [ngClass]="{
-          'is-invalid': checkInputsValidation(lieu),
-          'is-valid': !lieu?.invalid
-        }">
+        <select
+          class="form-select rounded-pill"
+          formControlName="lieu"
+          [ngClass]="{
+            'is-invalid': checkInputsValidation(lieu),
+            'is-valid': !lieu?.invalid
+          }"
+        >
           <option [value]="lieu._id" *ngFor="let lieu of lieuxByType">
-            {{ lieu.type_lieu == 'Logement de fonction' ? lieu.code_localite : lieu.code_lieu}}
+            {{
+              lieu.type_lieu == "Logement de fonction"
+                ? lieu.code_localite
+                : lieu.code_lieu
+            }}
           </option>
         </select>
         <div class="" *ngIf="checkInputsValidation(lieu)">
@@ -212,11 +220,19 @@
 
               <div class="col-lg-3 form-group mt-4">
                 <label for="">Nature des travaux d’aménagement</label>
-                <input
+                <!-- <input
                   type="text"
                   class="form-control rounded-pill"
                   formControlName="nature_amenagement"
-                />
+                /> -->
+                <select
+                  class="form-select rounded-pill"
+                  formControlName="nature_amenagement"
+                >
+                  <option *ngFor="let nature of natures" [value]="nature.name">
+                    {{ nature.name }}
+                  </option>
+                </select>
               </div>
               <!-- && amenagementForm.controls[i].value.idm.length !== 0  -->
               <div class="col-lg-3 form-group mt-4">

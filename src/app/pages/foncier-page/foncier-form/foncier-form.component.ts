@@ -80,6 +80,34 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     },
   ];
 
+  //Les natures des travaux d'aménagement
+  natures = [
+    {
+      id: 1,
+      name: 'construction'
+    },
+    {
+      id: 2,
+      name: 'démolition'
+    },
+    {
+      id: 3,
+      name: 'plomberie'
+    },
+    {
+      id: 4,
+      name: 'peinture'
+    },
+    {
+      id: 5,
+      name: 'menuiserie' 
+    },
+    {
+      id: 6,
+      name: 'électricité'
+    },
+  ]
+
   lieuxByType!: Lieu[];
   selectedType!: string;
   selectedLieuId!: string;
@@ -497,7 +525,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     
     this.fd.append('data', JSON.stringify(foncier));
 
-    console.log('data' , foncier);
     
     this.foncierService.addFoncier(this.fd, this.userMatricule).subscribe(
       (_) => {
