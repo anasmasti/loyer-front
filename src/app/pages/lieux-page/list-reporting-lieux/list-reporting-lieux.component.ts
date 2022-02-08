@@ -14,7 +14,7 @@ export class ListReportingLieuxComponent implements OnInit {
   listReportingPage: number = 1;
   count: number = 0;
   tableSize: number = 10;
-  findDate!: string;
+  foundedDate!: string;
   dateList!: any[];
 
   userMatricule: any = localStorage.getItem('matricule');
@@ -22,6 +22,7 @@ export class ListReportingLieuxComponent implements OnInit {
   errors!: string;
   reportings!: any[];
   findReporting!: any;
+  reportingsClone!: any;
 
   url: string = environment.API_URL_WITHOUT_PARAM;
 
@@ -91,7 +92,8 @@ export class ListReportingLieuxComponent implements OnInit {
   getReportings(route: string, data: any) { 
     this.reportingService.getReportings(route, data).subscribe(
       (data) => {
-        this.reportings = data;
+        this.reportingsClone = data;
+        this.reportings = this.reportingsClone;
       },
       (error) => {
         this.errors = error.error;
@@ -103,31 +105,14 @@ export class ListReportingLieuxComponent implements OnInit {
     );
   }
 
-  search(type: string) {
-    let isAnnee: boolean;
-
-    if (type == 'annee') isAnnee = true;
-
-    if (this.findDate != '') {
-      this.searchService.mainSearch(
-        (this.reportings = this.reportings.filter((res: any) => {
-          if (isAnnee) {
-            return res.annee
-              ?.toString()
-              ?.toLowerCase()
-              .match(this.findDate.toLowerCase());
-          } else {
-            return res.mois
-              ?.toString()
-              ?.toLowerCase()
-              .match(this.findDate.toLowerCase());
-          }
-        }))
-      );
-    } else if (this.findDate == '') {
-      this.lieux.forEach(lieu => {
-        this.getReportings(lieu.id,lieu.data);
-      })
+  search(date: any) {
+    let splitedDate = date.split('-');
+    if (splitedDate[0] != '') {
+      this.reportings = this.reportingsClone.filter((res: any) => {
+        return res.annee == splitedDate[0] && res.mois == splitedDate[1];
+      });
+    } else if (splitedDate[0] == '') {
+      this.getReportings('reporting/all', this.lieuxList);
     }
   }
 
