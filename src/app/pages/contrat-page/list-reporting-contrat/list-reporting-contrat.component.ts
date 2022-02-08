@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { HelperService } from 'src/app/services/helpers/helper.service';
 import { ReportingService } from 'src/app/services/reporting/reporting.service';
 import { SearchServiceService } from 'src/app/services/search-service/search-service.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { debounceTime, filter, map, mergeMap, tap } from 'rxjs/operators';
+import { from, fromEvent, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-list-reporting-contrat',
@@ -11,7 +14,7 @@ import { SearchServiceService } from 'src/app/services/search-service/search-ser
 })
 export class ListReportingContratComponent implements OnInit {
   dateList!: any[];
-  findDate!: string;
+  foundedDate!: string;
   reportings!: any;
   userMatricule: any = localStorage.getItem('matricule');
   accessError!: any;
@@ -25,10 +28,9 @@ export class ListReportingContratComponent implements OnInit {
 
   url: string = environment.API_URL_WITHOUT_PARAM;
 
-  contratList =  [
-    "cautions_en_cours",
-    "échéances_de_contrats"
-  ] 
+  contratList = ['cautions_en_cours', 'échéances_de_contrats'];
+  dateForm: any;
+  reportingsClone!: any;
 
   constructor(
     private reportingService: ReportingService,
@@ -37,7 +39,10 @@ export class ListReportingContratComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getReportings('reporting/all',this.contratList);
+    this.dateForm = new FormGroup({
+      date_search: new FormControl(''),
+    });
+    this.getReportings('reporting/all', this.contratList);
     this.fillMounths();
   }
 
@@ -56,29 +61,23 @@ export class ListReportingContratComponent implements OnInit {
   }
 
   generatContratReportings(type: string) {
-
-    this.reportingService
-      .generateReportings(type)
-      .subscribe(
-        (data) => {
-          console.log('Generate',data);
-          
-        },
-        (error) => {
-          this.errors = error.error.message;
-          setTimeout(() => {
-            this.showErrorMessage();
-          }, 2000);
-          this.hideErrorMessage();
-        }
-      );
+    this.reportingService.generateReportings(type).subscribe(
+      (_) => {},
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 2000);
+        this.hideErrorMessage();
+      }
+    );
   }
 
-  getReportings(route: string,data: any) {
-    this.reportingService.getReportings(route,data).subscribe(
+  getReportings(route: string, data: any) {
+    this.reportingService.getReportings(route, data).subscribe(
       (data) => {
-        this.reportings = data;
-        console.log('Get',data);
+        this.reportingsClone = data;
+        this.reportings = this.reportingsClone;
       },
       (error) => {
         this.errors = error.error.message;
@@ -90,30 +89,14 @@ export class ListReportingContratComponent implements OnInit {
     );
   }
 
-  search(type: string) {
-    let isAnnee: boolean;
-
-    if (type == 'annee') isAnnee = true;
-
-    if (this.findDate != '') {
-      this.searchService.mainSearch(
-        (this.reportings = this.reportings.filter((res: any) => {
-          if (isAnnee) {
-            return res.annee
-              ?.toString()
-              ?.toLowerCase()
-              .match(this.findDate.toLowerCase());
-          } else {
-            return res.mois
-              ?.toString()
-              ?.toLowerCase()
-              .match(this.findDate.toLowerCase());
-          }
-        }))
-      );
-    } else if (this.findDate == '') {
-      this.getReportings('generate/contrat/caution-en-cours',this.contratList);
-      this.getReportings('generate/contrat/echeances',this.contratList);
+  search(date: any) {
+    let splitedDate = date.split('-');
+    if (splitedDate[0] != '') {
+      this.reportings = this.reportingsClone.filter((res: any) => {
+        return res.annee == splitedDate[0] && res.mois == splitedDate[1];
+      });
+    } else if (splitedDate[0] == '') {
+      this.getReportings('reporting/all', this.contratList);
     }
   }
-} 
+}

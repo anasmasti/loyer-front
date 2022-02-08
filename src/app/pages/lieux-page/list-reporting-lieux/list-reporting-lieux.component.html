@@ -100,11 +100,11 @@
                 >
                 Expoter les reportings
               </a>
-              <p
-                *ngIf="reporting?.reportingPaths == null"
-                class="main-muted-text"
-              >
-                Il n'y a aucun fichier à télécharger
+
+              <p *ngIf="reporting?.reportingPaths == null" class="main-muted-text">
+                <a class="btn btn-sm success-btn" disabled>
+                  aucun fichier à télécharger
+                </a>
               </p>
             </div>
           </td>

@@ -73,8 +73,6 @@ export class ListReportingFoncierComponent implements OnInit {
     this.reportingService.getReportings(route, data).subscribe(
       (data) => {
         this.reportings = data;
-        console.log("get =>",this.reportings);
-        
       },
       (error) => {
         this.errors = error.error.message;

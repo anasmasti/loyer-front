@@ -92,7 +92,6 @@ export class ListReportingLieuxComponent implements OnInit {
     this.reportingService.getReportings(route, data).subscribe(
       (data) => {
         this.reportings = data;
-        console.log("tist",data);
       },
       (error) => {
         this.errors = error.error;
@@ -136,8 +135,7 @@ export class ListReportingLieuxComponent implements OnInit {
     this.reportingService
       .generateReportings(lieu)
       .subscribe(
-        (data) => {console.log("======",data);
-        },
+        (_) => {},
         (error) => {
           this.errors = error.error.message;
           setTimeout(() => {

@@ -33,18 +33,22 @@
   <div class="row d-flex justify-content-between">
     <div class="col-lg-4 mb-4">
       <label for="" class="main-muted-text"
-        ><i class="far fa-search"></i> Recherche par année</label
+        ><i class="far fa-search"></i> Recherche par mois et année</label
       >
-      <input
-        type="text"
-        class="form-control rounded-pill"
-        placeholder="Rechercher par année..."
-        [(ngModel)]="findDate"
-        (input)="search('annee')"
-      />
+      <div [formGroup]="dateForm">
+        
+        <input
+          type="month"
+          class="form-control rounded-pill"
+          formControlName="date_search"
+          [(ngModel)]="foundedDate"
+          (change)="search(foundedDate)"
+          id="fullDate"
+        />
+      </div>
     </div>
 
-    <div class="col-lg-4 mb-4">
+    <!-- <div class="col-lg-4 mb-4">
       <label for="" class="main-muted-text"
         ><i class="far fa-search"></i> Recherche par mois</label
       >
@@ -57,7 +61,7 @@
           {{ date.name }}
         </option>
       </select>
-    </div>
+    </div> -->
 
     <div
     *ngFor="
