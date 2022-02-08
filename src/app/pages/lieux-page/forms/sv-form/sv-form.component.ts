@@ -87,7 +87,6 @@ export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   fetchSv() {
-    console.log(this.Lieu);
 
     this.svForm.patchValue({
       code_lieu: this.Lieu.code_lieu,
@@ -177,7 +176,6 @@ export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
       categorie_pointVente: this.svForm.get('categorie_pointVente')?.value,
     };
 
-    console.log('SvData', SvData);
 
     this.lieuService.updateLieux(id, SvData, this.userMatricule).subscribe(
       (_) => {
@@ -211,7 +209,6 @@ export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
       this.displayIntituleDR();}
       if (!data) this.getDrSup();
       // fetch intitule Dr
-      console.log(this.Dr);
     });
   }
 
@@ -220,7 +217,6 @@ export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
 
     for (let i = 0; i < this.Dr.length; i++) {
       if (this.Dr[i]._id == codeDR) {
-        console.log(codeDR);
         this.intitule_rattache_DR = this.Dr[i].intitule_lieu;
       }
     }

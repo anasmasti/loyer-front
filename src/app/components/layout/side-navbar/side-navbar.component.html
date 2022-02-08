@@ -30,8 +30,8 @@
             </li>
 
             <li class="nav-item my-4">
-                <a [routerLink]="['/lieux']" routerLinkActive="router-link-active" class="nav-link main-btn">
-                    <span (click)="showSubMenu('entite')">
+                <a [routerLink]="['/lieux']" routerLinkActive="router-link-active" class="nav-link main-btn" (click)="showSubMenu('entite')">
+                    <span >
                         <i class="fal fa-building"></i>&nbsp;&nbsp;Entités organisat..
                     </span>
                 </a>
@@ -45,12 +45,17 @@
             </li>
 
             <li class="nav-item">
-                <a [routerLink]="['/foncier']" routerLinkActive="router-link-active" class="nav-link main-btn">
-                    <span (click)="showSubMenu('lieux')">
+                <a [routerLink]="['/foncier']" routerLinkActive="router-link-active" class="nav-link main-btn" (click)="showSubMenu('lieux')">
+                    <span >
                         <i class="fas fa-hotel"></i>&nbsp;&nbsp;Locaux
                     </span>
                 </a>
                 <ul class="sub-menu list-unstyled" id="lieux">
+                    <li>
+                        <a [routerLink]="['/foncier']" class="nav-link sub-menu-btn">
+                            Ajouter un local
+                        </a>
+                    </li>
                     <li>
                         <a [routerLink]="['/foncier/list']" class="nav-link sub-menu-btn">
                             Liste des locaux

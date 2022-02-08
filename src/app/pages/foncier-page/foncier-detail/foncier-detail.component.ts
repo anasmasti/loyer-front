@@ -21,6 +21,8 @@ export class FoncierDetailComponent implements OnInit {
   selectedImageEntrer!: any;
   url: string = environment.API_URL_WITHOUT_PARAM;
 
+  intituleLieu: string | undefined = ''
+
   hasAmenagement: boolean = true;
 
   constructor(
@@ -48,6 +50,8 @@ export class FoncierDetailComponent implements OnInit {
           this.foncier.amenagement = data.amenagement;
           this.foncier.imgs_lieu_entrer = data.imgs_lieu_entrer;
 
+          this.intituleLieu = this.foncier.lieu[0]?.lieu?.intitule_lieu
+
           for (
             let index = 0;
             // @ts-ignore: Object is possibly 'null'.
@@ -63,8 +67,9 @@ export class FoncierDetailComponent implements OnInit {
             // @ts-ignore 
               this.foncier.amenagement[index]?.images_apres_travaux[index];
           }
+
+
         }
-        console.log(this.foncier);
       });
       
   }
