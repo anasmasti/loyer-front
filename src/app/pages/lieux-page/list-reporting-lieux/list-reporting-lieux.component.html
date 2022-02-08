@@ -87,6 +87,9 @@
 
       <tbody *ngIf="reportings?.length">
         <tr *ngFor="let repoDetails of reporting.reportingPaths">
+          
+            <td>{{repoDetails | transformName}}</td>
+         
           <td>
             <div class="my-2">
               <a

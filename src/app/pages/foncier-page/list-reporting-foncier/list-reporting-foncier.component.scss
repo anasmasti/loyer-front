@@ -8,3 +8,12 @@ section {
 th {
     @extend .header-table;
   }
+
+  @include mobile($min-screen, 1850px) {
+    div{
+        display: inline;
+        flex-wrap: wrap;
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+}
