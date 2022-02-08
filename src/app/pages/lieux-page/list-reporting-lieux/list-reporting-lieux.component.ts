@@ -120,7 +120,11 @@ export class ListReportingLieuxComponent implements OnInit {
     this.reportingService
       .generateReportings(lieu)
       .subscribe(
-        (_) => {},
+        (_) => {
+          this.reportings
+          console.log("---",this.reportings);
+          
+        },
         (error) => {
           this.errors = error.error.message;
           setTimeout(() => {
