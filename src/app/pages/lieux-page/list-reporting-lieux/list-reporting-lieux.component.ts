@@ -58,12 +58,7 @@ export class ListReportingLieuxComponent implements OnInit {
     "points_de_vente",
     "supervisions",
     "directions_régionales",
-    "logements_de_fonction",
-    "aménagements_réalisés",
-    "locaux_fermés",
-    "cautions_en_cours",
-    "reprises_sur_cautions",
-    "échéances_de_contrats"
+    "logements_de_fonction"
   ] 
 
   constructor(
@@ -97,6 +92,7 @@ export class ListReportingLieuxComponent implements OnInit {
     this.reportingService.getReportings(route, data).subscribe(
       (data) => {
         this.reportings = data;
+        console.log("tist",data);
       },
       (error) => {
         this.errors = error.error;
@@ -140,7 +136,8 @@ export class ListReportingLieuxComponent implements OnInit {
     this.reportingService
       .generateReportings(lieu)
       .subscribe(
-        (_) => {},
+        (data) => {console.log("======",data);
+        },
         (error) => {
           this.errors = error.error.message;
           setTimeout(() => {

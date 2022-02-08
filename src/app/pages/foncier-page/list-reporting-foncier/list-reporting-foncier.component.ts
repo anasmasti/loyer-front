@@ -27,7 +27,7 @@ export class ListReportingFoncierComponent implements OnInit {
 
   url: string = environment.API_URL_WITHOUT_PARAM;
 
-  foncierList = ['amenagements_realises', 'locaux_fermes'];
+  foncierList = ['aménagements_réalisés', 'locaux_fermés'];
 
   constructor(
     private reportingService: ReportingService,
@@ -57,8 +57,7 @@ export class ListReportingFoncierComponent implements OnInit {
 
   generatFoncierReportings(type: string) {
     this.reportingService.generateReportings(type).subscribe(
-      (data) => {
-        this.reportings = data;
+      (_) => {
       },
       (error) => {
         this.errors = error.error.message;
@@ -74,6 +73,8 @@ export class ListReportingFoncierComponent implements OnInit {
     this.reportingService.getReportings(route, data).subscribe(
       (data) => {
         this.reportings = data;
+        console.log("get =>",this.reportings);
+        
       },
       (error) => {
         this.errors = error.error.message;

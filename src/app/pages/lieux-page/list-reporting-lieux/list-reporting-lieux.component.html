@@ -22,7 +22,6 @@
   <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
 </div>
 
-
 <div class="w-100 d-flex justify-content-between gap-2 mt-3">
   <div *ngFor="let lieu of lieux">
     <h5 class="main-title">{{ lieu.name }}</h5>
@@ -36,7 +35,7 @@
   <div class="row d-flex justify-content-between">
     <div class="col-lg-4 mb-4">
       <label for="" class="main-muted-text">
-        <i class="far fa-search"></i> 
+        <i class="far fa-search"></i>
         Recherche par année
       </label>
       <input
@@ -64,62 +63,64 @@
     </div>
   </div>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Type de l'entité organisationnelle</th>
-        <th>Mois</th>
-        <th>Année</th>
-        <th>Exportation</th>
-      </tr>
-    </thead>
+  <div
+    *ngFor="
+      let reporting of reportings
+        | paginate
+          : {
+              itemsPerPage: 1,
+              currentPage: listReportingPage,
+              id: 'listReportingPagination',
+              totalItems: count
+            }
+    "
+  >
+    <h3>Mois : {{ reporting.mois }} Année : {{ reporting.annee }}</h3>
 
-    <tbody *ngIf="reportings?.length">
-      <tr
-        *ngFor="
-          let reporting of reportings
-            | paginate
-              : {
-                  itemsPerPage: tableSize,
-                  currentPage: listReportingPage,
-                  id: 'listReportingPagination',
-                  totalItems: count
-                }
-        "
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Type entité organisationnelles</th>
+          <th>Exportation</th>
+        </tr>
+      </thead>
+
+      <tbody *ngIf="reportings?.length">
+        <tr *ngFor="let repoDetails of reporting.reportingPaths">
+          <td>
+            <div class="my-2">
+              <a
+                *ngIf="reporting?.reportingPaths"
+                class="btn btn-sm success-btn"
+                target="_blank"
+                href="{{ url }}{{ repoDetails[repoDetails | entite_org] }}"
+                >
+                Expoter les reportings
+              </a>
+              <p
+                *ngIf="reporting?.reportingPaths == null"
+                class="main-muted-text"
+              >
+                Il n'y a aucun fichier à télécharger
+              </p>
+            </div>
+          </td>
+        </tr>
+
+        <pagination-controls
+          id="listReportingPagination"
+          (pageChange)="listReportingPage = $event"
+          previousLabel="Précédent"
+          nextLabel="Suivant"
+        ></pagination-controls>
+      </tbody>
+
+      <tbody
+        *ngIf="!reportings?.length && !accessError"
+        class="w-100 d-flex align-items-center"
       >
-        <td>{{ reporting.type_lieu }}</td>
-        <td >{{ reporting.mois }}</td>
-        <td>{{ reporting.annee }}</td>
-        <td>
-          <div class="my-2">
-            <a
-              *ngIf="reporting?.reportingPaths"
-              class="btn btn-sm success-btn"
-              href="{{ url }}{{ reporting?.reportingPaths }}"
-              target="_blank"
-            >
-              Expoter les reportings
-            </a>
-            <p *ngIf="reporting?.reportingPaths == null" class="main-muted-text">
-              Il n'y a aucun fichier à télécharger
-            </p>
-          </div>
-        </td>
-      </tr>
-
-      <pagination-controls
-        id="listReportingPagination"
-        (pageChange)="listReportingPage = $event"
-        previousLabel="Précédent"
-        nextLabel="Suivant"
-      ></pagination-controls>
-    </tbody>
-
-    <tbody
-      *ngIf="!reportings?.length && !accessError"
-      class="w-100 d-flex align-items-center"
-    >
-      <h5 class="main-muted-text my-4">Aucun reporting à afficher</h5>
-    </tbody>
-  </table>
+        <h5 class="main-muted-text my-4">Aucun reporting à afficher</h5>
+      </tbody>
+    </table>
+  </div>
 </div>
