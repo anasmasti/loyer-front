@@ -56,6 +56,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   currentLieu: any = null;
   foncierLieux: any[] = [];
   proprietairesSubscription$!: Subscription;
+  isFournisseurExist: boolean = false;
 
   types = [
     {
@@ -84,29 +85,29 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   natures = [
     {
       id: 1,
-      name: 'construction'
+      name: 'construction',
     },
     {
       id: 2,
-      name: 'démolition'
+      name: 'démolition',
     },
     {
       id: 3,
-      name: 'plomberie'
+      name: 'plomberie',
     },
     {
       id: 4,
-      name: 'peinture'
+      name: 'peinture',
     },
     {
       id: 5,
-      name: 'menuiserie' 
+      name: 'menuiserie',
     },
     {
       id: 6,
-      name: 'électricité'
+      name: 'électricité',
     },
-  ]
+  ];
 
   lieuxByType!: Lieu[];
   selectedType!: string;
@@ -131,9 +132,9 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.foncierForm = new FormGroup({
-      type_lieu: new FormControl('',[Validators.required]),
+      type_lieu: new FormControl('', [Validators.required]),
       adresse: new FormControl('', [Validators.required]),
-      lieu: new FormControl('',[Validators.required]),
+      lieu: new FormControl('', [Validators.required]),
       ville: new FormControl('', [Validators.required]),
       desc_lieu_entrer: new FormControl(''),
       has_contrat: new FormControl(''),
@@ -181,7 +182,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
   getLieuxByType(type: string) {
     this.store.select(getLieuxByType, { type_lieu: type }).subscribe((data) => {
-      if(data) this.lieuxByType = data;
+      if (data) this.lieuxByType = data;
     });
     this.Intituler_lieu = '';
   }
@@ -203,7 +204,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     this.selectedLieuId = '';
     this.selectedType = '';
     this.Intituler_lieu = '';
-    
 
     this.foncierForm.patchValue({
       type_lieu: this.foncier.type_lieu,
@@ -318,6 +318,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
       if (!amenagementControl.deleted) {
         this.hasAmenagement = true;
+        this.isFournisseurExist = true
       }
     });
 
@@ -518,10 +519,9 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       // Amenagement
       amenagement: this.foncierForm.get('amenagementForm')?.value,
     };
-    
+
     this.fd.append('data', JSON.stringify(foncier));
 
-    
     this.foncierService.addFoncier(this.fd, this.userMatricule).subscribe(
       (_) => {
         this.postDone = true;
@@ -690,6 +690,13 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     };
 
     this.fillCurrentLieuObject(lieuData);
+  }
+
+  public toggelFournisseur(isAdd: boolean, ...args: any): void {
+    this.isFournisseurExist = isAdd;
+
+    isAdd && this.addFournisseur(args[0], args[1], 'New');
+    !isAdd && this.removeFournisseur(args[0], args[1], args[2]);
   }
 
   get amenagementForm(): FormArray {

@@ -110,6 +110,8 @@ export class FormContratComponent implements OnInit {
   taxNonComprise: number = 0;
   montantLoyerTTC : number = 0;
 
+  currentLieu: any;
+
   constructor(
     private contratService: ContratService,
     private mainModalService: MainModalService,
@@ -119,7 +121,7 @@ export class FormContratComponent implements OnInit {
   ) {}
 
   ngOnChanges() {
-    if (this.update) {
+    if (this.contrat.length != 0) {
       this.fetchContrat();
     }
   }
@@ -590,6 +592,8 @@ export class FormContratComponent implements OnInit {
 
   fetchContrat() {
     if (this.contrat) {
+      console.log(this.contrat);
+      
       // var date_debut_loyer = this.pipeDate.transform(this.contrat.date_debut_loyer, 'yyyy-MM-dd')
       // var date_debut_loyer = new Date(this.contrat.date_debut_loyer)
       var date_fin_contrat = new Date(this.contrat.date_fin_contrat);
@@ -599,6 +603,12 @@ export class FormContratComponent implements OnInit {
       var date_suspension = new Date(
         this.contrat.etat_contrat?.etat?.date_suspension
       );
+
+      this.contrat.foncier.lieu.forEach((lieu:any) => {
+        if (!lieu.deleted) {
+          this.currentLieu = lieu;
+        }
+      });
 
       this.contratForm?.patchValue({
         numero_contrat: this.contrat.numero_contrat,
@@ -643,7 +653,7 @@ export class FormContratComponent implements OnInit {
         etat_contrat_signaletique_successeur:
           this.contrat.etat_contrat?.etat?.signaletique_successeur,
         etat_contrat_intitule_lieu:
-          this.contrat.etat_contrat?.etat?.intitule_lieu,
+          this.currentLieu?.lieu?.intitule_lieu,
         etat_contrat_date_suspension: this.formatDate(
           this.contrat.etat_contrat?.etat?.date_suspension
         ),

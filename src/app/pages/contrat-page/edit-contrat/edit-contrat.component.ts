@@ -6,9 +6,8 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./edit-contrat.component.scss']
 })
 export class EditContratComponent implements OnInit {
-  
   @Input() contrat!: any;
-
+  
   constructor() { }
 
   ngOnInit(): void {
