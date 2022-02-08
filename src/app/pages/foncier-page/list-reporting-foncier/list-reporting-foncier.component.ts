@@ -11,8 +11,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ListReportingFoncierComponent implements OnInit {
   dateList!: any[];
-  findAnnee!: string;
-  findMois!: string;
+  foundedDate!: string;
   filtredReporting!: any;
   reportings!: any;
   userMatricule: any = localStorage.getItem('matricule');
@@ -24,6 +23,7 @@ export class ListReportingFoncierComponent implements OnInit {
   listReportingAmenagementPage: number = 1;
   count: number = 0;
   tableSize: number = 4;
+  reportingsClone!: any;
 
   url: string = environment.API_URL_WITHOUT_PARAM;
 
@@ -72,7 +72,8 @@ export class ListReportingFoncierComponent implements OnInit {
   getReportings(route: string, data: any) {
     this.reportingService.getReportings(route, data).subscribe(
       (data) => {
-        this.reportings = data;
+        this.reportingsClone = data;
+        this.reportings = this.reportingsClone;
       },
       (error) => {
         this.errors = error.error.message;
@@ -84,91 +85,16 @@ export class ListReportingFoncierComponent implements OnInit {
     );
   }
 
-  searchByYear(type: string) {
-    let isAnnee: boolean;
-
-    if (type == 'annee') isAnnee = true;
-
-    if (this.findAnnee != '') {
-      this.searchService.mainSearch(
-        (this.reportings = this.reportings.filter((res: any) => {
-          if (isAnnee) {
-            return res.annee
-              ?.toString()
-              ?.toLowerCase()
-              .match(this.findAnnee.toLowerCase());
-          }
-        }))
-      );
-    } else if (this.findAnnee == '') {
+  search(date: any) {
+    let splitedDate = date.split('-');
+    if (splitedDate[0] != '') {
+      this.reportings = this.reportingsClone.filter((res: any) => {
+        return res.annee == splitedDate[0] && res.mois == splitedDate[1];
+      });
+    } else if (splitedDate[0] == '') {
       this.getReportings('reporting/all', this.foncierList);
-      // this.getReportings('reporting/all',this.foncierList);
     }
   }
 
-  async searchByMonth(type: string) {
-    // let isMonth: boolean;
-
-    // console.log("teeeeeeeest");
-
-    // // if (type == 'mois') isMonth = true;
-    // // this.getReportings('reporting/all',this.foncierList);
-    // console.log("tttttttttttt" , this.reportings);
-
-    // if (this.findMois != '') {
-    //   this.searchService.mainSearch(
-    //     (this.filtredReporting = this.reportings.filter((res: any) => {
-    //       //  if (isMonth) {
-    //         res.mois
-    //         ?.toString()
-    //         // ?.toLowerCase()
-    //         .match(this.findMois.toString());
-    //         // }
-
-    //         console.log("mois",this.findMois.toLowerCase());
-    //     }))
-    //   );
-    //   this.reportings = this.filtredReporting;
-
-    //   console.log(this.filtredReporting);
-
-    // }
-
-    // else if (this.findMois == '') {
-    //   this.getReportings('reporting/all',this.foncierList);
-    //   // this.getReportings('reporting/all',this.foncierList);
-    // }
-    let isAnnee: boolean;
-    let result: any = ['test' , 'xsxsx' ,'sxdsxsx']
-    this.reportings= []
-    await this.getReportings('reporting/all', this.foncierList);
-    // if (type == 'mois') isAnnee = true;
-    
-    // if (this.reportings != []) {
-    setTimeout(() => {
-      this.searchService.mainSearch(
-        (this.reportings = this.reportings.filter((res: any) => {
-          // if (isAnnee) {
-            res.map((element:any) => {
-              if (element.mois == this.findMois) {
-                result.push(element)
-              } 
-            });
-            
-            return result
-          // }
-        }))
-      );
-    }, 1000);
-      // }
-    console.log(this.reportings);
-
-    // }
-    // else
-    // if (this.reportings == []) {
-    //   console.log("TREEEEEEEEEST");
-
-    //   // this.getReportings('reporting/all',this.foncierList);
-    // }
   }
-}
+
