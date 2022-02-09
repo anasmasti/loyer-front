@@ -32,10 +32,14 @@ export class ListReportingContratComponent implements OnInit {
   dateForm: any;
   reportingsClone!: any;
 
+  generationDone: boolean = false;
+  generationSucces: string = 'Reporting généré avec succés';
+
   constructor(
     private reportingService: ReportingService,
     private helpService: HelperService,
-    private searchService: SearchServiceService
+    private searchService: SearchServiceService,
+    private help:HelperService
   ) {}
 
   ngOnInit(): void {
@@ -62,7 +66,13 @@ export class ListReportingContratComponent implements OnInit {
 
   generatContratReportings(type: string) {
     this.reportingService.generateReportings(type).subscribe(
-      (_) => {},
+      (_) => {
+        this.generationDone = true;
+        setTimeout(() => {
+          this.generationDone = false;
+          this.help.refrechPage();
+        }, 2000);
+      },
       (error) => {
         this.errors = error.error.message;
         setTimeout(() => {

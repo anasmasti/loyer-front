@@ -12,9 +12,13 @@
           Rafraîchir la liste
         </a>
         <ng-container *ngIf="reporting">
-        <a class="btn btn-sm success-btn me-3"  (click)="openListReportingModal()"><i class="fal fa-list-alt"></i>
-          Voir list des reportings
-        </a>
+
+        <a
+              [routerLink]="['/contrat/list-global/list/list-reporting']"
+              class="btn btn-sm success-btn me-3"
+            >
+            <i class="far fa-file-chart-line"></i> Voir la liste des reportings
+            </a>
       </ng-container>
         <span
           data-bs-toggle="tooltip"
@@ -296,9 +300,7 @@
       </app-main-modal>
 
 
-      <app-main-modal [closeBtn]="true" [id]="idReport">
-        <app-list-reporting-contrat> </app-list-reporting-contrat>
-      </app-main-modal>
+   
 
       <!-- List des proprietaires -->
       <app-main-modal [closeBtn]="true" [id]="id">

@@ -25,6 +25,8 @@ export class ListReportingLieuxComponent implements OnInit {
   reportingsClone!: any;
 
   url: string = environment.API_URL_WITHOUT_PARAM;
+  generationDone: boolean = false;
+  generationSucces: string = 'Reporting généré avec succés';
 
   lieux = [
     {
@@ -65,7 +67,8 @@ export class ListReportingLieuxComponent implements OnInit {
   constructor(
     private reportingService: ReportingService,
     private helpService: HelperService,
-    private searchService: SearchServiceService
+    private searchService: SearchServiceService,
+    private help:HelperService
   ) {}
 
   ngOnInit(): void {
@@ -121,9 +124,11 @@ export class ListReportingLieuxComponent implements OnInit {
       .generateReportings(lieu)
       .subscribe(
         (_) => {
-          this.reportings
-          console.log("---",this.reportings);
-          
+          this.generationDone = true;
+          setTimeout(() => {
+            this.generationDone = false;
+            this.help.refrechPage();
+          }, 2000);
         },
         (error) => {
           this.errors = error.error.message;

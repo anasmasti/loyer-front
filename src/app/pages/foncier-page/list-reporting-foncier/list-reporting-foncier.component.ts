@@ -28,11 +28,14 @@ export class ListReportingFoncierComponent implements OnInit {
   url: string = environment.API_URL_WITHOUT_PARAM;
 
   foncierList = ['aménagements_réalisés', 'locaux_fermés'];
+  generationDone: boolean = false;
+  generationSucces: string = 'Reporting généré avec succés';
 
   constructor(
     private reportingService: ReportingService,
     private helpService: HelperService,
-    private searchService: SearchServiceService
+    private searchService: SearchServiceService,
+    private help:HelperService
   ) {}
 
   ngOnInit(): void {
@@ -58,6 +61,11 @@ export class ListReportingFoncierComponent implements OnInit {
   generatFoncierReportings(type: string) {
     this.reportingService.generateReportings(type).subscribe(
       (_) => {
+        this.generationDone = true;
+        setTimeout(() => {
+          this.generationDone = false;
+          this.help.refrechPage();
+        }, 2000);
       },
       (error) => {
         this.errors = error.error.message;

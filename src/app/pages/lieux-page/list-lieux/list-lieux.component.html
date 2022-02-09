@@ -12,11 +12,9 @@
           Rafraîchir la liste
         </a>
         <ng-container *ngIf="reporting">
-          
-          <a class="btn btn-sm success-btn me-3" (click)="openReportingLieux()"
-            ><i class="fal fa-list-alt"></i>
-            Voir la liste des reportings
-          </a>
+            <a [routerLink]="['/lieux/list/list-reporting']" class="btn btn-sm success-btn me-3">
+              <i class="far fa-file-chart-line"></i> Voir la liste des reportings
+            </a>
         </ng-container>
         <span
           data-bs-toggle="tooltip"
@@ -142,7 +140,7 @@
   previousLabel="Précédent"
   nextLabel="Suivant"
 ></pagination-controls> 
-
+ 
   <app-main-modal [id]="reportingModalId" [closeBtn]="true">
     <reporting-lieux></reporting-lieux>
   </app-main-modal>

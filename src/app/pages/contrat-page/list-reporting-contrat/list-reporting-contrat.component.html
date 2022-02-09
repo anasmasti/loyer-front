@@ -5,11 +5,11 @@
       <h3 class="main-title">Génération des reportings des contrats</h3>
       <div class="d-none d-lg-block">
         <a class="btn second-btn me-3" (click)="generatContratReportings('contrat/caution-en-cours')"
-          ><i class="fal fa-file-export"></i>
+          ><i class="far fa-layer-plus"></i>
           Générer reportings des cautions en cours
         </a>
         <a class="btn second-btn me-3" (click)="generatContratReportings('contrat/echeances')"
-          ><i class="fal fa-file-export"></i>
+          ><i class="far fa-layer-plus"></i>
           Générer reportings des écheances de contrat
         </a>
         <span
@@ -23,6 +23,11 @@
     </div>
   </div>
 </section>
+
+<div class="w-100 d-flex justify-content-center">
+  <!-- alert de reussite -->
+  <div *ngIf="generationDone" class="done-alert p-2 my-2">{{ generationSucces }}</div>
+</div>
 
 <div class="w-100 d-flex justify-content-center">
   <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
@@ -99,7 +104,7 @@
                 href="{{ url }}{{ repoDetails[repoDetails | entite_org] }}"
                 target="_blank"
               >
-                Expoter les reportings
+              <i class="far fa-file-export"></i> Expoter les reportings
               </a>
               <p *ngIf="reporting?.reportingPaths == null" class="main-muted-text">
                 <a class="btn btn-sm success-btn" disabled>

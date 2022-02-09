@@ -116,9 +116,7 @@ export class FoncierListComponent implements OnInit {
     return;
   }
 
-  openListReportingModal() {
-    this.mainModalService.open(this.idReport);
-  }
+
 
   openEditModal(SelectedFoncier: any) {
     this.mainModalService.open();
