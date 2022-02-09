@@ -17,7 +17,7 @@ export const environment = {
   // Application version
   APP_VERSION: '1 (Beta3 Dev)',
   // Reportimg
-  REPORTING: false
+  REPORTING: true
 };
 
 /*

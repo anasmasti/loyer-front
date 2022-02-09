@@ -12,8 +12,9 @@
           Rafraîchir la liste
         </a>
         <ng-container *ngIf="reporting">
-        <a class="btn btn-sm success-btn me-3"  (click)="openListReportingModal()"><i class="fal fa-list-alt"></i>
-          Voir list des reportings
+  
+        <a [routerLink]="['/foncier/list/list-reporting']" class="btn btn-sm success-btn me-3">
+          <i class="far fa-file-chart-line"></i> Voir la liste des reportings
         </a>
       </ng-container>
         <span
@@ -227,9 +228,7 @@
         <edit-foncier [foncier]="targetFoncier"> </edit-foncier>
       </app-main-modal>
 
-      <app-main-modal [closeBtn]="true" [id]="idReport">
-        <app-list-reporting-foncier> </app-list-reporting-foncier>
-      </app-main-modal>
+     
 
       <app-confirmation-modal [closeBtn]="true">
         <h3 class="main-title">

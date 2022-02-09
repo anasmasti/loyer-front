@@ -53,8 +53,6 @@ export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
   ngOnChanges() {
     if (this.Lieu !== '') {
       setTimeout(() => {
-        // console.log(this.fetchSv());
-
         this.fetchSv();
       }, 100);
     }

@@ -118,9 +118,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     // }, 100);
   }
 
-  openReportingLieux() {
-    this.mainModalService.open('lieuxRep');
-  }
+
 
   // Close confirmation modal
   closeConfirmationModal() {
