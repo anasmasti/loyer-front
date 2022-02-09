@@ -115,7 +115,9 @@ export class FilesGenerationComponent implements OnInit {
     return (this.dateSelected = true);
   }
 
-  downloadFiles(param: string) {
+  downloadFiles() {
+    let params = ['fichier-comptable-loyer', 'fichier-comptable-caution', 'fichier-ordre-virement', 'annex1' ]
+
     // let today = new Date()
     let date_gen = new Date(this.filesForm.get('date_gen')?.value);
     // Fill date cloture
@@ -123,16 +125,23 @@ export class FilesGenerationComponent implements OnInit {
       mois: date_gen.getMonth() + 1,
       annee: date_gen.getFullYear(),
     };
-    // Path name
-    let filename = param + `_${date.mois}-${date.annee}`;
 
-    this.downloadService
-      .dowloadFiles(filename, date, param)
-      .subscribe((res) => {
-        if (res) {
-          fileSaver.saveAs(res, filename);
-        }
-      });
+    params.forEach(param => {  
+      console.log(param);
+       
+      // Path name
+      let filename = param + `_${date.mois}-${date.annee}`;
+      // console.log(filename);
+      
+  
+      this.downloadService
+        .dowloadFiles(filename, date, param)
+        .subscribe((res) => {
+          if (res) {
+            fileSaver.saveAs(res, filename);
+          }
+        });
+    });
   }
 
   generateReportings() {
