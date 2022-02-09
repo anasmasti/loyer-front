@@ -1,26 +1,10 @@
-{
-    "proprietaire": [
-{
-    "cinPr": "bh1655",
-    "passeportPr": "bh1655",
-    "carteSejourPr": "bh1655",
-    "raisonSocialPr": "test",
-    "NregCommercePr": "5522665",
-    "nomprenomPr": "ali tazi",
-    "telPr": "0655231459",
-    "faxPr": "0522365948",
-    "adressePr": "casablanca",
-    "NcptBancPr": "753951852654865",
-    "bancPr": "bmce",
-    "nomAgencebancPr": "2Mars",
-    "isMandataire":"true",
-    "cinM": "bh887566",
-    "rsocialM": "world",
-    "nomprenomM": "alaoui mohammed",
-    "telM": "0624586715",
-    "faxM": "0514365948",
-    "adresseM": "casablanca",
-    "ncptBancM": "7412589632013"
-}
-    ]
-}
+[
+  {
+    "id": "bh1655",
+    "name": "bh1655"
+  },
+  {
+    "id": "bh1655",
+    "name": "bh1655"
+  }
+]

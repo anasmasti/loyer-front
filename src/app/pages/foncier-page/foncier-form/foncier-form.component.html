@@ -30,7 +30,7 @@
       </div>
 
       <div *ngIf="!update" class="col-lg-3 form-group mt-4">
-        <label for="">Lieu</label>
+        <label for="">Entité organisationnelle</label>
         <select class="form-select rounded-pill" formControlName="lieu">
           <option [value]="lieu._id" *ngFor="let lieu of lieuxByType">
             {{ lieu.type_lieu == 'Logement de fonction' ? lieu.code_localite : lieu.code_lieu}}
