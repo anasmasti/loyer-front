@@ -24,6 +24,7 @@ export class FilesGenerationComponent implements OnInit {
   userMatricule: any = localStorage.getItem('matricule');
   twelveHours: number = 1000 * 60 * 60 * 12;
   reporting: boolean;
+  fileParams = ['fichier-comptable-loyer', 'fichier-comptable-caution', 'fichier-ordre-virement', 'annex1' ]
 
   constructor(
     private help: HelperService,
@@ -115,9 +116,7 @@ export class FilesGenerationComponent implements OnInit {
     return (this.dateSelected = true);
   }
 
-  downloadFiles() {
-    let params = ['fichier-comptable-loyer', 'fichier-comptable-caution', 'fichier-ordre-virement', 'annex1' ]
-
+  downloadFiles(params :string[]) {
     // let today = new Date()
     let date_gen = new Date(this.filesForm.get('date_gen')?.value);
     // Fill date cloture
@@ -131,9 +130,6 @@ export class FilesGenerationComponent implements OnInit {
        
       // Path name
       let filename = param + `_${date.mois}-${date.annee}`;
-      // console.log(filename);
-      
-  
       this.downloadService
         .dowloadFiles(filename, date, param)
         .subscribe((res) => {
