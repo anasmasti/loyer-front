@@ -91,6 +91,8 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   fetchPv() {
+    console.log(this.Lieu);
+    
     this.PvForm.patchValue({
       code_lieu: this.Lieu.code_lieu,
       intitule_lieu: this.Lieu.intitule_lieu,
@@ -158,6 +160,8 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
         this.hideErrorMessage();
       }
     );
+    // console.log(pvData);
+    
   }
 
   updatePv() {

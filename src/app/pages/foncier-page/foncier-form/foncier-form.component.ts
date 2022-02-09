@@ -313,12 +313,14 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
           formGroupFournisseur.controls.deleted.setValue(
             FourniseurControl.deleted
           );
+          if (!FourniseurControl.deleted) {
+            this.isFournisseurExist = true;
+          }
         }
       }
 
       if (!amenagementControl.deleted) {
         this.hasAmenagement = true;
-        this.isFournisseurExist = true
       }
     });
 
@@ -542,7 +544,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   }
 
   updateFoncier() {
-    
     this.pushIntoFoncierLieux(this.currentLieu);
     let id = this.foncier._id;
 

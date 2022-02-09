@@ -121,7 +121,7 @@ export class FormContratComponent implements OnInit {
   ) {}
 
   ngOnChanges() {
-    if (this.contrat.length != 0) {
+    if (this.contrat && this.contrat.length != 0) {
       this.fetchContrat();
     }
   }
