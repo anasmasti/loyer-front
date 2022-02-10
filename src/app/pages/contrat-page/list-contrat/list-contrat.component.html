@@ -196,7 +196,7 @@
               ><i class="fal fa-eye"></i
             ></a>
             <a
-              *ngIf="this.contrat.etat_contrat?.libelle != 'Résilié'"
+              *ngIf="this.contrat.etat_contrat?.libelle != 'Résilié' && !(userRoles.includes('DAJC') && !contrat.validation1_DMG) "
               (click)="openEditModal(contrat)"
               class="btn btn-sm info-btn me-2"
               ><i class="far fa-user-edit"></i
