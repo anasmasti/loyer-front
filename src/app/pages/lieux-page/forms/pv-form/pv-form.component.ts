@@ -209,7 +209,8 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
   displayIntituleSup() {
     const codeSup = this.PvForm.get('code_rattache_SUP')?.value;
     let check = false
-
+    console.log(this.Sup);
+    
     for (let i = 0; i < this.Sup.length; i++) {
       if (this.Sup[i].code_lieu == codeSup) {
         check = true
@@ -230,7 +231,7 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
   displayIntituleDR() {
     const codeDR = this.PvForm.get('code_rattache_DR')?.value;
     let check = false
-
+    console.log(this.Dr);
     for (let i = 0; i < this.Dr.length; i++) {
       if (this.Dr[i].code_lieu == codeDR) {
         check = true
