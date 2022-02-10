@@ -287,6 +287,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       );
 
       if (amenagementControl.fournisseur.length !== 0) {
+        formGroupAmenagement.controls.has_fournisseur.setValue(true);
         for (let FourniseurControl of amenagementControl.fournisseur) {
           let formGroupFournisseur = new FormGroup({
             nom: new FormControl(''),
@@ -362,6 +363,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       croquis_travaux: new FormControl(''),
       deleted: new FormControl(deleted),
       NewOrOld: new FormControl(NewOrOld),
+      has_fournisseur: new FormControl(false),
     });
 
     (<FormArray>this.foncierForm.get('amenagementForm')).push(
@@ -395,6 +397,8 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
   // FournisseurData
   addFournisseur(amenagementForm: any, index: number, NewOrOld: string) {
+    amenagementForm.controls[index].controls.has_fournisseur.setValue(true);
+    
     let fournisseurData = new FormGroup({
       nom: new FormControl(''),
       prenom: new FormControl(''),
@@ -407,6 +411,8 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       <FormGroup>fournisseurData
     );
 
+    // amenagementForm.controls.controls.has_fournisseur.setValue(true);
+
     return <FormGroup>fournisseurData;
   }
 
@@ -415,6 +421,8 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     indexAmng: number,
     indexFourn: number
   ) {
+    amenagementForm.controls[indexAmng].controls.has_fournisseur.setValue(false);
+
     let fournisseur = <FormArray>(
       amenagementForm.controls[indexAmng].controls.fournisseur
     );

@@ -41,8 +41,6 @@ export class FoncierDetailComponent implements OnInit {
     this.foncierService
       .getFoncierById(id, this.userMatricule)
       .subscribe((data: Foncier) => {
-        console.log(data);
-
         if (data != null) {
           this.foncier = data;
           // @ts-ignore
@@ -77,7 +75,6 @@ export class FoncierDetailComponent implements OnInit {
               this.selectedAmenagementImage =
                 // @ts-ignore
                 this.foncier.amenagement[j]?.images_apres_travaux[x];
-              console.log(this.foncier);
             }
           }
         }

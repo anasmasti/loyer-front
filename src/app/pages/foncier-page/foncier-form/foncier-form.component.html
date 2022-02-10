@@ -298,7 +298,7 @@
               <div class="col-lg-12 form-group my-4">
                 <label for="">Fournisseur</label>
                 <a
-                *ngIf="!isFournisseurExist"
+                  *ngIf="!amenagementForm.controls[i].value.has_fournisseur"
                   (click)="toggelFournisseur(true, amenagementForm, i, 0 )"
                   class="btn btn-sm second-btn mx-2 mx-lg-4"
                   >Ajouter fournisseur</a

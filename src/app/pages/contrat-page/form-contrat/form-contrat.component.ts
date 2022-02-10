@@ -545,9 +545,6 @@ export class FormContratComponent implements OnInit {
 
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
-
-    console.log(ctr_data);
-    
     
     // post the formdata (data+files)
     this.contratService
@@ -595,8 +592,6 @@ export class FormContratComponent implements OnInit {
 
   fetchContrat() {
     if (this.contrat) {
-      console.log(this.contrat);
-      
       // var date_debut_loyer = this.pipeDate.transform(this.contrat.date_debut_loyer, 'yyyy-MM-dd')
       // var date_debut_loyer = new Date(this.contrat.date_debut_loyer)
       var date_fin_contrat = new Date(this.contrat.date_fin_contrat);
@@ -606,11 +601,6 @@ export class FormContratComponent implements OnInit {
       var date_suspension = new Date(
         this.contrat.etat_contrat?.etat?.date_suspension
       );
-
-      console.log(
-        this.contrat.date_premier_paiement
-      );
-      
 
       this.contrat.foncier.lieu.forEach((lieu:any) => {
         if (!lieu.deleted) {

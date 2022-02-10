@@ -411,7 +411,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       if (this.contratByFoncier[0]?.declaration_option === 'non') {
         if (this.montantLoyer * 12 <= 30000) {
           result = 0;
-          montantApresImpot = this.montantLoyer * 12;
+          // montantApresImpot = this.montantLoyer * 12;
+          montantApresImpot = this.montantLoyer - result;
           tauxImpot = 0;
         }
         if (
@@ -434,7 +435,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       }
       if (this.contratByFoncier[0]?.declaration_option === 'oui') {
         result = 0;
-        montantApresImpot = this.montantLoyer * 12;
+        // montantApresImpot = this.montantLoyer * 12;
+         montantApresImpot = this.montantLoyer - result;
         tauxImpot = 0;
       }
 
@@ -477,7 +479,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       }
       if (this.contratByFoncier[0]?.declaration_option === 'oui') {
         result = 0;
-        montantApresImpot = this.montantLoyer * nbr_mois_louer;
+        // montantApresImpot = this.montantLoyer * nbr_mois_louer;
+        montantApresImpot = this.montantLoyer - result;
         tauxImpot = 0;
       }
 
@@ -517,7 +520,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       }
       if (this.contratByFoncier[0]?.declaration_option === 'oui') {
         result = 0;
-        montantApresImpot = this.montantLoyer * nbr_mois_louer;
+        // montantApresImpot = this.montantLoyer * nbr_mois_louer;
+         montantApresImpot = this.montantLoyer - 12;
         tauxImpot = 0;
       }
       

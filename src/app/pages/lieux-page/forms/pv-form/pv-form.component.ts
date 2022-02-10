@@ -161,7 +161,6 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
         this.hideErrorMessage();
       }
     );
-    // console.log(pvData);
   }
 
   updatePv() {

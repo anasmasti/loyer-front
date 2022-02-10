@@ -126,7 +126,6 @@ export class FilesGenerationComponent implements OnInit {
     };
 
     params.forEach(param => {  
-      console.log(param);
        
       // Path name
       let filename = param + `_${date.mois}-${date.annee}`;
