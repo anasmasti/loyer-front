@@ -14,9 +14,9 @@ import { HelperService } from 'src/app/services/helpers/helper.service';
 export class DrFormComponent implements OnInit, OnChanges {
   errors!: string;
   postDone: boolean = false;
-  PostSucces: string = 'Direction régionale ajouté avec succés';
+  PostSucces: string = 'Direction régionale ajoutée avec succés';
   updateDone: boolean = false;
-  updateSucces: string = 'Direction régionale modifié avec succés';
+  updateSucces: string = 'Direction régionale modifiée avec succés';
 
   selectedFile!: File;
   drForm!: FormGroup;

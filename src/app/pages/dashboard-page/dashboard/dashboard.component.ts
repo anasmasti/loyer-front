@@ -25,9 +25,9 @@ export class DashboardComponent implements OnInit {
 
   // Legend options
   hasLegend: boolean = true;
-  villeTitle: any = 'Villes';
+  villeTitle: any = 'Direction régionale';
   locauxTitle: any = 'Locaux';
-  contratTitle: any = 'Contrats';
+  contratTitle: any = 'Statut';
   legendPositionRight: any = 'right';
   legendPositionBelow: any = 'below';
 
@@ -38,8 +38,8 @@ export class DashboardComponent implements OnInit {
 
   yAxisLabelBarH: string = 'Total des loyers par type du local';
   yAxisLabelBarV: string = 'Nombre des points de vente par direction régionale';
-  yAxisLabelPie: string = 'Etats contrats';
-  yAxisLabelAdvPie: string = 'Locaux statistiques';
+  yAxisLabelPie: string = 'Statut des contrats';
+  yAxisLabelAdvPie: string = 'Nombre de locaux par type';
 
   showXAxisLabel: boolean = false;
   showYAxisLabel: boolean = false;
