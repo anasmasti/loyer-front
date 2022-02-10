@@ -9,5 +9,5 @@ export interface LieuxState {
 export const initialState: LieuxState = {
     lieux: [],
     DrWithSup: [],
-    error: ''
+    error: '',
 }

@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { getDrWithSupAction } from '../../lieux-store/lieux.actions';
-import { getDr, getSup } from '../../lieux-store/lieux.selector';
+import { getSup, getDr } from '../../lieux-store/lieux.selector';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
@@ -36,6 +36,7 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
   SupSubscription$!: Subscription;
   intitule_rattache_SUP!: any;
   intitule_rattache_DR!: any;
+  codeRattacheDR!: any;
 
   @Input() update!: boolean;
   @Input() Lieu!: any;
@@ -91,8 +92,6 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   fetchPv() {
-    console.log(this.Lieu);
-    
     this.PvForm.patchValue({
       code_lieu: this.Lieu.code_lieu,
       intitule_lieu: this.Lieu.intitule_lieu,
@@ -108,9 +107,8 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
       categorie_pointVente: this.Lieu.categorie_pointVente,
     });
 
-
-    this.displayIntituleSup();
-    this.displayIntituleDR();
+    this.fillSupAndDR();
+    // this.displayIntituleDR();
   }
 
   // Afficher le message d'erreur de serveur
@@ -143,7 +141,6 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
       centre_cout_siege: this.PvForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.PvForm.get('categorie_pointVente')?.value,
     };
-  
 
     this.lieuService.addLieu(pvData, this.userMatricule).subscribe(
       (_) => {
@@ -165,7 +162,6 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
       }
     );
     // console.log(pvData);
-    
   }
 
   updatePv() {
@@ -206,44 +202,31 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
     );
   }
 
-  displayIntituleSup() {
+  fillSupAndDR() {
     const codeSup = this.PvForm.get('code_rattache_SUP')?.value;
-    let check = false
+    let check = false;
 
     for (let i = 0; i < this.Sup.length; i++) {
       if (this.Sup[i].code_lieu == codeSup) {
-        check = true
+        check = true;
         if (codeSup != undefined) {
           this.intitule_rattache_SUP = this.Sup[i].intitule_lieu;
-        } else {
-          this.intitule_rattache_SUP = '';
-        }
-      }
-    }    
-
-    if (!check) {
-      this.intitule_rattache_SUP = '';
-    }
-  }
-
-
-  displayIntituleDR() {
-    const codeDR = this.PvForm.get('code_rattache_DR')?.value;
-    let check = false
-
-    for (let i = 0; i < this.Dr.length; i++) {
-      if (this.Dr[i].code_lieu == codeDR) {
-        check = true
-        if (codeDR != undefined) {
+          this.codeRattacheDR = this.Sup[i].code_rattache_DR;
           this.intitule_rattache_DR = this.Dr[i].intitule_lieu;
         } else {
-          this.intitule_rattache_DR = '';
+          this.intitule_rattache_SUP =
+            this.codeRattacheDR =
+            this.intitule_rattache_DR =
+              '';
         }
       }
-    }    
+    }
 
     if (!check) {
-      this.intitule_rattache_DR = '';
+      this.intitule_rattache_SUP =
+        this.codeRattacheDR =
+        this.intitule_rattache_DR =
+          '';
     }
   }
 
@@ -251,24 +234,23 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
   getDrSup() {
     this.store.dispatch(getDrWithSupAction());
   }
+
   // Select Dr
   getDr() {
     this.DrSubscription$ = this.store.select(getDr).subscribe((data) => {
-      // if (data) this.Dr = data;
-      // if (!data) this.getDrSup();
       if (data) {
         this.Dr = data;
-        this.displayIntituleDR();
       }
       if (!data) this.getDrSup();
     });
   }
+
   // Select Sup
   getSup() {
     this.SupSubscription$ = this.store.select(getSup).subscribe((data) => {
       if (data) {
         this.Sup = data;
-        this.displayIntituleSup();
+        this.fillSupAndDR();
       }
       if (!data) this.getDrSup();
     });
