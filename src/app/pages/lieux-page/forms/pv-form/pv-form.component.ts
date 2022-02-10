@@ -202,6 +202,7 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
     );
   }
 
+  // Fill Sup and DR inputs
   fillSupAndDR() {
     const codeSup = this.PvForm.get('code_rattache_SUP')?.value;
     let check = false;
