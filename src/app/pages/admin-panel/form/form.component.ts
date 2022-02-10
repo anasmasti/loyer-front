@@ -64,8 +64,8 @@ export class FormComponent implements OnInit {
   }
 
   fetchUser() {
-
     const control = <FormArray>this.adminForm.controls['Roles'];
+    
     for (let i = control.length - 1; i >= 0; i--) {
       control.removeAt(i)
     }
