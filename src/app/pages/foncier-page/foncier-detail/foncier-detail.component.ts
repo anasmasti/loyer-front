@@ -21,7 +21,7 @@ export class FoncierDetailComponent implements OnInit {
   selectedImageEntrer!: any;
   url: string = environment.API_URL_WITHOUT_PARAM;
 
-  intituleLieu: string | undefined = ''
+  intituleLieu: string | undefined = '';
 
   hasAmenagement: boolean = true;
 
@@ -37,12 +37,13 @@ export class FoncierDetailComponent implements OnInit {
   // Get the foncier data by id
   getFoncierById() {
     const id: string = this.actRoute.snapshot.paramMap.get('id') || '';
+
     this.foncierService
       .getFoncierById(id, this.userMatricule)
       .subscribe((data: Foncier) => {
         if (data != null) {
           this.foncier = data;
-          // @ts-ignore 
+          // @ts-ignore
           if (data.amenagement.length.toString() == '0') {
             this.hasAmenagement = false;
           }
@@ -50,7 +51,7 @@ export class FoncierDetailComponent implements OnInit {
           this.foncier.amenagement = data.amenagement;
           this.foncier.imgs_lieu_entrer = data.imgs_lieu_entrer;
 
-          this.intituleLieu = this.foncier.lieu[0]?.lieu?.intitule_lieu
+          this.intituleLieu = this.foncier.lieu[0]?.lieu?.intitule_lieu;
 
           for (
             let index = 0;
@@ -60,18 +61,24 @@ export class FoncierDetailComponent implements OnInit {
           ) {
             // @ts-ignore: Object is possibly 'null'.
             this.selectedImageEntrer = this.foncier?.imgs_lieu_entrer[index];
-            this.selectedAmenagementCroquis =
-            // @ts-ignore 
-              this.foncier.amenagement[index]?.croquis_travaux[index];
-            this.selectedAmenagementImage =
-            // @ts-ignore 
-              this.foncier.amenagement[index]?.images_apres_travaux[index];
           }
 
-
+          for (let j = 0; j < this.foncier.amenagement.length; j++) {
+            for (
+              let x = 0;
+              x < this.foncier.amenagement[j].images_apres_travaux.length;
+              x++
+            ) {
+              this.selectedAmenagementCroquis =
+                // @ts-ignore
+                this.foncier.amenagement[j]?.croquis_travaux[x];
+              this.selectedAmenagementImage =
+                // @ts-ignore
+                this.foncier.amenagement[j]?.images_apres_travaux[x];
+            }
+          }
         }
       });
-      
   }
 
   displayAmenagement(id: any) {

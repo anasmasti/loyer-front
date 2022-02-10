@@ -329,13 +329,12 @@
 
           <tbody *ngIf="ProprietairesByContart.length">
             <tr
-            class="bg-danger"
               *ngFor="
                 let proprietaire of selectedContrat.foncier.proprietaire;
                 let i = index
               "
             >
-              <div *ngIf="!proprietaire.deleted">
+              <ng-container  *ngIf="!proprietaire.deleted">
                 <td>{{ proprietaire.nom_prenom }}</td>
                 <td>{{ proprietaire.cin }}</td>
                 <td>
@@ -424,7 +423,7 @@
                     </div>
                   </ul>
                 </td>
-              </div>
+              </ng-container>
             </tr>
           </tbody>
 
