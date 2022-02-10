@@ -99,6 +99,8 @@
       <tr class="text-truncate">
         <th>Type</th>
         <th>Ville</th>
+        <!-- <th>Code Entité organisationelle</th> -->
+        <th>Intitulé</th>
         <th>Aménagement</th>
         <th>Propriétaires</th>
         <th>Contrat</th>
@@ -120,6 +122,8 @@
       >
         <td>{{ foncier.type_lieu }}</td>
         <td>{{ foncier.ville }}</td>
+        <!-- <td>{{foncier.lieu[0]?.lieu?.code_lieu}}</td> -->
+        <td>{{foncier.lieu[0].lieu?.intitule_lieu}}</td>
         <td>
           <div class="d-grid">
             <span

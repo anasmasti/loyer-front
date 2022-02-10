@@ -539,7 +539,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
           this.foncierForm.reset();
           this.postDone = false;
           this.help.refrechPage();
-        }, 2000);
+        }, 3000);
       },
       (error) => {
         this.errors = error.error.message;
