@@ -1,8 +1,8 @@
 import { ActivatedRoute } from '@angular/router';
-import { FoncierService } from './../../../services/foncier-service/foncier.service';
+import { FoncierService } from '@services/foncier-service/foncier.service';
 import { Foncier } from './../../../models/Foncier';
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-foncier-detail',
@@ -20,6 +20,8 @@ export class FoncierDetailComponent implements OnInit {
   displayAmenagementSection: boolean = false;
   selectedImageEntrer!: any;
   url: string = environment.API_URL_WITHOUT_PARAM;
+
+  intituleLieu: string | undefined = ''
 
   hasAmenagement: boolean = true;
 
@@ -48,6 +50,8 @@ export class FoncierDetailComponent implements OnInit {
           this.foncier.amenagement = data.amenagement;
           this.foncier.imgs_lieu_entrer = data.imgs_lieu_entrer;
 
+          this.intituleLieu = this.foncier.lieu[0]?.lieu?.intitule_lieu
+
           for (
             let index = 0;
             // @ts-ignore: Object is possibly 'null'.
@@ -63,8 +67,11 @@ export class FoncierDetailComponent implements OnInit {
             // @ts-ignore 
               this.foncier.amenagement[index]?.images_apres_travaux[index];
           }
+
+
         }
       });
+      
   }
 
   displayAmenagement(id: any) {

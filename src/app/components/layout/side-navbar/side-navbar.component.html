@@ -30,8 +30,8 @@
             </li>
 
             <li class="nav-item my-4">
-                <a [routerLink]="['/lieux']" routerLinkActive="router-link-active" class="nav-link main-btn">
-                    <span (click)="showSubMenu('entite')">
+                <a [routerLink]="['/lieux']" routerLinkActive="router-link-active" class="nav-link main-btn" (click)="showSubMenu('entite')">
+                    <span >
                         <i class="fal fa-building"></i>&nbsp;&nbsp;Entités organisat..
                     </span>
                 </a>
@@ -45,18 +45,23 @@
             </li>
 
             <li class="nav-item">
-                <a [routerLink]="['/foncier']" routerLinkActive="router-link-active" class="nav-link main-btn">
-                    <span (click)="showSubMenu('lieux')">
+                <a [routerLink]="['/foncier']" routerLinkActive="router-link-active" class="nav-link main-btn" (click)="showSubMenu('lieux')">
+                    <span >
                         <i class="fas fa-hotel"></i>&nbsp;&nbsp;Locaux
                     </span>
                 </a>
                 <ul class="sub-menu list-unstyled" id="lieux">
                     <li>
+                        <a [routerLink]="['/foncier']" class="nav-link sub-menu-btn">
+                            Ajouter un local
+                        </a>
+                    </li>
+                    <li>
                         <a [routerLink]="['/foncier/list']" class="nav-link sub-menu-btn">
                             Liste des locaux
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a [routerLink]="['/foncier/list']" class="nav-link sub-menu-btn">
                             Ajouter un propriétaire
                         </a>
@@ -65,11 +70,41 @@
                         <a [routerLink]="['/foncier/list']" class="nav-link sub-menu-btn">
                             Ajouter un contrat
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </li>
 
+          
+
+            <!-- <li class="nav-item my-4">
+                <a [routerLink]="['/foncier']" routerLinkActive="router-link-active" class="nav-link main-btn">
+                    <span (click)="showSubMenu('foncier')">Foncier</span>
+                </a>
+                <ul class="sub-menu list-unstyled" id="foncier">
+                    <li>
+                        <a [routerLink]="['/foncier/list']" class="nav-link sub-menu-btn">
+                            List des fonciers
+                        </a>
+                    </li>
+
+                </ul>
+            </li> -->
             <li class="nav-item my-4">
+                <a [routerLink]="['/contrat/list-global/list']" routerLinkActive="router-link-active"
+                    class="nav-link main-btn">
+                    <i class="fal fa-file-signature"></i> Liste des contrats
+                </a>
+                <!-- <ul class="sub-menu list-unstyled" id="contrat">
+                    <li>
+                        <a [routerLink]="['/contrat/list']" class="nav-link sub-menu-btn">
+                            List des contrats
+                        </a>
+                    </li>
+
+                </ul> -->
+            </li>
+
+            <li class="nav-item ">
                 <a [routerLink]="['/proprietaire/list-global/list']" routerLinkActive="router-link-active"
                     class="nav-link main-btn">
                     <i class="fal fa-users"></i> Liste des propriétaires
@@ -86,34 +121,6 @@
                     </a>
                 </li> -->
                 <!-- </ul> -->
-            </li>
-
-            <!-- <li class="nav-item my-4">
-                <a [routerLink]="['/foncier']" routerLinkActive="router-link-active" class="nav-link main-btn">
-                    <span (click)="showSubMenu('foncier')">Foncier</span>
-                </a>
-                <ul class="sub-menu list-unstyled" id="foncier">
-                    <li>
-                        <a [routerLink]="['/foncier/list']" class="nav-link sub-menu-btn">
-                            List des fonciers
-                        </a>
-                    </li>
-
-                </ul>
-            </li> -->
-            <li class="nav-item">
-                <a [routerLink]="['/contrat/list-global/list']" routerLinkActive="router-link-active"
-                    class="nav-link main-btn">
-                    <i class="fal fa-file-signature"></i> Liste des contrats
-                </a>
-                <!-- <ul class="sub-menu list-unstyled" id="contrat">
-                    <li>
-                        <a [routerLink]="['/contrat/list']" class="nav-link sub-menu-btn">
-                            List des contrats
-                        </a>
-                    </li>
-
-                </ul> -->
             </li>
 
             <li class="nav-item my-4">
@@ -142,6 +149,7 @@
                     </li>
                 </ul> -->
             </li>
+
         </ul>
     </div>
 </div>

@@ -15,7 +15,7 @@
 
 
     <div class="col-lg-3 form-group mt-4">
-      <label for="">N° CIN du Propriétaire</label>
+      <label for="">N° CIN du Propriétaire <span class="danger-txt">*</span></label>
       <input type="text" class="form-control rounded-pill" formControlName="cin" [ngClass]="{
           'is-invalid': checkInputsValidation(cin)
         }" />
@@ -88,7 +88,7 @@
     </div>
 
     <div class="col-lg-3 form-group mt-4">
-      <label for="">Nom et prénom propriétaire</label>
+      <label for="">Nom et prénom propriétaire <span class="danger-txt">*</span></label>
       <input type="text" class="form-control rounded-pill" formControlName="nom_prenom" required [ngClass]="{
           'is-invalid': checkInputsValidation(nom_prenom),
           'is-valid': !nom_prenom?.invalid
@@ -146,7 +146,7 @@
   <!--Début 3éme Row-->
   <div class="row">
     <div class="col-lg-3 form-group mt-4">
-      <label for="">Adresse du propriétaire</label>
+      <label for="">Adresse du propriétaire <span class="danger-txt">*</span></label>
       <input type="text" class="form-control rounded-pill" formControlName="adresse" [ngClass]="{
           'is-invalid': checkInputsValidation(adresse),
           'is-valid': !adresse?.invalid
@@ -160,7 +160,7 @@
     </div>
 
     <div class="col-lg-3 form-group mt-4">
-      <label for="">N° de compte bancaire</label>
+      <label for="">N° de compte bancaire <span class="danger-txt">*</span></label>
       <input type="text" class="form-control rounded-pill" formControlName="n_compte_bancaire" required [ngClass]="{
           'is-invalid': checkInputsValidation(n_compte_bancaire),
           'is-valid': !n_compte_bancaire?.invalid
@@ -172,19 +172,19 @@
           Veuillez remplir ce champ
         </p>
         <p class="danger-txt" *ngIf="n_compte_bancaire?.errors?.pattern">
-          Vous devez entrer 16 caractères(chiffres)
+          Vous devez entrer 24 caractères(chiffres)
         </p>
       </div>
     </div>
 
-    <div class="col-lg-3 form-group mt-4">
+    <!-- <div class="col-lg-3 form-group mt-4">
       <label for="">Banque RIB</label>
       <input type="text" class="form-control rounded-pill" formControlName="banque_rib" required [ngClass]="{
           'is-invalid': checkInputsValidation(banque_rib),
           'is-valid': !banque_rib?.invalid
         }" />
 
-      <!-- Error Message  -->
+      Error Message 
       <div class="" *ngIf="checkInputsValidation(banque_rib)">
         <p class="danger-txt" *ngIf="banque_rib?.errors?.required">
           Veuillez remplir ce champ
@@ -193,16 +193,16 @@
           Vous devez entrer 3 caractères(chiffres)
         </p>
       </div>
-    </div>
+    </div> -->
 
-    <div class="col-lg-3 form-group mt-4">
+    <!-- <div class="col-lg-3 form-group mt-4">
       <label for="">Ville RIB</label>
       <input type="text" class="form-control rounded-pill" formControlName="ville_rib" required [ngClass]="{
           'is-invalid': checkInputsValidation(ville_rib),
           'is-valid': !ville_rib?.invalid
         }" />
 
-      <!-- Error Message  -->
+      Error Message 
       <div class="" *ngIf="checkInputsValidation(ville_rib)">
         <p class="danger-txt" *ngIf="ville_rib?.errors?.required">
           Veuillez remplir ce champ
@@ -211,16 +211,16 @@
           Vous devez entrer 3 caractères(chiffres)
         </p>
       </div>
-    </div>
+    </div> -->
 
-    <div class="col-lg-3 form-group mt-4">
+    <!-- <div class="col-lg-3 form-group mt-4">
       <label for="">Clé RIB</label>
       <input type="text" class="form-control rounded-pill" formControlName="cle_rib" required [ngClass]="{
           'is-invalid': checkInputsValidation(cle_rib),
           'is-valid': !cle_rib?.invalid
         }" />
 
-      <!-- Error Message  -->
+      Error Message 
       <div class="" *ngIf="checkInputsValidation(cle_rib)">
         <p class="danger-txt" *ngIf="cle_rib?.errors?.required">
           Veuillez remplir ce champ
@@ -229,7 +229,7 @@
           Vous devez entrer 2 caractères(chiffres)
         </p>
       </div>
-    </div>
+    </div> -->
 
     <div class="col-lg-3 form-group mt-4">
       <label for="">Banque</label>
@@ -257,11 +257,19 @@
     </div>
 
     <div class="col-lg-3 form-group mt-4">
-      <label for="">Pourcentage %</label>
-      <input type="text" class="form-control rounded-pill" formControlName="pourcentage"
-        (keyup)="calculMontant();calculMontantAvance();calculCaution()" />
-
+      <label for="">Part du propriétaire <span class="danger-txt">*</span></label>
+      <input type="number" class="form-control rounded-pill" formControlName="pourcentage"
+        (keyup)="calculMontant();calculMontantAvance();calculCaution()" [ngClass]="{
+          'is-invalid': checkInputsValidation(pourcentage)
+        }"/>
+        <!-- Error Message  -->
+        <div class="" *ngIf="checkInputsValidation(pourcentage)">
+          <p class="danger-txt" *ngIf="pourcentage?.errors?.required">
+            Veuillez remplir ce champ
+          </p>
+        </div>
     </div>
+
 
     <div class="col-lg-3 form-group mt-4">
       <label for="">Montant de loyer</label>
@@ -285,14 +293,14 @@
     </div>
 
     <div class="col-lg-3 form-group mt-4">
-      <label for="">Retenue à la source (Annuel)</label>
+      <label for="">Retenue à la source</label>
       <input type="text" class="form-control rounded-pill" formControlName="retenue_source" [ngClass]="{
               'is-invalid': checkInputsValidation(retenue_source)
             }" [value]="retenueSource" readonly />
     </div>
 
     <div class="col-lg-3 form-group mt-4">
-      <label for="">Montant après impôt (Mensuel)</label>
+      <label for="">Montant après impôt</label>
       <input type="text" class="form-control rounded-pill" formControlName="montant_apres_impot" [ngClass]="{
               'is-invalid': checkInputsValidation(montant_apres_impot)
             }" [value]="montantApresImpot" readonly />
@@ -300,24 +308,24 @@
 
 
 
-    <!-- Montant Avance Tax -->
+    <!-- Montant Avance Taxe -->
     <div class="col-lg-3 form-group mt-4">
-      <label for="">Montant d'avance de propriètaire</label>
+      <label for="">Montant d'avance de propriétaire</label>
       <input type="text" class="form-control rounded-pill" [value]="montantAvance"
         formControlName="montant_avance_proprietaire" readonly />
     </div>
 
     <div class="col-lg-3 form-group mt-4">
-      <label for="">Tax d'avance propriètaire</label>
+      <label for="">Taxe d'avance propriétaire</label>
       <input type="text" class="form-control rounded-pill" [value]="taxAvance | number: '1.2-2'"
         formControlName="tax_avance_proprietaire" readonly />
     </div>
 
-    <div class="col-lg-3 form-group mt-4">
-      <label for="">Tax par periodicité</label>
+    <!-- <div class="col-lg-3 form-group mt-4">
+      <label for="">Taxe par périodicité</label>
       <input type="text" class="form-control rounded-pill" [value]="taxPeriodicite | number: '1.2-2'"
         formControlName="tax_par_periodicite" readonly />
-    </div>
+    </div> -->
 
 
     <!-- <div class="col-lg-3 form-group mt-4">
@@ -327,7 +335,7 @@
         </div> -->
 
     <div class="col-lg-3 form-group mt-4">
-      <label for="">Caution par proprietaire</label>
+      <label for="">Caution par propriétaire</label>
       <input type="text" class="form-control rounded-pill" [value]="montantCautionProprietaire | number: '1.2-2'"
         formControlName="caution_par_proprietaire" readonly />
     </div>

@@ -70,8 +70,7 @@
                 </td>
             </tr>
 
-            <pagination-controls id="listProprietaitePagination" (pageChange)="listProprietairePage = $event"
-                previousLabel="Précédent" nextLabel="Suivant"></pagination-controls>
+            
 
             <app-main-modal [closeBtn]='true'>
                 <app-edit-proprietaire [proprietaire]="targetProprietaire">
@@ -104,4 +103,6 @@
             </a>
         </tbody>
     </table>
+    <pagination-controls id="listProprietaitePagination" (pageChange)="listProprietairePage = $event"
+                previousLabel="Précédent" nextLabel="Suivant"></pagination-controls>
 </div>

@@ -4,7 +4,7 @@
       <h3 class="main-title">
         <a [routerLink]="['/foncier/list']" class="goback-link"
           >Liste des locaux</a
-        >/<span class="selected-text">{{ foncier?._id }}</span>
+        >/<span class="selected-text">{{ intituleLieu }}</span>
       </h3>
       <div class="d-none d-lg-block">
         <a
@@ -266,6 +266,16 @@
                   : "--"
               }}
             </p>
+
+            <!-- <h6 class="main-txt">Aménagement éffectuer</h6>
+            <p>
+              {{
+                selected_fournisseur.prenom != ""
+                  ? selected_fournisseur.prenom
+                  : "--"
+              }}
+            </p> -->
+
           </div>
         </div>
       </div>

@@ -1,34 +1,45 @@
 <section class="row title">
-    <div class="col-lg-12 mt-3">
-      <div class="d-flex justify-content-between">
-        <!-- <h3 class=""></h3> -->
-        <h3 class="main-title">Génération des reportings des locaux et des aménagements</h3>
-        <div class="d-none d-lg-block">
-          <a class="btn second-btn me-3" (click)="generatFoncierReportings('locaux-fermes')"
-            ><i class="fal fa-file-export"></i>
-            Générer reportings des locaux fermés
-          </a>
-          <a class="btn second-btn me-3" (click)="generatFoncierReportings('amenagement')"
-            ><i class="fal fa-file-export"></i>
-            Générer reportings des aménagement
-          </a>
-          <span
-            data-bs-toggle="tooltip"
-            data-bs-placement="top"
-            title="Ici vous pouvez consulter la list des reportings des locaux"
-          >
-            <i class="fal fa-info"></i>
-          </span>
-        </div>
+  <div class="col-lg-12 mt-3">
+    <div class="d-flex justify-content-between">
+      <!-- <h3 class=""></h3> -->
+      <h3 class="main-title">
+        Génération des reportings des locaux et des aménagements
+      </h3>
+      <div class="d-none d-lg-block">
+        <a
+          class="btn second-btn me-3"
+          (click)="generatFoncierReportings('locaux-fermes')"
+          ><i class="far fa-layer-plus"></i>
+          Générer reportings des locaux fermés
+        </a>
+        <a
+          class="btn second-btn me-3"
+          (click)="generatFoncierReportings('amenagement')"
+          ><i class="far fa-layer-plus"></i>
+          Générer reportings des aménagement
+        </a>
+        <span
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          title="Ici vous pouvez consulter la list des reportings des locaux"
+        >
+          <i class="fal fa-info"></i>
+        </span>
       </div>
     </div>
-  </section>
-  
-  <div class="w-100 d-flex justify-content-center">
-    <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
   </div>
-  
-  <!-- <div class="main-card bg-white table-responsive p-lg-3 mt-4">
+</section>
+
+<div class="w-100 d-flex justify-content-center">
+  <!-- alert de reussite -->
+  <div *ngIf="generationDone" class="done-alert p-2 my-2">{{ generationSucces }}</div>
+</div>
+
+<div class="w-100 d-flex justify-content-center">
+  <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
+</div>
+
+<!-- <div class="main-card bg-white table-responsive p-lg-3 mt-4">
     <div class="row d-flex justify-content-between">
       <div class="col-lg-4 mb-4">
         <label for="" class="main-muted-text"
@@ -117,82 +128,77 @@
       </table>
     </div>
   </div> -->
-  
 
-  <div class="main-card bg-white table-responsive p-lg-3 mt-4">
-    <!-- <h4 class="main-title mb-4">Génération des reportings des aménagements</h4> -->
-    <div class="row d-flex justify-content-between">
-      <div class="col-lg-4 mb-4">
-        <label for="" class="main-muted-text"
-          ><i class="far fa-search"></i> Recherche par année</label
-        >
-        <input
-          type="text"
+<div class="main-card bg-white table-responsive p-lg-3 mt-4">
+  <!-- <h4 class="main-title mb-4">Génération des reportings des aménagements</h4> -->
+  <div class="row d-flex justify-content-between">
+    <div class="col-lg-4 mb-4">
+      <label for="" class="main-muted-text"
+        ><i class="far fa-search"></i> Recherche par année</label
+      >
+      <!-- <input
+        type="text"
+        class="form-control rounded-pill"
+        placeholder="Rechercher par année..."
+        [(ngModel)]="findAnnee"
+        (input)="searchByYear('annee')"
+      /> -->
+      <input
+          type="month"
           class="form-control rounded-pill"
-          placeholder="Rechercher par année..."
-          [(ngModel)]="findDate"
-          (input)="search('annee')"
+          [(ngModel)]="foundedDate"
+          (change)="search(foundedDate)"
+          id="fullDate"
         />
-      </div>
-  
-      <div class="col-lg-4 mb-4">
-        <label for="" class="main-muted-text"
-          ><i class="far fa-search"></i> Recherche par mois</label
-        >
-        <select
-          class="form-select rounded-pill"
-          (change)="search('mois')"
-          [(ngModel)]="findDate"
-        >
-          <option *ngFor="let date of dateList" [value]="date.number">
-            {{ date.name }}
-          </option>
-        </select>
-      </div>
+    </div>
 
+
+
+    <div  *ngFor="
+    let reporting of reportings
+      | paginate
+        : {
+            itemsPerPage: 2,
+            currentPage: listReportingAmenagementPage,
+            id: 'listReportingAmenagementPage',
+            totalItems: count
+          }
+  ">
+  <h3>Mois : {{ reporting.mois }} Année : {{ reporting.annee }}</h3>
       <!-- Table reporting amenagement -->
       <table class="table">
         <thead>
           <tr class="text-truncate">
-            <!-- <th>Nature d'aménagement</th> -->
-            <th>Mois</th>
-            <th>Année</th>
-            <th>Exportation</th>
           </tr>
         </thead>
-  
-        <tbody *ngIf="reportings?.length">
-          <tr
-            class="text-truncate"
-            *ngFor="
-              let reporting of reportings
-                | paginate
-                  : {
-                      itemsPerPage: tableSize,
-                      currentPage: listReportingAmenagementPage,
-                      id: 'listReportingAmenagementPage',
-                      totalItems: count
-                    }
-            "
-          >
-            <td>{{reporting.mois}}</td>
-            <td>{{reporting.annee}}</td>
-            <td>
-              <div class="my-2">
-                <a
-                  *ngIf="reporting?.reportingPaths"
-                  class="btn btn-sm success-btn"
-                  href="http://192.168.11.108:5000/download/generated reporting/aménagements_réalisés/reporting aménagements_réalisés 2021-12-09.pdf"
-                  target="_blank"
-                >
-                  Expoter les reportings
-                </a>
-                <p *ngIf="reporting?.reportingPaths == null" class="main-muted-text">
-                  Il n'y a aucun fichier à télécharger
-                </p>
-              </div>
-            </td>
-          </tr>
+
+          <tbody *ngIf="reportings?.length">
+            
+              <tr
+                class="text-truncate"
+                *ngFor="let repoDetails of reporting.reportingPaths"
+              >
+             
+                <th>{{repoDetails | transformName}}</th>
+                
+                <td>
+                  <div class="my-2">
+                    <a
+                      *ngIf="reporting?.reportingPaths"
+                      class="btn btn-sm success-btn"
+                      href="{{ url }}{{ repoDetails[repoDetails | entite_org] }}"
+                      target="_blank"
+                    >
+                    <i class="far fa-file-export"></i> Expoter les reportings
+                    </a>
+                    <p *ngIf="reporting?.reportingPaths == null" class="main-muted-text">
+                      <a class="btn btn-sm success-btn" disabled>
+                        aucun fichier à télécharger
+                      </a>
+                    </p>
+                  </div>
+                </td>
+              </tr>
           <pagination-controls
             id="listReportingFoncierPage"
             (pageChange)="listReportingFoncierPage = $event"
@@ -200,7 +206,7 @@
             nextLabel="Suivant"
           ></pagination-controls>
         </tbody>
-  
+
         <tbody
           *ngIf="!reportings?.length"
           class="w-100 d-flex align-items-center"
@@ -210,3 +216,7 @@
       </table>
     </div>
   </div>
+  <div *ngIf="!reportings?.length">
+    <span class="danger-txt">Il n'y a pas de reporting à exporter dans ce mois</span>
+  </div>
+</div>

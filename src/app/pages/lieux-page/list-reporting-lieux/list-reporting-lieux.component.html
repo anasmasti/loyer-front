@@ -19,15 +19,19 @@
 </section>
 
 <div class="w-100 d-flex justify-content-center">
-  <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
+  <!-- alert de reussite -->
+  <div *ngIf="generationDone" class="done-alert p-2 my-2">{{ generationSucces }}</div>
 </div>
 
+<div class="w-100 d-flex justify-content-center">
+  <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
+</div>
 
 <div class="w-100 d-flex justify-content-between gap-2 mt-3">
   <div *ngFor="let lieu of lieux">
     <h5 class="main-title">{{ lieu.name }}</h5>
     <a class="btn second-btn mt-3" (click)="generateReportingsLieux(lieu.id)">
-      <i class="fal fa-file-export"></i> Générer
+      <i class="far fa-layer-plus"></i> Générer
     </a>
   </div>
 </div>
@@ -36,90 +40,84 @@
   <div class="row d-flex justify-content-between">
     <div class="col-lg-4 mb-4">
       <label for="" class="main-muted-text">
-        <i class="far fa-search"></i> 
-        Recherche par année
+        <i class="far fa-search"></i>
+        Recherche par date
       </label>
       <input
-        type="text"
-        class="form-control rounded-pill"
-        placeholder="Rechercher par année..."
-        [(ngModel)]="findDate"
-        (input)="search('annee')"
-      />
+          type="month"
+          class="form-control rounded-pill"
+          [(ngModel)]="foundedDate"
+          (change)="search(foundedDate)"
+          id="fullDate"
+        />
     </div>
 
-    <div class="col-lg-4 mb-4">
-      <label for="" class="main-muted-text"
-        ><i class="far fa-search"></i> Recherche par mois</label
-      >
-      <select
-        class="form-control rounded-pill"
-        (change)="search('mois')"
-        [(ngModel)]="findDate"
-      >
-        <option *ngFor="let date of dateList" [value]="date.number">
-          {{ date.name }}
-        </option>
-      </select>
-    </div>
   </div>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Type de l'entité organisationnelle</th>
-        <th>Mois</th>
-        <th>Année</th>
-        <th>Exportation</th>
-      </tr>
-    </thead>
+  <div
+    *ngFor="
+      let reporting of reportings
+        | paginate
+          : {
+              itemsPerPage: 1,
+              currentPage: listReportingPage,
+              id: 'listReportingPagination',
+              totalItems: count
+            }
+    "
+  >
+    <h3>Mois : {{ reporting.mois }} Année : {{ reporting.annee }}</h3>
 
-    <tbody *ngIf="reportings?.length">
-      <tr
-        *ngFor="
-          let reporting of reportings
-            | paginate
-              : {
-                  itemsPerPage: tableSize,
-                  currentPage: listReportingPage,
-                  id: 'listReportingPagination',
-                  totalItems: count
-                }
-        "
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Type entité organisationnelles</th>
+          <th>Exportation</th>
+        </tr>
+      </thead>
+
+      <tbody *ngIf="reportings?.length">
+        <tr *ngFor="let repoDetails of reporting.reportingPaths">
+          
+            <td>{{repoDetails | transformName}}</td>
+         
+          <td>
+            <div class="my-2">
+              <a
+                *ngIf="reporting?.reportingPaths"
+                class="btn btn-sm success-btn"
+                target="_blank"
+                href="{{ url }}{{ repoDetails[repoDetails | entite_org] }}"
+                >
+                <i class="far fa-file-export"></i> Expoter les reportings
+              </a>
+
+              <p *ngIf="reporting?.reportingPaths == null" class="main-muted-text">
+                <a class="btn btn-sm success-btn" disabled>
+                  aucun fichier à télécharger
+                </a>
+              </p>
+            </div>
+          </td>
+        </tr>
+
+        <pagination-controls
+          id="listReportingPagination"
+          (pageChange)="listReportingPage = $event"
+          previousLabel="Précédent"
+          nextLabel="Suivant"
+        ></pagination-controls>
+      </tbody>
+
+      <tbody
+        *ngIf="!reportings?.length && !accessError"
+        class="w-100 d-flex align-items-center"
       >
-        <td>{{ reporting.type_lieu }}</td>
-        <td >{{ reporting.mois }}</td>
-        <td>{{ reporting.annee }}</td>
-        <td>
-          <div class="my-2">
-            <a
-              *ngIf="reporting?.reportingPaths"
-              class="btn btn-sm success-btn"
-              href="{{ url }}{{ reporting?.reportingPaths }}"
-              target="_blank"
-            >
-              Expoter les reportings
-            </a>
-            <p *ngIf="reporting?.reportingPaths == null" class="main-muted-text">
-              Il n'y a aucun fichier à télécharger
-            </p>
-          </div>
-        </td>
-      </tr>
-
-      <pagination-controls
-        id="listReportingPagination"
-        (pageChange)="listReportingPage = $event"
-        previousLabel="Précédent"
-        nextLabel="Suivant"
-      ></pagination-controls>
-    </tbody>
-
-    <tbody
-      *ngIf="!reportings?.length && !accessError"
-      class="w-100 d-flex align-items-center"
-    >
-      <h5 class="main-muted-text my-4">Aucun reporting à afficher</h5>
-    </tbody>
-  </table>
+        <h5 class="main-muted-text my-4">Aucun reporting à afficher</h5>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="!reportings?.length">
+    <span class="danger-txt">Il n'y a pas de reporting à exporter dans ce mois</span>
+  </div>
 </div>

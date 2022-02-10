@@ -245,8 +245,6 @@ export class FormComponent implements OnInit {
 
     this.adminService.updateUser(userData, this.userR._id, this.userMatricule).subscribe(
       (_) => {
-        
-        
         this.updateDone = true;
         setTimeout(() => {
           this.adminForm.reset();

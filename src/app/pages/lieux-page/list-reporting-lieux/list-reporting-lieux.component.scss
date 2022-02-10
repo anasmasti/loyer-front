@@ -8,3 +8,11 @@ th {
 section {
   width: 80vw;
 }
+
+@include mobile($min-screen, 1850px) {
+  div{
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+      margin-top: 5px;
+  }
+}

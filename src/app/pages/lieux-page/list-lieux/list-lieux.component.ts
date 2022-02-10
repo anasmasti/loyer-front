@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { getError, getLieux } from '../lieux-store/lieux.selector';
 import { getLieuxAction } from '../lieux-store/lieux.actions';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-list-lieux',
@@ -42,6 +43,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
   accessError!: any;
 
   reportingModalId: string = 'lieuxRep';
+  reporting: boolean;
 
   constructor(
     private lieuxService: LieuxService,
@@ -49,12 +51,13 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     private confirmationModalService: ConfirmationModalService,
     private helperService: HelperService,
     private store: Store<AppState>
-  ) {}
+  ) {
+    this.reporting = environment.REPORTING;
+  }
 
   ngOnInit(): void {
     // Throw get lieux from server function
     this.getAllLieux();
-
     // Check data loading status
     this.store.select(getLoading).subscribe((data) => {
       this.loading = data;
@@ -72,8 +75,10 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     if (this.findLieu != '') {
       this.lieux = this.lieux.filter((res: any) => {
         return (
-          res.intitule_lieu?.toLowerCase().match(this.findLieu.toLowerCase()) ||
-          res.ville?.toLowerCase().match(this.findLieu.toLowerCase())
+          res.type_lieu?.toLowerCase().match(this.findLieu.toLowerCase()) ||
+          res.intitule_lieu?.toLowerCase().match(this.findLieu.toLowerCase())
+          //  ||
+          // res.ville?.toLowerCase().match(this.findLieu.toLowerCase())
         );
       });
     } else if (this.findLieu == '') {
@@ -113,9 +118,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     // }, 100);
   }
 
-  openReportingLieux() {
-    this.mainModalService.open('lieuxRep');
-  }
+
 
   // Close confirmation modal
   closeConfirmationModal() {

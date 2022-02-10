@@ -33,7 +33,7 @@
       </div>
 
       <div class="col-lg-3 form-group mt-4">
-        <label for="">Date de début du loyer</label>
+        <label for="" >Date de début du loyer <span class="danger-txt">*</span></label>
         <input type="date" [(ngModel)]="date_debut_loyer_" class="form-control rounded-pill"
           (change)="reinitialiserDateDebut()" formControlName="date_debut_loyer" required [ngClass]="{
             'is-invalid': checkInputsValidation(date_debut_loyer),
@@ -49,36 +49,66 @@
 
       </div>
 
-      <div class="col-lg-3 form-group mt-4">
-        <label for="">Montant du loyer</label>
-        <input type="number" [(ngModel)]="montantLoyer" class="form-control rounded-pill"
-          formControlName="montant_loyer" [ngClass]="{
-            'is-invalid': checkInputsValidation(montant_loyer),
-            'is-valid': !montant_loyer?.invalid
-          }" />
-
-        <!-- Error Message  -->
-        <div class="" *ngIf="checkInputsValidation(montant_loyer)">
-          <p class="danger-txt" *ngIf="montant_loyer?.errors?.required">
-            Veuillez remplir ce champ
-          </p>
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Montant du loyer <span class="danger-txt">*</span></label>
+          <input type="number" [(ngModel)]="montantLoyer" class="form-control rounded-pill"
+            formControlName="montant_loyer" [ngClass]="{
+              'is-invalid': checkInputsValidation(montant_loyer),
+              'is-valid': !montant_loyer?.invalid
+            }"  />
+            <!-- (keyup)="calculTaxeNonComprise();calculMontantLoyerTTC()" -->
+  
+          <!-- Error Message  -->
+          <div class="" *ngIf="checkInputsValidation(montant_loyer)">
+            <p class="danger-txt" *ngIf="montant_loyer?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+          </div>
         </div>
-      </div>
 
-      <div class="col-lg-3 form-group mt-4">
-        <label for="">Taxe d’édilité comprise dans le loyer</label>
-        <input type="text" class="form-control rounded-pill" formControlName="taxe_edilite_comprise_loyer" />
-      </div>
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Taxe d’édilité comprise dans le loyer</label>
+          <input type="text" class="form-control rounded-pill" formControlName="taxe_edilite_comprise_loyer" />
+        </div>
+  
+  
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Taxe d’édilité non comprise dans le loyer</label>
+          <input type="text" class="form-control rounded-pill" formControlName="taxe_edilite_noncomprise_loyer" />
+        </div>
+        
+    
+  
+        <!-- <div class="col-lg-3 form-group mt-4">
+          <label for="">Taxe d’édilité comprise dans le loyer</label>
+          <input type="text" class="form-control rounded-pill" formControlName="taxe_edilite_comprise_loyer" (keyup)="calculTaxeNonComprise()"/>
+        </div> -->
 
+  
+  <!-- //////////// The last solution of Taxe d'édilité ////////////////// -->
 
-      <div class="col-lg-3 form-group mt-4">
+      <!-- <div class="col-lg-4 form-group mt-4">
         <label for="">Taxe d’édilité non comprise dans le loyer</label>
-        <input type="text" class="form-control rounded-pill" formControlName="taxe_edilite_noncomprise_loyer" />
-      </div>
+        <input type="text" [value]="taxNonComprise" class="form-control rounded-pill" formControlName="taxe_edilite_noncomprise_loyer" readonly/>
+     </div>
+      <div class="row">
+        <div class="col-lg-4 form-group mt-4">
+          <label for="">Montant du loyer TTC</label>
+          <input type="number" class="form-control rounded-pill"
+            formControlName="montant_loyer_ttc" [value]="montantLoyerTTC"  readonly/>
+        </div>
+  
+        <div class="col-lg-4 form-group mt-4">
+          <label for="">Taxe d’édilité comprise dans le loyer</label>
+          <input type="text" class="form-control rounded-pill" formControlName="taxe_edilite_comprise_loyer" (keyup)="calculTaxeNonComprise()" [value]="taxNonComprise" readonly/>
+        </div>
+      </div> -->
+<!-- ///////////////////////////////////////////////// -->
+
 
 
       <div class="col-lg-3 form-group mt-4">
-        <label for="">Périodicité de paiement</label>
+        <label for="">Périodicité de paiement <span class="danger-txt">*</span></label>
         <!-- <input type="text" class="form-control rounded-pill" formControlName="periodicite_paiement" /> -->
         <select class="form-select rounded-pill" formControlName="periodicite_paiement" [ngClass]="{
           'is-invalid': checkInputsValidation(periodicite_paiement),
@@ -97,19 +127,19 @@
       </div>
 
 
-      <div class="col-lg-3 form-group mt-4">
+      <!-- <div class="col-lg-3 form-group mt-4">
         <label for="">Durée de location</label>
         <input type="number" class="form-control rounded-pill" formControlName="duree_location" [ngClass]="{
           'is-invalid': checkInputsValidation(duree_location),
           'is-valid': !duree_location?.invalid
         }" />
-        <!-- Error Message  -->
+          --Error Message-- 
         <div class="" *ngIf="checkInputsValidation(duree_location)">
           <p class="danger-txt" *ngIf="duree_location?.errors?.required">
             Veuillez remplir ce champ
           </p>
         </div>
-      </div>
+      </div> -->
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date fin de contrat de bail</label>
@@ -118,15 +148,16 @@
           'is-valid': !date_fin_contrat?.invalid
         }">
         <!-- Error Message  -->
-        <div class="" *ngIf="checkInputsValidation(date_fin_contrat)">
+        <!-- <div class="" *ngIf="checkInputsValidation(date_fin_contrat)">
           <p class="danger-txt" *ngIf="date_fin_contrat?.errors?.required">
             Veuillez remplir ce champ
           </p>
-        </div>
+        </div> -->
       </div>
-
+      
+      <!-- Replace Déclaration d’option with Paiement Spontanée de TSR  -->
       <div class="col-lg-3 form-group mt-4">
-        <label for="">Déclaration d’option</label>
+        <label for="">Paiement Spontanée de TSR </label>
         <select class="form-select rounded-pill" [(ngModel)]="hasDeclarationOption"
           formControlName="declaration_option">
           <option value="oui">Oui</option>
@@ -174,11 +205,11 @@
           'is-valid': !date_reprise_caution?.invalid
         }">
         <!-- Error Message  -->
-        <div class="" *ngIf="checkInputsValidation(date_reprise_caution)">
+        <!-- <div class="" *ngIf="checkInputsValidation(date_reprise_caution)">
           <p class="danger-txt" *ngIf="date_reprise_caution?.errors?.required">
             Veuillez remplir ce champ
           </p>
-        </div>
+        </div> -->
       </div>
 
       <div class="col-lg-3 form-group mt-4">
@@ -195,13 +226,13 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date fin de l’avance</label>
-        <input type="date" class="form-control rounded-pill" [value]="formattedDate" formControlName="date_fin_avance"
+        <input type="date" class="form-control rounded-pill" [value]="formattedDateFinAvance" formControlName="date_fin_avance"
           readonly>
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Date 1er paiement</label>
-        <input type="date" class="form-control rounded-pill" [value]="date_premier_paiement" formControlName="date_premier_paiement" readonly>
+        <input type="date" class="form-control rounded-pill" [value]="datePremierPaiement" formControlName="date_premier_paiement" readonly>
       </div>
 
       <div class="col-lg-3 form-group mt-4">
@@ -210,10 +241,10 @@
           [(ngModel)]="montantAvance" (keyup)="calculMontantAvanceTax()" [readonly]="true">
       </div>
 
-      <div class="col-lg-3 form-group mt-4">
+      <!-- <div class="col-lg-3 form-group mt-4">
         <label for="">N° d’engagement de la dépense</label>
         <input type="text" class="form-control rounded-pill" formControlName="n_engagement_depense">
-      </div>
+      </div> -->
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Echéance de révision du loyer</label>
@@ -310,7 +341,7 @@
         <div class="row">
           <div class="col-lg-3 form-group mt-4">
             <label for="">Intitulé de lieu</label>
-            <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_intitule_lieu">
+            <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_intitule_lieu" readonly>
           </div>
 
           <div class="col-lg-3 form-group mt-4">
@@ -339,14 +370,14 @@
         <h6>Etat du contrat: &nbsp;<span>Résilié</span></h6>
 
         <div class="row">
-          <div class="col-lg-3 form-group mt-4">
+           <div class="col-lg-3 form-group mt-4">
             <label for="">Intitulé de lieu</label>
-            <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_intitule_lieu">
+            <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_intitule_lieu" readonly>
           </div>
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Reprise caution</label>
-            <!-- <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_reprise_caution"> -->
+         <!-- <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_reprise_caution"> -->
             <select class="form-select rounded-pill" formControlName="etat_contrat_reprise_caution" [(ngModel)]="repriseCaution">
               <option value="Consommée">Consommée</option>
               <option value="Récupérée">Récupérée</option>

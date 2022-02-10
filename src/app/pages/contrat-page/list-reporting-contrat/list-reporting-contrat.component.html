@@ -5,11 +5,11 @@
       <h3 class="main-title">Génération des reportings des contrats</h3>
       <div class="d-none d-lg-block">
         <a class="btn second-btn me-3" (click)="generatContratReportings('contrat/caution-en-cours')"
-          ><i class="fal fa-file-export"></i>
+          ><i class="far fa-layer-plus"></i>
           Générer reportings des cautions en cours
         </a>
         <a class="btn second-btn me-3" (click)="generatContratReportings('contrat/echeances')"
-          ><i class="fal fa-file-export"></i>
+          ><i class="far fa-layer-plus"></i>
           Générer reportings des écheances de contrat
         </a>
         <span
@@ -25,26 +25,35 @@
 </section>
 
 <div class="w-100 d-flex justify-content-center">
+  <!-- alert de reussite -->
+  <div *ngIf="generationDone" class="done-alert p-2 my-2">{{ generationSucces }}</div>
+</div>
+
+<div class="w-100 d-flex justify-content-center">
   <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
 </div>
 
 <div class="main-card bg-white table-responsive p-lg-3 mt-4">
-  <h4 class="main-title mb-4">Génération des reportings des cautions en cours</h4>
+  <!-- <h4 class="main-title mb-4">Génération des reportings des cautions en cours</h4> -->
   <div class="row d-flex justify-content-between">
     <div class="col-lg-4 mb-4">
       <label for="" class="main-muted-text"
-        ><i class="far fa-search"></i> Recherche par année</label
+        ><i class="far fa-search"></i> Recherche par mois et année</label
       >
-      <input
-        type="text"
-        class="form-control rounded-pill"
-        placeholder="Rechercher par année..."
-        [(ngModel)]="findDate"
-        (input)="search('annee')"
-      />
+      <div [formGroup]="dateForm">
+        
+        <input
+          type="month"
+          class="form-control rounded-pill"
+          formControlName="date_search"
+          [(ngModel)]="foundedDate"
+          (change)="search(foundedDate)"
+          id="fullDate"
+        />
+      </div>
     </div>
 
-    <div class="col-lg-4 mb-4">
+    <!-- <div class="col-lg-4 mb-4">
       <label for="" class="main-muted-text"
         ><i class="far fa-search"></i> Recherche par mois</label
       >
@@ -57,45 +66,50 @@
           {{ date.name }}
         </option>
       </select>
-    </div>
+    </div> -->
+
+    <div
+    *ngFor="
+    let reporting of reportings
+      | paginate
+        : {
+            itemsPerPage: tableSize,
+            currentPage: listReportingCautiontPage,
+            id: 'listReportingCautiontPage',
+            totalItems: count
+          }
+  "
+  >
+
+    <h3>Mois : {{ reporting.mois }} Année : {{ reporting.annee }}</h3>
+
     <table class="table">
       <thead>
         <tr class="text-truncate">
-          <th>N° contrat</th>
-          <th>Mois</th>
-          <th>Année</th>
-          <th>Exportation</th>
+
         </tr>
       </thead>
 
       <tbody *ngIf="reportings?.length">
         <tr
           class="text-truncate"
-          *ngFor="
-            let reporting of reportings
-              | paginate
-                : {
-                    itemsPerPage: tableSize,
-                    currentPage: listReportingCautiontPage,
-                    id: 'listReportingCautiontPage',
-                    totalItems: count
-                  }
-          "
+          *ngFor="let repoDetails of reporting.reportingPaths"
         >
-          <td>---</td>
-          <td>---</td>
+        <th>{{repoDetails | transformName}}</th>
           <td>
             <div class="my-2">
               <a
-                *ngIf="reporting?.image"
+              *ngIf="reporting?.reportingPaths"
                 class="btn btn-sm success-btn"
-                href="{{ url }}{{ reporting?.image }}"
+                href="{{ url }}{{ repoDetails[repoDetails | entite_org] }}"
                 target="_blank"
               >
-                Expoter les reportings
+              <i class="far fa-file-export"></i> Expoter les reportings
               </a>
-              <p *ngIf="reporting?.image == null" class="main-muted-text">
-                Il n'y a aucun fichier à télécharger
+              <p *ngIf="reporting?.reportingPaths == null" class="main-muted-text">
+                <a class="btn btn-sm success-btn" disabled>
+                  aucun fichier à télécharger
+                </a>
               </p>
             </div>
           </td>
@@ -117,93 +131,8 @@
     </table>
   </div>
 </div>
+<div *ngIf="!reportings?.length">
+  <span class="danger-txt">Il n'y a pas de reporting à exporter dans ce mois</span>
+</div>
 
-<div class="main-card bg-white table-responsive p-lg-3 mt-4">
-  <h4 class="main-title mb-4">Génération des reportings des écheances du contrat</h4>
-  <div class="row d-flex justify-content-between">
-    <div class="col-lg-4 mb-4">
-      <label for="" class="main-muted-text"
-        ><i class="far fa-search"></i> Recherche par année</label
-      >
-      <input
-        type="text"
-        class="form-control rounded-pill"
-        placeholder="Rechercher par année..."
-        [(ngModel)]="findDate"
-        (input)="search('annee')"
-      />
-    </div>
-
-    <div class="col-lg-4 mb-4">
-      <label for="" class="main-muted-text"
-        ><i class="far fa-search"></i> Recherche par mois</label
-      >
-      <select
-        class="form-select rounded-pill"
-        (change)="search('mois')"
-        [(ngModel)]="findDate"
-      >
-        <option *ngFor="let date of dateList" [value]="date.number">
-          {{ date.name }}
-        </option>
-      </select>
-    </div>
-    <table class="table">
-      <thead>
-        <tr class="text-truncate">
-          <th>N° contrat</th>
-          <th>Mois</th>
-          <th>Année</th>
-          <th>Exportation</th>
-        </tr>
-      </thead>
-
-      <tbody *ngIf="reportings?.length">
-        <tr
-          class="text-truncate"
-          *ngFor="
-            let reporting of reportings
-              | paginate
-                : {
-                    itemsPerPage: tableSize,
-                    currentPage: listReportingContratEcheancePage,
-                    id: 'listReportingContratEcheancePage',
-                    totalItems: count
-                  }
-          "
-        >
-          <td>---</td>
-          <td>---</td>
-          <td>
-            <div class="my-2">
-              <a
-                *ngIf="reporting?.image"
-                class="btn btn-sm success-btn"
-                href="{{ url }}{{ reporting?.image }}"
-                target="_blank"
-              >
-                Expoter les reportings
-              </a>
-              <p *ngIf="reporting?.image == null" class="main-muted-text">
-                Il n'y a aucun fichier à télécharger
-              </p>
-            </div>
-          </td>
-        </tr>
-        <pagination-controls
-          id="listReportingContratEcheancePage"
-          (pageChange)="listReportingContratEcheancePage = $event"
-          previousLabel="Précédent"
-          nextLabel="Suivant"
-        ></pagination-controls>
-      </tbody>
-
-      <tbody
-        *ngIf="!reportings?.length"
-        class="w-100 d-flex align-items-center"
-      >
-        <h5 class="main-muted-text my-4">Aucun reporting à afficher</h5>
-      </tbody>
-    </table>
-  </div>
 </div>

@@ -1,8 +1,15 @@
 import { AppState } from './../../../../store/app.state';
 import { MainModalService } from './../../../../services/main-modal/main-modal.service';
 import { LieuxService } from './../../../../services/lieux-service/lieux.service';
-import { Component, Inject, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup,Validators } from '@angular/forms';
+import {
+  Component,
+  Inject,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { getDrWithSupAction } from '../../lieux-store/lieux.actions';
 import { getDr, getSup } from '../../lieux-store/lieux.selector';
 import { Store } from '@ngrx/store';
@@ -27,6 +34,8 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
   Sup!: any;
   DrSubscription$!: Subscription;
   SupSubscription$!: Subscription;
+  intitule_rattache_SUP!: any;
+  intitule_rattache_DR!: any;
 
   @Input() update!: boolean;
   @Input() Lieu!: any;
@@ -82,6 +91,8 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   fetchPv() {
+    console.log(this.Lieu);
+    
     this.PvForm.patchValue({
       code_lieu: this.Lieu.code_lieu,
       intitule_lieu: this.Lieu.intitule_lieu,
@@ -124,11 +135,11 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
       type_lieu: this.LieuName,
       code_rattache_DR: this.PvForm.get('code_rattache_DR')?.value,
       code_rattache_SUP: this.PvForm.get('code_rattache_SUP')?.value,
-      intitule_rattache_SUP_PV: this.PvForm.get('intitule_rattache_SUP_PV')
-        ?.value,
+      intitule_rattache_SUP_PV: this.intitule_rattache_SUP,
       centre_cout_siege: this.PvForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.PvForm.get('categorie_pointVente')?.value,
     };
+  
 
     this.lieuService.addLieu(pvData, this.userMatricule).subscribe(
       (_) => {
@@ -149,6 +160,8 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
         this.hideErrorMessage();
       }
     );
+    // console.log(pvData);
+    
   }
 
   updatePv() {
@@ -164,8 +177,7 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
       type_lieu: this.PvForm.get('type_lieu')?.value,
       code_rattache_DR: this.PvForm.get('code_rattache_DR')?.value,
       code_rattache_SUP: this.PvForm.get('code_rattache_SUP')?.value,
-      intitule_rattache_SUP_PV: this.PvForm.get('intitule_rattache_SUP_PV')
-        ?.value,
+      intitule_rattache_SUP_PV: this.intitule_rattache_SUP,
       centre_cout_siege: this.PvForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.PvForm.get('categorie_pointVente')?.value,
     };
@@ -190,6 +202,47 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
     );
   }
 
+  displayIntituleSup() {
+    const codeSup = this.PvForm.get('code_rattache_SUP')?.value;
+    let check = false
+
+    for (let i = 0; i < this.Sup.length; i++) {
+      if (this.Sup[i].code_lieu == codeSup) {
+        check = true
+        if (codeSup != undefined) {
+          this.intitule_rattache_SUP = this.Sup[i].intitule_lieu;
+        } else {
+          this.intitule_rattache_SUP = '';
+        }
+      }
+    }    
+
+    if (!check) {
+      this.intitule_rattache_SUP = '';
+    }
+  }
+
+
+  displayIntituleDR() {
+    const codeDR = this.PvForm.get('code_rattache_DR')?.value;
+    let check = false
+
+    for (let i = 0; i < this.Dr.length; i++) {
+      if (this.Dr[i].code_lieu == codeDR) {
+        check = true
+        if (codeDR != undefined) {
+          this.intitule_rattache_DR = this.Dr[i].intitule_lieu;
+        } else {
+          this.intitule_rattache_DR = '';
+        }
+      }
+    }    
+
+    if (!check) {
+      this.intitule_rattache_DR = '';
+    }
+  }
+
   // Get Dr and Sup from the server
   getDrSup() {
     this.store.dispatch(getDrWithSupAction());
@@ -197,14 +250,22 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
   // Select Dr
   getDr() {
     this.DrSubscription$ = this.store.select(getDr).subscribe((data) => {
-      if (data) this.Dr = data;
+      // if (data) this.Dr = data;
+      // if (!data) this.getDrSup();
+      if (data) {
+        this.Dr = data;
+        this.displayIntituleDR();
+      }
       if (!data) this.getDrSup();
     });
   }
   // Select Sup
   getSup() {
     this.SupSubscription$ = this.store.select(getSup).subscribe((data) => {
-      if (data) this.Sup = data;
+      if (data) {
+        this.Sup = data;
+        this.displayIntituleSup();
+      }
       if (!data) this.getDrSup();
     });
   }

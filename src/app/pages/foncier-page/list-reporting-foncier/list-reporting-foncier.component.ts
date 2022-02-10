@@ -7,12 +7,12 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-list-reporting-foncier',
   templateUrl: './list-reporting-foncier.component.html',
-  styleUrls: ['./list-reporting-foncier.component.scss']
+  styleUrls: ['./list-reporting-foncier.component.scss'],
 })
 export class ListReportingFoncierComponent implements OnInit {
-
   dateList!: any[];
-  findDate!: string;
+  foundedDate!: string;
+  filtredReporting!: any;
   reportings!: any;
   userMatricule: any = localStorage.getItem('matricule');
   accessError!: any;
@@ -23,23 +23,23 @@ export class ListReportingFoncierComponent implements OnInit {
   listReportingAmenagementPage: number = 1;
   count: number = 0;
   tableSize: number = 4;
+  reportingsClone!: any;
 
   url: string = environment.API_URL_WITHOUT_PARAM;
 
-  foncierList =  [
-    "amenagements_realises",
-    "locaux_fermes"
-  ] 
-
+  foncierList = ['aménagements_réalisés', 'locaux_fermés'];
+  generationDone: boolean = false;
+  generationSucces: string = 'Reporting généré avec succés';
 
   constructor(
     private reportingService: ReportingService,
     private helpService: HelperService,
-    private searchService: SearchServiceService
+    private searchService: SearchServiceService,
+    private help:HelperService
   ) {}
 
   ngOnInit(): void {
-    this.getReportings('reporting/all',this.foncierList);
+    this.getReportings('reporting/all', this.foncierList);
     // this.getReportings('reporting/all',this.foncierList);
     this.fillMounths();
   }
@@ -59,31 +59,13 @@ export class ListReportingFoncierComponent implements OnInit {
   }
 
   generatFoncierReportings(type: string) {
-    this.reportingService
-      .generateReportings(type)
-      .subscribe(
-        (data) => {
-          console.log(data);
-          this.reportings = data
-        },
-        (error) => {
-          this.errors = error.error.message;
-          setTimeout(() => {
-            this.showErrorMessage();
-          }, 2000);
-          this.hideErrorMessage();
-        }
-      );
-  }
-
-  getReportings(route: string, data: any) {
-    console.log(data);
-    
-    this.reportingService.getReportings(route, data).subscribe(
-      (data) => {
-        this.reportings = data;
-        console.log(data);
-        
+    this.reportingService.generateReportings(type).subscribe(
+      (_) => {
+        this.generationDone = true;
+        setTimeout(() => {
+          this.generationDone = false;
+          this.help.refrechPage();
+        }, 2000);
       },
       (error) => {
         this.errors = error.error.message;
@@ -95,31 +77,32 @@ export class ListReportingFoncierComponent implements OnInit {
     );
   }
 
-  search(type: string) {
-    let isAnnee: boolean;
+  getReportings(route: string, data: any) {
+    this.reportingService.getReportings(route, data).subscribe(
+      (data) => {
+        this.reportingsClone = data;
+        this.reportings = this.reportingsClone;
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 2000);
+        this.hideErrorMessage();
+      }
+    );
+  }
 
-    if (type == 'annee') isAnnee = true;
-
-    if (this.findDate != '') {
-      this.searchService.mainSearch(
-        (this.reportings = this.reportings.filter((res: any) => {
-          if (isAnnee) {
-            return res.annee
-              ?.toString()
-              ?.toLowerCase()
-              .match(this.findDate.toLowerCase());
-          } else {
-            return res.mois
-              ?.toString()
-              ?.toLowerCase()
-              .match(this.findDate.toLowerCase());
-          }
-        }))
-      );
-    } else if (this.findDate == '') {
-      this.getReportings('reporting/all',this.foncierList);
-      // this.getReportings('reporting/all',this.foncierList);
+  search(date: any) {
+    let splitedDate = date.split('-');
+    if (splitedDate[0] != '') {
+      this.reportings = this.reportingsClone.filter((res: any) => {
+        return res.annee == splitedDate[0] && res.mois == splitedDate[1];
+      });
+    } else if (splitedDate[0] == '') {
+      this.getReportings('reporting/all', this.foncierList);
     }
   }
 
-}
+  }
+

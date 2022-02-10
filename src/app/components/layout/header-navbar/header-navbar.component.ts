@@ -3,6 +3,7 @@ import { DarkModeService } from './../../../services/dark-mode/dark-mode.service
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { NotificationsService } from 'src/app/services/notifications-service/notifications.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header-navbar',
@@ -14,9 +15,7 @@ export class HeaderNavbarComponent implements OnInit {
   user: any = localStorage.getItem('user')
     ? JSON.parse(localStorage.getItem('user') || '')
     : [];
-  userRole: any[] = localStorage.getItem('user')
-    ? this.user.existedUser.userRoles[0].roleName
-    : [];
+  userRole: any[] = localStorage.getItem('user') ? this.user.existedUser.userRoles : [];
   userMatricule: any = localStorage.getItem('matricule');
 
   theme!: any;

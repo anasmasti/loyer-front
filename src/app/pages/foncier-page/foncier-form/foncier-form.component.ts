@@ -44,9 +44,9 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
   errors!: string;
   postDone: boolean = false;
-  PostSucces: string = 'Locale ajouté avec succés';
+  PostSucces: string = 'Local ajouté avec succés';
   updateDone: boolean = false;
-  updateSucces: string = 'Locale modifié avec succés';
+  updateSucces: string = 'Local modifié avec succés';
   foncierForm!: FormGroup;
   // lieuForm!: FormGroup;
 
@@ -56,6 +56,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   currentLieu: any = null;
   foncierLieux: any[] = [];
   proprietairesSubscription$!: Subscription;
+  isFournisseurExist: boolean = false;
 
   types = [
     {
@@ -77,6 +78,34 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     {
       id: 'SV',
       name: 'Supervision',
+    },
+  ];
+
+  //Les natures des travaux d'aménagement
+  natures = [
+    {
+      id: 1,
+      name: 'construction',
+    },
+    {
+      id: 2,
+      name: 'démolition',
+    },
+    {
+      id: 3,
+      name: 'plomberie',
+    },
+    {
+      id: 4,
+      name: 'peinture',
+    },
+    {
+      id: 5,
+      name: 'menuiserie',
+    },
+    {
+      id: 6,
+      name: 'électricité',
     },
   ];
 
@@ -103,9 +132,9 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.foncierForm = new FormGroup({
-      type_lieu: new FormControl(''),
+      type_lieu: new FormControl('', [Validators.required]),
       adresse: new FormControl('', [Validators.required]),
-      lieu: new FormControl(),
+      lieu: new FormControl('', [Validators.required]),
       ville: new FormControl('', [Validators.required]),
       desc_lieu_entrer: new FormControl(''),
       has_contrat: new FormControl(''),
@@ -153,7 +182,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
   getLieuxByType(type: string) {
     this.store.select(getLieuxByType, { type_lieu: type }).subscribe((data) => {
-      if(data) this.lieuxByType = data;
+      if (data) this.lieuxByType = data;
     });
     this.Intituler_lieu = '';
   }
@@ -284,6 +313,9 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
           formGroupFournisseur.controls.deleted.setValue(
             FourniseurControl.deleted
           );
+          if (!FourniseurControl.deleted) {
+            this.isFournisseurExist = true;
+          }
         }
       }
 
@@ -489,14 +521,16 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       // Amenagement
       amenagement: this.foncierForm.get('amenagementForm')?.value,
     };
-    
+
     this.fd.append('data', JSON.stringify(foncier));
+
     this.foncierService.addFoncier(this.fd, this.userMatricule).subscribe(
       (_) => {
         this.postDone = true;
         setTimeout(() => {
           this.foncierForm.reset();
           this.postDone = false;
+          this.help.refrechPage();
         }, 2000);
       },
       (error) => {
@@ -659,6 +693,13 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     this.fillCurrentLieuObject(lieuData);
   }
 
+  public toggelFournisseur(isAdd: boolean, ...args: any): void {
+    this.isFournisseurExist = isAdd;
+
+    isAdd && this.addFournisseur(args[0], args[1], 'New');
+    !isAdd && this.removeFournisseur(args[0], args[1], args[2]);
+  }
+
   get amenagementForm(): FormArray {
     return <FormArray>this.foncierForm.get('amenagementForm');
   }
@@ -673,5 +714,13 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
   get ville() {
     return this.foncierForm.get('ville');
+  }
+
+  get type_lieu() {
+    return this.foncierForm.get('type_lieu');
+  }
+
+  get lieu() {
+    return this.foncierForm.get('lieu');
   }
 }

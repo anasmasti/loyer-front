@@ -60,7 +60,7 @@
                 </p>
             </div>
 
-            <button type="submit" [disabled]="loginForm.invalid" class="btn second-btn mt-3">
+            <button type="submit" [disabled]="loginForm.invalid" class="btn second-btn mt-3" (click)="login()">
                 Se connecter <i class="fal fa-sign-in-alt"></i>
             </button>
         </form>

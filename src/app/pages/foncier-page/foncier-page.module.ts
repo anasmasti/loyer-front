@@ -19,13 +19,16 @@ import { StoreModule } from '@ngrx/store';
 import { FormsModule } from '@angular/forms';
 import { lieuxReducer } from '../lieux-page/lieux-store/lieux.reducer';
 import { ListReportingFoncierComponent } from './list-reporting-foncier/list-reporting-foncier.component';
+import { PipesModule } from 'src/app/core/pipes/pipes.module';
+// import { getNameOfObject } from 'src/app/shared/pipes/getNameOfObject.pipe';
 
 
 const route: Routes = [
   { path: '', component: FoncierComponent },
   { path: 'list/list/:id', component: FoncierDetailComponent },
   { path: 'list', component: FoncierListComponent },
-  { path: 'list/edit/:id', component: FoncierEditComponent }
+  { path: 'list/edit/:id', component: FoncierEditComponent },
+  { path: 'list/list-reporting', component: ListReportingFoncierComponent }
 ];
 
 
@@ -35,6 +38,7 @@ const route: Routes = [
     FoncierDetailComponent,
     FoncierListComponent,
     FoncierEditComponent,
+    // getNameOfObject,
     FoncierFormComponent,
     ListReportingFoncierComponent
   ],
@@ -48,7 +52,8 @@ const route: Routes = [
     StoreModule.forFeature('lieux', lieuxReducer),
     EffectsModule.forFeature([FoncierEffects, SharedEffects, LieuxEffects]),
     NgxPaginationModule,
-    FormsModule
+    FormsModule,
+    PipesModule
   ]
 })
 export class FoncierPageModule { }

@@ -6,6 +6,7 @@ import { ConfirmationModalService } from 'src/app/services/confirmation-modal-se
 import { ContratService } from 'src/app/services/contrat-service/contrat.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { SearchServiceService } from 'src/app/services/search-service/search-service.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-list-contrat',
@@ -56,7 +57,7 @@ export class ListContratComponent implements OnInit {
   mntNetGlobal!: number;
   mntBrutGlobal!: number;
   mntTaxGlobal!: number;
-
+  reporting: boolean;
   statut!: string;
 
   constructor(
@@ -66,7 +67,9 @@ export class ListContratComponent implements OnInit {
     private helperService: HelperService,
     private reportingService: ReportingService,
     private searchService: SearchServiceService
-  ) {}
+  ) {
+    this.reporting = environment.REPORTING;
+  }
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -79,10 +82,13 @@ export class ListContratComponent implements OnInit {
         index < this.user.existedUser.userRoles.length;
         index++
       ) {
-        const element = this.user.existedUser.userRoles[index].roleCode;
-        this.userRoles.push(element);
+        if(!this.user.existedUser.userRoles[index].deleted) {
+          const element = this.user.existedUser.userRoles[index].roleCode;
+          this.userRoles.push(element);
+        }
       }
     }
+
   }
 
   getContrat() {

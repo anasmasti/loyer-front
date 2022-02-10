@@ -1,96 +1,165 @@
 <div class="row title">
-    <div class="col-lg-12 mt-3">
-        <div class="d-lg-flex justify-content-lg-between">
-            <h3 class="main-title">Clôture et écritures</h3>
-            <div>
-                <a class="btn btn-sm main-btn me-4" [routerLink]="['/']"><i class="fal fa-home"></i> Tableau de bord</a>
-                <a lass="text-dark ms-5" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Ici vous pouvez exporter des écritures contable etc.."><i class="fal fa-info"></i></a>
-            </div>
-        </div>
+  <div class="col-lg-12 mt-3">
+    <div class="d-lg-flex justify-content-lg-between">
+      <h3 class="main-title">Clôture et écritures</h3>
+      <div>
+        <a class="btn btn-sm main-btn me-4" [routerLink]="['/']"
+          ><i class="fal fa-home"></i> Tableau de bord</a
+        >
+        <a
+          lass="text-dark ms-5"
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          title="Ici vous pouvez exporter des écritures contable etc.."
+          ><i class="fal fa-info"></i
+        ></a>
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="row mt-4">
-    <div *ngIf="showClotureSection"
-        class="main-card col-lg-8 col-md-9 col-sm-12 d-flex align-items-lg-center justify-content-lg-between flex-row p-4"
-        [ngClass]="{'success-cloture-bg success-txt': isCloture, 'danger-cloture-bg danger-txt': !isCloture}">
-        <h4 *ngIf="!isCloture">
-            Clôture du {{ today | date }}
-        </h4>
-        <h4 *ngIf="isCloture">
-            Ce mois est clôturé
-        </h4>
-        <a *ngIf="!isCloture" class="btn danger-btn" (click)="openConfirmationModal()">Clôturer ce mois</a>
-    </div>
+  <div
+    *ngIf="showClotureSection"
+    class="
+      main-card
+      col-lg-8 col-md-9 col-sm-12
+      d-flex
+      align-items-lg-center
+      justify-content-lg-between
+      flex-row
+      p-4
+    "
+    [ngClass]="{
+      'success-cloture-bg success-txt': isCloture,
+      'danger-cloture-bg danger-txt': !isCloture
+    }"
+  >
+    <h4 *ngIf="!isCloture">Clôture du {{ today | date }}</h4>
+    <h4 *ngIf="isCloture">Ce mois est clôturé</h4>
+    <a
+      *ngIf="!isCloture"
+      class="btn danger-btn"
+      (click)="openConfirmationModal()"
+      >Clôturer ce mois</a
+    >
+  </div>
 
-    <div *ngIf="!showClotureSection" class="cloture-skeleton"></div>
+  <div *ngIf="!showClotureSection" class="cloture-skeleton"></div>
 </div>
 
 <div class="row mt-5">
-    <div class="col-lg-12 d-flex align-items-lg-start justify-content-lg-start gap-1 flex-column mt-lg-5">
-        <h3 class="main-title">Exportation des fichiers</h3>
-        <form [formGroup]="filesForm" enctype="multipart/form-data" class="col-5">
-            <input type="date" class="form-control rounded-pill" (change)="showButtons()" formControlName="date_gen"
-                [ngClass]="{
-            'is-invalid': checkInputsValidation(date_gen),
-            'is-valid': !date_gen?.invalid
-          }">
-        </form>
-    </div>
-    <div *ngIf="dateSelected;then Buttons;else Error"></div>
+  <div
+    class="
+      col-lg-12
+      d-flex
+      align-items-lg-start
+      justify-content-lg-start
+      gap-1
+      flex-column
+      mt-lg-5
+    "
+  >
+    <h3 class="main-title">Exportation des fichiers</h3>
+    <form [formGroup]="filesForm" enctype="multipart/form-data" class="col-5">
+      <input
+        type="month"
+        class="form-control rounded-pill"
+        (change)="showButtons()"
+        formControlName="date_gen"
+        [ngClass]="{
+          'is-invalid': checkInputsValidation(date_gen),
+          'is-valid': !date_gen?.invalid
+        }"
+      />
+    </form>
+  </div>
+  <div *ngIf="dateSelected; then filesSection; else Error"></div>
 </div>
 
-<div class="row mt-5">
-    <div class="col-lg-12 d-flex align-items-lg-start justify-content-lg-start gap-1 flex-column mt-lg-5">
-        <h3 class="main-title">Génération des reportings</h3>
-        <a class="btn second-btn mt-3" (click)="generateReportings()">Générer les reportings</a>  
-    </div>
-</div>
+<ng-container *ngIf="reporting">
 
-<ng-template #Buttons>
-    <h5 class="mt-4">
-        Comptabilisation
-    </h5>
-    <div class="col-lg-12 d-flex align-items-lg-center justify-content-lg-start gap-1 flex-row">
-        <a class="btn second-btn" (click)="downloadAnnex('fichier-comptable-loyer')">
-            Exporter le ficher comptable de paiement des loyers
-        </a>
-        <a class="btn second-btn" (click)="downloadAnnex('fichier-comptable-caution')">
-            Exporter le ficher comptable de paiement des cautions
-        </a>
-    </div>
-    <h5 class="mt-4">
-        Ordre de virements
-    </h5>
-    <div class="col-lg-12 d-flex align-items-lg-center justify-content-lg-start gap-1 flex-row">
-        <a class="btn second-btn" (click)="downloadAnnex('fichier-ordre-virement')">
-            Exporter le ficher ordre de virements
-        </a>
-    </div>
-    <h5 class="mt-4">
-        Maquettes télédéclaration et télépaiement
-    </h5>
-    <div class="col-lg-12 d-flex align-items-lg-center justify-content-lg-start gap-1 flex-row">
-        <a class="btn second-btn" (click)="downloadAnnex('annex1')">
-            Exporter télédéclaration mensuelle
-        </a>
-        <a class="btn second-btn" (click)="downloadAnnex('annex2')">
-            Exporter télédéclaration annuelle
-        </a>
-    </div>
+  
+</ng-container>
+
+<ng-template #filesSection>
+  <div class="mt-4">
+   <h5 >Exporter les écritures</h5> 
+
+    <a
+      class="btn second-btn"
+      (click)="downloadFiles(fileParams)"
+    >
+    <i class="far fa-file-export"></i> Exporter les fichers
+    </a>
+  </div>
+    <!-- <a
+      class="btn second-btn"
+      (click)="downloadFiles()"
+    >
+      Exporter le ficher comptable de paiement des cautions
+    </a> -->
+  <!-- <h5 class="mt-4">Ordre de virements</h5>
+  <div
+    class="
+      col-lg-12
+      d-flex
+      align-items-lg-center
+      justify-content-lg-start
+      gap-1
+      flex-row
+    "
+  >
+    <a class="btn second-btn" (click)="downloadFiles()">
+      Exporter le ficher ordre de virements
+    </a>
+  </div>
+  <h5 class="mt-4">Maquettes télédéclaration et télépaiement</h5>
+  <div
+    class="
+      col-lg-12
+      d-flex
+      align-items-lg-center
+      justify-content-lg-start
+      gap-1
+      flex-row
+    "
+  >
+    <a class="btn second-btn" (click)="downloadFiles()">
+      Exporter télédéclaration mensuelle
+    </a> -->
+    <!-- <a class="btn second-btn" (click)="downloadFiles('annex2')">
+      Exporter télédéclaration annuelle
+    </a> -->
+  <!-- </div> -->
+
+
+
+  <div class="mt-4">
+      <h5>Exporter la télédéclaration annuelle</h5>
+      <a class="btn second-btn" (click)="downloadFiles(['annex2'])"
+        ><i class="far fa-file-export"></i> Exporter le fichier</a
+      >
+  </div>
+
 </ng-template>
 
 <ng-template #Error>
-    <h3 class="main-muted-text mt-4 text-center">
-        Choisissez une date s'il vous plait.
-    </h3>
+  <h3 class="main-muted-text mt-4 text-center">
+    Choisissez une date s'il vous plait.
+  </h3>
 </ng-template>
 
-<app-confirmation-modal [closeBtn]='true'>
-    <h3 class="main-title">Voulez-vous clôturer ce mois?</h3>
-    <div class="d-inline-flex justify-content-start mt-5">
-        <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)="cloture();closeConfirmationModal()">Oui</a>
-        <a class="btn btn-lg px-lg-4 main-btn" (click)='closeConfirmationModal();'>Non</a>
-    </div>
+<app-confirmation-modal [closeBtn]="true">
+  <h3 class="main-title">Voulez-vous clôturer ce mois?</h3>
+  <div class="d-inline-flex justify-content-start mt-5">
+    <a
+      class="btn btn-lg px-lg-4 danger-btn me-2"
+      (click)="cloture(); closeConfirmationModal()"
+      >Oui</a
+    >
+    <a class="btn btn-lg px-lg-4 main-btn" (click)="closeConfirmationModal()"
+      >Non</a
+    >
+  </div>
 </app-confirmation-modal>

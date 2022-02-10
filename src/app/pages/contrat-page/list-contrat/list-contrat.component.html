@@ -11,9 +11,15 @@
           ><i class="far fa-undo-alt"></i>
           Rafraîchir la liste
         </a>
-        <a class="btn btn-sm success-btn me-3"  (click)="openListReportingModal()"><i class="fal fa-list-alt"></i>
-          Voir list des reportings
-        </a>
+        <ng-container *ngIf="reporting">
+
+        <a
+              [routerLink]="['/contrat/list-global/list/list-reporting']"
+              class="btn btn-sm success-btn me-3"
+            >
+            <i class="far fa-file-chart-line"></i> Voir la liste des reportings
+            </a>
+      </ng-container>
         <span
           data-bs-toggle="tooltip"
           data-bs-placement="top"
@@ -202,7 +208,7 @@
             ></a>
           </div>
         </td>
-        <td *ngIf="userRoles.includes('CDGSP') || userRoles.includes('DAJC')">
+        <td *ngIf="userRoles.includes('CDGSP') || userRoles.includes('DAJC') ">
           <div class="text-center danger-txt" *ngIf="contrat.etat_contrat?.libelle == 'Résilié'">
             ---
           </div>
@@ -289,22 +295,12 @@
         </td>
       </tr>
 
-      <pagination-controls
-        id="listContratPagination"
-        (pageChange)="listContratPage = $event"
-        previousLabel="Précédent"
-        nextLabel="Suivant"
-      >
-      </pagination-controls>
-
       <app-main-modal [closeBtn]="true">
         <app-edit-contrat [contrat]="targetContrat"> </app-edit-contrat>
       </app-main-modal>
 
 
-      <app-main-modal [closeBtn]="true" [id]="idReport">
-        <app-list-reporting-contrat> </app-list-reporting-contrat>
-      </app-main-modal>
+   
 
       <!-- List des proprietaires -->
       <app-main-modal [closeBtn]="true" [id]="id">
@@ -530,4 +526,12 @@
       </a>
     </tbody>
   </table>
+
+  <pagination-controls
+  id="listContratPagination"
+  (pageChange)="listContratPage = $event"
+  previousLabel="Précédent"
+  nextLabel="Suivant"
+>
+</pagination-controls>
 </div>

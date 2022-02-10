@@ -5,15 +5,18 @@
       <h3 class="main-title">Liste des locaux</h3>
       <div class="d-none d-lg-block">
         <a class="btn btn-sm main-btn" [routerLink]="['/foncier']">
-          <i class="fal fa-plus-octagon"></i> Nouveau locale
+          <i class="fal fa-plus-octagon"></i> Nouveau local
         </a>
         <a class="btn btn-sm second-btn mx-3" (click)="reload()"
           ><i class="far fa-undo-alt"></i>
           Rafraîchir la liste
         </a>
-        <a class="btn btn-sm success-btn me-3"  (click)="openListReportingModal()"><i class="fal fa-list-alt"></i>
-          Voir list des reportings
+        <ng-container *ngIf="reporting">
+  
+        <a [routerLink]="['/foncier/list/list-reporting']" class="btn btn-sm success-btn me-3">
+          <i class="far fa-file-chart-line"></i> Voir la liste des reportings
         </a>
+      </ng-container>
         <span
           data-bs-toggle="tooltip"
           data-bs-placement="top"
@@ -42,7 +45,7 @@
         [(ngModel)]="findFoncier"
         (input)="search()"
         class="form-control rounded-pill"
-        placeholder="Rechercher par intitulé/ville..."
+        placeholder="Rechercher par code lieu, type ou ville"
       />
     </div>
 
@@ -219,21 +222,13 @@
         </td>
       </tr>
 
-      <pagination-controls
-        id="listFoncierPagination"
-        (pageChange)="listFoncierPage = $event"
-        previousLabel="Précédent"
-        nextLabel="Suivant"
-      >
-      </pagination-controls>
+     
 
       <app-main-modal [closeBtn]="true">
         <edit-foncier [foncier]="targetFoncier"> </edit-foncier>
       </app-main-modal>
 
-      <app-main-modal [closeBtn]="true" [id]="idReport">
-        <app-list-reporting-foncier> </app-list-reporting-foncier>
-      </app-main-modal>
+     
 
       <app-confirmation-modal [closeBtn]="true">
         <h3 class="main-title">
@@ -260,9 +255,9 @@
       *ngIf="!fonciers.length && !accessError"
       class="w-100 d-flex align-items-center"
     >
-      <h5 class="main-muted-text my-4">Aucun locale à afficher</h5>
+      <h5 class="main-muted-text my-4">Aucun local à afficher</h5>
       <a class="btn btn-sm second-btn ms-3" [routerLink]="['/foncier']">
-        + Nouveau locale
+        + Nouveau local
       </a>
     </tbody>
 
@@ -273,4 +268,11 @@
       </a>
     </tbody>
   </table>
+  <pagination-controls
+  id="listFoncierPagination"
+  (pageChange)="listFoncierPage = $event"
+  previousLabel="Précédent"
+  nextLabel="Suivant"
+>
+</pagination-controls>
 </div>

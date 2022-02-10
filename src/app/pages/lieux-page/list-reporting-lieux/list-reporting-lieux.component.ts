@@ -14,7 +14,7 @@ export class ListReportingLieuxComponent implements OnInit {
   listReportingPage: number = 1;
   count: number = 0;
   tableSize: number = 10;
-  findDate!: string;
+  foundedDate!: string;
   dateList!: any[];
 
   userMatricule: any = localStorage.getItem('matricule');
@@ -22,8 +22,11 @@ export class ListReportingLieuxComponent implements OnInit {
   errors!: string;
   reportings!: any[];
   findReporting!: any;
+  reportingsClone!: any;
 
   url: string = environment.API_URL_WITHOUT_PARAM;
+  generationDone: boolean = false;
+  generationSucces: string = 'Reporting généré avec succés';
 
   lieux = [
     {
@@ -58,18 +61,14 @@ export class ListReportingLieuxComponent implements OnInit {
     "points_de_vente",
     "supervisions",
     "directions_régionales",
-    "logements_de_fonction",
-    "aménagements_réalisés",
-    "locaux_fermés",
-    "cautions_en_cours",
-    "reprises_sur_cautions",
-    "échéances_de_contrats"
+    "logements_de_fonction"
   ] 
 
   constructor(
     private reportingService: ReportingService,
     private helpService: HelperService,
-    private searchService: SearchServiceService
+    private searchService: SearchServiceService,
+    private help:HelperService
   ) {}
 
   ngOnInit(): void {
@@ -93,15 +92,11 @@ export class ListReportingLieuxComponent implements OnInit {
     $('.error-alert').removeClass('active');
   }
 
-  getReportings(route: string, data: any) {
-    console.log("data",data);
-        console.log("route",route);
-    
+  getReportings(route: string, data: any) { 
     this.reportingService.getReportings(route, data).subscribe(
       (data) => {
-        this.reportings = data;
-        console.log("data",data);
-        console.log("route",route);
+        this.reportingsClone = data;
+        this.reportings = this.reportingsClone;
       },
       (error) => {
         this.errors = error.error;
@@ -113,31 +108,14 @@ export class ListReportingLieuxComponent implements OnInit {
     );
   }
 
-  search(type: string) {
-    let isAnnee: boolean;
-
-    if (type == 'annee') isAnnee = true;
-
-    if (this.findDate != '') {
-      this.searchService.mainSearch(
-        (this.reportings = this.reportings.filter((res: any) => {
-          if (isAnnee) {
-            return res.annee
-              ?.toString()
-              ?.toLowerCase()
-              .match(this.findDate.toLowerCase());
-          } else {
-            return res.mois
-              ?.toString()
-              ?.toLowerCase()
-              .match(this.findDate.toLowerCase());
-          }
-        }))
-      );
-    } else if (this.findDate == '') {
-      this.lieux.forEach(lieu => {
-        this.getReportings(lieu.id,lieu.data);
-      })
+  search(date: any) {
+    let splitedDate = date.split('-');
+    if (splitedDate[0] != '') {
+      this.reportings = this.reportingsClone.filter((res: any) => {
+        return res.annee == splitedDate[0] && res.mois == splitedDate[1];
+      });
+    } else if (splitedDate[0] == '') {
+      this.getReportings('reporting/all', this.lieuxList);
     }
   }
 
@@ -145,7 +123,13 @@ export class ListReportingLieuxComponent implements OnInit {
     this.reportingService
       .generateReportings(lieu)
       .subscribe(
-        (_) => {},
+        (_) => {
+          this.generationDone = true;
+          setTimeout(() => {
+            this.generationDone = false;
+            this.help.refrechPage();
+          }, 2000);
+        },
         (error) => {
           this.errors = error.error.message;
           setTimeout(() => {

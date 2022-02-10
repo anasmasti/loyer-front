@@ -18,6 +18,7 @@ import { foncierReducer } from '../foncier-page/foncier-store/foncier.reducer';
 import { FoncierEffects } from '../foncier-page/foncier-store/foncier.effect';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ListReportingContratComponent } from './list-reporting-contrat/list-reporting-contrat.component';
+import { PipesModule } from 'src/app/core/pipes/pipes.module';
 
 
 const route: Routes = [
@@ -25,6 +26,7 @@ const route: Routes = [
   { path: 'list-global/list/list/:id', component: DetailContratComponent },
   { path: 'list-global/list', component: ListContratComponent },
   { path: 'list/edit/:id', component: EditContratComponent },
+  { path: 'list-global/list/list-reporting', component: ListReportingContratComponent }
 ];
 
 @NgModule({
@@ -47,6 +49,7 @@ const route: Routes = [
     StoreModule.forFeature('foncier', foncierReducer),
     EffectsModule.forFeature([LieuxEffects, FoncierEffects]),
     NgxPaginationModule,
+    PipesModule
   ],
 })
 export class ContratModule {}
