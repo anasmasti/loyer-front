@@ -22,13 +22,13 @@ const routes: Routes = [
       import('./pages/proprietaire-page/proprietaire.module').then(
         (m) => m.ProprietaireModule
       ),
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, CDGSPGuard, CSLAGuard, DCGuard, DAJCGuard],
   },
   {
     path: 'lieux',
     loadChildren: () =>
       import('./pages/lieux-page/lieux.module').then((m) => m.LieuxModule),
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, CDGSPGuard, CSLAGuard, DCGuard, DAJCGuard],
   },
   {
     path: 'notification',
@@ -36,7 +36,7 @@ const routes: Routes = [
       import('./pages/notification/main-notifications.module').then(
         (m) => m.MainNotificationsModule
       ),
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, CDGSPGuard, CSLAGuard, DCGuard, DAJCGuard],
   },
   {
     path: 'contrat',
@@ -44,7 +44,7 @@ const routes: Routes = [
       import('./pages/contrat-page/contrat.module').then(
         (m) => m.ContratModule
       ),
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, CDGSPGuard, CSLAGuard, DCGuard, DAJCGuard],
   },
   {
     path: 'admin',
@@ -60,7 +60,7 @@ const routes: Routes = [
       import('./pages/foncier-page/foncier-page.module').then(
         (m) => m.FoncierPageModule
       ),
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, CDGSPGuard, CSLAGuard, DCGuard, DAJCGuard],
   },
   {
     path: 'login',
@@ -80,6 +80,7 @@ const routes: Routes = [
       import('./pages/files-generation/files-generation.module').then(
         (m) => m.FilesGenerationModule
       ),
+      canActivate: [AuthGuard, DCGuard]
   },
   {
     path: '**',
