@@ -56,7 +56,7 @@ export class FormComponent implements OnInit {
       Matricule: new FormControl('', [Validators.required]),
       Nom: new FormControl('', [Validators.required]),
       Prenom: new FormControl('', [Validators.required]),
-      Code_DR: new FormControl('', [Validators.required, Validators.maxLength(3), Validators.pattern('[0-9]*')]),
+      Code_DR: new FormControl(''),
       Roles: new FormArray([]),
       email: new FormControl('',[Validators.required,Validators.email]),
       deleted: new FormControl('',)
