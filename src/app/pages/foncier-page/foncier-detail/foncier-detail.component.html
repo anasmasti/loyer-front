@@ -2,25 +2,15 @@
   <div class="col-lg-12 mt-3">
     <div class="d-flex justify-content-between">
       <h3 class="main-title">
-        <a [routerLink]="['/foncier/list']" class="goback-link"
-          >Liste des locaux</a
-        >/<span class="selected-text">{{ intituleLieu }}</span>
+        <a [routerLink]="['/foncier/list']" class="goback-link">Liste des locaux</a>/<span class="selected-text">{{
+          intituleLieu }}</span>
       </h3>
       <div class="d-none d-lg-block">
-        <a
-          [routerLink]="['/foncier/list']"
-          class="btn btn-sm second-btn me-3"
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-          title="Retour à la liste"
-          ><i class="far fa-arrow-left"></i>
+        <a [routerLink]="['/foncier/list']" class="btn btn-sm second-btn me-3" data-bs-toggle="tooltip"
+          data-bs-placement="top" title="Retour à la liste"><i class="far fa-arrow-left"></i>
           Retour à la liste des locaux
         </a>
-        <span
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-          title="Ici vous pouvez voir les détails du foncier"
-        >
+        <span data-bs-toggle="tooltip" data-bs-placement="top" title="Ici vous pouvez voir les détails du foncier">
           <i class="fal fa-info"></i>
         </span>
       </div>
@@ -36,17 +26,57 @@
     <div class="row">
       <div class="col-lg-6">
         <h5 class="main-txt">Proprietaires</h5>
-        <h6>Nom et prénom • CIN</h6>
-        <ul *ngFor="let prop of foncier?.proprietaire">
-          <li>{{ prop?.nom_prenom }} • {{ prop?.cin }}</li>
-        </ul>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>
+                Nom et prénom
+              </th>
+              <th>
+                CIN
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let prop of foncier?.proprietaire">
+              <td>
+                {{ prop?.nom_prenom }}
+              </td>
+              <td>
+                {{ prop?.cin }}
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
       </div>
       <div class="col-lg-6">
+
         <h5 class="main-txt">Entité organisationnelle</h5>
-        <h6>Intitulé • Type</h6>
-        <div *ngFor="let lieu of foncier?.lieu">
-          <p>{{ lieu.lieu?.intitule_lieu }} • {{ lieu.lieu?.type_lieu }}</p>
-        </div>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>
+                Intitulé
+              </th>
+              <th>
+                Type
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let lieu of foncier?.lieu">
+              <td>
+                {{ lieu.lieu?.intitule_lieu }}
+              </td>
+              <td>
+                {{ lieu.lieu?.type_lieu }}
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -63,19 +93,15 @@
         <h5 class="main-txt">Description</h5>
         <p>
           {{
-            foncier?.desc_lieu_entrer != "" ? foncier?.desc_lieu_entrer : "--"
+          foncier?.desc_lieu_entrer != "" ? foncier?.desc_lieu_entrer : "--"
           }}
         </p>
       </div>
       <div class="col-lg-6">
         <h5 class="main-txt">Images d'entrer</h5>
         <div class="my-2">
-          <a
-            *ngIf="selectedImageEntrer?.image"
-            class="btn second-btn"
-            href="{{ url }}{{ selectedImageEntrer?.image }}"
-            target="_blank"
-          >
+          <a *ngIf="selectedImageEntrer?.image" class="btn second-btn" href="{{ url }}{{ selectedImageEntrer?.image }}"
+            target="_blank">
             Ouvrir
           </a>
           <p *ngIf="selectedImageEntrer?.image == null" class="main-muted-text">
@@ -87,22 +113,12 @@
   </div>
 </div>
 
-<div
-  *ngIf="hasAmenagement"
-  class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white"
->
+<div *ngIf="hasAmenagement" class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white">
   <h4 class="main-title my-4">Aménagement</h4>
 
-  <div
-    class="d-inline"
-    *ngFor="let selected_amenagement of foncier?.amenagement; let i = index"
-  >
-    <button
-      *ngIf="!selected_amenagement.deleted"
-      class="btn second-btn me-3"
-      type="button"
-      (click)="displayAmenagement(selected_amenagement._id); scroll()"
-    >
+  <div class="d-inline" *ngFor="let selected_amenagement of foncier?.amenagement; let i = index">
+    <button *ngIf="!selected_amenagement.deleted" class="btn second-btn me-3" type="button"
+      (click)="displayAmenagement(selected_amenagement._id); scroll()">
       Aménagement {{ i + 1 }}
     </button>
   </div>
@@ -114,9 +130,9 @@
         <h5 class="main-txt">Nature d'aménagement</h5>
         <p>
           {{
-            selectedAmenagement?.nature_amenagement != ""
-              ? selectedAmenagement?.nature_amenagement
-              : "--"
+          selectedAmenagement?.nature_amenagement != ""
+          ? selectedAmenagement?.nature_amenagement
+          : "--"
           }}
         </p>
       </div>
@@ -124,9 +140,9 @@
         <h5 class="main-txt">Montant d'Aménagement</h5>
         <p>
           {{
-            selectedAmenagement?.montant_amenagement != ""
-              ? selectedAmenagement?.montant_amenagement
-              : "--"
+          selectedAmenagement?.montant_amenagement != ""
+          ? selectedAmenagement?.montant_amenagement
+          : "--"
           }}
         </p>
       </div>
@@ -134,9 +150,9 @@
         <h5 class="main-txt">N° de facture</h5>
         <p>
           {{
-            selectedAmenagement?.numero_facture != ""
-              ? selectedAmenagement?.numero_facture
-              : "--"
+          selectedAmenagement?.numero_facture != ""
+          ? selectedAmenagement?.numero_facture
+          : "--"
           }}
         </p>
       </div>
@@ -147,9 +163,9 @@
         <h5 class="main-txt">N° de bon de commande</h5>
         <p>
           {{
-            selectedAmenagement?.numero_bon_commande != ""
-              ? selectedAmenagement?.numero_bon_commande
-              : "--"
+          selectedAmenagement?.numero_bon_commande != ""
+          ? selectedAmenagement?.numero_bon_commande
+          : "--"
           }}
         </p>
       </div>
@@ -157,9 +173,9 @@
         <h5 class="main-txt">Date de passation de la commande</h5>
         <p>
           {{
-            selectedAmenagement?.date_passation_commande != ""
-              ? selectedAmenagement?.date_passation_commande
-              : "--"
+          selectedAmenagement?.date_passation_commande != ""
+          ? selectedAmenagement?.date_passation_commande
+          : "--"
           }}
         </p>
       </div>
@@ -167,9 +183,9 @@
         <h5 class="main-txt">Evaluation du fournisseur</h5>
         <p>
           {{
-            selectedAmenagement?.evaluation_fournisseur != ""
-              ? selectedAmenagement?.evaluation_fournisseur
-              : "--"
+          selectedAmenagement?.evaluation_fournisseur != ""
+          ? selectedAmenagement?.evaluation_fournisseur
+          : "--"
           }}
         </p>
       </div>
@@ -179,9 +195,9 @@
         <h5 class="main-txt">Date de fin de travaux</h5>
         <p>
           {{
-            selectedAmenagement?.date_fin_travaux != ""
-              ? selectedAmenagement?.date_fin_travaux
-              : "--"
+          selectedAmenagement?.date_fin_travaux != ""
+          ? selectedAmenagement?.date_fin_travaux
+          : "--"
           }}
         </p>
       </div>
@@ -189,27 +205,20 @@
         <h5 class="main-txt">Date de livraison du local</h5>
         <p>
           {{
-            selectedAmenagement?.date_livraison_local != ""
-              ? selectedAmenagement?.date_livraison_local
-              : "--"
+          selectedAmenagement?.date_livraison_local != ""
+          ? selectedAmenagement?.date_livraison_local
+          : "--"
           }}
         </p>
       </div>
       <div class="col-lg-4">
         <h5 class="main-txt">Images du local après aménagement</h5>
         <p>
-          <a
-            *ngIf="selectedAmenagementImage?.image"
-            class="btn second-btn"
-            href="{{ url }}{{ selectedAmenagementImage?.image }}"
-            target="_blank"
-          >
+          <a *ngIf="selectedAmenagementImage?.image" class="btn second-btn"
+            href="{{ url }}{{ selectedAmenagementImage?.image }}" target="_blank">
             Ouvrir
           </a>
-          <span
-            *ngIf="!selectedAmenagementImage?.image"
-            class="main-muted-text"
-          >
+          <span *ngIf="!selectedAmenagementImage?.image" class="main-muted-text">
             Il n'y a aucun fichier à télécharger
           </span>
         </p>
@@ -218,18 +227,11 @@
       <div class="col-lg-4">
         <h5 class="main-txt">Croquis d’aménagement</h5>
         <p>
-          <a
-            *ngIf="selectedAmenagementCroquis?.image"
-            class="btn second-btn"
-            href="{{ url }}{{ selectedAmenagementCroquis?.image }}"
-            target="_blank"
-          >
+          <a *ngIf="selectedAmenagementCroquis?.image" class="btn second-btn"
+            href="{{ url }}{{ selectedAmenagementCroquis?.image }}" target="_blank">
             Ouvrir
           </a>
-          <span
-            *ngIf="!selectedAmenagementCroquis?.image"
-            class="main-muted-text"
-          >
+          <span *ngIf="!selectedAmenagementCroquis?.image" class="main-muted-text">
             Il n'y a aucun fichier à télécharger
           </span>
         </p>
@@ -240,23 +242,20 @@
     <div>
       <h5 class="main-title">Fournisseurs</h5>
       <div class="d-flex justify-content-between flex-row">
-        <div
-          *ngFor="let selected_fournisseur of selectedAmenagement?.fournisseur"
-          class="d-flex"
-        >
+        <div *ngFor="let selected_fournisseur of selectedAmenagement?.fournisseur" class="d-flex">
           <div *ngIf="!selected_fournisseur.deleted" class="main-card p-4">
             <h6 class="main-txt">Nom</h6>
             <p>
               {{
-                selected_fournisseur.nom != "" ? selected_fournisseur.nom : "--"
+              selected_fournisseur.nom != "" ? selected_fournisseur.nom : "--"
               }}
             </p>
             <h6 class="main-txt">Prenom</h6>
             <p>
               {{
-                selected_fournisseur.prenom != ""
-                  ? selected_fournisseur.prenom
-                  : "--"
+              selected_fournisseur.prenom != ""
+              ? selected_fournisseur.prenom
+              : "--"
               }}
             </p>
 
