@@ -123,7 +123,7 @@
                 <!-- </ul> -->
             </li>
 
-            <li class="nav-item my-4">
+            <li *ngIf="isCmptbl" class="nav-item my-4">
                 <a [routerLink]="['/files']" routerLinkActive="router-link-active" class="nav-link success-btn">
                     <i class="far fa-file-export"></i> Clôture et écritures
                 </a>

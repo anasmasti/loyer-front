@@ -9,12 +9,14 @@ import { AuthService } from 'src/app/services/auth-service/auth.service';
 export class SideNavbarComponent implements OnInit {
 
   isAdmin!: boolean 
+  isCmptbl!: boolean
 
   constructor(public authService: AuthService) { }
 
   ngOnInit(): void {
     this.showAndHideMobileSideBarMenu() // Launch toggeling side menu for mobile
     this.isAdmin = this.authService.checkUserRole('Admin');
+    this.isCmptbl = this.authService.checkUserRole('DC')
   }
 
   // Toggel sub menu
