@@ -144,6 +144,7 @@ export class FoncierListComponent implements OnInit {
 
   // Delete fonfier
   deleteFoncier() {
+    console.log('teeeeeeeest');
     this.foncierService
       .deleteFoncier(
         this.deletedFoncier._id,
@@ -152,6 +153,7 @@ export class FoncierListComponent implements OnInit {
       )
       .subscribe(
         (_) => {
+          
           this.store.dispatch(getFoncierAction());
           this.confirmationModalService.close();
           this.deleteDone = true;

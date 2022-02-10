@@ -5,6 +5,7 @@ import { ContratService } from 'src/app/services/contrat-service/contrat.service
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
+// import { addMonths } from './date.class';
 
 @Component({
   selector: 'app-form-contrat',
@@ -108,7 +109,7 @@ export class FormContratComponent implements OnInit {
   durreeRecuperer: number = 0;
 
   taxNonComprise: number = 0;
-  montantLoyerTTC : number = 0;
+  montantLoyerTTC: number = 0;
 
   currentLieu: any;
 
@@ -377,7 +378,7 @@ export class FormContratComponent implements OnInit {
       10
     );
     let date = new Date(this.contratForm.get('date_debut_loyer')?.value);
-    let month = date.getMonth();
+    let month = date.getMonth() + 1;
     this.dureeAvance = this.contratForm.get('duree_avance')?.value;
 
     if (this.dureeAvance > 0) {
@@ -395,11 +396,20 @@ export class FormContratComponent implements OnInit {
           break;
       }
 
-      // Date 1er paiment
+      // if ((date.getMonth() + 1) == 4) {
+      //   console.log(month);
+
+      //   console.log(new Date(`${date.getFullYear()}-${month}-${1}`).toISOString().slice(0, 10));
+
+      //   this.datePremierPaiement = new Date(`${date.getFullYear()}-${month}-${1}`).toISOString().slice(0, 10);
+      // }
+      // console.log(date.toISOString().slice(0, 10));
+
+      // Date fin de l'avance
       date.setMonth(month);
       this.datePremierPaiement = date.toISOString().slice(0, 10);
 
-      // Date fin de l'avance
+      // Date 1er paiment
       date.setDate(0);
       this.formattedDateFinAvance = date.toISOString().slice(0, 10);
 
@@ -435,7 +445,7 @@ export class FormContratComponent implements OnInit {
   //Calcul taxe d'édilité
   // calculTaxeNonComprise() {
   //   // let taxComprise = this.contratForm.get('taxe_edilite_comprise_loyer')?.value;
-  //   // if(taxComprise != 0 && taxComprise != null) 
+  //   // if(taxComprise != 0 && taxComprise != null)
   //   //   this.taxNonComprise = 0;
   //   // else
   //     this.taxNonComprise = this.montantLoyer  * (10.5 / 100);
@@ -508,9 +518,11 @@ export class FormContratComponent implements OnInit {
       numero_contrat: this.num_contrat,
       date_debut_loyer: this.contratForm.get('date_debut_loyer')?.value || '',
       montant_loyer: this.contratForm.get('montant_loyer')?.value || '',
-      taxe_edilite_loyer: this.contratForm.get('taxe_edilite_comprise_loyer')?.value || '',
+      taxe_edilite_loyer:
+        this.contratForm.get('taxe_edilite_comprise_loyer')?.value || '',
       // taxe_edilite_loyer: this.taxNonComprise,
-      taxe_edilite_non_loyer: this.contratForm.get('taxe_edilite_noncomprise_loyer')?.value || '',
+      taxe_edilite_non_loyer:
+        this.contratForm.get('taxe_edilite_noncomprise_loyer')?.value || '',
       // taxe_edilite_non_loyer: this.taxNonComprise,
       periodicite_paiement:
         this.contratForm.get('periodicite_paiement')?.value || '',
@@ -650,8 +662,7 @@ export class FormContratComponent implements OnInit {
           this.contrat.etat_contrat?.etat?.montant_nouveau_loyer,
         etat_contrat_signaletique_successeur:
           this.contrat.etat_contrat?.etat?.signaletique_successeur,
-        etat_contrat_intitule_lieu:
-          this.currentLieu?.lieu?.intitule_lieu,
+        etat_contrat_intitule_lieu: this.currentLieu?.lieu?.intitule_lieu,
         etat_contrat_date_suspension: this.formatDate(
           this.contrat.etat_contrat?.etat?.date_suspension
         ),
@@ -694,7 +705,8 @@ export class FormContratComponent implements OnInit {
       taxe_edilite_loyer:
         this.contratForm.get('taxe_edilite_comprise_loyer')?.value || '',
       // taxe_edilite_non_loyer: this.taxNonComprise,
-        taxe_edilite_non_loyer: this.contratForm.get('taxe_edilite_noncomprise_loyer')?.value || '',
+      taxe_edilite_non_loyer:
+        this.contratForm.get('taxe_edilite_noncomprise_loyer')?.value || '',
       periodicite_paiement:
         this.contratForm.get('periodicite_paiement')?.value || '',
       date_fin_contrat: this.contratForm.get('date_fin_contrat')?.value || '',
@@ -709,8 +721,12 @@ export class FormContratComponent implements OnInit {
         this.contratForm.get('date_reprise_caution')?.value || '',
       statut_caution: this.contratForm.get('statut_caution')?.value || '',
       montant_avance: this.contratForm.get('montant_avance')?.value || '',
-      date_fin_avance: this.formattedDateFinAvance ? this.formattedDateFinAvance : this.contratForm.get('date_fin_avance')?.value  ,
-      date_premier_paiement: this.datePremierPaiement ? this.datePremierPaiement : this.contratForm.get('date_premier_paiement')?.value ,
+      date_fin_avance: this.formattedDateFinAvance
+        ? this.formattedDateFinAvance
+        : this.contratForm.get('date_fin_avance')?.value,
+      date_premier_paiement: this.datePremierPaiement
+        ? this.datePremierPaiement
+        : this.contratForm.get('date_premier_paiement')?.value,
       duree_avance: this.contratForm.get('duree_avance')?.value || '',
       echeance_revision_loyer:
         this.contratForm.get('echeance_revision_loyer')?.value || '',
@@ -775,7 +791,6 @@ export class FormContratComponent implements OnInit {
     };
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
-    
 
     // patch the formdata (data+files)
     this.contratService.updateContrat(id, this.fd).subscribe(

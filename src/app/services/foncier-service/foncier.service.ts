@@ -50,10 +50,10 @@ export class FoncierService {
   }
 
   deleteFoncier(id: any, data: any, matricule: any): Observable<Foncier> {
-    return this.http.patch<Foncier>(
+    return this.http.put<Foncier>(
       `${
         environment.API_URL_TEST + environment.API_VERSION + this.param_url
-      }/delete/${id}/${matricule}`,
+      }/supprimer/${id}/${matricule}`,
       data
     );
   }

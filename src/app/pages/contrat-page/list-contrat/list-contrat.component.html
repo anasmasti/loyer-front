@@ -12,14 +12,13 @@
           Rafraîchir la liste
         </a>
         <ng-container *ngIf="reporting">
-
-        <a
-              [routerLink]="['/contrat/list-global/list/list-reporting']"
-              class="btn btn-sm success-btn me-3"
-            >
+          <a
+            [routerLink]="['/contrat/list-global/list/list-reporting']"
+            class="btn btn-sm success-btn me-3"
+          >
             <i class="far fa-file-chart-line"></i> Voir la liste des reportings
-            </a>
-      </ng-container>
+          </a>
+        </ng-container>
         <span
           data-bs-toggle="tooltip"
           data-bs-placement="top"
@@ -90,14 +89,16 @@
           (click)="searchByStatutCaution($event, 'En cours')"
           autocomplete="off"
         />
-        <label class="px-3 mx-2 rounded-pill checkbox-list-btns" for="st_caution">
+        <label
+          class="px-3 mx-2 rounded-pill checkbox-list-btns"
+          for="st_caution"
+        >
           Caution en cours
         </label>
       </div>
-
     </div>
     <!-- /////////////////////////////////////////////////////////////// -->
-    
+
     <!-- //////////////////////////////////////////////////////////////// -->
   </div>
 
@@ -134,11 +135,15 @@
         <td>{{ contrat.montant_loyer | currency: "MAD" }}</td>
         <td>{{ contrat.date_debut_loyer | date }}</td>
         <td>{{ contrat.date_fin_contrat | date }}</td>
-        <td [ngClass]="{
-          'info-txt': contrat.statut_caution == 'Récupérée',
-          'danger-txt': contrat.statut_caution == 'Consommée',
-          'success-txt': contrat.statut_caution == 'En cours'
-        }">{{ contrat.statut_caution }}</td>
+        <td
+          [ngClass]="{
+            'info-txt': contrat.statut_caution == 'Récupérée',
+            'danger-txt': contrat.statut_caution == 'Consommée',
+            'success-txt': contrat.statut_caution == 'En cours'
+          }"
+        >
+          {{ contrat.statut_caution }}
+        </td>
 
         <td
           class="py-3 success-txt"
@@ -181,7 +186,7 @@
                 (click)="openListeProprietairesModal(contrat)"
               >
                 <i class="fal fa-users"></i> Voir ({{
-                  contrat.foncier.proprietaire?.length
+                  getProprietaireLength(contrat.foncier.proprietaire)
                 }})
               </a>
             </div>
@@ -208,8 +213,11 @@
             ></a>
           </div>
         </td>
-        <td *ngIf="userRoles.includes('CDGSP') || userRoles.includes('DAJC') ">
-          <div class="text-center danger-txt" *ngIf="contrat.etat_contrat?.libelle == 'Résilié'">
+        <td *ngIf="userRoles.includes('CDGSP') || userRoles.includes('DAJC')">
+          <div
+            class="text-center danger-txt"
+            *ngIf="contrat.etat_contrat?.libelle == 'Résilié'"
+          >
             ---
           </div>
           <div
@@ -251,7 +259,9 @@
                       [disabled]="contrat.validation1_DMG"
                     >
                       {{
-                        contrat.validation1_DMG? "Contrat validé" : "Valider le contrat"
+                        contrat.validation1_DMG
+                          ? "Contrat validé"
+                          : "Valider le contrat"
                       }}
                     </button>
                   </div>
@@ -299,9 +309,6 @@
         <app-edit-contrat [contrat]="targetContrat"> </app-edit-contrat>
       </app-main-modal>
 
-
-   
-
       <!-- List des proprietaires -->
       <app-main-modal [closeBtn]="true" [id]="id">
         <div class="d-lg-flex justify-content-lg-between my-3">
@@ -327,90 +334,96 @@
                 let i = index
               "
             >
-              <!-- <td >{{ proprietaire._id }}</td> -->
-              <td>{{ proprietaire.nom_prenom }}</td>
-              <td>{{ proprietaire.cin }}</td>
-              <td>
-                <span
-                  class="p-1"
-                  [ngClass]="{
-                    'success-txt': proprietaire?.is_mandataire,
-                    'danger-txt': !proprietaire?.is_mandataire
-                  }"
-                >
-                  {{ checkAndPutText(proprietaire?.is_mandataire) }}
-                </span>
-                <a
-                  id="proprietaireList"
-                  class="btn btn-sm second-btn me-2"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                  *ngIf="proprietaire.proprietaire_list.length"
-                  (click)="calculMontantsGlobal(proprietaire)"
-                >
-                  <i class="fal fa-users"></i>
-                  {{ proprietaire.proprietaire_list.length }} Proprietaires
-                </a>
-                <ul
-                  id="proprietaireListDropdown"
-                  class="dropdown-menu p-4 main-card border-0"
-                  aria-labelledby="proprietaireList"
-                >
-                  <li>
-                    <h5 class="main-title">Montant global</h5>
-                    <p class="main-muted-text my-0">
-                      Total des montants nets :
-                      <span class="selected-text">{{
-                        mntNetGlobal | currency: "MAD"
-                      }}</span>
-                    </p>
-                    <p class="main-muted-text my-0">
-                      Total des montants bruts :
-                      <span class="selected-text">{{
-                        mntBrutGlobal | currency: "MAD"
-                      }}</span>
-                    </p>
-                    <p class="main-muted-text">
-                      Total des montants taxes :
-                      <span class="selected-text">{{
-                        mntTaxGlobal | currency: "MAD"
-                      }}</span>
-                    </p>
-                  </li>
-                  <li *ngFor="let prop of proprietaire.proprietaire_list">
-                    <hr />
-                    <h6 class="header-title">
-                      {{ prop.nom_prenom }} ({{
-                        prop.cin || prop.carte_sejour || prop.passport
-                      }})
-                    </h6>
-                    <p class="main-muted-text my-0">
-                      Montant net :
-                      <span class="selected-text">
-                        {{
-                          calculMontantsProprietaire(prop, "mntNet") | currency: "MAD"
-                        }}
-                      </span>
-                    </p>
-                    <p class="main-muted-text my-0">
-                      Montant brut :
-                      <span class="selected-text">
-                        {{
-                          calculMontantsProprietaire(prop, "mntBrut") | currency: "MAD"
-                        }}
-                      </span>
-                    </p>
-                    <p class="main-muted-text">
-                      Montant taxe :
-                      <span class="selected-text">
-                        {{
-                          calculMontantsProprietaire(prop, "mntTaxe") | currency: "MAD"
-                        }}
-                      </span>
-                    </p>
-                  </li>
-                </ul>
-              </td>
+              <ng-container  *ngIf="!proprietaire.deleted">
+                <td>{{ proprietaire.nom_prenom }}</td>
+                <td>{{ proprietaire.cin }}</td>
+                <td>
+                  <span
+                    class="p-1"
+                    [ngClass]="{
+                      'success-txt': proprietaire?.is_mandataire,
+                      'danger-txt': !proprietaire?.is_mandataire
+                    }"
+                  >
+                    {{ checkAndPutText(proprietaire?.is_mandataire) }}
+                  </span>
+                  <a
+                    id="proprietaireList"
+                    class="btn btn-sm second-btn me-2"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    *ngIf="proprietaire.proprietaire_list.length"
+                    (click)="calculMontantsGlobal(proprietaire)"
+                  >
+                    <i class="fal fa-users"></i>
+                    {{ getProprietaireLength(proprietaire.proprietaire_list) }} Proprietaires
+                  </a>
+                  <ul
+                    id="proprietaireListDropdown"
+                    class="dropdown-menu p-4 main-card border-0"
+                    aria-labelledby="proprietaireList"
+                  >
+                    <li>
+                      <h5 class="main-title">Montant global</h5>
+                      <p class="main-muted-text my-0">
+                        Total des montants nets :
+                        <span class="selected-text">{{
+                          mntNetGlobal | currency: "MAD"
+                        }}</span>
+                      </p>
+                      <p class="main-muted-text my-0">
+                        Total des montants bruts :
+                        <span class="selected-text">{{
+                          mntBrutGlobal | currency: "MAD"
+                        }}</span>
+                      </p>
+                      <p class="main-muted-text">
+                        Total des montants taxes :
+                        <span class="selected-text">{{
+                          mntTaxGlobal | currency: "MAD"
+                        }}</span>
+                      </p>
+                    </li>
+                    <div *ngFor="let prop of proprietaire.proprietaire_list">
+                      <li *ngIf="!prop.deleted">
+                        <hr />
+                        <h6 class="header-title">
+                          {{ prop.nom_prenom }} ({{
+                            prop.cin || prop.carte_sejour || prop.passport
+                          }})
+                        </h6>
+                        <p class="main-muted-text my-0">
+                          Montant net :
+                          <span class="selected-text">
+                            {{
+                              calculMontantsProprietaire(prop, "mntNet")
+                                | currency: "MAD"
+                            }}
+                          </span>
+                        </p>
+                        <p class="main-muted-text my-0">
+                          Montant brut :
+                          <span class="selected-text">
+                            {{
+                              calculMontantsProprietaire(prop, "mntBrut")
+                                | currency: "MAD"
+                            }}
+                          </span>
+                        </p>
+                        <p class="main-muted-text">
+                          Montant taxe :
+                          <span class="selected-text">
+                            {{
+                              calculMontantsProprietaire(prop, "mntTaxe")
+                                | currency: "MAD"
+                            }}
+                          </span>
+                        </p>
+                      </li>
+                    </div>
+                  </ul>
+                </td>
+              </ng-container>
             </tr>
           </tbody>
 
@@ -528,10 +541,10 @@
   </table>
 
   <pagination-controls
-  id="listContratPagination"
-  (pageChange)="listContratPage = $event"
-  previousLabel="Précédent"
-  nextLabel="Suivant"
->
-</pagination-controls>
+    id="listContratPagination"
+    (pageChange)="listContratPage = $event"
+    previousLabel="Précédent"
+    nextLabel="Suivant"
+  >
+  </pagination-controls>
 </div>

@@ -7,6 +7,7 @@ import { ContratService } from 'src/app/services/contrat-service/contrat.service
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { SearchServiceService } from 'src/app/services/search-service/search-service.service';
 import { environment } from 'src/environments/environment';
+import { Proprietaire } from 'src/app/models/Proprietaire';
 
 @Component({
   selector: 'app-list-contrat',
@@ -88,7 +89,6 @@ export class ListContratComponent implements OnInit {
         }
       }
     }
-
   }
 
   getContrat() {
@@ -350,5 +350,15 @@ export class ListContratComponent implements OnInit {
       default:
         return null;
     }
+  }
+
+  getProprietaireLength(proprietaires: any[]) {
+    let count = 0
+    proprietaires.forEach(proprietaire => {
+      if (!proprietaire.deleted) {
+        count = count + 1;
+      }
+    });
+    return count;
   }
 }
