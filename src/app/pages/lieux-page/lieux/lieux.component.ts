@@ -16,16 +16,16 @@ export class LieuxComponent implements OnInit {
       name: 'Logement de fonction',
     },
     {
+      id: 'SV',
+      name: 'Supervision',
+    },
+    {
       id: 'PV',
       name: 'Point de vente',
     },
     {
       id: 'Siege',
       name: 'Siège',
-    },
-    {
-      id: 'SV',
-      name: 'Supervision',
     },
   ];
   activeLieux = '';

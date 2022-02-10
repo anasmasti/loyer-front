@@ -100,6 +100,8 @@ export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
       centre_cout_siege: this.Lieu.centre_cout_siege,
       categorie_pointVente: this.Lieu.categorie_pointVente,
     });
+
+    this.displayIntituleDR();
   }
 
   // Afficher le message d'erreur de serveur
