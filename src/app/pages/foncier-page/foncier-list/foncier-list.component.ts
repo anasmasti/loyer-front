@@ -71,12 +71,6 @@ export class FoncierListComponent implements OnInit {
           this.store.dispatch(getFoncierAction());
         }
         this.fonciers = data;
-        // this.fonciers.forEach(foncier => {
-        //   console.log("-------",foncier);
-        //   console.log('code',foncier.lieu[0].lieu?.intitule_lieu);
-        //   // console.log('intitulé',foncier  );
-          
-        // });
       });
   }
 
