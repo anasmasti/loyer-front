@@ -475,6 +475,8 @@ export class FormContratComponent implements OnInit {
   }
 
   showEtatSection(event: any) {
+    let numeroAvenant = `${this.contrat.numero_contrat}/AV`
+    this.contratForm.controls.etat_contrat_n_avenant.setValue(numeroAvenant)
     let selectedEtat = event.target.value;
     this.etatContratTypes = selectedEtat;
   }
@@ -604,6 +606,8 @@ export class FormContratComponent implements OnInit {
 
   fetchContrat() {
     if (this.contrat) {
+      console.log(this.contrat);
+      
       // var date_debut_loyer = this.pipeDate.transform(this.contrat.date_debut_loyer, 'yyyy-MM-dd')
       // var date_debut_loyer = new Date(this.contrat.date_debut_loyer)
       var date_fin_contrat = new Date(this.contrat.date_fin_contrat);
