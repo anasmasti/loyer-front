@@ -23,9 +23,9 @@
     <div class="form-box mt-5">
         <div *ngIf="activeLieux == 'DR'; then DR"></div>
         <div *ngIf="activeLieux == 'LF'; then LF"></div>
+        <div *ngIf="activeLieux == 'SV'; then SV"></div>
         <div *ngIf="activeLieux == 'PV'; then PV"></div>
         <div *ngIf="activeLieux == 'Siege'; then SIEGE"></div>
-        <div *ngIf="activeLieux == 'SV'; then SV"></div>
         <div *ngIf="activeLieux == ''; then Error"></div>
     </div>
 </div>
@@ -38,6 +38,10 @@
     <lf-form [Lieu]="Lieu" [LieuName]="LieuName"></lf-form>
 </ng-template>
 
+<ng-template #SV>
+    <sv-form [Lieu]="Lieu" [LieuName]="LieuName"></sv-form>
+</ng-template>
+
 <ng-template #PV>
     <pv-form [Lieu]="Lieu" [LieuName]="LieuName"></pv-form>
 </ng-template>
@@ -46,12 +50,10 @@
     <siege-form [Lieu]="Lieu" [LieuName]="LieuName"></siege-form>
 </ng-template>
 
-<ng-template #SV>
-    <sv-form [Lieu]="Lieu" [LieuName]="LieuName"></sv-form>
-</ng-template>
+
 
 <ng-template #Error>
     <h2 class="text-center my-5 main-muted-text">
-        Choisissez une entités organisationnelles s'il vous plait.
+        Choisissez une entité organisationnelle s'il vous plait.
     </h2>
 </ng-template>
