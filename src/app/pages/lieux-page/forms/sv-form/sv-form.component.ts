@@ -216,7 +216,7 @@ export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
     const codeDR = this.svForm.get('code_rattache_DR')?.value;
 
     for (let i = 0; i < this.Dr.length; i++) {
-      if (this.Dr[i]._id == codeDR) {
+      if (this.Dr[i].code_lieu == codeDR) {
         this.intitule_rattache_DR = this.Dr[i].intitule_lieu;
       }
     }
