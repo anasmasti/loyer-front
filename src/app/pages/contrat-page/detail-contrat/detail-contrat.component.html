@@ -12,7 +12,7 @@
                 <a [routerLink]="['/contrat/list-global/list']" class="btn btn-sm second-btn me-3 "
                     data-bs-toggle="tooltip" data-bs-placement="top" title="Retour à la liste"><i
                         class="far fa-arrow-left"></i>
-                    Retour à la liste des contras
+                    Retour à la liste des contrats
                 </a>
                 <span data-bs-toggle="tooltip" data-bs-placement="top" title="Ici vous pouvez voir les détails de   ">
                     <i class="fal fa-info"></i>
@@ -43,9 +43,13 @@
                 <p>{{ contrat.date_fin_contrat !=null ? (contrat.date_fin_contrat | date) : '--'}}</p>
                 <!-- <p>contrat.date_fin_contrat</p> -->
             </div>
-            <div class="col-lg-6">
+            <!-- <div class="col-lg-6">
                 <h5 class="main-txt">Durée de location</h5>
                 <p>{{ contrat.duree_location != undefined ? contrat.duree_location : '--'}}</p>
+            </div> -->
+            <div class="col-lg-6">
+                <h5 class="main-txt">Montant du loyer</h5>
+                <p>{{ contrat.montant_loyer != undefined ? contrat.montant_loyer : '--'}}</p>
             </div>
         </div>
         <div class="row">
@@ -54,37 +58,28 @@
                 <p>{{ contrat.periodicite_paiement != '' ? contrat.periodicite_paiement : '--'}}</p>
             </div>
             <div class="col-lg-6">
-                <h5 class="main-txt">Montant du loyer</h5>
-                <p>{{ contrat.montant_loyer != undefined ? contrat.montant_loyer : '--'}}</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6">
                 <h5 class="main-txt">Taxe d'édilité comprise dans loyer</h5>
                 <p>{{contrat.taxe_edilite_loyer != '' ? contrat.taxe_edilite_loyer : '--'}}</p>
             </div>
+        </div>
+        <div class="row">
             <div class="col-lg-6">
                 <h5 class="main-txt">Taxe d'édilité non comprise dans loyer</h5>
                 <p>{{ contrat.taxe_edilite_non_loyer != '' ? contrat.taxe_edilite_non_loyer : '--'}}</p>
             </div>
-        </div>
-        <div class="row">
             <div class="col-lg-6">
-                <h5 class="main-txt">Déclaration d'option</h5>
+                <h5 class="main-txt">Paiement Spontanée de TSR</h5>
                 <p>{{ contrat.declaration_option != '' ? contrat.declaration_option : '--'}}</p>
             </div>
+        </div>
+        <div class="row">
+           
             <div class="col-lg-6">
                 <h5 class="main-txt">Taux de l'impot</h5>
                 <p>{{ contrat.taux_impot != '' ? contrat.taux_impot : '--'}}</p>
             </div>
-        </div>
-        <div class="row">
             <div class="col-lg-6">
-                <h5 class="main-txt">Retenue à la source</h5>
-                <p>{{ contrat.retenue_source != '' ? contrat.retenue_source : '--'}}</p>
-            </div>
-            <div class="col-lg-6">
-                <h5 class="main-txt">Pièce joint</h5>
+                <h5 class="main-txt">Pièce jointe</h5>
                 <p>
                     <a class="btn second-btn" *ngIf="selectedPieceContrat != undefined"
                         href="{{url}}{{selectedPieceContrat?.image}}" target="_blank">
@@ -96,6 +91,13 @@
                     </span>
                 </p>
             </div>
+        </div>
+        <div class="row">
+            <!-- <div class="col-lg-6">
+                <h5 class="main-txt">Retenue à la source</h5>
+                <p>{{ contrat.retenue_source != '' ? contrat.retenue_source : '--'}}</p>
+            </div> -->
+            
         </div>
 
     </div>
@@ -147,9 +149,14 @@
                 <h5 class="main-txt">Durée de l'avance</h5>
                 <p>{{contrat.duree_avance != undefined ? contrat.duree_avance : '--'}}</p>
             </div>
-            <div class="col-lg-6">
+            <!-- <div class="col-lg-6">
                 <h5 class="main-txt">N° d'engagement de la dépense</h5>
                 <p>{{contrat.n_engagement_depense != '' ? contrat.n_engagement_depense : '--'}}</p>
+            </div> -->
+            <div class="col-lg-6">
+                <h5 class="main-txt">Etat de contrat</h5>
+                <p *ngIf="contrat.etat_contrat?.libelle == 'Actif'" class="success-txt">
+                    {{this.contrat.etat_contrat?.libelle != '' ? this.contrat.etat_contrat?.libelle : '--'}}</p>
             </div>
         </div>
         <div class="row">
@@ -157,11 +164,7 @@
                 <h5 class="main-txt">Echéance de révision du loyer</h5>
                 <p>{{contrat.echeance_revision_loyer != '' ? contrat.echeance_revision_loyer : '--'}}</p>
             </div>
-            <div class="col-lg-6">
-                <h5 class="main-txt">Etat de contrat</h5>
-                <p *ngIf="contrat.etat_contrat?.libelle == 'Actif'" class="success-txt">
-                    {{this.contrat.etat_contrat?.libelle != '' ? this.contrat.etat_contrat?.libelle : '--'}}</p>
-            </div>
+           
         </div>
 
     </div>
