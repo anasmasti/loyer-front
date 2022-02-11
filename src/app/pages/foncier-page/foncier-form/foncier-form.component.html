@@ -436,7 +436,7 @@
     <!-- </div> -->
 
     <!-- Entité organisationnelle (Lieu)  -->
-    <div *ngIf="update">
+    <div *ngIf="update && foncier?.has_contrat">
       <div class="d-lg-flex justify-content-lg-between">
         <h4 class="main-text">Entité organisationnelle</h4>
       </div>
@@ -488,7 +488,7 @@
             class="btn second-btn form-control"
             (click)="openConfirmationModal('ATransfererModalId')"
           >
-            Mettre ce local à transférer
+          En cours de transfert 
           </button>
           <button
             *ngIf="currentLieu.transferer"
@@ -507,7 +507,7 @@
             class="btn btn-sm danger-btn form-control mx-3"
             (click)="openConfirmationModal('TransfererModalId')"
           >
-            Transférer carrément ce local
+          Transférer définitivement ce local 
           </button>
 
           <!-- Transferer modal -->
@@ -588,7 +588,7 @@
           </div>
 
           <div class="col-lg-3 form-group mt-2">
-            <label for="">Lieu</label>
+            <label for="">Code lieu</label>
             <select
               class="form-select rounded-pill"
               formControlName="lieu"
