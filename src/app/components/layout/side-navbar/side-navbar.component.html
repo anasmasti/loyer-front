@@ -29,7 +29,7 @@
                 </a>
             </li>
 
-            <li class="nav-item my-4">
+            <li class="nav-item my-4" *ngIf="!isAdmin">
                 <a [routerLink]="['/lieux']" routerLinkActive="router-link-active" class="nav-link main-btn" (click)="showSubMenu('entite')">
                     <span >
                         <i class="fal fa-building"></i>&nbsp;&nbsp;Entités organisat..
@@ -44,7 +44,7 @@
                 </ul>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="!isAdmin">
                 <a [routerLink]="['/foncier']" routerLinkActive="router-link-active" class="nav-link main-btn" (click)="showSubMenu('lieux')">
                     <span >
                         <i class="fas fa-hotel"></i>&nbsp;&nbsp;Locaux
@@ -89,7 +89,7 @@
 
                 </ul>
             </li> -->
-            <li class="nav-item my-4">
+            <li class="nav-item my-4" *ngIf="!isAdmin">
                 <a [routerLink]="['/contrat/list-global/list']" routerLinkActive="router-link-active"
                     class="nav-link main-btn">
                     <i class="fal fa-file-signature"></i> Liste des contrats
@@ -104,7 +104,7 @@
                 </ul> -->
             </li>
 
-            <li class="nav-item ">
+            <li class="nav-item" *ngIf="!isAdmin">
                 <a [routerLink]="['/proprietaire/list-global/list']" routerLinkActive="router-link-active"
                     class="nav-link main-btn">
                     <i class="fal fa-users"></i> Liste des propriétaires
@@ -137,14 +137,14 @@
                 </ul> -->
             </li>
             
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="isCmptbl">
                 <a [routerLink]="['/files']" routerLinkActive="router-link-active" class="nav-link success-btn">
                    Télédéclaration annuelle
                 </a>
 
             </li>
 
-            <li *ngIf="isAdmin" class="nav-item my-2">
+            <li *ngIf="isAdmin" class="nav-item my-4">
                 <a [routerLink]="['/admin']" routerLinkActive="router-link-active" class="nav-link danger-btn">
                     <i class="far fa-user-shield"></i> Administration
                 </a>
