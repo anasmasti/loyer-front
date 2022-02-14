@@ -334,7 +334,7 @@ export class LfFormComponent implements OnInit, OnDestroy, OnChanges {
           this.router.navigate(['/lieux/list']).then(() => {
             this.help.refrechPage();
           });
-        }, 2000);
+        }, 3000);
       },
       (error) => {
         this.errors = error.error.message;
@@ -378,7 +378,7 @@ export class LfFormComponent implements OnInit, OnDestroy, OnChanges {
           this.LfForm.reset();
           this.updateDone = false;
           location.reload();
-        }, 2000);
+        }, 3000);
       },
       (error) => {
         this.errors = error.error.message;

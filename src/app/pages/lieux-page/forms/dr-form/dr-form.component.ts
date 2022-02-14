@@ -132,7 +132,7 @@ export class DrFormComponent implements OnInit, OnChanges {
           this.router.navigate(['/lieux/list']).then(() => {
             this.help.refrechPage();
           });
-        }, 2000);
+        }, 3000);
       },
       (error) => {
         this.errors = error.error.message;
@@ -174,7 +174,7 @@ export class DrFormComponent implements OnInit, OnChanges {
           this.mainModalService.close();
           this.updateDone = false;
           this.help.refrechPage();
-        }, 2000);
+        }, 3000);
       },
       (error) => {
         this.errors = error.error.message;

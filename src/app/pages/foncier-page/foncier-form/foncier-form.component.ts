@@ -85,27 +85,27 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   natures = [
     {
       id: 1,
-      name: 'construction',
+      name: 'Construction',
     },
     {
       id: 2,
-      name: 'démolition',
+      name: 'Démolition',
     },
     {
       id: 3,
-      name: 'plomberie',
+      name: 'Plomberie',
     },
     {
       id: 4,
-      name: 'peinture',
+      name: 'Peinture',
     },
     {
       id: 5,
-      name: 'menuiserie',
+      name: 'Menuiserie',
     },
     {
       id: 6,
-      name: 'électricité',
+      name: 'Électricité',
     },
   ];
 
@@ -186,6 +186,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     });
     this.Intituler_lieu = '';
   }
+ 
 
   ngOnChanges() {
     if (this.foncier !== '' && this.foncier !== undefined) {
@@ -194,6 +195,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       }, 200);
     }
   }
+  
 
   fetchFc(HasAmenagement: string) {
     this.removeAllAmenagement();
@@ -600,7 +602,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
             this.updateDone = false;
             this.mainModalService.close();
             this.help.refrechPage();
-          }, 2000);
+          }, 3000);
         },
         (error) => {
           this.errors = error.error.message;
@@ -700,6 +702,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
     this.fillCurrentLieuObject(lieuData);
   }
+
 
   public toggelFournisseur(isAdd: boolean, ...args: any): void {
     this.isFournisseurExist = isAdd;

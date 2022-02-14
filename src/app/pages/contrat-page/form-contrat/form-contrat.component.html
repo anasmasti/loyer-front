@@ -157,7 +157,7 @@
       
       <!-- Replace Déclaration d’option with Paiement Spontanée de TSR  -->
       <div class="col-lg-3 form-group mt-4">
-        <label for="">Paiement Spontanée de TSR </label>
+        <label for="">Paiement spontané de TSR </label>
         <select class="form-select rounded-pill" [(ngModel)]="hasDeclarationOption"
           formControlName="declaration_option">
           <option value="oui">Oui</option>
@@ -190,11 +190,11 @@
       </div>
 
       <div class="col-lg-3 form-group mt-4">
-        <label for="">Durrée du caution</label>
+        <label for="">Durée de la caution</label>
         <input type="text" class="form-control rounded-pill" [(ngModel)]="dureeCaution" formControlName="duree_caution"
           readonly>
           <p class="danger-txt" *ngIf="hasErrorEffort">
-            Effort de caution ne doit pas être un nombre décimal
+            Montant de caution erroné 
           </p>
       </div>
 

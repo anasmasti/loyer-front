@@ -37,6 +37,11 @@
                 </a>
                 <ul class="sub-menu list-unstyled" id="entite">
                     <li>
+                        <a [routerLink]="['/lieux']" class="nav-link sub-menu-btn">
+                            Ajouter une entité organisationnelle
+                        </a>
+                    </li>
+                    <li>
                         <a [routerLink]="['/lieux/list']" class="nav-link sub-menu-btn">
                             Liste des entités organisationnelles
                         </a>
@@ -121,6 +126,13 @@
                     </a>
                 </li> -->
                 <!-- </ul> -->
+            </li>
+
+            <li class="nav-item my-4" *ngIf="!isAdmin">
+                <a [routerLink]="['/reportings']" routerLinkActive="router-link-active"
+                    class="nav-link main-btn">
+                    <i class="far fa-file-chart-line"></i> Reportings
+                </a>
             </li>
 
             <li *ngIf="isCmptbl" class="nav-item my-4">

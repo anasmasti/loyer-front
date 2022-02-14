@@ -16,7 +16,7 @@
     <!--Début 1er Row-->
     <div class="row">
       <div *ngIf="!update" class="col-lg-3 form-group mt-4">
-        <label for="">Type du local <span class="danger-txt">*</span></label>
+        <label for="">Type d'entité organisationnelle <span class="danger-txt">*</span></label>
         <select
           class="form-select rounded-pill"
           formControlName="type_lieu"
@@ -39,10 +39,12 @@
       </div>
 
       <div *ngIf="!update" class="col-lg-3 form-group mt-4">
-        <label for="">Code du local <span class="danger-txt">*</span></label>
+        <label for="">Code d'entité organisationnelle <span class="danger-txt">*</span></label>
         <select
           class="form-select rounded-pill"
           formControlName="lieu"
+          (change)="getIntitulerLieu()"
+          [(ngModel)]="selectedLieuId"
           [ngClass]="{
             'is-invalid': checkInputsValidation(lieu),
             'is-valid': !lieu?.invalid
@@ -63,7 +65,12 @@
         </div>
       </div>
 
-      <div class="col-lg-4 form-group mt-4">
+      <div class="col-lg-3 form-group mt-4" *ngIf="!update">
+        <label for="">Intitulé d'entité organisationnelle</label>
+        <input type="text" class="form-control rounded-pill" [value]="Intituler_lieu" readonly>
+      </div>
+
+      <div class="col-lg-3 form-group mt-4">
         <label for="">Superficie</label>
         <input
           type="text"
@@ -97,7 +104,7 @@
         </div>
       </div>
 
-      <div class="col-lg-4 form-group mt-4">
+      <div class="col-lg-3 form-group mt-4">
         <label for="">Etage</label>
         <input
           type="text"
@@ -106,25 +113,7 @@
         />
       </div>
 
-      <div class="col-lg-4 form-group mt-4">
-        <label for="">Adresse <span class="danger-txt">*</span></label>
-        <input
-          type="text"
-          class="form-control rounded-pill"
-          formControlName="adresse"
-          [ngClass]="{
-            'is-invalid': checkInputsValidation(adresse),
-            'is-valid': !adresse?.invalid
-          }"
-        />
-        <div class="" *ngIf="checkInputsValidation(adresse)">
-          <p class="danger-txt" *ngIf="adresse?.errors?.required">
-            Veuillez remplir ce champ
-          </p>
-        </div>
-      </div>
-
-      <div class="col-lg-4 form-group mt-4">
+      <div class="col-lg-3 form-group mt-4">
         <label for="">Images du local avant aménagement</label>
         <input
           type="file"
@@ -134,6 +123,26 @@
           (change)="onFileSelected($event)"
         />
       </div>
+
+      <div class="col-lg-12 form-group mt-4">
+        <label for="">Adresse <span class="danger-txt">*</span></label>
+        <textarea
+        type="text"
+        class="form-control"
+        formControlName="adresse"
+        [ngClass]="{
+          'is-invalid': checkInputsValidation(adresse),
+          'is-valid': !adresse?.invalid
+        }"
+      ></textarea>
+        <div class="" *ngIf="checkInputsValidation(adresse)">
+          <p class="danger-txt" *ngIf="adresse?.errors?.required">
+            Veuillez remplir ce champ
+          </p>
+        </div>
+      </div>
+
+  
 
       <div class="col-lg-12 form-group mt-4">
         <label for="">Descriptif du local</label>
@@ -195,12 +204,13 @@
           formArrayName="amenagementForm"
           *ngFor="let item of amenagementForm.controls; let i = index"
         >
-          <div
+        <div
             class="main-card mt-4 bg-white p-lg-4"
             *ngIf="!amenagementForm.controls[i].value.deleted"
             [formGroupName]="i"
             id="{{ i }}"
           >
+          <h6 class="main-title">Aménagement {{i+1}}</h6>
             <a
               (click)="removeAmenagement(i)"
               class="btn btn-sm danger-btn float-end"
@@ -286,7 +296,7 @@
                 />
               </div>
 
-              <div class="col-lg-3 form-group mt-4">
+              <div class="col-lg-4 form-group mt-4">
                 <label for="">Date de passation de la commande</label>
                 <input
                   type="date"
@@ -324,21 +334,21 @@
                     ></a>
                     <div class="row">
                       <div class="col-lg-3 form-group">
-                        <label for="">Nom</label>
+                        <label for="">Raison sociale</label>
                         <input
                           type="text"
                           class="form-control rounded-pill"
                           formControlName="nom"
                         />
                       </div>
-                      <div class="col-lg-3 form-group">
+                      <!-- <div class="col-lg-3 form-group">
                         <label for="">Prénom</label>
                         <input
                           type="text"
                           class="form-control rounded-pill"
                           formControlName="prenom"
                         />
-                      </div>
+                      </div> -->
                       <!-- <div class="col-lg-3 form-group">
                         <label for="">Amenagement effectué</label>
                         <input
@@ -444,7 +454,7 @@
       <div class="mt-1" *ngIf="currentLieu != null">
         <div class="row">
           <div class="col-lg-4 form-group mt-2">
-            <label for="">Type du local</label>
+            <label for="">Type d'entité organisationnelle</label>
             <input
               type="text"
               class="form-control rounded-pill"
@@ -454,7 +464,7 @@
           </div>
 
           <div class="col-lg-3 form-group mt-2">
-            <label for="">Lieu</label>
+            <label for="">Code d'entité organisationnelle</label>
             <!-- *ngIf="ActiveForm != 'TransfererForm'" -->
             <input
               type="text"
@@ -467,7 +477,7 @@
           </div>
 
           <div class="col-lg-3 form-group mt-2">
-            <label for="">Intitule lieu</label>
+            <label for="">Intitule d'entité organisationnelle</label>
             <input
               type="text"
               class="form-control rounded-pill"
@@ -574,7 +584,7 @@
       <div *ngIf="currentLieu == null">
         <div class="row">
           <div class="col-lg-3 form-group mt-2">
-            <label for="">Type du local</label>
+            <label for="">Type d'entité organisationnelle</label>
             <select
               class="form-select rounded-pill"
               formControlName="type_lieu"
@@ -588,7 +598,7 @@
           </div>
 
           <div class="col-lg-3 form-group mt-2">
-            <label for="">Code lieu</label>
+            <label for="">Code d'entité organisationnelle</label>
             <select
               class="form-select rounded-pill"
               formControlName="lieu"
@@ -603,7 +613,7 @@
           </div>
 
           <div class="col-lg-3 form-group mt-2">
-            <label for="">Intitule lieu</label>
+            <label for="">Intitule d'entité organisationnelle</label>
             <input
               type="text"
               class="form-control rounded-pill bg-white"
@@ -620,7 +630,7 @@
             class="btn second-btn form-control w-50"
             (click)="addNewLocal()"
           >
-            Affecter ce lieu
+            Affecter cette entité organisationnelle
           </button>
         </div>
       </div>

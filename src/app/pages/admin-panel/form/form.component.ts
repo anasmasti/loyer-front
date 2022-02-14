@@ -217,7 +217,7 @@ export class FormComponent implements OnInit {
           this.clearCH();
           this.postDone = false;
           location.reload();
-        }, 1500);
+        }, 3000);
       },
       (error) => {
         this.errors = error.error.message;
@@ -251,13 +251,13 @@ export class FormComponent implements OnInit {
           this.clearCH();
           this.updateDone = false;
           location.reload();
-        }, 1000);
+        }, 3000);
       },
       (error) => {
         this.errors = error.error.message;
         setTimeout(() => {
           this.showErrorMessage();
-        }, 2000);
+        }, 3000);
         this.hideErrorMessage();
       }
     );
