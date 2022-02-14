@@ -776,7 +776,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
               .then(() => {
                 this.help.refrechPage();
               });
-          }, 2000);
+          }, 3000);
         },
         (error) => {
           this.errors = error.error?.message;
@@ -844,7 +844,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
             this.mainModalService.close();
             this.updateDone = false;
             location.reload();
-          }, 1000);
+          }, 3000);
         },
 
         (error) => {

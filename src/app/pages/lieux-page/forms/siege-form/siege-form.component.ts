@@ -117,7 +117,7 @@ export class SiegeFormComponent implements OnInit, OnChanges {
           this.router.navigate(['/lieux/list']).then(() => {
             this.help.refrechPage()
           });
-        }, 2000);
+        }, 3000);
 
       },
       (error) => {
@@ -158,7 +158,7 @@ export class SiegeFormComponent implements OnInit, OnChanges {
           this.siegeForm.reset();
           this.updateDone = false;
           location.reload();
-        }, 2000);
+        }, 3000);
       },
       (error) => {
         this.errors = error.error.message;

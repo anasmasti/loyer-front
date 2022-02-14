@@ -232,7 +232,7 @@
     </div> -->
 
     <div class="col-lg-3 form-group mt-4">
-      <label for="">Banque</label>
+      <label for="">Banque <span class="danger-txt">*</span></label>
       <input type="text" class="form-control rounded-pill" formControlName="banque" required [ngClass]="{
           'is-invalid': checkInputsValidation(banque),
           'is-valid': !banque?.invalid

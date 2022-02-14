@@ -600,7 +600,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
             this.updateDone = false;
             this.mainModalService.close();
             this.help.refrechPage();
-          }, 2000);
+          }, 3000);
         },
         (error) => {
           this.errors = error.error.message;

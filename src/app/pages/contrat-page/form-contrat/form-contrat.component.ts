@@ -573,7 +573,7 @@ export class FormContratComponent implements OnInit {
             this.router.navigate(['/contrat/list-global/list']).then(() => {
               this.help.refrechPage();
             });
-          }, 2000);
+          }, 3000);
         },
         (error) => {
           this.errors = error.error.message;
@@ -804,7 +804,7 @@ export class FormContratComponent implements OnInit {
           this.mainModalService.close();
           this.updateDone = false;
           this.help.refrechPage();
-        }, 2000);
+        }, 3000);
       },
       (error) => {
         this.errors = error.error.message;
