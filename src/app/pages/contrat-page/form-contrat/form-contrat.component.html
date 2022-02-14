@@ -246,7 +246,7 @@
         <input type="text" class="form-control rounded-pill" formControlName="n_engagement_depense">
       </div> -->
 
-      <div class="col-lg-3 form-group mt-4">
+      <div class="col-lg-3 form-group mt-4" >
         <label for="">Echéance de révision du loyer</label>
         <input type="text" class="form-control rounded-pill" formControlName="echeance_revision_loyer">
       </div>
@@ -259,8 +259,8 @@
           <!--  -->
           <option *ngIf="this.contrat.validation2_DAJC"
             [value]="etatContratTypes == 'Avenant' ? etatContratTypes : 'Avenant'">à avener</option>
-          <option value="Suspendu">à suspendre</option>
-          <option value="Résilié">à résilier</option>
+          <option *ngIf="this.contrat.validation2_DAJC"  value="Suspendu">à suspendre</option>
+          <option *ngIf="this.contrat.validation2_DAJC" value="Résilié">à résilier</option>
         </select>
       </div>
 
