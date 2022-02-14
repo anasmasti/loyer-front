@@ -145,19 +145,7 @@
 
   <!--Début 3éme Row-->
   <div class="row">
-    <div class="col-lg-3 form-group mt-4">
-      <label for="">Adresse du propriétaire <span class="danger-txt">*</span></label>
-      <input type="text" class="form-control rounded-pill" formControlName="adresse" [ngClass]="{
-          'is-invalid': checkInputsValidation(adresse),
-          'is-valid': !adresse?.invalid
-        }" />
-      <!-- Error Message  -->
-      <div class="" *ngIf="checkInputsValidation(adresse)">
-        <p class="danger-txt" *ngIf="adresse?.errors?.required">
-          Veuillez remplir ce champ
-        </p>
-      </div>
-    </div>
+
 
     <div class="col-lg-3 form-group mt-4">
       <label for="">N° de compte bancaire <span class="danger-txt">*</span></label>
@@ -254,6 +242,25 @@
       <input type="text" class="form-control rounded-pill" formControlName="nom_agence_bancaire" [ngClass]="{
           'is-invalid': checkInputsValidation(nom_agence_bancaire)
         }" />
+    </div>
+
+    <div class="col-lg-12 form-group mt-4">
+      <label for="">Adresse du propriétaire <span class="danger-txt">*</span></label>
+        <textarea
+        type="text"
+        class="form-control"
+        formControlName="adresse"
+        [ngClass]="{
+          'is-invalid': checkInputsValidation(adresse),
+          'is-valid': !adresse?.invalid
+        }"
+      ></textarea>
+      <!-- Error Message  -->
+      <div class="" *ngIf="checkInputsValidation(adresse)">
+        <p class="danger-txt" *ngIf="adresse?.errors?.required">
+          Veuillez remplir ce champ
+        </p>
+      </div>
     </div>
 
     <div class="col-lg-3 form-group mt-4">
