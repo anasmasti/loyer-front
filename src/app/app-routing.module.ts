@@ -82,6 +82,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'reportings',
+    loadChildren: () =>
+      import('./pages/reportings/reportings.module').then(
+        (m) => m.ReportingsModule
+      ),
+  },
+  {
     path: '**',
     loadChildren: () =>
       import('./pages/notfound-page/notfound-page.module').then(

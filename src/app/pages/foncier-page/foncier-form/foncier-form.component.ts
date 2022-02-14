@@ -85,27 +85,27 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   natures = [
     {
       id: 1,
-      name: 'construction',
+      name: 'Construction',
     },
     {
       id: 2,
-      name: 'démolition',
+      name: 'Démolition',
     },
     {
       id: 3,
-      name: 'plomberie',
+      name: 'Plomberie',
     },
     {
       id: 4,
-      name: 'peinture',
+      name: 'Peinture',
     },
     {
       id: 5,
-      name: 'menuiserie',
+      name: 'Menuiserie',
     },
     {
       id: 6,
-      name: 'électricité',
+      name: 'Électricité',
     },
   ];
 

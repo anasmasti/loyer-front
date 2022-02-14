@@ -204,12 +204,13 @@
           formArrayName="amenagementForm"
           *ngFor="let item of amenagementForm.controls; let i = index"
         >
-          <div
+        <div
             class="main-card mt-4 bg-white p-lg-4"
             *ngIf="!amenagementForm.controls[i].value.deleted"
             [formGroupName]="i"
             id="{{ i }}"
           >
+          <h6 class="main-title">Aménagement {{i+1}}</h6>
             <a
               (click)="removeAmenagement(i)"
               class="btn btn-sm danger-btn float-end"
@@ -295,7 +296,7 @@
                 />
               </div>
 
-              <div class="col-lg-3 form-group mt-4">
+              <div class="col-lg-4 form-group mt-4">
                 <label for="">Date de passation de la commande</label>
                 <input
                   type="date"
@@ -333,21 +334,21 @@
                     ></a>
                     <div class="row">
                       <div class="col-lg-3 form-group">
-                        <label for="">Nom</label>
+                        <label for="">Raison sociale</label>
                         <input
                           type="text"
                           class="form-control rounded-pill"
                           formControlName="nom"
                         />
                       </div>
-                      <div class="col-lg-3 form-group">
+                      <!-- <div class="col-lg-3 form-group">
                         <label for="">Prénom</label>
                         <input
                           type="text"
                           class="form-control rounded-pill"
                           formControlName="prenom"
                         />
-                      </div>
+                      </div> -->
                       <!-- <div class="col-lg-3 form-group">
                         <label for="">Amenagement effectué</label>
                         <input

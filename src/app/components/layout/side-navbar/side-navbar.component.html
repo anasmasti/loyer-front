@@ -128,6 +128,13 @@
                 <!-- </ul> -->
             </li>
 
+            <li class="nav-item my-4" *ngIf="!isAdmin">
+                <a [routerLink]="['/reportings']" routerLinkActive="router-link-active"
+                    class="nav-link main-btn">
+                    <i class="far fa-file-chart-line"></i> Reportings
+                </a>
+            </li>
+
             <li *ngIf="isCmptbl" class="nav-item my-4">
                 <a [routerLink]="['/files']" routerLinkActive="router-link-active" class="nav-link success-btn">
                     <i class="far fa-file-export"></i> Clôture et écritures

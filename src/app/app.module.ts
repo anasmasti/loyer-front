@@ -17,6 +17,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePipe } from '@angular/common';
+import { ReportingsComponent } from './pages/reportings/reportings.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { DatePipe } from '@angular/common';
     SideNavbarComponent,
     MainContentComponent,
     FooterComponent,
+    ReportingsComponent,
   ],
   imports: [
     BrowserModule,

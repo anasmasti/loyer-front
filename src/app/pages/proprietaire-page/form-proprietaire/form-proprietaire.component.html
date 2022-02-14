@@ -425,7 +425,10 @@
 
   <app-confirmation-modal [closeBtn]='false'>
     <h3 class="danger-txt"><i class="fas fa-exclamation-triangle"></i> Attention</h3>
-    <p class="mt-2">Attention il vous reste seulement {{pourcentageProprietaire}}% du montant de loyer global</p>
+    <blockquote class="blockquote mt-2 text-dark">
+      <p>Attention, vous avez dépassé le montant total du loyer !</p>
+    </blockquote>
+    <figcaption  class="blockquote-footer">Il vous reste seulement {{ pourcentageProprietaire }}% du montant total du loyer.</figcaption>
     <div class="mt-3">
       <a class="btn danger-btn me-2" (click)='roolBack()'>Retour</a>
     </div>
