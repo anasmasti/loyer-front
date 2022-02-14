@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
 
   // Legend options
   hasLegend: boolean = true;
-  villeTitle: any = 'Direction régionale';
+  villeTitle: any = 'DR';
   locauxTitle: any = 'Locaux';
   contratTitle: any = 'Statut';
   legendPositionRight: any = 'right';

@@ -298,7 +298,7 @@
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">N° Avenant</label>
-            <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_n_avenant">
+            <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_n_avenant" readonly>
           </div>
 
           <div class="col-lg-3 form-group mt-4">
@@ -326,7 +326,35 @@
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Signalétique du successeur</label>
-            <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_signaletique_successeur">
+            <!-- <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_signaletique_successeur"> -->
+            
+              <div *ngIf="contrat.foncier.proprietaire.length">
+                <span class="col-sm-6 main-txt">
+                  {{
+                    contrat.foncier.proprietaire.length >= 1
+                      ? contrat.foncier.proprietaire.length
+                      : ""
+                  }}
+                  propriétaire<span *ngIf="contrat.foncier.proprietaire.length > 1"
+                    >s</span
+                  >
+                </span>
+                <span class="mx-1 text-secondary"> • </span>
+                <a
+                  [routerLink]="['/proprietaire', contrat.foncier._id]"
+                  class="short-link success-txt"
+                >
+                  Ajouter un autre</a
+                >
+              </div>
+  
+              <a
+                *ngIf="!contrat.foncier.proprietaire.length"
+                [routerLink]="['/proprietaire', contrat.foncier._id]"
+                class="btn btn-sm second-btn"
+                >Ajouter un propriétaire</a
+              >
+            
           </div>
 
         </div>
@@ -345,17 +373,17 @@
           </div>
 
           <div class="col-lg-3 form-group mt-4">
-            <label for="">Date de Suspendu</label>
+            <label for="">Date de suspension</label>
             <input type="date" class="form-control rounded-pill" formControlName="etat_contrat_date_suspension">
           </div>
 
           <div class="col-lg-3 form-group mt-4">
-            <label for="">Durée de Suspendu</label>
+            <label for="">Durée de suspension</label>
             <input type="number" class="form-control rounded-pill" formControlName="etat_contrat_duree_suspension">
           </div>
 
           <div class="col-lg-3 form-group mt-4">
-            <label for="">Motif de Suspendu</label>
+            <label for="">Motif de suspension</label>
             <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_motif_suspension">
           </div>
 
@@ -387,8 +415,8 @@
           <div class="col-lg-3 form-group mt-4" *ngIf="repriseCaution == 'Consommée'">
             <label for="">Etat caution consommée</label>
             <select class="form-select rounded-pill" formControlName="etat_caution_consomme" [(ngModel)]="cautionConsommee">
-              <option value="partial">Partial</option>
-              <option value="total">Total</option>
+              <option value="partielle">Partielle</option>
+              <option value="totale">Totale</option>
             </select>
           </div>
 
@@ -408,7 +436,7 @@
           </div>
 
           <div class="col-lg-3 form-group mt-4">
-            <label for="">Date de Résilié</label>
+            <label for="">Date de résiliation</label>
             <input type="date" class="form-control rounded-pill" formControlName="etat_contrat_date_resiliation"
               [(ngModel)]="dateResiliation" (change)="calculPreavis()">
           </div>
