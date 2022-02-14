@@ -83,7 +83,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       passport: new FormControl('', [Validators.maxLength(8)]),
       carte_sejour: new FormControl('', [Validators.maxLength(8)]),
       nom_prenom: new FormControl('', [
-        Validators.required,
         Validators.minLength(6),
         Validators.pattern('[a-zA-Z ]*'),
       ]),

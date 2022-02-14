@@ -186,6 +186,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     });
     this.Intituler_lieu = '';
   }
+ 
 
   ngOnChanges() {
     if (this.foncier !== '' && this.foncier !== undefined) {
@@ -194,6 +195,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       }, 200);
     }
   }
+  
 
   fetchFc(HasAmenagement: string) {
     this.removeAllAmenagement();
@@ -700,6 +702,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
     this.fillCurrentLieuObject(lieuData);
   }
+
 
   public toggelFournisseur(isAdd: boolean, ...args: any): void {
     this.isFournisseurExist = isAdd;

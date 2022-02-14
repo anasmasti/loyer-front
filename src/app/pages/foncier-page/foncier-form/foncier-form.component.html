@@ -16,7 +16,7 @@
     <!--Début 1er Row-->
     <div class="row">
       <div *ngIf="!update" class="col-lg-3 form-group mt-4">
-        <label for="">Type du local <span class="danger-txt">*</span></label>
+        <label for="">Type d'entité organisationnelle <span class="danger-txt">*</span></label>
         <select
           class="form-select rounded-pill"
           formControlName="type_lieu"
@@ -39,10 +39,12 @@
       </div>
 
       <div *ngIf="!update" class="col-lg-3 form-group mt-4">
-        <label for="">Code du local <span class="danger-txt">*</span></label>
+        <label for="">Code d'entité organisationnelle <span class="danger-txt">*</span></label>
         <select
           class="form-select rounded-pill"
           formControlName="lieu"
+          (change)="getIntitulerLieu()"
+          [(ngModel)]="selectedLieuId"
           [ngClass]="{
             'is-invalid': checkInputsValidation(lieu),
             'is-valid': !lieu?.invalid
@@ -63,7 +65,12 @@
         </div>
       </div>
 
-      <div class="col-lg-4 form-group mt-4">
+      <div class="col-lg-3 form-group mt-4" *ngIf="!update">
+        <label for="">Intitulé d'entité organisationnelle</label>
+        <input type="text" class="form-control rounded-pill" [value]="Intituler_lieu" readonly>
+      </div>
+
+      <div class="col-lg-3 form-group mt-4">
         <label for="">Superficie</label>
         <input
           type="text"
@@ -97,7 +104,7 @@
         </div>
       </div>
 
-      <div class="col-lg-4 form-group mt-4">
+      <div class="col-lg-3 form-group mt-4">
         <label for="">Etage</label>
         <input
           type="text"
@@ -106,7 +113,7 @@
         />
       </div>
 
-      <div class="col-lg-4 form-group mt-4">
+      <div class="col-lg-3 form-group mt-4">
         <label for="">Adresse <span class="danger-txt">*</span></label>
         <input
           type="text"
@@ -124,7 +131,7 @@
         </div>
       </div>
 
-      <div class="col-lg-4 form-group mt-4">
+      <div class="col-lg-3 form-group mt-4">
         <label for="">Images du local avant aménagement</label>
         <input
           type="file"
@@ -444,7 +451,7 @@
       <div class="mt-1" *ngIf="currentLieu != null">
         <div class="row">
           <div class="col-lg-4 form-group mt-2">
-            <label for="">Type du local</label>
+            <label for="">Type d'entité organisationnelle</label>
             <input
               type="text"
               class="form-control rounded-pill"
@@ -454,7 +461,7 @@
           </div>
 
           <div class="col-lg-3 form-group mt-2">
-            <label for="">Lieu</label>
+            <label for="">Code d'entité organisationnelle</label>
             <!-- *ngIf="ActiveForm != 'TransfererForm'" -->
             <input
               type="text"
@@ -467,7 +474,7 @@
           </div>
 
           <div class="col-lg-3 form-group mt-2">
-            <label for="">Intitule lieu</label>
+            <label for="">Intitule d'entité organisationnelle</label>
             <input
               type="text"
               class="form-control rounded-pill"
@@ -574,7 +581,7 @@
       <div *ngIf="currentLieu == null">
         <div class="row">
           <div class="col-lg-3 form-group mt-2">
-            <label for="">Type du local</label>
+            <label for="">Type d'entité organisationnelle</label>
             <select
               class="form-select rounded-pill"
               formControlName="type_lieu"
@@ -588,7 +595,7 @@
           </div>
 
           <div class="col-lg-3 form-group mt-2">
-            <label for="">Code lieu</label>
+            <label for="">Code d'entité organisationnelle</label>
             <select
               class="form-select rounded-pill"
               formControlName="lieu"
@@ -603,7 +610,7 @@
           </div>
 
           <div class="col-lg-3 form-group mt-2">
-            <label for="">Intitule lieu</label>
+            <label for="">Intitule d'entité organisationnelle</label>
             <input
               type="text"
               class="form-control rounded-pill bg-white"
@@ -620,7 +627,7 @@
             class="btn second-btn form-control w-50"
             (click)="addNewLocal()"
           >
-            Affecter ce lieu
+            Affecter cette entité organisationnelle
           </button>
         </div>
       </div>
