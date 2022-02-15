@@ -634,16 +634,6 @@ export class FormContratComponent implements OnInit {
   fetchContrat() {
     if (this.contrat) {
 
-      // var date_debut_loyer = this.pipeDate.transform(this.contrat.date_debut_loyer, 'yyyy-MM-dd')
-      // var date_debut_loyer = new Date(this.contrat.date_debut_loyer)
-      var date_fin_contrat = new Date(this.contrat.date_fin_contrat);
-      var date_reprise_caution = new Date(this.contrat.date_reprise_caution);
-      var date_fin_avance = new Date(this.contrat.date_fin_avance);
-      var date_premier_paiement = new Date(this.contrat.date_premier_paiement);
-      var date_suspension = new Date(
-        this.contrat.etat_contrat?.etat?.date_suspension
-      );
-
       this.contrat.foncier.lieu.forEach((lieu:any) => {
         if (!lieu.deleted) {
           this.currentLieu = lieu;
