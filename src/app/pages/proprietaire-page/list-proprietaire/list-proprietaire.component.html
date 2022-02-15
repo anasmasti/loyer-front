@@ -1,108 +1,166 @@
 <div class="row title">
-    <div class="col-lg-12 mt-3">
-        <div class="d-flex justify-content-between">
-            <!-- <h3 class=""></h3> -->
-            <h3 class="main-title">Liste des propriétaires</h3>
-            <div class="d-none d-lg-block">
-                <a class="btn btn-sm main-btn" [routerLink]="['/']">
-                    <i class="fal fa-home"></i> Tableau de board
-                </a>
-                <a class="btn btn-sm second-btn mx-3" (click)='refrechPage()'><i class="far fa-undo-alt"></i>
-                    Rafraîchir la liste
-                </a>
-                <span data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Ici vous pouvez consulter la list des propriétaires">
-                    <i class="fal fa-info"></i>
-                </span>
-            </div>
-
-        </div>
+  <div class="col-lg-12 mt-3">
+    <div class="d-flex justify-content-between">
+      <!-- <h3 class=""></h3> -->
+      <h3 class="main-title">Liste des propriétaires</h3>
+      <div class="d-none d-lg-block">
+        <a class="btn btn-sm main-btn" [routerLink]="['/']">
+          <i class="fal fa-home"></i> Tableau de board
+        </a>
+        <a class="btn btn-sm second-btn mx-3" (click)="refrechPage()"
+          ><i class="far fa-undo-alt"></i>
+          Rafraîchir la liste
+        </a>
+        <span
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          title="Ici vous pouvez consulter la list des propriétaires"
+        >
+          <i class="fal fa-info"></i>
+        </span>
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="w-100 d-flex justify-content-center">
-    <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
-    <!-- Message succes delete -->
-    <div *ngIf="deleteDone" class="done-alert p-2 my-2">{{ deleteSucces }}</div>
+  <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
+  <!-- Message succes delete -->
+  <div *ngIf="deleteDone" class="done-alert p-2 my-2">{{ deleteSucces }}</div>
 </div>
 
 <div class="main-card bg-white table-responsive p-lg-3 mt-4">
-    <div class="col-lg-4 mb-4">
-        <label for="" class="main-muted-text"><i class="far fa-search"></i> Recherche</label>
-        <input type="text" [(ngModel)]="findProprietaire" (input)='search()' class="form-control rounded-pill"
-            placeholder="Rechercher par cin/passeport/séjour/nom_prenom..." />
-    </div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nom complet</th>
-                <th>CIN</th>
-                <th>Numéro de téléphone</th>
-                <th>Mandataire</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
+  <div class="col-lg-4 mb-4">
+    <label for="" class="main-muted-text"
+      ><i class="far fa-search"></i> Recherche</label
+    >
+    <input
+      type="text"
+      [(ngModel)]="findProprietaire"
+      (input)="search()"
+      class="form-control rounded-pill"
+      placeholder="Rechercher par cin/passeport/séjour/nom_prenom/..."
+    />
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nom complet</th>
+        <th>CIN</th>
+        <th>Numéro de contrat</th>
+        <th>Intitulé DR</th>
+        <th>Mandataire</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
 
-        <tbody *ngIf="proprietaires.length">
-            <tr
-                *ngFor="let proprietaire of proprietaires | paginate: { itemsPerPage: tableSize, currentPage: listProprietairePage, id: 'listProprietaitePagination', totalItems: count }; let i = index">
-                <!-- <td >{{ proprietaire._id }}</td> -->
-                <td>{{ proprietaire.nom_prenom }}</td>
-                <td>{{ proprietaire.cin }}</td>
-                <td>{{ proprietaire.telephone }}</td>
-                
-                <td>
-                    <div class="d-grid">
-                        <span class="p-1"
-                            [ngClass]="{'success-txt': proprietaire?.is_mandataire, 'danger-txt': !proprietaire?.is_mandataire}">
-                            {{ checkAndPutText(proprietaire.is_mandataire) }}
-                        </span>
-                    </div>
-                </td>
-                <td>
-                    <a [routerLink]="['list', proprietaire._id]" class="btn btn-sm main-btn"><i
-                            class="fal fa-eye"></i></a>
-                    <a class="btn btn-sm info-btn mx-2" (click)='openModalAndPushProprietaire(proprietaire)'><i
-                            class="far fa-user-edit"></i></a>
-                    <a class="btn btn-sm danger-btn"
-                        (click)="openDeleteConfirmationModal();getProprietaireId(proprietaire._id)"><i
-                            class="far fa-user-minus"></i></a>
-                </td>
-            </tr>
+    <tbody *ngIf="contrats?.length">
+      <ng-container *ngFor="let contrat of contrats">
+        <tr
+          *ngFor="
+            let proprietaire of contrat?.foncier.proprietaire
+              | paginate
+                : {
+                    itemsPerPage: tableSize,
+                    currentPage: listProprietairePage,
+                    id: 'listProprietaitePagination',
+                    totalItems: count
+                  };
+            let i = index
+          "
+        >
+          <!-- <td>{{ proprietaire._id }}</td> -->
+          <td>{{ proprietaire.nom_prenom }}</td>
+          <td>{{ proprietaire.cin }}</td>
+          <td>{{ contrat.numero_contrat }}</td>
+          <ng-container *ngFor="let lieu of contrat?.foncier.lieu">
+            <td *ngIf="!lieu.deleted">
+                {{ lieu.lieu.intitule_lieu ? lieu.lieu.intitule_lieu : "--" }}
+            </td>
+          </ng-container>
+          <td>
+            <div class="d-grid">
+              <span
+                class="p-1"
+                [ngClass]="{
+                  'success-txt': proprietaire?.is_mandataire,
+                  'danger-txt': !proprietaire?.is_mandataire
+                }"
+              >
+                {{ checkAndPutText(proprietaire.is_mandataire) }}
+              </span>
+            </div>
+          </td>
+          <td>
+            <a
+              [routerLink]="['list', proprietaire._id]"
+              class="btn btn-sm main-btn"
+              ><i class="fal fa-eye"></i
+            ></a>
+            <a
+              class="btn btn-sm info-btn mx-2"
+              (click)="openModalAndPushProprietaire(proprietaire)"
+              ><i class="far fa-user-edit"></i
+            ></a>
+            <a
+              class="btn btn-sm danger-btn"
+              (click)="
+                openDeleteConfirmationModal();
+                getProprietaireId(proprietaire._id)
+              "
+              ><i class="far fa-user-minus"></i
+            ></a>
+          </td>
+        </tr>
+      </ng-container>
 
-            
+      <app-main-modal [closeBtn]="true">
+        <app-edit-proprietaire [proprietaire]="targetProprietaire">
+        </app-edit-proprietaire>
+      </app-main-modal>
 
-            <app-main-modal [closeBtn]='true'>
-                <app-edit-proprietaire [proprietaire]="targetProprietaire">
-                </app-edit-proprietaire>
-            </app-main-modal>
+      <app-confirmation-modal [closeBtn]="true" [id]="id">
+        <h3 class="main-title">
+          Confirmation de la supression
+          <i class="far fa-exclamation-circle"></i>
+        </h3>
+        <p class="mt-3">Voulez-vous supprimer ce propriétaire?</p>
+        <div class="d-inline-flex justify-content-start mt-5">
+          <a
+            class="btn btn-lg px-lg-4 danger-btn me-2"
+            (click)="deleteProprietaire(targetProprietaireId)"
+            >Oui</a
+          >
+          <a
+            class="btn btn-lg px-lg-4 main-btn"
+            (click)="closeDeleteConfirmationModal()"
+            >Non</a
+          >
+        </div>
+      </app-confirmation-modal>
+    </tbody>
 
-            <app-confirmation-modal [closeBtn]='true' [id]='id'>
-                <h3 class="main-title">Confirmation de la supression <i class="far fa-exclamation-circle"></i></h3>
-                <p class="mt-3">Voulez-vous supprimer ce propriétaire?</p>
-                <div class="d-inline-flex justify-content-start mt-5">
-                    <a class="btn btn-lg px-lg-4 danger-btn me-2"
-                        (click)='deleteProprietaire(targetProprietaireId)'>Oui</a>
-                    <a class="btn btn-lg px-lg-4 main-btn" (click)='closeDeleteConfirmationModal()'>Non</a>
-                </div>
-            </app-confirmation-modal>
+    <tbody
+      *ngIf="!contrats?.length && !accessError"
+      class="w-100 d-flex align-items-center"
+    >
+      <h5 class="main-muted-text my-4">Aucun proprietaire à afficher</h5>
+      <a class="btn btn-sm second-btn ms-3" [routerLink]="['/foncier/list']">
+        + Nouveau proprietaire
+      </a>
+    </tbody>
 
-        </tbody>
-
-        <tbody *ngIf="!proprietaires.length && !accessError" class="w-100 d-flex align-items-center">
-            <h5 class="main-muted-text my-4">Aucun proprietaire à afficher</h5>
-            <a class="btn btn-sm second-btn ms-3" [routerLink]="['/foncier/list']">
-                + Nouveau proprietaire
-            </a>
-        </tbody>
-
-        <tbody *ngIf="accessError" class="w-100 d-flex align-items-center">
-            <h5 class="danger-txt my-4">{{accessError}}</h5>
-            <a class="btn btn-sm second-btn ms-3" [routerLink]="['/']">
-                <i class="far fa-chevron-left"></i> Retour au tablau de bord
-            </a>
-        </tbody>
-    </table>
-    <pagination-controls id="listProprietaitePagination" (pageChange)="listProprietairePage = $event"
-                previousLabel="Précédent" nextLabel="Suivant"></pagination-controls>
+    <tbody *ngIf="accessError" class="w-100 d-flex align-items-center">
+      <h5 class="danger-txt my-4">{{ accessError }}</h5>
+      <a class="btn btn-sm second-btn ms-3" [routerLink]="['/']">
+        <i class="far fa-chevron-left"></i> Retour au tablau de bord
+      </a>
+    </tbody>
+  </table>
+  <pagination-controls
+    id="listProprietaitePagination"
+    (pageChange)="listProprietairePage = $event"
+    previousLabel="Précédent"
+    nextLabel="Suivant"
+  ></pagination-controls>
 </div>

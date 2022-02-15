@@ -4,6 +4,7 @@ import { MainModalService } from '../../../services/main-modal/main-modal.servic
 import { Proprietaire } from '../../../models/Proprietaire';
 import { Component, OnInit } from '@angular/core';
 import { ProprietaireService } from 'src/app/services/proprietaire-service/proprietaire.service';
+import { ContratService } from '@services/contrat-service/contrat.service';
 
 @Component({
   selector: 'app-list-proprietaire',
@@ -31,7 +32,10 @@ export class ListProprietaireComponent implements OnInit {
 
   id: string = "DeleteConfirmation"
 
+  contrats!: any;
+
   constructor(
+    private contratService: ContratService,
     private proprietaireService: ProprietaireService,
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
@@ -39,7 +43,9 @@ export class ListProprietaireComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getAllProprietaires(); // Trow the fitching data
+    setTimeout(() => {
+      this.getAllProprietaires();
+    }, 1000);// Trow the fitching data    
   }
 
   // ngOnChanges() {
@@ -61,7 +67,7 @@ export class ListProprietaireComponent implements OnInit {
   // Get data from proprietaire service
   getAllProprietaires() {
     this.proprietaireService.getProprietaire(this.userMatricule).subscribe((data) => {
-      this.proprietaires = data;
+      this.contrats = data;
    
     }, error => {
       this.accessError = error.error.message

@@ -247,7 +247,7 @@
                   Validation
                 </h5> -->
                 <div class="d-flex flex-column gap-2">
-                  <div *ngIf="userRoles.includes('CDGSP')">
+                  <div *ngIf="userRoles.includes('CDGSP') || userRoles.includes('CSLA')">
                     <button
                       *ngIf="contrat.etat_contrat?.libelle != 'Résilié'"
                       class="btn"
@@ -269,7 +269,7 @@
                     <button
                       *ngIf="
                         contrat.etat_contrat?.libelle != 'Résilié' &&
-                        contrats[0].validation1_DMG
+                        contrat.validation1_DMG
                       "
                       [ngClass]="
                         contrat.validation2_DAJC ? 'success-btn' : 'second-btn'
