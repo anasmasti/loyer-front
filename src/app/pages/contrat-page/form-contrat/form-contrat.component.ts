@@ -129,12 +129,17 @@ export class FormContratComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.isInsertForm)
-      this.foncier_id = this.actRoute.snapshot.paramMap.get('id_foncier') || '';
+      // this.foncier_id = this.actRoute.snapshot.paramMap.get('id_foncier') || '';
+      this.actRoute.url.subscribe(data => {
+        this.foncier_id = data[0].path
+      }
+      )
+      
 
     // this.etatContratTypes = 'Avenant'
     this.contratForm = new FormGroup({
       numero_contrat: new FormControl(''),
-      piece_jointe: new FormControl(),
+      piece_jointe: new FormControl('',Validators.required),
       date_debut_loyer: new FormControl('', [Validators.required]),
       montant_loyer: new FormControl('', [Validators.required]),
       taxe_edilite_comprise_loyer: new FormControl(),
@@ -167,11 +172,11 @@ export class FormContratComponent implements OnInit {
       etat_contrat_montant_nouveau_loyer: new FormControl(),
       etat_contrat_signaletique_successeur: new FormControl(),
       etat_contrat_intitule_lieu: new FormControl(),
-      etat_contrat_date_suspension: new FormControl(),
+      etat_contrat_date_suspension: new FormControl('',Validators.required),
       etat_contrat_duree_suspension: new FormControl(),
       etat_contrat_motif_suspension: new FormControl(),
       etat_contrat_reprise_caution: new FormControl(),
-      etat_contrat_date_resiliation: new FormControl(),
+      etat_contrat_date_resiliation: new FormControl('',Validators.required),
       etat_contrat_etat_lieu_sortie: new FormControl(),
       etat_contrat_preavis: new FormControl(),
       etat_contrat_images_etat_res_lieu_sortie: new FormControl(),
@@ -559,6 +564,7 @@ export class FormContratComponent implements OnInit {
 
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
+    // let idFoncier = this.actRoute.snapshot.paramMap.get('id_foncier');
     
     // post the formdata (data+files)
     this.contratService
@@ -570,7 +576,7 @@ export class FormContratComponent implements OnInit {
             this.contratForm.reset();
             this.postDone = false;
             this.help.toTheUp();
-            this.router.navigate(['/contrat/list-global/list']).then(() => {
+            this.router.navigate(['/proprietaire',this.foncier_id]).then(() => {
               this.help.refrechPage();
             });
           }, 3000);
@@ -834,4 +840,15 @@ export class FormContratComponent implements OnInit {
   get date_reprise_caution() {
     return this.contratForm.get('date_reprise_caution');
   }
+  get etat_contrat_date_resiliation() {
+    return this.contratForm.get('etat_contrat_date_resiliation');
+  }
+  get etat_contrat_date_suspension() {
+    return this.contratForm.get('etat_contrat_date_suspension');
+  }
+  get piece_jointe() {
+    return this.contratForm.get('piece_jointe');
+  }
+  
+  
 }

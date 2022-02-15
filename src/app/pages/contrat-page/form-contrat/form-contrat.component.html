@@ -29,7 +29,16 @@
       <div class="col-lg-3 form-group mt-4">
         <label for="">Pièce jointe</label>
         <input type="file" class="form-control btn success-btn" formControlName="piece_jointe" accept=".pdf"
-          (change)="onFileSelected($event)" />
+          (change)="onFileSelected($event)" [ngClass]="{
+            'is-invalid': checkInputsValidation(piece_jointe),
+            'is-valid': !piece_jointe?.invalid
+          }" />
+          <!-- Error Message  -->
+        <div class="" *ngIf="checkInputsValidation(piece_jointe)">
+          <p class="danger-txt" *ngIf="piece_jointe?.errors?.required">
+            Veuillez choisir une pièce jointe
+          </p>
+        </div>
       </div>
 
       <div class="col-lg-3 form-group mt-4">
@@ -246,10 +255,10 @@
         <input type="text" class="form-control rounded-pill" formControlName="n_engagement_depense">
       </div> -->
 
-      <div class="col-lg-3 form-group mt-4" >
+      <!-- <div class="col-lg-3 form-group mt-4" >
         <label for="">Echéance de révision du loyer</label>
         <input type="text" class="form-control rounded-pill" formControlName="echeance_revision_loyer">
-      </div>
+      </div> -->
 
       <div *ngIf="update" class="col-lg-3 form-group mt-4">
         <label for="">Etat de contrat</label>
@@ -258,9 +267,9 @@
           <option value="Actif">Actif</option>
           <!--  -->
           <option *ngIf="this.contrat.validation2_DAJC"
-            [value]="etatContratTypes == 'Avenant' ? etatContratTypes : 'Avenant'">à avener</option>
-          <option *ngIf="this.contrat.validation2_DAJC"  value="Suspendu">à suspendre</option>
-          <option *ngIf="this.contrat.validation2_DAJC" value="Résilié">à résilier</option>
+            [value]="etatContratTypes == 'Avenant' ? etatContratTypes : 'Avenant'">A créer avenant</option>
+          <option *ngIf="this.contrat.validation2_DAJC"  value="Suspendu">À suspendre</option>
+          <option *ngIf="this.contrat.validation2_DAJC" value="Résilié">À résilier</option>
         </select>
       </div>
 
@@ -373,8 +382,19 @@
           </div>
 
           <div class="col-lg-3 form-group mt-4">
-            <label for="">Date de suspension</label>
-            <input type="date" class="form-control rounded-pill" formControlName="etat_contrat_date_suspension">
+            <label for="">Date de suspension <span class="danger-txt">*</span></label>
+            <input type="date" class="form-control rounded-pill" formControlName="etat_contrat_date_suspension"
+            [ngClass]="{
+              'is-invalid': checkInputsValidation(etat_contrat_date_suspension),
+              'is-valid': !etat_contrat_date_suspension?.invalid
+            }">
+
+            <!-- Error Message  -->
+            <div class="" *ngIf="checkInputsValidation(etat_contrat_date_suspension)">
+              <p class="danger-txt" *ngIf="etat_contrat_date_suspension?.errors?.required">
+                Veuillez remplir ce champ
+              </p>
+            </div>
           </div>
 
           <div class="col-lg-3 form-group mt-4">
@@ -436,9 +456,19 @@
           </div>
 
           <div class="col-lg-3 form-group mt-4">
-            <label for="">Date de résiliation</label>
+            <label for="">Date de résiliation <span class="danger-txt">*</span></label>
             <input type="date" class="form-control rounded-pill" formControlName="etat_contrat_date_resiliation"
-              [(ngModel)]="dateResiliation" (change)="calculPreavis()">
+              [(ngModel)]="dateResiliation" (change)="calculPreavis()"
+              [ngClass]="{
+                'is-invalid': checkInputsValidation(etat_contrat_date_resiliation),
+                'is-valid': !etat_contrat_date_resiliation?.invalid
+              }">
+              <!-- Error Message  -->
+            <div class="" *ngIf="checkInputsValidation(etat_contrat_date_resiliation)">
+              <p class="danger-txt" *ngIf="etat_contrat_date_resiliation?.errors?.required">
+                Veuillez remplir ce champ
+              </p>
+            </div>
           </div>
 
           <div class="col-lg-3 form-group mt-4">

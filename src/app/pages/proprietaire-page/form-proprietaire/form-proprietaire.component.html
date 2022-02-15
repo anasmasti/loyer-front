@@ -74,7 +74,7 @@
   <!--Début 2éme Row-->
   <div class="row">
     <div class="col-lg-3 form-group mt-4">
-      <label for="">N° de registre du commerce</label>
+      <label for="">N° de l’Identifiant Fiscal</label>
       <input type="text" class="form-control rounded-pill" formControlName="n_registre_commerce" [ngClass]="{
           'is-invalid': checkInputsValidation(n_registre_commerce)
         }" />
@@ -152,7 +152,7 @@
       <input type="text" class="form-control rounded-pill" formControlName="n_compte_bancaire" required [ngClass]="{
           'is-invalid': checkInputsValidation(n_compte_bancaire),
           'is-valid': !n_compte_bancaire?.invalid
-        }" />
+        }" maxlength="24"/>
 
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(n_compte_bancaire)">
