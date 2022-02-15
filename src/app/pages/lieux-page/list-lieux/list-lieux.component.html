@@ -43,6 +43,7 @@
     <thead>
       <tr>
         <th>Type</th>
+        <th>Code d'entité</th>
         <th>Intitulé</th>
         <th>Direction régionale</th>
         <th>Actions</th>
@@ -62,6 +63,7 @@
         ">
         <!-- <td >{{ proprietaire._id }}</td> -->
         <td>{{ lieu.type_lieu }}</td>
+        <td>{{ lieu.type_lieu != 'Logement de fonction' ? lieu.code_lieu : lieu.code_rattache_DR }}</td>
         <td>{{ lieu.intitule_lieu ? lieu.intitule_lieu : '--' }}</td>
         <td>{{ lieu.code_rattache_DR ? lieu.code_rattache_DR : '--' }}</td>
         <td>
