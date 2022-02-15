@@ -5,6 +5,7 @@ import { ContratService } from 'src/app/services/contrat-service/contrat.service
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
+import { ConfirmationModalService } from '@services/confirmation-modal-service/confirmation-modal.service';
 // import { addMonths } from './date.class';
 
 @Component({
@@ -118,7 +119,8 @@ export class FormContratComponent implements OnInit {
     private mainModalService: MainModalService,
     private help: HelperService,
     public router: Router,
-    private actRoute: ActivatedRoute
+    private actRoute: ActivatedRoute,
+    private confirmationModalService: ConfirmationModalService
   ) {}
 
   ngOnChanges() {
@@ -602,6 +604,24 @@ export class FormContratComponent implements OnInit {
 
   formatDate(date: Date) {
     return this.help.formatDate(date);
+  }
+    // Open confirmation modal
+    openConfirmationModal() {
+      this.confirmationModalService.open(); 
+    }
+
+      // Close confirmation modal
+  closeConfirmationModal() {
+    this.confirmationModalService.close();
+  }
+
+  openResiliationModel(){
+    if (this.etatContratTypes == 'Résilié') {
+      this.openConfirmationModal();
+    }
+    else {
+      this.updateContrat();
+    }
   }
 
   fetchContrat() {
