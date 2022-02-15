@@ -113,6 +113,7 @@ export class FormContratComponent implements OnInit {
   montantLoyerTTC: number = 0;
 
   currentLieu: any;
+  id: string = 'ea2022'
 
   constructor(
     private contratService: ContratService,
@@ -607,7 +608,7 @@ export class FormContratComponent implements OnInit {
   }
     // Open confirmation modal
     openConfirmationModal() {
-      this.confirmationModalService.open(); 
+      this.confirmationModalService.open(this.id); 
     }
 
       // Close confirmation modal
