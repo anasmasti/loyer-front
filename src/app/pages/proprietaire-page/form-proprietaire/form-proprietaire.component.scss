@@ -1,8 +1,2 @@
 @use '../../../../assets/style/helpers' as *;
 @use '../../../../assets/style/components' as *;
-
-textarea {
-    border-radius: $main-border-radius;
-    max-height: 400px;
-    min-height: 100px;
-}

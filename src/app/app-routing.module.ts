@@ -80,7 +80,6 @@ const routes: Routes = [
       import('./pages/files-generation/files-generation.module').then(
         (m) => m.FilesGenerationModule
       ),
-      canActivate: [AuthGuard, DCGuard]
   },
   {
     path: 'reportings',
