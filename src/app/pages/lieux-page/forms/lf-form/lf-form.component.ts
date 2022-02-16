@@ -295,9 +295,8 @@ export class LfFormComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   scrollToTop(){
-    window.scrollTo({
-      top: 0
-    })
+    let element : HTMLElement = document.getElementById('form_content') as HTMLElement;    
+    element.scrollIntoView({behavior: "smooth", block: "start"});
   }
 
   //////////////////////////////////////////////////////////////////////////////////

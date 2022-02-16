@@ -64,9 +64,8 @@ export class FormComponent implements OnInit {
   }
 
   scrollToTop(){
-    window.scrollTo({
-      top: 0
-    })
+    let element : HTMLElement = document.getElementById('form_content') as HTMLElement;    
+    element.scrollIntoView({behavior: "smooth", block: "start"});
   }
   
   fetchUser() {
