@@ -93,8 +93,9 @@ export class SiegeFormComponent implements OnInit, OnChanges {
   }
 
   scrollToTop(){
-    let element : HTMLElement = document.getElementById('form_content') as HTMLElement;    
-    element.scrollIntoView({behavior: "smooth", block: "start"});
+    window.scrollTo({
+      top: 0
+    })
   }
 
   onAddsiege() {

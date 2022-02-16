@@ -205,8 +205,9 @@ export class FormContratComponent implements OnInit {
   }
 
   scrollToTop(){
-    let element : HTMLElement = document.getElementById('form_content') as HTMLElement;    
-    element.scrollIntoView({behavior: "smooth", block: "start"});
+    window.scrollTo({
+      top: 0
+    })
   }
   // Calculer le montant
   calculMontant() {
