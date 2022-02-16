@@ -1,5 +1,7 @@
-<form [formGroup]="adminForm" (ngSubmit)="SubmitForm != 'Ajouter' ? updateUserRole() : postUserRole()">
-
+<form
+  [formGroup]="adminForm"
+  (ngSubmit)="SubmitForm != 'Ajouter' ? confirmationPassword() : postUserRole()"
+>
   <div class="w-100 d-flex justify-content-center">
     <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
     <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
@@ -9,10 +11,16 @@
   <div class="row mt-2">
     <div class="col-lg-3 form-group mt-2">
       <label for="">Matricule <span class="danger-txt">*</span></label>
-      <input type="text" id="Matricule" class="form-control rounded-pill" formControlName="Matricule" [ngClass]="{
-        'is-invalid': checkInputsValidation(Matricule),
-        'is-valid': !Matricule?.invalid
-      }" />
+      <input
+        type="text"
+        id="Matricule"
+        class="form-control rounded-pill"
+        formControlName="Matricule"
+        [ngClass]="{
+          'is-invalid': checkInputsValidation(Matricule),
+          'is-valid': !Matricule?.invalid
+        }"
+      />
       <div class="" *ngIf="checkInputsValidation(Matricule)">
         <p class="danger-txt" *ngIf="Matricule?.errors?.required">
           Veuillez remplir ce champ
@@ -22,10 +30,16 @@
 
     <div class="col-lg-3 form-group mt-2">
       <label for="">Nom <span class="danger-txt">*</span></label>
-      <input type="text" id="nom" class="form-control rounded-pill" formControlName="Nom" [ngClass]="{
-        'is-invalid': checkInputsValidation(Nom),
-        'is-valid': !Nom?.invalid
-      }" />
+      <input
+        type="text"
+        id="nom"
+        class="form-control rounded-pill"
+        formControlName="Nom"
+        [ngClass]="{
+          'is-invalid': checkInputsValidation(Nom),
+          'is-valid': !Nom?.invalid
+        }"
+      />
       <div class="" *ngIf="checkInputsValidation(Nom)">
         <p class="danger-txt" *ngIf="Nom?.errors?.required">
           Veuillez remplir ce champ
@@ -35,10 +49,16 @@
 
     <div class="col-lg-3 form-group mt-2">
       <label for="">Prénom <span class="danger-txt">*</span></label>
-      <input type="text" id="Prenom" class="form-control rounded-pill" formControlName="Prenom" [ngClass]="{
-        'is-invalid': checkInputsValidation(Prenom),
-        'is-valid': !Prenom?.invalid
-      }" />
+      <input
+        type="text"
+        id="Prenom"
+        class="form-control rounded-pill"
+        formControlName="Prenom"
+        [ngClass]="{
+          'is-invalid': checkInputsValidation(Prenom),
+          'is-valid': !Prenom?.invalid
+        }"
+      />
       <div class="" *ngIf="checkInputsValidation(Prenom)">
         <p class="danger-txt" *ngIf="Prenom?.errors?.required">
           Veuillez remplir ce champ
@@ -48,10 +68,17 @@
 
     <div class="col-lg-3 form-group mt-2">
       <label for="">Email <span class="danger-txt">*</span></label>
-      <input type="text" id="email" class="form-control rounded-pill" formControlName="email" email [ngClass]="{
-        'is-invalid': checkInputsValidation(email),
-        'is-valid': !email?.invalid
-      }" />
+      <input
+        type="text"
+        id="email"
+        class="form-control rounded-pill"
+        formControlName="email"
+        email
+        [ngClass]="{
+          'is-invalid': checkInputsValidation(email),
+          'is-valid': !email?.invalid
+        }"
+      />
       <div class="" *ngIf="checkInputsValidation(email)">
         <p class="danger-txt" *ngIf="email?.errors?.required">
           Veuillez remplir ce champ
@@ -62,9 +89,67 @@
       </div>
     </div>
 
+    <div class="form-group my-4" *ngIf="!userIsEmpty">
+      <button
+        type="button"
+        class="btn second-btn"
+        *ngIf="updatePassword"
+        (click)="updatePasswordToggel(false)"
+      >
+        Annuler
+      </button>
+      <button
+        type="button"
+        class="btn second-btn"
+        *ngIf="!updatePassword"
+        (click)="updatePasswordToggel(true)"
+      >
+        Modifier le mot de passe
+      </button>
+    </div>
+
+    <!-- Condition to show form password -->
+    <div *ngIf="updatePassword; then passwordForm"></div>
+
+    <!-- Password form -->
+    <ng-template #passwordForm>
+      <div class="col-lg-3 form-group">
+        <label for="">Ancien mot de passe</label>
+        <input
+          type="password"
+          id="AAAA"
+          class="form-control rounded-pill"
+          formControlName="Password"
+        />
+      </div>
+      <div class="col-lg-3 form-group">
+        <label for="NewPassword">Nouveau mot de passe</label>
+        <input
+          type="password"
+          id="NewPassword"
+          class="form-control rounded-pill"
+          formControlName="New_password"
+        />
+      </div>
+      <div class="col-lg-3 form-group">
+        <label for="ConfirmationPassword">Confirmation du mot de passe</label>
+        <input
+          type="password"
+          id="ConfirmationPassword"
+          class="form-control rounded-pill"
+          formControlName="Confirmation_password"
+        />
+      </div>
+    </ng-template>
+
     <div class="col-lg-3 form-group mt-2">
       <!-- <label for="">Direction Régionale <span class="danger-txt">*</span></label> -->
-      <input type="hidden" id="Code_DR" class="form-control rounded-pill" formControlName="Code_DR" />
+      <input
+        type="hidden"
+        id="Code_DR"
+        class="form-control rounded-pill"
+        formControlName="Code_DR"
+      />
       <!-- <div class="" *ngIf="checkInputsValidation(Code_DR)">
         <p class="danger-txt" *ngIf="Code_DR?.errors?.required">
           Veuillez remplir ce champ
@@ -74,93 +159,201 @@
         </p>
       </div> -->
     </div>
-
   </div>
   <div class="row" *ngIf="userIsEmpty">
     <div class="mt-4">
       <!-- <h1>{{ userR._id }}</h1> -->
-      <h5 class="main-muted-text mb-2">Les rôles à affecter</h5>
-      <div class="btn-group d-flex justify-content-lg-start gap-1 flex-lg-row flex-column" role="group"
-        aria-label="Basic checkbox toggle button group">
+      <h5 class="main-muted-text mb-2">Les rôles à affecter <span class="danger-txt">*</span></h5>
+      <div
+        class="btn-group d-flex justify-content-lg-start gap-1 flex-lg-row flex-column"
+        role="group"
+        aria-label="Basic checkbox toggle button group"
+      >
         <div>
-          <input type="checkbox" name="chk1" class="btn-check check" id="role1" autocomplete="off"
-            value="Département Comptable" (change)="CheckedRoles('role1')">
-          <label class="px-3 py-1 rounded-pill checkbox-list-btns" for="role1">Département Comptable</label>
+          <input
+            type="checkbox"
+            name="chk1"
+            class="btn-check check"
+            id="role1"
+            autocomplete="off"
+            value="Département Comptable"
+            (change)="CheckedRoles('role1')"
+          />
+          <label class="px-3 py-1 rounded-pill checkbox-list-btns" for="role1"
+            >Département Comptable</label
+          >
         </div>
         <div class="mx-lg-2 my-2 my-lg-0">
-          <input type="checkbox" name="chk2" class="btn-check check" id="role2" autocomplete="off"
-            value="Direction Affaires Juridiques et Conformité" (change)="CheckedRoles('role2')">
-          <label class="px-3 py-1 rounded-pill checkbox-list-btns" for="role2">Direction Affaires Juridiques et
-            Conformité</label>
+          <input
+            type="checkbox"
+            name="chk2"
+            class="btn-check check"
+            id="role2"
+            autocomplete="off"
+            value="Direction Affaires Juridiques et Conformité"
+            (change)="CheckedRoles('role2')"
+          />
+          <label class="px-3 py-1 rounded-pill checkbox-list-btns" for="role2"
+            >Direction Affaires Juridiques et Conformité</label
+          >
         </div>
         <div>
-          <input type="checkbox" name="chk3" class="btn-check check" id="role3" autocomplete="off"
-            value="Chargé de suivi des loyers et aménagements" (change)="CheckedRoles('role3')">
-          <label class="px-3 py-1 rounded-pill checkbox-list-btns" for="role3">Chargé de suivi des loyers et
-            aménagements</label>
+          <input
+            type="checkbox"
+            name="chk3"
+            class="btn-check check"
+            id="role3"
+            autocomplete="off"
+            value="Chargé de suivi des loyers et aménagements"
+            (change)="CheckedRoles('role3')"
+          />
+          <label class="px-3 py-1 rounded-pill checkbox-list-btns" for="role3"
+            >Chargé de suivi des loyers et aménagements</label
+          >
         </div>
         <div>
-          <input type="checkbox" name="chk4" class="btn-check check" id="role4" autocomplete="off"
-            value="Chef de Département Gestion et Suivi du Patrimoine" (change)="CheckedRoles('role4')">
-          <label class="px-3 py-1 rounded-pill checkbox-list-btns" for="role4">Chef de département gestion et suivi du
-            patrimoine</label>
+          <input
+            type="checkbox"
+            name="chk4"
+            class="btn-check check"
+            id="role4"
+            autocomplete="off"
+            value="Chef de Département Gestion et Suivi du Patrimoine"
+            (change)="CheckedRoles('role4')"
+          />
+          <label class="px-3 py-1 rounded-pill checkbox-list-btns" for="role4"
+            >Chef de département gestion et suivi du patrimoine</label
+          >
         </div>
         <div>
-          <input type="checkbox" name="chk5" class="btn-check check" id="role5" autocomplete="off"
-            value="Admin" (change)="CheckedRoles('role5')">
-          <label class="px-3 py-1 rounded-pill checkbox-list-btns" for="role5">Administrateur</label>
+          <input
+            type="checkbox"
+            name="chk5"
+            class="btn-check check"
+            id="role5"
+            autocomplete="off"
+            value="Admin"
+            (change)="CheckedRoles('role5')"
+          />
+          <label class="px-3 py-1 rounded-pill checkbox-list-btns" for="role5"
+            >Administrateur</label
+          >
         </div>
       </div>
-
     </div>
   </div>
   <div class="row" *ngIf="!userIsEmpty">
     <div class="mt-4">
       <!-- <h1>{{ userR._id }}</h1> -->
       <h5 class="main-muted-text mb-2">Les rôles à affecter</h5>
-      <div class="btn-group d-flex justify-content-lg-start gap-1 flex-lg-row flex-column" role="group"
-        aria-label="Basic checkbox toggle button group">
+      <div
+        class="btn-group d-flex justify-content-lg-start gap-1 flex-lg-row flex-column"
+        role="group"
+        aria-label="Basic checkbox toggle button group"
+      >
         <div>
-          <input type="checkbox" name="chk1" class="btn-check check" id="Update-role1" autocomplete="off"
-            value="Département Comptable" (change)="CheckedRoles('Update-role1')" [checked]="Role1">
-          <label class="px-5 py-1 rounded-pill checkbox-list-btns" for="Update-role1">Département Comptable</label>
+          <input
+            type="checkbox"
+            name="chk1"
+            class="btn-check check"
+            id="Update-role1"
+            autocomplete="off"
+            value="Département Comptable"
+            (change)="CheckedRoles('Update-role1')"
+            [checked]="Role1"
+          />
+          <label
+            class="px-5 py-1 rounded-pill checkbox-list-btns"
+            for="Update-role1"
+            >Département Comptable</label
+          >
         </div>
         <div>
-          <input type="checkbox" name="chk2" class="btn-check check" id="Update-role2" autocomplete="off"
-            value="Direction Affaires Juridiques et Conformité" (change)="CheckedRoles('Update-role2')"
-            [checked]="Role2">
-          <label class="px-5 py-1 rounded-pill checkbox-list-btns" for="Update-role2">Direction Affaires Juridiques et
-            Conformité</label>
+          <input
+            type="checkbox"
+            name="chk2"
+            class="btn-check check"
+            id="Update-role2"
+            autocomplete="off"
+            value="Direction Affaires Juridiques et Conformité"
+            (change)="CheckedRoles('Update-role2')"
+            [checked]="Role2"
+          />
+          <label
+            class="px-5 py-1 rounded-pill checkbox-list-btns"
+            for="Update-role2"
+            >Direction Affaires Juridiques et Conformité</label
+          >
         </div>
         <div>
-          <input type="checkbox" name="chk3" class="btn-check check" id="Update-role3" autocomplete="off"
-            value="Chargé de suivi des loyers et aménagements" (change)="CheckedRoles('Update-role3')"
-            [checked]="Role3">
-          <label class="px-5 py-1 rounded-pill checkbox-list-btns" for="Update-role3">Chargé de suivi des loyers et
-            aménagements</label>
+          <input
+            type="checkbox"
+            name="chk3"
+            class="btn-check check"
+            id="Update-role3"
+            autocomplete="off"
+            value="Chargé de suivi des loyers et aménagements"
+            (change)="CheckedRoles('Update-role3')"
+            [checked]="Role3"
+          />
+          <label
+            class="px-5 py-1 rounded-pill checkbox-list-btns"
+            for="Update-role3"
+            >Chargé de suivi des loyers et aménagements</label
+          >
         </div>
         <div>
-          <input type="checkbox" name="chk4" class="btn-check check" id="Update-role4" autocomplete="off"
-            value="Chef de Département Gestion et Suivi du Patrimoine" (change)="CheckedRoles('Update-role4')"
-            [checked]="Role4">
-          <label class="px-5 py-1 rounded-pill checkbox-list-btns" for="Update-role4">Chef de département gestion et
-            suivi du patrimoine</label>
+          <input
+            type="checkbox"
+            name="chk4"
+            class="btn-check check"
+            id="Update-role4"
+            autocomplete="off"
+            value="Chef de Département Gestion et Suivi du Patrimoine"
+            (change)="CheckedRoles('Update-role4')"
+            [checked]="Role4"
+          />
+          <label
+            class="px-5 py-1 rounded-pill checkbox-list-btns"
+            for="Update-role4"
+            >Chef de département gestion et suivi du patrimoine</label
+          >
         </div>
         <div>
-          <input type="checkbox" name="chk5" class="btn-check check" id="Update-role5" autocomplete="off"
-            value="Administrateur" (change)="CheckedRoles('Update-role5')" [checked]="Role5">
-          <label class="px-3 py-1 rounded-pill checkbox-list-btns" for="Update-role5">Administrateur</label>
+          <input
+            type="checkbox"
+            name="chk5"
+            class="btn-check check"
+            id="Update-role5"
+            autocomplete="off"
+            value="Administrateur"
+            (change)="CheckedRoles('Update-role5')"
+            [checked]="Role5"
+          />
+          <label
+            class="px-3 py-1 rounded-pill checkbox-list-btns"
+            for="Update-role5"
+            >Administrateur</label
+          >
         </div>
-
       </div>
-
     </div>
   </div>
   <div class="form-group my-5">
-    <button type="submit" class="btn second-btn" *ngIf="SubmitForm == 'Ajouter'" [disabled]="adminForm.invalid">
+    <button
+      type="submit"
+      class="btn second-btn"
+      *ngIf="SubmitForm == 'Ajouter'"
+      [disabled]="adminForm.invalid"
+    >
       Ajouter un utilisateur
     </button>
-    <button type="submit" class="btn second-btn" *ngIf="SubmitForm == 'Modifier'">
+    <!-- type="submit" -->
+    <button
+      type="submit"
+      class="btn second-btn"
+      *ngIf="SubmitForm == 'Modifier'"
+    >
       Modifier
     </button>
   </div>
