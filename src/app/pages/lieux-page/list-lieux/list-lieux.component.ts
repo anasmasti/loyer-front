@@ -96,7 +96,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
         // Dispatch action to handle the NgRx get lieux from server effect
         this.store.dispatch(getLieuxAction());
       }
-      this.lieux = data;
+      this.lieux = data;     
     });
   }
 

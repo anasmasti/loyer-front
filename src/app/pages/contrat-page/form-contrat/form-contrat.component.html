@@ -24,7 +24,7 @@
       <!-- Validation inputs -->
       <input type="hidden" class="form-control btn success-btn" formControlName="validation1_DMG" />
       <input type="hidden" class="form-control btn success-btn" formControlName="validation2_DAJC" />
-      <input type="hidden" class="form-control btn success-btn" formControlName="numero_contrat" />
+      <input type="hidden" class="form-control btn success-btn" formControlName="numero_contrat" /> 
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Pièce jointe</label>
@@ -474,10 +474,10 @@
 
     <!-- Button Ajouter -->
     <div class="form-group mt-5 col-lg-2 d-flex">
-      <button *ngIf="!update" type="submit" id="Ajouter" class="btn second-btn form-control" (click)="addNewContrat();">
+      <button *ngIf="!update" type="submit" id="Ajouter" class="btn second-btn form-control" (click)="addNewContrat();scrollToTop()">
         Ajouter
       </button>
-      <button *ngIf="update" type="submit" id="Modifier" class="btn second-btn form-control" (click)="updateContrat();">
+      <button *ngIf="update" type="submit" id="Modifier" class="btn second-btn form-control" (click)="openResiliationModel();scrollToTop()">
         Modifier
       </button>
     </div>

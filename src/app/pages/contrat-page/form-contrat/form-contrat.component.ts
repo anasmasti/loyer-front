@@ -114,7 +114,7 @@ export class FormContratComponent implements OnInit {
 
   currentLieu: any;
   id: string = 'ea2022'
-
+  test!: any;
   constructor(
     private contratService: ContratService,
     private mainModalService: MainModalService,
@@ -132,7 +132,11 @@ export class FormContratComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.isInsertForm)
-      this.foncier_id = this.actRoute.snapshot.paramMap.get('id_foncier') || '';
+      // this.foncier_id = this.actRoute.snapshot.paramMap.get('id_foncier') || '';
+      this.actRoute.url.subscribe(data => {
+        this.foncier_id = data[0].path
+      }
+      )
 
     // this.etatContratTypes = 'Avenant'
     this.contratForm = new FormGroup({
@@ -200,6 +204,11 @@ export class FormContratComponent implements OnInit {
     });
   }
 
+  scrollToTop(){
+    window.scrollTo({
+      top: 0
+    })
+  }
   // Calculer le montant
   calculMontant() {
     let montantLoyerForYear = this.montantLoyer * 12;

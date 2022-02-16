@@ -294,6 +294,12 @@ export class LfFormComponent implements OnInit, OnDestroy, OnChanges {
     $('.error-alert').removeClass('active');
   }
 
+  scrollToTop(){
+    window.scrollTo({
+      top: 0
+    })
+  }
+
   //////////////////////////////////////////////////////////////////////////////////
   addLf() {
     let lfData: any = {

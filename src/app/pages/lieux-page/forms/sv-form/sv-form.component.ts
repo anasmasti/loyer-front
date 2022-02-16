@@ -114,6 +114,12 @@ export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
     $('.error-alert').removeClass('active');
   }
 
+  scrollToTop(){
+    window.scrollTo({
+      top: 0
+    })
+  }
+
   // Check if all inputs has invalid errors
   checkInputsValidation(targetInput: any) {
     return targetInput?.invalid && (targetInput.dirty || targetInput.touched);

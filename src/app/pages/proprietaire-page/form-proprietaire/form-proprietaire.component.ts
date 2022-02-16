@@ -326,6 +326,12 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   hideErrorMessage() {
     $('.error-alert').removeClass('active');
   }
+  
+  scrollToTop(){
+    window.scrollTo({
+      top: 0
+    })
+  }
 
   // To get the contrat and proprietaire in lieux
   getTauxImpot() {

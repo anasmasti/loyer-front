@@ -340,20 +340,10 @@
     </div>
   </div>
   <div class="form-group my-5">
-    <button
-      type="submit"
-      class="btn second-btn"
-      *ngIf="SubmitForm == 'Ajouter'"
-      [disabled]="adminForm.invalid"
-    >
+    <button type="submit" class="btn second-btn" *ngIf="SubmitForm == 'Ajouter'" [disabled]="adminForm.invalid" (click)="scrollToTop()">
       Ajouter un utilisateur
     </button>
-    <!-- type="submit" -->
-    <button
-      type="submit"
-      class="btn second-btn"
-      *ngIf="SubmitForm == 'Modifier'"
-    >
+    <button type="submit" class="btn second-btn" *ngIf="SubmitForm == 'Modifier'" (click)="scrollToTop()">
       Modifier
     </button>
   </div>

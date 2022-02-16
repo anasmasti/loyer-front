@@ -160,6 +160,12 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     this.store.dispatch(getLieuxAction());
   }
 
+  scrollToTop(){
+    window.scrollTo({
+      top: 0
+    })
+  }
+  
   getCities() {
     this.citiesSubscription$ = this.store
       .select(getCities)

@@ -92,6 +92,12 @@ export class SiegeFormComponent implements OnInit, OnChanges {
     $('.error-alert').removeClass('active');
   }
 
+  scrollToTop(){
+    window.scrollTo({
+      top: 0
+    })
+  }
+
   onAddsiege() {
     let siegeData: any = {
       code_lieu: this.siegeForm.get('code_lieu')?.value,
