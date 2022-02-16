@@ -73,7 +73,7 @@ export class LfFormComponent implements OnInit, OnDestroy, OnChanges {
         Validators.maxLength(3),
         Validators.pattern('[0-9]*'),
       ]),
-      intitule_lieu: new FormControl('', [Validators.required]),
+      intitule_lieu: new FormControl(''),
       code_localite: new FormControl(''),
       telephone: new FormControl('', [
         Validators.pattern('[0-9]*'),
