@@ -220,7 +220,7 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
         if (codeSup != undefined) {
           this.intitule_rattache_SUP = this.Sup[i].intitule_lieu;
           this.codeRattacheDR = this.Sup[i].code_rattache_DR;
-          this.intitule_rattache_DR = this.Dr[i].intitule_lieu;
+          this.intitule_rattache_DR = this.displayIntituleDR(this.codeRattacheDR);
         } else {
           this.intitule_rattache_SUP =
             this.codeRattacheDR =
@@ -235,6 +235,17 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
         this.codeRattacheDR =
         this.intitule_rattache_DR =
           '';
+    }
+  }
+
+  // Get intitule dr by its code 
+  displayIntituleDR(codeDr: any) {
+    const codeDR = codeDr;
+
+    for (let i = 0; i < this.Dr.length; i++) {
+      if (this.Dr[i].code_lieu == codeDR) {
+        return this.Dr[i].intitule_lieu;
+      }
     }
   }
 
