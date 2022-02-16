@@ -53,7 +53,7 @@ export class FoncierListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getFoncier();
-
+    
     // Check error
     this.store.select(getError).subscribe((data) => {
       if (data) this.accessError = data;
@@ -71,6 +71,7 @@ export class FoncierListComponent implements OnInit {
           this.store.dispatch(getFoncierAction());
         }
         this.fonciers = data;
+        
       });
   }
 

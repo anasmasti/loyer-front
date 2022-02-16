@@ -114,7 +114,7 @@ export class FormContratComponent implements OnInit {
 
   currentLieu: any;
   id: string = 'ea2022'
-
+  test!: any;
   constructor(
     private contratService: ContratService,
     private mainModalService: MainModalService,
@@ -137,7 +137,7 @@ export class FormContratComponent implements OnInit {
         this.foncier_id = data[0].path
       }
       )
-      
+
     // this.etatContratTypes = 'Avenant'
     this.contratForm = new FormGroup({
       numero_contrat: new FormControl(''),
@@ -204,6 +204,11 @@ export class FormContratComponent implements OnInit {
     });
   }
 
+  scrollToTop(){
+    window.scrollTo({
+      top: 0
+    })
+  }
   // Calculer le montant
   calculMontant() {
     let montantLoyerForYear = this.montantLoyer * 12;

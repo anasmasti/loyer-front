@@ -63,6 +63,12 @@ export class FormComponent implements OnInit {
     });
   }
 
+  scrollToTop(){
+    window.scrollTo({
+      top: 0
+    })
+  }
+  
   fetchUser() {
     const control = <FormArray>this.adminForm.controls['Roles'];
     

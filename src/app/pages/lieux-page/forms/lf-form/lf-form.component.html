@@ -409,6 +409,7 @@
         <button
           type="submit"
           class="btn second-btn form-control"
+          (click)="scrollToTop()"
           *ngIf="Lieu != ''"
         >
           Modifier
@@ -416,6 +417,7 @@
         <button
           type="submit"
           class="btn second-btn form-control"
+          (click)="scrollToTop()"
           *ngIf="Lieu == ''"
         >
           Ajouter
