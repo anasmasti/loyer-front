@@ -161,11 +161,10 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   }
 
   scrollToTop(){
-    window.scrollTo({
-      top: 0
-    })
+    let element : HTMLElement = document.getElementById('form_content') as HTMLElement;    
+    element.scrollIntoView({behavior: "smooth", block: "start"});
   }
-  
+
   getCities() {
     this.citiesSubscription$ = this.store
       .select(getCities)
