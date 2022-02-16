@@ -22,6 +22,7 @@ export class DetailComponent implements OnInit {
     email: "",
     userRoles: [],
     deleted: false,
+    password: ""
   };
 
   ngOnInit(): void {
