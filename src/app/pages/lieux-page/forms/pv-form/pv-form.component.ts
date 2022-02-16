@@ -122,9 +122,8 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   scrollToTop(){
-    window.scrollTo({
-      top: 0
-    })
+    let element : HTMLElement = document.getElementById('form_content') as HTMLElement;    
+    element.scrollIntoView({behavior: "smooth", block: "start"});
   }
 
   // Check if all inputs has invalid errors
@@ -141,12 +140,14 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
       fax: this.PvForm.get('fax')?.value,
       etat_logement_fonction: this.PvForm.get('etat_logement_fonction')?.value,
       type_lieu: this.LieuName,
-      code_rattache_DR: this.PvForm.get('code_rattache_DR')?.value,
+      code_rattache_DR: this.codeRattacheDR,
+      // this.PvForm.get('code_rattache_DR')?.value,
       code_rattache_SUP: this.PvForm.get('code_rattache_SUP')?.value,
       intitule_rattache_SUP_PV: this.intitule_rattache_SUP,
       centre_cout_siege: this.PvForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.PvForm.get('categorie_pointVente')?.value,
     };
+
 
     this.lieuService.addLieu(pvData, this.userMatricule).subscribe(
       (_) => {
@@ -180,7 +181,8 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
       fax: this.PvForm.get('fax')?.value,
       etat_logement_fonction: this.PvForm.get('etat_logement_fonction')?.value,
       type_lieu: this.PvForm.get('type_lieu')?.value,
-      code_rattache_DR: this.PvForm.get('code_rattache_DR')?.value,
+      code_rattache_DR: this.codeRattacheDR,
+      // this.PvForm.get('code_rattache_DR')?.value,
       code_rattache_SUP: this.PvForm.get('code_rattache_SUP')?.value,
       intitule_rattache_SUP_PV: this.intitule_rattache_SUP,
       centre_cout_siege: this.PvForm.get('centre_cout_siege')?.value,

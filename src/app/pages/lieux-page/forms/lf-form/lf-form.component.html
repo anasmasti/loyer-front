@@ -15,7 +15,7 @@
 </div>
 
 <!--Début de conteneur lf-form  -->
-<div class="mt-2">
+<div class="mt-2" id="form_content">
   <!-- <h6>Remplissage des données</h6> -->
 
   <!--Début de Div qui contient le formulaire lf-form-->
@@ -119,7 +119,7 @@
           </div>
         </div>
 
-        <div class="col-lg-3 form-group mt-4">
+        <!-- <div class="col-lg-3 form-group mt-4">
           <label for=""
             >Etat logement de fonction <span class="danger-txt">*</span></label
           >
@@ -138,15 +138,15 @@
               Occupé
             </option>
           </select>
-        </div>
+        </div> -->
 
         <!-- Condition to show form directeur -->
-        <div *ngIf="etatLogement == 'occupe'; then directeur"></div>
+        <!-- <div *ngIf="etatLogement == 'occupe'; then directeur"></div> -->
         <!-- Directeur form -->
         <div class="row mt-5">
           <!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
           <!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
-          <div *ngIf="update; then DirecteurForm"></div>
+          <!-- <div *ngIf="update; then DirecteurForm"></div> -->
 
           <ng-template #DirecteurForm>
             <div class="thead-light">

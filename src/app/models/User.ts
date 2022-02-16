@@ -7,5 +7,4 @@ export interface User {
     email: String;
     code_dr: String;
     userRoles: Array<any>;
-    password: string;
 }

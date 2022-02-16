@@ -141,7 +141,7 @@ export class FormContratComponent implements OnInit {
     // this.etatContratTypes = 'Avenant'
     this.contratForm = new FormGroup({
       numero_contrat: new FormControl(''),
-      piece_jointe: new FormControl(),
+      piece_jointe: new FormControl('',Validators.required),
       date_debut_loyer: new FormControl('', [Validators.required]),
       montant_loyer: new FormControl('', [Validators.required]),
       taxe_edilite_comprise_loyer: new FormControl(),
@@ -174,11 +174,11 @@ export class FormContratComponent implements OnInit {
       etat_contrat_montant_nouveau_loyer: new FormControl(),
       etat_contrat_signaletique_successeur: new FormControl(),
       etat_contrat_intitule_lieu: new FormControl(),
-      etat_contrat_date_suspension: new FormControl(),
+      etat_contrat_date_suspension: new FormControl('',Validators.required),
       etat_contrat_duree_suspension: new FormControl(),
       etat_contrat_motif_suspension: new FormControl(),
       etat_contrat_reprise_caution: new FormControl(),
-      etat_contrat_date_resiliation: new FormControl(),
+      etat_contrat_date_resiliation: new FormControl('',Validators.required),
       etat_contrat_etat_lieu_sortie: new FormControl(),
       etat_contrat_preavis: new FormControl(),
       etat_contrat_images_etat_res_lieu_sortie: new FormControl(),
@@ -205,9 +205,8 @@ export class FormContratComponent implements OnInit {
   }
 
   scrollToTop(){
-    window.scrollTo({
-      top: 0
-    })
+    let element : HTMLElement = document.getElementById('form_content') as HTMLElement;    
+    element.scrollIntoView({behavior: "smooth", block: "start"});
   }
   // Calculer le montant
   calculMontant() {
@@ -571,6 +570,7 @@ export class FormContratComponent implements OnInit {
 
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
+    // let idFoncier = this.actRoute.snapshot.paramMap.get('id_foncier');
     
     // post the formdata (data+files)
     this.contratService
@@ -582,7 +582,7 @@ export class FormContratComponent implements OnInit {
             this.contratForm.reset();
             this.postDone = false;
             this.help.toTheUp();
-            this.router.navigate(['/contrat/list-global/list']).then(() => {
+            this.router.navigate(['/proprietaire',this.foncier_id]).then(() => {
               this.help.refrechPage();
             });
           }, 3000);
@@ -603,18 +603,6 @@ export class FormContratComponent implements OnInit {
     return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
   }
 
-  // Afficher le message d'erreur de serveur
-  showErrorMessage() {
-    $('.error-alert').addClass('active');
-  }
-  // hide le message d'erreur de serveur
-  hideErrorMessage() {
-    $('.error-alert').removeClass('active');
-  }
-
-  formatDate(date: Date) {
-    return this.help.formatDate(date);
-  }
     // Open confirmation modal
     openConfirmationModal() {
       this.confirmationModalService.open(this.id); 
@@ -632,6 +620,19 @@ export class FormContratComponent implements OnInit {
     else {
       this.updateContrat();
     }
+  }
+
+  // Afficher le message d'erreur de serveur
+  showErrorMessage() {
+    $('.error-alert').addClass('active');
+  }
+  // hide le message d'erreur de serveur
+  hideErrorMessage() {
+    $('.error-alert').removeClass('active');
+  }
+
+  formatDate(date: Date) {
+    return this.help.formatDate(date);
   }
 
   fetchContrat() {
@@ -719,120 +720,124 @@ export class FormContratComponent implements OnInit {
 
   // Update contrat
   updateContrat() {
+
     let id = this.contrat._id;
 
-    let ctr_data: any = {
-      numero_contrat: this.contratForm.get('numero_contrat')?.value || '',
-      date_debut_loyer: this.contratForm.get('date_debut_loyer')?.value || '',
-      montant_loyer: this.contratForm.get('montant_loyer')?.value || '',
-      taxe_edilite_loyer:
-        this.contratForm.get('taxe_edilite_comprise_loyer')?.value || '',
-      // taxe_edilite_non_loyer: this.taxNonComprise,
-      taxe_edilite_non_loyer:
-        this.contratForm.get('taxe_edilite_noncomprise_loyer')?.value || '',
-      periodicite_paiement:
-        this.contratForm.get('periodicite_paiement')?.value || '',
-      date_fin_contrat: this.contratForm.get('date_fin_contrat')?.value || '',
-      declaration_option:
-        this.contratForm.get('declaration_option')?.value || '',
-      taux_impot: this.tauxImpot,
-      retenue_source: this.retenueSource,
-      montant_apres_impot: this.montantApresImpot,
-      montant_caution: this.contratForm.get('montant_caution')?.value || '',
-      duree_caution: this.dureeCaution,
-      date_reprise_caution:
-        this.contratForm.get('date_reprise_caution')?.value || '',
-      statut_caution: this.contratForm.get('statut_caution')?.value || '',
-      montant_avance: this.contratForm.get('montant_avance')?.value || '',
-      date_fin_avance: this.formattedDateFinAvance
-        ? this.formattedDateFinAvance
-        : this.contratForm.get('date_fin_avance')?.value,
-      date_premier_paiement: this.datePremierPaiement
-        ? this.datePremierPaiement
-        : this.contratForm.get('date_premier_paiement')?.value,
-      duree_avance: this.contratForm.get('duree_avance')?.value || '',
-      echeance_revision_loyer:
-        this.contratForm.get('echeance_revision_loyer')?.value || '',
-      foncier: this.contratForm.get('foncier')?.value || '',
-      n_engagement_depense:
-        this.contratForm.get('n_engagement_depense')?.value || '',
-      lieu: this.contratForm.get('lieu')?.value || '',
-      duree_location: this.contratForm.get('duree_location')?.value || '',
-
-      //etat de contrat
-      etat_contrat: {
-        libelle:
-          this.contratForm.get('etat_contrat_libelle')?.value || 'En cours',
-        etat: {
-          n_avenant:
-            this.contratForm.get('etat_contrat_n_avenant')?.value || '',
-          motif: this.contratForm.get('etat_contrat_motif')?.value || '',
-          montant_nouveau_loyer:
-            this.contratForm.get('etat_contrat_montant_nouveau_loyer')?.value ||
-            '',
-          signaletique_successeur:
-            this.contratForm.get('etat_contrat_signaletique_successeur')
-              ?.value || '',
-          intitule_lieu:
-            this.contratForm.get('etat_contrat_intitule_lieu')?.value || '',
-          date_suspension:
-            this.contratForm.get('etat_contrat_date_suspension')?.value || '',
-          duree_suspension:
-            this.contratForm.get('etat_contrat_duree_suspension')?.value || '',
-          motif_suspension:
-            this.contratForm.get('etat_contrat_motif_suspension')?.value || '',
-          reprise_caution:
-            this.contratForm.get('etat_contrat_reprise_caution')?.value || '',
-          date_resiliation:
-            this.contratForm.get('etat_contrat_date_resiliation')?.value || '',
-          etat_lieu_sortie:
-            this.contratForm.get('etat_contrat_etat_lieu_sortie')?.value || '',
-          preavis: this.date_preavis,
-          images_etat_res_lieu_sortie:
-            this.contratForm.get('etat_contrat_images_etat_res_lieu_sortie')
-              ?.value || '',
-          lettre_res_piece_jointe:
-            this.contratForm.get('etat_contrat_lettre_res_piece_jointe')
-              ?.value || '',
-          piece_jointe_avenant:
-            this.contratForm.get('etat_contrat_piece_jointe_avenant')?.value ||
-            '',
-          etat_caution_consomme:
-            this.contratForm.get('etat_caution_consomme')?.value || '',
-          duree_consomme: this.contratForm.get('duree_consomme')?.value || '',
-          duree_a_recupere: this.durreeRecuperer,
+      let ctr_data: any = {
+        numero_contrat: this.contratForm.get('numero_contrat')?.value || '',
+        date_debut_loyer: this.contratForm.get('date_debut_loyer')?.value || '',
+        montant_loyer: this.contratForm.get('montant_loyer')?.value || '',
+        taxe_edilite_loyer:
+          this.contratForm.get('taxe_edilite_comprise_loyer')?.value || '',
+        // taxe_edilite_non_loyer: this.taxNonComprise,
+        taxe_edilite_non_loyer:
+          this.contratForm.get('taxe_edilite_noncomprise_loyer')?.value || '',
+        periodicite_paiement:
+          this.contratForm.get('periodicite_paiement')?.value || '',
+        date_fin_contrat: this.contratForm.get('date_fin_contrat')?.value || '',
+        declaration_option:
+          this.contratForm.get('declaration_option')?.value || '',
+        taux_impot: this.tauxImpot,
+        retenue_source: this.retenueSource,
+        montant_apres_impot: this.montantApresImpot,
+        montant_caution: this.contratForm.get('montant_caution')?.value || '',
+        duree_caution: this.dureeCaution,
+        date_reprise_caution:
+          this.contratForm.get('date_reprise_caution')?.value || '',
+        statut_caution: this.contratForm.get('statut_caution')?.value || '',
+        montant_avance: this.contratForm.get('montant_avance')?.value || '',
+        date_fin_avance: this.formattedDateFinAvance
+          ? this.formattedDateFinAvance
+          : this.contratForm.get('date_fin_avance')?.value,
+        date_premier_paiement: this.datePremierPaiement
+          ? this.datePremierPaiement
+          : this.contratForm.get('date_premier_paiement')?.value,
+        duree_avance: this.contratForm.get('duree_avance')?.value || '',
+        echeance_revision_loyer:
+          this.contratForm.get('echeance_revision_loyer')?.value || '',
+        foncier: this.contratForm.get('foncier')?.value || '',
+        n_engagement_depense:
+          this.contratForm.get('n_engagement_depense')?.value || '',
+        lieu: this.contratForm.get('lieu')?.value || '',
+        duree_location: this.contratForm.get('duree_location')?.value || '',
+  
+        //etat de contrat
+        etat_contrat: {
+          libelle:
+            this.contratForm.get('etat_contrat_libelle')?.value || 'En cours',
+          etat: {
+            n_avenant:
+              this.contratForm.get('etat_contrat_n_avenant')?.value || '',
+            motif: this.contratForm.get('etat_contrat_motif')?.value || '',
+            montant_nouveau_loyer:
+              this.contratForm.get('etat_contrat_montant_nouveau_loyer')?.value ||
+              '',
+            signaletique_successeur:
+              this.contratForm.get('etat_contrat_signaletique_successeur')
+                ?.value || '',
+            intitule_lieu:
+              this.contratForm.get('etat_contrat_intitule_lieu')?.value || '',
+            date_suspension:
+              this.contratForm.get('etat_contrat_date_suspension')?.value || '',
+            duree_suspension:
+              this.contratForm.get('etat_contrat_duree_suspension')?.value || '',
+            motif_suspension:
+              this.contratForm.get('etat_contrat_motif_suspension')?.value || '',
+            reprise_caution:
+              this.contratForm.get('etat_contrat_reprise_caution')?.value || '',
+            date_resiliation:
+              this.contratForm.get('etat_contrat_date_resiliation')?.value || '',
+            etat_lieu_sortie:
+              this.contratForm.get('etat_contrat_etat_lieu_sortie')?.value || '',
+            preavis: this.date_preavis,
+            images_etat_res_lieu_sortie:
+              this.contratForm.get('etat_contrat_images_etat_res_lieu_sortie')
+                ?.value || '',
+            lettre_res_piece_jointe:
+              this.contratForm.get('etat_contrat_lettre_res_piece_jointe')
+                ?.value || '',
+            piece_jointe_avenant:
+              this.contratForm.get('etat_contrat_piece_jointe_avenant')?.value ||
+              '',
+            etat_caution_consomme:
+              this.contratForm.get('etat_caution_consomme')?.value || '',
+            duree_consomme: this.contratForm.get('duree_consomme')?.value || '',
+            duree_a_recupere: this.durreeRecuperer,
+          },
         },
-      },
+  
+        //Validation
+        validation1_DMG: this.contratForm.get('validation1_DMG')?.value || false,
+        validation2_DAJC:
+          this.contratForm.get('validation2_DAJC')?.value || false,
+  
+        montant_avance_tax: this.montant_avance_tax_,
+        montant_loyer_ttc: this.montantLoyerTTC,
+      };
+      //Append contrat-data in formdata
+      this.fd.append('data', JSON.stringify(ctr_data));
+  
+      // patch the formdata (data+files)
+      this.contratService.updateContrat(id, this.fd).subscribe(
+        (_) => {
+          this.updateDone = true;
+          setTimeout(() => {
+            this.mainModalService.close();
+            this.updateDone = false;
+            this.help.refrechPage();
+          }, 3000);
+        },
+        (error) => {
+          this.errors = error.error.message;
+          setTimeout(() => {
+            this.showErrorMessage();
+          }, 3000);
+          this.hideErrorMessage();
+        }
+      );
+    
 
-      //Validation
-      validation1_DMG: this.contratForm.get('validation1_DMG')?.value || false,
-      validation2_DAJC:
-        this.contratForm.get('validation2_DAJC')?.value || false,
-
-      montant_avance_tax: this.montant_avance_tax_,
-      montant_loyer_ttc: this.montantLoyerTTC,
-    };
-    //Append contrat-data in formdata
-    this.fd.append('data', JSON.stringify(ctr_data));
-
-    // patch the formdata (data+files)
-    this.contratService.updateContrat(id, this.fd).subscribe(
-      (_) => {
-        this.updateDone = true;
-        setTimeout(() => {
-          this.mainModalService.close();
-          this.updateDone = false;
-          this.help.refrechPage();
-        }, 3000);
-      },
-      (error) => {
-        this.errors = error.error.message;
-        setTimeout(() => {
-          this.showErrorMessage();
-        }, 3000);
-        this.hideErrorMessage();
-      }
-    );
+   
   }
 
   get date_debut_loyer() {
@@ -853,4 +858,15 @@ export class FormContratComponent implements OnInit {
   get date_reprise_caution() {
     return this.contratForm.get('date_reprise_caution');
   }
+  get etat_contrat_date_resiliation() {
+    return this.contratForm.get('etat_contrat_date_resiliation');
+  }
+  get etat_contrat_date_suspension() {
+    return this.contratForm.get('etat_contrat_date_suspension');
+  }
+  get piece_jointe() {
+    return this.contratForm.get('piece_jointe');
+  }
+  
+  
 }

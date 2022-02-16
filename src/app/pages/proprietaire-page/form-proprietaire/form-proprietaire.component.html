@@ -1,3 +1,4 @@
+<div id="form_content">
 <form [formGroup]="proprietaireForm" (ngSubmit)="update ? updateProprietaire() : addProprietaire()">
   <!-- Message d'ERREUR de serveur -->
   <div class="w-100 d-flex justify-content-center">
@@ -12,7 +13,27 @@
 
   <!--Début 1er Row-->
   <div class="row">
+    
+    <div class="col-lg-3 form-group mt-4">
+      <label for="">Nom et prénom <span class="danger-txt">*</span></label>
+      <input type="text" class="form-control rounded-pill" formControlName="nom_prenom" [ngClass]="{
+          'is-invalid': checkInputsValidation(nom_prenom),
+          'is-valid': !nom_prenom?.invalid
+        }" />
 
+      <!-- Error Message  -->
+      <div class="" *ngIf="checkInputsValidation(nom_prenom)">
+        <!-- <p class="danger-txt" *ngIf="nom_prenom?.errors?.required">
+          Veuillez remplir ce champ
+        </p> -->
+        <p class="danger-txt" *ngIf="nom_prenom?.errors?.minlength">
+          Vous devez entrer 6 caractères au moin
+        </p>
+        <p class="danger-txt" *ngIf="nom_prenom?.errors?.pattern">
+          Vous devez entrer seulement des alphabets
+        </p>
+      </div>
+    </div>
 
     <div class="col-lg-3 form-group mt-4">
       <label for="">N° CIN du Propriétaire <span class="danger-txt">*</span></label>
@@ -56,6 +77,11 @@
       </div>
     </div>
 
+   
+  </div>
+  <!--Début 2éme Row-->
+  <div class="row">
+    
     <div class="col-lg-3 form-group mt-4">
       <label for="">Raison sociale <span class="danger-txt">*</span></label>
       <input type="text" class="form-control rounded-pill" formControlName="raison_social" [ngClass]="{
@@ -70,11 +96,8 @@
       </div>
 
     </div>
-  </div>
-  <!--Début 2éme Row-->
-  <div class="row">
     <div class="col-lg-3 form-group mt-4">
-      <label for="">N° de registre du commerce</label>
+      <label for="">N° de l’Identifiant Fiscal</label>
       <input type="text" class="form-control rounded-pill" formControlName="n_registre_commerce" [ngClass]="{
           'is-invalid': checkInputsValidation(n_registre_commerce)
         }" />
@@ -87,27 +110,8 @@
       </div>
     </div>
 
-    <div class="col-lg-3 form-group mt-4">
-      <label for="">Nom et prénom <span class="danger-txt">*</span></label>
-      <input type="text" class="form-control rounded-pill" formControlName="nom_prenom" [ngClass]="{
-          'is-invalid': checkInputsValidation(nom_prenom),
-          'is-valid': !nom_prenom?.invalid
-        }" />
+  
 
-      <!-- Error Message  -->
-      <div class="" *ngIf="checkInputsValidation(nom_prenom)">
-        <!-- <p class="danger-txt" *ngIf="nom_prenom?.errors?.required">
-          Veuillez remplir ce champ
-        </p> -->
-        <p class="danger-txt" *ngIf="nom_prenom?.errors?.minlength">
-          Vous devez entrer 6 caractères au moin
-        </p>
-        <p class="danger-txt" *ngIf="nom_prenom?.errors?.pattern">
-          Vous devez entrer seulement des alphabets
-        </p>
-      </div>
-    </div>
-<!-- Error -->
     <!-- <div class="col-lg-3 form-group mt-4">
       <label for="">Téléphone du propriétaire</label>
       <input type="text" class="form-control rounded-pill" formControlName="telephone" [ngClass]="{
@@ -152,7 +156,7 @@
       <input type="text" class="form-control rounded-pill" formControlName="n_compte_bancaire" required [ngClass]="{
           'is-invalid': checkInputsValidation(n_compte_bancaire),
           'is-valid': !n_compte_bancaire?.invalid
-        }" />
+        }" maxlength="24"/>
 
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(n_compte_bancaire)">
@@ -527,3 +531,4 @@
     </button>
   </div>
 </form>
+</div>
