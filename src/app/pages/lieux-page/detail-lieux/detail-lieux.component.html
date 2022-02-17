@@ -3,7 +3,7 @@
         <div class="d-flex justify-content-between">
             <h3 class="main-title">
                 <a [routerLink]="['/lieux/list']" class="goback-link">Liste des
-                    entités organisationnelles</a>/<span class="selected-text">{{ lieu?.intitule_lieu }}</span>
+                    entités organisationnelles</a>/<span class="selected-text">{{ lieu?.type_lieu }}</span>/<span class="selected-text">{{ lieu?.intitule_lieu }}</span>
             </h3>
             <div class="d-none d-lg-block">
                 <a [routerLink]="['/lieux/list']" class="btn btn-sm second-btn me-3 " data-bs-toggle="tooltip"
@@ -98,9 +98,5 @@
         </div>
 
     </div>
-<!-- 
-    <div *ngIf="lieu?.type_lieu != 'Siège' && lieu?.type_lieu != 'Direction régionale'" class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-6">
 
-    </div>
-     -->
 </div>
