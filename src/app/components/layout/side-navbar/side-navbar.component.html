@@ -30,7 +30,7 @@
             </li>
 
             <li class="nav-item my-4" *ngIf="!isAdmin">
-                <a [routerLink]="['/lieux']" routerLinkActive="router-link-active" class="nav-link main-btn" (click)="showSubMenu('entite')">
+                <a href="#" routerLinkActive="router-link-active" class="nav-link main-btn" (click)="showSubMenu('entite')">
                     <span >
                         <i class="fal fa-building"></i>&nbsp;&nbsp;Entités organisat..
                     </span>
@@ -50,7 +50,7 @@
             </li>
 
             <li class="nav-item" *ngIf="!isAdmin">
-                <a [routerLink]="['/foncier']" routerLinkActive="router-link-active" class="nav-link main-btn" (click)="showSubMenu('lieux')">
+                <a href="#" routerLinkActive="router-link-active" class="nav-link main-btn" (click)="showSubMenu('lieux')">
                     <span >
                         <i class="fas fa-hotel"></i>&nbsp;&nbsp;Locaux
                     </span>
