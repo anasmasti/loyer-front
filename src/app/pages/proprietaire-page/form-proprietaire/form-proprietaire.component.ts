@@ -777,7 +777,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
             this.postDone = false;
             this.help.toTheUp();
             this.router
-              .navigate(['/proprietaire/list-global/list'])
+              .navigate(['/foncier/list'])
               .then(() => {
                 this.help.refrechPage();
               });

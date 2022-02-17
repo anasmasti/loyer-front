@@ -9,7 +9,7 @@ export const environment = {
   // Api test url
   API_URL_TEST: 'http://192.168.11.117:5000/api/',
   // Api test url without param
-  API_URL_WITHOUT_PARAM: 'http://192.168.11.17:5000/',
+  API_URL_WITHOUT_PARAM: 'http://192.168.11.117:5000/',
   // Api access key
   API_ACCESS_KEY: 'take$the#whole!bull',
   // Api version
