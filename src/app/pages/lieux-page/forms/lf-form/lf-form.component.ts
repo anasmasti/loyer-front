@@ -42,6 +42,8 @@ export class LfFormComponent implements OnInit, OnDestroy, OnChanges {
 
   userMatricule: any = localStorage.getItem('matricule');
 
+  intituleLF: string = "--";
+
   constructor(
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
@@ -297,6 +299,17 @@ export class LfFormComponent implements OnInit, OnDestroy, OnChanges {
   scrollToTop(){
     let element : HTMLElement = document.getElementById('form_content') as HTMLElement;    
     element.scrollIntoView({behavior: "smooth", block: "start"});
+  }
+
+  // Get intitule lf by code dr 
+  displayIntituleLF() {
+    const codeDR = this.LfForm.get('code_rattache_DR')?.value;
+
+    for (let i = 0; i < this.Dr.length; i++) {
+      if (this.Dr[i].code_lieu == codeDR) {
+        this.intituleLF = `LF/${this.Dr[i].intitule_lieu}`;
+      }
+    }
   }
 
   //////////////////////////////////////////////////////////////////////////////////
