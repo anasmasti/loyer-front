@@ -52,6 +52,16 @@ export class ListProprietaireComponent implements OnInit {
   //   this.getAllProprietaires(); // Trow the fitching data if anything changes
   // }
 
+  // Get data from proprietaire service
+  getAllProprietaires() {
+    this.proprietaireService.getProprietaire(this.userMatricule).subscribe((data) => {
+      this.contrats = data;
+      this.proprietaires = this.contrats[0].foncier.proprietaire 
+    }, error => {
+      this.accessError = error.error.message
+    });
+  }
+
   // Filter by intitule
   search() {
     if (this.findProprietaire != "") {
@@ -64,16 +74,6 @@ export class ListProprietaireComponent implements OnInit {
     }
   }
 
-  // Get data from proprietaire service
-  getAllProprietaires() {
-    this.proprietaireService.getProprietaire(this.userMatricule).subscribe((data) => {
-      this.contrats = data;
-   
-    }, error => {
-      this.accessError = error.error.message
-    });
-    
-  }
 
   // Open the update proprietaire form and push index and data of proprietaire
   openModalAndPushProprietaire(myTargetProprietaire: any) {
