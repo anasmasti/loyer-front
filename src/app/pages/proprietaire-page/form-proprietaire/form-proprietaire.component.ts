@@ -421,7 +421,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         }
         if (
           this.montantLoyer * 12 > 30000 &&
-          this.montantLoyer * 12 <= 120000
+          this.montantLoyer * 12 < 120000
         ) {
           // result = (this.montantLoyer * 12 * 10) / 100;
           result = (this.montantLoyer) * (10 / 100);
@@ -429,7 +429,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
           montantApresImpot = this.montantLoyer - result;
           tauxImpot = 10;
         }
-        if (this.montantLoyer * 12 > 120000) {
+        if (this.montantLoyer * 12 >= 120000) {
           // result = (this.montantLoyer * 12 * 15) / 100;
            result = (this.montantLoyer) * (15 / 100);
           // montantApresImpot = (this.montantLoyer * 12 - result) / 12;
@@ -463,7 +463,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         }
         if (
           this.montantLoyer * nbr_mois_louer > 30000 &&
-          this.montantLoyer * nbr_mois_louer <= 120000
+          this.montantLoyer * nbr_mois_louer < 120000
         ) {
           // result = (this.montantLoyer * nbr_mois_louer * 10) / 100;
           result = (this.montantLoyer) * (10 / 100);
@@ -472,7 +472,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
           montantApresImpot = this.montantLoyer - result;
           tauxImpot = 10;
         }
-        if (this.montantLoyer * nbr_mois_louer > 120000) {
+        if (this.montantLoyer * nbr_mois_louer >= 120000) {
           // result = (this.montantLoyer * nbr_mois_louer * 15) / 100;
           result = (this.montantLoyer) * (15 / 100);
           // montantApresImpot =
@@ -508,14 +508,14 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         }
         if (
           this.montantLoyer * nbr_mois_louer > 30000 &&
-          this.montantLoyer * nbr_mois_louer <= 120000
+          this.montantLoyer * nbr_mois_louer < 120000
         ) {
           result = (this.montantLoyer * nbr_mois_louer * 10) / 100;
           montantApresImpot =
             (this.montantLoyer * nbr_mois_louer - result) / nbr_mois_louer;
           tauxImpot = 10;
         }
-        if (this.montantLoyer * nbr_mois_louer > 120000) {
+        if (this.montantLoyer * nbr_mois_louer >= 120000) {
           result = (this.montantLoyer * nbr_mois_louer * 15) / 100;
           montantApresImpot =
             (this.montantLoyer * nbr_mois_louer - result) / nbr_mois_louer;
@@ -589,14 +589,14 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   //     // Condition taux d'impot 10%
   //     if (
   //       this.montantLoyer * dureeLocation > 30000 &&
-  //       this.montantLoyer * this.contratByFoncier[0].duree_location <= 120000
+  //       this.montantLoyer * this.contratByFoncier[0].duree_location < 120000
   //     ) {
   //       result = this.montantLoyer * 0.1 * dureeLocation;
   //       montantApresImpot = this.montantLoyer - result / dureeLocation;
   //       tauxImpot = 10;
   //     }
   //     // Condition taux d'impot 15%
-  //     if (this.montantLoyer * dureeLocation > 120000) {
+  //     if (this.montantLoyer * dureeLocation >= 120000) {
   //       result = this.montantLoyer * 0.15 * dureeLocation;
   //       montantApresImpot = this.montantLoyer - result / dureeLocation;
   //       tauxImpot = 15;
@@ -617,14 +617,14 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   //     // Condition taux d'impot 10%
   //     if (
   //       this.montantLoyer * nbr_mois_louer > 30000 &&
-  //       this.montantLoyer * nbr_mois_louer <= 120000
+  //       this.montantLoyer * nbr_mois_louer < 120000
   //     ) {
   //       result = this.montantLoyer * 0.1 * nbr_mois_louer;
   //       montantApresImpot = this.montantLoyer - result / nbr_mois_louer;
   //       tauxImpot = 10;
   //     }
   //     // Condition taux d'impot 15%
-  //     if (this.montantLoyer * nbr_mois_louer > 120000) {
+  //     if (this.montantLoyer * nbr_mois_louer >= 120000) {
   //       result = this.montantLoyer * 0.15 * nbr_mois_louer;
   //       montantApresImpot = this.montantLoyer - result / nbr_mois_louer;
   //       tauxImpot = 15;
@@ -777,7 +777,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
             this.postDone = false;
             this.help.toTheUp();
             this.router
-              .navigate(['/proprietaire/list-global/list'])
+              .navigate(['/foncier/list'])
               .then(() => {
                 this.help.refrechPage();
               });

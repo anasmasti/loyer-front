@@ -90,6 +90,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'profile',
+    loadChildren: () =>
+      import('./pages/user-profile-page/user-profile-page.module').then(
+        (m) => m.UserProfilePageModule
+      )
+  },
+  {
     path: '**',
     loadChildren: () =>
       import('./pages/notfound-page/notfound-page.module').then(

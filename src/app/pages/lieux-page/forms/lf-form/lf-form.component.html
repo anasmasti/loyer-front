@@ -45,6 +45,7 @@
             *ngIf="Dr"
             class="form-select rounded-pill"
             formControlName="code_rattache_DR"
+            (change)="displayIntituleLF()"
           >
             <option [value]="drItem.code_lieu" *ngFor="let drItem of Dr">
               {{ drItem.code_lieu }}
@@ -52,23 +53,16 @@
           </select>
         </div>
 
-        <!-- <div class="col-lg-3 form-group mt-4">
-          <label for="">Intitulé logement de fonction <span class="danger-txt">*</span></label>
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Intitulé logement de fonction</label>
           <input
             type="text"
             class="form-control rounded-pill"
             formControlName="intitule_lieu"
-            [ngClass]="{
-              'is-invalid': checkInputsValidation(intitule_lieu),
-              'is-valid': !intitule_lieu?.invalid
-            }"
+            [(ngModel)]="intituleLF"
+            readonly
           />
-          <div class="" *ngIf="checkInputsValidation(intitule_lieu)">
-            <p class="danger-txt" *ngIf="intitule_lieu?.errors?.required">
-              Veuillez remplir ce champ
-            </p>
-          </div>
-        </div> -->
+        </div>
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Code localité</label>

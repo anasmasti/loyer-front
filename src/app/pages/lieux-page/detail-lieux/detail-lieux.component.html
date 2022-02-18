@@ -3,7 +3,7 @@
         <div class="d-flex justify-content-between">
             <h3 class="main-title">
                 <a [routerLink]="['/lieux/list']" class="goback-link">Liste des
-                    entités organisationnelles</a>/<span class="selected-text">{{ lieu?.intitule_lieu }}</span>
+                    entités organisationnelles</a>/<span class="selected-text">{{ lieu?.type_lieu }}</span>/<span class="selected-text">{{ lieu?.intitule_lieu }}</span>
             </h3>
             <div class="d-none d-lg-block">
                 <a [routerLink]="['/lieux/list']" class="btn btn-sm second-btn me-3 " data-bs-toggle="tooltip"
@@ -21,11 +21,12 @@
 
 
 <div class="row d-flex justify-content-around">
-    <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-5">
+    <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-12">
         <div class="row">
             <div class="col-lg-6">
                 <h5 class="main-txt">Code lieu</h5>
-                <p>{{ lieu?.code_lieu != '' ? lieu?.code_lieu : '--'}}</p>
+                <p>{{ lieu?.type_lieu == 'Logement de fonction' ? lieu?.code_rattache_DR : lieu?.code_lieu}}</p>
+                <!-- {{ lieu?.code_lieu != '' ? lieu?.code_lieu : '--'}} --> 
             </div>
             <div class="col-lg-6">
 
@@ -34,11 +35,14 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-6">
-                <h5 class="main-txt">Direction régionale</h5>
+            <!-- <div class="col-lg-6" *ngIf="lieu?.type_lieu == 'Point de vente' || lieu?.type_lieu == 'Logement de fonction' || lieu?.type_lieu == 'Supervision'">
+                <h5 class="main-txt">
+                    Direction régionale
+                </h5>
                 <p>{{ lieu?.code_rattache_DR != '' ? lieu?.code_rattache_DR : '--'}}</p>
-            </div>
-            <div class="col-lg-6">
+            </div> -->
+            <div class="col-lg-6" *ngIf="lieu?.type_lieu == 'Point de vente' || lieu?.type_lieu == 'Logement de fonction' || lieu?.type_lieu == 'Supervision'
+            || lieu?.type_lieu == 'Direction régionale'">
                 <h5 class="main-txt">Code localité</h5>
                 <p>{{ lieu?.code_localite != '' ? lieu?.code_localite : '--'}}</p>
             </div>
@@ -56,6 +60,10 @@
         </div>
 
         <div class="row">
+            <div class="col-lg-6" *ngIf="lieu?.type_lieu == 'Siège'">
+                <h5 class="main-txt">Centre de coût siège</h5>
+                <p>{{ lieu?.centre_cout_siege != '' ? lieu?.centre_cout_siege : '--'}}</p>
+            </div>
             <div class="col-lg-6">
                 <h5 class="main-txt">Type</h5>
                 <p>{{ lieu?.type_lieu != '' ? lieu?.type_lieu : '--'}}</p>
@@ -63,33 +71,25 @@
             <div class="col-lg-6"></div>
         </div>
 
-    </div>
-
-    <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-6">
-
-
-
+        
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-6" *ngIf="lieu?.type_lieu == 'Point de vente' || lieu?.type_lieu == 'Logement de fonction' || lieu?.type_lieu == 'Supervision'">
                 <h5 class="main-txt">Code direction régionale</h5>
                 <p>{{ lieu?.code_rattache_DR != '' ? lieu?.code_rattache_DR : '--'}}</p>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6" *ngIf="lieu?.type_lieu == 'Point de vente'">
                 <h5 class="main-txt">Code Supervision</h5>
                 <p>{{ lieu?.code_rattache_SUP != '' ? lieu?.code_rattache_SUP : '--'}}</p>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-6" *ngIf="lieu?.type_lieu == 'Point de vente'">
                 <h5 class="main-txt">Intitulé supervision du point de vente</h5>
                 <p>{{ lieu?.intitule_rattache_SUP_PV != '' ? lieu?.intitule_rattache_SUP_PV : '--'}}</p>
             </div>
-            <div class="col-lg-6">
-                <h5 class="main-txt">Centre cout siege</h5>
-                <p>{{ lieu?.centre_cout_siege != '' ? lieu?.centre_cout_siege : '--'}}</p>
-            </div>
+           
         </div>
-        <div class="row">
+        <div class="row" *ngIf="lieu?.type_lieu == 'Point de vente'">
             <div class="col-lg-6">
                 <h5 class="main-txt">Catégorie point vente</h5>
                 <p>{{ lieu?.categorie_pointVente != '' ? lieu?.categorie_pointVente : '--'}}</p>
@@ -98,4 +98,5 @@
         </div>
 
     </div>
+
 </div>

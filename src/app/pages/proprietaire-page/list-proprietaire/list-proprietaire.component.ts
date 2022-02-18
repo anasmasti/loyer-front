@@ -5,6 +5,7 @@ import { Proprietaire } from '../../../models/Proprietaire';
 import { Component, OnInit } from '@angular/core';
 import { ProprietaireService } from 'src/app/services/proprietaire-service/proprietaire.service';
 import { ContratService } from '@services/contrat-service/contrat.service';
+import { LoginModule } from '../../login-page/login.module';
 
 @Component({
   selector: 'app-list-proprietaire',
@@ -52,8 +53,20 @@ export class ListProprietaireComponent implements OnInit {
   //   this.getAllProprietaires(); // Trow the fitching data if anything changes
   // }
 
+  // Get data from proprietaire service
+  // getAllProprietaires() {
+  //   this.proprietaireService.getProprietaire(this.userMatricule).subscribe((data) => {
+  //     this.contrats = data;
+  //     this.proprietaires = this.contrats[0].foncier.proprietaire 
+  //   }, error => {
+  //     this.accessError = error.error.message
+  //   });
+  // }
+
   // Filter by intitule
   search() {
+    console.log(this.proprietaires);
+    
     if (this.findProprietaire != "") {
       this.proprietaires = this.proprietaires.filter(res => {
         return res.cin?.toLowerCase().match(this.findProprietaire.toLowerCase()) || res.passport?.toLowerCase().match(this.findProprietaire.toLowerCase())
@@ -68,11 +81,12 @@ export class ListProprietaireComponent implements OnInit {
   getAllProprietaires() {
     this.proprietaireService.getProprietaire(this.userMatricule).subscribe((data) => {
       this.contrats = data;
-   
+      console.log(data);
+      
+      this.proprietaires = this.contrats[0].foncier.proprietaire 
     }, error => {
       this.accessError = error.error.message
     });
-    
   }
 
   // Open the update proprietaire form and push index and data of proprietaire
