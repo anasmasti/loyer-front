@@ -81,6 +81,8 @@ export class ListProprietaireComponent implements OnInit {
   getAllProprietaires() {
     this.proprietaireService.getProprietaire(this.userMatricule).subscribe((data) => {
       this.contrats = data;
+      console.log(data);
+      
       this.proprietaires = this.contrats[0].foncier.proprietaire 
     }, error => {
       this.accessError = error.error.message
