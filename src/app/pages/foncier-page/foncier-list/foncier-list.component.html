@@ -139,7 +139,7 @@
         </td>
 
         <td>
-          <div *ngIf="foncier.has_contrat">
+          <div *ngIf="foncier.contrat">
             <div *ngIf="foncier.proprietaire.length">
               <span class="col-sm-6 main-txt">
                 {{
@@ -160,24 +160,25 @@
               >
             </div>
 
-            <a
+            <button
               *ngIf="!foncier.proprietaire.length"
               [routerLink]="['/proprietaire', foncier._id]"
               class="btn btn-sm second-btn"
-              >Ajouter un propriétaire</a
-            >
+              [disabled]="!foncier.contrat.length"
+              type="button"
+              >Ajouter un propriétaire</button>
           </div>
-          <p *ngIf="!foncier.has_contrat" class="danger-txt">
+          <!-- <p *ngIf="!foncier.contrat" class="danger-txt">
             Vous devez créer un contrat avant d'ajouter un proprietaire
-          </p>
+          </p> -->
         </td>
 
         <td>
-          <p *ngIf="foncier.has_contrat" class="success-txt">
-            <i class="fas fa-check"></i>
+          <p *ngIf="foncier.contrat.length" class="success-txt">
+            <i class="fas fa-check"></i>&nbsp;&nbsp;{{foncier?.contrat[0]?.numero_contrat}}
           </p>
           <a
-            *ngIf="!foncier.has_contrat"
+            *ngIf="!foncier.contrat.length"
             [routerLink]="['/contrat', foncier._id]"
             class="btn btn-sm second-btn"
             >Ajouter un contrat</a

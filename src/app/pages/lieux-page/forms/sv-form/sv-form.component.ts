@@ -27,9 +27,9 @@ export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
   svForm!: FormGroup;
   errors!: any;
   postDone: boolean = false;
-  PostSucces: string = 'Supervision ajouté avec succés';
+  PostSucces: string = 'Supervision ajoutée avec succès';
   updateDone: boolean = false;
-  updateSucces: string = 'Supervision modifié avec succés';
+  updateSucces: string = 'Supervision modifiée avec succès';
   Dr!: any;
   DrSubscription$!: Subscription;
   intitule_rattache_DR: any = '';

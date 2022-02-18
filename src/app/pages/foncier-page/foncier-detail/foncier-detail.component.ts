@@ -43,6 +43,7 @@ export class FoncierDetailComponent implements OnInit {
       .subscribe((data: Foncier) => {
         if (data != null) {
           this.foncier = data;
+    
           // @ts-ignore
           if (data.amenagement.length.toString() == '0') {
             this.hasAmenagement = false;

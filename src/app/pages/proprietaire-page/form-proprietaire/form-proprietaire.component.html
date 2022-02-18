@@ -36,10 +36,8 @@
     </div>
 
     <div class="col-lg-3 form-group mt-4">
-      <label for="">N° CIN du Propriétaire <span class="danger-txt">*</span></label>
-      <input type="text" class="form-control rounded-pill" formControlName="cin" [ngClass]="{
-          'is-invalid': checkInputsValidation(cin)
-        }" />
+      <label for="">N° CIN du Propriétaire</label>
+      <input type="text" class="form-control rounded-pill" formControlName="cin"  />
       <!-- Error Message  -->
       <div class="" *ngIf="checkInputsValidation(cin)">
         <p class="danger-txt" *ngIf="cin?.errors?.maxlength">
