@@ -49,6 +49,7 @@
           [routerLink]="['/notification']"
           routerLinkActive="router-link-active"
           class="btn main-btn"
+          title="Notifications"
         >
           <i class="fal fa-bell"></i>
           {{ notifCount >= 0 ? notifCount : 0 }}
@@ -57,10 +58,11 @@
         [routerLink]="['/profile']"
         routerLinkActive="router-link-active"
         class="btn main-btn mx-2"
+        title="Profile"
       >
         <i class="fal fa-user"></i>
       </a>
-        <a class="btn danger-btn me-2" (click)="openConfirmationModal()"
+        <a class="btn danger-btn me-2" (click)="openConfirmationModal()" title="Déconnexion"
           ><i class="far fa-sign-out"></i
         ></a>
       </div>
