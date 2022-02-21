@@ -26,27 +26,19 @@
     <div class="row">
       <div class="col-lg-6">
         <h5 class="main-txt">Proprietaires</h5>
-        <table class="table">
+        <table class="table" >
+          <!-- if nom and prenom exist -->
           <thead>
             <tr>
-              <th>
-                Nom et prénom
-              </th>
-              <th>
-                CIN
-              </th>
+              <th> Nom et prénom / RC </th>
+              <th> CIN / N° de l’Identifiant Fiscal </th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let prop of foncier?.proprietaire">
-              <td>
-                {{ prop?.nom_prenom }}
-              </td>
-              <td>
-                {{ prop?.cin }}
-              </td>
+              <td> {{ prop?.nom_prenom ? prop?.nom_prenom : prop?.raison_social || '--' }} </td>
+              <td> {{ prop?.cin ? prop?.cin : prop?.n_registre_commerce || '--' }} </td>
             </tr>
-
           </tbody>
         </table>
       </div>
@@ -68,10 +60,10 @@
           <tbody>
             <tr *ngFor="let lieu of foncier?.lieu">
               <td>
-                {{ lieu.lieu?.intitule_lieu }}
+                {{ lieu.lieu?.intitule_lieu ||'--'}}
               </td>
               <td>
-                {{ lieu.lieu?.type_lieu }}
+                {{ lieu.lieu?.type_lieu ||'--'}}
               </td>
             </tr>
 
@@ -82,13 +74,44 @@
   </div>
 
   <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-4 ms-5">
-    <div class="row">
+    <div class="row" *ngFor="let lieu of foncier?.lieu">
+
+      <div class="col-lg-6">
+        <h5 class="main-txt">Type d'entité</h5>
+        <p>{{ lieu.lieu?.type_lieu || '--' }}</p>
+      </div>
+      
+      <div class="col-lg-6">
+        <h5 class="main-txt">Code d'entité</h5>
+        <p>{{ lieu.lieu?.code_lieu || '--'}}</p>
+      </div>
+
+      <div class="col-lg-6">
+        <h5 class="main-txt">Intitulé d'entité</h5>
+        <p>{{ lieu.lieu?.intitule_lieu || '--' }}</p>
+      </div>
+
       <div class="col-lg-6">
         <h5 class="main-txt">Ville</h5>
-        <p>{{ foncier?.ville }}</p>
+        <p>{{ foncier?.ville || '--'}}</p>
       </div>
     </div>
     <div class="row">
+      <div class="col-lg-6">
+        <h5 class="main-txt">Superficie</h5>
+        <p>{{ foncier?.superficie || '--'}}</p>
+      </div>
+
+      <div class="col-lg-6">
+        <h5 class="main-txt">Etage</h5>
+        <p>{{ foncier?.etage || '--'}}</p>
+      </div>
+
+      <div class="col-lg-6">
+        <h5 class="main-txt">Adresse</h5>
+        <p>{{ foncier?.adresse || '--'}}</p>
+      </div>
+      
       <div class="col-lg-6">
         <h5 class="main-txt">Description</h5>
         <p>
@@ -243,31 +266,21 @@
       <h5 class="main-title">Fournisseurs</h5>
       <div class="d-flex justify-content-between flex-row">
         <div *ngFor="let selected_fournisseur of selectedAmenagement?.fournisseur" class="d-flex">
-          <div *ngIf="!selected_fournisseur.deleted" class="main-card p-4">
-            <h6 class="main-txt">Nom</h6>
+          <div *ngIf="!selected_fournisseur.deleted" class="p-4">
+            <h6 class="main-txt">Raison sociale </h6>
             <p>
               {{
               selected_fournisseur.nom != "" ? selected_fournisseur.nom : "--"
               }}
             </p>
-            <h6 class="main-txt">Prenom</h6>
+            <h6 class="main-txt">Évaluation du fournisseur</h6>
             <p>
               {{
-              selected_fournisseur.prenom != ""
-              ? selected_fournisseur.prenom
+              selectedAmenagement.evaluation_fournisseur != ""
+              ? selectedAmenagement.evaluation_fournisseur
               : "--"
               }}
             </p>
-
-            <!-- <h6 class="main-txt">Aménagement éffectuer</h6>
-            <p>
-              {{
-                selected_fournisseur.prenom != ""
-                  ? selected_fournisseur.prenom
-                  : "--"
-              }}
-            </p> -->
-
           </div>
         </div>
       </div>

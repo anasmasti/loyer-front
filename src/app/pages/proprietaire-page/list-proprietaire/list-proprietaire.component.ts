@@ -5,7 +5,6 @@ import { Proprietaire } from '../../../models/Proprietaire';
 import { Component, OnInit } from '@angular/core';
 import { ProprietaireService } from 'src/app/services/proprietaire-service/proprietaire.service';
 import { ContratService } from '@services/contrat-service/contrat.service';
-import { LoginModule } from '../../login-page/login.module';
 
 @Component({
   selector: 'app-list-proprietaire',
@@ -66,21 +65,16 @@ export class ListProprietaireComponent implements OnInit {
   // Filter by intitule
   search() {
     console.log(this.proprietaires);
-
     if (this.findProprietaire != '') {
       this.proprietaires = this.proprietaires.filter((res) => {
-        return (
-          res.cin?.toLowerCase().match(this.findProprietaire.toLowerCase()) ||
-          res.passport
-            ?.toLowerCase()
-            .match(this.findProprietaire.toLowerCase()) ||
-          res.carte_sejour
-            ?.toLowerCase()
-            .match(this.findProprietaire.toLowerCase()) ||
-          res.nom_prenom
-            ?.toLowerCase()
-            .match(this.findProprietaire.toLowerCase())
-        );
+        console.log(res.passport);
+
+        return res.cin
+          ?.toLowerCase()
+          .match(this.findProprietaire.toLowerCase());
+        // res.passport?.toLowerCase().match(this.findProprietaire.toLowerCase()) ||
+        // res.carte_sejour?.toLowerCase().match(this.findProprietaire.toLowerCase()) ||
+        // res.nom_prenom?.toLowerCase().match(this.findProprietaire.toLowerCase())
       });
     } else if (this.findProprietaire == '') {
       this.getAllProprietaires();

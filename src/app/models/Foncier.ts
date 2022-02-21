@@ -5,6 +5,8 @@ export interface Foncier {
       id?: string;
       nom_prenom?: string;
       cin?: string;
+      raison_social?: string;
+      n_registre_commerce?: string;
     }
   ];
   type_lieu: string;
@@ -13,7 +15,8 @@ export interface Foncier {
     {
       lieu?: {
         intitule_lieu: string,
-        type_lieu: string
+        type_lieu: string,
+        code_lieu: string,
       };
       deleted?: boolean;
     }
@@ -26,7 +29,7 @@ export interface Foncier {
       image?: string;
     }
   ];
-  has_contrat?: boolean;
+  contrat?: any;
   has_amenagements?: boolean;
   superficie?: string;
   etage?: string;
