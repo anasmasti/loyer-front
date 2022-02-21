@@ -71,7 +71,6 @@ export class FoncierListComponent implements OnInit {
           this.store.dispatch(getFoncierAction());
         }
         this.fonciers = data;
-        
       });
   }
 
