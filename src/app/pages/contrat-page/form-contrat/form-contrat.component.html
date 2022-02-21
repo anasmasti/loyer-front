@@ -261,7 +261,7 @@
       </div> -->
 
       <div *ngIf="update" class="col-lg-3 form-group mt-4">
-        <label for="">Etat de contrat</label>
+        <label for="">Statut contrat</label>
         <select class="form-select rounded-pill" formControlName="etat_contrat_libelle" [(ngModel)]="etatContratTypes"
           (change)="showEtatSection($event)">
           <option value="Actif">Actif</option>
