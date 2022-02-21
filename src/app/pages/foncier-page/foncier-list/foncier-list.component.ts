@@ -82,6 +82,8 @@ export class FoncierListComponent implements OnInit {
   search() {
     if (this.findFoncier != '') {
       this.fonciers = this.fonciers.filter((res: any) => {
+        console.log(res.contrat[0]?.numero_contrat);
+        
         return (
           res.type_lieu
             ?.toLowerCase()
@@ -89,6 +91,8 @@ export class FoncierListComponent implements OnInit {
           res.ville?.toLowerCase().match(this.findFoncier.toLowerCase())
           ||
           res.lieu[0].lieu.code_lieu?.toLowerCase().match(this.findFoncier.toLowerCase())
+          ||
+          res.contrat[0]?.numero_contrat?.toLowerCase().match(this.findFoncier.toLowerCase())
         );
       });
     } else if (this.findFoncier == '') {
