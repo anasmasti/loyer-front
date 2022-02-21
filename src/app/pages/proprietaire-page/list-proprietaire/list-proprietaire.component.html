@@ -54,65 +54,60 @@
       </tr>
     </thead>
 
-    <tbody *ngIf="contrats?.length">
-      <ng-container *ngFor="let contrat of contrats">
-        <tr
-          *ngFor="
-            let proprietaire of contrat?.foncier.proprietaire
-              | paginate
-                : {
-                    itemsPerPage: tableSize,
-                    currentPage: listProprietairePage,
-                    id: 'listProprietaitePagination',
-                    totalItems: count
-                  };
-            let i = index
-          "
-        >
-          <!-- <td>{{ proprietaire._id }}</td> -->
-          <td>{{ proprietaire.nom_prenom }}</td>
-          <td>{{ proprietaire.cin }}</td>
-          <td>{{ contrat.numero_contrat }}</td>
-          <ng-container *ngFor="let lieu of contrat?.foncier?.lieu">
-            <td *ngIf="!lieu?.deleted">
-                {{ lieu?.lieu?.intitule_lieu ? lieu?.lieu?.intitule_lieu : "--" }}
-            </td>
-          </ng-container>
-          <td>
-            <div class="d-grid">
-              <span
-                class="p-1"
-                [ngClass]="{
-                  'success-txt': proprietaire?.is_mandataire,
-                  'danger-txt': !proprietaire?.is_mandataire
-                }"
-              >
-                {{ checkAndPutText(proprietaire.is_mandataire) }}
-              </span>
-            </div>
-          </td>
-          <td>
-            <a
-              [routerLink]="['list', proprietaire._id]"
-              class="btn btn-sm main-btn"
-              ><i class="fal fa-eye"></i
-            ></a>
-            <a
-              class="btn btn-sm info-btn mx-2"
-              (click)="openModalAndPushProprietaire(proprietaire)"
-              ><i class="far fa-user-edit"></i
-            ></a>
-            <a
-              class="btn btn-sm danger-btn"
-              (click)="
-                openDeleteConfirmationModal();
-                getProprietaireId(proprietaire._id)
-              "
-              ><i class="far fa-user-minus"></i
-            ></a>
-          </td>
-        </tr>
-      </ng-container>
+    <tbody *ngIf="proprietaires?.length">
+      <tr
+        *ngFor="
+          let proprietaire of proprietaires
+            | paginate
+              : {
+                  itemsPerPage: tableSize,
+                  currentPage: listProprietairePage,
+                  id: 'listProprietaitePagination',
+                  totalItems: count
+                };
+          let i = index
+        "
+      >
+        <!-- <td>{{ proprietaire._id }}</td> -->
+        <td>{{ proprietaire.nom_prenom }}</td>
+        <td>{{ proprietaire.cin }}</td>
+        <td>{{ proprietaire.numero_contrat }}</td>
+        <td>
+          {{ proprietaire.intitule_lieu ? proprietaire.intitule_lieu : "--" }}
+        </td>
+        <td>
+          <div class="d-grid">
+            <span
+              class="p-1"
+              [ngClass]="{
+                'success-txt': proprietaire?.is_mandataire,
+                'danger-txt': !proprietaire?.is_mandataire
+              }"
+            >
+              {{ checkAndPutText(proprietaire.is_mandataire) }}
+            </span>
+          </div>
+        </td>
+        <td>
+          <a
+            [routerLink]="['list', proprietaire._id]"
+            class="btn btn-sm main-btn"
+            ><i class="fal fa-eye"></i
+          ></a>
+          <a
+            class="btn btn-sm info-btn mx-2"
+            (click)="openModalAndPushProprietaire(proprietaire)"
+            ><i class="far fa-user-edit"></i
+          ></a>
+          <a
+            class="btn btn-sm danger-btn"
+            (click)="
+              openDeleteConfirmationModal(); getProprietaireId(proprietaire._id)
+            "
+            ><i class="far fa-user-minus"></i
+          ></a>
+        </td>
+      </tr>
 
       <app-main-modal [closeBtn]="true">
         <app-edit-proprietaire [proprietaire]="targetProprietaire">

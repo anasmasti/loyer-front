@@ -12,7 +12,7 @@ import { ContratService } from '@services/contrat-service/contrat.service';
   styleUrls: ['./list-proprietaire.component.scss'],
 })
 export class ListProprietaireComponent implements OnInit {
-  proprietaires: Proprietaire[] = [];
+  proprietaires: any[] = [];
   targetProprietaire: Proprietaire[] = [];
   targetProprietaireId: string = '';
   findProprietaire!: string;
@@ -86,18 +86,27 @@ export class ListProprietaireComponent implements OnInit {
     this.proprietaireService.getProprietaire(this.userMatricule).subscribe(
       (data) => {
         this.contrats = data;
-
-        // console.log('data =>', data);
-        // data.forEach((proprietaire: any) => {
-        //   this.proprietaires.push(proprietaire.foncier.proprietaire);
-        //   let test: any[] = [];
-        //   console.log('proprietaire =>', test.concat(...this.proprietaires));
-        // });
+        this.collectProprietaireData();
       },
       (error) => {
         this.accessError = error.error.message;
       }
     );
+  }
+
+  collectProprietaireData() {
+    this.contrats?.forEach((contrat: any) => {
+      contrat?.foncier?.lieu?.forEach((lieu: any) => {
+        if (!lieu.deleted) {
+          contrat?.foncier?.proprietaire.forEach((proprietaire: any) => {
+            proprietaire.numero_contrat = contrat.numero_contrat;
+            proprietaire.intitule_lieu = lieu.lieu.intitule_lieu;
+            this.proprietaires.push(proprietaire);
+            console.log(contrat.numero_contrat);
+          });
+        }
+      });
+    });
   }
 
   // Open the update proprietaire form and push index and data of proprietaire
