@@ -183,9 +183,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     setTimeout(() => {
       this.getTauxImpot();
     }, 1000);
-    setTimeout(() => {
-      // this.calculCaution();
-    }, 2000);
+    // setTimeout(() => {
+    //   // this.calculCaution();
+    // }, 2000);
   }
 
   fetchProprietaire() {
@@ -340,7 +340,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       .subscribe((data) => {
         if (data) {
           this.contratByFoncier = data;
-
           this.lengthProprietaire =
             this.contratByFoncier[0]?.foncier?.proprietaire.length;
 
