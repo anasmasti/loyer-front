@@ -64,10 +64,8 @@ export class ListProprietaireComponent implements OnInit {
 
   // Filter by intitule
   search() {
-    console.log(this.proprietaires);
     if (this.findProprietaire != '') {
       this.proprietaires = this.proprietaires.filter((res) => {
-        console.log(res.passport);
 
         return res.cin
           ?.toLowerCase()
@@ -102,7 +100,6 @@ export class ListProprietaireComponent implements OnInit {
             proprietaire.numero_contrat = contrat.numero_contrat;
             proprietaire.intitule_lieu = lieu.lieu.intitule_lieu;
             this.proprietaires.push(proprietaire);
-            console.log(contrat.numero_contrat);
           });
         }
       });
