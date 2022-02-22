@@ -6,6 +6,7 @@ import { MainModalService } from 'src/app/services/main-modal/main-modal.service
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { ConfirmationModalService } from '@services/confirmation-modal-service/confirmation-modal.service';
+import { FoncierService } from '@services/foncier-service/foncier.service';
 // import { addMonths } from './date.class';
 
 @Component({
@@ -115,13 +116,15 @@ export class FormContratComponent implements OnInit {
   currentLieu: any;
   id: string = 'ea2022'
   test!: any;
+  foncierById !: any;
   constructor(
     private contratService: ContratService,
     private mainModalService: MainModalService,
     private help: HelperService,
     public router: Router,
     private actRoute: ActivatedRoute,
-    private confirmationModalService: ConfirmationModalService
+    private confirmationModalService: ConfirmationModalService,
+    private foncierService: FoncierService
   ) {}
 
   ngOnChanges() {
@@ -131,13 +134,15 @@ export class FormContratComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.isInsertForm)
-      // this.foncier_id = this.actRoute.snapshot.paramMap.get('id_foncier') || '';
+    if (this.isInsertForm){
+         // this.foncier_id = this.actRoute.snapshot.paramMap.get('id_foncier') || '';
       this.actRoute.url.subscribe(data => {
-        this.foncier_id = data[0].path
-      }
-      )
+        this.foncier_id = data[0].path })
+      this.getFoncierById() 
+    }
+   
 
+      
     // this.etatContratTypes = 'Avenant'
     this.contratForm = new FormGroup({
       numero_contrat: new FormControl(''),
@@ -410,14 +415,9 @@ export class FormContratComponent implements OnInit {
       }
 
       // if ((date.getMonth() + 1) == 4) {
-      //   console.log(month);
-
-      //   console.log(new Date(`${date.getFullYear()}-${month}-${1}`).toISOString().slice(0, 10));
 
       //   this.datePremierPaiement = new Date(`${date.getFullYear()}-${month}-${1}`).toISOString().slice(0, 10);
       // }
-      // console.log(date.toISOString().slice(0, 10));
-
       // Date fin de l'avance
       date.setMonth(month);
       this.datePremierPaiement = date.toISOString().slice(0, 10);
@@ -455,6 +455,11 @@ export class FormContratComponent implements OnInit {
     }
   }
 
+  getFoncierById(){
+    this.foncierService.getFoncierById(this.foncier_id,this.userMatricule).subscribe((data) => {
+      this.foncierById = data;
+    })
+  }
   //Calcul taxe d'édilité
   // calculTaxeNonComprise() {
   //   // let taxComprise = this.contratForm.get('taxe_edilite_comprise_loyer')?.value;
