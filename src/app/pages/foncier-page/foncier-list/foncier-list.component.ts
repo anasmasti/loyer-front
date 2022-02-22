@@ -82,7 +82,6 @@ export class FoncierListComponent implements OnInit {
   search() {
     if (this.findFoncier != '') {
       this.fonciers = this.fonciers.filter((res: any) => {
-        console.log(res.contrat[0]?.numero_contrat);
         
         return (
           res.type_lieu
@@ -148,7 +147,6 @@ export class FoncierListComponent implements OnInit {
 
   // Delete fonfier
   deleteFoncier() {
-    console.log('teeeeeeeest');
     this.foncierService
       .deleteFoncier(
         this.deletedFoncier._id,

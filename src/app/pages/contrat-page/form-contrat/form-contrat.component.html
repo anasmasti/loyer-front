@@ -334,6 +334,13 @@
           </div>
 
           <div class="col-lg-3 form-group mt-4">
+            <label for="" >Date d’effet
+              l’avenant</label>
+            <input type="date" class="form-control rounded-pill"
+              (change)="reinitialiserDateDebut()" formControlName="date_effet_av" required />
+          </div>
+
+          <div class="col-lg-3 form-group mt-4">
             <label for="">Montant du nouveau loyer</label>
             <input type="number" class="form-control rounded-pill" formControlName="etat_contrat_montant_nouveau_loyer">
           </div>

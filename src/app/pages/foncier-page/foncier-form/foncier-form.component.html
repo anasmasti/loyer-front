@@ -16,7 +16,10 @@
     <!--Début 1er Row-->
     <div class="row">
       <div *ngIf="!update" class="col-lg-4 form-group mt-4">
-        <label for="">Type d'entité organisationnelle <span class="danger-txt">*</span></label>
+        <label for=""
+          >Type d'entité organisationnelle
+          <span class="danger-txt">*</span></label
+        >
         <select
           class="form-select rounded-pill"
           formControlName="type_lieu"
@@ -39,7 +42,10 @@
       </div>
 
       <div *ngIf="!update" class="col-lg-4 form-group mt-4">
-        <label for="">Code d'entité organisationnelle <span class="danger-txt">*</span></label>
+        <label for=""
+          >Code d'entité organisationnelle
+          <span class="danger-txt">*</span></label
+        >
         <select
           class="form-select rounded-pill"
           formControlName="lieu"
@@ -67,7 +73,12 @@
 
       <div class="col-lg-4 form-group mt-4" *ngIf="!update">
         <label for="">Intitulé d'entité organisationnelle</label>
-        <input type="text" class="form-control rounded-pill" [value]="Intituler_lieu" readonly>
+        <input
+          type="text"
+          class="form-control rounded-pill"
+          [value]="Intituler_lieu"
+          readonly
+        />
       </div>
 
       <div class="col-lg-4 form-group mt-4">
@@ -113,27 +124,23 @@
         />
       </div>
 
-    
-
       <div class="col-lg-12 form-group mt-4">
         <label for="">Adresse <span class="danger-txt">*</span></label>
         <textarea
-        type="text"
-        class="form-control"
-        formControlName="adresse"
-        [ngClass]="{
-          'is-invalid': checkInputsValidation(adresse),
-          'is-valid': !adresse?.invalid
-        }"
-      ></textarea>
+          type="text"
+          class="form-control"
+          formControlName="adresse"
+          [ngClass]="{
+            'is-invalid': checkInputsValidation(adresse),
+            'is-valid': !adresse?.invalid
+          }"
+        ></textarea>
         <div class="" *ngIf="checkInputsValidation(adresse)">
           <p class="danger-txt" *ngIf="adresse?.errors?.required">
             Veuillez remplir ce champ
           </p>
         </div>
       </div>
-
-  
 
       <div class="col-lg-12 form-group mt-4">
         <label for="">Descriptif du local</label>
@@ -193,7 +200,7 @@
             <div class="d-flex justify-content-between">
               <h4 class="main-text">Aménagement</h4>
               <a
-                (click)="addAmenagement('NewAmng', false);"
+                (click)="addAmenagement('NewAmng', false)"
                 class="btn second-btn"
                 >Ajouter amenagement</a
               >
@@ -206,13 +213,13 @@
           formArrayName="amenagementForm"
           *ngFor="let item of amenagementForm.controls; let i = index"
         >
-        <div
+          <div
             class="main-card mt-4 bg-white p-lg-4"
             *ngIf="!amenagementForm.controls[i].value.deleted"
             [formGroupName]="i"
             id="{{ i }}"
           >
-          <h6 class="main-title">Aménagement {{i+1}}</h6>
+            <h6 class="main-title">Aménagement {{ i + 1 }}</h6>
             <a
               (click)="removeAmenagement(i)"
               class="btn btn-sm danger-btn float-end"
@@ -311,7 +318,7 @@
                 <label for="">Fournisseur</label>
                 <a
                   *ngIf="!amenagementForm.controls[i].value.has_fournisseur"
-                  (click)="toggelFournisseur(true, amenagementForm, i, 0 )"
+                  (click)="toggelFournisseur(true, amenagementForm, i, 0)"
                   class="btn btn-sm second-btn mx-2 mx-lg-4"
                   >Ajouter fournisseur</a
                 >
@@ -448,7 +455,7 @@
     <!-- </div> -->
 
     <!-- Entité organisationnelle (Lieu)  -->
-    <div *ngIf="update && foncier?.contrat">
+    <div *ngIf="update && foncier?.contrat[0]?.validation2_DAJC">
       <div class="d-lg-flex justify-content-lg-between">
         <h4 class="main-text">Entité organisationnelle</h4>
       </div>
@@ -500,7 +507,7 @@
             class="btn second-btn form-control"
             (click)="openConfirmationModal('ATransfererModalId')"
           >
-          En cours de transfert 
+            En cours de transfert
           </button>
           <button
             *ngIf="currentLieu.transferer"
@@ -519,7 +526,11 @@
             class="btn btn-sm danger-btn form-control mx-3"
             (click)="openConfirmationModal('TransfererModalId')"
           >
+<<<<<<< HEAD
           Transférer définitivement cette entité 
+=======
+            Transférer définitivement ce local
+>>>>>>> e5b2bd988f933a7de1d8b8a31abf5b21c88c610b
           </button>
 
           <!-- Transferer modal -->
@@ -646,7 +657,7 @@
         id="Ajouter"
         class="btn second-btn form-control mt-4"
         [disabled]="foncierForm.invalid"
-        (click)="scrollToTop();"
+        (click)="scrollToTop()"
       >
         Ajouter
       </button>
@@ -655,7 +666,7 @@
         type="submit"
         id="Modifier"
         class="btn second-btn form-control mt-4"
-        (click)="scrollToTop();"
+        (click)="scrollToTop()"
       >
         Modifier
       </button>

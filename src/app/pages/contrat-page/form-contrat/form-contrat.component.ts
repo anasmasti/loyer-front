@@ -206,6 +206,8 @@ export class FormContratComponent implements OnInit {
 
       // Calcul montant avance tax
       montant_avance_tax: new FormControl(),
+
+      date_effet_av: new FormControl(),
     });
   }
 
@@ -409,14 +411,9 @@ export class FormContratComponent implements OnInit {
           break;
       }
       // if ((date.getMonth() + 1) == 4) {
-      //   console.log(month);
-
-      //   console.log(new Date(`${date.getFullYear()}-${month}-${1}`).toISOString().slice(0, 10));
 
       //   this.datePremierPaiement = new Date(`${date.getFullYear()}-${month}-${1}`).toISOString().slice(0, 10);
       // }
-      // console.log(date.toISOString().slice(0, 10));
-
       // Date fin de l'avance
       date.setMonth(month);
       this.datePremierPaiement = date.toISOString().slice(0, 10);

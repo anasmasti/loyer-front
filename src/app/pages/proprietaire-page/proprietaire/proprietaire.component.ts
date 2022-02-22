@@ -29,8 +29,6 @@ export class ProprietaireComponent implements OnInit {
       .getContratByFoncier(this.foncier_id, this.userMatricule)
       .subscribe((data) => {
         this.contratByFoncier = data
-        console.log(this.contratByFoncier[0].numero_contrat);
-        console.log(this.contratByFoncier[0].foncier.type_lieu);
       })
   }
 }
