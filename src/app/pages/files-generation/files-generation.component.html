@@ -31,8 +31,8 @@
       p-4
     "
     [ngClass]="{
-      'success-cloture-bg success-txt': isCloture,
-      'danger-cloture-bg danger-txt': !isCloture
+      'success-light-card-bg success-txt': isCloture,
+      'danger-light-card-bg danger-txt': !isCloture
     }"
   >
     <h4 *ngIf="!isCloture">Clôture du {{ today | date }}</h4>
