@@ -394,7 +394,7 @@ export class FormContratComponent implements OnInit {
       10
     );
     let date = new Date(this.contratForm.get('date_debut_loyer')?.value);
-    let month = date.getMonth() + 1;
+    let month = date.getMonth();
     this.dureeAvance = this.contratForm.get('duree_avance')?.value;
 
     if (this.dureeAvance > 0) {
