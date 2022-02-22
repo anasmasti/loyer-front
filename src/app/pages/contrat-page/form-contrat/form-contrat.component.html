@@ -65,7 +65,7 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Montant du loyer <span class="danger-txt">*</span></label>
-          <input type="number" [(ngModel)]="montantLoyer" class="form-control rounded-pill"
+          <input type="number" [(ngModel)]="montantLoyer" (keyup)="calculDate()" class="form-control rounded-pill"
             formControlName="montant_loyer" [ngClass]="{
               'is-invalid': checkInputsValidation(montant_loyer),
               'is-valid': !montant_loyer?.invalid
