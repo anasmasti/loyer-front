@@ -12,11 +12,12 @@ import { DOCUMENT } from '@angular/common';
 import { getCities } from 'src/app/store/shared/shared.selector';
 import {
   getLieux,
-  getLieuxByType,
+  // getLieuxByType,
 } from '../../lieux-page/lieux-store/lieux.selector';
 import { Lieu } from 'src/app/models/Lieu';
 import { getLieuxAction } from '../../lieux-page/lieux-store/lieux.actions';
 import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
+import { LieuxService } from '@services/lieux-service/lieux.service';
 
 @Component({
   selector: 'foncier-form',
@@ -127,6 +128,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     private help: HelperService,
     private mainModalService: MainModalService,
     private ConfirmationModalService: ConfirmationModalService,
+    private lieuService: LieuxService,
     @Inject(DOCUMENT) private document: Document
   ) {}
 
@@ -186,9 +188,12 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   }
 
   getLieuxByType(type: string) {
-    this.store.select(getLieuxByType, { type_lieu: type }).subscribe((data) => {
+    // this.store.select(getLieuxByType, { type_lieu: type }).subscribe((data) => {
+    //   if (data) this.lieuxByType = data;
+    // });
+    this.lieuService.getLieuByType(this.userMatricule, { type_lieu: type }).subscribe((data) => {
       if (data) this.lieuxByType = data;
-    });
+    })
     this.Intituler_lieu = '';
   }
  
@@ -204,7 +209,8 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
   fetchFc(HasAmenagement: string) {
     this.removeAllAmenagement();
-
+    console.log(this.foncier);
+    
     // reintialise variables
     this.currentLieu = null;
     this.foncierLieux = [];

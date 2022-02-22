@@ -201,6 +201,8 @@ export class FormContratComponent implements OnInit {
 
       // Calcul montant avance tax
       montant_avance_tax: new FormControl(),
+
+      date_effet_av: new FormControl(),
     });
   }
 

@@ -84,4 +84,12 @@ export class LieuxService {
       }/contratByLieu/${id}/${matricule}`
     );
   }
+
+  getLieuByType(matricule: any, data: any): Observable<any> {
+    return this.http.post(
+      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url
+      }/lieu-by-type/${matricule}`,
+      data
+    );
+  }
 }
