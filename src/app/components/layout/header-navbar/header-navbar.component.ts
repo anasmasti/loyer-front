@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { NotificationsService } from 'src/app/services/notifications-service/notifications.service';
 import { take } from 'rxjs/operators';
+import { HelperService } from '@services/helpers/helper.service';
 
 @Component({
   selector: 'app-header-navbar',
@@ -15,23 +16,29 @@ export class HeaderNavbarComponent implements OnInit {
   user: any = localStorage.getItem('user')
     ? JSON.parse(localStorage.getItem('user') || '')
     : [];
-  userRole: any[] = localStorage.getItem('user') ? this.user.existedUser.userRoles : [];
+  userRole: any[] = localStorage.getItem('user')
+    ? this.user.existedUser.userRoles
+    : [];
   userMatricule: any = localStorage.getItem('matricule');
 
   theme!: any;
 
   notifCount!: number;
   notifCountError!: number;
+  dateNextCloture!: any;
+  monthName!: string;
 
   constructor(
     private darkModeService: DarkModeService,
     private authService: AuthService,
     private confirmationModalService: ConfirmationModalService,
-    private notif: NotificationsService
+    private notif: NotificationsService,
+    private help: HelperService
   ) {}
 
   ngOnInit(): void {
     this.getNotificationCount();
+    this.getNextClotureDate();
   }
 
   doDarkMode() {
@@ -61,5 +68,18 @@ export class HeaderNavbarComponent implements OnInit {
         this.notifCountError = error;
       }
     );
+  }
+
+  getNextClotureDate() {
+    this.help.getNextClotureDate().subscribe((data) => {
+      this.dateNextCloture = data;
+
+      let months: any = this.help.getMounths();
+      months.forEach((month: any) => {
+        if (month.number == this.dateNextCloture.mois) {
+          this.monthName = month.name;
+        }
+      });
+    });
   }
 }

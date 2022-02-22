@@ -405,6 +405,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     
     //  CALCULER LE MONTANT DE LOYER A PARTIR DE POURCENTAGE DONNE PAR L'UTILISATEUR
     this.montantLoyer = ( this.pourcentageProprietaire * montantLoyerContrat ) / 100;
+    // this.montantLoyer = ( this.pourcentageProprietaire * montantLoyerContrat ) / this.totalPourcentageProprietaires;
 
 
 

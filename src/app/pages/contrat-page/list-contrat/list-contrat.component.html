@@ -108,7 +108,7 @@
         <th>N° contrat</th>
         <th>Montant loyer</th>
         <th>Date début du loyer</th>
-        <th>Date fin de contrat</th>
+        <th>Type d'entité</th>
         <th>Statut de la caution</th>
         <th>Statut</th>
         <th>Proprietaires liés</th>
@@ -132,9 +132,11 @@
         "
       >
         <td>{{ contrat.numero_contrat }}</td>
-        <td>{{ contrat.montant_loyer | currency: "MAD" }}</td>
+        <!-- <td>{{ contrat.montant_loyer | currency: "MAD" }}</td> -->
+        <td>{{ contrat.montant_loyer}}</td>
         <td>{{ contrat.date_debut_loyer | date }}</td>
-        <td>{{ contrat.date_fin_contrat | date }}</td>
+        <td>{{ contrat.foncier.type_lieu }}</td>
+        <!-- <td>{{ contrat.date_fin_contrat | date }}</td> -->
         <td
           [ngClass]="{
             'info-txt': contrat.statut_caution == 'Récupérée',
