@@ -37,7 +37,7 @@ export interface Foncier {
     {
       _id?: string;
       idm?: string;
-      nature_amenagement: string;
+      nature_amenagement: [];
       montant_amenagement: string;
       valeur_nature_chargeProprietaire: string;
       valeur_nature_chargeFondation: string;
