@@ -460,7 +460,7 @@
         <h4 class="main-text">Entité organisationnelle</h4>
       </div>
 
-      <div class="mt-1" *ngIf="currentLieu != null">
+      <div class="mt-1" *ngIf="currentLieu?.etat_lieu == 'Occupé' || currentLieu?.etat_lieu == 'En cours de transfert'">
         <div class="row">
           <div class="col-lg-4 form-group mt-2">
             <label for="">Type d'entité organisationnelle</label>
@@ -501,7 +501,7 @@
         >
           <!-- A Transferer & Annuler la Transformation buttons  -->
           <button
-            *ngIf="!currentLieu.transferer"
+            *ngIf="currentLieu.etat_lieu != 'En cours de transfert'"
             type="button"
             id="Transferer"
             class="btn second-btn form-control"
@@ -510,7 +510,7 @@
             En cours de transfert
           </button>
           <button
-            *ngIf="currentLieu.transferer"
+            *ngIf="currentLieu.etat_lieu == 'En cours de transfert'"
             type="button"
             id="Transferer"
             class="btn second-btn form-control"
@@ -590,7 +590,7 @@
       </div>
 
       <!-- Add new ( lieu ) -->
-      <div *ngIf="currentLieu == null">
+      <div *ngIf="currentLieu?.etat_lieu == 'Transféré'">
         <div class="row">
           <div class="col-lg-3 form-group mt-2">
             <label for="">Type d'entité organisationnelle</label>

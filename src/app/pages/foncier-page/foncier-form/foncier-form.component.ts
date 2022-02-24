@@ -219,13 +219,15 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
         amenagementControl.deleted
       );
 
-      // Check natures 
+      // Check natures
       amenagementControl.nature_amenagement.forEach((nature: string) => {
-        formGroupAmenagement.value.nature_amenagement.forEach((elementNature: any) => {
-          if (elementNature.name == nature ) {
-            elementNature.checked = true;
+        formGroupAmenagement.value.nature_amenagement.forEach(
+          (elementNature: any) => {
+            if (elementNature.name == nature) {
+              elementNature.checked = true;
+            }
           }
-        })
+        );
       });
 
       formGroupAmenagement.controls.idm.setValue(amenagementControl.idm);
@@ -339,36 +341,37 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     const amenagementData = new FormGroup({
       idm: new FormControl(''),
       nature_amenagement: new FormControl([
-      {
-        id: '1',
-        name: 'Construction',
-        checked: false,
-      },
-      {
-        id: '2',
-        name: 'Démolition',
-        checked: false,
-      },
-      {
-        id: '3',
-        name: 'Plomberie',
-        checked: false,
-      },
-      {
-        id: '4',
-        name: 'Peinture',
-        checked: false,
-      },
-      {
-        id: '5',
-        name: 'Menuiserie',
-        checked: false,
-      },
-      {
-        id: '6',
-        name: 'Électricité',
-        checked: false,
-      },]),
+        {
+          id: '1',
+          name: 'Construction',
+          checked: false,
+        },
+        {
+          id: '2',
+          name: 'Démolition',
+          checked: false,
+        },
+        {
+          id: '3',
+          name: 'Plomberie',
+          checked: false,
+        },
+        {
+          id: '4',
+          name: 'Peinture',
+          checked: false,
+        },
+        {
+          id: '5',
+          name: 'Menuiserie',
+          checked: false,
+        },
+        {
+          id: '6',
+          name: 'Électricité',
+          checked: false,
+        },
+      ]),
       montant_amenagement: new FormControl(''),
       valeur_nature_chargeProprietaire: new FormControl(''),
       valeur_nature_chargeFondation: new FormControl(''),
@@ -423,12 +426,12 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     let val = checkbox.value;
     let checkedValue = false;
 
-    if (checkbox.checked) checkedValue = true
-    if (!checkbox.checked) checkedValue = false
+    if (checkbox.checked) checkedValue = true;
+    if (!checkbox.checked) checkedValue = false;
 
     amenagementForm.value?.nature_amenagement.forEach((nature: any) => {
       if (nature.name == val) {
-        nature.checked = checkedValue
+        nature.checked = checkedValue;
       }
     });
   }
@@ -556,20 +559,26 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
   getCheckedNatures(amenagement: any) {
     let natureNames = [];
-    let checkedNatures = amenagement.nature_amenagement.filter((nature: any) => {
-      return nature.checked == true
-    })
+    let checkedNatures = amenagement.nature_amenagement.filter(
+      (nature: any) => {
+        return nature.checked == true;
+      }
+    );
 
-    for (let nature of checkedNatures ) { natureNames.push(nature.name) }
-    
+    for (let nature of checkedNatures) {
+      natureNames.push(nature.name);
+    }
+
     amenagement.nature_amenagement = natureNames;
   }
 
   addFoncier() {
     // Get checked natures name
-    this.foncierForm.get('amenagementForm')?.value.forEach((amenagement: any) => {
-      this.getCheckedNatures(amenagement);
-    });
+    this.foncierForm
+      .get('amenagementForm')
+      ?.value.forEach((amenagement: any) => {
+        this.getCheckedNatures(amenagement);
+      });
 
     let foncier: Foncier = {
       proprietaire: this.foncierForm.get('proprietaire')?.value,
@@ -613,9 +622,11 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     this.pushIntoFoncierLieux(this.currentLieu);
     let id = this.foncier._id;
     // Get checked natures name
-    this.foncierForm.get('amenagementForm')?.value.forEach((amenagement: any) => {
-      this.getCheckedNatures(amenagement);
-    });
+    this.foncierForm
+      .get('amenagementForm')
+      ?.value.forEach((amenagement: any) => {
+        this.getCheckedNatures(amenagement);
+      });
 
     this.isAmenagementEmpty = false;
 
@@ -672,31 +683,12 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
           this.hideErrorMessage();
         }
       );
+    console.log(this.foncierLieux);
   }
 
   ngOnDestroy() {
     if (this.lieuxSubscription$) this.lieuxSubscription$.unsubscribe();
     if (this.citiesSubscription$) this.citiesSubscription$.unsubscribe();
-  }
-
-  // Foncier Lieu is the Array that has All this foncier's lieux , that's gonna be stored in the DB
-  pushIntoFoncierLieux(lieu: any) {
-    this.foncierLieux.push({
-      deleted: lieu.deleted,
-      transferer: lieu.transferer,
-      lieu: lieu.lieu._id,
-    });
-  }
-
-  // Current Lieu is the lieu object that its rendreing now
-  fillCurrentLieuObject(lieu: any) {
-    this.currentLieu = {
-      deleted: lieu.deleted,
-      transferer: lieu.transferer,
-      lieu: lieu.lieu,
-    };
-
-    this.selectedLieuId = '';
   }
 
   // find the ( lieu ) by its _id from the lieu list
@@ -722,36 +714,17 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     this.ConfirmationModalService.close(id);
   }
 
-  ATransferer() {
-    this.currentLieu.transferer = true;
-    this.closeConfirmationModal(this.ATransfereModalId);
-  }
-
-  Transferer() {
+  // :::: Lieu ::::
+  addNewLocal() {
+    // Update current lieu and push it to our array
     this.currentLieu.deleted = true;
     this.pushIntoFoncierLieux(this.currentLieu);
 
-    this.closeConfirmationModal(this.TransfereModalId);
-    this.currentLieu = null;
-    this.selectedLieuId = '';
-    this.selectedType = '';
-    this.Intituler_lieu = '';
-    this.lieuxByType = [];
-  }
-
-  annulerTransfere() {
-    this.currentLieu.transferer = false;
-    this.closeConfirmationModal(this.AnnulerTransfereModalId);
-  }
-
-  addNewLocal() {
-    // let Lieu = this.findLieu(this.selectedLieuId)
-    let Lieu = this.findLieu(this.selectedLieuId);
-
     // Create the ( lieu ) structure with the inserted data
+    let Lieu = this.findLieu(this.selectedLieuId);
     let lieuData = {
       deleted: false,
-      transferer: false,
+      etat_lieu: 'Occupé',
       lieu: {
         _id: Lieu._id,
         code_lieu: Lieu.code_lieu,
@@ -761,7 +734,61 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     };
 
     this.fillCurrentLieuObject(lieuData);
+
+    console.log(this.currentLieu);
   }
+
+  ATransferer() {
+    // this.currentLieu.transferer = true;
+    this.currentLieu.etat_lieu = 'En cours de transfert';
+    this.closeConfirmationModal(this.ATransfereModalId);
+  }
+
+  Transferer() {
+    // this.currentLieu.deleted = true;
+    this.currentLieu.etat_lieu = 'Transféré';
+    // this.pushIntoFoncierLieux(this.currentLieu);
+
+    this.closeConfirmationModal(this.TransfereModalId);
+    // this.currentLieu = null;
+    this.selectedLieuId = '';
+    this.selectedType = '';
+    this.Intituler_lieu = '';
+    this.lieuxByType = [];
+
+    console.log(this.currentLieu);
+  }
+
+  annulerTransfere() {
+    this.currentLieu.etat_lieu = 'Occupé';
+    this.closeConfirmationModal(this.AnnulerTransfereModalId);
+  }
+
+  // Current Lieu is the lieu object that its rendreing now
+  fillCurrentLieuObject(lieu: any) {
+    this.currentLieu = {
+      deleted: lieu.deleted,
+      // transferer: lieu.transferer,
+      etat_lieu: lieu.etat_lieu,
+      lieu: lieu.lieu,
+    };
+
+    this.selectedLieuId = '';
+  }
+
+  // Foncier Lieu is the Array that has All this foncier's lieux , that's gonna be stored in the DB
+  pushIntoFoncierLieux(lieu: any) {
+    // console.log(lieu);
+    if (lieu != null) {
+      this.foncierLieux.push({
+        deleted: lieu.deleted,
+        // transferer: lieu.transferer,
+        etat_lieu: lieu.etat_lieu,
+        lieu: lieu.lieu._id,
+      });
+    }
+  }
+  // Afficher « En cours de transfert » et « Transféré » sur la liste des locaux , sous l’intitulé (c’est pas la peine de créer une nouvelle colonne)
 
   public toggelFournisseur(isAdd: boolean, ...args: any): void {
     this.isFournisseurExist = isAdd;

@@ -70,7 +70,9 @@ export class FoncierListComponent implements OnInit {
           // Dispatch action to handle the NgRx get foncier from server effect
           this.store.dispatch(getFoncierAction());
         }
-        this.fonciers = data;      
+        this.fonciers = data;  
+        console.log(this.fonciers);
+            
       });
   }
 

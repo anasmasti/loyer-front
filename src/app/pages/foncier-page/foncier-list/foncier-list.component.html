@@ -120,10 +120,17 @@
                 }
         "
       >
-        <td>{{ foncier.type_lieu }}</td>
+        <td>{{ foncier.type_lieu || '--' }}</td>
         <td>{{ foncier.ville }}</td>
         <!-- <td>{{ foncier.lieu[0]?.lieu?.code_lieu }}</td> -->
-        <td>{{ foncier.lieu[0].lieu?.intitule_lieu }}</td>
+        <td>
+          {{ foncier.lieu[0].lieu?.intitule_lieu }}
+          <br>
+          <ng-container *ngFor="let lieu of foncier.lieu">
+            <span class="info-txt" *ngIf="!lieu.deleted && lieu.etat_lieu != 'Occupé'">{{ lieu.etat_lieu }}</span>
+          </ng-container>
+         <!-- <br> <span class="info-txt" *ngIf="foncier.lieu.transferer">En cours de transfert</span> -->
+        </td>
         <td>
           <div class="d-grid">
             <span

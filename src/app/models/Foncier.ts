@@ -18,6 +18,8 @@ export interface Foncier {
         type_lieu: string,
         code_lieu: string,
       };
+      // transferer?: boolean,
+      etat_lieu: string;
       deleted?: boolean;
     }
   ];

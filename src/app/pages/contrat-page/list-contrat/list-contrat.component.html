@@ -113,7 +113,7 @@
         <th>Statut</th>
         <th>Proprietaires liés</th>
         <th>Actions</th>
-        <th *ngIf="userRoles.includes('CDGSP') || userRoles.includes('DAJC')">
+        <th *ngIf="userRoles.includes('CDGSP') || userRoles.includes('CSLA') || userRoles.includes('DAJC')">
           Validation
         </th>
       </tr>
@@ -179,7 +179,8 @@
               contrat.etat_contrat?.libelle == 'Suspendu' ||
               contrat.etat_contrat?.libelle == 'Résilié',
             'success-txt': contrat.etat_contrat?.libelle == 'Actif',
-            'main-txt': contrat.etat_contrat?.libelle == 'En cours de validation'
+            'main-txt':
+              contrat.etat_contrat?.libelle == 'En cours de validation'
           }"
           *ngIf="contrat.etat_contrat?.libelle != 'Avenant'"
         >
@@ -214,7 +215,7 @@
             ></a>
             <a
               *ngIf="
-                this.contrat.etat_contrat?.libelle != 'Résilié' &&
+                this.contrat.etat_contrat?.libelle == 'Actif' &&
                 !(userRoles.includes('DAJC') && !contrat.validation1_DMG)
               "
               (click)="openEditModal(contrat)"
@@ -228,17 +229,23 @@
             ></a>
           </div>
         </td>
-        <td *ngIf="userRoles.includes('CDGSP') || userRoles.includes('DAJC')">
+        <td *ngIf="userRoles.includes('CDGSP') || userRoles.includes('CSLA') || userRoles.includes('DAJC')">
           <div
-            class="text-center danger-txt"
-            *ngIf="contrat.etat_contrat?.libelle == 'Résilié'"
+            class="text-center my-1"
+            *ngIf="
+              contrat.etat_contrat?.libelle == 'Résilié' ||
+              contrat.etat_contrat?.libelle == 'Modifié'
+            "
           >
-            ---
+            --
           </div>
           <div
             class="btn-group d-grid"
             role="group"
-            *ngIf="contrat.etat_contrat?.libelle != 'Résilié'"
+            *ngIf="
+              contrat.etat_contrat?.libelle != 'Résilié' &&
+              contrat.etat_contrat?.libelle != 'Modifié'
+            "
           >
             <a
               id="btnGroupDrop1"
@@ -249,8 +256,13 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              <i class="fal fa-clipboard-check"></i>
-              <!-- <i class="fal fa-ellipsis-v-alt"></i> -->
+              <ng-container *ngIf="!contrat.validation2_DAJC">
+                A valider
+              </ng-container>
+
+              <ng-container *ngIf="contrat.validation2_DAJC">
+                <i class="fal fa-clipboard-check"></i>
+              </ng-container>
             </a>
             <ul
               id="actions"
@@ -375,9 +387,7 @@
                     (click)="calculMontantsGlobal(proprietaire)"
                   >
                     <i class="fal fa-users"></i>
-                    {{
-                      getProprietaireLength(proprietaire.proprietaire_list)
-                    }}
+                    {{ getProprietaireLength(proprietaire.proprietaire_list) }}
                     Proprietaires
                   </a>
                   <ul

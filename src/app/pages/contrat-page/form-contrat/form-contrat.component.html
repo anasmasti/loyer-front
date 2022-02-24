@@ -525,32 +525,35 @@
 
           <div class="row form-group mt-4">
             <label for="">Motif</label>
-            <div class="col-lg-2">
+            <div class="col-lg-3">
               <input
                 type="checkbox"
-                class="me-2"
                 id="deces"
+                class="btn-check check"
                 (click)="displayForms('deces')"
-              />
-              <label for="deces">Décès</label>
+                autocomplete="off" 
+                />
+              <label class="px-3 py-1 rounded-pill checkbox-list-btns text-center w-100" for="deces">Décès</label>
             </div>
-            <div class="col-lg-2">
+            <div class="col-lg-3">
               <input
                 type="checkbox"
-                class="me-2"
+                class="btn-check check"
                 id="cession"
                 (click)="displayForms('cession')"
+                autocomplete="off" 
               />
-              <label for="cession">Cession</label>
+              <label class="px-3 py-1 rounded-pill checkbox-list-btns text-center w-100" for="cession">Cession</label>
             </div>
-            <div class="col-lg-2">
+            <div class="col-lg-3">
               <input
                 type="checkbox"
-                class="me-2"
+                class="btn-check check"
                 id="revison_mnt_loyer"
                 (click)="displayForms('revison_mnt_loyer')"
+                autocomplete="off" 
               />
-              <label for="revison_mnt_loyer">Révision du prix du loyer</label>
+              <label class="px-3 py-1 rounded-pill checkbox-list-btns text-center w-100" for="revison_mnt_loyer">Révision du prix du loyer</label>
             </div>
             <!-- <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_motif"> -->
           </div>
