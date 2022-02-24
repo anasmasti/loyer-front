@@ -59,6 +59,8 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   proprietairesSubscription$!: Subscription;
   isFournisseurExist: boolean = false;
 
+  arrNatureAmenagement: any[] = [];
+
   types = [
     {
       id: 'DR',
@@ -85,27 +87,27 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   //Les natures des travaux d'aménagement
   natures = [
     {
-      id: 1,
+      id: '1',
       name: 'Construction',
     },
     {
-      id: 2,
+      id: '2',
       name: 'Démolition',
     },
     {
-      id: 3,
+      id: '3',
       name: 'Plomberie',
     },
     {
-      id: 4,
+      id: '4',
       name: 'Peinture',
     },
     {
-      id: 5,
+      id: '5',
       name: 'Menuiserie',
     },
     {
-      id: 6,
+      id: '6',
       name: 'Électricité',
     },
   ];
@@ -162,11 +164,13 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     this.store.dispatch(getLieuxAction());
   }
 
-  scrollToTop(){
-    let element : HTMLElement = document.getElementById('form_content') as HTMLElement;    
-    element.scrollIntoView({behavior: "smooth", block: "start"});
+  scrollToTop() {
+    let element: HTMLElement = document.getElementById(
+      'form_content'
+    ) as HTMLElement;
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
-  
+
   getCities() {
     this.citiesSubscription$ = this.store
       .select(getCities)
@@ -191,12 +195,13 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     // this.store.select(getLieuxByType, { type_lieu: type }).subscribe((data) => {
     //   if (data) this.lieuxByType = data;
     // });
-    this.lieuService.getLieuByType(this.userMatricule, { type_lieu: type }).subscribe((data) => {
-      if (data) this.lieuxByType = data;
-    })
+    this.lieuService
+      .getLieuByType(this.userMatricule, { type_lieu: type })
+      .subscribe((data) => {
+        if (data) this.lieuxByType = data;
+      });
     this.Intituler_lieu = '';
   }
- 
 
   ngOnChanges() {
     if (this.foncier !== '' && this.foncier !== undefined) {
@@ -205,12 +210,12 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       }, 200);
     }
   }
-  
 
+  // (click)="checkValue(amenagementForm.controls[i], nature.id + '-' + i)"
   fetchFc(HasAmenagement: string) {
     this.removeAllAmenagement();
     console.log(this.foncier);
-    
+
     // reintialise variables
     this.currentLieu = null;
     this.foncierLieux = [];
@@ -256,7 +261,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       );
 
       formGroupAmenagement.controls.nature_amenagement.setValue(
-        amenagementControl.nature_amenagement
+        this.arrNatureAmenagement
       );
 
       formGroupAmenagement.controls.montant_amenagement.setValue(
@@ -382,6 +387,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     (<FormArray>this.foncierForm.get('amenagementForm')).push(
       <FormGroup>amenagementData
     );
+    console.log(this.foncierForm.get('amenagementForm'));
 
     return <FormGroup>amenagementData;
   }
@@ -408,10 +414,45 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     (<FormArray>this.foncierForm.get('amenagementForm')).clear();
   }
 
+  checkValue(amenagementForm: any, id: string) {
+    let checkbox = document.getElementById(id) as HTMLInputElement;
+    let val = checkbox.value;
+    console.log(checkbox.value);
+    if (checkbox.checked) {
+      console.log('checked');
+      console.log('test', amenagementForm.value.nature_amenagement);
+      this.arrNatureAmenagement.push(val);
+      console.log('arr', this.arrNatureAmenagement);
+
+      amenagementForm.value.nature_amenagement = this.arrNatureAmenagement;
+      console.log('amenagement form', amenagementForm.value.nature_amenagement);
+    }
+
+    if (!checkbox.checked) {
+      console.log('unchecked');
+      // for (let i = 0; i < this.arrNatureAmenagement.length; i++) {
+      //   const element = this.arrNatureAmenagement[i];
+      //   element.splice(i, 1);
+
+      // }
+      this.arrNatureAmenagement.forEach((element, i) => {
+        console.log('element =>', element, '/ id =>', i);
+        if (element == val) {
+          this.arrNatureAmenagement.splice(i, 1);
+        }
+      });
+    }
+    // amenagementForm.value?.nature_amenagement.forEach(
+    //   (nature: any, i: number) => {
+    //     nature.splice(i, 1);
+    //   }
+    // );
+  }
+
   // FournisseurData
   addFournisseur(amenagementForm: any, index: number, NewOrOld: string) {
     amenagementForm.controls[index].controls.has_fournisseur.setValue(true);
-    
+
     let fournisseurData = new FormGroup({
       nom: new FormControl(''),
       prenom: new FormControl(''),
@@ -434,7 +475,9 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     indexAmng: number,
     indexFourn: number
   ) {
-    amenagementForm.controls[indexAmng].controls.has_fournisseur.setValue(false);
+    amenagementForm.controls[indexAmng].controls.has_fournisseur.setValue(
+      false
+    );
 
     let fournisseur = <FormArray>(
       amenagementForm.controls[indexAmng].controls.fournisseur
@@ -545,23 +588,25 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
     this.fd.append('data', JSON.stringify(foncier));
 
-    this.foncierService.addFoncier(this.fd, this.userMatricule).subscribe(
-      (_) => {
-        this.postDone = true;
-        setTimeout(() => {
-          this.foncierForm.reset();
-          this.postDone = false;
-          this.help.refrechPage();
-        }, 3000);
-      },
-      (error) => {
-        this.errors = error.error.message;
-        setTimeout(() => {
-          this.showErrorMessage();
-        }, 3000);
-        this.hideErrorMessage();
-      }
-    );
+    console.log('amenag', foncier);
+
+    // this.foncierService.addFoncier(this.fd, this.userMatricule).subscribe(
+    //   (_) => {
+    //     this.postDone = true;
+    //     setTimeout(() => {
+    //       this.foncierForm.reset();
+    //       this.postDone = false;
+    //       this.help.refrechPage();
+    //     }, 3000);
+    //   },
+    //   (error) => {
+    //     this.errors = error.error.message;
+    //     setTimeout(() => {
+    //       this.showErrorMessage();
+    //     }, 3000);
+    //     this.hideErrorMessage();
+    //   }
+    // );
   }
 
   updateFoncier() {
@@ -713,7 +758,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
     this.fillCurrentLieuObject(lieuData);
   }
-
 
   public toggelFournisseur(isAdd: boolean, ...args: any): void {
     this.isFournisseurExist = isAdd;

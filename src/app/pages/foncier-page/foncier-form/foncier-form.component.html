@@ -237,64 +237,82 @@
                 formControlName="idm"
               />
 
-              <div class="col-lg-3 form-group mt-4">
+              
+              <div class="row mt-4">
                 <label for="">Nature des travaux d’aménagement</label>
-                <!-- <input
-                  type="text"
-                  class="form-control rounded-pill"
-                  formControlName="nature_amenagement"
-                /> -->
-                <select
-                  class="form-select rounded-pill"
-                  formControlName="nature_amenagement"
-                >
-                  <option *ngFor="let nature of natures" [value]="nature.name">
+                <div class="col-lg-3 form-group d-flex">
+                  <!-- <input
+                    type="text"
+                    class="form-control rounded-pill"
+                    formControlName="nature_amenagement"
+                  /> -->
+                  <!-- <select
+                    class="form-select rounded-pill"
+                    formControlName="nature_amenagement"
+                  >
+                    <option *ngFor="let nature of natures" [value]="nature.name">
+                      {{ nature.name }}
+                    </option>
+                  </select> -->
+                  <div *ngFor="let nature of natures">
+                    <input type="checkbox" [name]="nature.id + '-' + i" class="btn-check check" [id]="nature.id + '-' + i"
+                      autocomplete="off" [value]="nature.name"
+                      formControlName="nature_amenagement" (change)="checkValue(amenagementForm.controls[i], nature.id + '-' + i)">
+                      <!-- {{nature.id + '-' + i}} <br>
+                      {{amenagementForm.controls[i].value.nature_amenagement | json}} -->
+                   <label class="px-3 py-1 rounded-pill checkbox-list-btns mx-2" [for]="nature.id + '-' + i">
                     {{ nature.name }}
-                  </option>
-                </select>
+                   </label>
+                    <!-- <label for="checknature">{{ nature.name }}</label>
+                    <input type="checkbox" name="checknature" [value]="nature.name" formControlName="nature_amenagement"> -->
+                  </div>
+                </div>
               </div>
+              
               <!-- && amenagementForm.controls[i].value.idm.length !== 0  -->
-              <div class="col-lg-3 form-group mt-4">
-                <label for="">Montant des travaux d’aménagement</label>
-                <input
-                  type="text"
-                  class="form-control rounded-pill"
-                  formControlName="montant_amenagement"
-                />
-              </div>
+         <div class="row">
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Montant des travaux d’aménagement</label>
+            <input
+              type="text"
+              class="form-control rounded-pill"
+              formControlName="montant_amenagement"
+            />
+          </div>
 
-              <div class="col-lg-3 form-group mt-4">
-                <label for=""
-                  >Valeur et nature des travaux à la charge du propriétaire
-                  (facultatif)</label
-                >
-                <input
-                  type="text"
-                  class="form-control rounded-pill"
-                  formControlName="valeur_nature_chargeProprietaire"
-                />
-              </div>
+          <div class="col-lg-3 form-group mt-4">
+            <label for=""
+              >Valeur et nature des travaux à la charge du propriétaire
+              (facultatif)</label
+            >
+            <input
+              type="text"
+              class="form-control rounded-pill"
+              formControlName="valeur_nature_chargeProprietaire"
+            />
+          </div>
 
-              <div class="col-lg-3 form-group mt-4">
-                <label for=""
-                  >Valeur et nature des travaux à la charge de la
-                  Fondation</label
-                >
-                <input
-                  type="text"
-                  class="form-control rounded-pill"
-                  formControlName="valeur_nature_chargeFondation"
-                />
-              </div>
+          <div class="col-lg-3 form-group mt-4">
+            <label for=""
+              >Valeur et nature des travaux à la charge de la
+              Fondation</label
+            >
+            <input
+              type="text"
+              class="form-control rounded-pill"
+              formControlName="valeur_nature_chargeFondation"
+            />
+          </div>
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">N° de facture</label>
+            <input
+              type="text"
+              class="form-control rounded-pill"
+              formControlName="numero_facture"
+            />
+          </div>
+         </div>
 
-              <div class="col-lg-3 form-group mt-4">
-                <label for="">N° de facture</label>
-                <input
-                  type="text"
-                  class="form-control rounded-pill"
-                  formControlName="numero_facture"
-                />
-              </div>
 
               <div class="col-lg-3 form-group mt-4">
                 <label for="">N° de bon de commande</label>
@@ -526,11 +544,7 @@
             class="btn btn-sm danger-btn form-control mx-3"
             (click)="openConfirmationModal('TransfererModalId')"
           >
-<<<<<<< HEAD
           Transférer définitivement cette entité 
-=======
-            Transférer définitivement ce local
->>>>>>> e5b2bd988f933a7de1d8b8a31abf5b21c88c610b
           </button>
 
           <!-- Transferer modal -->

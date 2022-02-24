@@ -1,8 +1,19 @@
-@use '../helpers' as *;
-
+@use "../helpers" as *;
 
 // Main card
 .main-card {
-    border-radius: $main-border-radius !important;
-    box-shadow: $card-box-shadow;
+  border-radius: $main-border-radius !important;
+  box-shadow: $card-box-shadow;
+}
+
+.success-light-card-bg {
+  background-color: lighten(color(success), 43%);
+}
+
+.danger-light-card-bg {
+  background-color: lighten(color(danger), 20%);
+}
+
+.main-light-card-bg {
+  background-color: lighten(color(main-color), 38%);
 }

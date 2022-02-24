@@ -25,20 +25,18 @@ export class HeaderNavbarComponent implements OnInit {
 
   notifCount!: number;
   notifCountError!: number;
-  dateNextCloture!: any;
-  monthName!: string;
+
 
   constructor(
     private darkModeService: DarkModeService,
     private authService: AuthService,
     private confirmationModalService: ConfirmationModalService,
     private notif: NotificationsService,
-    private help: HelperService
   ) {}
 
   ngOnInit(): void {
     this.getNotificationCount();
-    this.getNextClotureDate();
+
   }
 
   doDarkMode() {
@@ -70,16 +68,5 @@ export class HeaderNavbarComponent implements OnInit {
     );
   }
 
-  getNextClotureDate() {
-    this.help.getNextClotureDate().subscribe((data) => {
-      this.dateNextCloture = data;
 
-      let months: any = this.help.getMounths();
-      months.forEach((month: any) => {
-        if (month.number == this.dateNextCloture.mois) {
-          this.monthName = month.name;
-        }
-      });
-    });
-  }
 }
