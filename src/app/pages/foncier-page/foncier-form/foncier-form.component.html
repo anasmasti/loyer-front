@@ -255,11 +255,11 @@
                     </option>
                   </select> -->
                   <div *ngFor="let nature of natures">
-                    <input type="checkbox" [checked]="false"[name]="nature.id + '-' + i" class="btn-check check" [id]="nature.id + '-' + i"
+                    <input type="checkbox" [name]="nature.id + '-' + i" class="btn-check check" [id]="nature.id + '-' + i"
                       autocomplete="off" [value]="nature.name"
-                      formControlName="nature_amenagement" (click)="checkValue(amenagementForm.controls[i], nature.id + '-' + i)">
-                      {{nature.id + '-' + i}} <br>
-                      {{amenagementForm.controls[i].value.nature_amenagement | json}}
+                      formControlName="nature_amenagement" (change)="checkValue(amenagementForm.controls[i], nature.id + '-' + i)">
+                      <!-- {{nature.id + '-' + i}} <br>
+                      {{amenagementForm.controls[i].value.nature_amenagement | json}} -->
                    <label class="px-3 py-1 rounded-pill checkbox-list-btns mx-2" [for]="nature.id + '-' + i">
                     {{ nature.name }}
                    </label>

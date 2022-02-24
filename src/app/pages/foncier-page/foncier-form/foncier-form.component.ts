@@ -211,24 +211,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  checkValue(amenagementForm: any, id: string) {
-    let element = document.getElementById(id) as HTMLInputElement;
-    let val = element.value;
-    console.log(element.value);
-    if (element.checked) console.log('checked');
-    console.log("test",amenagementForm.value.nature_amenagement);
-    
-
-    amenagementForm.value?.nature_amenagement.push(val);
-    // this.arrNatureAmenagement.push(val);
-    if (!element.checked) console.log('unchecked');
-    // amenagementForm.value?.nature_amenagement.forEach(
-    //   (nature: any, i: number) => {
-    //     nature.splice(i, 1);
-    //   }
-    // );
-    // console.log(this.arrNatureAmenagement);
-  }
   // (click)="checkValue(amenagementForm.controls[i], nature.id + '-' + i)"
   fetchFc(HasAmenagement: string) {
     this.removeAllAmenagement();
@@ -382,7 +364,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   addAmenagement(NewOrOld: string, deleted: boolean) {
     const amenagementData = new FormGroup({
       idm: new FormControl(''),
-      nature_amenagement: new FormControl(['']),
+      nature_amenagement: new FormControl(''),
       montant_amenagement: new FormControl(''),
       valeur_nature_chargeProprietaire: new FormControl(''),
       valeur_nature_chargeFondation: new FormControl(''),
@@ -430,6 +412,41 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
   removeAllAmenagement() {
     (<FormArray>this.foncierForm.get('amenagementForm')).clear();
+  }
+
+  checkValue(amenagementForm: any, id: string) {
+    let checkbox = document.getElementById(id) as HTMLInputElement;
+    let val = checkbox.value;
+    console.log(checkbox.value);
+    if (checkbox.checked) {
+      console.log('checked');
+      console.log('test', amenagementForm.value.nature_amenagement);
+      this.arrNatureAmenagement.push(val);
+      console.log('arr', this.arrNatureAmenagement);
+
+      amenagementForm.value.nature_amenagement = this.arrNatureAmenagement;
+      console.log('amenagement form', amenagementForm.value.nature_amenagement);
+    }
+
+    if (!checkbox.checked) {
+      console.log('unchecked');
+      // for (let i = 0; i < this.arrNatureAmenagement.length; i++) {
+      //   const element = this.arrNatureAmenagement[i];
+      //   element.splice(i, 1);
+
+      // }
+      this.arrNatureAmenagement.forEach((element, i) => {
+        console.log('element =>', element, '/ id =>', i);
+        if (element == val) {
+          this.arrNatureAmenagement.splice(i, 1);
+        }
+      });
+    }
+    // amenagementForm.value?.nature_amenagement.forEach(
+    //   (nature: any, i: number) => {
+    //     nature.splice(i, 1);
+    //   }
+    // );
   }
 
   // FournisseurData
