@@ -46,6 +46,7 @@
     <thead>
       <tr>
         <th>Nom complet</th>
+        <th>Raison social</th>
         <th>CIN</th>
         <th>Numéro de contrat</th>
         <th>Intitulé DR</th>
@@ -69,7 +70,12 @@
         "
       >
         <!-- <td>{{ proprietaire._id }}</td> -->
-        <td>{{ proprietaire.nom_prenom }}</td>
+        <td>
+          {{ proprietaire.nom_prenom ? proprietaire.nom_prenom : "--" }}
+        </td>
+        <td>
+          {{ proprietaire.raison_social ? proprietaire.raison_social : "--" }}
+        </td>
         <td>{{ proprietaire.cin }}</td>
         <td>{{ proprietaire.numero_contrat }}</td>
         <td>
@@ -136,7 +142,7 @@
     </tbody>
 
     <tbody
-      *ngIf="!contrats?.length && !accessError"
+      *ngIf="!proprietaires?.length && !accessError"
       class="w-100 d-flex align-items-center"
     >
       <h5 class="main-muted-text my-4">Aucun proprietaire à afficher</h5>

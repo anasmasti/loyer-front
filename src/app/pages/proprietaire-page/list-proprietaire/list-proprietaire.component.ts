@@ -32,7 +32,7 @@ export class ListProprietaireComponent implements OnInit {
 
   id: string = 'DeleteConfirmation';
 
-  contrats!: any;
+  fonciers!: any;
 
   constructor(
     private contratService: ContratService,
@@ -44,7 +44,7 @@ export class ListProprietaireComponent implements OnInit {
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.getAllProprietaires();
+      this.getAllFonciers();
     }, 1000); // Trow the fitching data
   }
 
@@ -55,8 +55,8 @@ export class ListProprietaireComponent implements OnInit {
   // Get data from proprietaire service
   // getAllProprietaires() {
   //   this.proprietaireService.getProprietaire(this.userMatricule).subscribe((data) => {
-  //     this.contrats = data;
-  //     this.proprietaires = this.contrats[0].foncier.proprietaire
+  //     this.foncier = data;
+  //     this.proprietaires = this.foncier[0].foncier.proprietaire
   //   }, error => {
   //     this.accessError = error.error.message
   //   });
@@ -75,15 +75,15 @@ export class ListProprietaireComponent implements OnInit {
         // res.nom_prenom?.toLowerCase().match(this.findProprietaire.toLowerCase())
       });
     } else if (this.findProprietaire == '') {
-      this.getAllProprietaires();
+      this.getAllFonciers();
     }
   }
 
   // Get data from proprietaire service
-  getAllProprietaires() {
+  getAllFonciers() {
     this.proprietaireService.getProprietaire(this.userMatricule).subscribe(
       (data) => {
-        this.contrats = data;
+        this.fonciers = data;
         this.collectProprietaireData();
       },
       (error) => {
@@ -93,12 +93,12 @@ export class ListProprietaireComponent implements OnInit {
   }
 
   collectProprietaireData() {
-    this.contrats?.forEach((contrat: any) => {
-      contrat?.foncier?.lieu?.forEach((lieu: any) => {
+    this.fonciers?.forEach((foncier: any) => {
+      foncier?.lieu?.forEach((lieu: any) => {
         if (!lieu.deleted) {
-          contrat?.foncier?.proprietaire.forEach((proprietaire: any) => {
-            proprietaire.numero_contrat = contrat.numero_contrat;
-            proprietaire.intitule_lieu = lieu.lieu.intitule_lieu;
+          foncier?.proprietaire.forEach((proprietaire: any) => {
+            proprietaire.numero_contrat = foncier?.contrat?.numero_contrat || '--';
+            proprietaire.intitule_lieu = lieu.lieu.intitule_lieu || '--';
             this.proprietaires.push(proprietaire);
           });
         }
@@ -145,7 +145,7 @@ export class ListProprietaireComponent implements OnInit {
       .deleteProprietaire(id, data, this.userMatricule)
       .subscribe(
         (_) => {
-          this.getAllProprietaires(); // Trow the fitching data
+          this.getAllFonciers(); // Trow the fitching data
           this.closeDeleteConfirmationModal();
           this.deleteDone = true;
           setTimeout(() => {

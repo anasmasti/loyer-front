@@ -133,7 +133,7 @@
       >
         <td>{{ contrat.numero_contrat }}</td>
         <!-- <td>{{ contrat.montant_loyer | currency: "MAD" }}</td> -->
-        <td>{{ contrat.montant_loyer}}</td>
+        <td>{{ contrat.montant_loyer }}</td>
         <td>{{ contrat.date_debut_loyer | date }}</td>
         <td>{{ contrat.foncier.type_lieu }}</td>
         <!-- <td>{{ contrat.date_fin_contrat | date }}</td> -->
@@ -162,14 +162,24 @@
           </span>
         </td>
 
+        <!-- <td
+        class="py-3 info-txt"
+        *ngIf="contrat.etat_contrat?.libelle == 'Modifié'"
+      >
+        Modifié 
+      </td> -->
+
         <td
           class="py-3"
           [ngClass]="{
-            'info-txt': contrat.etat_contrat?.libelle == 'Avenant',
+            'info-txt':
+              contrat.etat_contrat?.libelle == 'Avenant' ||
+              contrat.etat_contrat?.libelle == 'Modifié',
             'danger-txt':
               contrat.etat_contrat?.libelle == 'Suspendu' ||
               contrat.etat_contrat?.libelle == 'Résilié',
-            'success-txt': contrat.etat_contrat?.libelle == 'Actif'
+            'success-txt': contrat.etat_contrat?.libelle == 'Actif',
+            'main-txt': contrat.etat_contrat?.libelle == 'En cours de validation'
           }"
           *ngIf="contrat.etat_contrat?.libelle != 'Avenant'"
         >
@@ -203,7 +213,10 @@
               ><i class="fal fa-eye"></i
             ></a>
             <a
-              *ngIf="this.contrat.etat_contrat?.libelle != 'Résilié' && !(userRoles.includes('DAJC') && !contrat.validation1_DMG) "
+              *ngIf="
+                this.contrat.etat_contrat?.libelle != 'Résilié' &&
+                !(userRoles.includes('DAJC') && !contrat.validation1_DMG)
+              "
               (click)="openEditModal(contrat)"
               class="btn btn-sm info-btn me-2"
               ><i class="far fa-user-edit"></i
@@ -249,7 +262,11 @@
                   Validation
                 </h5> -->
                 <div class="d-flex flex-column gap-2">
-                  <div *ngIf="userRoles.includes('CDGSP') || userRoles.includes('CSLA')">
+                  <div
+                    *ngIf="
+                      userRoles.includes('CDGSP') || userRoles.includes('CSLA')
+                    "
+                  >
                     <button
                       *ngIf="contrat.etat_contrat?.libelle != 'Résilié'"
                       class="btn"
@@ -336,7 +353,7 @@
                 let i = index
               "
             >
-              <ng-container  *ngIf="!proprietaire.deleted">
+              <ng-container *ngIf="!proprietaire.deleted">
                 <td>{{ proprietaire.nom_prenom }}</td>
                 <td>{{ proprietaire.cin }}</td>
                 <td>
@@ -358,7 +375,10 @@
                     (click)="calculMontantsGlobal(proprietaire)"
                   >
                     <i class="fal fa-users"></i>
-                    {{ getProprietaireLength(proprietaire.proprietaire_list) }} Proprietaires
+                    {{
+                      getProprietaireLength(proprietaire.proprietaire_list)
+                    }}
+                    Proprietaires
                   </a>
                   <ul
                     id="proprietaireListDropdown"
