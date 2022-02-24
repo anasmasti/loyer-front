@@ -59,8 +59,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   proprietairesSubscription$!: Subscription;
   isFournisseurExist: boolean = false;
 
-  arrNatureAmenagement: any[] = [];
-
   types = [
     {
       id: 'DR',
@@ -81,34 +79,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     {
       id: 'SV',
       name: 'Supervision',
-    },
-  ];
-
-  //Les natures des travaux d'aménagement
-  natures = [
-    {
-      id: '1',
-      name: 'Construction',
-    },
-    {
-      id: '2',
-      name: 'Démolition',
-    },
-    {
-      id: '3',
-      name: 'Plomberie',
-    },
-    {
-      id: '4',
-      name: 'Peinture',
-    },
-    {
-      id: '5',
-      name: 'Menuiserie',
-    },
-    {
-      id: '6',
-      name: 'Électricité',
     },
   ];
 
@@ -214,7 +184,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   // (click)="checkValue(amenagementForm.controls[i], nature.id + '-' + i)"
   fetchFc(HasAmenagement: string) {
     this.removeAllAmenagement();
-    console.log(this.foncier);
 
     // reintialise variables
     this.currentLieu = null;
@@ -250,6 +219,15 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
         amenagementControl.deleted
       );
 
+      // Check natures 
+      amenagementControl.nature_amenagement.forEach((nature: string) => {
+        formGroupAmenagement.value.nature_amenagement.forEach((elementNature: any) => {
+          if (elementNature.name == nature ) {
+            elementNature.checked = true;
+          }
+        })
+      });
+
       formGroupAmenagement.controls.idm.setValue(amenagementControl.idm);
 
       formGroupAmenagement.controls.images_apres_travaux.setValue(
@@ -258,10 +236,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
       formGroupAmenagement.controls.croquis_travaux.setValue(
         amenagementControl.croquis_travaux
-      );
-
-      formGroupAmenagement.controls.nature_amenagement.setValue(
-        this.arrNatureAmenagement
       );
 
       formGroupAmenagement.controls.montant_amenagement.setValue(
@@ -364,7 +338,37 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   addAmenagement(NewOrOld: string, deleted: boolean) {
     const amenagementData = new FormGroup({
       idm: new FormControl(''),
-      nature_amenagement: new FormControl(''),
+      nature_amenagement: new FormControl([
+      {
+        id: '1',
+        name: 'Construction',
+        checked: false,
+      },
+      {
+        id: '2',
+        name: 'Démolition',
+        checked: false,
+      },
+      {
+        id: '3',
+        name: 'Plomberie',
+        checked: false,
+      },
+      {
+        id: '4',
+        name: 'Peinture',
+        checked: false,
+      },
+      {
+        id: '5',
+        name: 'Menuiserie',
+        checked: false,
+      },
+      {
+        id: '6',
+        name: 'Électricité',
+        checked: false,
+      },]),
       montant_amenagement: new FormControl(''),
       valeur_nature_chargeProprietaire: new FormControl(''),
       valeur_nature_chargeFondation: new FormControl(''),
@@ -417,36 +421,16 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   checkValue(amenagementForm: any, id: string) {
     let checkbox = document.getElementById(id) as HTMLInputElement;
     let val = checkbox.value;
-    console.log(checkbox.value);
-    if (checkbox.checked) {
-      console.log('checked');
-      console.log('test', amenagementForm.value.nature_amenagement);
-      this.arrNatureAmenagement.push(val);
-      console.log('arr', this.arrNatureAmenagement);
+    let checkedValue = false;
 
-      amenagementForm.value.nature_amenagement = this.arrNatureAmenagement;
-      console.log('amenagement form', amenagementForm.value.nature_amenagement);
-    }
+    if (checkbox.checked) checkedValue = true
+    if (!checkbox.checked) checkedValue = false
 
-    if (!checkbox.checked) {
-      console.log('unchecked');
-      // for (let i = 0; i < this.arrNatureAmenagement.length; i++) {
-      //   const element = this.arrNatureAmenagement[i];
-      //   element.splice(i, 1);
-
-      // }
-      this.arrNatureAmenagement.forEach((element, i) => {
-        console.log('element =>', element, '/ id =>', i);
-        if (element == val) {
-          this.arrNatureAmenagement.splice(i, 1);
-        }
-      });
-    }
-    // amenagementForm.value?.nature_amenagement.forEach(
-    //   (nature: any, i: number) => {
-    //     nature.splice(i, 1);
-    //   }
-    // );
+    amenagementForm.value?.nature_amenagement.forEach((nature: any) => {
+      if (nature.name == val) {
+        nature.checked = checkedValue
+      }
+    });
   }
 
   // FournisseurData
@@ -570,7 +554,23 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
   }
 
+  getCheckedNatures(amenagement: any) {
+    let natureNames = [];
+    let checkedNatures = amenagement.nature_amenagement.filter((nature: any) => {
+      return nature.checked == true
+    })
+
+    for (let nature of checkedNatures ) { natureNames.push(nature.name) }
+    
+    amenagement.nature_amenagement = natureNames;
+  }
+
   addFoncier() {
+    // Get checked natures name
+    this.foncierForm.get('amenagementForm')?.value.forEach((amenagement: any) => {
+      this.getCheckedNatures(amenagement);
+    });
+
     let foncier: Foncier = {
       proprietaire: this.foncierForm.get('proprietaire')?.value,
       type_lieu: this.foncierForm.get('type_lieu')?.value,
@@ -590,28 +590,32 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
     console.log('amenag', foncier);
 
-    // this.foncierService.addFoncier(this.fd, this.userMatricule).subscribe(
-    //   (_) => {
-    //     this.postDone = true;
-    //     setTimeout(() => {
-    //       this.foncierForm.reset();
-    //       this.postDone = false;
-    //       this.help.refrechPage();
-    //     }, 3000);
-    //   },
-    //   (error) => {
-    //     this.errors = error.error.message;
-    //     setTimeout(() => {
-    //       this.showErrorMessage();
-    //     }, 3000);
-    //     this.hideErrorMessage();
-    //   }
-    // );
+    this.foncierService.addFoncier(this.fd, this.userMatricule).subscribe(
+      (_) => {
+        this.postDone = true;
+        setTimeout(() => {
+          this.foncierForm.reset();
+          this.postDone = false;
+          this.help.refrechPage();
+        }, 3000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+    );
   }
 
   updateFoncier() {
     this.pushIntoFoncierLieux(this.currentLieu);
     let id = this.foncier._id;
+    // Get checked natures name
+    this.foncierForm.get('amenagementForm')?.value.forEach((amenagement: any) => {
+      this.getCheckedNatures(amenagement);
+    });
 
     this.isAmenagementEmpty = false;
 

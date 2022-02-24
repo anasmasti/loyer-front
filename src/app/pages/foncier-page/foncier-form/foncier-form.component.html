@@ -237,34 +237,16 @@
                 formControlName="idm"
               />
 
-              
               <div class="row mt-4">
                 <label for="">Nature des travaux d’aménagement</label>
                 <div class="col-lg-3 form-group d-flex">
-                  <!-- <input
-                    type="text"
-                    class="form-control rounded-pill"
-                    formControlName="nature_amenagement"
-                  /> -->
-                  <!-- <select
-                    class="form-select rounded-pill"
-                    formControlName="nature_amenagement"
-                  >
-                    <option *ngFor="let nature of natures" [value]="nature.name">
-                      {{ nature.name }}
-                    </option>
-                  </select> -->
-                  <div *ngFor="let nature of natures">
+                  <div *ngFor="let nature of amenagementForm.controls[i].value.nature_amenagement">
                     <input type="checkbox" [name]="nature.id + '-' + i" class="btn-check check" [id]="nature.id + '-' + i"
                       autocomplete="off" [value]="nature.name"
-                      formControlName="nature_amenagement" (change)="checkValue(amenagementForm.controls[i], nature.id + '-' + i)">
-                      <!-- {{nature.id + '-' + i}} <br>
-                      {{amenagementForm.controls[i].value.nature_amenagement | json}} -->
+                      (change)="checkValue(amenagementForm.controls[i], nature.id + '-' + i)" [checked]="nature.checked">
                    <label class="px-3 py-1 rounded-pill checkbox-list-btns mx-2" [for]="nature.id + '-' + i">
                     {{ nature.name }}
                    </label>
-                    <!-- <label for="checknature">{{ nature.name }}</label>
-                    <input type="checkbox" name="checknature" [value]="nature.name" formControlName="nature_amenagement"> -->
                   </div>
                 </div>
               </div>
