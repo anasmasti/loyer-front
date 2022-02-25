@@ -21,15 +21,7 @@
 <div class="row mt-4">
   <div
     *ngIf="showClotureSection"
-    class="
-      main-card
-      col-lg-8 col-md-9 col-sm-12
-      d-flex
-      align-items-lg-center
-      justify-content-lg-between
-      flex-row
-      p-4
-    "
+    class="main-card col-lg-8 col-md-9 col-sm-12 d-flex align-items-lg-center justify-content-lg-between flex-row p-4"
     [ngClass]="{
       'success-light-card-bg success-txt': isCloture,
       'danger-light-card-bg danger-txt': !isCloture
@@ -50,15 +42,7 @@
 
 <div class="row mt-5">
   <div
-    class="
-      col-lg-12
-      d-flex
-      align-items-lg-start
-      justify-content-lg-start
-      gap-1
-      flex-column
-      mt-lg-5
-    "
+    class="col-lg-12 d-flex align-items-lg-start justify-content-lg-start gap-1 flex-column mt-lg-5"
   >
     <h3 class="main-title">Exportation des fichiers</h3>
     <form [formGroup]="filesForm" enctype="multipart/form-data" class="col-5">
@@ -77,23 +61,18 @@
   <div *ngIf="dateSelected; then filesSection; else Error"></div>
 </div>
 
-<ng-container *ngIf="reporting">
-
-  
-</ng-container>
+<ng-container *ngIf="reporting"> </ng-container>
 
 <ng-template #filesSection>
   <div class="mt-4">
-   <h5 >Exporter les écritures</h5> 
+    <h5>Exporter les écritures</h5>
 
-    <a
-      class="btn second-btn"
-      (click)="downloadFiles(fileParams)"
-    >
-    <i class="far fa-file-export"></i> Exporter les fichers
+    <a class="btn second-btn" (click)="downloadFiles(fileParams)">
+      <i class="far fa-file-export"></i> Exporter les fichers
     </a>
   </div>
-    <!-- <a
+
+  <!-- <a
       class="btn second-btn"
       (click)="downloadFiles()"
     >
@@ -128,21 +107,28 @@
     <a class="btn second-btn" (click)="downloadFiles()">
       Exporter télédéclaration mensuelle
     </a> -->
-    <!-- <a class="btn second-btn" (click)="downloadFiles('annex2')">
+  <!-- <a class="btn second-btn" (click)="downloadFiles('annex2')">
       Exporter télédéclaration annuelle
     </a> -->
   <!-- </div> -->
 
-
-
   <div class="mt-4">
-      <h5>Exporter la télédéclaration annuelle</h5>
-      <a class="btn second-btn" (click)="downloadFiles(['annex2'])"
-        ><i class="far fa-file-export"></i> Exporter le fichier</a
-      >
+    <h5>Exporter la télédéclaration annuelle</h5>
+    <a class="btn second-btn" (click)="downloadFiles(['annex2'])"
+      ><i class="far fa-file-export"></i> Exporter le fichier</a
+    >
   </div>
-
 </ng-template>
+
+<div class="mt-4">
+  <h3 class="main-title">Situation de clôture</h3>
+  <a class="btn second-btn me-4"
+    ><i class="fas fa-calculator-alt"></i> Calculer les totaux
+  </a>
+  <a class="btn second-btn"
+    ><i class="far fa-file-export"></i> Exporter le fichier
+  </a>
+</div>
 
 <ng-template #Error>
   <h3 class="main-muted-text mt-4 text-center">
