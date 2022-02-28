@@ -341,12 +341,12 @@
         <h5 class="main-title">Liens rapides</h5>
         <ng-container *ngIf="reporting">
         <div class="row mt-4">
-          <div class="col-6">
+          <div class="col-7">
             <a
               [routerLink]="['/contrat/list-global/list/list-reporting']"
               class="short-link quick-links"
             >
-              <i class="fal fa-file-signature"></i> Accéder à la liste des reportings des contrats
+            <i class="far fa-file-chart-line"></i> Accéder à la liste des reportings des contrats
             </a>
           </div>
           
@@ -356,7 +356,7 @@
 
           <div class="col-6">
             <a [routerLink]="['/foncier/list/list-reporting']" class="short-link quick-links">
-              <i class="fas fa-hotel"></i> Accéder à la liste des reportings locaux
+              <i class="far fa-file-chart-line"></i> Accéder à la liste des reportings locaux
             </a>
           </div>
         </div>
@@ -364,14 +364,14 @@
         <div class="row mt-2">
           <div class="col-12">
             <a [routerLink]="['/lieux/list/list-reporting']" class="short-link quick-links">
-              <i class="fal fa-building"></i> Accéder à la liste des reportings des entités organisationnelles
+              <i class="far fa-file-chart-line"></i> Accéder à la liste des reportings des entités organisationnelles
             </a>
           </div>
         </div>
       </ng-container>
       <!-- Quick links start -->
       <!-- List Contrat -->
-      <div class="row mt-4">
+      <div class="row mt-2">
         <div class="col-8">
           <a
             [routerLink]="['/contrat/list-global/list']"
@@ -382,7 +382,7 @@
         </div>
       </div>
       <!-- List locaux -->
-      <div class="row mt-4">
+      <div class="row mt-2">
         <div class="col-8">
           <a [routerLink]="['/foncier/list']" class="short-link quick-links">
             <i class="fas fa-hotel"></i> Accéder à la liste des locaux
@@ -391,7 +391,7 @@
       </div>
 
       <!-- List Entites organisationnelles -->
-      <div class="row mt-4">
+      <div class="row mt-2">
         <div class="col-8">
           <a [routerLink]="['/lieux/list']" class="short-link quick-links">
             <i class="fal fa-building"></i> Accéder à la liste des entités organisationnelles
