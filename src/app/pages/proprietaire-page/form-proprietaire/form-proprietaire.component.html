@@ -1,8 +1,8 @@
 <div *ngFor="let ctr of contratByFoncier">
-  <span class="main-txt">{{ ctr?.numero_contrat }}</span> /
+  <!-- <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_motif"> -->
+  <span class="main-txt">{{ ctr?.numero_contrat }}</span> •
   <span class="info-txt">{{ ctr?.foncier.type_lieu }}</span>
 </div>
-
 <div class="row form-group mt-4 justify-content-center">
   <div class="col-lg-3">
     <input
@@ -34,7 +34,6 @@
       >Personne morale</label
     >
   </div>
-  <!-- <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_motif"> -->
 </div>
 
 <div id="form_content">
@@ -68,7 +67,7 @@
             'is-invalid': checkInputsValidation(nom_prenom)
           }"
           [readonly]="personPhysique"
-          />
+        />
 
         <!-- Error Message  -->
         <div class="" *ngIf="checkInputsValidation(nom_prenom)">
@@ -458,9 +457,10 @@
         />
       </div>
 
+    
       <!-- Montant Avance Taxe -->
       <div class="col-lg-3 form-group mt-4">
-        <label for="">Montant d'avance de propriétaire</label>
+        <label for="">Montant d'avance</label>
         <input
           type="text"
           class="form-control rounded-pill"
