@@ -27,7 +27,7 @@ import { ReportingsComponent } from './pages/reportings/reportings.component';
     SideNavbarComponent,
     MainContentComponent,
     FooterComponent,
-    ReportingsComponent,
+    ReportingsComponent
   ],
   imports: [
     BrowserModule,

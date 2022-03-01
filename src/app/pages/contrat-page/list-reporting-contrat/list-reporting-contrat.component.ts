@@ -88,6 +88,8 @@ export class ListReportingContratComponent implements OnInit {
       (data) => {
         this.reportingsClone = data;
         this.reportings = this.reportingsClone;
+        console.log('======',data);
+        
       },
       (error) => {
         this.errors = error.error.message;

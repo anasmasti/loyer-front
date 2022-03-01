@@ -97,6 +97,13 @@ const routes: Routes = [
       )
   },
   {
+    path: 'situation',
+    loadChildren: () =>
+      import('./pages/situation-cloture/situation-cloture.module').then(
+        (m) => m.SituationClotureModule
+      )
+  },
+  {
     path: '**',
     loadChildren: () =>
       import('./pages/notfound-page/notfound-page.module').then(
