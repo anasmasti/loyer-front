@@ -60,6 +60,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   totalPourcentageProprietaires: number = 0;
   pourcentageProprietaire: number = 0;
 
+  // Proprietaire type 
+  personPhysique: boolean = false;
   constructor(
     private proprietaireService: ProprietaireService,
     private mainModalService: MainModalService,
@@ -926,6 +928,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     }
   }
 
+  proprietaireTypeToggel(value: boolean) {
+    this.personPhysique = value;
+  }
 
   // Get proprietaire form controlers
   get cin() {

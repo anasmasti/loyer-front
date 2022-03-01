@@ -79,7 +79,9 @@
             'is-invalid': checkInputsValidation(piece_jointe),
             'is-valid': !piece_jointe?.invalid
           }"
-        />
+          multiple
+          />
+          
         <!-- Error Message  -->
         <div class="" *ngIf="checkInputsValidation(piece_jointe)">
           <p class="danger-txt" *ngIf="piece_jointe?.errors?.required">
