@@ -24,8 +24,9 @@ export class FilesGenerationComponent implements OnInit {
   userMatricule: any = localStorage.getItem('matricule');
   twelveHours: number = 1000 * 60 * 60 * 12;
   reporting: boolean;
-  fileParams = ['fichier-comptable-loyer', 'fichier-comptable-caution', 'fichier-ordre-virement', 'annex1' ]
-
+  fileParams = ['fichier-comptable-loyer', 'fichier-comptable-caution', 'fichier-ordre-virement', 'annex1' ];
+ 
+ 
   constructor(
     private help: HelperService,
     private confirmationModalService: ConfirmationModalService,
@@ -48,6 +49,8 @@ export class FilesGenerationComponent implements OnInit {
     setInterval(() => {
       this.getNextClotureAndCheck();
     }, this.twelveHours);
+
+    
   }
 
   // Get the next cloture date from the server and check if has data and throw the check function
@@ -97,6 +100,7 @@ export class FilesGenerationComponent implements OnInit {
     });
   }
 
+ 
   // Open confirmation modal
   openConfirmationModal() {
     this.confirmationModalService.open(); // Open delete confirmation modal
