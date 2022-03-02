@@ -538,8 +538,20 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   //Upload Image amenagement avant amenagement
   onFileSelected(event: any) {
     if (event.target.files.length > 0) {
-      this.selectedFile = event.target.files[0];
-      this.fd.append('imgs_lieu_entrer', this.selectedFile);
+      // this.selectedFile = event.target.files[0];
+      // this.fd.append('imgs_lieu_entrer', this.selectedFile);
+      let myFiles = []
+      for (var i = 0; i < event.target.files.length; i++) {
+        myFiles.push(event.target.files[i]);
+      }
+
+      for (var i = 0; i < 8; i++) {
+        this.fd.append(`imgs_lieu_entrer${i + 1}`, myFiles[i]);
+      }
+
+      for (var i = 0; i < 8; i++) {
+        console.log(this.fd.get(`imgs_lieu_entrer${i + 1}`));
+      }
     }
   }
 

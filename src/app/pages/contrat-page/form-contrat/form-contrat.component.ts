@@ -39,7 +39,6 @@ export class FormContratComponent extends Motif implements OnInit {
   updateSucces: string = 'Contrat modifié avec succés';
 
   foncier!: any;
-  selectedFile!: File;
   fd: FormData = new FormData();
 
   montantLoyer!: number;
@@ -210,7 +209,7 @@ export class FormContratComponent extends Motif implements OnInit {
       etat_contrat_lettre_res_piece_jointe: new FormControl(),
       etat_contrat_piece_jointe_avenant: new FormControl(),
       deleted_proprietaires: new FormControl(),
-      date_effet_av: new FormControl(), 
+      date_effet_av: new FormControl(),
       //caution consommé
       etat_caution_consomme: new FormControl(),
       duree_consomme: new FormControl(),
@@ -228,7 +227,6 @@ export class FormContratComponent extends Motif implements OnInit {
 
       // Calcul montant avance tax
       montant_avance_tax: new FormControl(),
-
     });
   }
 
@@ -527,33 +525,87 @@ export class FormContratComponent extends Motif implements OnInit {
 
   //Upload Image piece joint contrat
   onFileSelected(event: any) {
+    let filesList = []
     if (event.target.files.length > 0) {
-      this.selectedFile = event.target.files[0];
-      this.fd.append('piece_joint_contrat', this.selectedFile);
+      for (var i = 0; i < event.target.files.length; i++) {
+        filesList.push(event.target.files[i]);
+      }
+
+      for (var i = 0; i < 8; i++) {
+        this.fd.append(`piece_joint_contrat${i + 1}`, filesList[i]);
+      }
+
+      for (var i = 0; i < 8; i++) {
+        console.log(this.fd.get(`piece_joint_contrat${i + 1}`));
+      }
     }
   }
+
+  //   fileSelectionChanged(event: Event)
+  // {
+  //     this.selectedFiles = [];
+
+  //     const element = event.currentTarget as HTMLInputElement;
+  //     this.selFiles = element.files;
+
+  //     let fileList: FileList | null = element.files;
+  //     if (fileList) {
+  //       for (let itm in fileList)
+  //       {
+  //         let item: File = fileList[itm];
+  //         if ((itm.match(/\d+/g) != null) && (!this.selectedFiles.includes(item['name'])))
+  //             this.selectedFiles.push(item['name']);
+  //       }
+  //     }
+  // }
+
+  // eventUploadFiles()
+  // {
+  //     this.formData = new FormData();
+
+  //     if (this.selectedFiles.length)
+  //     {
+  //       for (let i=0 ; i < this.selectedFiles.length ; i++)
+  //       {
+  //         this.formData.append('files', this.selFiles[i],
+  //            this.selFiles[i].name);
+  //       }
+
+  //       this.fileManagerApi.uploadFiles(this.formData).subscribe(
+  //         res => {
+  //           this.startDownloadFiles.next(true);
+  //         },
+  //         err =>
+  //         {
+  //           this.uploadErrorMessage = err.error.error;
+  //           console.log(this.selectedFiles.length +
+  // " files not uploaded. Error: " + err.error.error);
+  //         }
+  //       );
+  //     }
+  // }
 
   //Upload Image piece joint avenant
   onFileSelectedAvenant(event: any) {
     if (event.target.files.length > 0) {
-      this.selectedFile = event.target.files[0];
-      this.fd.append('piece_jointe_avenant', this.selectedFile);
+      // this.selectedFile = event.target.files[0];
+      // this.fd.append('piece_jointe_avenant', this.selectedFile);
     }
   }
 
   //Upload Image image lieu sortie resiliation
   onFileSelectedResLieuSortie(event: any) {
     if (event.target.files.length > 0) {
-      this.selectedFile = event.target.files[0];
-      this.fd.append('images_etat_res_lieu_sortie', this.selectedFile);
+      // this.selectedFile = event.target.files[0];
+      // this.fd.append('images_etat_res_lieu_sortie', this.selectedFile);
     }
   }
 
   //Upload Image lettre resiliation
   onFileSelectedLettreRes(event: any) {
     if (event.target.files.length > 0) {
-      this.selectedFile = event.target.files[0];
-      this.fd.append('lettre_res_piece_jointe', this.selectedFile);
+      // this.selectedFile = event.target.files[0];
+      // this.fd.append('lettre_res_piece_jointe', this.selectedFile);
     }
   }
 
@@ -744,7 +796,8 @@ export class FormContratComponent extends Motif implements OnInit {
     let id = this.contrat._id;
 
     // Get all checked motif values
-    this.contratForm.get('etat_contrat_libelle')?.value == 'Avenant' && this.getMotifs();
+    this.contratForm.get('etat_contrat_libelle')?.value == 'Avenant' &&
+      this.getMotifs();
 
     let ctr_data: any = {
       numero_contrat: this.contratForm.get('numero_contrat')?.value || '',
@@ -827,8 +880,7 @@ export class FormContratComponent extends Motif implements OnInit {
           duree_consomme: this.contratForm.get('duree_consomme')?.value || '',
           duree_a_recupere: this.durreeRecuperer,
           deleted_proprietaires: this.deletedProprietaires,
-          date_effet_av:  this.contratForm.get('date_effet_av')?.value ||
-          ''
+          date_effet_av: this.contratForm.get('date_effet_av')?.value || '',
         },
       },
 
@@ -842,6 +894,7 @@ export class FormContratComponent extends Motif implements OnInit {
     };
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
+    console.log(this.fd.get('piece_joint_contrat'));
 
     // patch the formdata (data+files)
     this.contratService.updateContrat(id, this.fd).subscribe(
