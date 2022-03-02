@@ -1,5 +1,5 @@
 <div *ngFor="let foncier of foncierById?.lieu">
-    <span class="second-txt">{{ foncier?.lieu.type_lieu }} • {{ foncier?.lieu.code_lieu }} • {{ foncier?.lieu.intitule_lieu }}</span> 
+    <span class="main-txt">{{ foncier?.lieu.type_lieu }} • {{ foncier?.lieu.code_lieu }} • {{ foncier?.lieu.intitule_lieu }}</span> 
 </div>
 
 <!--Début de Div qui contient le formulaire form-contrat-->
@@ -74,13 +74,15 @@
           class="form-control btn success-btn"
           formControlName="piece_jointe"
           accept=".pdf"
-          (change)="onFileSelected($event)"
+          (change)="onFileSelected($event,'piece_joint_contrat')"
           [ngClass]="{
             'is-invalid': checkInputsValidation(piece_jointe),
             'is-valid': !piece_jointe?.invalid
           }"
           multiple
           />
+          <!-- (change)="onFileSelected($event,'piece_joint_contrat')" -->
+          
           
         <!-- Error Message  -->
         <div class="" *ngIf="checkInputsValidation(piece_jointe)">
@@ -483,7 +485,7 @@
               class="form-control rounded-pill btn success-btn"
               formControlName="etat_contrat_piece_jointe_avenant"
               accept=".pdf"
-              (change)="onFileSelectedAvenant($event)"
+              (change)="onFileSelected($event,'piece_jointe_avenant')"
             />
           </div>
 
@@ -860,7 +862,7 @@
               class="form-control btn success-btn"
               formControlName="etat_contrat_images_etat_res_lieu_sortie"
               accept=".pdf"
-              (change)="onFileSelectedResLieuSortie($event)"
+              (change)="onFileSelected($event,'images_etat_res_lieu_sortie')"
             />
           </div>
 
@@ -873,7 +875,7 @@
               class="form-control btn success-btn"
               formControlName="etat_contrat_lettre_res_piece_jointe"
               accept=".pdf"
-              (change)="onFileSelectedLettreRes($event)"
+              (change)="onFileSelected($event,'lettre_res_piece_jointe')"
             />
           </div>
         </div>

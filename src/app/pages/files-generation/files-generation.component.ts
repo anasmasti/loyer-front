@@ -14,15 +14,10 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./files-generation.component.scss'],
 })
 export class FilesGenerationComponent implements OnInit {
-  today!: any;
-  dateCloture!: any;
-  isCloture: boolean = false;
-  showClotureSection: boolean = false;
-  hasNextCluture: boolean = false;
   dateSelected: boolean = false;
   filesForm!: FormGroup;
   userMatricule: any = localStorage.getItem('matricule');
-  twelveHours: number = 1000 * 60 * 60 * 12;
+ 
   reporting: boolean;
   fileParams = ['fichier-comptable-loyer', 'fichier-comptable-caution', 'fichier-ordre-virement', 'annex1' ];
  
@@ -42,63 +37,12 @@ export class FilesGenerationComponent implements OnInit {
     this.filesForm = new FormGroup({
       date_gen: new FormControl('', [Validators.required]),
     });
-    // Get next cloture date and check
-    this.getNextClotureAndCheck();
-
-    // Get the same function after 6 hours
-    setInterval(() => {
-      this.getNextClotureAndCheck();
-    }, this.twelveHours);
-
-    
   }
 
-  // Get the next cloture date from the server and check if has data and throw the check function
-  getNextClotureAndCheck() {
-    this.help.getNextClotureDate().subscribe((date) => {
-      this.dateCloture = date;
-      if (this.dateCloture.annee && this.dateCloture.mois)
-        this.hasNextCluture = true;
-      this.checkNextCloture();
-    });
-  }
 
-  // Check the next cloture
-  checkNextCloture() {
-    let today: Date = new Date();
 
-    // Check if the next cloture's here
-    if (this.hasNextCluture) {
-      // Put this month is cloture and show cloture section if next cloture match with today
-      if (
-        this.dateCloture.annee == today.getFullYear() &&
-        this.dateCloture.mois == today.getMonth() + 1
-      )
-        return [
-          (this.today = today),
-          (this.isCloture = false),
-          (this.showClotureSection = true),
-        ];
-      else return [(this.isCloture = true), (this.showClotureSection = true)];
-    } else return (this.showClotureSection = false);
-  }
 
-  // Cloture this month
-  cloture() {
-    // Get date of now
-    let today = new Date();
 
-    // Fill date cloture
-    let date = {
-      mois: today.getMonth() + 1,
-      annee: today.getFullYear(),
-    };
-
-    // Throw cloture function from cloture service
-    this.clotureService.Cloture(date, this.userMatricule).subscribe((data) => {
-      if (data) this.isCloture = true;
-    });
-  }
 
  
   // Open confirmation modal

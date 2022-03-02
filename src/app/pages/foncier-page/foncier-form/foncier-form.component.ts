@@ -497,63 +497,77 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     }
   }
 
+    //Upload Image amenagement avant amenagement
+    onFileSelected(event: any, fileName: string) {
+      if (event.target.files.length > 0){
+      this.help.selecteFiles(event, this.fd, fileName)
+      }
+    }
+    
   //Upload Image amenagement après amenagement
-  onFileSelectedAmenagement(event: any, index: number) {
+  onFileSelectedAmenagement(event: any,fileName: string, index: number) {
     if (event.target.files.length > 0) {
-      this.selectedFile = event.target.files[0];
+      // this.selectedFile = event.target.files[0];
       if (!this.update) {
         this.file = this.idm + index + this.imageExtension;
-        this.fd.append('imgs_amenagement', this.selectedFile, this.file);
+        // this.fd.append('imgs_amenagement', this.selectedFile, this.file);
+        this.help.selecteAmenagementFiles(event, this.fd, fileName)
+        this.fd.append('file',this.file);
       }
       if (this.update && this.foncier.amenagement[index]?.idm === undefined) {
         this.file = this.idm + index + this.imageExtension;
-        this.fd.append('imgs_amenagement', this.selectedFile, this.file);
+        // this.fd.append('imgs_amenagement', this.selectedFile, this.file);
+       this.help.selecteAmenagementFiles(event, this.fd, fileName)
+       this.fd.append('file',this.file);
+
       }
       if (this.update && this.foncier.amenagement[index]?.idm !== undefined) {
         this.file = this.foncier.amenagement[index]?.idm + this.imageExtension;
-        this.fd.append('imgs_amenagement', this.selectedFile, this.file);
+        // this.fd.append('imgs_amenagement', this.selectedFile, this.file);
+       this.help.selecteAmenagementFiles(event, this.fd, fileName)
+       this.fd.append('file',this.file);
       }
     }
   }
 
   //Upload Croquis
-  onFileSelectedCroquis(event: any, index: number) {
-    if (event.target.files.length > 0) {
-      this.selectedFile = event.target.files[0];
-      if (!this.update) {
-        this.file = this.idm + index + this.imageExtension;
-        this.fd.append('imgs_croquis', this.selectedFile, this.file);
-      }
-      if (this.update && this.foncier.amenagement[index]?.idm === undefined) {
-        this.file = this.idm + index + this.imageExtension;
-        this.fd.append('imgs_croquis', this.selectedFile, this.file);
-      }
-      if (this.update && this.foncier.amenagement[index]?.idm !== undefined) {
-        this.file = this.foncier.amenagement[index]?.idm + this.imageExtension;
-        this.fd.append('imgs_croquis', this.selectedFile, this.file);
-      }
-    }
-  }
+  // onFileSelectedCroquis(event: any, index: number) {
+  //   if (event.target.files.length > 0) {
+  //     this.selectedFile = event.target.files[0];
+  //     if (!this.update) {
+  //       this.file = this.idm + index + this.imageExtension;
+  //       this.fd.append('imgs_croquis', this.selectedFile, this.file);
+  //     }
+  //     if (this.update && this.foncier.amenagement[index]?.idm === undefined) {
+  //       this.file = this.idm + index + this.imageExtension;
+  //       this.fd.append('imgs_croquis', this.selectedFile, this.file);
+  //     }
+  //     if (this.update && this.foncier.amenagement[index]?.idm !== undefined) {
+  //       this.file = this.foncier.amenagement[index]?.idm + this.imageExtension;
+  //       this.fd.append('imgs_croquis', this.selectedFile, this.file);
+  //     }
+  //   }
+  // }
 
   //Upload Image amenagement avant amenagement
-  onFileSelected(event: any) {
-    if (event.target.files.length > 0) {
-      // this.selectedFile = event.target.files[0];
-      // this.fd.append('imgs_lieu_entrer', this.selectedFile);
-      let myFiles = []
-      for (var i = 0; i < event.target.files.length; i++) {
-        myFiles.push(event.target.files[i]);
-      }
+  // onFileSelected(event: any) {
+  //   if (event.target.files.length > 0) {
+  //     // this.selectedFile = event.target.files[0];
+  //     // this.fd.append('imgs_lieu_entrer', this.selectedFile);
+  //     let myFiles = []
+  //     for (var i = 0; i < event.target.files.length; i++) {
+  //       myFiles.push(event.target.files[i]);
+  //     }
 
-      for (var i = 0; i < 8; i++) {
-        this.fd.append(`imgs_lieu_entrer${i + 1}`, myFiles[i]);
-      }
+  //     for (var i = 0; i < 8; i++) {
+  //       this.fd.append(`imgs_lieu_entrer${i + 1}`, myFiles[i]);
+  //     }
 
-      for (var i = 0; i < 8; i++) {
-        console.log(this.fd.get(`imgs_lieu_entrer${i + 1}`));
-      }
-    }
-  }
+  //     for (var i = 0; i < 8; i++) {
+  //       console.log(this.fd.get(`imgs_lieu_entrer${i + 1}`));
+  //     }
+  //   }
+  // }
 
   // Afficher le message d'erreur de serveur
   showErrorMessage() {
