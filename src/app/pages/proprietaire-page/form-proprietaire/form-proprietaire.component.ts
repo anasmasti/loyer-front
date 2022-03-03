@@ -59,9 +59,10 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   //Total des pourcentages des proprietaires
   totalPourcentageProprietaires: number = 0;
   pourcentageProprietaire: number = 0;
+  hasDeclarationOption: string = 'non';
 
   // Proprietaire type 
-  personPhysique: boolean = false;
+  personPhysique: boolean = true;
   constructor(
     private proprietaireService: ProprietaireService,
     private mainModalService: MainModalService,
@@ -126,6 +127,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       taux_impot: new FormControl(),
       retenue_source: new FormControl(),
       montant_apres_impot: new FormControl(),
+      declaration_option: new FormControl(),
 
       montant_avance_proprietaire: new FormControl(),
       tax_avance_proprietaire: new FormControl(),
@@ -137,6 +139,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       proprietaire_list: new FormControl(),
       new_proprietaire_list: new FormControl(),
       old_proprietaires_list: new FormControl(),
+      is_person_physique: new FormControl(''),
 
       // Champs du mandataire
       // mandataireForm: new FormArray([]),
@@ -269,9 +272,11 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       banque_rib: this.proprietaire.banque_rib,
       ville_rib: this.proprietaire.ville_rib,
       cle_rib: this.proprietaire.cle_rib,
+      declaration_option: this.proprietaire.declaration_option,
       taux_impot: this.proprietaire.taux_impot,
       retenue_source: this.proprietaire.retenue_source,
       montant_apres_impot: this.proprietaire.montant_apres_impot,
+      is_person_physique: this.proprietaire.is_person_physique,
 
       montant_avance_proprietaire:
         this.proprietaire.montant_avance_proprietaire,
@@ -442,7 +447,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
           
       this.periodicite.forEach(period => {
         if (namePeriodicite == period.name) {
-          if (this.contratByFoncier[0]?.declaration_option === 'non') {
+          if (this.hasDeclarationOption === 'non') {
 
             if (this.montantLoyer * period.number <= 30000) {
               result = 0;
@@ -466,7 +471,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       });
         
       
-      if (this.contratByFoncier[0]?.declaration_option === 'oui') {
+      if (this.hasDeclarationOption === 'oui') {
         result = 0;
         // montantApresImpot = this.montantLoyer * 12;
          montantApresImpot = this.montantLoyer - result;
@@ -530,7 +535,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       let nbr_mois_louer = monthResiliation - month + 1;
       this.duree = nbr_mois_louer;
 
-      if (this.contratByFoncier[0]?.declaration_option === 'non') {
+      if (this.hasDeclarationOption === 'non') {
         if (this.montantLoyer * nbr_mois_louer <= 30000) {
           result = 0;
           montantApresImpot = this.montantLoyer;
@@ -553,7 +558,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         }
       }
 
-      if (this.contratByFoncier[0]?.declaration_option === 'oui') {
+      if (this.hasDeclarationOption === 'oui') {
         result = 0;
         // montantApresImpot = this.montantLoyer * nbr_mois_louer;
          montantApresImpot = this.montantLoyer - 12;
@@ -778,9 +783,12 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       banque_rib: this.proprietaireForm.get('banque_rib')?.value,
       ville_rib: this.proprietaireForm.get('ville_rib')?.value,
       cle_rib: this.proprietaireForm.get('cle_rib')?.value,
+      declaration_option:
+        this.proprietaireForm.get('declaration_option')?.value || '',
       taux_impot: this.tauxImpot,
       retenue_source: this.retenueSource,
       montant_apres_impot: this.montantApresImpot,
+
 
       montant_avance_proprietaire: this.montantAvance,
       tax_avance_proprietaire: this.taxAvance,
@@ -790,12 +798,15 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       caution_par_proprietaire: this.montantCautionProprietaire,
 
       is_mandataire: this.proprietaireForm.get('is_mandataire')?.value,
+      is_person_physique: this.proprietaireForm.get('is_person_physique')?.value,
 
       proprietaire_list: this.newProprietairesList,
       // mandataire: this.proprietaireForm.get('mandataireForm')?.value,
       // deleted:false,
     };
 
+    console.log('data',proprietaire_data);
+    
     this.proprietaireService
       .postProprietaire(proprietaire_data, this.foncier_id, this.userMatricule)
       .subscribe(
@@ -853,6 +864,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       banque_rib: this.proprietaireForm.get('banque_rib')?.value,
       ville_rib: this.proprietaireForm.get('ville_rib')?.value,
       cle_rib: this.proprietaireForm.get('cle_rib')?.value,
+      declaration_option:
+        this.proprietaireForm.get('declaration_option')?.value || '',
       taux_impot: this.tauxImpot,
       retenue_source: this.retenueSource,
       montant_apres_impot: this.montantApresImpot,
@@ -865,6 +878,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       caution_par_proprietaire: this.montantCautionProprietaire,
 
       is_mandataire: this.proprietaireForm.get('is_mandataire')?.value,
+      is_person_physique: this.proprietaireForm.get('is_person_physique')?.value,
       proprietaire_list: this.newProprietairesList,
       old_proprietaires_list: this.oldProprietairesList,
     };
@@ -930,6 +944,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
   proprietaireTypeToggel(value: boolean) {
     this.personPhysique = value;
+    console.log(this.personPhysique);
+    
   }
 
   // Get proprietaire form controlers
