@@ -30,7 +30,7 @@ export interface Proprietaire {
   caution_par_proprietaire: number,
 
   proprietaire_list:[],
-  is_person_physique: boolean,
+  is_person_physique: boolean
   // mandataire: [{
   //   cin_mandataire: string;
   //   nom_prenom_mandataire: string;

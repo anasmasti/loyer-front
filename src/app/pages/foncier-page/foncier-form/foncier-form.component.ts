@@ -371,6 +371,11 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
           name: 'Électricité',
           checked: false,
         },
+        {
+          id: '7',
+          name: 'Autre',
+          checked: false,
+        },
       ]),
       montant_amenagement: new FormControl(''),
       valeur_nature_chargeProprietaire: new FormControl(''),

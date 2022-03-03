@@ -297,6 +297,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       // n_compte_bancaire_mandataire: '',
     });
 
+    // console.log('check',this.proprietaire);
+    
     this.montantLoyer = this.proprietaire.montant_loyer;
     this.fillProprietaireInfos();
   }
@@ -944,8 +946,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
   proprietaireTypeToggel(value: boolean) {
     this.personPhysique = value;
-    console.log(this.personPhysique);
-    
   }
 
   // Get proprietaire form controlers
