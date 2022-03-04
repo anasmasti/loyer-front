@@ -404,15 +404,15 @@
         <input
           type="number"
           class="form-control rounded-pill"
-          formControlName="pourcentage"
+          formControlName="part_proprietaire"
           (keyup)="calculMontant(); calculMontantAvance(); calculCaution()"
           [ngClass]="{
-            'is-invalid': checkInputsValidation(pourcentage)
+            'is-invalid': checkInputsValidation(part_proprietaire)
           }"
         />
         <!-- Error Message  -->
-        <div class="" *ngIf="checkInputsValidation(pourcentage)">
-          <p class="danger-txt" *ngIf="pourcentage?.errors?.required">
+        <div class="" *ngIf="checkInputsValidation(part_proprietaire)">
+          <p class="danger-txt" *ngIf="part_proprietaire?.errors?.required">
             Veuillez remplir ce champ
           </p>
         </div>

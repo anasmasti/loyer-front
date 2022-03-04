@@ -153,11 +153,17 @@
             
             <li class="nav-item" *ngIf="isCmptbl">
                 <a [routerLink]="['/situation']" routerLinkActive="router-link-active" class="nav-link main-btn">
-                    <i class="far fa-lock"></i> Clôture et situation
+                    <i class="fal fa-copy"></i> Situation de clôture
+                </a>
+            </li>
+
+            <li class="nav-item my-4" *ngIf="isCmptbl">
+                <a [routerLink]="['/cloture']" routerLinkActive="router-link-active" class="nav-link main-btn">
+                    <i class="far fa-lock"></i> Clôture
                 </a>
             </li>
             
-            <li *ngIf="isCmptbl" class="nav-item  my-4">
+            <li *ngIf="isCmptbl" class="nav-item">
                 <a [routerLink]="['/files']" routerLinkActive="router-link-active" class="nav-link success-btn">
                     <i class="far fa-file-export"></i> Ecritures
                 </a>
@@ -179,7 +185,7 @@
             </li> -->
 
 
-            <li *ngIf="isAdmin" class="nav-item my-4">
+            <li *ngIf="isAdmin" class="nav-item">
                 <a [routerLink]="['/admin']" routerLinkActive="router-link-active" class="nav-link danger-btn">
                     <i class="far fa-user-shield"></i> Administration
                 </a>

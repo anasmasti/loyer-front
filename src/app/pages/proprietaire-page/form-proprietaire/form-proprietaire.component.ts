@@ -56,10 +56,25 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   newProprietairesList: any = [];
   oldProprietairesList: any = [];
 
-  //Total des pourcentages des proprietaires
-  totalPourcentageProprietaires: number = 0;
-  pourcentageProprietaire: number = 0;
+  //Total des parts des proprietaires
+  totalPartProprietaires: number = 0;
+  partProprietaire: number = 0;
   hasDeclarationOption: string = 'non';
+
+  periodicite: any[] = [
+    {
+      number: 1,
+      name: 'annuelle'
+    },
+    {
+      number: 4,
+      name: 'trimestrielle'
+    },
+    {
+      number: 12,
+      name: 'mensuelle'
+    },
+  ]
 
   // Proprietaire type 
   personPhysique: boolean = true;
@@ -134,7 +149,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       tax_par_periodicite: new FormControl(),
 
       caution_par_proprietaire: new FormControl(),
-      pourcentage: new FormControl('', [Validators.required]),
+      part_proprietaire: new FormControl('', [Validators.required]),
 
       proprietaire_list: new FormControl(),
       new_proprietaire_list: new FormControl(),
@@ -283,7 +298,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       tax_avance_proprietaire: this.proprietaire.tax_avance_proprietaire,
       tax_par_periodicite: this.proprietaire.tax_par_periodicite,
 
-      pourcentage: this.proprietaire.pourcentage,
+      part_proprietaire: this.proprietaire.part_proprietaire,
       caution_par_proprietaire: this.proprietaire.caution_par_proprietaire,
       // proprietaire_list: this.proprietaireList,
 
@@ -343,7 +358,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
   // To get the contrat and proprietaire in lieux
   getTauxImpot() {
-    this.totalPourcentageProprietaires = 0;
+    this.totalPartProprietaires = 0;
     this.lieuService
       .getContratByFoncier(this.foncier_id, this.userMatricule)
       .subscribe((data) => {
@@ -371,13 +386,13 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
                 this.contratByFoncier[0].foncier.proprietaire[index]
               );
             // this.uncheckedProprietaires.push(this.contratByFoncier[0].foncier.proprietaire[index])
-            this.totalPourcentageProprietaires +=
-              this.contratByFoncier[0].foncier.proprietaire[index].pourcentage;
+            this.totalPartProprietaires +=
+              this.contratByFoncier[0].foncier.proprietaire[index].part_proprietaire;
           }
           if (this.update) {
-            this.totalPourcentageProprietaires =
-              this.totalPourcentageProprietaires -
-              this.proprietaire.pourcentage;
+            this.totalPartProprietaires =
+              this.totalPartProprietaires -
+              this.proprietaire.part_proprietaire;
           }
         }
       });
@@ -393,20 +408,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   //   return number
   // }
 
-  periodicite: any[] = [
-    {
-      number: 1,
-      name: 'annuelle'
-    },
-    {
-      number: 4,
-      name: 'trimestrielle'
-    },
-    {
-      number: 12,
-      name: 'mensuelle'
-    },
-  ]
 
   // Calculer le montant (retenue à la source / montant apres impot / TAX)
   calculMontant() {
@@ -427,21 +428,22 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     // Les etats de contrats
     let etatContratTypes = this.contratByFoncier[0]?.etat_contrat?.libelle;
 
-    // Get value of input pourcentage
-    this.pourcentageProprietaire = Number(this.proprietaireForm.get('pourcentage')?.value);
+    // Get value of input part
+    this.partProprietaire = Number(this.proprietaireForm.get('part_proprietaire')?.value);
     
     //Get montant loyer from contrat (Montant de loyer Global)
     let montantLoyerContrat = this.contratByFoncier[0]?.montant_loyer;
+    let nbrPartContrat = this.contratByFoncier[0]?.nombre_part;
 
-    // condition to control if the total pourcentage are > 100 the we show an error message and take 100 minus the total pourcentage and stock the result in the pourcentageProprietaire
-    if( (this.totalPourcentageProprietaires + this.pourcentageProprietaire) > 100){
-      this.pourcentageProprietaire = 100 - this.totalPourcentageProprietaires;
+    // condition to control if the total part are > nbrPartContrat the we show an error message and take nbrPartContrat minus the total part and stock the result in the partProprietaire
+    if( (this.totalPartProprietaires + this.partProprietaire) > nbrPartContrat){
+      this.partProprietaire = nbrPartContrat - this.totalPartProprietaires;
       this.openConfirmationModal();
     }
     
     let namePeriodicite = this.contratByFoncier[0].periodicite_paiement;
-    //  CALCULER LE MONTANT DE LOYER A PARTIR DE POURCENTAGE DONNE PAR L'UTILISATEUR
-    this.montantLoyer = ( this.pourcentageProprietaire * montantLoyerContrat ) / 100;
+    //  CALCULER LE MONTANT DE LOYER A PARTIR DE PART DONNE PAR L'UTILISATEUR
+    this.montantLoyer = ( this.partProprietaire * montantLoyerContrat ) / nbrPartContrat;
 
     // // ------First Condition--------
     if (etatContratTypes != 'Résilié') {
@@ -702,7 +704,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   calculCaution() {
     let cautionContrat = this.contratByFoncier[0]?.montant_caution;
     let cautionProprietaire =
-      (cautionContrat * this.pourcentageProprietaire) / 100;
+      (cautionContrat * this.partProprietaire) / 100;
     this.montantCautionProprietaire = cautionProprietaire;
   }
 
@@ -796,7 +798,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       tax_avance_proprietaire: this.taxAvance,
       tax_par_periodicite: this.taxPeriodicite,
 
-      pourcentage: this.pourcentageProprietaire,
+      part_proprietaire: this.partProprietaire,
       caution_par_proprietaire: this.montantCautionProprietaire,
 
       is_mandataire: this.proprietaireForm.get('is_mandataire')?.value,
@@ -876,7 +878,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       tax_avance_proprietaire: this.taxAvance,
       tax_par_periodicite: this.taxPeriodicite,
 
-      pourcentage: this.pourcentageProprietaire,
+      part_proprietaire: this.partProprietaire,
       caution_par_proprietaire: this.montantCautionProprietaire,
 
       is_mandataire: this.proprietaireForm.get('is_mandataire')?.value,
@@ -914,14 +916,14 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     if (this.update) {
       this.closeModel();
       this.proprietaireForm.patchValue({
-        pourcentage: this.proprietaire.pourcentage,
+        part_proprietaire: this.proprietaire.part_proprietaire,
       });
     }
     // check if it is in add form
     if (!this.update) {
       this.closeModel();
       this.proprietaireForm.patchValue({
-        pourcentage: this.pourcentageProprietaire,
+        part_proprietaire: this.partProprietaire,
       });
     }
   }
@@ -1023,8 +1025,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     return this.proprietaireForm.get('tax_par_periodicite');
   }
 
-  get pourcentage() {
-    return this.proprietaireForm.get('pourcentage');
+  get part_proprietaire() {
+    return this.proprietaireForm.get('part_proprietaire');
   }
   // Mandataire
   // get mandataireForm(): FormArray {

@@ -156,6 +156,27 @@
       </div>
 
       <div class="col-lg-3 form-group mt-4">
+        <label for="">Nombre de part <span class="danger-txt">*</span></label>
+        <input
+          type="number"
+          class="form-control rounded-pill"
+          formControlName="nombre_part"
+          [ngClass]="{
+            'is-invalid': checkInputsValidation(nombre_part),
+            'is-valid': !nombre_part?.invalid
+          }"
+        />
+
+        <!-- Error Message  -->
+        <div class="" *ngIf="checkInputsValidation(nombre_part)">
+          <p class="danger-txt" *ngIf="nombre_part?.errors?.required">
+            Veuillez remplir ce champ
+          </p>
+        </div>
+
+      </div>
+
+      <div class="col-lg-3 form-group mt-4">
         <label for="">Taxe d’édilité comprise dans le loyer</label>
         <input
           type="text"
