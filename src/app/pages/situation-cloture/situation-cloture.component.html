@@ -1,25 +1,24 @@
 <div class="row title">
-    <div class="col-lg-12 mt-3">
-      <div class="d-lg-flex justify-content-lg-between">
-        <h3 class="main-title">Situation de clôture</h3>
-        <div>
-          <a class="btn btn-sm main-btn me-4" [routerLink]="['/']"
-            ><i class="fal fa-home"></i> Tableau de bord</a
-          >
-          <a
-            lass="text-dark ms-5"
-            data-bs-toggle="tooltip"
-            data-bs-placement="top"
-            title="Ici vous pouvez exporter des état des taxes et virements etc.."
-            ><i class="fal fa-info"></i
-          ></a>
-        </div>
+  <div class="col-lg-12 mt-3">
+    <div class="d-lg-flex justify-content-lg-between">
+      <h3 class="main-title">Clôture et situation de clôture</h3>
+      <div>
+        <a class="btn btn-sm main-btn me-4" [routerLink]="['/']"
+          ><i class="fal fa-home"></i> Tableau de bord</a
+        >
+        <a
+          lass="text-dark ms-5"
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          title="Ici vous pouvez exporter des état des taxes et virements etc.."
+          ><i class="fal fa-info"></i
+        ></a>
       </div>
     </div>
   </div>
+</div>
 
-
-  <!-- alert de reussite -->
+<!-- alert de reussite -->
 <div class="w-100 d-flex justify-content-center">
   <div *ngIf="generationDone" class="done-alert p-2 my-2">
     {{ generationSucces }}
@@ -30,22 +29,78 @@
   <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
 </div>
 
-  <div class="my-4">
-    <!-- let repoDetails of reporting.reportingPaths -->
-    <!-- <h3 class="main-title">Situation de clôture</h3> -->
+<div class="row mt-5">
+  <h5 class="main-title mb-3">Clôturer le mois</h5>
+  <div
+    *ngIf="showClotureSection"
+    class="main-card col-lg-8 col-md-9 col-sm-12 d-flex align-items-lg-center justify-content-lg-between flex-row p-4"
+    [ngClass]="{
+      'success-light-card-bg success-txt': isCloture,
+      'danger-light-card-bg danger-txt': !isCloture
+    }"
+  >
+    <h4 *ngIf="!isCloture">Clôture du {{ today | date }}</h4>
+    <h4 *ngIf="isCloture">Ce mois est clôturé</h4>
+    <a
+      *ngIf="!isCloture"
+      class="btn danger-btn"
+      (click)="openConfirmationModal()"
+      >Clôturer ce mois</a
+    >
+  </div>
 
-    <div class="d-flex justify-content-between align-content-center gap-2 flex-row">
-      <a class="btn second-btn me-4" (click)="generateSituationCloture()"
-        ><i class="fas fa-calculator-alt"></i> Calculer les totaux
-      </a>
-      <div *ngFor="let situationPath of situationClotureDetails?.etatPaths">
+  <div *ngIf="!showClotureSection" class="cloture-skeleton"></div>
+</div>
+
+<div class="my-5">
+  <!-- let repoDetails of reporting.reportingPaths -->
+  <h5 class="main-title mb-3">Situation de clôture</h5>
+
+  <div>
+    <a class="btn second-btn me-4" (click)="generateSituationCloture()"
+      ><i class="fas fa-calculator-alt"></i> Calculer les totaux
+    </a>
+
+    <div class="mt-4">
+      <h6 class="mb-3" *ngIf="situationClotureDetails">Fichiers PDF</h6>
+      <ng-container
+        *ngFor="let situationPath of situationClotureDetails?.etatPaths"
+      >
         <a
           class="btn second-btn me-4"
           href="{{ url }}{{ situationPath[situationPath | entite_org] }}"
           ><i class="far fa-file-export"></i> Exporter le fichier des
           {{ situationPath | transformName }}
         </a>
-      </div>
+      </ng-container>
+    </div>
+
+    <div class="mt-4">
+      <h6 class="mb-3" *ngIf="situationClotureDetails">Fichiers Excel</h6>
+      <ng-container
+        *ngFor="let situationPath of situationClotureDetails?.etatPaths"
+      >
+        <a
+          class="btn second-btn me-4"
+          href="{{ url }}{{ situationPath[situationPath | entite_org] }}"
+          ><i class="far fa-file-export"></i> Exporter le fichier des
+          {{ situationPath | transformName }}
+        </a>
+      </ng-container>
     </div>
   </div>
+</div>
 
+<app-confirmation-modal [closeBtn]="true">
+  <h3 class="main-title">Voulez-vous clôturer ce mois?</h3>
+  <div class="d-inline-flex justify-content-start mt-5">
+    <a
+      class="btn btn-lg px-lg-4 danger-btn me-2"
+      (click)="cloture(); closeConfirmationModal()"
+      >Oui</a
+    >
+    <a class="btn btn-lg px-lg-4 main-btn" (click)="closeConfirmationModal()"
+      >Non</a
+    >
+  </div>
+</app-confirmation-modal>

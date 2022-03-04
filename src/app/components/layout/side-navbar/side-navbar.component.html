@@ -150,10 +150,16 @@
                     <i class="far fa-file-chart-line"></i> Reportings
                 </a>
             </li>
-
-            <li *ngIf="isCmptbl" class="nav-item">
+            
+            <li class="nav-item" *ngIf="isCmptbl">
+                <a [routerLink]="['/situation']" routerLinkActive="router-link-active" class="nav-link main-btn">
+                    <i class="far fa-lock"></i> Clôture et situation
+                </a>
+            </li>
+            
+            <li *ngIf="isCmptbl" class="nav-item  my-4">
                 <a [routerLink]="['/files']" routerLinkActive="router-link-active" class="nav-link success-btn">
-                    <i class="far fa-file-export"></i> Clôture et écritures
+                    <i class="far fa-file-export"></i> Ecritures
                 </a>
                 <!-- <ul class="sub-menu list-unstyled" id="contrat">
                     <li>
@@ -165,19 +171,13 @@
                 </ul> -->
             </li>
             
-            <li class="nav-item my-4" *ngIf="isCmptbl">
+            
+            <!-- <li class="nav-item" *ngIf="isCmptbl">
                 <a [routerLink]="['/files']" routerLinkActive="router-link-active" class="nav-link success-btn">
                    Télédéclaration annuelle
                 </a>
+            </li> -->
 
-            </li>
-
-            <li class="nav-item" *ngIf="isCmptbl">
-                <a [routerLink]="['/situation']" routerLinkActive="router-link-active" class="nav-link success-btn">
-                    Situation de clôture
-                </a>
-
-            </li>
 
             <li *ngIf="isAdmin" class="nav-item my-4">
                 <a [routerLink]="['/admin']" routerLinkActive="router-link-active" class="nav-link danger-btn">

@@ -112,10 +112,36 @@ export class HelperService {
       },
     ];
 
-    return dateList
+    return dateList;
   }
 
+  selecteFiles(event: any, fd: FormData, fileName: string): any {
+    let filesList = [];
+    if (event.target.files.length > 0) {
+      for (var i = 0; i < event.target.files.length; i++) {
+        filesList.push(event.target.files[i]);
+      }
+    }
 
+    for (var i = 0; i < 8; i++) {
+      fd.append(`${fileName + (i + 1)}`, filesList[i]);
+    }
+  }
+
+  selecteAmenagementFiles(event: any, fd: FormData, fileName: string): any {
+    let filesList = [];
+    if (event.target.files.length > 0) {
+      for (var i = 0; i < event.target.files.length; i++) {
+        filesList.push(event.target.files[i]);
+      }
+    }
+
+    for (var i = 0; i < 8; i++) {
+      // fd.append(`${fileName + (i + 1)}`, filesList[i]);
+      fd.append(`${fileName + (i + 1)}`, filesList[i]);
+    }
+    
+  }
   // Check if all inputs has invalid errors
   // mainCheckInputsValidation(targetInput: any) {
   //   return targetInput?.invalid && (targetInput.dirty || targetInput.touched);

@@ -3,44 +3,14 @@
   <span class="main-txt">{{ ctr?.numero_contrat }}</span> •
   <span class="info-txt">{{ ctr?.foncier.type_lieu }}</span>
 </div>
-<div class="row form-group mt-4 justify-content-center">
-  <div class="col-lg-3">
-    <input
-      type="radio"
-      id="pres-physique"
-      class="btn-check check"
-      name="radio-btn"
-      (click)="proprietaireTypeToggel(true)"
-      autocomplete="off"
-    />
-    <label
-      class="px-3 py-1 rounded-pill checkbox-list-btns text-center w-100"
-      for="pres-physique"
-      >Personne physique
-    </label>
-  </div>
-  <div class="col-lg-3">
-    <input
-      type="radio"
-      class="btn-check check"
-      id="pres-morale"
-      name="radio-btn"
-      (click)="proprietaireTypeToggel(false)"
-      autocomplete="off"
-    />
-    <label
-      class="px-3 py-1 rounded-pill checkbox-list-btns text-center w-100"
-      for="pres-morale"
-      >Personne morale</label
-    >
-  </div>
-</div>
+
 
 <div id="form_content">
   <form
     [formGroup]="proprietaireForm"
     (ngSubmit)="update ? updateProprietaire() : addProprietaire()"
   >
+
     <!-- Message d'ERREUR de serveur -->
     <div class="w-100 d-flex justify-content-center">
       <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
@@ -52,12 +22,56 @@
       <!-- <div *ngIf="checkMontant" class="error-alert p-2 my-2">{{ ErrorMontantLoyer }}</div> -->
     </div>
 
+    <div class="row form-group mt-4 justify-content-center">
+      <div class="col-lg-3">
+        <input
+          type="radio"
+          id="pres-physique"
+          class="btn-check check"
+          name="is_person_physique"
+          formControlName="is_person_physique"
+          (click)="proprietaireTypeToggel(true)"
+          [value]="true"
+          [(ngModel)]="personPhysique"
+          autocomplete="off"
+          />
+          <label
+          class="px-3 py-1 rounded-pill checkbox-list-btns text-center w-100"
+          for="pres-physique"
+          >Personne physique
+        </label>
+      </div>
+      <div class="col-lg-3">
+        <input
+          type="radio"
+          class="btn-check check"
+          id="pres-morale"
+          name="is_person_physique"
+          formControlName="is_person_physique"
+          (click)="proprietaireTypeToggel(false)"
+          [value]="false"
+          [(ngModel)]="personPhysique"
+          autocomplete="off"
+          />
+        <label
+          class="px-3 py-1 rounded-pill checkbox-list-btns text-center w-100"
+          for="pres-morale"
+          >Personne morale</label
+        >
+      </div>
+    </div>
+
     <!--Début 1er Row-->
     <div class="row">
-      <div class="col-lg-3 form-group mt-4">
+       <!-- If isMand true show list of proprietaire to checked -->
+    <div *ngIf="personPhysique; then PersonPhysique"></div>
+    <div *ngIf="!personPhysique; then PersonMoral"></div>
+
+    <ng-template #PersonPhysique>
+      <div class="col-lg-3 form-group mt-4" *ngIf="personPhysique">
         <label for=""
           >Nom et prénom
-          <span class="danger-txt" *ngIf="!personPhysique">*</span></label
+          <span class="danger-txt" >*</span></label
         >
         <input
           type="text"
@@ -66,7 +80,6 @@
           [ngClass]="{
             'is-invalid': checkInputsValidation(nom_prenom)
           }"
-          [readonly]="personPhysique"
         />
 
         <!-- Error Message  -->
@@ -83,17 +96,16 @@
         </div>
       </div>
 
-      <div class="col-lg-3 form-group mt-4">
+      <div class="col-lg-3 form-group mt-4" *ngIf="personPhysique">
         <label for=""
           >N° CIN du Propriétaire
-          <span class="danger-txt" *ngIf="!personPhysique">*</span></label
+          <span class="danger-txt" >*</span></label
         >
         <input
           type="text"
           class="form-control rounded-pill"
           formControlName="cin"
-          [readonly]="personPhysique"
-          [required]="!personPhysique"
+          [required]="personPhysique"
         />
         <!-- Error Message  -->
         <div class="" *ngIf="checkInputsValidation(cin)">
@@ -106,7 +118,7 @@
         </div>
       </div>
 
-      <div class="col-lg-3 form-group mt-4">
+      <div class="col-lg-3 form-group mt-4" *ngIf="personPhysique">
         <label for="">Passeport Propriétaire</label>
         <input
           type="text"
@@ -124,7 +136,7 @@
         </div>
       </div>
 
-      <div class="col-lg-3 form-group mt-4">
+      <div class="col-lg-3 form-group mt-4" *ngIf="personPhysique">
         <label for="">Carte séjour Propriétaire</label>
         <input
           type="text"
@@ -141,53 +153,52 @@
           </p>
         </div>
       </div>
-    </div>
-    <!--Début 2éme Row-->
-    <div class="row">
-      <div class="col-lg-3 form-group mt-4">
-        <label for=""
-          >Raison sociale
-          <span class="danger-txt" *ngIf="personPhysique">*</span></label
-        >
-        <input
-          type="text"
-          class="form-control rounded-pill"
-          formControlName="raison_social"
-          [ngClass]="{
-            'is-invalid': checkInputsValidation(raison_social)
-          }"
-          [readonly]="!personPhysique"
-        />
-
-        <!-- Error Message  -->
-        <div class="" *ngIf="checkInputsValidation(raison_social)">
-          <p class="danger-txt" *ngIf="raison_social?.errors?.pattern">
-            Vous devez entrer seulement des alphabets
-          </p>
+    </ng-template>
+    
+      <ng-template #PersonMoral>
+        <div class="col-lg-3 form-group mt-4" *ngIf="!personPhysique">
+          <label for=""
+            >Raison sociale
+            <span class="danger-txt" >*</span></label
+          >
+          <input
+            type="text"
+            class="form-control rounded-pill"
+            formControlName="raison_social"
+            [ngClass]="{
+              'is-invalid': checkInputsValidation(raison_social)
+            }"
+          />
+  
+          <!-- Error Message  -->
+          <div class="" *ngIf="checkInputsValidation(raison_social)">
+            <p class="danger-txt" *ngIf="raison_social?.errors?.pattern">
+              Vous devez entrer seulement des alphabets
+            </p>
+          </div>
         </div>
-      </div>
-      <div class="col-lg-3 form-group mt-4">
-        <label for=""
-          >N° de l’Identifiant Fiscal
-          <span class="danger-txt" *ngIf="personPhysique">*</span></label
-        >
-        <input
-          type="text"
-          class="form-control rounded-pill"
-          formControlName="n_registre_commerce"
-          [ngClass]="{
-            'is-invalid': checkInputsValidation(n_registre_commerce)
-          }"
-          [readonly]="!personPhysique"
-        />
-
-        <!-- Error Message  -->
-        <div class="" *ngIf="checkInputsValidation(n_registre_commerce)">
-          <p class="danger-txt" *ngIf="n_registre_commerce?.errors?.pattern">
-            Vous devez entrer des chiffres
-          </p>
+        <div class="col-lg-3 form-group mt-4" *ngIf="!personPhysique">
+          <label for=""
+            >N° de l’Identifiant Fiscal
+            <span class="danger-txt" >*</span></label
+          >
+          <input
+            type="text"
+            class="form-control rounded-pill"
+            formControlName="n_registre_commerce"
+            [ngClass]="{
+              'is-invalid': checkInputsValidation(n_registre_commerce)
+            }"
+          />
+  
+          <!-- Error Message  -->
+          <div class="" *ngIf="checkInputsValidation(n_registre_commerce)">
+            <p class="danger-txt" *ngIf="n_registre_commerce?.errors?.pattern">
+              Vous devez entrer des chiffres
+            </p>
+          </div>
         </div>
-      </div>
+      </ng-template>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Téléphone du propriétaire</label>
@@ -232,10 +243,7 @@
           </p>
         </div>
       </div>
-    </div>
 
-    <!--Début 3éme Row-->
-    <div class="row">
       <div class="col-lg-3 form-group mt-4">
         <label for=""
           >N° de compte bancaire <span class="danger-txt">*</span></label
@@ -353,6 +361,21 @@
         />
       </div>
 
+      <div class="col-lg-3 form-group mt-4">
+        <label for="">Paiement spontané de TSR </label>
+        <select
+          class="form-select rounded-pill"
+          [(ngModel)]="hasDeclarationOption"
+          formControlName="declaration_option"
+        >
+          <option value="oui">Oui</option>
+          <option value="non">Non</option>
+        </select>
+      </div>
+    </div>
+    <!--Début 3éme Row-->
+    <div class="row">
+      
       <div class="col-lg-12 form-group mt-4">
         <label for=""
           >Adresse du propriétaire <span class="danger-txt">*</span></label
