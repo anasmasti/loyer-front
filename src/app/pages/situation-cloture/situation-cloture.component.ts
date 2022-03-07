@@ -74,7 +74,6 @@ export class SituationClotureComponent implements OnInit {
       });
   }
 
-   
   // Afficher le message d'erreur de serveur
   showErrorMessage() {
     $('.error-alert').addClass('active');
