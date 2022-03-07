@@ -4,7 +4,7 @@ import { ConfirmationModalService } from './../../services/confirmation-modal-se
 import { HelperService } from 'src/app/services/helpers/helper.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import * as fileSaver from 'file-saver';
+import { saveAs } from 'file-saver';
 import { DownloadService } from 'src/app/services/download-service/download.service';
 import { environment } from 'src/environments/environment';
 
@@ -17,11 +17,22 @@ export class FilesGenerationComponent implements OnInit {
   dateSelected: boolean = false;
   filesForm!: FormGroup;
   userMatricule: any = localStorage.getItem('matricule');
- 
+
+  isCloture: boolean = false;
+  showClotureSection: boolean = false;
+  twelveHours: number = 1000 * 60 * 60 * 12;
+  dateCloture!: any;
+  hasNextCluture: boolean = false;
+  today!: any;
+
   reporting: boolean;
-  fileParams = ['fichier-comptable-loyer', 'fichier-comptable-caution', 'fichier-ordre-virement', 'annex1' ];
- 
- 
+  fileParams = [
+    'fichier-comptable-loyer',
+    'fichier-comptable-caution',
+    'fichier-ordre-virement',
+    'annex1',
+  ];
+
   constructor(
     private help: HelperService,
     private confirmationModalService: ConfirmationModalService,
@@ -37,14 +48,15 @@ export class FilesGenerationComponent implements OnInit {
     this.filesForm = new FormGroup({
       date_gen: new FormControl('', [Validators.required]),
     });
+
+    this.getNextClotureAndCheck();
+
+    // Get the same function after 6 hours
+    setInterval(() => {
+      this.getNextClotureAndCheck();
+    }, this.twelveHours);
   }
 
-
-
-
-
-
- 
   // Open confirmation modal
   openConfirmationModal() {
     this.confirmationModalService.open(); // Open delete confirmation modal
@@ -64,7 +76,54 @@ export class FilesGenerationComponent implements OnInit {
     return (this.dateSelected = true);
   }
 
-  downloadFiles(params :string[]) {
+  // Get the next cloture date from the server and check if has data and throw the check function
+  getNextClotureAndCheck() {
+    this.help.getNextClotureDate().subscribe((date) => {
+      this.dateCloture = date;
+      if (this.dateCloture.annee && this.dateCloture.mois)
+        this.hasNextCluture = true;
+      this.checkNextCloture();
+    });
+  }
+
+  // Check the next cloture
+  checkNextCloture() {
+    let today: Date = new Date();
+
+    // Check if the next cloture's here
+    if (this.hasNextCluture) {
+      // Put this month is cloture and show cloture section if next cloture match with today
+      if (
+        this.dateCloture.annee == today.getFullYear() &&
+        this.dateCloture.mois == today.getMonth() + 1
+      )
+        return [
+          (this.today = today),
+          (this.isCloture = false),
+          (this.showClotureSection = true),
+        ];
+      else return [(this.isCloture = true), (this.showClotureSection = true)];
+    } else return (this.showClotureSection = false);
+  }
+
+  // Cloture this month
+  cloture() {
+    // Get date of now
+    let today = new Date();
+
+    // Fill date cloture
+    let date = {
+      mois: today.getMonth() + 1,
+      annee: today.getFullYear(),
+    };
+
+    // Throw cloture function from cloture service
+    this.clotureService.Cloture(date, this.userMatricule).subscribe((data) => {
+      if (data) this.isCloture = true;
+    });
+  }
+
+  downloadFiles(params: string[]) {
     // let today = new Date()
     let date_gen = new Date(this.filesForm.get('date_gen')?.value);
     // Fill date cloture
@@ -73,15 +132,14 @@ export class FilesGenerationComponent implements OnInit {
       annee: date_gen.getFullYear(),
     };
 
-    params.forEach(param => {  
-       
+    params.forEach((param) => {
       // Path name
       let filename = param + `_${date.mois}-${date.annee}`;
       this.downloadService
         .dowloadFiles(filename, date, param)
         .subscribe((res) => {
           if (res) {
-            fileSaver.saveAs(res, filename);
+            saveAs(res, filename);
           }
         });
     });

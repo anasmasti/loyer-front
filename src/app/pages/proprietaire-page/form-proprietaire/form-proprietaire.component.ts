@@ -445,6 +445,11 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     //  CALCULER LE MONTANT DE LOYER A PARTIR DE PART DONNE PAR L'UTILISATEUR
     this.montantLoyer = ( this.partProprietaire * montantLoyerContrat ) / nbrPartContrat;
 
+    console.log("Nombre de part total",nbrPartContrat);
+    console.log("Montant global",montantLoyerContrat);
+    console.log("Montant par proprietaire",this.montantLoyer);
+    
+
     // // ------First Condition--------
     if (etatContratTypes != 'Résilié') {
       this.duree = 12;

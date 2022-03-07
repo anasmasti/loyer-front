@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ClotureService } from '@services/cloture/cloture.service';
+import { DownloadService } from '@services/download-service/download.service';
 import { HelperService } from '@services/helpers/helper.service';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-situation-cloture',
@@ -17,15 +18,17 @@ export class SituationClotureComponent implements OnInit {
   userMatricule: any = localStorage.getItem('matricule');
   situationClotureDetails!: any;
   today!: any;
-
+  fileObjects: any = [{ 'état_des_virements': '0' }, { 'état_des_taxes': '1' }];
+  fileNames: [string, string] = ['état_des_virements', 'état_des_taxes'];
 
   constructor(
     private help: HelperService,
     private clotureService: ClotureService,
+    private downloadService: DownloadService
   ) {}
 
   ngOnInit(): void {
-    this.getSituationCloturePath(this.situations);    // Get next cloture date and check
+    this.getSituationCloturePath(this.situations); // Get next cloture date and check
   }
 
   generateSituationCloture() {
@@ -68,13 +71,15 @@ export class SituationClotureComponent implements OnInit {
     this.clotureService
       .getPathSituationCloture(date.mois, date.annee, data)
       .subscribe((data) => {
-        this.situationClotureDetails = data.responsedData[0];
+        this.situationClotureDetails = data[0];
         console.log(data);
-        
       });
   }
 
-   
+  downloadExcelFiles(fileName: string) {
+    this.downloadService.dowloadExcelFiles(fileName).catch(console.error);
+  }
+
   // Afficher le message d'erreur de serveur
   showErrorMessage() {
     $('.error-alert').addClass('active');
@@ -84,5 +89,4 @@ export class SituationClotureComponent implements OnInit {
   hideErrorMessage() {
     $('.error-alert').removeClass('active');
   }
-
 }
