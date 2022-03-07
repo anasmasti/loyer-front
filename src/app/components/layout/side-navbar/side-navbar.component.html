@@ -152,30 +152,22 @@
             </li>
             
             <li class="nav-item" *ngIf="isCmptbl">
-                <a [routerLink]="['/situation']" routerLinkActive="router-link-active" class="nav-link main-btn">
+                <a [routerLink]="['/situation']" routerLinkActive="router-link-active" class="nav-link success-btn">
                     <i class="fal fa-copy"></i>&nbsp;&nbsp;Situation de clôture
                 </a>
             </li>
 
             <li class="nav-item my-4" *ngIf="isCmptbl">
-                <a [routerLink]="['/cloture']" routerLinkActive="router-link-active" class="nav-link main-btn">
-                    <i class="far fa-lock"></i>&nbsp;&nbsp;Clôture
+                <a [routerLink]="['/files']" routerLinkActive="router-link-active" class="nav-link success-btn">
+                    <i class="far fa-lock"></i>&nbsp;&nbsp;Clôture et écritures
                 </a>
             </li>
             
-            <li *ngIf="isCmptbl" class="nav-item">
+            <!-- <li *ngIf="isCmptbl" class="nav-item">
                 <a [routerLink]="['/files']" routerLinkActive="router-link-active" class="nav-link success-btn">
                     <i class="far fa-file-export"></i>&nbsp;&nbsp;Ecritures
                 </a>
-                <!-- <ul class="sub-menu list-unstyled" id="contrat">
-                    <li>
-                        <a [routerLink]="['/contrat/list']" class="nav-link sub-menu-btn">
-                            List des contrats
-                        </a>
-                    </li>
-
-                </ul> -->
-            </li>
+            </li> -->
             
             
             <!-- <li class="nav-item" *ngIf="isCmptbl">
