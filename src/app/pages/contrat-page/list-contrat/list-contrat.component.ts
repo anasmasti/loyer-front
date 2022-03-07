@@ -61,6 +61,9 @@ export class ListContratComponent implements OnInit {
   reporting: boolean;
   statut!: string;
 
+  // Soumettre
+  soumettreModal: string = 'soumettre-modal';
+
   constructor(
     private contratService: ContratService,
     private mainModalService: MainModalService,
@@ -83,13 +86,12 @@ export class ListContratComponent implements OnInit {
         index < this.user.existedUser.userRoles.length;
         index++
       ) {
-        if(!this.user.existedUser.userRoles[index].deleted) {
+        if (!this.user.existedUser.userRoles[index].deleted) {
           const element = this.user.existedUser.userRoles[index].roleCode;
           this.userRoles.push(element);
         }
       }
       console.log(this.userRoles);
-      
     }
   }
 
@@ -112,12 +114,13 @@ export class ListContratComponent implements OnInit {
   search() {
     if (this.findContrat != '') {
       this.searchService.mainSearch(
-        this.contrats = this.contrats.filter((res) => {
+        (this.contrats = this.contrats.filter((res) => {
           return res.numero_contrat
             ?.toString()
             ?.toLowerCase()
             .match(this.findContrat.toLowerCase());
-        }));
+        }))
+      );
     } else if (this.findContrat == '') {
       this.getContrat();
     }
@@ -197,9 +200,14 @@ export class ListContratComponent implements OnInit {
     }
   }
 
+  openConfirmationSoumettre(id: string) {
+    this.id = id;
+    this.confirmationModalService.open(this.soumettreModal); // Open soumettre confirmation modal
+  }
+
   // Close confirmation modal
-  closeConfirmationModal() {
-    this.confirmationModalService.close(); // Close delete confirmation modal
+  closeConfirmationModal(id: string = 'confirmationModal') {
+    this.confirmationModalService.close(id); // Close delete confirmation modal
   }
 
   // Afficher le message d'erreur de serveur
@@ -249,6 +257,22 @@ export class ListContratComponent implements OnInit {
       .updateValidation1Contrat(this.id, this.userMatricule)
       .subscribe();
     // this.testValidation1=true;
+    setTimeout(() => {
+      location.reload();
+    }, 400);
+  }
+
+  soumettreContrat() {
+    this.contratService
+      .updateSoumettre(this.id, this.userMatricule)
+      .subscribe();
+    setTimeout(() => {
+      location.reload();
+    }, 400);
+  }
+
+  annulerContrat() {
+    this.contratService.annulerContrat(this.id, this.userMatricule).subscribe();
     setTimeout(() => {
       location.reload();
     }, 400);
@@ -355,8 +379,8 @@ export class ListContratComponent implements OnInit {
   }
 
   getProprietaireLength(proprietaires: any[]) {
-    let count = 0
-    proprietaires.forEach(proprietaire => {
+    let count = 0;
+    proprietaires.forEach((proprietaire) => {
       if (!proprietaire.deleted) {
         count = count + 1;
       }

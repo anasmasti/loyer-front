@@ -227,6 +227,8 @@ export class FormContratComponent extends Motif implements OnInit {
 
       // Calcul montant avance tax
       montant_avance_tax: new FormControl(),
+
+      nombre_part: new FormControl('',Validators.required)
     });
   }
 
@@ -573,6 +575,7 @@ export class FormContratComponent extends Motif implements OnInit {
       total_montant_net_loyer: this.totalNetLoyer || '',
       montant_avance_tax: this.montant_avance_tax_,
       montant_loyer_ttc: this.montantLoyerTTC,
+      nombre_part: this.contratForm.get('nombre_part')?.value || '',
     };
 
     //Append contrat-data in formdata
@@ -700,6 +703,7 @@ export class FormContratComponent extends Motif implements OnInit {
         etat_contrat_preavis: this.formatDate(
           this.contrat.etat_contrat?.etat?.preavis
         ),
+        nombre_part: this.contrat.nombre_part,
         // etat_contrat_images_etat_res_lieu_sortie: this.contrat.etat_contrat?.etat?.images_etat_res_lieu_sortie,
         // etat_contrat_lettre_res_piece_jointe: this.contrat.etat_contrat?.etat?.lettre_res_piece_jointe,
         // etat_contrat_piece_jointe_avenant: this.contrat.etat_contrat?.etat?.piece_jointe_avenant,
@@ -815,6 +819,7 @@ export class FormContratComponent extends Motif implements OnInit {
 
       montant_avance_tax: this.montant_avance_tax_,
       montant_loyer_ttc: this.montantLoyerTTC,
+      nombre_part: this.contratForm.get('nombre_part')?.value || '',
     };
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
@@ -917,5 +922,8 @@ export class FormContratComponent extends Motif implements OnInit {
   }
   get piece_jointe() {
     return this.contratForm.get('piece_jointe');
+  }
+  get nombre_part() {
+    return this.contratForm.get('nombre_part');
   }
 }

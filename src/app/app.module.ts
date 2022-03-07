@@ -28,7 +28,6 @@ import { ReportingsComponent } from './pages/reportings/reportings.component';
     MainContentComponent,
     FooterComponent,
     ReportingsComponent,
-  
   ],
   imports: [
     BrowserModule,
