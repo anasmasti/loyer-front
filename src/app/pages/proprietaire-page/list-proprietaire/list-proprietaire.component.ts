@@ -66,7 +66,6 @@ export class ListProprietaireComponent implements OnInit {
   search() {
     if (this.findProprietaire != '') {
       this.proprietaires = this.proprietaires.filter((res) => {
-
         return res.cin
           ?.toLowerCase()
           .match(this.findProprietaire.toLowerCase());
@@ -97,7 +96,8 @@ export class ListProprietaireComponent implements OnInit {
       foncier?.lieu?.forEach((lieu: any) => {
         if (!lieu.deleted) {
           foncier?.proprietaire.forEach((proprietaire: any) => {
-            proprietaire.numero_contrat = foncier?.contrat?.numero_contrat || '--';
+            proprietaire.numero_contrat =
+              foncier?.contrat?.numero_contrat || '--';
             proprietaire.intitule_lieu = lieu.lieu.intitule_lieu || '--';
             this.proprietaires.push(proprietaire);
           });
@@ -110,6 +110,7 @@ export class ListProprietaireComponent implements OnInit {
   openModalAndPushProprietaire(myTargetProprietaire: any) {
     this.mainModalService.open(); // Open the update proprietaire form
     this.targetProprietaire = myTargetProprietaire; // Push proprietaire data
+    console.log(myTargetProprietaire._id);
   }
 
   checkAndPutText(value: boolean) {
