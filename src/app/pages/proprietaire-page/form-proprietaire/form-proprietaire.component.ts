@@ -714,7 +714,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   // caluclate the caution of each proprietaire
   calculCaution() {
     let cautionContrat = this.contratByFoncier[0]?.montant_caution;
-    let cautionProprietaire = (cautionContrat * this.partProprietaire) / 100;
+    let nbrPartContrat = this.contratByFoncier[0]?.nombre_part;
+    let cautionProprietaire = (cautionContrat * this.partProprietaire) / nbrPartContrat;
     this.montantCautionProprietaire = cautionProprietaire;
   }
 
@@ -784,7 +785,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       nom_prenom: this.proprietaireForm.get('nom_prenom')?.value,
       raison_social: this.proprietaireForm.get('raison_social')?.value,
       n_registre_commerce: this.proprietaireForm.get('n_registre_commerce')
-        ?.value,
+        ?.value || '',
       // telephone: this.proprietaireForm.get('telephone')?.value,
       telephone: '',
       fax: this.proprietaireForm.get('fax')?.value,
@@ -864,7 +865,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       nom_prenom: this.proprietaireForm.get('nom_prenom')?.value,
       raison_social: this.proprietaireForm.get('raison_social')?.value || '',
       n_registre_commerce: this.proprietaireForm.get('n_registre_commerce')
-        ?.value,
+        ?.value || '',
       // telephone: this.proprietaireForm.get('telephone')?.value,
       telephone: '',
       fax: this.proprietaireForm.get('fax')?.value,
@@ -895,6 +896,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         this.proprietaireForm.get('is_person_physique')?.value,
       proprietaire_list: this.newProprietairesList,
       old_proprietaires_list: this.oldProprietairesList,
+      type_proprietaire: this.type_proprietaire,
     };
 
     this.proprietaireService
