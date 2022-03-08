@@ -105,10 +105,10 @@
   <table class="table">
     <thead>
       <tr class="text-truncate">
+        <th>Type d'entité</th>
         <th>N° contrat</th>
         <th>Montant loyer</th>
         <th>Date début du loyer</th>
-        <th>Type d'entité</th>
         <th>Statut de la caution</th>
         <th>Statut</th>
         <th>Proprietaires liés</th>
@@ -137,11 +137,11 @@
                 }
         "
       >
+        <td>{{ contrat.foncier.type_lieu }}</td>
         <td>{{ contrat.numero_contrat }}</td>
         <!-- <td>{{ contrat.montant_loyer | currency: "MAD" }}</td> -->
         <td>{{ contrat.montant_loyer }}</td>
         <td>{{ contrat.date_debut_loyer | date }}</td>
-        <td>{{ contrat.foncier.type_lieu }}</td>
         <!-- <td>{{ contrat.date_fin_contrat | date }}</td> -->
         <td
           [ngClass]="{
@@ -407,8 +407,8 @@
         <table class="table">
           <thead>
             <tr>
-              <th>Nom complet</th>
-              <th>CIN de propriétaire</th>
+              <th>Propriétaire</th>
+              <th>CIN/IF</th>
               <th>Mandataire et montants</th>
             </tr>
           </thead>
@@ -422,7 +422,7 @@
             >
               <ng-container *ngIf="!proprietaire.deleted">
                 <td>{{ proprietaire.nom_prenom }}</td>
-                <td>{{ proprietaire.cin }}</td>
+                <td>{{ proprietaire.cin ? proprietaire.cin : proprietaire.n_registre_commerce || '--'}}</td>
                 <td>
                   <span
                     class="p-1"
@@ -549,7 +549,7 @@
             <i class="far fa-exclamation-circle"></i>
           </h3>
           <p class="mt-3">
-            Voulez-vous valider la première validation du contrat ?
+            Êtes-vous sûr de vouloir valider ce contrat ?
           </p>
           <div class="d-inline-flex justify-content-start mt-5">
             <a
@@ -571,7 +571,7 @@
             <i class="far fa-exclamation-circle"></i>
           </h3>
           <p class="mt-3">
-            Voulez-vous valider la deuxième validation du contrat ?
+            Êtes-vous sûr de vouloir valider ce contrat ?
           </p>
           <div class="d-inline-flex justify-content-start mt-5">
             <a
