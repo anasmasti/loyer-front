@@ -91,6 +91,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   ngOnChanges() {
     if (this.proprietaire != '') {
       this.fetchProprietaire();
+      console.log(this.proprietaire);
+      
     }
   }
 
@@ -211,6 +213,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   fetchProprietaire() {
     this.getFoncierId();
     this.callGetContratAndLieuMethods();
+    // console.log(this.proprietaire);
+    
 
     // this.removeAllMandateires();
 
