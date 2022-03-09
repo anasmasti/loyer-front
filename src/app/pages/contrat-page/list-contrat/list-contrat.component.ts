@@ -263,12 +263,22 @@ export class ListContratComponent implements OnInit {
   }
 
   soumettreContrat() {
-    this.contratService
-      .updateSoumettre(this.id, this.userMatricule)
-      .subscribe();
-    setTimeout(() => {
-      location.reload();
-    }, 400);
+    this.contratService.updateSoumettre(this.id, this.userMatricule).subscribe(
+      (_) => {
+        this.closeConfirmationModal(this.soumettreModal)
+        setTimeout(() => {
+          this.helperService.refrechPage()
+        }, 3000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        this.closeConfirmationModal(this.soumettreModal)
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+    );
   }
 
   annulerContrat() {
