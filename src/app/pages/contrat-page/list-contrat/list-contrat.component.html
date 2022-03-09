@@ -47,7 +47,7 @@
         [(ngModel)]="findContrat"
         (input)="search()"
         class="form-control rounded-pill"
-        placeholder="Rechercher par numéro de contrat..."
+        placeholder="Rechercher par numéro de contrat ou type d'entité..."
       />
     </div>
 
@@ -78,6 +78,19 @@
         />
         <label class="px-3 mx-2 rounded-pill checkbox-list-btns" for="oui"
           >Contrats actifs</label
+        >
+      </div>
+      <div class="">
+        <input
+          id="av"
+          type="radio"
+          name="search-by-libelle"
+          class="btn-check check"
+          (click)="searchByEtat($event, 'Avenant')"
+          autocomplete="off"
+        />
+        <label class="px-3 mx-2 rounded-pill checkbox-list-btns" for="av"
+          >Contrats avenants</label
         >
       </div>
       <div class="">

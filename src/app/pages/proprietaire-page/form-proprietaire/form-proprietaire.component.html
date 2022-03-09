@@ -81,8 +81,8 @@
             [ngClass]="{
               'is-invalid': checkInputsValidation(nom_prenom)
             }"
+           
           />
-
           <!-- Error Message  -->
           <div class="" *ngIf="checkInputsValidation(nom_prenom)">
             <!-- <p class="danger-txt" *ngIf="nom_prenom?.errors?.required">
@@ -105,7 +105,6 @@
             type="text"
             class="form-control rounded-pill"
             formControlName="cin"
-            [required]="personPhysique"
           />
           <!-- Error Message  -->
           <div class="" *ngIf="checkInputsValidation(cin)">

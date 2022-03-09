@@ -61,6 +61,8 @@ export class ListContratComponent implements OnInit {
   reporting: boolean;
   statut!: string;
 
+  comparedContrat!: Contrat[]
+
   // Soumettre
   soumettreModal: string = 'soumettre-modal';
 
@@ -99,6 +101,7 @@ export class ListContratComponent implements OnInit {
     this.contratService.getContrat().subscribe(
       (data: any) => {
         this.contrats = data;
+        this.comparedContrat = data
       },
       (error: any) => {
         this.accessError = error.error.message;
@@ -118,6 +121,10 @@ export class ListContratComponent implements OnInit {
           return res.numero_contrat
             ?.toString()
             ?.toLowerCase()
+            .match(this.findContrat.toLowerCase()) || 
+            res.foncier.type_lieu
+            ?.toString()
+            ?.toLowerCase()
             .match(this.findContrat.toLowerCase());
         }))
       );
@@ -130,12 +137,16 @@ export class ListContratComponent implements OnInit {
     if (event.target.checked) {
       if (statut == 'all') return this.getContrat();
 
-      if (statut != 'all') {
-        this.contrats = this.contrats.filter((res) => {
-          let data = new RegExp(`(${statut}|Avenant)`);
-          return res.etat_contrat?.libelle?.toString().match(data);
-        });
-      }
+        if (statut == 'Avenant') {
+          this.contrats = this.comparedContrat.filter((res) => {            
+            return res.old_contrat.length > 0;
+          });
+        }
+        else if (statut == 'Actif') {
+          this.contrats = this.comparedContrat.filter((res) => {
+              return res.etat_contrat?.libelle?.toString().match(statut);
+            });
+        }
     }
     return;
   }
