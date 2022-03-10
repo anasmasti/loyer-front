@@ -1008,6 +1008,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   get retenue_source() {
     return this.proprietaireForm.get('retenue_source');
   }
+  
   get montant_apres_impot() {
     return this.proprietaireForm.get('montant_apres_impot');
   }
