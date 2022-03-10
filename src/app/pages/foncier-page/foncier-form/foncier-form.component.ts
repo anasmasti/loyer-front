@@ -18,6 +18,7 @@ import { Lieu } from 'src/app/models/Lieu';
 import { getLieuxAction } from '../../lieux-page/lieux-store/lieux.actions';
 import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
 import { LieuxService } from '@services/lieux-service/lieux.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'foncier-form',
@@ -101,6 +102,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     private mainModalService: MainModalService,
     private ConfirmationModalService: ConfirmationModalService,
     private lieuService: LieuxService,
+    private router: Router,
     @Inject(DOCUMENT) private document: Document
   ) {}
 
@@ -636,7 +638,11 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
         setTimeout(() => {
           this.foncierForm.reset();
           this.postDone = false;
-          this.help.refrechPage();
+          this.router
+              .navigate(['/foncier/list'])
+              .then(() => {
+                this.help.refrechPage();
+              });
         }, 3000);
       },
       (error) => {

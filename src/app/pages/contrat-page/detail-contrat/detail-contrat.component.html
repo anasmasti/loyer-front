@@ -4,6 +4,9 @@
 
             <h3 class="main-title">
                 <a [routerLink]="['/contrat/list-global/list']" class="goback-link">Liste des contrats</a>/<span
+                class="selected-text">
+                {{contrat.foncier.type_lieu != undefined ? contrat.foncier.type_lieu : '--'}}
+            </span>/<span
                     class="selected-text">
                     {{contrat.numero_contrat != undefined ? contrat.numero_contrat : '--'}}
                 </span>
@@ -26,58 +29,51 @@
     <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-5">
         <div class="row">
             <div class="col-lg-6">
+                <h5 class="main-txt">Type d’entité</h5>
+                <p>{{contrat.foncier.type_lieu != undefined ? contrat.foncier.type_lieu : '--'}}</p>
+            </div>
+
+            <div class="col-lg-6">
                 <h5 class="main-txt">Numéro de contrat</h5>
-                <!-- <p>{{ contrat.numero_contrat != '' ? contrat.numero_contrat : '--'}}</p> -->
                 <p>{{contrat.numero_contrat != undefined ? contrat.numero_contrat : '--'}}</p>
             </div>
             <div class="col-lg-6">
 
-                <h5 class="main-txt">Date de début du loyer</h5>
+                <h5 class="main-txt">Date de début</h5>
                 <p>{{ contrat.date_debut_loyer != null ? (contrat.date_debut_loyer | date) : '--'}}</p>
-                <!-- <p>{{ contrat.date_debut_loyer}}</p> -->
             </div>
-        </div>
-        <div class="row">
+
             <div class="col-lg-6">
-                <h5 class="main-txt">Date fin de contrat de bail</h5>
+                <h5 class="main-txt">Date fin</h5>
                 <p>{{ contrat.date_fin_contrat !=null ? (contrat.date_fin_contrat | date) : '--'}}</p>
-                <!-- <p>contrat.date_fin_contrat</p> -->
             </div>
-            <!-- <div class="col-lg-6">
-                <h5 class="main-txt">Durée de location</h5>
-                <p>{{ contrat.duree_location != undefined ? contrat.duree_location : '--'}}</p>
-            </div> -->
-            <div class="col-lg-6">
-                <h5 class="main-txt">Montant du loyer</h5>
-                <p>{{ contrat.montant_loyer != undefined ? contrat.montant_loyer : '--'}}</p>
-            </div>
-        </div>
-        <div class="row">
+
             <div class="col-lg-6">
                 <h5 class="main-txt">Périodicité de paiement</h5>
                 <p>{{ contrat.periodicite_paiement != '' ? contrat.periodicite_paiement : '--'}}</p>
             </div>
+
+            <div class="col-lg-6">
+                <h5 class="main-txt">Date 1er paiement</h5>
+                <p>{{contrat.date_premier_paiement != null ? (contrat.date_premier_paiement | date) : '--'}}</p>
+            </div>
+
             <div class="col-lg-6">
                 <h5 class="main-txt">Taxe d'édilité comprise dans loyer</h5>
                 <p>{{contrat.taxe_edilite_loyer != '' ? contrat.taxe_edilite_loyer : '--'}}</p>
             </div>
-        </div>
-        <div class="row">
+
             <div class="col-lg-6">
                 <h5 class="main-txt">Taxe d'édilité non comprise dans loyer</h5>
                 <p>{{ contrat.taxe_edilite_non_loyer != '' ? contrat.taxe_edilite_non_loyer : '--'}}</p>
             </div>
+
             <div class="col-lg-6">
-                <h5 class="main-txt">Paiement Spontanée de TSR</h5>
-                <p>{{ contrat.declaration_option != '' ? contrat.declaration_option : '--'}}</p>
+                <h5 class="main-txt">Etat de contrat</h5>
+                <p *ngIf="contrat.etat_contrat?.libelle == 'Actif'" class="success-txt">
+                    {{this.contrat.etat_contrat?.libelle != '' ? this.contrat.etat_contrat?.libelle : '--'}}</p>
             </div>
-        </div>
-        <div class="row">
-           
-            <!-- <div class="col-lg-6">
-                <h5 class="main-txt">Taux de l'impot</h5>
-                <p>{{ contrat.taux_impot != '' ? contrat.taux_impot : '--'}}</p>
-            </div> -->
+
             <div class="col-lg-6">
                 <h5 class="main-txt">Pièce jointe</h5>
                 <p>
@@ -91,13 +87,7 @@
                     </span>
                 </p>
             </div>
-        </div>
-        <div class="row">
-            <!-- <div class="col-lg-6">
-                <h5 class="main-txt">Retenue à la source</h5>
-                <p>{{ contrat.retenue_source != '' ? contrat.retenue_source : '--'}}</p>
-            </div> -->
-            
+
         </div>
 
     </div>
@@ -105,68 +95,50 @@
     <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-6">
 
         <div class="row">
-            <div class="col-lg-6">
-                <h5 class="main-txt">Montant après impot</h5>
-                <p>{{ contrat.montant_apres_impot != undefined ? contrat.montant_apres_impot : '--'}}</p>
-            </div>
-            <div class="col-lg-6">
-                <h5 class="main-txt">Montant de la caution</h5>
-                <p>{{ contrat.montant_caution != undefined ? contrat.montant_caution : '--'}}</p>
+            <div class="col-lg-12 text-center">
+                <h5 class="main-txt">Montant du loyer</h5>
+                <p>{{ contrat.montant_loyer != undefined ? contrat.montant_loyer : '--'}}</p>
             </div>
         </div>
+
+           
+        
         <div class="row">
+
             <div class="col-lg-6">
-                <h5 class="main-txt">Durée de la caution</h5>
+                <h5 class="main-txt">Montant de caution</h5>
+                <p>{{ contrat.montant_caution != undefined ? contrat.montant_caution : '--'}}</p>
+            </div>
+
+            <div class="col-lg-6">
+                <h5 class="main-txt">Durée de caution</h5>
                 <p>{{ contrat.duree_caution != '' ? contrat.duree_caution : '--'}}</p>
             </div>
             <div class="col-lg-6">
-                <h5 class="main-txt">Date de reprise de la caution</h5>
+                <h5 class="main-txt">Date de reprise de caution</h5>
                 <p>{{ contrat.date_reprise_caution != null ? (contrat.date_reprise_caution | date) : '--'}}</p>
             </div>
-        </div>
-        <div class="row">
+
             <div class="col-lg-6">
                 <h5 class="main-txt">Statut de la caution</h5>
                 <p>{{contrat.statut_caution != '' ? contrat.statut_caution : '--'}}</p>
             </div>
             <div class="col-lg-6">
-                <h5 class="main-txt">Montant de l'avance</h5>
+                <h5 class="main-txt">Montant d'avance</h5>
                 <p>{{contrat.montant_avance != undefined ? contrat.montant_avance : '--'}}</p>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <h5 class="main-txt">Date fin de l'avance</h5>
-                <p>{{contrat.date_fin_avance != null ? (contrat.date_fin_avance | date) : '--'}}</p>
-            </div>
-            <div class="col-lg-6">
-                <h5 class="main-txt">Date 1er paiement</h5>
-                <p>{{contrat.date_premier_paiement != null ? (contrat.date_premier_paiement | date) : '--'}}</p>
-            </div>
-        </div>
-        <div class="row">
             <div class="col-lg-6">
                 <h5 class="main-txt">Durée de l'avance</h5>
                 <p>{{contrat.duree_avance != undefined ? contrat.duree_avance : '--'}}</p>
             </div>
-            <!-- <div class="col-lg-6">
-                <h5 class="main-txt">N° d'engagement de la dépense</h5>
-                <p>{{contrat.n_engagement_depense != '' ? contrat.n_engagement_depense : '--'}}</p>
-            </div> -->
-            <div class="col-lg-6">
-                <h5 class="main-txt">Etat de contrat</h5>
-                <p *ngIf="contrat.etat_contrat?.libelle == 'Actif'" class="success-txt">
-                    {{this.contrat.etat_contrat?.libelle != '' ? this.contrat.etat_contrat?.libelle : '--'}}</p>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h5 class="main-txt">Date fin de l'avance</h5>
+                <p>{{contrat.date_fin_avance != null ? (contrat.date_fin_avance | date) : '--'}}</p>
             </div>
         </div>
-        <!-- <div class="row">
-            <div class="col-lg-6">
-                <h5 class="main-txt">Echéance de révision du loyer</h5>
-                <p>{{contrat.echeance_revision_loyer != '' ? contrat.echeance_revision_loyer : '--'}}</p>
-            </div>
-           
-        </div> -->
-
     </div>
 </div>
 
