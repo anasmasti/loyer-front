@@ -84,8 +84,6 @@ export class ListProprietaireComponent implements OnInit {
       (data) => {
         this.fonciers = data;
         this.collectProprietaireData();
-        console.log(data);
-        
       },
       (error) => {
         this.accessError = error.error.message;
@@ -102,8 +100,6 @@ export class ListProprietaireComponent implements OnInit {
             proprietaire.intitule_lieu = lieu.lieu.intitule_lieu || '--';
             proprietaire.type_lieu = foncier.type_lieu || '--';
             this.proprietaires.push(proprietaire);
-            console.log(this.proprietaires);
-            
           });
         }
       });
