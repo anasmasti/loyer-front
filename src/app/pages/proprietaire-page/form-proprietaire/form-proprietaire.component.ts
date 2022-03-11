@@ -6,7 +6,6 @@ import { ProprietaireService } from 'src/app/services/proprietaire-service/propr
 import { ActivatedRoute, Router } from '@angular/router';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
-import { of, zip } from 'rxjs';
 
 @Component({
   selector: 'app-form-proprietaire',
@@ -92,7 +91,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   ngOnChanges() {
     if (this.proprietaire != '') {
       this.fetchProprietaire();
-      console.log(this.proprietaire);
     }
   }
 
@@ -106,7 +104,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         Validators.minLength(6),
         Validators.pattern('[a-zA-Z ]*'),
       ]),
-      raison_social: new FormControl('', [Validators.pattern('[a-zA-Z ]*')]),
+      raison_social: new FormControl('', [this.personPhysique ? Validators.pattern('[a-zA-Z ]*') : Validators.pattern('[a-zA-Z ]*') ]),
       n_registre_commerce: new FormControl('', [Validators.pattern('[0-9]*')]),
       telephone: new FormControl('', [
         Validators.pattern('[0-9]*'),
@@ -138,7 +136,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       //   Validators.maxLength(2),
       // ]),
       banque: new FormControl('', [Validators.required]),
-      nom_agence_bancaire: new FormControl('', []),
+      nom_agence_bancaire: new FormControl(''),
       montant_loyer: new FormControl('', [Validators.pattern('[0-9]*')]),
       is_mandataire: new FormControl('', []),
       taux_impot: new FormControl(),
@@ -213,7 +211,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   fetchProprietaire() {
     this.getFoncierId();
     this.callGetContratAndLieuMethods();
-    // console.log(this.proprietaire);
 
     // this.removeAllMandateires();
 
@@ -314,8 +311,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       // adresse_mandataire: '',
       // n_compte_bancaire_mandataire: '',
     });
-
-    // console.log('check',this.proprietaire);
 
     this.montantLoyer = this.proprietaire.montant_loyer;
     this.fillProprietaireInfos();
@@ -820,8 +815,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       // deleted:false,
     };
 
-    console.log('data', proprietaire_data);
-
     this.proprietaireService
       .postProprietaire(proprietaire_data, this.foncier_id, this.userMatricule)
       .subscribe(
@@ -1030,6 +1023,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   get retenue_source() {
     return this.proprietaireForm.get('retenue_source');
   }
+  
   get montant_apres_impot() {
     return this.proprietaireForm.get('montant_apres_impot');
   }

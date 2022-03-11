@@ -3,6 +3,7 @@ import { ClotureService } from '@services/cloture/cloture.service';
 import { DownloadService } from '@services/download-service/download.service';
 import { HelperService } from '@services/helpers/helper.service';
 import { environment } from 'src/environments/environment';
+import dateClotureType from '../cloture/date-cloture.type';
 
 @Component({
   selector: 'app-situation-cloture',
@@ -18,8 +19,9 @@ export class SituationClotureComponent implements OnInit {
   userMatricule: any = localStorage.getItem('matricule');
   situationClotureDetails!: any;
   today!: any;
-  fileObjects: any = [{ 'état_des_virements': '0' }, { 'état_des_taxes': '1' }];
+  fileObjects: any = [{ état_des_virements: '0' }, { état_des_taxes: '1' }];
   fileNames: [string, string] = ['état_des_virements', 'état_des_taxes'];
+  dateCloture!: dateClotureType;
 
   constructor(
     private help: HelperService,
@@ -29,6 +31,14 @@ export class SituationClotureComponent implements OnInit {
 
   ngOnInit(): void {
     this.getSituationCloturePath(this.situations); // Get next cloture date and check
+    this.getNextClotureAndCheck();
+  }
+
+  // Get the next cloture date from the server and check if has data and throw the check function
+  getNextClotureAndCheck() {
+    this.help.getNextClotureDate().subscribe((date: dateClotureType) => {
+      this.dateCloture = date;
+    });
   }
 
   generateSituationCloture() {
@@ -36,10 +46,11 @@ export class SituationClotureComponent implements OnInit {
     let today = new Date();
 
     // Fill date cloture
-    let date = {
-      mois: today.getMonth() + 1,
-      annee: today.getFullYear(),
+    let date: dateClotureType = {
+      mois: this.dateCloture.mois,
+      annee: this.dateCloture.annee,
     };
+    console.log(date);
 
     this.clotureService.situationCloture(date, this.userMatricule).subscribe(
       (_) => {
@@ -72,7 +83,6 @@ export class SituationClotureComponent implements OnInit {
       .getPathSituationCloture(date.mois, date.annee, data)
       .subscribe((data) => {
         this.situationClotureDetails = data[0];
-        console.log(data);
       });
   }
 

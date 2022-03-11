@@ -104,13 +104,6 @@ const routes: Routes = [
       )
   },
   {
-    path: 'cloture',
-    loadChildren: () =>
-      import('./pages/cloture/cloture.module').then(
-        (m) => m.ClotureModule
-      )
-  },
-  {
     path: '**',
     loadChildren: () =>
       import('./pages/notfound-page/notfound-page.module').then(

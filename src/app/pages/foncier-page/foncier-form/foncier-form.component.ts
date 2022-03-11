@@ -401,7 +401,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     (<FormArray>this.foncierForm.get('amenagementForm')).push(
       <FormGroup>amenagementData
     );
-    console.log(this.foncierForm.get('amenagementForm'));
 
     return <FormGroup>amenagementData;
   }
@@ -630,8 +629,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
     this.fd.append('data', JSON.stringify(foncier));
 
-    console.log('amenag', foncier);
-
     this.foncierService.addFoncier(this.fd, this.userMatricule).subscribe(
       (_) => {
         this.postDone = true;
@@ -720,7 +717,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
           this.hideErrorMessage();
         }
       );
-    console.log(this.foncierLieux);
   }
 
   ngOnDestroy() {
@@ -771,8 +767,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     };
 
     this.fillCurrentLieuObject(lieuData);
-
-    console.log(this.currentLieu);
   }
 
   ATransferer() {
@@ -792,8 +786,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     this.selectedType = '';
     this.Intituler_lieu = '';
     this.lieuxByType = [];
-
-    console.log(this.currentLieu);
   }
 
   annulerTransfere() {
@@ -815,7 +807,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
   // Foncier Lieu is the Array that has All this foncier's lieux , that's gonna be stored in the DB
   pushIntoFoncierLieux(lieu: any) {
-    // console.log(lieu);
     if (lieu != null) {
       this.foncierLieux.push({
         deleted: lieu.deleted,

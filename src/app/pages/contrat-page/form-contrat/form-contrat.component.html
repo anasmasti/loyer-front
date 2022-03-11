@@ -1,5 +1,5 @@
 <div *ngFor="let foncier of foncierById?.lieu">
-    <span class="main-txt">{{ foncier?.lieu.type_lieu }} • {{ foncier?.lieu.code_lieu }} • {{ foncier?.lieu.intitule_lieu }}</span> 
+    <span class="main-txt">{{ foncier?.lieu.type_lieu }} • {{ foncier?.lieu.code_lieu ? foncier?.lieu.code_lieu : foncier?.lieu.code_rattache_DR  }} • {{ foncier?.lieu.intitule_lieu }}</span> 
 </div>
 
 <!--Début de Div qui contient le formulaire form-contrat-->
@@ -128,6 +128,7 @@
             'is-invalid': checkInputsValidation(montant_loyer),
             'is-valid': !montant_loyer?.invalid
           }"
+          (keyup)="calculDate()"
         />
         <!-- (keyup)="calculTaxeNonComprise();calculMontantLoyerTTC()" -->
         <!-- <div class="col-lg-3 form-group mt-4">

@@ -19,10 +19,6 @@
 </div>
 
 <div class="row d-flex justify-content-between">
-  <!-- <div class="mt-4">
-        <a [routerLink]="['/contrat',foncier?._id]" class="btn btn-sm success-btn">Ajouter un contrat</a>
-    </div> -->
-
   <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-5">
     <div class="row" *ngFor="let lieu of foncier?.lieu">
 
@@ -86,16 +82,24 @@
   </div>
 
   <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-6">
-    <!-- <div class="contrat" *ngFor="let contrat of foncier?.contrat">
-      <div class="col-lg-6">
-        <h5 class="main-txt">Numéro de contrat</h5>
-        <p>{{ contrat?.numero_contrat || '--'}}</p>
-      </div>
-      <div class="col-lg-6">
-        <h5 class="main-txt">Montant de loyer</h5>
-        <p>{{ contrat?.montant_loyer || '--'}}</p>
-      </div>
-    </div> -->
+    <div class="col-lg-12">
+      <h5 class="main-txt">Contrat</h5>
+      <table class="table" >
+        <!-- if nom and prenom exist -->
+        <thead>
+          <tr>
+            <th> N° de contrat</th>
+            <th> Montant de loyer </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td> {{ foncier?.contrat?.numero_contrat || '--'}} </td>
+            <td> {{ foncier?.contrat?.montant_loyer || '--'}} </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <div class="row">
       <div class="col-lg-12">
@@ -103,7 +107,7 @@
         <table class="table" >
           <!-- if nom and prenom exist -->
           <thead>
-            <tr>
+            <tr class="text-truncate">
               <th> Nom et prénom / RS </th>
               <th> CIN / IF </th>
             </tr>
@@ -116,34 +120,6 @@
           </tbody>
         </table>
       </div>
-      <!-- <div class="col-lg-6">
-
-        <h5 class="main-txt">Entité organisationnelle</h5>
-
-        <table class="table">
-          <thead>
-            <tr>
-              <th>
-                Intitulé
-              </th>
-              <th>
-                Type
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let lieu of foncier?.lieu">
-              <td>
-                {{ lieu.lieu?.intitule_lieu ||'--'}}
-              </td>
-              <td>
-                {{ lieu.lieu?.type_lieu ||'--'}}
-              </td>
-            </tr>
-
-          </tbody>
-        </table>
-      </div> -->
     </div>
   </div>
 </div>

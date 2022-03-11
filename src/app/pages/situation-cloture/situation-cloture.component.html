@@ -31,14 +31,14 @@
 
 <div class="my-5">
   <!-- let repoDetails of reporting.reportingPaths -->
-  <h5 class="main-title mb-3">Situation de clôture</h5>
+  <h5 class="main-title mb-3">Calculer la situation </h5>
 
   <div>
     <a class="btn second-btn col-lg-3 me-4" (click)="generateSituationCloture()"
       ><i class="fas fa-calculator-alt"></i> Calculer la situation 
     </a>
 
-    <div class="mt-4">
+    <div class="mt-4" *ngIf="situationClotureDetails?.etat_paths">
       <!-- <h6 class="mb-3" *ngIf="situationClotureDetails?.length">Fichiers PDF</h6> -->
       <h5>Fichiers PDF</h5>
       <ng-container

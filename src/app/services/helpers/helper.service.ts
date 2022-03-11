@@ -3,6 +3,8 @@ import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DatePipe } from '@angular/common';
+import dateClotureType from 'src/app/pages/cloture/date-cloture.type';
+
 
 @Injectable({
   providedIn: 'root',
@@ -54,11 +56,12 @@ export class HelperService {
     return this.pipeDate.transform(date, 'yyyy-MM-dd');
   }
 
-  getNextClotureDate() {
-    return this.http.get(
+  getNextClotureDate(): Observable<dateClotureType> {
+    return this.http.get<dateClotureType>(
       `${environment.API_URL_TEST + environment.API_VERSION}/next-cloture`
     );
   }
+
 
   getMounths(): any[] {
     let dateList: any[] = [
