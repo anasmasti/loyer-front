@@ -77,6 +77,8 @@ export class ClotureComponent implements OnInit {
       mois: today.getMonth() + 1,
       annee: today.getFullYear(),
     };
+    console.log(today.getMonth());
+    
 
     // Throw cloture function from cloture service
     this.clotureService.Cloture(date, this.userMatricule).subscribe((data) => {
