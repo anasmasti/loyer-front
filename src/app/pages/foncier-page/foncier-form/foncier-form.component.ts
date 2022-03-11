@@ -18,6 +18,7 @@ import { Lieu } from 'src/app/models/Lieu';
 import { getLieuxAction } from '../../lieux-page/lieux-store/lieux.actions';
 import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
 import { LieuxService } from '@services/lieux-service/lieux.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'foncier-form',
@@ -101,6 +102,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     private mainModalService: MainModalService,
     private ConfirmationModalService: ConfirmationModalService,
     private lieuService: LieuxService,
+    private router: Router,
     @Inject(DOCUMENT) private document: Document
   ) {}
 
@@ -399,7 +401,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     (<FormArray>this.foncierForm.get('amenagementForm')).push(
       <FormGroup>amenagementData
     );
-    console.log(this.foncierForm.get('amenagementForm'));
 
     return <FormGroup>amenagementData;
   }
@@ -628,15 +629,17 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
     this.fd.append('data', JSON.stringify(foncier));
 
-    console.log('amenag', foncier);
-
     this.foncierService.addFoncier(this.fd, this.userMatricule).subscribe(
       (_) => {
         this.postDone = true;
         setTimeout(() => {
           this.foncierForm.reset();
           this.postDone = false;
-          this.help.refrechPage();
+          this.router
+              .navigate(['/foncier/list'])
+              .then(() => {
+                this.help.refrechPage();
+              });
         }, 3000);
       },
       (error) => {
@@ -714,7 +717,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
           this.hideErrorMessage();
         }
       );
-    console.log(this.foncierLieux);
   }
 
   ngOnDestroy() {
@@ -765,8 +767,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     };
 
     this.fillCurrentLieuObject(lieuData);
-
-    console.log(this.currentLieu);
   }
 
   ATransferer() {
@@ -786,8 +786,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     this.selectedType = '';
     this.Intituler_lieu = '';
     this.lieuxByType = [];
-
-    console.log(this.currentLieu);
   }
 
   annulerTransfere() {
@@ -809,7 +807,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
   // Foncier Lieu is the Array that has All this foncier's lieux , that's gonna be stored in the DB
   pushIntoFoncierLieux(lieu: any) {
-    // console.log(lieu);
     if (lieu != null) {
       this.foncierLieux.push({
         deleted: lieu.deleted,

@@ -123,7 +123,7 @@
 
         <td>{{ foncier.type_lieu || '--' }}</td>
         <td>{{ foncier.ville }}</td>
-        <td>{{ foncier.lieu[0]?.lieu?.code_lieu || '--'}}</td>
+        <td>{{ foncier.type_lieu == 'Logement de fonction' ? foncier.lieu[0]?.lieu?.code_rattache_DR : foncier.lieu[0]?.lieu?.code_lieu || '--'}}</td>
         <td>
           {{ foncier.lieu[0].lieu?.intitule_lieu }}
           <br>

@@ -1,2 +1,7 @@
 @use "../../../assets/style/helpers" as *;
 @use "../../../assets/style/components" as *;
+
+// Skeleton loading
+.cloture-skeleton {
+  @include skeletonLoading(615px, 60px);
+}

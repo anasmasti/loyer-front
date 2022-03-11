@@ -66,7 +66,6 @@ export class ListProprietaireComponent implements OnInit {
   search() {
     if (this.findProprietaire != '') {
       this.proprietaires = this.proprietaires.filter((res) => {
-
         return res.cin
           ?.toLowerCase()
           .match(this.findProprietaire.toLowerCase());
@@ -99,6 +98,7 @@ export class ListProprietaireComponent implements OnInit {
           foncier?.proprietaire.forEach((proprietaire: any) => {
             proprietaire.numero_contrat = foncier?.contrat?.numero_contrat || '--';
             proprietaire.intitule_lieu = lieu.lieu.intitule_lieu || '--';
+            proprietaire.type_lieu = foncier.type_lieu || '--';
             this.proprietaires.push(proprietaire);
           });
         }

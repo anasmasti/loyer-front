@@ -7,17 +7,16 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-
 export class ContratService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   param_url: string = 'contrat';
 
   // Get list of all proprietaires from database
   getContrat(): Observable<Contrat> {
     return this.http.get<Contrat>(
-      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url
+      `${
+        environment.API_URL_TEST + environment.API_VERSION + this.param_url
       }/tous`
     );
   }
@@ -25,14 +24,16 @@ export class ContratService {
   //get details contrat by id
   getSelectedContrat(id: String) {
     return this.http.get(
-      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url
+      `${
+        environment.API_URL_TEST + environment.API_VERSION + this.param_url
       }/details/${id}`
     );
   }
 
   updateContrat(id: String, formdata: any): Observable<any> {
     return this.http.patch<any>(
-      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url
+      `${
+        environment.API_URL_TEST + environment.API_VERSION + this.param_url
       }/modifier/${id}`,
       formdata
     );
@@ -40,7 +41,8 @@ export class ContratService {
 
   addContrat(formdata: any, matricule: any, IdFoncier: any): Observable<any> {
     return this.http.post<any>(
-      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url
+      `${
+        environment.API_URL_TEST + environment.API_VERSION + this.param_url
       }/ajouter/${IdFoncier}/${matricule}`,
       formdata
     );
@@ -48,7 +50,8 @@ export class ContratService {
 
   deleteContrat(id: String, matricule: any) {
     return this.http.put(
-      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url
+      `${
+        environment.API_URL_TEST + environment.API_VERSION + this.param_url
       }/supprimer/${id}/${matricule}`,
       { deleted: true }
     );
@@ -56,7 +59,8 @@ export class ContratService {
 
   updateValidation1Contrat(id: string, matricule: any): Observable<any> {
     return this.http.put<any>(
-      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url
+      `${
+        environment.API_URL_TEST + environment.API_VERSION + this.param_url
       }/validation1/${id}/${matricule}`,
       ''
     );
@@ -64,11 +68,28 @@ export class ContratService {
 
   updateValidation2Contrat(id: string, matricule: any): Observable<any> {
     return this.http.put<any>(
-      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url
+      `${
+        environment.API_URL_TEST + environment.API_VERSION + this.param_url
       }/validation2/${id}/${matricule}`,
       ''
     );
   }
 
+  updateSoumettre(id: string, matricule: any): Observable<any> {
+    return this.http.put<any>(
+      `${
+        environment.API_URL_TEST + environment.API_VERSION + this.param_url
+      }/soumettre/${id}/${matricule}`,
+      ''
+    );
+  }
 
+  annulerContrat(id: string, matricule: any): Observable<any> {
+    return this.http.put<any>(
+      `${
+        environment.API_URL_TEST + environment.API_VERSION + this.param_url
+      }/annuler-contrat/${id}/${matricule}`,
+      ''
+    );
+  }
 }

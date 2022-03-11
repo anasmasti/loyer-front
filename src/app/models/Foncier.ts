@@ -17,6 +17,7 @@ export interface Foncier {
         intitule_lieu: string,
         type_lieu: string,
         code_lieu: string,
+        code_rattache_DR: string,
       };
       // transferer?: boolean,
       etat_lieu: string;

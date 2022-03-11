@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FilesGenerationComponent } from './files-generation.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
-// import { PipesModule } from 'src/app/core/pipes/pipes.module';
+import { ClotureModule } from '../cloture/cloture.module';
 
 const route: Routes = [
   { path: '', component: FilesGenerationComponent },
@@ -18,7 +18,7 @@ const route: Routes = [
     RouterModule.forChild(route),
     FormsModule,
     ReactiveFormsModule,
-    // PipesModule
+    ClotureModule
   ]
 })
 export class FilesGenerationModule { }

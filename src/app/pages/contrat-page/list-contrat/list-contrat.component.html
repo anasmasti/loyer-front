@@ -36,6 +36,10 @@
   <div *ngIf="deleteDone" class="done-alert p-2 my-2">{{ deleteSucces }}</div>
 </div>
 
+<div class="w-100 d-flex justify-content-center">
+  <div *ngIf="soumettreDone" class="done-alert p-2 my-2">{{ soumettreSuccess }}</div>
+</div>
+
 <div class="main-card bg-white table-responsive p-lg-3 mt-4">
   <div class="row d-flex justify-content-between">
     <div class="col-lg-4 mb-4">
@@ -47,7 +51,7 @@
         [(ngModel)]="findContrat"
         (input)="search()"
         class="form-control rounded-pill"
-        placeholder="Rechercher par numéro de contrat..."
+        placeholder="Rechercher par numéro de contrat ou type d'entité..."
       />
     </div>
 
@@ -82,6 +86,19 @@
       </div>
       <div class="">
         <input
+          id="av"
+          type="radio"
+          name="search-by-libelle"
+          class="btn-check check"
+          (click)="searchByEtat($event, 'Avenant')"
+          autocomplete="off"
+        />
+        <label class="px-3 mx-2 rounded-pill checkbox-list-btns" for="av"
+          >Contrats avenants</label
+        >
+      </div>
+      <div class="">
+        <input
           id="st_caution"
           type="radio"
           name="search-by-libelle"
@@ -105,15 +122,21 @@
   <table class="table">
     <thead>
       <tr class="text-truncate">
+        <th>Type d'entité</th>
         <th>N° contrat</th>
         <th>Montant loyer</th>
         <th>Date début du loyer</th>
-        <th>Type d'entité</th>
         <th>Statut de la caution</th>
         <th>Statut</th>
         <th>Proprietaires liés</th>
         <th>Actions</th>
-        <th *ngIf="userRoles.includes('CDGSP') || userRoles.includes('CSLA') || userRoles.includes('DAJC')">
+        <th
+          *ngIf="
+            userRoles.includes('CDGSP') ||
+            userRoles.includes('CSLA') ||
+            userRoles.includes('DAJC')
+          "
+        >
           Validation
         </th>
       </tr>
@@ -131,11 +154,11 @@
                 }
         "
       >
+        <td>{{ contrat.foncier.type_lieu }}</td>
         <td>{{ contrat.numero_contrat }}</td>
         <!-- <td>{{ contrat.montant_loyer | currency: "MAD" }}</td> -->
         <td>{{ contrat.montant_loyer }}</td>
         <td>{{ contrat.date_debut_loyer | date }}</td>
-        <td>{{ contrat.foncier.type_lieu }}</td>
         <!-- <td>{{ contrat.date_fin_contrat | date }}</td> -->
         <td
           [ngClass]="{
@@ -174,6 +197,7 @@
           [ngClass]="{
             'info-txt':
               contrat.etat_contrat?.libelle == 'Avenant' ||
+              contrat.etat_contrat?.libelle == 'Soumettre' ||
               contrat.etat_contrat?.libelle == 'Modifié',
             'danger-txt':
               contrat.etat_contrat?.libelle == 'Suspendu' ||
@@ -215,21 +239,35 @@
             ></a>
             <a
               *ngIf="
-                this.contrat.etat_contrat?.libelle == 'Actif' &&
-                !(userRoles.includes('DAJC') && !contrat.validation1_DMG)
+                (this.contrat.etat_contrat?.libelle == 'Soumettre' &&
+                  userRoles.includes('CSLA')) ||
+                ((userRoles.includes('CDGSP') || userRoles.includes('CSLA')) &&
+                  !contrat.validation1_DMG &&
+                  this.contrat.etat_contrat?.libelle ==
+                    'En cours de validation') ||
+                (userRoles.includes('CSLA') && !contrat.validation1_DMG)
               "
               (click)="openEditModal(contrat)"
               class="btn btn-sm info-btn me-2"
               ><i class="far fa-user-edit"></i
             ></a>
-            <a
+            <!-- <a
               class="btn btn-sm danger-btn"
               (click)="openConfirmationContratModal(contrat._id)"
               ><i class="far fa-user-minus"></i
-            ></a>
+            ></a> -->
           </div>
         </td>
-        <td *ngIf="userRoles.includes('CDGSP') || userRoles.includes('CSLA') || userRoles.includes('DAJC')">
+
+        <!-- Validation -->
+        <td
+          *ngIf="
+            (userRoles.includes('CDGSP') ||
+              userRoles.includes('CSLA') ||
+              userRoles.includes('DAJC')) &&
+            this.contrat.etat_contrat?.libelle == 'En cours de validation'
+          "
+        >
           <div
             class="text-center my-1"
             *ngIf="
@@ -334,6 +372,35 @@
             </ul>
           </div>
         </td>
+        <td
+          *ngIf="
+            userRoles.includes('CSLA') &&
+            this.contrat.etat_contrat?.libelle == 'Soumettre'
+          "
+        >
+          <div
+            class="btn-group d-grid"
+            role="group"
+            *ngIf="
+              contrat.etat_contrat?.libelle != 'Résilié' &&
+              contrat.etat_contrat?.libelle != 'Modifié'
+            "
+          >
+            <a
+              id="btnGroupDrop1"
+              class="btn btn-sm"
+              [ngClass]="
+                contrat.validation2_DAJC ? 'success-btn' : 'second-btn'
+              "
+              aria-expanded="false"
+              (click)="openConfirmationSoumettre(contrat._id)"
+            >
+              <ng-container *ngIf="!contrat.validation2_DAJC">
+                Soumettre
+              </ng-container>
+            </a>
+          </div>
+        </td>
       </tr>
 
       <app-main-modal [closeBtn]="true">
@@ -352,8 +419,8 @@
         <table class="table">
           <thead>
             <tr>
-              <th>Nom complet</th>
-              <th>CIN de propriétaire</th>
+              <th>Propriétaire</th>
+              <th>CIN/IF</th>
               <th>Mandataire et montants</th>
             </tr>
           </thead>
@@ -367,7 +434,7 @@
             >
               <ng-container *ngIf="!proprietaire.deleted">
                 <td>{{ proprietaire.nom_prenom }}</td>
-                <td>{{ proprietaire.cin }}</td>
+                <td>{{ proprietaire.cin ? proprietaire.cin : proprietaire.n_registre_commerce || '--'}}</td>
                 <td>
                   <span
                     class="p-1"
@@ -483,7 +550,7 @@
           *ngIf="
             isValidate;
             then validation1;
-            else isValidate2 ? validation2 : delete
+            else isValidate2 ? validation2 : (isSoumettre ? soumettre : delete)
           "
         ></div>
         <!-- <div *ngIf="isValidate2; then validation2;"></div> -->
@@ -494,18 +561,18 @@
             <i class="far fa-exclamation-circle"></i>
           </h3>
           <p class="mt-3">
-            Voulez-vous valider la première validation du contrat ?
+            Êtes-vous sûr de vouloir valider ce contrat ?
           </p>
           <div class="d-inline-flex justify-content-start mt-5">
             <a
-              class="btn btn-lg px-lg-4 danger-btn me-2"
+              class="btn btn-lg px-lg-4 main-btn me-2"
               (click)="validation1Contrat(); closeConfirmationModal()"
-              >Oui</a
+              >Valider</a
             >
             <a
-              class="btn btn-lg px-lg-4 main-btn"
-              (click)="closeConfirmationModal()"
-              >Non</a
+              class="btn btn-lg px-lg-4 danger-btn"
+              (click)="annulerContrat(); closeConfirmationModal()"
+              >Rejeter</a
             >
           </div>
         </ng-template>
@@ -516,17 +583,37 @@
             <i class="far fa-exclamation-circle"></i>
           </h3>
           <p class="mt-3">
-            Voulez-vous valider la deuxième validation du contrat ?
+            Êtes-vous sûr de vouloir valider ce contrat ?
           </p>
           <div class="d-inline-flex justify-content-start mt-5">
             <a
-              class="btn btn-lg px-lg-4 danger-btn me-2"
+              class="btn btn-lg px-lg-4 main-btn me-2"
               (click)="validation2Contrat(); closeConfirmationModal()"
+              >Valider</a
+            >
+            <a
+              class="btn btn-lg px-lg-4 danger-btn"
+              (click)="annulerContrat(); closeConfirmationModal()"
+              >Rejeter</a
+            >
+          </div>
+        </ng-template>
+
+        <ng-template #soumettre>
+          <h3 class="main-title">
+            Confirmation de Bla bla
+            <i class="far fa-exclamation-circle"></i>
+          </h3>
+          <p class="mt-3">Bla bla bla ?</p>
+          <div class="d-inline-flex justify-content-start mt-5">
+            <a
+              class="btn btn-lg px-lg-4 danger-btn me-2"
+              (click)="soumettreContrat()"
               >Oui</a
             >
             <a
               class="btn btn-lg px-lg-4 main-btn"
-              (click)="closeConfirmationModal()"
+              (click)="closeConfirmationModal(soumettreModal)"
               >Non</a
             >
           </div>
@@ -552,6 +639,27 @@
           </div>
         </ng-template>
       </app-confirmation-modal>
+      
+      <!-- Soumettre modal -->
+      <!-- <app-confirmation-modal [closeBtn]="true" [id]="soumettreModal">
+        <h3 class="main-title">
+          Confirmation de Bla bla
+          <i class="far fa-exclamation-circle"></i>
+        </h3>
+        <p class="mt-3">Bla bla bla ?</p>
+        <div class="d-inline-flex justify-content-start mt-5">
+          <a
+            class="btn btn-lg px-lg-4 danger-btn me-2"
+            (click)="soumettreContrat()"
+            >Oui</a
+          >
+          <a
+            class="btn btn-lg px-lg-4 main-btn"
+            (click)="closeConfirmationModal(soumettreModal)"
+            >Non</a
+          >
+        </div>
+      </app-confirmation-modal> -->
     </tbody>
 
     <tbody
