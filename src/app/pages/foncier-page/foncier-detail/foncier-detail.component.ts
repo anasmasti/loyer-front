@@ -31,7 +31,7 @@ export class FoncierDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getFoncierById();
+    this.getFoncierById();    
   }
 
   // Get the foncier data by id

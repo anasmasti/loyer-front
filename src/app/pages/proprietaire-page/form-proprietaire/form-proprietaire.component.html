@@ -105,8 +105,8 @@
             type="text"
             class="form-control rounded-pill"
             formControlName="cin"
-            [required]="personPhysique"
-          />
+            />
+            <!-- [required]="personPhysique" -->
           <!-- Error Message  -->
           <div class="" *ngIf="checkInputsValidation(cin)">
             <p class="danger-txt" *ngIf="cin?.errors?.maxlength">

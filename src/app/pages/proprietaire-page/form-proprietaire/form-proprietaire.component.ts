@@ -93,14 +93,13 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     if (this.proprietaire != '') {
       this.fetchProprietaire();
       console.log(this.proprietaire);
-      
     }
   }
 
   ngOnInit(): void {
     this.proprietaireForm = new FormGroup({
       // Champs du propriètaire
-      cin: new FormControl('', [Validators.maxLength(8)]),
+      cin: new FormControl('', [Validators.maxLength(8), Validators.required]),
       passport: new FormControl('', [Validators.maxLength(8)]),
       carte_sejour: new FormControl('', [Validators.maxLength(8)]),
       nom_prenom: new FormControl('', [
@@ -215,7 +214,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     this.getFoncierId();
     this.callGetContratAndLieuMethods();
     // console.log(this.proprietaire);
-    
 
     // this.removeAllMandateires();
 
@@ -715,7 +713,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   calculCaution() {
     let cautionContrat = this.contratByFoncier[0]?.montant_caution;
     let nbrPartContrat = this.contratByFoncier[0]?.nombre_part;
-    let cautionProprietaire = (cautionContrat * this.partProprietaire) / nbrPartContrat;
+    let cautionProprietaire =
+      (cautionContrat * this.partProprietaire) / nbrPartContrat;
     this.montantCautionProprietaire = cautionProprietaire;
   }
 
@@ -784,8 +783,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       carte_sejour: this.proprietaireForm.get('carte_sejour')?.value || '',
       nom_prenom: this.proprietaireForm.get('nom_prenom')?.value,
       raison_social: this.proprietaireForm.get('raison_social')?.value,
-      n_registre_commerce: this.proprietaireForm.get('n_registre_commerce')
-        ?.value || '',
+      n_registre_commerce:
+        this.proprietaireForm.get('n_registre_commerce')?.value || '',
       // telephone: this.proprietaireForm.get('telephone')?.value,
       telephone: '',
       fax: this.proprietaireForm.get('fax')?.value,
@@ -864,16 +863,16 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       carte_sejour: this.proprietaireForm.get('carte_sejour')?.value || '',
       nom_prenom: this.proprietaireForm.get('nom_prenom')?.value || '',
       raison_social: this.proprietaireForm.get('raison_social')?.value || '',
-      n_registre_commerce: this.proprietaireForm.get('n_registre_commerce')
-        ?.value || '',
+      n_registre_commerce:
+        this.proprietaireForm.get('n_registre_commerce')?.value || '',
       // telephone: this.proprietaireForm.get('telephone')?.value,
       telephone: '',
       fax: this.proprietaireForm.get('fax')?.value || '',
       adresse: this.proprietaireForm.get('adresse')?.value,
       n_compte_bancaire: this.proprietaireForm.get('n_compte_bancaire')?.value,
       banque: this.proprietaireForm.get('banque')?.value,
-      nom_agence_bancaire: this.proprietaireForm.get('nom_agence_bancaire')
-        ?.value || '',
+      nom_agence_bancaire:
+        this.proprietaireForm.get('nom_agence_bancaire')?.value || '',
       montant_loyer: this.montantLoyer,
       banque_rib: this.proprietaireForm.get('banque_rib')?.value,
       ville_rib: this.proprietaireForm.get('ville_rib')?.value,
@@ -958,8 +957,17 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
 
   proprietaireTypeToggel(value: string) {
-    if (value == 'Personne physique') this.personPhysique = true;
-    else this.personPhysique = false;
+    if (value == 'Personne physique') {
+      this.personPhysique = true;
+      this.proprietaireForm.controls["cin"].setValidators([Validators.required, Validators.maxLength(8)]);
+    } else {
+      console.log('teeeeeeeeeeeeeeest');
+      this.proprietaireForm.controls["cin"].clearValidators()
+      // this.proprietaireForm.controls["cin"].setValidators(Validators.maxLength(8));
+      this.personPhysique = false;
+    }
+    console.log(this.proprietaireForm.controls["cin"]);
+    
     this.type_proprietaire = value;
   }
 
