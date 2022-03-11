@@ -4,7 +4,7 @@ import { ConfirmationModalService } from './../../services/confirmation-modal-se
 import { HelperService } from 'src/app/services/helpers/helper.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import * as fileSaver from 'file-saver';
+import { saveAs } from 'file-saver';
 import { DownloadService } from 'src/app/services/download-service/download.service';
 import { environment } from 'src/environments/environment';
 
@@ -17,16 +17,24 @@ export class FilesGenerationComponent implements OnInit {
   dateSelected: boolean = false;
   filesForm!: FormGroup;
   userMatricule: any = localStorage.getItem('matricule');
- 
+
+  isCloture: boolean = false;
+  showClotureSection: boolean = false;
+  twelveHours: number = 1000 * 60 * 60 * 12;
+  dateCloture!: any;
+  hasNextCluture: boolean = false;
+  today!: any;
+
   reporting: boolean;
-  fileParams = ['fichier-comptable-loyer', 'fichier-comptable-caution', 'fichier-ordre-virement', 'annex1' ];
- 
- 
+  fileParams = [
+    'fichier-comptable-loyer',
+    'fichier-comptable-caution',
+    'fichier-ordre-virement',
+    'annex1',
+  ];
+
   constructor(
-    private help: HelperService,
-    private confirmationModalService: ConfirmationModalService,
     private downloadService: DownloadService,
-    private clotureService: ClotureService,
     private reportingService: ReportingService
   ) {
     this.reporting = environment.REPORTING;
@@ -39,22 +47,6 @@ export class FilesGenerationComponent implements OnInit {
     });
   }
 
-
-
-
-
-
- 
-  // Open confirmation modal
-  openConfirmationModal() {
-    this.confirmationModalService.open(); // Open delete confirmation modal
-  }
-
-  // Close confirmation modal
-  closeConfirmationModal() {
-    this.confirmationModalService.close(); // Close delete confirmation modal
-  }
-
   // Check if all inputs has invalid errors
   checkInputsValidation(targetInput: any) {
     return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
@@ -64,7 +56,7 @@ export class FilesGenerationComponent implements OnInit {
     return (this.dateSelected = true);
   }
 
-  downloadFiles(params :string[]) {
+  downloadFiles(params: string[]) {
     // let today = new Date()
     let date_gen = new Date(this.filesForm.get('date_gen')?.value);
     // Fill date cloture
@@ -73,15 +65,14 @@ export class FilesGenerationComponent implements OnInit {
       annee: date_gen.getFullYear(),
     };
 
-    params.forEach(param => {  
-       
+    params.forEach((param) => {
       // Path name
       let filename = param + `_${date.mois}-${date.annee}`;
       this.downloadService
         .dowloadFiles(filename, date, param)
         .subscribe((res) => {
           if (res) {
-            fileSaver.saveAs(res, filename);
+            saveAs(res, filename);
           }
         });
     });

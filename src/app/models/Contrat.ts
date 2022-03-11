@@ -25,6 +25,7 @@ export interface Contrat {
   echeance_revision_loyer: string;
   type_lieu: string;
   foncier: any;
+  nombre_part: number;
   //new
   montant_loyer_ttc: number;
   etat_contrat?: {
@@ -54,4 +55,5 @@ export interface Contrat {
   deleted: boolean;
   validation1_DMG: boolean
   validation2_DAJC: boolean
+  old_contrat: [];
 }

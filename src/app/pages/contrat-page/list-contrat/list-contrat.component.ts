@@ -7,7 +7,6 @@ import { ContratService } from 'src/app/services/contrat-service/contrat.service
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { SearchServiceService } from 'src/app/services/search-service/search-service.service';
 import { environment } from 'src/environments/environment';
-import { Proprietaire } from 'src/app/models/Proprietaire';
 
 @Component({
   selector: 'app-list-contrat',
@@ -61,6 +60,16 @@ export class ListContratComponent implements OnInit {
   reporting: boolean;
   statut!: string;
 
+  comparedContrat!: Contrat[]
+
+  // Soumettre
+  soumettreModal: string = 'soumettreModal';
+  isSoumettre: boolean = false;
+  test: string = 'test';
+  
+  soumettreSuccess: string = 'Contrat soumettre avec succés';
+  soumettreDone: boolean = false;
+
   constructor(
     private contratService: ContratService,
     private mainModalService: MainModalService,
@@ -83,20 +92,18 @@ export class ListContratComponent implements OnInit {
         index < this.user.existedUser.userRoles.length;
         index++
       ) {
-        if(!this.user.existedUser.userRoles[index].deleted) {
+        if (!this.user.existedUser.userRoles[index].deleted) {
           const element = this.user.existedUser.userRoles[index].roleCode;
           this.userRoles.push(element);
         }
       }
-      console.log(this.userRoles);
-      
     }
   }
-
   getContrat() {
     this.contratService.getContrat().subscribe(
       (data: any) => {
         this.contrats = data;
+        this.comparedContrat = data
       },
       (error: any) => {
         this.accessError = error.error.message;
@@ -112,12 +119,17 @@ export class ListContratComponent implements OnInit {
   search() {
     if (this.findContrat != '') {
       this.searchService.mainSearch(
-        this.contrats = this.contrats.filter((res) => {
+        (this.contrats = this.contrats.filter((res) => {
           return res.numero_contrat
             ?.toString()
             ?.toLowerCase()
+            .match(this.findContrat.toLowerCase()) || 
+            res.foncier.type_lieu
+            ?.toString()
+            ?.toLowerCase()
             .match(this.findContrat.toLowerCase());
-        }));
+        }))
+      );
     } else if (this.findContrat == '') {
       this.getContrat();
     }
@@ -127,12 +139,16 @@ export class ListContratComponent implements OnInit {
     if (event.target.checked) {
       if (statut == 'all') return this.getContrat();
 
-      if (statut != 'all') {
-        this.contrats = this.contrats.filter((res) => {
-          let data = new RegExp(`(${statut}|Avenant)`);
-          return res.etat_contrat?.libelle?.toString().match(data);
-        });
-      }
+        if (statut == 'Avenant') {
+          this.contrats = this.comparedContrat.filter((res) => {            
+            return res.old_contrat.length > 0;
+          });
+        }
+        else if (statut == 'Actif') {
+          this.contrats = this.comparedContrat.filter((res) => {
+              return res.etat_contrat?.libelle?.toString().match(statut);
+            });
+        }
     }
     return;
   }
@@ -197,8 +213,15 @@ export class ListContratComponent implements OnInit {
     }
   }
 
+  openConfirmationSoumettre(id: string) {
+    this.id = id;
+    this.isSoumettre = true;
+   this.confirmationModalService.open(); //  Open soumettre confirmation modal
+  }
+
   // Close confirmation modal
-  closeConfirmationModal() {
+  closeConfirmationModal(id: string = 'confirmationModal') {
+    this.isSoumettre = false;
     this.confirmationModalService.close(); // Close delete confirmation modal
   }
 
@@ -249,6 +272,34 @@ export class ListContratComponent implements OnInit {
       .updateValidation1Contrat(this.id, this.userMatricule)
       .subscribe();
     // this.testValidation1=true;
+    setTimeout(() => {
+      location.reload();
+    }, 400);
+  }
+
+  soumettreContrat() {
+    this.contratService.updateSoumettre(this.id, this.userMatricule).subscribe(
+      (_) => {
+        this.closeConfirmationModal(this.soumettreModal)
+        this.soumettreDone = true;
+        setTimeout(() => {
+          this.soumettreDone = false;
+          this.helperService.refrechPage()
+        }, 3000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        this.closeConfirmationModal(this.soumettreModal)
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+    );
+  }
+
+  annulerContrat() {
+    this.contratService.annulerContrat(this.id, this.userMatricule).subscribe();
     setTimeout(() => {
       location.reload();
     }, 400);
@@ -355,8 +406,8 @@ export class ListContratComponent implements OnInit {
   }
 
   getProprietaireLength(proprietaires: any[]) {
-    let count = 0
-    proprietaires.forEach(proprietaire => {
+    let count = 0;
+    proprietaires.forEach((proprietaire) => {
       if (!proprietaire.deleted) {
         count = count + 1;
       }

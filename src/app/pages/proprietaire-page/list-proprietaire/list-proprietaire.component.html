@@ -45,11 +45,11 @@
   <table class="table">
     <thead>
       <tr>
-        <th>Nom complet</th>
-        <th>Raison social</th>
-        <th>CIN</th>
-        <th>Numéro de contrat</th>
-        <th>Intitulé DR</th>
+        <th>Propriétaire</th>
+        <th>CIN/IF</th>
+        <th>Type entité</th>
+        <th>N° de contrat</th>
+        <!-- <th>Intitulé DR</th> -->
         <th>Mandataire</th>
         <th>Actions</th>
       </tr>
@@ -74,13 +74,16 @@
           {{ proprietaire.nom_prenom ? proprietaire.nom_prenom : "--" }}
         </td>
         <td>
-          {{ proprietaire.raison_social ? proprietaire.raison_social : "--" }}
+          <!-- {{ proprietaire.raison_social ? proprietaire.raison_social : "--" }} -->
+          {{ proprietaire.cin ? proprietaire.cin : proprietaire.n_registre_commerce || '--'}}
         </td>
-        <td>{{ proprietaire.cin }}</td>
-        <td>{{ proprietaire.numero_contrat }}</td>
         <td>
-          {{ proprietaire.intitule_lieu ? proprietaire.intitule_lieu : "--" }}
+          {{ proprietaire.type_lieu }}
         </td>
+        <td>{{ proprietaire.numero_contrat }}</td>
+        <!-- <td>
+          {{ proprietaire.intitule_lieu ? proprietaire.intitule_lieu : "--" }}
+        </td> -->
         <td>
           <div class="d-grid">
             <span

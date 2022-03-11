@@ -1,7 +1,7 @@
 <div class="row title">
   <div class="col-lg-12 mt-3">
     <div class="d-lg-flex justify-content-lg-between">
-      <h3 class="main-title">Clôture et situation de clôture</h3>
+      <h3 class="main-title">Situation de clôture</h3>
       <div>
         <a class="btn btn-sm main-btn me-4" [routerLink]="['/']"
           ><i class="fal fa-home"></i> Tableau de bord</a
@@ -29,56 +29,46 @@
   <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
 </div>
 
-<div class="row mt-5">
-  <h5 class="main-title mb-3">Clôturer le mois</h5>
-  <div
-    *ngIf="showClotureSection"
-    class="main-card col-lg-8 col-md-9 col-sm-12 d-flex align-items-lg-center justify-content-lg-between flex-row p-4"
-    [ngClass]="{
-      'success-light-card-bg success-txt': isCloture,
-      'danger-light-card-bg danger-txt': !isCloture
-    }"
-  >
-    <h4 *ngIf="!isCloture">Clôture du Février</h4>
-    <h4 *ngIf="isCloture">Ce mois est clôturé</h4>
-    <a
-      *ngIf="!isCloture"
-      class="btn danger-btn"
-      (click)="openConfirmationModal()"
-      >Clôturer ce mois</a
-    >
-  </div>
-
-  <div *ngIf="!showClotureSection" class="cloture-skeleton"></div>
-</div>
-
 <div class="my-5">
   <!-- let repoDetails of reporting.reportingPaths -->
-  <h5 class="main-title mb-3">Situation de clôture</h5>
+  <h5 class="main-title mb-3">Calculer la situation </h5>
 
   <div>
-    <a class="btn second-btn me-4" (click)="generateSituationCloture()"
-      ><i class="fas fa-calculator-alt"></i> Calculer les totaux
+    <a class="btn second-btn col-lg-3 me-4" (click)="generateSituationCloture()"
+      ><i class="fas fa-calculator-alt"></i> Calculer la situation 
     </a>
 
-    <div class="mt-4">
-      <h6 class="mb-3" *ngIf="situationClotureDetails">Fichiers PDF</h6>
+    <div class="mt-4" *ngIf="situationClotureDetails?.etat_paths">
+      <!-- <h6 class="mb-3" *ngIf="situationClotureDetails?.length">Fichiers PDF</h6> -->
+      <h5>Fichiers PDF</h5>
       <ng-container
-        *ngFor="let situationPath of situationClotureDetails?.etatPaths"
+        *ngFor="let situationPath of situationClotureDetails?.etat_paths"
       >
         <a
-          class="btn second-btn me-4"
+          class="btn second-btn col-lg-3 me-3"
           href="{{ url }}{{ situationPath[situationPath | entite_org] }}"
-          ><i class="far fa-file-export"></i> Exporter le fichier des
+          target="_blank"
+          ><i class="far fa-file-export"></i> Exporter 
           {{ situationPath | transformName }}
+
         </a>
+      </ng-container>
+
+      <ng-container>
+        <div class="mt-4">
+          <h5>Fichiers Excel</h5>
+      
+          <a *ngFor="let fileObject of fileObjects; let i = index" class="btn second-btn col-lg-3 me-3" (click)="downloadExcelFiles(fileNames[i])">
+            <i class="far fa-file-export"></i> Exporter {{fileObject | transformName}}
+          </a>
+        </div>
       </ng-container>
     </div>
 
-    <div class="mt-4">
-      <h6 class="mb-3" *ngIf="situationClotureDetails">Fichiers Excel</h6>
+    <!-- <div class="mt-4">
+      <h6 class="mb-3" *ngIf="situationClotureDetails?.length">Fichiers Excel</h6>
       <ng-container
-        *ngFor="let situationPath of situationClotureDetails?.etatPaths"
+        *ngFor="let situationPath of situationClotureDetails?.etat_paths"
       >
         <a
           class="btn second-btn me-4"
@@ -87,20 +77,7 @@
           {{ situationPath | transformName }}
         </a>
       </ng-container>
-    </div>
+    </div> -->
   </div>
 </div>
 
-<app-confirmation-modal [closeBtn]="true">
-  <h3 class="main-title">Voulez-vous clôturer ce mois?</h3>
-  <div class="d-inline-flex justify-content-start mt-5">
-    <a
-      class="btn btn-lg px-lg-4 danger-btn me-2"
-      (click)="cloture(); closeConfirmationModal()"
-      >Oui</a
-    >
-    <a class="btn btn-lg px-lg-4 main-btn" (click)="closeConfirmationModal()"
-      >Non</a
-    >
-  </div>
-</app-confirmation-modal>

@@ -1,5 +1,5 @@
 <div *ngFor="let foncier of foncierById?.lieu">
-    <span class="main-txt">{{ foncier?.lieu.type_lieu }} • {{ foncier?.lieu.code_lieu }} • {{ foncier?.lieu.intitule_lieu }}</span> 
+    <span class="main-txt">{{ foncier?.lieu.type_lieu }} • {{ foncier?.lieu.code_lieu ? foncier?.lieu.code_lieu : foncier?.lieu.code_rattache_DR  }} • {{ foncier?.lieu.intitule_lieu }}</span> 
 </div>
 
 <!--Début de Div qui contient le formulaire form-contrat-->
@@ -128,6 +128,7 @@
             'is-invalid': checkInputsValidation(montant_loyer),
             'is-valid': !montant_loyer?.invalid
           }"
+          (keyup)="calculDate()"
         />
         <!-- (keyup)="calculTaxeNonComprise();calculMontantLoyerTTC()" -->
         <!-- <div class="col-lg-3 form-group mt-4">
@@ -153,6 +154,27 @@
             Veuillez remplir ce champ
           </p>
         </div>
+      </div>
+
+      <div class="col-lg-3 form-group mt-4">
+        <label for="">Nombre de part <span class="danger-txt">*</span></label>
+        <input
+          type="number"
+          class="form-control rounded-pill"
+          formControlName="nombre_part"
+          [ngClass]="{
+            'is-invalid': checkInputsValidation(nombre_part),
+            'is-valid': !nombre_part?.invalid
+          }"
+        />
+
+        <!-- Error Message  -->
+        <div class="" *ngIf="checkInputsValidation(nombre_part)">
+          <p class="danger-txt" *ngIf="nombre_part?.errors?.required">
+            Veuillez remplir ce champ
+          </p>
+        </div>
+
       </div>
 
       <div class="col-lg-3 form-group mt-4">
@@ -259,7 +281,7 @@
       </div>
 
       <!-- Replace Déclaration d’option with Paiement Spontanée de TSR  -->
-      <div class="col-lg-3 form-group mt-4">
+      <!-- <div class="col-lg-3 form-group mt-4">
         <label for="">Paiement spontané de TSR </label>
         <select
           class="form-select rounded-pill"
@@ -269,7 +291,7 @@
           <option value="oui">Oui</option>
           <option value="non">Non</option>
         </select>
-      </div>
+      </div> -->
 
       <!-- <div class="col-lg-3 form-group mt-4">
         <label for="">Taux de l’impôt</label>
