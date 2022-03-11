@@ -6,11 +6,7 @@ import { PipesModule } from 'src/app/core/pipes/pipes.module';
 
 @NgModule({
   declarations: [ClotureComponent],
-  imports: [
-    CommonModule,
-    ConfirmationModalModule,
-    PipesModule
-  ],
-  exports: [ClotureComponent]
+  imports: [CommonModule, ConfirmationModalModule, PipesModule],
+  exports: [ClotureComponent],
 })
-export class ClotureModule { }
+export class ClotureModule {}
