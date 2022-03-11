@@ -42,15 +42,11 @@ export class SituationClotureComponent implements OnInit {
   }
 
   generateSituationCloture() {
-    // Get date of now
-    let today = new Date();
-
     // Fill date cloture
     let date: dateClotureType = {
       mois: this.dateCloture.mois,
       annee: this.dateCloture.annee,
     };
-    console.log(date);
 
     this.clotureService.situationCloture(date, this.userMatricule).subscribe(
       (_) => {
@@ -73,6 +69,7 @@ export class SituationClotureComponent implements OnInit {
   getSituationCloturePath(data: any) {
     // Get date of now
     let today = new Date();
+
     // Fill date cloture
     let date = {
       mois: today.getMonth() + 1,

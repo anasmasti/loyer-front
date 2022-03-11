@@ -69,15 +69,12 @@ export class ClotureComponent implements OnInit {
 
   // Cloture this month
   cloture() {
-    // Get date of now
-    let today = new Date();
-
     // Fill date cloture
     let date: dateClotureType = {
       mois: this.dateCloture.mois,
       annee: this.dateCloture.annee,
     };
-    
+
     // Throw cloture function from cloture service
     this.clotureService.Cloture(date, this.userMatricule).subscribe((data) => {
       if (data) this.isCloture = true;

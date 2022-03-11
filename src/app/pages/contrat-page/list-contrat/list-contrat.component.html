@@ -37,7 +37,9 @@
 </div>
 
 <div class="w-100 d-flex justify-content-center">
-  <div *ngIf="soumettreDone" class="done-alert p-2 my-2">{{ soumettreSuccess }}</div>
+  <div *ngIf="soumettreDone" class="done-alert p-2 my-2">
+    {{ soumettreSuccess }}
+  </div>
 </div>
 
 <div class="main-card bg-white table-responsive p-lg-3 mt-4">
@@ -434,7 +436,13 @@
             >
               <ng-container *ngIf="!proprietaire.deleted">
                 <td>{{ proprietaire.nom_prenom }}</td>
-                <td>{{ proprietaire.cin ? proprietaire.cin : proprietaire.n_registre_commerce || '--'}}</td>
+                <td>
+                  {{
+                    proprietaire.cin
+                      ? proprietaire.cin
+                      : proprietaire.n_registre_commerce || "--"
+                  }}
+                </td>
                 <td>
                   <span
                     class="p-1"
@@ -550,7 +558,7 @@
           *ngIf="
             isValidate;
             then validation1;
-            else isValidate2 ? validation2 : (isSoumettre ? soumettre : delete)
+            else isValidate2 ? validation2 : isSoumettre ? soumettre : delete
           "
         ></div>
         <!-- <div *ngIf="isValidate2; then validation2;"></div> -->
@@ -560,9 +568,7 @@
             Confirmation de la validation
             <i class="far fa-exclamation-circle"></i>
           </h3>
-          <p class="mt-3">
-            Êtes-vous sûr de vouloir valider ce contrat ?
-          </p>
+          <p class="mt-3">Êtes-vous sûr de vouloir valider ce contrat ?</p>
           <div class="d-inline-flex justify-content-start mt-5">
             <a
               class="btn btn-lg px-lg-4 main-btn me-2"
@@ -582,9 +588,7 @@
             Confirmation de la validation
             <i class="far fa-exclamation-circle"></i>
           </h3>
-          <p class="mt-3">
-            Êtes-vous sûr de vouloir valider ce contrat ?
-          </p>
+          <p class="mt-3">Êtes-vous sûr de vouloir valider ce contrat ?</p>
           <div class="d-inline-flex justify-content-start mt-5">
             <a
               class="btn btn-lg px-lg-4 main-btn me-2"
@@ -639,7 +643,7 @@
           </div>
         </ng-template>
       </app-confirmation-modal>
-      
+
       <!-- Soumettre modal -->
       <!-- <app-confirmation-modal [closeBtn]="true" [id]="soumettreModal">
         <h3 class="main-title">

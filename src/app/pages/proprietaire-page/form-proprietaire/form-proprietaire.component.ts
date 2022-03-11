@@ -95,6 +95,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+
     this.proprietaireForm = new FormGroup({
       // Champs du propriètaire
       cin: new FormControl('', [Validators.maxLength(8), Validators.required]),
@@ -210,6 +211,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
   fetchProprietaire() {
     this.getFoncierId();
+    this.proprietaireTypeToggel(this.proprietaire.type_proprietaire);
     this.callGetContratAndLieuMethods();
 
     // this.removeAllMandateires();
