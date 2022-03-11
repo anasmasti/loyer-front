@@ -3,7 +3,7 @@ import { ClotureService } from '@services/cloture/cloture.service';
 import { ConfirmationModalService } from '@services/confirmation-modal-service/confirmation-modal.service';
 import { DownloadService } from '@services/download-service/download.service';
 import { HelperService } from '@services/helpers/helper.service';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-situation-cloture',
@@ -49,7 +49,7 @@ export class SituationClotureComponent implements OnInit {
 
     // Fill date cloture
     let date = {
-      mois: today.getMonth() + 1,
+      mois: today.getMonth(),
       annee: today.getFullYear(),
     };
 
@@ -106,7 +106,7 @@ export class SituationClotureComponent implements OnInit {
         // Put this month is cloture and show cloture section if next cloture match with today
         if (
           this.dateCloture.annee == today.getFullYear() &&
-          this.dateCloture.mois == today.getMonth() + 1
+          this.dateCloture.mois == today.getMonth()
         )
           return [
             (this.today = today),
@@ -125,7 +125,7 @@ export class SituationClotureComponent implements OnInit {
 
     // Fill date cloture
     let date = {
-      mois: today.getMonth() + 1,
+      mois: today.getMonth() ,
       annee: today.getFullYear(),
     };
 

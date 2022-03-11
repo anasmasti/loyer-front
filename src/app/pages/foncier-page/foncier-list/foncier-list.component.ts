@@ -53,7 +53,7 @@ export class FoncierListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getFoncier();
-    
+
     // Check error
     this.store.select(getError).subscribe((data) => {
       if (data) this.accessError = data;
@@ -70,30 +70,28 @@ export class FoncierListComponent implements OnInit {
           // Dispatch action to handle the NgRx get foncier from server effect
           this.store.dispatch(getFoncierAction());
         }
-        this.fonciers = data;  
+        this.fonciers = data;
         console.log(this.fonciers);
-            
       });
   }
 
   checkAndPutText(value: boolean | undefined) {
-    return this.helperService.booleanToText(value)
+    return this.helperService.booleanToText(value);
   }
 
   // Filter by intitule
   search() {
     if (this.findFoncier != '') {
       this.fonciers = this.fonciers.filter((res: any) => {
-        
         return (
-          res.type_lieu
+          res.type_lieu?.toLowerCase().match(this.findFoncier.toLowerCase()) ||
+          res.ville?.toLowerCase().match(this.findFoncier.toLowerCase()) ||
+          res.lieu[0].lieu.code_lieu
             ?.toLowerCase()
             .match(this.findFoncier.toLowerCase()) ||
-          res.ville?.toLowerCase().match(this.findFoncier.toLowerCase())
-          ||
-          res.lieu[0].lieu.code_lieu?.toLowerCase().match(this.findFoncier.toLowerCase())
-          ||
-          res.contrat[0]?.numero_contrat?.toLowerCase().match(this.findFoncier.toLowerCase())
+          res.contrat[0]?.numero_contrat
+            ?.toLowerCase()
+            .match(this.findFoncier.toLowerCase())
         );
       });
     } else if (this.findFoncier == '') {
@@ -119,8 +117,6 @@ export class FoncierListComponent implements OnInit {
 
     return;
   }
-
-
 
   openEditModal(SelectedFoncier: any) {
     this.mainModalService.open();
@@ -157,7 +153,6 @@ export class FoncierListComponent implements OnInit {
       )
       .subscribe(
         (_) => {
-          
           this.store.dispatch(getFoncierAction());
           this.confirmationModalService.close();
           this.deleteDone = true;

@@ -768,7 +768,7 @@
               formControlName="etat_caution_consomme"
               [(ngModel)]="cautionConsommee"
             >
-              <option value="partielle">Partielle</option>
+              <option value="Partial">Partielle</option>
               <option value="totale">Totale</option>
             </select>
           </div>
@@ -776,7 +776,7 @@
           <div
             class="row"
             *ngIf="
-              cautionConsommee == 'partial' && repriseCaution == 'Consommée'
+              cautionConsommee == 'Partial' && repriseCaution == 'Consommée'
             "
           >
             <div class="col-lg-3 form-group mt-4">
