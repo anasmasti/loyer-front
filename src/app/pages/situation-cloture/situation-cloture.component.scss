@@ -2,6 +2,10 @@
 @use "../../../assets/style/components" as *;
 
 // Skeleton loading
-.cloture-skeleton {
-  @include skeletonLoading(615px, 60px);
+.files-section-content-skeleton {
+  @include skeletonLoading(415px, 70px);
+}
+
+.files-section-title-skeleton {
+  @include skeletonLoading(115px, 20px);
 }

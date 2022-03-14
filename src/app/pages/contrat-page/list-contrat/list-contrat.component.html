@@ -266,8 +266,10 @@
           *ngIf="
             (userRoles.includes('CDGSP') ||
               userRoles.includes('CSLA') ||
-              userRoles.includes('DAJC')) &&
-            this.contrat.etat_contrat?.libelle == 'En cours de validation'
+              userRoles.includes('DAJC')) &&(
+                this.contrat.etat_contrat?.libelle == 'En cours de validation' ||
+                this.contrat.etat_contrat?.libelle == 'Actif'
+            )
           "
         >
           <div
@@ -435,7 +437,7 @@
               "
             >
               <ng-container *ngIf="!proprietaire.deleted">
-                <td>{{ proprietaire.nom_prenom }}</td>
+                <td>{{ proprietaire.nom_prenom || proprietaire.raison_social }}</td>
                 <td>
                   {{
                     proprietaire.cin
@@ -605,10 +607,10 @@
 
         <ng-template #soumettre>
           <h3 class="main-title">
-            Confirmation de Bla bla
+            Confirmation de Soumission
             <i class="far fa-exclamation-circle"></i>
           </h3>
-          <p class="mt-3">Bla bla bla ?</p>
+          <p class="mt-3">Text de validation .... ?</p>
           <div class="d-inline-flex justify-content-start mt-5">
             <a
               class="btn btn-lg px-lg-4 danger-btn me-2"

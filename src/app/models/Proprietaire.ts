@@ -31,7 +31,8 @@ export interface Proprietaire {
 
   proprietaire_list:[],
   is_person_physique: boolean,
-  part_proprietaire: number
+  part_proprietaire: number,
+  type_proprietaire: string
   // mandataire: [{
   //   cin_mandataire: string;
   //   nom_prenom_mandataire: string;

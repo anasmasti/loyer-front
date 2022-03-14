@@ -67,7 +67,7 @@ export class ListContratComponent implements OnInit {
   isSoumettre: boolean = false;
   test: string = 'test';
   
-  soumettreSuccess: string = 'Contrat soumettre avec succés';
+  soumettreSuccess: string = 'Contrat modifié avec succés';
   soumettreDone: boolean = false;
 
   constructor(
