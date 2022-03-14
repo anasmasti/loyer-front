@@ -266,8 +266,10 @@
           *ngIf="
             (userRoles.includes('CDGSP') ||
               userRoles.includes('CSLA') ||
-              userRoles.includes('DAJC')) &&
-            this.contrat.etat_contrat?.libelle == 'En cours de validation'
+              userRoles.includes('DAJC')) &&(
+                this.contrat.etat_contrat?.libelle == 'En cours de validation' ||
+                this.contrat.etat_contrat?.libelle == 'Actif'
+            )
           "
         >
           <div
@@ -435,7 +437,7 @@
               "
             >
               <ng-container *ngIf="!proprietaire.deleted">
-                <td>{{ proprietaire.nom_prenom }}</td>
+                <td>{{ proprietaire.nom_prenom || proprietaire.raison_social }}</td>
                 <td>
                   {{
                     proprietaire.cin
