@@ -3,16 +3,9 @@
     <div class="d-lg-flex justify-content-lg-between">
       <h3 class="main-title">Situation de clôture</h3>
       <div>
-        <a class="btn btn-sm main-btn me-4" [routerLink]="['/']"
-          ><i class="fal fa-home"></i> Tableau de bord</a
-        >
-        <a
-          lass="text-dark ms-5"
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-          title="Ici vous pouvez exporter des état des taxes et virements etc.."
-          ><i class="fal fa-info"></i
-        ></a>
+        <a class="btn btn-sm main-btn me-4" [routerLink]="['/']"><i class="fal fa-home"></i> Tableau de bord</a>
+        <a lass="text-dark ms-5" data-bs-toggle="tooltip" data-bs-placement="top"
+          title="Ici vous pouvez exporter des état des taxes et virements etc.."><i class="fal fa-info"></i></a>
       </div>
     </div>
   </div>
@@ -21,7 +14,7 @@
 <!-- alert de reussite -->
 <div class="w-100 d-flex justify-content-center">
   <div *ngIf="generationDone" class="done-alert p-2 my-2">
-    {{ generationSucces }}
+    {{ generationSuccesMessage }}
   </div>
 </div>
 <!-- error message -->
@@ -34,35 +27,42 @@
   <h5 class="main-title mb-3">Calculer la situation </h5>
 
   <div>
-    <a class="btn second-btn col-lg-3 me-4" (click)="generateSituationCloture()"
-      ><i class="fas fa-calculator-alt"></i> Calculer la situation 
+    <a class="btn second-btn col-lg-3 me-4" (click)="generateSituationCloture()"><i class="fas fa-calculator-alt"></i>
+      Calculer la situation
     </a>
 
-    <div class="mt-4" *ngIf="situationClotureDetails?.etat_paths">
+    <div *ngIf="filesLoading" class="row mt-5">
+      <ng-container *ngFor="let skelton of fileNames">
+        <ng-container *ngFor="let skelton of fileNames">
+          <div class="col-6 mb-4">
+            <div class="files-section-title-skeleton "></div>
+            <div class="files-section-content-skeleton mt-2"></div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+
+    <div class="mt-4" *ngIf="situationClotureDetails?.etat_paths && !filesLoading">
       <!-- <h6 class="mb-3" *ngIf="situationClotureDetails?.length">Fichiers PDF</h6> -->
       <h5>Fichiers PDF</h5>
-      <ng-container
-        *ngFor="let situationPath of situationClotureDetails?.etat_paths"
-      >
-        <a
-          class="btn second-btn col-lg-3 me-3"
-          href="{{ url }}{{ situationPath[situationPath | entite_org] }}"
-          target="_blank"
-          ><i class="far fa-file-export"></i> Exporter 
+      <ng-container *ngFor="let situationPath of situationClotureDetails?.etat_paths">
+        <a class="btn second-btn col-lg-3 me-3" href="{{ url }}{{ situationPath[situationPath | entite_org] }}"
+          target="_blank"><i class="far fa-file-export"></i> Exporter
           {{ situationPath | transformName }}
 
         </a>
       </ng-container>
 
-      <ng-container>
-        <div class="mt-4">
-          <h5>Fichiers Excel</h5>
-      
-          <a *ngFor="let fileObject of fileObjects; let i = index" class="btn second-btn col-lg-3 me-3" (click)="downloadExcelFiles(fileNames[i])">
-            <i class="far fa-file-export"></i> Exporter {{fileObject | transformName}}
-          </a>
-        </div>
-      </ng-container>
+
+      <div class="mt-4">
+        <h5>Fichiers Excel</h5>
+
+        <a *ngFor="let fileObject of fileObjects; let i = index" class="btn second-btn col-lg-3 me-3"
+          (click)="downloadExcelFiles(fileNames[i])">
+          <i class="far fa-file-export"></i> Exporter {{fileObject | transformName}}
+        </a>
+      </div>
+
     </div>
 
     <!-- <div class="mt-4">
@@ -80,4 +80,3 @@
     </div> -->
   </div>
 </div>
-

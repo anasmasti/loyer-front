@@ -13,8 +13,8 @@ import dateClotureType from '../cloture/date-cloture.type';
 export class SituationClotureComponent implements OnInit {
   situations = ['état_virements', 'état_taxes'];
   url: string = environment.API_URL_WITHOUT_PARAM;
-  generationDone: boolean = false;
-  generationSucces: string = 'Calcule des totaux fait avec succés';
+  generationDone: boolean;
+  generationSuccesMessage: string = 'Calcule des totaux fait avec succés';
   errors!: string;
   userMatricule: any = localStorage.getItem('matricule');
   situationClotureDetails!: any;
@@ -22,20 +22,26 @@ export class SituationClotureComponent implements OnInit {
   fileObjects: any = [{ état_des_virements: '0' }, { état_des_taxes: '1' }];
   fileNames: [string, string] = ['état_des_virements', 'état_des_taxes'];
   dateCloture!: dateClotureType;
+  filesLoading: boolean;
 
   constructor(
     private help: HelperService,
     private clotureService: ClotureService,
     private downloadService: DownloadService
-  ) {}
-
-  ngOnInit(): void {
-    this.getSituationCloturePath(this.situations); // Get next cloture date and check
-    this.getNextClotureAndCheck();
+  ) {
+    this.generationDone = false;
+    this.filesLoading = false;
   }
 
-  // Get the next cloture date from the server and check if has data and throw the check function
-  getNextClotureAndCheck() {
+  ngOnInit(): void {
+    this.getNextCloture();
+    setTimeout(() => {
+      this.getSituationCloturePath(this.situations);
+    }, 500);
+  }
+
+  // Get the next cloture date from the server
+  getNextCloture() {
     this.help.getNextClotureDate().subscribe((date: dateClotureType) => {
       this.dateCloture = date;
     });
@@ -49,12 +55,17 @@ export class SituationClotureComponent implements OnInit {
     };
 
     this.clotureService.situationCloture(date, this.userMatricule).subscribe(
-      (_) => {
-        this.generationDone = true;
-        setTimeout(() => {
-          this.generationDone = false;
-          this.help.refrechPage();
-        }, 2000);
+      (data) => {
+        if (data) {
+          this.generationDone = true;
+          this.filesLoading = true;
+
+          // Close success message after 2s
+          setTimeout(() => {
+            this.generationDone = false;
+            this.getSituationCloturePath(this.situations);
+          }, 5000);
+        }
       },
       (error) => {
         this.errors = error.error.message;
@@ -80,6 +91,7 @@ export class SituationClotureComponent implements OnInit {
       .getPathSituationCloture(date.mois, date.annee, data)
       .subscribe((data) => {
         this.situationClotureDetails = data[0];
+        this.filesLoading = false;
       });
   }
 
