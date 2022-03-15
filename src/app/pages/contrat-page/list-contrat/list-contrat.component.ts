@@ -112,7 +112,6 @@ export class ListContratComponent implements OnInit {
   checkAndPutText(value: boolean) {
     return this.helperService.booleanToText(value);
   }
-
   // Filter by intitule
   search() {
     if (this.findContrat != '') {
