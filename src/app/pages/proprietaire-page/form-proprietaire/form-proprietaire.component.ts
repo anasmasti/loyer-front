@@ -6,6 +6,10 @@ import { ProprietaireService } from 'src/app/services/proprietaire-service/propr
 import { ActivatedRoute, Router } from '@angular/router';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
+import {
+  checkProprietaireMoral,
+  checkProprietairePhysique,
+} from '../proprietaire.validator';
 
 @Component({
   selector: 'app-form-proprietaire',
@@ -76,8 +80,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   ];
 
   // Proprietaire type
-  personPhysique: boolean = true;
+  personPhysique!: boolean;
   type_proprietaire!: string;
+  proprTypeCheck: boolean = false;
   constructor(
     private proprietaireService: ProprietaireService,
     private mainModalService: MainModalService,
@@ -95,18 +100,27 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-
     this.proprietaireForm = new FormGroup({
       // Champs du propriètaire
-      cin: new FormControl('', [Validators.maxLength(8), Validators.required]),
+      cin: new FormControl('', [
+        Validators.maxLength(8),
+        checkProprietairePhysique(this.personPhysique),
+      ]),
       passport: new FormControl('', [Validators.maxLength(8)]),
       carte_sejour: new FormControl('', [Validators.maxLength(8)]),
       nom_prenom: new FormControl('', [
         Validators.minLength(6),
         Validators.pattern('[a-zA-Z ]*'),
+        checkProprietairePhysique(this.personPhysique),
       ]),
-      raison_social: new FormControl('', [this.personPhysique ? Validators.pattern('[a-zA-Z ]*') : Validators.pattern('[a-zA-Z ]*') ]),
-      n_registre_commerce: new FormControl('', [Validators.pattern('[0-9]*')]),
+      raison_social: new FormControl('', [
+        checkProprietaireMoral(!this.personPhysique),
+        Validators.pattern('[a-zA-Z ]*'),
+      ]),
+      n_registre_commerce: new FormControl('', [
+        checkProprietaireMoral(!this.personPhysique),
+        Validators.pattern('[0-9]*'),
+      ]),
       telephone: new FormControl('', [
         Validators.pattern('[0-9]*'),
         Validators.maxLength(10),
@@ -213,7 +227,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     this.getFoncierId();
     this.proprietaireTypeToggel(this.proprietaire.type_proprietaire);
     this.callGetContratAndLieuMethods();
-
+    // this.proprTypeCheck = true;
     // this.removeAllMandateires();
 
     // if (this.proprietaire.mandataire) {
@@ -952,17 +966,11 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
 
   proprietaireTypeToggel(value: string) {
-    if (value == 'Personne physique') {
-      this.personPhysique = true;
-      this.proprietaireForm.controls["cin"].setValidators([Validators.required, Validators.maxLength(8)]);
-    } else {
-      console.log('teeeeeeeeeeeeeeest');
-      this.proprietaireForm.controls["cin"].clearValidators()
-      // this.proprietaireForm.controls["cin"].setValidators(Validators.maxLength(8));
-      this.personPhysique = false;
-    }
-    console.log(this.proprietaireForm.controls["cin"]);
-    
+    if (value == 'Personne physique') this.personPhysique = true;
+    else this.personPhysique = false;
+
+    this.proprTypeCheck = true;
+    this.proprietaireForm.reset();
     this.type_proprietaire = value;
   }
 
@@ -1025,7 +1033,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   get retenue_source() {
     return this.proprietaireForm.get('retenue_source');
   }
-  
+
   get montant_apres_impot() {
     return this.proprietaireForm.get('montant_apres_impot');
   }
