@@ -239,19 +239,20 @@
               class="btn btn-sm main-btn me-2"
               ><i class="fal fa-eye"></i
             ></a>
+            <!-- *ngIf="
+              (this.contrat.etat_contrat?.libelle == 'Soumettre' &&
+                userRoles.includes('CSLA')) ||
+              ((userRoles.includes('CDGSP') || userRoles.includes('CSLA')) &&
+                !contrat.validation1_DMG &&
+                this.contrat.etat_contrat?.libelle ==
+                  'En cours de validation') ||
+              (userRoles.includes('CSLA') && !contrat.validation1_DMG)
+            " -->
+            <!-- *ngIf="!userRoles.includes('DAJC')" -->
             <a
-              *ngIf="
-                (this.contrat.etat_contrat?.libelle == 'Soumettre' &&
-                  userRoles.includes('CSLA')) ||
-                ((userRoles.includes('CDGSP') || userRoles.includes('CSLA')) &&
-                  !contrat.validation1_DMG &&
-                  this.contrat.etat_contrat?.libelle ==
-                    'En cours de validation') ||
-                (userRoles.includes('CSLA') && !contrat.validation1_DMG)
-              "
               (click)="openEditModal(contrat)"
               class="btn btn-sm info-btn me-2"
-              ><i class="far fa-user-edit"></i
+              ><i class="far fa-edit"></i
             ></a>
             <!-- <a
               class="btn btn-sm danger-btn"
@@ -266,10 +267,9 @@
           *ngIf="
             (userRoles.includes('CDGSP') ||
               userRoles.includes('CSLA') ||
-              userRoles.includes('DAJC')) &&(
-                this.contrat.etat_contrat?.libelle == 'En cours de validation' ||
-                this.contrat.etat_contrat?.libelle == 'Actif'
-            )
+              userRoles.includes('DAJC')) &&
+            (this.contrat.etat_contrat?.libelle == 'En cours de validation' ||
+              this.contrat.etat_contrat?.libelle == 'Actif')
           "
         >
           <div
@@ -437,7 +437,9 @@
               "
             >
               <ng-container *ngIf="!proprietaire.deleted">
-                <td>{{ proprietaire.nom_prenom || proprietaire.raison_social }}</td>
+                <td>
+                  {{ proprietaire.nom_prenom || proprietaire.raison_social }}
+                </td>
                 <td>
                   {{
                     proprietaire.cin
@@ -455,7 +457,7 @@
                   >
                     {{ checkAndPutText(proprietaire?.is_mandataire) }}
                   </span>
-                  <a
+                  <!-- <a
                     id="proprietaireList"
                     class="btn btn-sm second-btn me-2"
                     data-bs-toggle="dropdown"
@@ -466,7 +468,7 @@
                     <i class="fal fa-users"></i>
                     {{ getProprietaireLength(proprietaire.proprietaire_list) }}
                     Proprietaires
-                  </a>
+                  </a> -->
                   <ul
                     id="proprietaireListDropdown"
                     class="dropdown-menu p-4 main-card border-0"

@@ -95,7 +95,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-
     this.proprietaireForm = new FormGroup({
       // Champs du propriètaire
       cin: new FormControl('', [Validators.maxLength(8), Validators.required]),
@@ -105,7 +104,11 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         Validators.minLength(6),
         Validators.pattern('[a-zA-Z ]*'),
       ]),
-      raison_social: new FormControl('', [this.personPhysique ? Validators.pattern('[a-zA-Z ]*') : Validators.pattern('[a-zA-Z ]*') ]),
+      raison_social: new FormControl('', [
+        this.personPhysique
+          ? Validators.pattern('[a-zA-Z ]*')
+          : Validators.pattern('[a-zA-Z ]*'),
+      ]),
       n_registre_commerce: new FormControl('', [Validators.pattern('[0-9]*')]),
       telephone: new FormControl('', [
         Validators.pattern('[0-9]*'),
@@ -316,6 +319,12 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
     this.montantLoyer = this.proprietaire.montant_loyer;
     this.fillProprietaireInfos();
+    setTimeout(() => {
+      // Calcul montants
+      this.calculMontant();
+      this.calculMontantAvance();
+      this.calculCaution();
+    }, 2000);
   }
 
   fillProprietaireInfos() {
@@ -954,15 +963,18 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   proprietaireTypeToggel(value: string) {
     if (value == 'Personne physique') {
       this.personPhysique = true;
-      this.proprietaireForm.controls["cin"].setValidators([Validators.required, Validators.maxLength(8)]);
+      this.proprietaireForm.controls['cin'].setValidators([
+        Validators.required,
+        Validators.maxLength(8),
+      ]);
     } else {
       console.log('teeeeeeeeeeeeeeest');
-      this.proprietaireForm.controls["cin"].clearValidators()
+      this.proprietaireForm.controls['cin'].clearValidators();
       // this.proprietaireForm.controls["cin"].setValidators(Validators.maxLength(8));
       this.personPhysique = false;
     }
-    console.log(this.proprietaireForm.controls["cin"]);
-    
+    console.log(this.proprietaireForm.controls['cin']);
+
     this.type_proprietaire = value;
   }
 
@@ -1025,7 +1037,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   get retenue_source() {
     return this.proprietaireForm.get('retenue_source');
   }
-  
+
   get montant_apres_impot() {
     return this.proprietaireForm.get('montant_apres_impot');
   }
