@@ -34,10 +34,7 @@ export class FilesGenerationComponent implements OnInit {
   ];
 
   constructor(
-    private help: HelperService,
-    private confirmationModalService: ConfirmationModalService,
     private downloadService: DownloadService,
-    private clotureService: ClotureService,
     private reportingService: ReportingService
   ) {
     this.reporting = environment.REPORTING;
@@ -48,23 +45,6 @@ export class FilesGenerationComponent implements OnInit {
     this.filesForm = new FormGroup({
       date_gen: new FormControl('', [Validators.required]),
     });
-
-    this.getNextClotureAndCheck();
-
-    // Get the same function after 6 hours
-    setInterval(() => {
-      this.getNextClotureAndCheck();
-    }, this.twelveHours);
-  }
-
-  // Open confirmation modal
-  openConfirmationModal() {
-    this.confirmationModalService.open(); // Open delete confirmation modal
-  }
-
-  // Close confirmation modal
-  closeConfirmationModal() {
-    this.confirmationModalService.close(); // Close delete confirmation modal
   }
 
   // Check if all inputs has invalid errors
@@ -74,53 +54,6 @@ export class FilesGenerationComponent implements OnInit {
 
   showButtons() {
     return (this.dateSelected = true);
-  }
-
-  // Get the next cloture date from the server and check if has data and throw the check function
-  getNextClotureAndCheck() {
-    this.help.getNextClotureDate().subscribe((date) => {
-      this.dateCloture = date;
-      if (this.dateCloture.annee && this.dateCloture.mois)
-        this.hasNextCluture = true;
-      this.checkNextCloture();
-    });
-  }
-
-  // Check the next cloture
-  checkNextCloture() {
-    let today: Date = new Date();
-
-    // Check if the next cloture's here
-    if (this.hasNextCluture) {
-      // Put this month is cloture and show cloture section if next cloture match with today
-      if (
-        this.dateCloture.annee == today.getFullYear() &&
-        this.dateCloture.mois == today.getMonth() + 1
-      )
-        return [
-          (this.today = today),
-          (this.isCloture = false),
-          (this.showClotureSection = true),
-        ];
-      else return [(this.isCloture = true), (this.showClotureSection = true)];
-    } else return (this.showClotureSection = false);
-  }
-
-  // Cloture this month
-  cloture() {
-    // Get date of now
-    let today = new Date();
-
-    // Fill date cloture
-    let date = {
-      mois: today.getMonth() + 1,
-      annee: today.getFullYear(),
-    };
-
-    // Throw cloture function from cloture service
-    this.clotureService.Cloture(date, this.userMatricule).subscribe((data) => {
-      if (data) this.isCloture = true;
-    });
   }
 
   downloadFiles(params: string[]) {

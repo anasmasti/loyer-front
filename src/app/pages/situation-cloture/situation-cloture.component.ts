@@ -3,6 +3,7 @@ import { ClotureService } from '@services/cloture/cloture.service';
 import { DownloadService } from '@services/download-service/download.service';
 import { HelperService } from '@services/helpers/helper.service';
 import { environment } from 'src/environments/environment';
+import dateClotureType from '../cloture/date-cloture.type';
 
 @Component({
   selector: 'app-situation-cloture',
@@ -12,42 +13,59 @@ import { environment } from 'src/environments/environment';
 export class SituationClotureComponent implements OnInit {
   situations = ['état_virements', 'état_taxes'];
   url: string = environment.API_URL_WITHOUT_PARAM;
-  generationDone: boolean = false;
-  generationSucces: string = 'Calcule des totaux fait avec succés';
+  generationDone: boolean;
+  generationSuccesMessage: string = 'Calcule des totaux fait avec succés';
   errors!: string;
   userMatricule: any = localStorage.getItem('matricule');
   situationClotureDetails!: any;
   today!: any;
-  fileObjects: any = [{ 'état_des_virements': '0' }, { 'état_des_taxes': '1' }];
+  fileObjects: any = [{ état_des_virements: '0' }, { état_des_taxes: '1' }];
   fileNames: [string, string] = ['état_des_virements', 'état_des_taxes'];
+  dateCloture!: dateClotureType;
+  filesLoading: boolean;
 
   constructor(
     private help: HelperService,
     private clotureService: ClotureService,
     private downloadService: DownloadService
-  ) {}
+  ) {
+    this.generationDone = false;
+    this.filesLoading = false;
+  }
 
   ngOnInit(): void {
-    this.getSituationCloturePath(this.situations); // Get next cloture date and check
+    this.getNextCloture();
+    setTimeout(() => {
+      this.getSituationCloturePath(this.situations);
+    }, 500);
+  }
+
+  // Get the next cloture date from the server
+  getNextCloture() {
+    this.help.getNextClotureDate().subscribe((date: dateClotureType) => {
+      this.dateCloture = date;
+    });
   }
 
   generateSituationCloture() {
-    // Get date of now
-    let today = new Date();
-
     // Fill date cloture
-    let date = {
-      mois: today.getMonth() + 1,
-      annee: today.getFullYear(),
+    let date: dateClotureType = {
+      mois: this.dateCloture.mois,
+      annee: this.dateCloture.annee,
     };
 
     this.clotureService.situationCloture(date, this.userMatricule).subscribe(
-      (_) => {
-        this.generationDone = true;
-        setTimeout(() => {
-          this.generationDone = false;
-          this.help.refrechPage();
-        }, 2000);
+      (data) => {
+        if (data) {
+          this.generationDone = true;
+          this.filesLoading = true;
+
+          // Close success message after 2s
+          setTimeout(() => {
+            this.generationDone = false;
+            this.getSituationCloturePath(this.situations);
+          }, 5000);
+        }
       },
       (error) => {
         this.errors = error.error.message;
@@ -62,6 +80,7 @@ export class SituationClotureComponent implements OnInit {
   getSituationCloturePath(data: any) {
     // Get date of now
     let today = new Date();
+
     // Fill date cloture
     let date = {
       mois: today.getMonth() + 1,
@@ -72,7 +91,7 @@ export class SituationClotureComponent implements OnInit {
       .getPathSituationCloture(date.mois, date.annee, data)
       .subscribe((data) => {
         this.situationClotureDetails = data[0];
-        console.log(data);
+        this.filesLoading = false;
       });
   }
 

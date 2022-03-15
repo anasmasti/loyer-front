@@ -36,6 +36,12 @@
   <div *ngIf="deleteDone" class="done-alert p-2 my-2">{{ deleteSucces }}</div>
 </div>
 
+<div class="w-100 d-flex justify-content-center">
+  <div *ngIf="soumettreDone" class="done-alert p-2 my-2">
+    {{ soumettreSuccess }}
+  </div>
+</div>
+
 <div class="main-card bg-white table-responsive p-lg-3 mt-4">
   <div class="row d-flex justify-content-between">
     <div class="col-lg-4 mb-4">
@@ -247,11 +253,11 @@
               class="btn btn-sm info-btn me-2"
               ><i class="far fa-user-edit"></i
             ></a>
-            <a
+            <!-- <a
               class="btn btn-sm danger-btn"
               (click)="openConfirmationContratModal(contrat._id)"
               ><i class="far fa-user-minus"></i
-            ></a>
+            ></a> -->
           </div>
         </td>
 
@@ -260,8 +266,10 @@
           *ngIf="
             (userRoles.includes('CDGSP') ||
               userRoles.includes('CSLA') ||
-              userRoles.includes('DAJC')) &&
-            this.contrat.etat_contrat?.libelle == 'En cours de validation'
+              userRoles.includes('DAJC')) &&(
+                this.contrat.etat_contrat?.libelle == 'En cours de validation' ||
+                this.contrat.etat_contrat?.libelle == 'Actif'
+            )
           "
         >
           <div
@@ -388,16 +396,11 @@
               [ngClass]="
                 contrat.validation2_DAJC ? 'success-btn' : 'second-btn'
               "
-              data-bs-toggle="dropdown"
               aria-expanded="false"
               (click)="openConfirmationSoumettre(contrat._id)"
             >
               <ng-container *ngIf="!contrat.validation2_DAJC">
                 Soumettre
-              </ng-container>
-
-              <ng-container *ngIf="contrat.validation2_DAJC">
-                <i class="fal fa-clipboard-check"></i>
               </ng-container>
             </a>
           </div>
@@ -434,8 +437,14 @@
               "
             >
               <ng-container *ngIf="!proprietaire.deleted">
-                <td>{{ proprietaire.nom_prenom }}</td>
-                <td>{{ proprietaire.cin ? proprietaire.cin : proprietaire.n_registre_commerce || '--'}}</td>
+                <td>{{ proprietaire.nom_prenom || proprietaire.raison_social }}</td>
+                <td>
+                  {{
+                    proprietaire.cin
+                      ? proprietaire.cin
+                      : proprietaire.n_registre_commerce || "--"
+                  }}
+                </td>
                 <td>
                   <span
                     class="p-1"
@@ -551,7 +560,7 @@
           *ngIf="
             isValidate;
             then validation1;
-            else isValidate2 ? validation2 : delete
+            else isValidate2 ? validation2 : isSoumettre ? soumettre : delete
           "
         ></div>
         <!-- <div *ngIf="isValidate2; then validation2;"></div> -->
@@ -561,9 +570,7 @@
             Confirmation de la validation
             <i class="far fa-exclamation-circle"></i>
           </h3>
-          <p class="mt-3">
-            Êtes-vous sûr de vouloir valider ce contrat ?
-          </p>
+          <p class="mt-3">Êtes-vous sûr de vouloir valider ce contrat ?</p>
           <div class="d-inline-flex justify-content-start mt-5">
             <a
               class="btn btn-lg px-lg-4 main-btn me-2"
@@ -583,9 +590,7 @@
             Confirmation de la validation
             <i class="far fa-exclamation-circle"></i>
           </h3>
-          <p class="mt-3">
-            Êtes-vous sûr de vouloir valider ce contrat ?
-          </p>
+          <p class="mt-3">Êtes-vous sûr de vouloir valider ce contrat ?</p>
           <div class="d-inline-flex justify-content-start mt-5">
             <a
               class="btn btn-lg px-lg-4 main-btn me-2"
@@ -596,6 +601,26 @@
               class="btn btn-lg px-lg-4 danger-btn"
               (click)="annulerContrat(); closeConfirmationModal()"
               >Rejeter</a
+            >
+          </div>
+        </ng-template>
+
+        <ng-template #soumettre>
+          <h3 class="main-title">
+            Confirmation de Soumission
+            <i class="far fa-exclamation-circle"></i>
+          </h3>
+          <p class="mt-3">Text de validation .... ?</p>
+          <div class="d-inline-flex justify-content-start mt-5">
+            <a
+              class="btn btn-lg px-lg-4 danger-btn me-2"
+              (click)="soumettreContrat()"
+              >Oui</a
+            >
+            <a
+              class="btn btn-lg px-lg-4 main-btn"
+              (click)="closeConfirmationModal(soumettreModal)"
+              >Non</a
             >
           </div>
         </ng-template>
@@ -622,7 +647,7 @@
       </app-confirmation-modal>
 
       <!-- Soumettre modal -->
-      <app-confirmation-modal [closeBtn]="true" [id]="soumettreModal">
+      <!-- <app-confirmation-modal [closeBtn]="true" [id]="soumettreModal">
         <h3 class="main-title">
           Confirmation de Bla bla
           <i class="far fa-exclamation-circle"></i>
@@ -640,7 +665,7 @@
             >Non</a
           >
         </div>
-      </app-confirmation-modal>
+      </app-confirmation-modal> -->
     </tbody>
 
     <tbody

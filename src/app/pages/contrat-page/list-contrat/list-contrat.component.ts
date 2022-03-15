@@ -7,7 +7,6 @@ import { ContratService } from 'src/app/services/contrat-service/contrat.service
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { SearchServiceService } from 'src/app/services/search-service/search-service.service';
 import { environment } from 'src/environments/environment';
-import { Proprietaire } from 'src/app/models/Proprietaire';
 
 @Component({
   selector: 'app-list-contrat',
@@ -64,7 +63,12 @@ export class ListContratComponent implements OnInit {
   comparedContrat!: Contrat[]
 
   // Soumettre
-  soumettreModal: string = 'soumettre-modal';
+  soumettreModal: string = 'soumettreModal';
+  isSoumettre: boolean = false;
+  test: string = 'test';
+  
+  soumettreSuccess: string = 'Contrat modifié avec succés';
+  soumettreDone: boolean = false;
 
   constructor(
     private contratService: ContratService,
@@ -93,10 +97,8 @@ export class ListContratComponent implements OnInit {
           this.userRoles.push(element);
         }
       }
-      console.log(this.userRoles);
     }
   }
-
   getContrat() {
     this.contratService.getContrat().subscribe(
       (data: any) => {
@@ -212,12 +214,14 @@ export class ListContratComponent implements OnInit {
 
   openConfirmationSoumettre(id: string) {
     this.id = id;
-    this.confirmationModalService.open(this.soumettreModal); // Open soumettre confirmation modal
+    this.isSoumettre = true;
+   this.confirmationModalService.open(); //  Open soumettre confirmation modal
   }
 
   // Close confirmation modal
   closeConfirmationModal(id: string = 'confirmationModal') {
-    this.confirmationModalService.close(id); // Close delete confirmation modal
+    this.isSoumettre = false;
+    this.confirmationModalService.close(); // Close delete confirmation modal
   }
 
   // Afficher le message d'erreur de serveur
@@ -276,7 +280,9 @@ export class ListContratComponent implements OnInit {
     this.contratService.updateSoumettre(this.id, this.userMatricule).subscribe(
       (_) => {
         this.closeConfirmationModal(this.soumettreModal)
+        this.soumettreDone = true;
         setTimeout(() => {
+          this.soumettreDone = false;
           this.helperService.refrechPage()
         }, 3000);
       },

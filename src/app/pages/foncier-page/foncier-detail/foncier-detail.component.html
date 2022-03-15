@@ -19,10 +19,6 @@
 </div>
 
 <div class="row d-flex justify-content-between">
-  <!-- <div class="mt-4">
-        <a [routerLink]="['/contrat',foncier?._id]" class="btn btn-sm success-btn">Ajouter un contrat</a>
-    </div> -->
-
   <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-5">
     <div class="row" *ngFor="let lieu of foncier?.lieu">
 
@@ -111,7 +107,7 @@
         <table class="table" >
           <!-- if nom and prenom exist -->
           <thead>
-            <tr>
+            <tr class="text-truncate">
               <th> Nom et prénom / RS </th>
               <th> CIN / IF </th>
             </tr>
@@ -124,34 +120,6 @@
           </tbody>
         </table>
       </div>
-      <!-- <div class="col-lg-6">
-
-        <h5 class="main-txt">Entité organisationnelle</h5>
-
-        <table class="table">
-          <thead>
-            <tr>
-              <th>
-                Intitulé
-              </th>
-              <th>
-                Type
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let lieu of foncier?.lieu">
-              <td>
-                {{ lieu.lieu?.intitule_lieu ||'--'}}
-              </td>
-              <td>
-                {{ lieu.lieu?.type_lieu ||'--'}}
-              </td>
-            </tr>
-
-          </tbody>
-        </table>
-      </div> -->
     </div>
   </div>
 </div>

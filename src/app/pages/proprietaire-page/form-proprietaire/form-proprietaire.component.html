@@ -421,7 +421,7 @@
           [ngClass]="{
             'is-invalid': checkInputsValidation(montant_loyer)
           }"
-          [value]="montantLoyer"
+          [value]="montantLoyer | number: '1.2-2'"
           readonly
         />
         <!-- Error Message  -->
@@ -469,7 +469,7 @@
           [ngClass]="{
             'is-invalid': checkInputsValidation(montant_apres_impot)
           }"
-          [value]="montantApresImpot"
+          [value]="montantApresImpot | number: '1.2-2'"
           readonly
         />
       </div>
@@ -480,7 +480,7 @@
         <input
           type="text"
           class="form-control rounded-pill"
-          [value]="montantAvance"
+          [value]="montantAvance | number: '1.2-2'"
           formControlName="montant_avance_proprietaire"
           readonly
         />
@@ -571,7 +571,7 @@
             class="px-3 py-1 rounded-pill checkbox-list-btns"
             [for]="prop?._id"
           >
-            {{ prop?.cin }} • {{ prop?.nom_prenom }}
+            {{ prop?.cin }} • {{ prop?.nom_prenom || prop?.raison_social }}
           </label>
         </div>
       </div>
@@ -752,7 +752,6 @@
         class="btn second-btn form-control"
         (click)="scrollToTop()"
         *ngIf="proprietaire == ''"
-        [disabled]="proprietaireForm.invalid"
       >
         Ajouter
       </button>

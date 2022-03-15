@@ -582,8 +582,6 @@ export class FormContratComponent extends Motif implements OnInit {
     this.fd.append('data', JSON.stringify(ctr_data));
     // let idFoncier = this.actRoute.snapshot.paramMap.get('id_foncier');
 
-    console.log(ctr_data);
-
     // post the formdata (data+files)
     this.contratService
       .addContrat(this.fd, this.userMatricule, this.foncier_id)
@@ -823,7 +821,6 @@ export class FormContratComponent extends Motif implements OnInit {
     };
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
-    console.log(this.fd.get('piece_joint_contrat'));
 
     // patch the formdata (data+files)
     this.contratService.updateContrat(id, this.fd).subscribe(
@@ -843,7 +840,6 @@ export class FormContratComponent extends Motif implements OnInit {
         this.hideErrorMessage();
       }
     );
-    console.log(ctr_data);
   }
 
   getMotifs() {
