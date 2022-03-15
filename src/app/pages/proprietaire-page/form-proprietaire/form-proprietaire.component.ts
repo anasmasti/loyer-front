@@ -330,6 +330,12 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
     this.montantLoyer = this.proprietaire.montant_loyer;
     this.fillProprietaireInfos();
+    setTimeout(() => {
+      // Calcul montants
+      this.calculMontant();
+      this.calculMontantAvance();
+      this.calculCaution();
+    }, 2000);
   }
 
   fillProprietaireInfos() {

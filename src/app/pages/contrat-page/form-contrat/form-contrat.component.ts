@@ -55,7 +55,7 @@ export class FormContratComponent extends Motif implements OnInit {
 
   contratForm!: FormGroup;
 
-  etatContratTypes!: string;
+  selectedEtatContrat!: string;
 
   typeLieuList: any = [
     {
@@ -162,7 +162,7 @@ export class FormContratComponent extends Motif implements OnInit {
       this.getFoncierById();
     }
 
-    // this.etatContratTypes = 'Avenant'
+    // this.selectedEtatContrat = 'Avenant'
     this.contratForm = new FormGroup({
       numero_contrat: new FormControl(''),
       piece_jointe: new FormControl([''], Validators.required),
@@ -256,7 +256,7 @@ export class FormContratComponent extends Motif implements OnInit {
     let monthResiliation = dateResiliation.getMonth() + 1;
 
     // ------First Condition--------
-    if (month == 1 && this.etatContratTypes != 'Résilié') {
+    if (month == 1 && this.selectedEtatContrat != 'Résilié') {
       this.duree = 12;
       if (this.hasDeclarationOption === 'non') {
         if (montantLoyerForYear <= 30000) {
@@ -292,7 +292,7 @@ export class FormContratComponent extends Motif implements OnInit {
       this.totalNetLoyer = this.montantApresImpot * this.duree;
     }
     // ------Seconde Condition--------
-    if (month != 1 && this.etatContratTypes != 'Résilié') {
+    if (month != 1 && this.selectedEtatContrat != 'Résilié') {
       // nombre des mois louer
       let nbr_mois_louer = 12 - month + 1;
       this.duree = nbr_mois_louer;
@@ -337,7 +337,7 @@ export class FormContratComponent extends Motif implements OnInit {
     }
 
     // ------Third Condition--------
-    if (this.etatContratTypes == 'Résilié') {
+    if (this.selectedEtatContrat == 'Résilié') {
       // nombre des mois louer
       let nbr_mois_louer = monthResiliation - month + 1;
       this.duree = nbr_mois_louer;
@@ -522,7 +522,7 @@ export class FormContratComponent extends Motif implements OnInit {
     let numeroAvenant = `${this.contrat.numero_contrat}/AV`;
     this.contratForm.controls.etat_contrat_n_avenant.setValue(numeroAvenant);
     let selectedEtat = event.target.value;
-    this.etatContratTypes = selectedEtat;
+    this.selectedEtatContrat = selectedEtat;
   }
 
   //Upload Image piece joint contrat
@@ -640,6 +640,8 @@ export class FormContratComponent extends Motif implements OnInit {
           this.currentLieu = lieu;
         }
       });
+
+      // this.etatContrat = this.contrat.etat_contrat.libelle
 
       this.contratForm?.patchValue({
         numero_contrat: this.contrat.numero_contrat,
@@ -840,6 +842,8 @@ export class FormContratComponent extends Motif implements OnInit {
         this.hideErrorMessage();
       }
     );
+    // console.log(ctr_data);
+    
   }
 
   getMotifs() {
@@ -881,7 +885,7 @@ export class FormContratComponent extends Motif implements OnInit {
   }
 
   openResiliationModel() {
-    if (this.etatContratTypes == 'Résilié') {
+    if (this.selectedEtatContrat == 'Résilié') {
       this.openConfirmationModal();
     } else {
       this.updateContrat();
