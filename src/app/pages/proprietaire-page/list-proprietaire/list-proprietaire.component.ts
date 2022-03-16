@@ -104,6 +104,18 @@ export class ListProprietaireComponent implements OnInit {
         }
       });
     });
+    this.sortProprietaireList();
+    // console.log(this.proprietaires);
+  }
+  
+  // Sort proprietaire list by its updated date
+  sortProprietaireList() {
+    this.proprietaires.sort((a: any,b: any) => (
+      new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+      // b._id - a._id
+      // (new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
+      ))
+      console.log(this.proprietaires);
   }
 
   // Open the update proprietaire form and push index and data of proprietaire

@@ -65,208 +65,235 @@
       </div>
     </div>
 
-    <!--Début 1er Row-->
-    <div class="row">
-      <!-- If isMand true show list of proprietaire to checked -->
-      <div *ngIf="personPhysique; then PersonPhysique"></div>
-      <div *ngIf="!personPhysique; then PersonMoral"></div>
+    <ng-container *ngIf="proprTypeCheck">
+      <!--Début 1er Row-->
+      <div class="row">
+        <!-- If isMand true show list of proprietaire to checked -->
+        <div *ngIf="personPhysique; then PersonPhysique"></div>
+        <div *ngIf="!personPhysique; then PersonMoral"></div>
 
-      <ng-template #PersonPhysique>
-        <div class="col-lg-3 form-group mt-4" *ngIf="personPhysique">
-          <label for="">Nom et prénom <span class="danger-txt">*</span></label>
+        <ng-template #PersonPhysique>
+          <div class="col-lg-3 form-group mt-4" *ngIf="personPhysique">
+            <label for=""
+              >Nom et prénom <span class="danger-txt">*</span></label
+            >
+            <input
+              type="text"
+              class="form-control rounded-pill"
+              formControlName="nom_prenom"
+              [ngClass]="{
+                'is-invalid': checkInputsValidation(nom_prenom)
+              }"
+            />
+            <!-- Error Message  -->
+            <div class="" *ngIf="checkInputsValidation(nom_prenom)">
+              <p
+                class="danger-txt"
+                *ngIf="nom_prenom?.errors?.requiredWhenIsPhysique"
+              >
+                Veuillez remplir ce champ
+              </p>
+              <p class="danger-txt" *ngIf="nom_prenom?.errors?.minlength">
+                Vous devez entrer 6 caractères au moin
+              </p>
+              <p class="danger-txt" *ngIf="nom_prenom?.errors?.pattern">
+                Vous devez entrer seulement des alphabets
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 form-group mt-4" *ngIf="personPhysique">
+            <label for="">N° CIN <span class="danger-txt">*</span></label>
+            <input
+              type="text"
+              class="form-control rounded-pill"
+              formControlName="cin"
+              [ngClass]="{
+                'is-invalid': checkInputsValidation(cin)
+              }"
+            />
+            <!-- Error Message  -->
+            <div class="" *ngIf="checkInputsValidation(cin)">
+              <p class="danger-txt" *ngIf="cin?.errors?.requiredWhenIsPhysique">
+                Veuillez remplir ce champ
+              </p>
+              <p class="danger-txt" *ngIf="cin?.errors?.maxlength">
+                Ce champ ne doit pas dépasser 8 caractères
+              </p>
+              <p class="danger-txt" *ngIf="cin?.errors?.required">
+                Veuillez remplir ce champ
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 form-group mt-4" *ngIf="personPhysique">
+            <label for="">Passeport Propriétaire</label>
+            <input
+              type="text"
+              class="form-control rounded-pill"
+              formControlName="passport"
+              [ngClass]="{
+                'is-invalid': checkInputsValidation(passport)
+              }"
+            />
+            <!-- Error Message  -->
+            <div class="" *ngIf="checkInputsValidation(passport)">
+              <p class="danger-txt" *ngIf="passport?.errors?.maxlength">
+                Ce champ ne doit pas dépasser 8 caractères
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 form-group mt-4" *ngIf="personPhysique">
+            <label for="">Carte séjour Propriétaire</label>
+            <input
+              type="text"
+              class="form-control rounded-pill"
+              formControlName="carte_sejour"
+              [ngClass]="{
+                'is-invalid': checkInputsValidation(carte_sejour)
+              }"
+            />
+            <!-- Error Message  -->
+            <div class="" *ngIf="checkInputsValidation(carte_sejour)">
+              <p class="danger-txt" *ngIf="carte_sejour?.errors?.maxlength">
+                Ce champ ne doit pas dépasser 8 caractères
+              </p>
+            </div>
+          </div>
+        </ng-template>
+
+        <ng-template #PersonMoral>
+          <div class="col-lg-3 form-group mt-4" *ngIf="!personPhysique">
+            <label for=""
+              >Raison sociale <span class="danger-txt">*</span></label
+            >
+            <input
+              type="text"
+              class="form-control rounded-pill"
+              formControlName="raison_social"
+              [ngClass]="{
+                'is-invalid': checkInputsValidation(raison_social)
+              }"
+            />
+
+            <!-- Error Message  -->
+            <div class="" *ngIf="checkInputsValidation(raison_social)">
+              <p
+                class="danger-txt"
+                *ngIf="raison_social?.errors?.requiredWhenIsMoral"
+              >
+                Veuillez remplir ce champ
+              </p>
+              <p class="danger-txt" *ngIf="raison_social?.errors?.pattern">
+                Vous devez entrer seulement des alphabets
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-3 form-group mt-4" *ngIf="!personPhysique">
+            <label for=""
+              >N° de l’Identifiant Fiscal
+              <span class="danger-txt">*</span></label
+            >
+            <input
+              type="text"
+              class="form-control rounded-pill"
+              formControlName="n_registre_commerce"
+              [ngClass]="{
+                'is-invalid': checkInputsValidation(n_registre_commerce)
+              }"
+            />
+
+            <!-- Error Message  -->
+            <div class="" *ngIf="checkInputsValidation(n_registre_commerce)">
+              <p
+                class="danger-txt"
+                *ngIf="n_registre_commerce?.errors?.requiredWhenIsMoral"
+              >
+                Veuillez remplir ce champ
+              </p>
+              <p
+                class="danger-txt"
+                *ngIf="n_registre_commerce?.errors?.pattern"
+              >
+                Vous devez entrer des chiffres
+              </p>
+            </div>
+          </div>
+        </ng-template>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Téléphone </label>
           <input
             type="text"
             class="form-control rounded-pill"
-            formControlName="nom_prenom"
+            formControlName="telephone"
             [ngClass]="{
-              'is-invalid': checkInputsValidation(nom_prenom)
+              'is-invalid': checkInputsValidation(telephone)
             }"
-           
           />
+
           <!-- Error Message  -->
-          <div class="" *ngIf="checkInputsValidation(nom_prenom)">
-            <!-- <p class="danger-txt" *ngIf="nom_prenom?.errors?.required">
-          Veuillez remplir ce champ
-        </p> -->
-            <p class="danger-txt" *ngIf="nom_prenom?.errors?.minlength">
-              Vous devez entrer 6 caractères au moin
+          <div class="" *ngIf="checkInputsValidation(telephone)">
+            <p class="danger-txt" *ngIf="telephone?.errors?.pattern">
+              Vous devez entrer seulement des chiffres
             </p>
-            <p class="danger-txt" *ngIf="nom_prenom?.errors?.pattern">
-              Vous devez entrer seulement des alphabets
+            <p class="danger-txt" *ngIf="telephone?.errors?.maxlength">
+              Vous devez entrer 10 chiffres au maximum
             </p>
           </div>
         </div>
 
-        <div class="col-lg-3 form-group mt-4" *ngIf="personPhysique">
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Fax </label>
+          <input
+            type="text"
+            class="form-control rounded-pill"
+            formControlName="fax"
+            [ngClass]="{
+              'is-invalid': checkInputsValidation(fax)
+            }"
+          />
+
+          <!-- Error Message  -->
+          <div class="" *ngIf="checkInputsValidation(fax)">
+            <p class="danger-txt" *ngIf="fax?.errors?.pattern">
+              Vous devez entrer seulement des chiffres
+            </p>
+            <p class="danger-txt" *ngIf="fax?.errors?.maxlength">
+              Vous devez entrer 10 chiffres au maximum
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
           <label for=""
-            >N° CIN <span class="danger-txt">*</span></label
+            >N° de compte bancaire <span class="danger-txt">*</span></label
           >
           <input
             type="text"
             class="form-control rounded-pill"
-            formControlName="cin"
+            formControlName="n_compte_bancaire"
+            required
+            [ngClass]="{
+              'is-invalid': checkInputsValidation(n_compte_bancaire),
+              'is-valid': !n_compte_bancaire?.invalid
+            }"
+            maxlength="24"
           />
+
           <!-- Error Message  -->
-          <div class="" *ngIf="checkInputsValidation(cin)">
-            <p class="danger-txt" *ngIf="cin?.errors?.maxlength">
-              Ce champ ne doit pas dépasser 8 caractères
-            </p>
-            <p class="danger-txt" *ngIf="cin?.errors?.required">
+          <div class="" *ngIf="checkInputsValidation(n_compte_bancaire)">
+            <p class="danger-txt" *ngIf="n_compte_bancaire?.errors?.required">
               Veuillez remplir ce champ
             </p>
-          </div>
-        </div>
-
-        <div class="col-lg-3 form-group mt-4" *ngIf="personPhysique">
-          <label for="">Passeport Propriétaire</label>
-          <input
-            type="text"
-            class="form-control rounded-pill"
-            formControlName="passport"
-            [ngClass]="{
-              'is-invalid': checkInputsValidation(passport)
-            }"
-          />
-          <!-- Error Message  -->
-          <div class="" *ngIf="checkInputsValidation(passport)">
-            <p class="danger-txt" *ngIf="passport?.errors?.maxlength">
-              Ce champ ne doit pas dépasser 8 caractères
+            <p class="danger-txt" *ngIf="n_compte_bancaire?.errors?.pattern">
+              Vous devez entrer 24 caractères(chiffres)
             </p>
           </div>
         </div>
 
-        <div class="col-lg-3 form-group mt-4" *ngIf="personPhysique">
-          <label for="">Carte séjour Propriétaire</label>
-          <input
-            type="text"
-            class="form-control rounded-pill"
-            formControlName="carte_sejour"
-            [ngClass]="{
-              'is-invalid': checkInputsValidation(carte_sejour)
-            }"
-          />
-          <!-- Error Message  -->
-          <div class="" *ngIf="checkInputsValidation(carte_sejour)">
-            <p class="danger-txt" *ngIf="carte_sejour?.errors?.maxlength">
-              Ce champ ne doit pas dépasser 8 caractères
-            </p>
-          </div>
-        </div>
-      </ng-template>
-
-      <ng-template #PersonMoral>
-        <div class="col-lg-3 form-group mt-4" *ngIf="!personPhysique">
-          <label for="">Raison sociale <span class="danger-txt">*</span></label>
-          <input
-            type="text"
-            class="form-control rounded-pill"
-            formControlName="raison_social"
-            [ngClass]="{
-              'is-invalid': checkInputsValidation(raison_social)
-            }"
-          />
-
-          <!-- Error Message  -->
-          <div class="" *ngIf="checkInputsValidation(raison_social)">
-            <p class="danger-txt" *ngIf="raison_social?.errors?.pattern">
-              Vous devez entrer seulement des alphabets
-            </p>
-          </div>
-        </div>
-        <div class="col-lg-3 form-group mt-4" *ngIf="!personPhysique">
-          <label for=""
-            >N° de l’Identifiant Fiscal <span class="danger-txt">*</span></label
-          >
-          <input
-            type="text"
-            class="form-control rounded-pill"
-            formControlName="n_registre_commerce"
-            [ngClass]="{
-              'is-invalid': checkInputsValidation(n_registre_commerce)
-            }"
-          />
-
-          <!-- Error Message  -->
-          <div class="" *ngIf="checkInputsValidation(n_registre_commerce)">
-            <p class="danger-txt" *ngIf="n_registre_commerce?.errors?.pattern">
-              Vous devez entrer des chiffres
-            </p>
-          </div>
-        </div>
-      </ng-template>
-
-      <div class="col-lg-3 form-group mt-4">
-        <label for="">Téléphone </label>
-        <input
-          type="text"
-          class="form-control rounded-pill"
-          formControlName="telephone"
-          [ngClass]="{
-            'is-invalid': checkInputsValidation(telephone)
-          }"
-        />
-
-        <!-- Error Message  -->
-        <div class="" *ngIf="checkInputsValidation(telephone)">
-          <p class="danger-txt" *ngIf="telephone?.errors?.pattern">
-            Vous devez entrer seulement des chiffres
-          </p>
-          <p class="danger-txt" *ngIf="telephone?.errors?.maxlength">
-            Vous devez entrer 10 chiffres au maximum
-          </p>
-        </div>
-      </div>
-
-      <div class="col-lg-3 form-group mt-4">
-        <label for="">Fax </label>
-        <input
-          type="text"
-          class="form-control rounded-pill"
-          formControlName="fax"
-          [ngClass]="{
-            'is-invalid': checkInputsValidation(fax)
-          }"
-        />
-
-        <!-- Error Message  -->
-        <div class="" *ngIf="checkInputsValidation(fax)">
-          <p class="danger-txt" *ngIf="fax?.errors?.pattern">
-            Vous devez entrer seulement des chiffres
-          </p>
-          <p class="danger-txt" *ngIf="fax?.errors?.maxlength">
-            Vous devez entrer 10 chiffres au maximum
-          </p>
-        </div>
-      </div>
-
-      <div class="col-lg-3 form-group mt-4">
-        <label for=""
-          >N° de compte bancaire <span class="danger-txt">*</span></label
-        >
-        <input
-          type="text"
-          class="form-control rounded-pill"
-          formControlName="n_compte_bancaire"
-          required
-          [ngClass]="{
-            'is-invalid': checkInputsValidation(n_compte_bancaire),
-            'is-valid': !n_compte_bancaire?.invalid
-          }"
-          maxlength="24"
-        />
-
-        <!-- Error Message  -->
-        <div class="" *ngIf="checkInputsValidation(n_compte_bancaire)">
-          <p class="danger-txt" *ngIf="n_compte_bancaire?.errors?.required">
-            Veuillez remplir ce champ
-          </p>
-          <p class="danger-txt" *ngIf="n_compte_bancaire?.errors?.pattern">
-            Vous devez entrer 24 caractères(chiffres)
-          </p>
-        </div>
-      </div>
-
-      <!-- <div class="col-lg-3 form-group mt-4">
+        <!-- <div class="col-lg-3 form-group mt-4">
       <label for="">Banque RIB</label>
       <input type="text" class="form-control rounded-pill" formControlName="banque_rib" required [ngClass]="{
           'is-invalid': checkInputsValidation(banque_rib),
@@ -284,7 +311,7 @@
       </div>
     </div> -->
 
-      <!-- <div class="col-lg-3 form-group mt-4">
+        <!-- <div class="col-lg-3 form-group mt-4">
       <label for="">Ville RIB</label>
       <input type="text" class="form-control rounded-pill" formControlName="ville_rib" required [ngClass]="{
           'is-invalid': checkInputsValidation(ville_rib),
@@ -302,7 +329,7 @@
       </div>
     </div> -->
 
-      <!-- <div class="col-lg-3 form-group mt-4">
+        <!-- <div class="col-lg-3 form-group mt-4">
       <label for="">Clé RIB</label>
       <input type="text" class="form-control rounded-pill" formControlName="cle_rib" required [ngClass]="{
           'is-invalid': checkInputsValidation(cle_rib),
@@ -320,230 +347,229 @@
       </div>
     </div> -->
 
-      <div class="col-lg-3 form-group mt-4">
-        <label for="">Banque <span class="danger-txt">*</span></label>
-        <input
-          type="text"
-          class="form-control rounded-pill"
-          formControlName="banque"
-          required
-          [ngClass]="{
-            'is-invalid': checkInputsValidation(banque),
-            'is-valid': !banque?.invalid
-          }"
-        />
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Banque <span class="danger-txt">*</span></label>
+          <input
+            type="text"
+            class="form-control rounded-pill"
+            formControlName="banque"
+            required
+            [ngClass]="{
+              'is-invalid': checkInputsValidation(banque),
+              'is-valid': !banque?.invalid
+            }"
+          />
 
-        <!-- Error Message  -->
-        <div class="" *ngIf="checkInputsValidation(banque)">
-          <p class="danger-txt" *ngIf="banque?.errors?.required">
-            Veuillez remplir ce champ
-          </p>
-          <!-- <p class="danger-txt" *ngIf="banque.errors.minlength">
+          <!-- Error Message  -->
+          <div class="" *ngIf="checkInputsValidation(banque)">
+            <p class="danger-txt" *ngIf="banque?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+            <!-- <p class="danger-txt" *ngIf="banque.errors.minlength">
             CIN doit être au moins 4 caractéres
           </p> -->
+          </div>
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Nom de l’Agence bancaire</label>
+          <input
+            type="text"
+            class="form-control rounded-pill"
+            formControlName="nom_agence_bancaire"
+            [ngClass]="{
+              'is-invalid': checkInputsValidation(nom_agence_bancaire)
+            }"
+          />
+        </div>
+
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Paiement spontané de TSR </label>
+          <select
+            class="form-select rounded-pill"
+            [(ngModel)]="hasDeclarationOption"
+            formControlName="declaration_option"
+          >
+            <option value="oui">Oui</option>
+            <option value="non">Non</option>
+          </select>
         </div>
       </div>
-
-      <div class="col-lg-3 form-group mt-4">
-        <label for="">Nom de l’Agence bancaire</label>
-        <input
-          type="text"
-          class="form-control rounded-pill"
-          formControlName="nom_agence_bancaire"
-          [ngClass]="{
-            'is-invalid': checkInputsValidation(nom_agence_bancaire)
-          }"
-        />
-      </div>
-
-      <div class="col-lg-3 form-group mt-4">
-        <label for="">Paiement spontané de TSR </label>
-        <select
-          class="form-select rounded-pill"
-          [(ngModel)]="hasDeclarationOption"
-          formControlName="declaration_option"
-        >
-          <option value="oui">Oui</option>
-          <option value="non">Non</option>
-        </select>
-      </div>
-    </div>
-    <!--Début 3éme Row-->
-    <div class="row">
-      <div class="col-lg-12 form-group mt-4">
-        <label for=""
-          >Adresse <span class="danger-txt">*</span></label
-        >
-        <textarea
-          type="text"
-          class="form-control"
-          formControlName="adresse"
-          [ngClass]="{
-            'is-invalid': checkInputsValidation(adresse),
-            'is-valid': !adresse?.invalid
-          }"
-        ></textarea>
-        <!-- Error Message  -->
-        <div class="" *ngIf="checkInputsValidation(adresse)">
-          <p class="danger-txt" *ngIf="adresse?.errors?.required">
-            Veuillez remplir ce champ
-          </p>
+      <!--Début 3éme Row-->
+      <div class="row">
+        <div class="col-lg-12 form-group mt-4">
+          <label for="">Adresse <span class="danger-txt">*</span></label>
+          <textarea
+            type="text"
+            class="form-control"
+            formControlName="adresse"
+            [ngClass]="{
+              'is-invalid': checkInputsValidation(adresse),
+              'is-valid': !adresse?.invalid
+            }"
+          ></textarea>
+          <!-- Error Message  -->
+          <div class="" *ngIf="checkInputsValidation(adresse)">
+            <p class="danger-txt" *ngIf="adresse?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+          </div>
         </div>
-      </div>
 
-      <div class="col-lg-3 form-group mt-4">
-        <label for=""
-          >Part du propriétaire <span class="danger-txt">*</span></label
-        >
-        <input
-          type="number"
-          class="form-control rounded-pill"
-          formControlName="part_proprietaire"
-          (keyup)="calculMontant(); calculMontantAvance(); calculCaution()"
-          [ngClass]="{
-            'is-invalid': checkInputsValidation(part_proprietaire)
-          }"
-        />
-        <!-- Error Message  -->
-        <div class="" *ngIf="checkInputsValidation(part_proprietaire)">
-          <p class="danger-txt" *ngIf="part_proprietaire?.errors?.required">
-            Veuillez remplir ce champ
-          </p>
+        <div class="col-lg-3 form-group mt-4">
+          <label for=""
+            >Part du propriétaire <span class="danger-txt">*</span></label
+          >
+          <input
+            type="number"
+            class="form-control rounded-pill"
+            formControlName="part_proprietaire"
+            (keyup)="calculMontant(); calculMontantAvance(); calculCaution()"
+            [ngClass]="{
+              'is-invalid': checkInputsValidation(part_proprietaire)
+            }"
+          />
+          <!-- Error Message  -->
+          <div class="" *ngIf="checkInputsValidation(part_proprietaire)">
+            <p class="danger-txt" *ngIf="part_proprietaire?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+          </div>
         </div>
-      </div>
 
-      <div class="col-lg-3 form-group mt-4">
-        <label for="">Montant de loyer</label>
-        <input
-          type="text"
-          class="form-control rounded-pill"
-          formControlName="montant_loyer"
-          [ngClass]="{
-            'is-invalid': checkInputsValidation(montant_loyer)
-          }"
-          [value]="montantLoyer | number: '1.2-2'"
-          readonly
-        />
-        <!-- Error Message  -->
-        <div class="" *ngIf="checkInputsValidation(montant_loyer)">
-          <p class="danger-txt" *ngIf="montant_loyer?.errors?.pattern">
-            Vous devez entrer seulement des chiffres
-          </p>
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Montant de loyer</label>
+          <input
+            type="text"
+            class="form-control rounded-pill"
+            formControlName="montant_loyer"
+            [ngClass]="{
+              'is-invalid': checkInputsValidation(montant_loyer)
+            }"
+            [value]="montantLoyer | number: '1.2-2'"
+            readonly
+          />
+          <!-- Error Message  -->
+          <div class="" *ngIf="checkInputsValidation(montant_loyer)">
+            <p class="danger-txt" *ngIf="montant_loyer?.errors?.pattern">
+              Vous devez entrer seulement des chiffres
+            </p>
+          </div>
         </div>
-      </div>
 
-      <div class="col-lg-3 form-group mt-4">
-        <label for="">Taux de l’impôt</label>
-        <input
-          type="text"
-          class="form-control rounded-pill"
-          formControlName="taux_impot"
-          [ngClass]="{
-            'is-invalid': checkInputsValidation(taux_impot)
-          }"
-          [value]="(tauxImpot && tauxImpot) + '%'"
-          readonly
-        />
-      </div>
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Taux de l’impôt</label>
+          <input
+            type="text"
+            class="form-control rounded-pill"
+            formControlName="taux_impot"
+            [ngClass]="{
+              'is-invalid': checkInputsValidation(taux_impot)
+            }"
+            [value]="(tauxImpot && tauxImpot) + '%'"
+            readonly
+          />
+        </div>
 
-      <div class="col-lg-3 form-group mt-4">
-        <label for="">Retenue à la source</label>
-        <input
-          type="text"
-          class="form-control rounded-pill"
-          formControlName="retenue_source"
-          [ngClass]="{
-            'is-invalid': checkInputsValidation(retenue_source)
-          }"
-          [value]="retenueSource"
-          readonly
-        />
-      </div>
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Retenue à la source</label>
+          <input
+            type="text"
+            class="form-control rounded-pill"
+            formControlName="retenue_source"
+            [ngClass]="{
+              'is-invalid': checkInputsValidation(retenue_source)
+            }"
+            [value]="retenueSource"
+            readonly
+          />
+        </div>
 
-      <div class="col-lg-3 form-group mt-4">
-        <label for="">Montant après impôt</label>
-        <input
-          type="text"
-          class="form-control rounded-pill"
-          formControlName="montant_apres_impot"
-          [ngClass]="{
-            'is-invalid': checkInputsValidation(montant_apres_impot)
-          }"
-          [value]="montantApresImpot | number: '1.2-2'"
-          readonly
-        />
-      </div>
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Montant après impôt</label>
+          <input
+            type="text"
+            class="form-control rounded-pill"
+            formControlName="montant_apres_impot"
+            [ngClass]="{
+              'is-invalid': checkInputsValidation(montant_apres_impot)
+            }"
+            [value]="montantApresImpot | number: '1.2-2'"
+            readonly
+          />
+        </div>
 
-      <!-- Montant Avance Taxe -->
-      <div class="col-lg-3 form-group mt-4">
-        <label for="">Montant d'avance</label>
-        <input
-          type="text"
-          class="form-control rounded-pill"
-          [value]="montantAvance | number: '1.2-2'"
-          formControlName="montant_avance_proprietaire"
-          readonly
-        />
-      </div>
+        <!-- Montant Avance Taxe -->
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Montant d'avance</label>
+          <input
+            type="text"
+            class="form-control rounded-pill"
+            [value]="montantAvance | number: '1.2-2'"
+            formControlName="montant_avance_proprietaire"
+            readonly
+          />
+        </div>
 
-      <div class="col-lg-3 form-group mt-4">
-        <label for="">Taxe d'avance propriétaire</label>
-        <input
-          type="text"
-          class="form-control rounded-pill"
-          [value]="taxAvance | number: '1.2-2'"
-          formControlName="tax_avance_proprietaire"
-          readonly
-        />
-      </div>
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Taxe d'avance propriétaire</label>
+          <input
+            type="text"
+            class="form-control rounded-pill"
+            [value]="taxAvance | number: '1.2-2'"
+            formControlName="tax_avance_proprietaire"
+            readonly
+          />
+        </div>
 
-      <!-- <div class="col-lg-3 form-group mt-4">
+        <!-- <div class="col-lg-3 form-group mt-4">
       <label for="">Taxe par périodicité</label>
       <input type="text" class="form-control rounded-pill" [value]="taxPeriodicite | number: '1.2-2'"
         formControlName="tax_par_periodicite" readonly />
     </div> -->
 
-      <!-- <div class="col-lg-3 form-group mt-4">
+        <!-- <div class="col-lg-3 form-group mt-4">
           <label for="">Pourcentage</label>
           <input type="text" class="form-control rounded-pill" [value]="pourcentageCaution  | number: '1.2-2'"
             formControlName="pourcentage_caution" readonly />
         </div> -->
 
-      <div class="col-lg-3 form-group mt-4">
-        <label for="">Caution par propriétaire</label>
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Caution par propriétaire</label>
+          <input
+            type="text"
+            class="form-control rounded-pill"
+            [value]="montantCautionProprietaire | number: '1.2-2'"
+            formControlName="caution_par_proprietaire"
+            readonly
+          />
+        </div>
+      </div>
+
+      <h4 class="mt-4">Mandataire</h4>
+      <div class="col-lg-3 form-group d-flex">
+        <label for="">Oui</label>
         <input
-          type="text"
-          class="form-control rounded-pill"
-          [value]="montantCautionProprietaire | number: '1.2-2'"
-          formControlName="caution_par_proprietaire"
-          readonly
+          type="radio"
+          name="is_mandataire"
+          [value]="true"
+          class="form-check-input mx-2"
+          [(ngModel)]="isMand"
+          formControlName="is_mandataire"
+          (click)="CheckMandataire(true)"
+        />
+        <label for="">Non</label>
+        <input
+          type="radio"
+          name="is_mandataire"
+          [value]="false"
+          class="form-check-input mx-2"
+          [(ngModel)]="isMand"
+          formControlName="is_mandataire"
+          (click)="CheckMandataire(false)"
         />
       </div>
-    </div>
-
-    <h4 class="mt-4">Mandataire</h4>
-    <div class="col-lg-3 form-group d-flex">
-      <label for="">Oui</label>
-      <input
-        type="radio"
-        name="is_mandataire"
-        [value]="true"
-        class="form-check-input mx-2"
-        [(ngModel)]="isMand"
-        formControlName="is_mandataire"
-        (click)="CheckMandataire(true)"
-      />
-      <label for="">Non</label>
-      <input
-        type="radio"
-        name="is_mandataire"
-        [value]="false"
-        class="form-check-input mx-2"
-        [(ngModel)]="isMand"
-        formControlName="is_mandataire"
-        (click)="CheckMandataire(false)"
-      />
-    </div>
+    </ng-container>
 
     <!-- If isMand true show list of proprietaire to checked -->
     <div *ngIf="isMand && update; then coProprietaireUpdate"></div>
@@ -752,6 +778,7 @@
         class="btn second-btn form-control"
         (click)="scrollToTop()"
         *ngIf="proprietaire == ''"
+        [disabled]="proprietaireForm.invalid"
       >
         Ajouter
       </button>

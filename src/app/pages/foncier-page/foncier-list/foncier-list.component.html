@@ -12,11 +12,13 @@
           Rafraîchir la liste
         </a>
         <ng-container *ngIf="reporting">
-  
-        <a [routerLink]="['/foncier/list/list-reporting']" class="btn btn-sm success-btn me-3">
-          <i class="far fa-file-chart-line"></i> Voir la liste des reportings
-        </a>
-      </ng-container>
+          <a
+            [routerLink]="['/foncier/list/list-reporting']"
+            class="btn btn-sm success-btn me-3"
+          >
+            <i class="far fa-file-chart-line"></i> Voir la liste des reportings
+          </a>
+        </ng-container>
         <span
           data-bs-toggle="tooltip"
           data-bs-placement="top"
@@ -120,17 +122,26 @@
                 }
         "
       >
-
-        <td>{{ foncier.type_lieu || '--' }}</td>
+        <td>{{ foncier.type_lieu || "--" }}</td>
         <td>{{ foncier.ville }}</td>
-        <td>{{ foncier.type_lieu == 'Logement de fonction' ? foncier.lieu[0]?.lieu?.code_rattache_DR : foncier.lieu[0]?.lieu?.code_lieu || '--'}}</td>
+        <td>
+          {{
+            foncier.type_lieu == "Logement de fonction"
+              ? foncier.lieu[0]?.lieu?.code_rattache_DR
+              : foncier.lieu[0]?.lieu?.code_lieu || "--"
+          }}
+        </td>
         <td>
           {{ foncier.lieu[0].lieu?.intitule_lieu }}
-          <br>
+          <br />
           <ng-container *ngFor="let lieu of foncier.lieu">
-            <span class="info-txt" *ngIf="!lieu.deleted && lieu.etat_lieu != 'Occupé'">{{ lieu.etat_lieu }}</span>
+            <span
+              class="info-txt"
+              *ngIf="!lieu.deleted && lieu.etat_lieu != 'Occupé'"
+              >{{ lieu.etat_lieu }}</span
+            >
           </ng-container>
-         <!-- <br> <span class="info-txt" *ngIf="foncier.lieu.transferer">En cours de transfert</span> -->
+          <!-- <br> <span class="info-txt" *ngIf="foncier.lieu.transferer">En cours de transfert</span> -->
         </td>
         <td>
           <div class="d-grid">
@@ -174,7 +185,9 @@
               class="btn btn-sm second-btn"
               [disabled]="!foncier.contrat.length"
               type="button"
-              >Ajouter un propriétaire</button>
+            >
+              Ajouter un propriétaire
+            </button>
           </div>
           <!-- <p *ngIf="!foncier.contrat" class="danger-txt">
             Vous devez créer un contrat avant d'ajouter un proprietaire
@@ -182,9 +195,18 @@
         </td>
 
         <td>
-          <p *ngIf="foncier.contrat.length" class="success-txt">
-            <i class="fas fa-check"></i>&nbsp;&nbsp;{{foncier?.contrat[0]?.numero_contrat}}
-          </p>
+          <ng-container *ngIf="foncier.contrat.length">
+            <p *ngIf="(foncier?.contrat[0]?.etat_contrat?.libelle != 'Résilié') && (foncier?.contrat[0]?.etat_contrat?.libelle != 'Suspendu')"  class="success-txt">
+              <i class="fas fa-check"></i>&nbsp;&nbsp;{{
+                foncier?.contrat[0]?.numero_contrat
+              }}
+            </p>
+            <p *ngIf="(foncier?.contrat[0]?.etat_contrat?.libelle == 'Résilié') || (foncier?.contrat[0]?.etat_contrat?.libelle == 'Suspendu')" class="danger-txt">
+              <i class="fas fa-times"></i>&nbsp;&nbsp; Contrat &nbsp;{{
+                foncier?.contrat[0]?.numero_contrat
+              }}&nbsp; {{foncier?.contrat[0]?.etat_contrat?.libelle}}
+            </p>
+          </ng-container>
           <a
             *ngIf="!foncier.contrat.length"
             [routerLink]="['/contrat', foncier._id]"
@@ -221,13 +243,11 @@
                   <a
                     class="btn btn-sm info-btn mx-2"
                     (click)="openModalAndPushFoncier(foncier)"
-                    ><i class="far fa-user-edit"></i
-                  ></a>
+                    ><i class="far fa-edit"></i></a>
                   <a
                     class="btn btn-sm danger-btn"
                     (click)="openConfirmationModal(foncier)"
-                    ><i class="far fa-user-minus"></i
-                  ></a>
+                    ><i class="fas fa-trash-alt"></i></a>
                 </div>
               </li>
             </ul>
@@ -235,13 +255,9 @@
         </td>
       </tr>
 
-     
-
       <app-main-modal [closeBtn]="true">
         <edit-foncier [foncier]="targetFoncier"> </edit-foncier>
       </app-main-modal>
-
-     
 
       <app-confirmation-modal [closeBtn]="true">
         <h3 class="main-title">
@@ -282,10 +298,10 @@
     </tbody>
   </table>
   <pagination-controls
-  id="listFoncierPagination"
-  (pageChange)="listFoncierPage = $event"
-  previousLabel="Précédent"
-  nextLabel="Suivant"
->
-</pagination-controls>
+    id="listFoncierPagination"
+    (pageChange)="listFoncierPage = $event"
+    previousLabel="Précédent"
+    nextLabel="Suivant"
+  >
+  </pagination-controls>
 </div>
