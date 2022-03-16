@@ -842,8 +842,6 @@ export class FormContratComponent extends Motif implements OnInit {
         this.hideErrorMessage();
       }
     );
-    // console.log(ctr_data);
-    
   }
 
   getMotifs() {
