@@ -1,5 +1,7 @@
-import { AbstractControl } from "@angular/forms";
+import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 
-export function checkProprietaireInputRequired(control: AbstractControl): any | null{
-
+export function checkProprietaireInputRequired(): ValidatorFn{
+    return (control: AbstractControl): ValidationErrors | null => {
+        return {};
+    }
 }
