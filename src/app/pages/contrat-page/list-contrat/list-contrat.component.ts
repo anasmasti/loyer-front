@@ -276,6 +276,13 @@ export class ListContratComponent implements OnInit {
     }, 400);
   }
 
+  scrollToTop() {
+    let element: HTMLElement = document.getElementById(
+      'form_content'
+    ) as HTMLElement;
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   soumettreContrat() {
     this.contratService.updateSoumettre(this.id, this.userMatricule).subscribe(
       (_) => {
@@ -289,6 +296,7 @@ export class ListContratComponent implements OnInit {
       (error) => {
         this.errors = error.error.message;
         this.closeConfirmationModal(this.soumettreModal)
+        this.scrollToTop();
         setTimeout(() => {
           this.showErrorMessage();
         }, 3000);

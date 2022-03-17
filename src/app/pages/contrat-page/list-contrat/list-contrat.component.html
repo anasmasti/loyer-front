@@ -31,7 +31,7 @@
   </div>
 </div>
 
-<div class="w-100 d-flex justify-content-center">
+<div class="w-100 d-flex justify-content-center" id="form_content">
   <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
   <div *ngIf="deleteDone" class="done-alert p-2 my-2">{{ deleteSucces }}</div>
 </div>
@@ -199,7 +199,7 @@
           [ngClass]="{
             'info-txt':
               contrat.etat_contrat?.libelle == 'Avenant' ||
-              contrat.etat_contrat?.libelle == 'Soumettre' ||
+              contrat.etat_contrat?.libelle == 'Initié' ||
               contrat.etat_contrat?.libelle == 'Modifié',
             'danger-txt':
               contrat.etat_contrat?.libelle == 'Suspendu' ||
@@ -250,6 +250,12 @@
             " -->
             <!-- *ngIf="!userRoles.includes('DAJC')" -->
             <a
+              *ngIf="
+                (this.contrat.etat_contrat?.libelle == 'Initié' &&
+                  userRoles.includes('CSLA') && !contrat.validation1_DMG) 
+                  ||
+                (userRoles.includes('CDGSP') && this.contrat.etat_contrat?.libelle == 'Initié')
+              "
               (click)="openEditModal(contrat)"
               class="btn btn-sm info-btn me-2"
               ><i class="far fa-edit"></i
@@ -297,6 +303,7 @@
               "
               data-bs-toggle="dropdown"
               aria-expanded="false"
+              *ngIf="!userRoles.includes('CSLA')"
             >
               <ng-container *ngIf="!contrat.validation2_DAJC">
                 A valider
@@ -378,8 +385,8 @@
         </td>
         <td
           *ngIf="
-            userRoles.includes('CSLA') &&
-            this.contrat.etat_contrat?.libelle == 'Soumettre'
+           (userRoles.includes('CSLA') || userRoles.includes('CDGSP'))  &&
+            this.contrat.etat_contrat?.libelle == 'Initié'
           "
         >
           <div
