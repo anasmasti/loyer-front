@@ -93,7 +93,7 @@ export class FormContratComponent extends Motif implements OnInit {
 
   userMatricule: any = localStorage.getItem('matricule');
 
-  statutCaution: string = 'En cours';
+  statutCaution: string = '--';
 
   periodicite!: string;
   datePremierPaiement!: any;
@@ -228,7 +228,7 @@ export class FormContratComponent extends Motif implements OnInit {
       // Calcul montant avance tax
       montant_avance_tax: new FormControl(),
 
-      nombre_part: new FormControl('',Validators.required)
+      nombre_part: new FormControl('', Validators.required),
     });
   }
 
@@ -388,10 +388,14 @@ export class FormContratComponent extends Motif implements OnInit {
     let dureeCaution!: number;
     dureeCaution = montantCaution / this.montantLoyer;
     this.montantCaution = montantCaution;
-    this.dureeCaution = dureeCaution;
+    this.dureeCaution = dureeCaution || 0;
     if (montantCaution % this.montantLoyer != 0) {
       this.hasErrorEffort = true;
     } else this.hasErrorEffort = false;
+
+    // Change status caution
+    if (montantCaution > 0) this.statutCaution = 'En cours';
+    else this.statutCaution = '--';
   }
 
   calculMontantAvanceTax() {
@@ -527,8 +531,8 @@ export class FormContratComponent extends Motif implements OnInit {
 
   //Upload Image piece joint contrat
   onFileSelected(event: any, fileName: string) {
-    if (event.target.files.length > 0){
-    this.help.selecteFiles(event, this.fd, fileName)
+    if (event.target.files.length > 0) {
+      this.help.selecteFiles(event, this.fd, fileName);
     }
   }
 
@@ -548,13 +552,15 @@ export class FormContratComponent extends Motif implements OnInit {
       // taxe_edilite_non_loyer: this.taxNonComprise,
       periodicite_paiement:
         this.contratForm.get('periodicite_paiement')?.value || '',
-      date_fin_contrat: this.contratForm.get('date_fin_contrat')?.value || '',
+      date_fin_contrat:
+        this.contratForm.get('date_fin_contrat')?.value ||
+        new Date('2999-01-01'),
       declaration_option:
         this.contratForm.get('declaration_option')?.value || '',
       taux_impot: this.tauxImpot,
       retenue_source: this.retenueSource,
       montant_apres_impot: this.montantApresImpot,
-      montant_caution: this.contratForm.get('montant_caution')?.value || '',
+      montant_caution: this.contratForm.get('montant_caution')?.value || 0,
       duree_caution: this.dureeCaution,
       date_reprise_caution:
         this.contratForm.get('date_reprise_caution')?.value || '',
@@ -583,31 +589,32 @@ export class FormContratComponent extends Motif implements OnInit {
     // let idFoncier = this.actRoute.snapshot.paramMap.get('id_foncier');
 
     // post the formdata (data+files)
-    this.contratService
-      .addContrat(this.fd, this.userMatricule, this.foncier_id)
-      .subscribe(
-        (_) => {
-          this.postDone = true;
-          setTimeout(() => {
-            this.contratForm.reset();
-            this.postDone = false;
-            this.help.toTheUp();
-            this.router
-              .navigate(['/proprietaire', this.foncier_id])
-              .then(() => {
-                this.help.refrechPage();
-              });
-          }, 3000);
-        },
-        (error) => {
-          this.errors = error.error.message;
-          setTimeout(() => {
-            this.showErrorMessage();
-            // this.contratForm.reset();
-          }, 5000);
-          this.hideErrorMessage();
-        }
-      );
+    // this.contratService
+    //   .addContrat(this.fd, this.userMatricule, this.foncier_id)
+    //   .subscribe(
+    //     (_) => {
+    //       this.postDone = true;
+    //       setTimeout(() => {
+    //         this.contratForm.reset();
+    //         this.postDone = false;
+    //         this.help.toTheUp();
+    //         this.router
+    //           .navigate(['/proprietaire', this.foncier_id])
+    //           .then(() => {
+    //             this.help.refrechPage();
+    //           });
+    //       }, 3000);
+    //     },
+    //     (error) => {
+    //       this.errors = error.error.message;
+    //       setTimeout(() => {
+    //         this.showErrorMessage();
+    //         // this.contratForm.reset();
+    //       }, 5000);
+    //       this.hideErrorMessage();
+    //     }
+    //   );
+    console.log(ctr_data);
   }
 
   // Check if all inputs has invalid errors
