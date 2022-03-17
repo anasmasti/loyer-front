@@ -589,31 +589,31 @@ export class FormContratComponent extends Motif implements OnInit {
     // let idFoncier = this.actRoute.snapshot.paramMap.get('id_foncier');
 
     // post the formdata (data+files)
-    // this.contratService
-    //   .addContrat(this.fd, this.userMatricule, this.foncier_id)
-    //   .subscribe(
-    //     (_) => {
-    //       this.postDone = true;
-    //       setTimeout(() => {
-    //         this.contratForm.reset();
-    //         this.postDone = false;
-    //         this.help.toTheUp();
-    //         this.router
-    //           .navigate(['/proprietaire', this.foncier_id])
-    //           .then(() => {
-    //             this.help.refrechPage();
-    //           });
-    //       }, 3000);
-    //     },
-    //     (error) => {
-    //       this.errors = error.error.message;
-    //       setTimeout(() => {
-    //         this.showErrorMessage();
-    //         // this.contratForm.reset();
-    //       }, 5000);
-    //       this.hideErrorMessage();
-    //     }
-    //   );
+    this.contratService
+      .addContrat(this.fd, this.userMatricule, this.foncier_id)
+      .subscribe(
+        (_) => {
+          this.postDone = true;
+          setTimeout(() => {
+            this.contratForm.reset();
+            this.postDone = false;
+            this.help.toTheUp();
+            this.router
+              .navigate(['/proprietaire', this.foncier_id])
+              .then(() => {
+                this.help.refrechPage();
+              });
+          }, 3000);
+        },
+        (error) => {
+          this.errors = error.error.message;
+          setTimeout(() => {
+            this.showErrorMessage();
+            // this.contratForm.reset();
+          }, 5000);
+          this.hideErrorMessage();
+        }
+      );
     console.log(ctr_data);
   }
 
