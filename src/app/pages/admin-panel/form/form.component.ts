@@ -56,11 +56,7 @@ export class FormComponent implements OnInit {
       Roles: new FormArray([], [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
       deleted: new FormControl(''),
-
-      // Password
-      Password: new FormControl(''),
-      New_password: new FormControl(''),
-      Confirmation_password: new FormControl(''),
+      password: new FormControl(''),
     });
   }
 
@@ -226,7 +222,7 @@ export class FormComponent implements OnInit {
     );
   }
 
-  updateUserRole(userPassword: string) {
+  updateUserRole() {
     let userData: User = {
       userMatricul: this.adminForm.get('Matricule')?.value,
       nom: this.adminForm.get('Nom')?.value,
@@ -235,7 +231,7 @@ export class FormComponent implements OnInit {
       userRoles: this.adminForm.get('Roles')?.value,
       email: this.adminForm.get('email')?.value,
       deleted: this.adminForm.get('deleted')?.value,
-      password: userPassword,
+      password: this.adminForm.get('password')?.value
     };
 
     this.adminService
@@ -272,32 +268,6 @@ export class FormComponent implements OnInit {
   // Check if all inputs has invalid errors
   checkInputsValidation(targetInput: any) {
     return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
-  }
-
-  updatePasswordToggel(value: boolean) {
-    this.updatePassword = value;
-  }
-
-  // Check the validation of the old password and the confirmation of the new one
-  confirmationPassword() {
-    let errorMsg = '';
-    if (this.updatePassword) {
-      if (this.adminForm.get('Password')?.value == this.userR.password) {
-        if ( this.adminForm.get('New_password')?.value == this.adminForm.get('Confirmation_password')?.value ) {
-          this.updateUserRole(this.adminForm.get('New_password')?.value);
-        } else errorMsg = 'Confirmation du mot de passe échoué';
-      } else errorMsg = 'Mot de passe incorrect';
-    } else {
-      this.updateUserRole(this.userR.password);
-    }
-
-    if (errorMsg != '') {
-      this.errors = errorMsg;
-      setTimeout(() => {
-        this.showErrorMessage();
-      }, 3000);
-      this.hideErrorMessage();
-    }
   }
 
   get Matricule() {
