@@ -287,6 +287,7 @@ export class ListContratComponent implements OnInit {
     this.contratService.updateSoumettre(this.id, this.userMatricule).subscribe(
       (_) => {
         this.closeConfirmationModal(this.soumettreModal)
+        this.scrollToTop();
         this.soumettreDone = true;
         setTimeout(() => {
           this.soumettreDone = false;
