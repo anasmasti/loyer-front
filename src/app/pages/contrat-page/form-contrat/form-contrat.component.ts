@@ -131,6 +131,10 @@ export class FormContratComponent extends Motif implements OnInit {
 
   // Motif
   motif: any[] = [];
+  user: any = localStorage.getItem('user')
+  ? JSON.parse(localStorage.getItem('user') || '')
+  : [];
+  userRoles: any[] = [];
 
   constructor(
     private contratService: ContratService,
@@ -162,6 +166,19 @@ export class FormContratComponent extends Motif implements OnInit {
       this.getFoncierById();
     }
 
+    if (localStorage.getItem('user')) {
+      for (
+        let index = 0;
+        index < this.user.existedUser.userRoles.length;
+        index++
+      ) {
+        if (!this.user.existedUser.userRoles[index].deleted) {
+          const element = this.user.existedUser.userRoles[index].roleCode;
+          this.userRoles.push(element);
+        }
+      }
+    }
+    
     // this.selectedEtatContrat = 'Avenant'
     this.contratForm = new FormGroup({
       numero_contrat: new FormControl(''),
