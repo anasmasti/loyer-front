@@ -11,6 +11,7 @@ import { ContratService } from '@services/contrat-service/contrat.service';
   templateUrl: './list-proprietaire.component.html',
   styleUrls: ['./list-proprietaire.component.scss'],
 })
+
 export class ListProprietaireComponent implements OnInit {
   proprietaires: any[] = [];
   targetProprietaire: Proprietaire[] = [];
