@@ -1,6 +1,6 @@
 <form
   [formGroup]="adminForm"
-  (ngSubmit)="SubmitForm != 'Ajouter' ? confirmationPassword() : postUserRole()"
+  (ngSubmit)="SubmitForm != 'Ajouter' ? updateUserRole() : postUserRole()"
 >
   <div class="w-100 d-flex justify-content-center">
     <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
@@ -88,59 +88,6 @@
         </p>
       </div>
     </div>
-
-    <div class="form-group my-4" *ngIf="!userIsEmpty">
-      <button
-        type="button"
-        class="btn second-btn"
-        *ngIf="updatePassword"
-        (click)="updatePasswordToggel(false)"
-      >
-        Annuler
-      </button>
-      <button
-        type="button"
-        class="btn second-btn"
-        *ngIf="!updatePassword"
-        (click)="updatePasswordToggel(true)"
-      >
-        Modifier le mot de passe
-      </button>
-    </div>
-
-    <!-- Condition to show form password -->
-    <div *ngIf="updatePassword; then passwordForm"></div>
-
-    <!-- Password form -->
-    <ng-template #passwordForm>
-      <div class="col-lg-3 form-group">
-        <label for="">Ancien mot de passe</label>
-        <input
-          type="password"
-          id="AAAA"
-          class="form-control rounded-pill"
-          formControlName="Password"
-        />
-      </div>
-      <div class="col-lg-3 form-group">
-        <label for="NewPassword">Nouveau mot de passe</label>
-        <input
-          type="password"
-          id="NewPassword"
-          class="form-control rounded-pill"
-          formControlName="New_password"
-        />
-      </div>
-      <div class="col-lg-3 form-group">
-        <label for="ConfirmationPassword">Confirmation du mot de passe</label>
-        <input
-          type="password"
-          id="ConfirmationPassword"
-          class="form-control rounded-pill"
-          formControlName="Confirmation_password"
-        />
-      </div>
-    </ng-template>
 
     <div class="col-lg-3 form-group mt-2">
       <!-- <label for="">Direction Régionale <span class="danger-txt">*</span></label> -->

@@ -448,20 +448,20 @@
           [(ngModel)]="selectedEtatContrat"
           (change)="showEtatSection($event)"
         >
-          <option value="Actif">Actif</option>
+          <!-- <option value="Actif">Actif</option> -->
           <!--  -->
           <option
-            *ngIf="this.contrat.validation2_DAJC"
+            *ngIf="this.contrat.validation2_DAJC && (userRoles.includes('CDGSP') || userRoles.includes('CSLA'))"
             [value]="
               selectedEtatContrat == 'Avenant' ? selectedEtatContrat : 'Avenant'
             "
           >
             A créer avenant
           </option>
-          <option *ngIf="this.contrat.validation2_DAJC" value="Suspendu">
+          <option *ngIf="this.contrat.validation2_DAJC && userRoles.includes('DAJC')" value="Suspendu">
             À suspendre
           </option>
-          <option *ngIf="this.contrat.validation2_DAJC" value="Résilié">
+          <option *ngIf="this.contrat.validation2_DAJC && (userRoles.includes('DAJC') || userRoles.includes('CDGSP') || userRoles.includes('CSLA'))" value="Résilié">
             À résilier
           </option>
         </select>

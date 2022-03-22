@@ -101,9 +101,11 @@ export class DrFormComponent implements OnInit, OnChanges {
     return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
   }
 
-  scrollToTop(){
-    let element : HTMLElement = document.getElementById('form_content') as HTMLElement;    
-    element.scrollIntoView({behavior: "smooth", block: "start"});
+  scrollToTop() {
+    let element: HTMLElement = document.getElementById(
+      'form_content'
+    ) as HTMLElement;
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   //Add direction regional
@@ -128,25 +130,27 @@ export class DrFormComponent implements OnInit, OnChanges {
       categorie_pointVente: this.drForm.get('categorie_pointVente')?.value,
     };
 
-    this.lieuService.addLieu(dr_data, this.userMatricule).subscribe(
-      (_) => {
-        this.postDone = true;
-        setTimeout(() => {
-          this.drForm.reset();
-          this.postDone = false;
-          this.router.navigate(['/lieux/list']).then(() => {
-            this.help.refrechPage();
-          });
-        }, 3000);
-      },
-      (error) => {
-        this.errors = error.error.message;
-        setTimeout(() => {
-          this.showErrorMessage();
-        }, 3000);
-        this.hideErrorMessage();
-      }
-    );
+    console.log(dr_data);
+
+    // this.lieuService.addLieu(dr_data, this.userMatricule).subscribe(
+    //   (_) => {
+    //     this.postDone = true;
+    //     setTimeout(() => {
+    //       this.drForm.reset();
+    //       this.postDone = false;
+    //       this.router.navigate(['/lieux/list']).then(() => {
+    //         this.help.refrechPage();
+    //       });
+    //     }, 3000);
+    //   },
+    //   (error) => {
+    //     this.errors = error.error.message;
+    //     setTimeout(() => {
+    //       this.showErrorMessage();
+    //     }, 3000);
+    //     this.hideErrorMessage();
+    //   }
+    // );
   }
 
   //Patch Direction regional
