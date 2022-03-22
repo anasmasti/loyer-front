@@ -67,7 +67,7 @@ export class ListContratComponent implements OnInit {
   isSoumettre: boolean = false;
   test: string = 'test';
   
-  soumettreSuccess: string = 'Contrat modifié avec succés';
+  soumettreSuccess: string = 'Contrat prêt à être validé';
   soumettreDone: boolean = false;
 
   constructor(
@@ -287,6 +287,7 @@ export class ListContratComponent implements OnInit {
     this.contratService.updateSoumettre(this.id, this.userMatricule).subscribe(
       (_) => {
         this.closeConfirmationModal(this.soumettreModal)
+        this.scrollToTop();
         this.soumettreDone = true;
         setTimeout(() => {
           this.soumettreDone = false;
