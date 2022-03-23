@@ -59,7 +59,7 @@
           <option [value]="lieu._id" *ngFor="let lieu of lieuxByType">
             {{
               lieu.type_lieu === "Logement de fonction"
-                ? lieu.code_rattache_DR
+                ? lieu.attached_DR.code_lieu
                 : lieu.code_lieu
             }}
           </option>

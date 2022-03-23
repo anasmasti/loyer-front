@@ -328,8 +328,10 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       // n_compte_bancaire_mandataire: '',
     });
 
+    this.isMand = this.proprietaire.is_mandataire;
+    this.CheckMandataire(this.isMand);
     this.montantLoyer = this.proprietaire.montant_loyer;
-    this.fillProprietaireInfos();
+    // this.fillProprietaireInfos();
     setTimeout(() => {
       // Calcul montants
       this.calculMontant();
@@ -695,8 +697,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       raison_social: this.proprietaireForm.get('raison_social')?.value,
       n_registre_commerce:
         this.proprietaireForm.get('n_registre_commerce')?.value || '',
-      // telephone: this.proprietaireForm.get('telephone')?.value,
-      telephone: '',
+      telephone: this.proprietaireForm.get('telephone')?.value,
       fax: this.proprietaireForm.get('fax')?.value,
       adresse: this.proprietaireForm.get('adresse')?.value,
       n_compte_bancaire: this.proprietaireForm.get('n_compte_bancaire')?.value,
@@ -773,8 +774,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       raison_social: this.proprietaireForm.get('raison_social')?.value || '',
       n_registre_commerce:
         this.proprietaireForm.get('n_registre_commerce')?.value || '',
-      // telephone: this.proprietaireForm.get('telephone')?.value,
-      telephone: '',
+      telephone: this.proprietaireForm.get('telephone')?.value,
       fax: this.proprietaireForm.get('fax')?.value || '',
       adresse: this.proprietaireForm.get('adresse')?.value,
       n_compte_bancaire: this.proprietaireForm.get('n_compte_bancaire')?.value,

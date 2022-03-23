@@ -88,10 +88,12 @@ export class UserProfilePageComponent implements OnInit {
       password: userPassword,
     };
 
+    console.log(userData);
+    
     this.userService
       .updateProfile(userData, this.user._id, this.userMatricule)
       .subscribe(
-        (data) => {
+        (_) => {
           this.updateDone = true;
           this.authService.setUserIntoLocalStorage(userData);
           localStorage.removeItem('user');
