@@ -94,7 +94,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnChanges() {
-    if (this.proprietaire != '') {
+    if (this.proprietaire != '' ) {
       this.fetchProprietaire();
     }
   }
@@ -352,7 +352,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     this.proprietaireService
       .getFoncierIdByProprietaire(this.proprietaire._id, this.userMatricule)
       .subscribe((data: any) => {
-        this.foncier_id = data[0]._id;
+        this.foncier_id = data[0]?._id;
       });
   }
 
@@ -399,10 +399,10 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
             ) {
               if (
                 this.contratByFoncier[0].foncier.proprietaire[index]
-                  .is_mandataire == false &&
+                  .is_mandataire === false &&
                 this.contratByFoncier[0].foncier.proprietaire[index]
-                  .has_mandataire == null &&
-                this.contratByFoncier[0].foncier.proprietaire[index]._id !=
+                  .has_mandataire === null &&
+                this.contratByFoncier[0].foncier.proprietaire[index]._id !==
                   this.proprietaire._id
               )
                 this.proprietaires.push(
@@ -465,11 +465,11 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     this.montantLoyer =
       (this.partProprietaire * montantLoyerContrat) / nbrPartContrat;
     // // ------First Condition--------
-    if (etatContratTypes != 'Résilié') {
+    if (etatContratTypes !== 'Résilié') {
       this.duree = 12;
 
       this.periodicite.forEach((period) => {
-        if (namePeriodicite == period.name) {
+        if (namePeriodicite === period.name) {
           if (this.hasDeclarationOption === 'non') {
             if (this.montantLoyer * period.number <= 30000) {
               result = 0;
@@ -553,7 +553,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     // }
 
     // // ------Third Condition--------
-    if (etatContratTypes == 'Résilié') {
+    if (etatContratTypes === 'Résilié') {
       // nombre des mois louer
       let nbr_mois_louer = monthResiliation - month + 1;
       this.duree = nbr_mois_louer;
@@ -605,15 +605,15 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     // this.taxAvance = (this.retenueSource / dureeLocation) * dureeAvance;
     this.taxAvance = this.retenueSource * dureeAvance;
 
-    if (periodicite == 'mensuelle') {
+    if (periodicite === 'mensuelle') {
       // this.taxPeriodicite = this.retenueSource / dureeLocation;
       this.taxPeriodicite = this.retenueSource;
     }
-    if (periodicite == 'trimestrielle') {
+    if (periodicite === 'trimestrielle') {
       // this.taxPeriodicite = this.retenueSource / (dureeLocation * 3);
       this.taxPeriodicite = this.retenueSource * 3;
     }
-    if (periodicite == 'annuelle') {
+    if (periodicite === 'annuelle') {
       // this.taxPeriodicite = this.retenueSource / 12;
       this.taxPeriodicite = this.retenueSource * 12;
     }
@@ -635,9 +635,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
   // store the unchecked proprietaire , so we can update his ' has_mondataire ' value in the backend
   setUncheckedProp(Action: string, prop: any) {
-    if (Action == 'Remove')
+    if (Action === 'Remove')
       this.oldProprietairesList.splice(this.oldProprietairesList.indexOf(prop));
-    if (Action == 'Add') this.oldProprietairesList.push(prop);
+    if (Action === 'Add') this.oldProprietairesList.push(prop);
   }
 
   // Select proprietaire
@@ -649,7 +649,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       if (this.update) {
         // remove selected proprietaire id  from proprietaires and add it in proprietaireList
         for (let i = 0; i < this.proprietaires.length; i++) {
-          if (this.proprietaires[i]._id == Element._id) {
+          if (this.proprietaires[i]._id === Element._id) {
             this.proprietaires.splice(i, 1);
           }
         }
@@ -659,7 +659,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     } else {
       if (!this.update) {
         this.newProprietairesList.forEach((prop: any, i: number) => {
-          if (prop == InputElement.value) {
+          if (prop === InputElement.value) {
             // remove selected proprietaire id from proprietaire list & add it in proprietaires
             this.unselectProp(i);
           }
@@ -667,7 +667,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       }
       if (this.update) {
         for (let i = 0; i < this.proprietaireList.length; i++) {
-          if (this.proprietaireList[i]._id == Element._id) {
+          if (this.proprietaireList[i]._id === Element._id) {
             // remove selected proprietaire id  from proprietaireList
             this.proprietaireList.splice(i, 1);
           }
@@ -865,7 +865,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
 
   proprietaireTypeToggel(value: string) {
-    if (value == 'Personne physique') this.personPhysique = true;
+    if (value === 'Personne physique') this.personPhysique = true;
     else this.personPhysique = false;
 
     this.proprTypeCheck = true;

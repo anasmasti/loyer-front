@@ -1,5 +1,5 @@
 import { HelperService } from 'src/app/services/helpers/helper.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ContratService } from 'src/app/services/contrat-service/contrat.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
@@ -17,7 +17,7 @@ import { ProprietaireService } from '@services/proprietaire-service/proprietaire
   templateUrl: './form-contrat.component.html',
   styleUrls: ['./form-contrat.component.scss'],
 })
-export class FormContratComponent extends Motif implements OnInit {
+export class FormContratComponent extends Motif implements OnInit, OnChanges {
   // displayProprFormList() {
   //   throw new Error('Method not implemented.');
   // }
@@ -149,7 +149,7 @@ export class FormContratComponent extends Motif implements OnInit {
   }
 
   ngOnChanges() {
-    if (this.contrat && this.contrat.length != 0) {
+    if (this.contrat && this.contrat.length !== 0) {
       this.fetchContrat();
       this.proprDecesFormList = false;
       this.proprCessionFormList = false;
@@ -273,7 +273,7 @@ export class FormContratComponent extends Motif implements OnInit {
     let monthResiliation = dateResiliation.getMonth() + 1;
 
     // ------First Condition--------
-    if (month == 1 && this.selectedEtatContrat != 'Résilié') {
+    if (month === 1 && this.selectedEtatContrat !== 'Résilié') {
       this.duree = 12;
       if (this.hasDeclarationOption === 'non') {
         if (montantLoyerForYear <= 30000) {
@@ -309,7 +309,7 @@ export class FormContratComponent extends Motif implements OnInit {
       this.totalNetLoyer = this.montantApresImpot * this.duree;
     }
     // ------Seconde Condition--------
-    if (month != 1 && this.selectedEtatContrat != 'Résilié') {
+    if (month !== 1 && this.selectedEtatContrat !== 'Résilié') {
       // nombre des mois louer
       let nbr_mois_louer = 12 - month + 1;
       this.duree = nbr_mois_louer;
@@ -354,7 +354,7 @@ export class FormContratComponent extends Motif implements OnInit {
     }
 
     // ------Third Condition--------
-    if (this.selectedEtatContrat == 'Résilié') {
+    if (this.selectedEtatContrat === 'Résilié') {
       // nombre des mois louer
       let nbr_mois_louer = monthResiliation - month + 1;
       this.duree = nbr_mois_louer;
@@ -406,7 +406,7 @@ export class FormContratComponent extends Motif implements OnInit {
     dureeCaution = montantCaution / this.montantLoyer;
     this.montantCaution = montantCaution;
     this.dureeCaution = dureeCaution || 0;
-    if (montantCaution % this.montantLoyer != 0) {
+    if (montantCaution % this.montantLoyer !== 0) {
       this.hasErrorEffort = true;
     } else this.hasErrorEffort = false;
 
@@ -416,7 +416,7 @@ export class FormContratComponent extends Motif implements OnInit {
   }
 
   calculMontantAvanceTax() {
-    if (this.dureeAvance > 0 && this.hasDeclarationOption == 'non') {
+    if (this.dureeAvance > 0 && this.hasDeclarationOption === 'non') {
       let montantAvance: number = this.contratForm.get('montant_avance')?.value;
       this.montant_avance_tax_ = montantAvance * (this.tauxImpot / 100);
     }
@@ -457,7 +457,7 @@ export class FormContratComponent extends Motif implements OnInit {
         default:
           break;
       }
-      // if ((date.getMonth() + 1) == 4) {
+      // if ((date.getMonth() + 1) === 4) {
 
       //   this.datePremierPaiement = new Date(`${date.getFullYear()}-${month}-${1}`).toISOString().slice(0, 10);
       // }
@@ -489,7 +489,7 @@ export class FormContratComponent extends Motif implements OnInit {
     let month = date_resiliation.getMonth();
     let day = date_resiliation.getDate();
 
-    if (month + 1 == 3 && day == 31) {
+    if (month + 1 === 3 && day === 31) {
       date_resiliation.setMonth(month);
       date_resiliation.setDate(0);
       this.date_preavis = date_resiliation.toISOString().slice(0, 10);
@@ -509,7 +509,7 @@ export class FormContratComponent extends Motif implements OnInit {
   //Calcul taxe d'édilité
   // calculTaxeNonComprise() {
   //   // let taxComprise = this.contratForm.get('taxe_edilite_comprise_loyer')?.value;
-  //   // if(taxComprise != 0 && taxComprise != null)
+  //   // if(taxComprise !== 0 && taxComprise !== null)
   //   //   this.taxNonComprise = 0;
   //   // else
   //     this.taxNonComprise = this.montantLoyer  * (10.5 / 100);
@@ -747,7 +747,7 @@ export class FormContratComponent extends Motif implements OnInit {
     let id = this.contrat._id;
 
     // Get all checked motif values
-    this.contratForm.get('etat_contrat_libelle')?.value == 'Avenant' &&
+    this.contratForm.get('etat_contrat_libelle')?.value === 'Avenant' &&
       this.getMotifs();
 
     let ctr_data: any = {
@@ -882,7 +882,7 @@ export class FormContratComponent extends Motif implements OnInit {
   // :::: Proprietaire List ::::
   deleteProprietaire() {
     this.proprietaires.forEach((proprietaire, index) => {
-      if (proprietaire._id == this.targetProprietaireId) {
+      if (proprietaire._id === this.targetProprietaireId) {
         this.proprietaires.splice(index, 1);
         this.deletedProprietaires.push(proprietaire._id);
       }
@@ -906,7 +906,7 @@ export class FormContratComponent extends Motif implements OnInit {
   }
 
   openResiliationModel() {
-    if (this.selectedEtatContrat == 'Résilié') {
+    if (this.selectedEtatContrat === 'Résilié') {
       this.openConfirmationModal();
     } else {
       this.updateContrat();

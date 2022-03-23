@@ -30,7 +30,7 @@
           (click)="proprietaireTypeToggel('Personne physique')"
           autocomplete="off"
           [checked]="
-            proprietaire.type_proprietaire == 'Personne physique' ? true : false
+            proprietaire.type_proprietaire === 'Personne physique' ? true : false
           "
         />
         <!-- formControlName="is_person_physique" -->
@@ -51,7 +51,7 @@
           (click)="proprietaireTypeToggel('Personne morale')"
           autocomplete="off"
           [checked]="
-            proprietaire.type_proprietaire == 'Personne morale' ? true : false
+            proprietaire.type_proprietaire === 'Personne morale' ? true : false
           "
         />
         <!-- formControlName="is_person_physique" -->
@@ -575,7 +575,7 @@
     <div *ngIf="isMand && update; then coProprietaireUpdate"></div>
     <div *ngIf="isMand && !update; then coProprietaireAdd"></div>
 
-    <!-- Show the proprietaire list if the lengthProprietaire == 0 if not show an error message -->
+    <!-- Show the proprietaire list if the lengthProprietaire === 0 if not show an error message -->
     <ng-template #coProprietaireUpdate>
       <h6 class="mt-4">Propriétaires sélectionnés</h6>
       <div
@@ -768,7 +768,7 @@
         type="submit"
         class="btn second-btn form-control"
         (click)="scrollToTop()"
-        *ngIf="proprietaire != ''"
+        *ngIf="proprietaire !== ''"
       >
         <!-- [disabled]="proprietaireForm.invalid" -->
         Modifier
@@ -777,7 +777,7 @@
         type="submit"
         class="btn second-btn form-control"
         (click)="scrollToTop()"
-        *ngIf="proprietaire == ''"
+        *ngIf="proprietaire === ''"
         [disabled]="proprietaireForm.invalid"
       >
         Ajouter

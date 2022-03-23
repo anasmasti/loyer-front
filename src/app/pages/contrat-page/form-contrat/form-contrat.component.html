@@ -75,7 +75,7 @@
         formControlName="numero_contrat"
       />
 
-      <ng-container *ngIf="!update || (contrat.etat_contrat?.libelle != 'Actif' && update)">
+      <ng-container *ngIf="!update || (contrat.etat_contrat?.libelle !== 'Actif' && update)">
         <div class="col-lg-3 form-group mt-4">
           <label for="">Pièce jointe</label>
           <input
@@ -438,7 +438,7 @@
       </ng-container>
 
       <div
-        *ngIf="update && contrat.etat_contrat?.libelle == 'Actif'"
+        *ngIf="update && contrat.etat_contrat?.libelle === 'Actif'"
         class="form-group mt-4"
       >
         <label for="">Statut contrat</label>
@@ -453,7 +453,7 @@
           <option
             *ngIf="this.contrat.validation2_DAJC && (userRoles.includes('CDGSP') || userRoles.includes('CSLA'))"
             [value]="
-              selectedEtatContrat == 'Avenant' ? selectedEtatContrat : 'Avenant'
+              selectedEtatContrat === 'Avenant' ? selectedEtatContrat : 'Avenant'
             "
           >
             A créer avenant
@@ -496,9 +496,9 @@
 
       <div class="mt-4">
         <div class="form-box mt-2">
-          <div *ngIf="selectedEtatContrat == 'Avenant'; then AV"></div>
-          <div *ngIf="selectedEtatContrat == 'Suspendu'; then SUS"></div>
-          <div *ngIf="selectedEtatContrat == 'Résilié'; then RES"></div>
+          <div *ngIf="selectedEtatContrat === 'Avenant'; then AV"></div>
+          <div *ngIf="selectedEtatContrat === 'Suspendu'; then SUS"></div>
+          <div *ngIf="selectedEtatContrat === 'Résilié'; then RES"></div>
         </div>
       </div>
 
@@ -810,7 +810,7 @@
 
           <div
             class="col-lg-3 form-group mt-4"
-            *ngIf="repriseCaution == 'Consommée'"
+            *ngIf="repriseCaution === 'Consommée'"
           >
             <label for="">Etat caution consommée</label>
             <select
@@ -826,8 +826,7 @@
           <div
             class="row"
             *ngIf="
-              cautionConsommee == 'Partial' && repriseCaution == 'Consommée'
-            "
+              cautionConsommee === 'Partial' && repriseCaution === 'Consommée'"
           >
             <div class="col-lg-3 form-group mt-4">
               <label for="">Durée consommée</label>

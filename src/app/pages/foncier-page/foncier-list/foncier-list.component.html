@@ -126,7 +126,7 @@
         <td>{{ foncier.ville }}</td>
         <td>
           {{
-            foncier.type_lieu == "Logement de fonction"
+            foncier.type_lieu === "Logement de fonction"
               ? foncier.lieu[0]?.lieu?.code_rattache_DR
               : foncier.lieu[0]?.lieu?.code_lieu || "--"
           }}
@@ -137,7 +137,7 @@
           <ng-container *ngFor="let lieu of foncier.lieu">
             <span
               class="info-txt"
-              *ngIf="!lieu.deleted && lieu.etat_lieu != 'Occupé'"
+              *ngIf="!lieu.deleted && lieu.etat_lieu !== 'Occupé'"
               >{{ lieu.etat_lieu }}</span
             >
           </ng-container>
@@ -196,12 +196,12 @@
 
         <td>
           <ng-container *ngIf="foncier.contrat.length">
-            <p *ngIf="(foncier?.contrat[0]?.etat_contrat?.libelle != 'Résilié') && (foncier?.contrat[0]?.etat_contrat?.libelle != 'Suspendu')"  class="success-txt">
+            <p *ngIf="(foncier?.contrat[0]?.etat_contrat?.libelle !== 'Résilié') && (foncier?.contrat[0]?.etat_contrat?.libelle !== 'Suspendu')"  class="success-txt">
               <i class="fas fa-check"></i>&nbsp;&nbsp;{{
                 foncier?.contrat[0]?.numero_contrat
               }}
             </p>
-            <p *ngIf="(foncier?.contrat[0]?.etat_contrat?.libelle == 'Résilié') || (foncier?.contrat[0]?.etat_contrat?.libelle == 'Suspendu')" class="danger-txt">
+            <p *ngIf="(foncier?.contrat[0]?.etat_contrat?.libelle === 'Résilié') || (foncier?.contrat[0]?.etat_contrat?.libelle === 'Suspendu')" class="danger-txt">
               <i class="fas fa-times"></i>&nbsp;&nbsp; Contrat &nbsp;{{
                 foncier?.contrat[0]?.numero_contrat
               }}&nbsp; {{foncier?.contrat[0]?.etat_contrat?.libelle}}
@@ -256,7 +256,7 @@
       </tr>
 
       <app-main-modal [closeBtn]="true">
-        <edit-foncier [foncier]="targetFoncier"> </edit-foncier>
+        <app-edit-foncier [foncier]="targetFoncier"> </app-edit-foncier>
       </app-main-modal>
 
       <app-confirmation-modal [closeBtn]="true">

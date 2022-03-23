@@ -65,7 +65,7 @@ export class ListProprietaireComponent implements OnInit {
 
   // Filter by intitule
   search() {
-    if (this.findProprietaire != '') {
+    if (this.findProprietaire !== '') {
       this.proprietaires = this.proprietaires.filter((res) => {
         return res.cin
           ?.toLowerCase()
@@ -74,7 +74,7 @@ export class ListProprietaireComponent implements OnInit {
         // res.carte_sejour?.toLowerCase().match(this.findProprietaire.toLowerCase()) ||
         // res.nom_prenom?.toLowerCase().match(this.findProprietaire.toLowerCase())
       });
-    } else if (this.findProprietaire == '') {
+    } else if (this.findProprietaire === '') {
       this.getAllFonciers();
     }
   }

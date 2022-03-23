@@ -14,7 +14,7 @@ import { HelperService } from 'src/app/services/helpers/helper.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'lf-form',
+  selector: 'app-lf-form',
   templateUrl: './lf-form.component.html',
   styleUrls: ['./lf-form.component.scss'],
 })

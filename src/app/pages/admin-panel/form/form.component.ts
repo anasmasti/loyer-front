@@ -1,14 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { User } from '../../../models/User';
 import { AdminService } from 'src/app/services/admin-service/admin.service';
 
 @Component({
-  selector: 'admin-form',
+  selector: 'app-admin-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
 })
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, OnChanges{
   errors!: string;
   adminForm!: FormGroup;
   postDone: boolean = false;
@@ -32,7 +32,7 @@ export class FormComponent implements OnInit {
   constructor(private adminService: AdminService) {}
 
   ngOnChanges() {
-    if (this.userR != 'Ajouter' && this.userR != null) {
+    if (this.userR !== 'Ajouter' && this.userR !== null) {
       this.fetchUser();
       this.userIsEmpty = false;
       this.SubmitForm = 'Modifier';
@@ -141,7 +141,7 @@ export class FormComponent implements OnInit {
     if (element.checked) {
       if (Tab.includes(element.value)) {
         this.adminForm.get('Roles')?.value.forEach((Role: any) => {
-          if (Role.roleName == element.value) {
+          if (Role.roleName === element.value) {
             Role.deleted = false;
           }
         });
@@ -153,8 +153,8 @@ export class FormComponent implements OnInit {
     } else {
       if (!element.checked) {
         this.adminForm.get('Roles')?.value.forEach((Role: any, index: any) => {
-          if (Role.roleName == element.value) {
-            if (Role.NewOrOld == 'Old') {
+          if (Role.roleName === element.value) {
+            if (Role.NewOrOld === 'Old') {
               Role.deleted = true;
             } else {
               this.removeUser(index);

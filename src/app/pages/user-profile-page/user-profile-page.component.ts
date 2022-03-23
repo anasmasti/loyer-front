@@ -53,8 +53,6 @@ export class UserProfilePageComponent implements OnInit {
 
   fetchUserInfo() {
     this.user = this.userService.getUserInfo();
-    console.log(this.user);
-
     this.userForm.patchValue({
       nom: this.user.nom,
       prenom: this.user.prenom,
@@ -95,7 +93,6 @@ export class UserProfilePageComponent implements OnInit {
       .subscribe(
         (data) => {
           this.updateDone = true;
-          console.log(userData);
           this.authService.setUserIntoLocalStorage(userData);
           localStorage.removeItem('user');
           localStorage.setItem(
@@ -137,9 +134,9 @@ export class UserProfilePageComponent implements OnInit {
   confirmationPassword() {
     let errorMsg = '';
     if (this.updatePassword) {
-      if (this.userForm.get('password')?.value == this.user.password) {
+      if (this.userForm.get('password')?.value === this.user.password) {
         if (
-          this.userForm.get('new_password')?.value ==
+          this.userForm.get('new_password')?.value ===
           this.userForm.get('confirmation_password')?.value
         ) {
           this.updateUser(this.userForm.get('new_password')?.value);
@@ -149,7 +146,7 @@ export class UserProfilePageComponent implements OnInit {
       this.updateUser(this.user.password);
     }
 
-    if (errorMsg != '') {
+    if (errorMsg !== '') {
       this.errors = errorMsg;
       setTimeout(() => {
         this.showErrorMessage();

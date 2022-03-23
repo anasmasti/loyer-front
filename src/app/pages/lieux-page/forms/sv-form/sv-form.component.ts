@@ -19,7 +19,7 @@ import { DOCUMENT } from '@angular/common';
 import { HelperService } from 'src/app/services/helpers/helper.service';
 
 @Component({
-  selector: 'sv-form',
+  selector: 'app-sv-form',
   templateUrl: './sv-form.component.html',
   styleUrls: ['./sv-form.component.scss'],
 })
@@ -232,7 +232,7 @@ export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
     const idDR = this.svForm.get('attached_DR')?.value;
 
     for (let i = 0; i < this.Dr.length; i++) {
-      if (this.Dr[i]._id == idDR) {
+      if (this.Dr[i]._id === idDR) {
         this.intitule_rattache_DR = this.Dr[i].intitule_lieu;
       }
     }

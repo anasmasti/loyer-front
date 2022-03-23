@@ -9,7 +9,7 @@ import { DownloadService } from 'src/app/services/download-service/download.serv
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'files-generation',
+  selector: 'app-files-generation',
   templateUrl: './files-generation.component.html',
   styleUrls: ['./files-generation.component.scss'],
 })

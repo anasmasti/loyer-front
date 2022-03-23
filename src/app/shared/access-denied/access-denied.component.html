@@ -2,12 +2,12 @@
     <div class="accessdenied-content d-flex align-items-center justify-content-center flex-column">
         <h2>Accès refusé</h2>
 
-        <p *ngIf="role == 'DC' || role == 'CDGSP' || role == 'CSLA' || role == 'DAJC'">
+        <p *ngIf="role === 'DC' || role === 'CDGSP' || role === 'CSLA' || role === 'DAJC'">
             Cette page est dédié que pour
-            <span *ngIf="role == 'DC'">Département Comptable</span>
-            <span *ngIf="role == 'CDGSP'">Chef de département gestion et suivi du patrimoine</span>
-            <span *ngIf="role == 'CSLA'">Chargé de suivi des loyers et aménagements</span>
-            <span *ngIf="role == 'DAJC'">Direction Affaires Juridiques et Conformité</span>
+            <span *ngIf="role === 'DC'">Département Comptable</span>
+            <span *ngIf="role === 'CDGSP'">Chef de département gestion et suivi du patrimoine</span>
+            <span *ngIf="role === 'CSLA'">Chargé de suivi des loyers et aménagements</span>
+            <span *ngIf="role === 'DAJC'">Direction Affaires Juridiques et Conformité</span>
         </p>
     </div>
 

@@ -19,7 +19,7 @@ import { HelperService } from 'src/app/services/helpers/helper.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'pv-form',
+  selector: 'app-pv-form',
   templateUrl: './pv-form.component.html',
   styleUrls: ['./pv-form.component.scss'],
 })
@@ -222,10 +222,8 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
     const idSup = this.PvForm.get('attached_SUP')?.value;
     let check = false
 
-    console.log(this.Sup);
-    
     for (let i = 0; i < this.Sup.length; i++) {
-      if (this.Sup[i]._id == idSup) {
+      if (this.Sup[i]._id === idSup) {
         check = true;
         if (idSup != undefined) {
           this.intitule_rattache_SUP = this.Sup[i].intitule_lieu;
@@ -251,7 +249,7 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
   getIdLieuByCodeLieu(codeDr: any){
     let idLieu = null
     this.Dr.forEach((dr: any) => {
-      if(dr.code_lieu == codeDr ){
+      if(dr.code_lieu === codeDr ){
         idLieu = dr._id
       } 
     });
@@ -262,7 +260,7 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
   //   const codeDR = codeDr;
 
   //   for (let i = 0; i < this.Dr.length; i++) {
-  //     if (this.Dr[i].code_lieu == codeDR) {
+  //     if (this.Dr[i].code_lieu === codeDR) {
   //       return this.Dr[i].intitule_lieu;
   //     }
   //   }

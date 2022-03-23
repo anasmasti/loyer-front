@@ -25,74 +25,74 @@
         <div class="row">
             <div class="col-lg-6">
                 <h5 class="main-txt">Code entité</h5>
-                <p>{{ lieu?.type_lieu == 'Logement de fonction' ? lieu?.code_rattache_DR : lieu?.code_lieu}}</p>
-                <!-- {{ lieu?.code_lieu != '' ? lieu?.code_lieu : '--'}} --> 
+                <p>{{ lieu?.type_lieu === 'Logement de fonction' ? lieu?.code_rattache_DR : lieu?.code_lieu}}</p>
+                <!-- {{ lieu?.code_lieu !== '' ? lieu?.code_lieu : '--'}} --> 
             </div>
             <div class="col-lg-6">
 
                 <h5 class="main-txt">Intitulé</h5>
-                <p>{{ lieu?.intitule_lieu != '' ? lieu?.intitule_lieu : '--'}}</p>
+                <p>{{ lieu?.intitule_lieu !== '' ? lieu?.intitule_lieu : '--'}}</p>
             </div>
         </div>
         <div class="row">
-            <!-- <div class="col-lg-6" *ngIf="lieu?.type_lieu == 'Point de vente' || lieu?.type_lieu == 'Logement de fonction' || lieu?.type_lieu == 'Supervision'">
+            <!-- <div class="col-lg-6" *ngIf="lieu?.type_lieu === 'Point de vente' || lieu?.type_lieu === 'Logement de fonction' || lieu?.type_lieu === 'Supervision'">
                 <h5 class="main-txt">
                     Direction régionale
                 </h5>
-                <p>{{ lieu?.code_rattache_DR != '' ? lieu?.code_rattache_DR : '--'}}</p>
+                <p>{{ lieu?.code_rattache_DR !== '' ? lieu?.code_rattache_DR : '--'}}</p>
             </div> -->
-            <div class="col-lg-6" *ngIf="lieu?.type_lieu == 'Point de vente' || lieu?.type_lieu == 'Logement de fonction' || lieu?.type_lieu == 'Supervision'
-            || lieu?.type_lieu == 'Direction régionale'">
+            <div class="col-lg-6" *ngIf="lieu?.type_lieu === 'Point de vente' || lieu?.type_lieu === 'Logement de fonction' || lieu?.type_lieu === 'Supervision'
+            || lieu?.type_lieu === 'Direction régionale'">
                 <h5 class="main-txt">Code localité</h5>
-                <p>{{ lieu?.code_localite != '' ? lieu?.code_localite : '--'}}</p>
+                <p>{{ lieu?.code_localite !== '' ? lieu?.code_localite : '--'}}</p>
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-6">
                 <h5 class="main-txt">Fax</h5>
-                <p>{{ lieu?.fax != '' ? lieu?.fax : '--'}}</p>
+                <p>{{ lieu?.fax !== '' ? lieu?.fax : '--'}}</p>
             </div>
             <div class="col-lg-6">
                 <h5 class="main-txt">Téléphone</h5>
-                <p>{{ lieu?.telephone != '' ? lieu?.telephone : '--'}}</p>
+                <p>{{ lieu?.telephone !== '' ? lieu?.telephone : '--'}}</p>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-lg-6" *ngIf="lieu?.type_lieu == 'Siège'">
+            <div class="col-lg-6" *ngIf="lieu?.type_lieu === 'Siège'">
                 <h5 class="main-txt">Centre de coût siège</h5>
-                <p>{{ lieu?.centre_cout_siege != '' ? lieu?.centre_cout_siege : '--'}}</p>
+                <p>{{ lieu?.centre_cout_siege !== '' ? lieu?.centre_cout_siege : '--'}}</p>
             </div>
             <div class="col-lg-6">
                 <h5 class="main-txt">Type</h5>
-                <p>{{ lieu?.type_lieu != '' ? lieu?.type_lieu : '--'}}</p>
+                <p>{{ lieu?.type_lieu !== '' ? lieu?.type_lieu : '--'}}</p>
             </div>
             <div class="col-lg-6"></div>
         </div>
 
         
         <div class="row">
-            <div class="col-lg-6" *ngIf="lieu?.type_lieu == 'Point de vente' || lieu?.type_lieu == 'Logement de fonction' || lieu?.type_lieu == 'Supervision'">
+            <div class="col-lg-6" *ngIf="lieu?.type_lieu === 'Point de vente' || lieu?.type_lieu === 'Logement de fonction' || lieu?.type_lieu === 'Supervision'">
                 <h5 class="main-txt">Code direction régionale</h5>
-                <p>{{ lieu?.code_rattache_DR != '' ? lieu?.code_rattache_DR : '--'}}</p>
+                <p>{{ lieu?.code_rattache_DR !== '' ? lieu?.code_rattache_DR : '--'}}</p>
             </div>
-            <div class="col-lg-6" *ngIf="lieu?.type_lieu == 'Point de vente'">
+            <div class="col-lg-6" *ngIf="lieu?.type_lieu === 'Point de vente'">
                 <h5 class="main-txt">Code Supervision</h5>
-                <p>{{ lieu?.code_rattache_SUP != '' ? lieu?.code_rattache_SUP : '--'}}</p>
+                <p>{{ lieu?.code_rattache_SUP !== '' ? lieu?.code_rattache_SUP : '--'}}</p>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-6" *ngIf="lieu?.type_lieu == 'Point de vente'">
+            <div class="col-lg-6" *ngIf="lieu?.type_lieu === 'Point de vente'">
                 <h5 class="main-txt">Intitulé supervision du point de vente</h5>
-                <p>{{ lieu?.intitule_rattache_SUP_PV != '' ? lieu?.intitule_rattache_SUP_PV : '--'}}</p>
+                <p>{{ lieu?.intitule_rattache_SUP_PV !== '' ? lieu?.intitule_rattache_SUP_PV : '--'}}</p>
             </div>
            
         </div>
-        <div class="row" *ngIf="lieu?.type_lieu == 'Point de vente'">
+        <div class="row" *ngIf="lieu?.type_lieu === 'Point de vente'">
             <div class="col-lg-6">
                 <h5 class="main-txt">Catégorie point vente</h5>
-                <p>{{ lieu?.categorie_pointVente != '' ? lieu?.categorie_pointVente : '--'}}</p>
+                <p>{{ lieu?.categorie_pointVente !== '' ? lieu?.categorie_pointVente : '--'}}</p>
             </div>
             <div class="col-lg-6"></div>
         </div>

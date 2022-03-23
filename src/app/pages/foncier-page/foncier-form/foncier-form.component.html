@@ -3,7 +3,7 @@
   <!--Début Formulaire form-contrat-->
   <form
     [formGroup]="foncierForm"
-    (ngSubmit)="foncier == '' ? addFoncier() : updateFoncier()"
+    (ngSubmit)="foncier === '' ? addFoncier() : updateFoncier()"
   >
     <div class="w-100 d-flex justify-content-center">
       <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
@@ -58,7 +58,7 @@
         >
           <option [value]="lieu._id" *ngFor="let lieu of lieuxByType">
             {{
-              lieu.type_lieu == "Logement de fonction"
+              lieu.type_lieu === "Logement de fonction"
                 ? lieu.code_rattache_DR
                 : lieu.code_lieu
             }}
@@ -252,7 +252,7 @@
                 </div>
               </div>
               
-              <!-- && amenagementForm.controls[i].value.idm.length !== 0  -->
+              <!-- && amenagementForm.controls[i].value.idm.length !==== 0  -->
          <div class="row">
           <div class="col-lg-4 form-group mt-4">
             <label for="">Montant des travaux d’aménagement</label>
@@ -465,7 +465,7 @@
         <h4 class="main-text">Entité organisationnelle</h4>
       </div>
 
-      <div class="mt-1" *ngIf="currentLieu?.etat_lieu == 'Occupé' || currentLieu?.etat_lieu == 'En cours de transfert'">
+      <div class="mt-1" *ngIf="currentLieu?.etat_lieu === 'Occupé' || currentLieu?.etat_lieu === 'En cours de transfert'">
         <div class="row">
           <div class="col-lg-4 form-group mt-2">
             <label for="">Type d'entité organisationnelle</label>
@@ -479,7 +479,7 @@
 
           <div class="col-lg-3 form-group mt-2">
             <label for="">Code d'entité organisationnelle</label>
-            <!-- *ngIf="ActiveForm != 'TransfererForm'" -->
+            <!-- *ngIf="ActiveForm !== 'TransfererForm'" -->
             <input
               type="text"
               class="form-control rounded-pill"
@@ -502,11 +502,11 @@
         </div>
         <div
           class="form-group my-4 col-lg-3 d-flex"
-          *ngIf="ActiveForm != 'TransfererForm'"
+          *ngIf="ActiveForm !== 'TransfererForm'"
         >
           <!-- A Transferer & Annuler la Transformation buttons  -->
           <button
-            *ngIf="currentLieu.etat_lieu != 'En cours de transfert'"
+            *ngIf="currentLieu.etat_lieu !== 'En cours de transfert'"
             type="button"
             id="Transferer"
             class="btn second-btn form-control"
@@ -515,7 +515,7 @@
             En cours de transfert
           </button>
           <button
-            *ngIf="currentLieu.etat_lieu == 'En cours de transfert'"
+            *ngIf="currentLieu.etat_lieu === 'En cours de transfert'"
             type="button"
             id="Transferer"
             class="btn second-btn form-control"
@@ -595,7 +595,7 @@
       </div>
 
       <!-- Add new ( lieu ) -->
-      <div *ngIf="currentLieu?.etat_lieu == 'Transféré'">
+      <div *ngIf="currentLieu?.etat_lieu === 'Transféré'">
         <div class="row">
           <div class="col-lg-3 form-group mt-2">
             <label for="">Type d'entité organisationnelle</label>
@@ -653,7 +653,7 @@
     <!-- Button Ajouter -->
     <div class="form-group col-lg-2 d-flex mt-5">
       <button
-        *ngIf="foncier == ''"
+        *ngIf="foncier === ''"
         type="submit"
         id="Ajouter"
         class="btn second-btn form-control mt-4"
@@ -663,7 +663,7 @@
         Ajouter
       </button>
       <button
-        *ngIf="foncier != ''"
+        *ngIf="foncier !== ''"
         type="submit"
         id="Modifier"
         class="btn second-btn form-control mt-4"

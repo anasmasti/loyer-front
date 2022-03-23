@@ -10,7 +10,7 @@ import { getUsersAction } from '../admin-store/admin.actions';
 import { AdminService } from 'src/app/services/admin-service/admin.service';
 
 @Component({
-  selector: 'user-list',
+  selector: 'app-user-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
@@ -113,12 +113,12 @@ export class ListComponent implements OnInit, OnDestroy {
 
   // Filter by intitule
   search() {
-    if (this.findAdmin != "") {
+    if (this.findAdmin !== "") {
       this.users = this.users.filter((res) => {
         return res.userMatricul?.toLowerCase().match(this.findAdmin.toLowerCase()) || res.nom?.toLowerCase().match(this.findAdmin.toLowerCase())
           || res.prenom?.toLowerCase().match(this.findAdmin.toLowerCase());
       });
-    } else if (this.findAdmin == "") {
+    } else if (this.findAdmin === "") {
       this.getUsersList()
     }
   }
