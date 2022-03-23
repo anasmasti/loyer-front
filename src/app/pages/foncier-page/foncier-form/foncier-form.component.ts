@@ -171,8 +171,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
       .getLieuByType(this.userMatricule, { type_lieu: type })
       .subscribe((data) => {
         if (data) this.lieuxByType = data;
-        console.log(data);
-        
       });
     this.Intituler_lieu = '';
   }
