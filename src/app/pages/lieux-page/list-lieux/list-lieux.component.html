@@ -63,9 +63,9 @@
         ">
         <!-- <td >{{ proprietaire._id }}</td> -->
         <td>{{ lieu.type_lieu }}</td>
-        <td>{{ lieu.type_lieu != 'Logement de fonction' ? lieu.code_lieu : lieu.code_rattache_DR }}</td>
+        <td>{{ lieu.type_lieu != 'Logement de fonction' ? lieu.code_lieu : lieu.attached_DR?.code_lieu }}</td>
         <td>{{ lieu.intitule_lieu ? lieu.intitule_lieu : '--' }}</td>
-        <td>{{ lieu.code_rattache_DR ? lieu.code_rattache_DR : '--' }}</td>
+        <td>{{ lieu.attached_DR ? lieu.attached_DR.code_lieu : '--' }}</td>
         <td>
           <a [routerLink]="['list', lieu._id]" class="btn btn-sm main-btn"><i class="fal fa-eye"></i></a>
           <a class="btn btn-sm info-btn mx-2" (click)="openModalAndPushLieu(lieu)"><i class="far fa-edit"></i></a>

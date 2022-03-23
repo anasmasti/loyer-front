@@ -65,15 +65,15 @@
           <p *ngIf="!Dr" class="danger-txt">
             Une erreur s'est produite, veuillez réessayer plus tard.
           </p>
-          <select *ngIf="Dr" class="form-select rounded-pill" formControlName="code_rattache_DR" (change)="displayIntituleDR()" [ngClass]="{
-              'is-invalid': checkInputsValidation(code_rattache_DR)
+          <select *ngIf="Dr" class="form-select rounded-pill" formControlName="attached_DR" (change)="displayIntituleDR()" [ngClass]="{
+              'is-invalid': checkInputsValidation(attached_DR)
             }">
-            <option [value]="drItem.code_lieu" *ngFor="let drItem of Dr">
+            <option [value]="drItem._id" *ngFor="let drItem of Dr">
               {{ drItem.code_lieu }}
             </option>
           </select>
-          <div class="" *ngIf="checkInputsValidation(code_rattache_DR)">
-            <p class="danger-txt" *ngIf="code_rattache_DR?.errors?.required">
+          <div class="" *ngIf="checkInputsValidation(attached_DR)">
+            <p class="danger-txt" *ngIf="attached_DR?.errors?.required">
               Veuillez séléctionner un code dr
             </p>
           </div>

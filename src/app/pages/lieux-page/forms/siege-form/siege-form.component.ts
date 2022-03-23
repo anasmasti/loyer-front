@@ -57,6 +57,8 @@ export class SiegeFormComponent implements OnInit, OnChanges {
       intitule_rattache_SUP_PV: new FormControl(''),
       centre_cout_siege: new FormControl(''),
       categorie_pointVente: new FormControl(''),
+      attached_DR: new FormControl(''),
+      attached_SUP: new FormControl(''),
     })
   }
 
@@ -79,6 +81,8 @@ export class SiegeFormComponent implements OnInit, OnChanges {
       intitule_rattache_SUP_PV: this.Lieu.intitule_rattache_SUP_PV,
       centre_cout_siege: this.Lieu.centre_cout_siege,
       categorie_pointVente: this.Lieu.categorie_pointVente,
+      attached_DR: this.Lieu.attached_DR?._id,
+      attached_SUP: this.Lieu.attached_SUP?._id,
     });
   }
 
@@ -111,6 +115,8 @@ export class SiegeFormComponent implements OnInit, OnChanges {
       intitule_rattache_SUP_PV: this.siegeForm.get('intitule_rattache_SUP_PV')?.value,
       centre_cout_siege: this.siegeForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.siegeForm.get('categorie_pointVente')?.value,
+      attached_DR: this.siegeForm.get('attached_DR')?.value || null,
+      attached_SUP: this.siegeForm.get('attached_SUP')?.value || null,
     }
 
     this.siegeService.addLieu(siegeData, this.userMatricule).subscribe(
@@ -153,6 +159,8 @@ export class SiegeFormComponent implements OnInit, OnChanges {
       intitule_rattache_SUP_PV: this.siegeForm.get('intitule_rattache_SUP_PV')?.value,
       centre_cout_siege: this.siegeForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.siegeForm.get('categorie_pointVente')?.value,
+      attached_DR: this.siegeForm.get('attached_DR')?.value || null,
+      attached_SUP: this.siegeForm.get('attached_SUP')?.value || null,
     }
 
     this.lieuService.updateLieux(id, sgData, this.userMatricule).subscribe(

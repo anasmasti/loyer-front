@@ -67,6 +67,8 @@ export class DrFormComponent implements OnInit, OnChanges {
       centre_cout_siege: new FormControl(''),
       categorie_pointVente: new FormControl(''),
       deleted: new FormControl(''),
+      attached_DR: new FormControl(''),
+      attached_SUP: new FormControl(''),
     });
   }
 
@@ -84,6 +86,8 @@ export class DrFormComponent implements OnInit, OnChanges {
       intitule_rattache_SUP_PV: this.Lieu.intitule_rattache_SUP_PV,
       centre_cout_siege: this.Lieu.centre_cout_siege,
       categorie_pointVente: this.Lieu.categorie_pointVente,
+      attached_DR: this.Lieu.attached_DR?._id,
+      attached_SUP: this.Lieu.attached_SUP?._id,
     });
   }
 
@@ -126,8 +130,12 @@ export class DrFormComponent implements OnInit, OnChanges {
       intitule_rattache_SUP_PV: this.drForm.get('code_lieu')?.value,
       centre_cout_siege: this.drForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.drForm.get('categorie_pointVente')?.value,
+      attached_DR: this.drForm.get('attached_DR')?.value || null,
+      attached_SUP: this.drForm.get('attached_SUP')?.value || null,
     };
 
+    console.log(dr_data);
+    
     this.lieuService.addLieu(dr_data, this.userMatricule).subscribe(
       (_) => {
         this.postDone = true;
@@ -169,6 +177,8 @@ export class DrFormComponent implements OnInit, OnChanges {
       intitule_rattache_SUP_PV: this.drForm.get('code_lieu')?.value,
       centre_cout_siege: this.drForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.drForm.get('categorie_pointVente')?.value,
+      attached_DR: this.drForm.get('attached_DR')?.value || null,
+      attached_SUP: this.drForm.get('attached_SUP')?.value || null,
     };
 
     this.lieuService.updateLieux(id, dr_data, this.userMatricule).subscribe(
