@@ -30,13 +30,13 @@
 <div class="row d-flex justify-content-around">
   <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-4">
     <h5 class="main-txt">Nom</h5>
-    <p class="text-capitalize">{{ user?.nom != '' ? user?.nom : '--' }}</p>
+    <p class="text-capitalize">{{ user?.nom !== '' ? user?.nom : '--' }}</p>
 
     <h5 class="main-txt">Prenom</h5>
-    <p class="text-capitalize">{{ user?.prenom != '' ? user?.prenom : '--'}}</p>
+    <p class="text-capitalize">{{ user?.prenom !== '' ? user?.prenom : '--'}}</p>
 
     <h5 class="main-txt">email</h5>
-    <p class="text-capitalize">{{ user?.email  != '' ? user?.email : '--'}}</p>
+    <p class="text-capitalize">{{ user?.email  !== '' ? user?.email : '--'}}</p>
   </div>
   <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-7">
     <h5 class="main-txt">Roles</h5>

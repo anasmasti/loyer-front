@@ -11,6 +11,7 @@ import { ContratService } from '@services/contrat-service/contrat.service';
   templateUrl: './list-proprietaire.component.html',
   styleUrls: ['./list-proprietaire.component.scss'],
 })
+
 export class ListProprietaireComponent implements OnInit {
   proprietaires: any[] = [];
   targetProprietaire: Proprietaire[] = [];
@@ -64,7 +65,7 @@ export class ListProprietaireComponent implements OnInit {
 
   // Filter by intitule
   search() {
-    if (this.findProprietaire != '') {
+    if (this.findProprietaire !== '') {
       this.proprietaires = this.proprietaires.filter((res) => {
         return res.cin
           ?.toLowerCase()
@@ -73,7 +74,7 @@ export class ListProprietaireComponent implements OnInit {
         // res.carte_sejour?.toLowerCase().match(this.findProprietaire.toLowerCase()) ||
         // res.nom_prenom?.toLowerCase().match(this.findProprietaire.toLowerCase())
       });
-    } else if (this.findProprietaire == '') {
+    } else if (this.findProprietaire === '') {
       this.getAllFonciers();
     }
   }
@@ -104,6 +105,14 @@ export class ListProprietaireComponent implements OnInit {
         }
       });
     });
+    this.sortProprietaireList();
+  }
+  
+  // Sort proprietaire list by its updated date
+  sortProprietaireList() {
+    this.proprietaires.sort((a: any,b: any) => (
+      new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+      ))
   }
 
   // Open the update proprietaire form and push index and data of proprietaire

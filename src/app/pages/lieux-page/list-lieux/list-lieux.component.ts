@@ -69,10 +69,10 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     });
   }
 
-  //=======================================================================================================
+  //==========================================================================================================================================================
   // Filter by intitule
   search() {
-    if (this.findLieu != '') {
+    if (this.findLieu !== '') {
       this.lieux = this.lieux.filter((res: any) => {
         return (
           res.type_lieu?.toLowerCase().match(this.findLieu.toLowerCase()) ||
@@ -81,12 +81,12 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
           res.code_lieu?.toLowerCase().match(this.findLieu.toLowerCase())
         );
       });
-    } else if (this.findLieu == '') {
+    } else if (this.findLieu === '') {
       this.getAllLieux();
     }
   }
 
-  //=======================================================================================================
+  //==========================================================================================================================================================
 
   getAllLieux() {
     // Select lieux from store
@@ -96,7 +96,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
         // Dispatch action to handle the NgRx get lieux from server effect
         this.store.dispatch(getLieuxAction());
       }
-      this.lieux = data;     
+      this.lieux = data;
     });
   }
 

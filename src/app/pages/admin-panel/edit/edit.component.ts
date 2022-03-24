@@ -2,7 +2,7 @@ import { User } from './../../../models/User';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'user-edit',
+  selector: 'app-user-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss']
 })

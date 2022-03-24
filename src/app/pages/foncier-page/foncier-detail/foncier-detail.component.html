@@ -62,7 +62,7 @@
         <h5 class="main-txt">Description</h5>
         <p>
           {{
-          foncier?.desc_lieu_entrer != "" ? foncier?.desc_lieu_entrer : "--"
+          foncier?.desc_lieu_entrer !== "" ? foncier?.desc_lieu_entrer : "--"
           }}
         </p>
       </div>
@@ -73,7 +73,7 @@
             target="_blank">
             Ouvrir
           </a>
-          <p *ngIf="selectedImageEntrer?.image == null" class="main-muted-text">
+          <p *ngIf="selectedImageEntrer?.image === null" class="main-muted-text">
             Il n'y a aucun fichier à télécharger
           </p>
         </div>
@@ -141,7 +141,7 @@
         <h5 class="main-txt">Nature d'aménagement</h5>
         <p>
           {{
-          selectedAmenagement?.nature_amenagement != ""
+          selectedAmenagement?.nature_amenagement !== ""
           ? selectedAmenagement?.nature_amenagement
           : "--"
           }}
@@ -151,7 +151,7 @@
         <h5 class="main-txt">Montant d'Aménagement</h5>
         <p>
           {{
-          selectedAmenagement?.montant_amenagement != ""
+          selectedAmenagement?.montant_amenagement !== ""
           ? selectedAmenagement?.montant_amenagement
           : "--"
           }}
@@ -161,7 +161,7 @@
         <h5 class="main-txt">N° de facture</h5>
         <p>
           {{
-          selectedAmenagement?.numero_facture != ""
+          selectedAmenagement?.numero_facture !== ""
           ? selectedAmenagement?.numero_facture
           : "--"
           }}
@@ -174,7 +174,7 @@
         <h5 class="main-txt">N° de bon de commande</h5>
         <p>
           {{
-          selectedAmenagement?.numero_bon_commande != ""
+          selectedAmenagement?.numero_bon_commande !== ""
           ? selectedAmenagement?.numero_bon_commande
           : "--"
           }}
@@ -184,7 +184,7 @@
         <h5 class="main-txt">Date de passation de la commande</h5>
         <p>
           {{
-          selectedAmenagement?.date_passation_commande != ""
+          selectedAmenagement?.date_passation_commande !== ""
           ? selectedAmenagement?.date_passation_commande
           : "--"
           }}
@@ -194,7 +194,7 @@
         <h5 class="main-txt">Evaluation du fournisseur</h5>
         <p>
           {{
-          selectedAmenagement?.evaluation_fournisseur != ""
+          selectedAmenagement?.evaluation_fournisseur !== ""
           ? selectedAmenagement?.evaluation_fournisseur
           : "--"
           }}
@@ -206,7 +206,7 @@
         <h5 class="main-txt">Date de fin de travaux</h5>
         <p>
           {{
-          selectedAmenagement?.date_fin_travaux != ""
+          selectedAmenagement?.date_fin_travaux !== ""
           ? selectedAmenagement?.date_fin_travaux
           : "--"
           }}
@@ -216,7 +216,7 @@
         <h5 class="main-txt">Date de livraison du local</h5>
         <p>
           {{
-          selectedAmenagement?.date_livraison_local != ""
+          selectedAmenagement?.date_livraison_local !== ""
           ? selectedAmenagement?.date_livraison_local
           : "--"
           }}
@@ -258,13 +258,13 @@
             <h6 class="main-txt">Raison sociale </h6>
             <p>
               {{
-              selected_fournisseur.nom != "" ? selected_fournisseur.nom : "--"
+              selected_fournisseur.nom !== "" ? selected_fournisseur.nom : "--"
               }}
             </p>
             <h6 class="main-txt">Évaluation du fournisseur</h6>
             <p>
               {{
-              selectedAmenagement.evaluation_fournisseur != ""
+              selectedAmenagement.evaluation_fournisseur !== ""
               ? selectedAmenagement.evaluation_fournisseur
               : "--"
               }}

@@ -18,7 +18,7 @@
   <!--Début de Div qui contient le formulaire pv-form-->
   <div class="form-box mt-4">
     <!--Début Formulaire pv-form-->
-    <form [formGroup]="PvForm" enctype="multipart/form-data" (ngSubmit)="Lieu == '' ? addPv() : updatePv()">
+    <form [formGroup]="PvForm" enctype="multipart/form-data" (ngSubmit)="Lieu === '' ? addPv() : updatePv()">
       <div class="w-100 d-flex justify-content-center">
         <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
         <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
@@ -67,19 +67,19 @@
           <p *ngIf="!Sup" class="danger-txt">
             Une erreur s'est produite, veuillez réessayer plus tard.
           </p>
-          <select *ngIf="Sup" class="form-select rounded-pill" (change)="fillSupAndDR();" formControlName="code_rattache_SUP" [ngClass]="{
-              'is-invalid': checkInputsValidation(code_rattache_SUP),
-              'is-valid': !code_rattache_SUP?.invalid
+          <select *ngIf="Sup" class="form-select rounded-pill" (change)="fillSupAndDR();" formControlName="attached_SUP" [ngClass]="{
+              'is-invalid': checkInputsValidation(attached_SUP),
+              'is-valid': !attached_SUP?.invalid
             }">
             <option [value]="'--'">
               ---
             </option>
-            <option [value]="supItem.code_lieu" *ngFor="let supItem of Sup">
+            <option [value]="supItem._id" *ngFor="let supItem of Sup">
               {{ supItem.code_lieu }}
             </option>
           </select>
-          <div class="" *ngIf="checkInputsValidation(code_rattache_SUP)">
-            <p class="danger-txt" *ngIf="code_rattache_SUP?.errors?.required">
+          <div class="" *ngIf="checkInputsValidation(attached_SUP)">
+            <p class="danger-txt" *ngIf="attached_SUP?.errors?.required">
               Veuillez remplir ce champ
             </p>
           </div>
@@ -178,10 +178,10 @@
       <!--Fin de 1er Row -->
 
       <div class="form-group mt-5 col-lg-2 d-flex">
-        <button type="submit" class="btn second-btn form-control" (click)="scrollToTop()" *ngIf="Lieu != ''">
+        <button type="submit" class="btn second-btn form-control" (click)="scrollToTop()" *ngIf="Lieu !== ''">
           Modifier
         </button>
-        <button type="submit" class="btn second-btn form-control" (click)="scrollToTop()" *ngIf="Lieu == ''">
+        <button type="submit" class="btn second-btn form-control" (click)="scrollToTop()" *ngIf="Lieu === ''">
           Ajouter
         </button>
       </div>

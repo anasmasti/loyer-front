@@ -18,9 +18,14 @@
     </div>
   </div>
 </div>
-<form  (ngSubmit)="updateUser()">
+<div class="w-100 d-flex justify-content-center">
+  <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
+  <div *ngIf="updateDone" class="done-alert p-2 my-2">{{ updateSucces }}</div>
+</div>
+<form [formGroup]="userForm" (ngSubmit)="confirmationPassword()">
   <div class="row d-flex justify-content-between">
-    <div class="main-card p-lg-5 mt-4 bg-white col-lg-6">
+    <div class="main-card p-lg-5 mt-4 bg-white col-lg-5">
+      <h4 class="main-title mb-4">Informations personnelles</h4>
       <div class="row">
         <div class="col-lg-6">
           <h5 class="main-txt">Nom</h5>
@@ -36,6 +41,7 @@
               type="text"
               class="form-control rounded-pill"
               formControlName="nom"
+              [placeholder]="user?.nom"
             />
             <a class="btn danger-btn" (click)="toggelEdit('nom')">
               <i class="fal fa-times my-auto"></i>
@@ -56,6 +62,7 @@
               type="text"
               class="form-control rounded-pill"
               formControlName="prenom"
+              [placeholder]="user?.prenom"
             />
             <a class="btn danger-btn" (click)="toggelEdit('prenom')">
               <i class="fal fa-times my-auto"></i>
@@ -78,6 +85,7 @@
               type="email"
               class="form-control rounded-pill"
               formControlName="email"
+              [placeholder]="user?.email"
             />
             <a class="btn danger-btn" (click)="toggelEdit('email')">
               <i class="fal fa-times my-auto"></i>
@@ -90,12 +98,96 @@
         </div>
       </div>
     </div>
-    <div class="main-card p-lg-5 mt-4 bg-white col-lg-5">
-      <h5 class="main-txt">Nom</h5>
-      <p class="text-capitalize">Hmadi</p>
+    <div class="main-card p-lg-5 mt-4 bg-white col-lg-6">
+      <h4 class="main-title mb-4">Mot de passe</h4>
+      <!-- Condition to show form password -->
+      <div *ngIf="updatePassword; then passwordForm"></div>
+
+      <ng-template #passwordForm>
+        <!-- Password form -->
+        <div class="row mb-3">
+          <div class="col-lg-6 form-group">
+            <h5 class="main-txt">Ancien mot de passe</h5>
+            <div class="input-group">
+              <input
+                [type]="!showPass ? 'password' : 'text'"
+                id="AAAA"
+                class="form-control rounded-pill"
+                formControlName="password"
+              />
+              <a
+                (click)="togglePasswordType('pass')"
+                class="main-btn p-2 ms-2"
+                aria-label="Voir le mot de passe"
+              >
+                <i [class]="showPass ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-6 form-group">
+            <h5 class="main-txt">Nouveau mot de passe</h5>
+            <div class="input-group">
+              <input
+                [type]="!showNewPass ? 'password' : 'text'"
+                id="NewPassword"
+                class="form-control rounded-pill"
+                formControlName="new_password"
+              />
+              <a
+                (click)="togglePasswordType('newPass')"
+                class="main-btn p-2 ms-2"
+                aria-label="Voir le mot de passe"
+              >
+                <i
+                  [class]="showNewPass ? 'fas fa-eye-slash' : 'fas fa-eye'"
+                ></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 form-group">
+          <h5 class="main-txt">Confirmation du mot de passe</h5>
+          <div class="input-group">
+            <input
+              [type]="!showConfPass ? 'password' : 'text'"
+              id="ConfirmationPassword"
+              class="form-control rounded-pill"
+              formControlName="confirmation_password"
+            />
+            <a
+              (click)="togglePasswordType('confPass')"
+              class="main-btn p-2 ms-2"
+              aria-label="Voir le mot de passe"
+            >
+              <i [class]="showConfPass ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+            </a>
+          </div>
+        </div>
+      </ng-template>
+      <div class="form-group">
+        <button
+          type="button"
+          class="btn danger-btn mt-4"
+          *ngIf="updatePassword"
+          (click)="updatePasswordToggel(false)"
+        >
+          Annuler
+        </button>
+        <button
+          type="button"
+          class="btn second-btn"
+          *ngIf="!updatePassword"
+          (click)="updatePasswordToggel(true)"
+        >
+          Modifier le mot de passe
+        </button>
+      </div>
     </div>
   </div>
-  <button type="submit" class="btn second-btn form-control ">
-    Modifier
-  </button>
+  <!-- Button Ajouter -->
+  <div class="form-group mt-5 col-lg-3 d-flex">
+    <button type="submit" id="Modifier" class="btn second-btn form-control">
+      Modifier
+    </button>
+  </div>
 </form>

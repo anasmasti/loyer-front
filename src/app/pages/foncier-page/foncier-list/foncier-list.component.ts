@@ -80,7 +80,7 @@ export class FoncierListComponent implements OnInit {
 
   // Filter by intitule
   search() {
-    if (this.findFoncier != '') {
+    if (this.findFoncier !== '') {
       this.fonciers = this.fonciers.filter((res: any) => {
         return (
           res.type_lieu?.toLowerCase().match(this.findFoncier.toLowerCase()) ||
@@ -93,7 +93,7 @@ export class FoncierListComponent implements OnInit {
             .match(this.findFoncier.toLowerCase())
         );
       });
-    } else if (this.findFoncier == '') {
+    } else if (this.findFoncier === '') {
       this.getFoncier();
     }
   }
@@ -102,11 +102,11 @@ export class FoncierListComponent implements OnInit {
     this.getFoncier();
 
     if (event.target.checked) {
-      if (statut == 'all') {
+      if (statut === 'all') {
         return this.fonciers;
       }
 
-      if (statut != 'all') {
+      if (statut !== 'all') {
         this.filtredFonciers = this.fonciers.filter((res) => {
           return res.has_amenagements?.toString().match(statut);
         });

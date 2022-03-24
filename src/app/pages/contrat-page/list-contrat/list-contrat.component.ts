@@ -67,7 +67,7 @@ export class ListContratComponent implements OnInit {
   isSoumettre: boolean = false;
   test: string = 'test';
   
-  soumettreSuccess: string = 'Contrat soumettre avec succés';
+  soumettreSuccess: string = 'Contrat prêt à être validé';
   soumettreDone: boolean = false;
 
   constructor(
@@ -114,7 +114,6 @@ export class ListContratComponent implements OnInit {
   checkAndPutText(value: boolean) {
     return this.helperService.booleanToText(value);
   }
-
   // Filter by intitule
   search() {
     if (this.findContrat != '') {
@@ -277,10 +276,18 @@ export class ListContratComponent implements OnInit {
     }, 400);
   }
 
+  scrollToTop() {
+    let element: HTMLElement = document.getElementById(
+      'form_content'
+    ) as HTMLElement;
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   soumettreContrat() {
     this.contratService.updateSoumettre(this.id, this.userMatricule).subscribe(
       (_) => {
         this.closeConfirmationModal(this.soumettreModal)
+        this.scrollToTop();
         this.soumettreDone = true;
         setTimeout(() => {
           this.soumettreDone = false;
@@ -290,6 +297,7 @@ export class ListContratComponent implements OnInit {
       (error) => {
         this.errors = error.error.message;
         this.closeConfirmationModal(this.soumettreModal)
+        this.scrollToTop();
         setTimeout(() => {
           this.showErrorMessage();
         }, 3000);

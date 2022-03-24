@@ -1,8 +1,8 @@
-import { environment } from 'src/environments/environment';
+  import { environment } from 'src/environments/environment';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'main-footer',
+  selector: 'app-main-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss']
 })

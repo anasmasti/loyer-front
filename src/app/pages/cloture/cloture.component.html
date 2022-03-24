@@ -7,7 +7,7 @@
         'danger-light-card-bg danger-txt': !isCloture
       }">
     <h4 *ngIf="!isCloture">Clôture du {{ today | date }}</h4>
-    <h4 *ngIf="isCloture">Le mois {{ today.getMonth() | date }} clôturé</h4>
+    <h4 *ngIf="isCloture">Le mois {{ today?.getMonth() | date }} clôturé</h4>
     <a *ngIf="!isCloture" class="btn danger-btn" (click)="openConfirmationModal()">Clôturer ce mois</a>
   </div>
 

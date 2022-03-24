@@ -31,7 +31,7 @@ export class FoncierDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getFoncierById();
+    this.getFoncierById();    
   }
 
   // Get the foncier data by id
@@ -45,7 +45,7 @@ export class FoncierDetailComponent implements OnInit {
           this.foncier = data;
     
           // @ts-ignore
-          if (data.amenagement.length.toString() == '0') {
+          if (data.amenagement.length.toString() === '0') {
             this.hasAmenagement = false;
           }
 
@@ -85,7 +85,7 @@ export class FoncierDetailComponent implements OnInit {
   displayAmenagement(id: any) {
     if (this.foncier.amenagement?.length) {
       for (let index = 0; index < this.foncier.amenagement.length; index++) {
-        if (this.foncier.amenagement[index]._id == id) {
+        if (this.foncier.amenagement[index]._id === id) {
           this.selectedAmenagement = this.foncier.amenagement[index];
         }
       }

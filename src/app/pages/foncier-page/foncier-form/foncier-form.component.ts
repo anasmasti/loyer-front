@@ -4,7 +4,7 @@ import { AppState } from 'src/app/store/app.state';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit, Input, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Inject, OnChanges } from '@angular/core';
 import { HelperService } from 'src/app/services/helpers/helper.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { getCitiesAction } from 'src/app/store/shared/shared.action';
@@ -21,11 +21,11 @@ import { LieuxService } from '@services/lieux-service/lieux.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'foncier-form',
+  selector: 'app-foncier-form',
   templateUrl: './foncier-form.component.html',
   styleUrls: ['./foncier-form.component.scss'],
 })
-export class FoncierFormComponent implements OnInit, OnDestroy {
+export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
   @Input() formType!: string;
   @Input() foncier!: any;
   @Input() update!: boolean;
@@ -148,7 +148,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       .select(getCities)
       .subscribe((data) => {
         if (data) this.cities = data;
-        if (data.length == 0) this.fetchCities();
+        if (data.length === 0) this.fetchCities();
       });
   }
 
@@ -159,7 +159,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       // Check if lieux data is empty then fetch it from server
       if (data) this.lieux = data;
       // Dispatch action to handle the NgRx get lieux from server effect
-      if (data.length == 0) this.fetchLieux();
+      if (data.length === 0) this.fetchLieux();
     });
   }
 
@@ -225,7 +225,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       amenagementControl.nature_amenagement.forEach((nature: string) => {
         formGroupAmenagement.value.nature_amenagement.forEach(
           (elementNature: any) => {
-            if (elementNature.name == nature) {
+            if (elementNature.name === nature) {
               elementNature.checked = true;
             }
           }
@@ -321,7 +321,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       }
     });
 
-    if (HasAmenagement == 'Oui') {
+    if (HasAmenagement === 'Oui') {
       this.hasAmenagement = true;
       this.hasAmenagementCheck = '';
       this.foncierForm.patchValue({
@@ -410,7 +410,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
     let Amenagement = <FormArray>this.foncierForm.get('amenagementForm');
 
-    if (Amenagement.value[index].NewOrOld == 'NewAmng') {
+    if (Amenagement.value[index].NewOrOld === 'NewAmng') {
       (<FormArray>this.foncierForm.get('amenagementForm')).removeAt(index);
     } else {
       let element = this.document.getElementById(
@@ -436,7 +436,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     if (!checkbox.checked) checkedValue = false;
 
     amenagementForm.value?.nature_amenagement.forEach((nature: any) => {
-      if (nature.name == val) {
+      if (nature.name === val) {
         nature.checked = checkedValue;
       }
     });
@@ -476,7 +476,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
       amenagementForm.controls[indexAmng].controls.fournisseur
     );
 
-    if (fournisseur.value[indexFourn].NewOrOld == 'New') {
+    if (fournisseur.value[indexFourn].NewOrOld === 'New') {
       (<FormArray>(
         amenagementForm.controls[indexAmng].controls.fournisseur
       )).removeAt(indexFourn);
@@ -494,7 +494,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   }
 
   hasAmengmnt(HasAmng: string) {
-    if (HasAmng == 'Oui') {
+    if (HasAmng === 'Oui') {
       this.hasAmenagement = true;
       this.hasAmenagementCheck = '';
     } else {
@@ -544,11 +544,11 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   //       this.file = this.idm + index + this.imageExtension;
   //       this.fd.append('imgs_croquis', this.selectedFile, this.file);
   //     }
-  //     if (this.update && this.foncier.amenagement[index]?.idm === undefined) {
+  //     if (this.update && this.foncier.amenagement[index]?.idm ==== undefined) {
   //       this.file = this.idm + index + this.imageExtension;
   //       this.fd.append('imgs_croquis', this.selectedFile, this.file);
   //     }
-  //     if (this.update && this.foncier.amenagement[index]?.idm !== undefined) {
+  //     if (this.update && this.foncier.amenagement[index]?.idm !=== undefined) {
   //       this.file = this.foncier.amenagement[index]?.idm + this.imageExtension;
   //       this.fd.append('imgs_croquis', this.selectedFile, this.file);
   //     }
@@ -593,7 +593,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
     let natureNames = [];
     let checkedNatures = amenagement.nature_amenagement.filter(
       (nature: any) => {
-        return nature.checked == true;
+        return nature.checked === true;
       }
     );
 
@@ -664,7 +664,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
 
     this.isAmenagementEmpty = false;
 
-    if (this.hasAmenagementCheck == 'ButtonNon') {
+    if (this.hasAmenagementCheck === 'ButtonNon') {
       this.isAmenagementEmpty = false;
     } else {
       this.foncierForm.get('amenagementForm')?.value.forEach((element: any) => {
@@ -727,7 +727,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy {
   // find the ( lieu ) by its _id from the lieu list
   findLieu(lieuId: any) {
     for (let index = 0; index < this.lieux.length; index++) {
-      if (this.lieux[index]._id == lieuId) {
+      if (this.lieux[index]._id === lieuId) {
         return this.lieux[index];
       }
     }

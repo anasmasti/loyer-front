@@ -28,11 +28,11 @@ export class LieuxService {
     );
   }
 
-  addLieu(formdata: any, matricule: any): Observable<any> {
+  addLieu(data: any, matricule: any): Observable<any> {
     return this.http.post<any>(
       `${environment.API_URL_TEST + environment.API_VERSION + this.param_url
       }/ajouter/${matricule}`,
-      formdata
+      data
     );
   }
 

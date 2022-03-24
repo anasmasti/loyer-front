@@ -2,7 +2,7 @@ import { HelperService } from 'src/app/services/helpers/helper.service';
 import { getAllCounts } from './../../../store/shared/shared.selector';
 import { Subscription } from 'rxjs';
 import { AppState } from 'src/app/store/app.state';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getAllCountsAction } from 'src/app/store/shared/shared.action';
 import { ChartsService } from 'src/app/services/charts/charts.service';
@@ -15,7 +15,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   allCount!: any;
   allCountSubscription$!: Subscription;
 
