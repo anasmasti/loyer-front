@@ -94,7 +94,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnChanges() {
-    if (this.proprietaire != '' ) {
+    if (this.proprietaire != '') {
       this.fetchProprietaire();
     }
   }
@@ -426,7 +426,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     }
   }
 
-
   // Calculer le montant (retenue à la source / montant apres impot / TAX)
   calculMontant() {
     let tauxImpot: number = 0;
@@ -697,7 +696,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       raison_social: this.proprietaireForm.get('raison_social')?.value,
       n_registre_commerce:
         this.proprietaireForm.get('n_registre_commerce')?.value || '',
-      telephone: this.proprietaireForm.get('telephone')?.value,
+      telephone: this.proprietaireForm.get('telephone')?.value || '',
       fax: this.proprietaireForm.get('fax')?.value,
       adresse: this.proprietaireForm.get('adresse')?.value,
       n_compte_bancaire: this.proprietaireForm.get('n_compte_bancaire')?.value,
@@ -774,7 +773,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       raison_social: this.proprietaireForm.get('raison_social')?.value || '',
       n_registre_commerce:
         this.proprietaireForm.get('n_registre_commerce')?.value || '',
-      telephone: this.proprietaireForm.get('telephone')?.value,
+      telephone: this.proprietaireForm.get('telephone')?.value || '',
       fax: this.proprietaireForm.get('fax')?.value || '',
       adresse: this.proprietaireForm.get('adresse')?.value,
       n_compte_bancaire: this.proprietaireForm.get('n_compte_bancaire')?.value,
