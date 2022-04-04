@@ -4,7 +4,14 @@ import { AppState } from 'src/app/store/app.state';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit, Input, OnDestroy, Inject, OnChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnDestroy,
+  Inject,
+  OnChanges,
+} from '@angular/core';
 import { HelperService } from 'src/app/services/helpers/helper.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { getCitiesAction } from 'src/app/store/shared/shared.action';
@@ -422,35 +429,51 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-    //Upload Image amenagement avant amenagement
-    onFileSelected(event: any, fileName: string) {
-      if (event.target.files.length > 0){
-      this.help.selecteFiles(event, this.fd, fileName)
-      }
-    }
-    
-  //Upload Image amenagement après amenagement
-  onFileSelectedAmenagement(event: any,fileName: string, index: number) {
+  //Upload Image amenagement avant amenagement
+  onFileSelected(event: any, fileName: string) {
     if (event.target.files.length > 0) {
-      // this.selectedFile = event.target.files[0];
+      this.help.selecteFiles(event, this.fd, fileName);
+    }
+  }
+
+  //Upload Image amenagement après amenagement
+  onFileSelectedAmenagement(event: any, fileName: string, index: number) {
+    // if (event.target.files.length > 0) {
+    //   // this.selectedFile = event.target.files[0];
+    //   if (!this.update) {
+    //     this.file = this.idm + index + this.imageExtension;
+    //     // this.fd.append('imgs_amenagement', this.selectedFile, this.file);
+    //     this.help.selecteAmenagementFiles(event, this.fd, fileName)
+    //     this.fd.append('file',this.file);
+    //   }
+    //   if (this.update && this.foncier.amenagement[index]?.idm === undefined) {
+    //     this.file = this.idm + index + this.imageExtension;
+    //     // this.fd.append('imgs_amenagement', this.selectedFile, this.file);
+    //    this.help.selecteAmenagementFiles(event, this.fd, fileName)
+    //    this.fd.append('file',this.file);
+
+    //   }
+    //   if (this.update && this.foncier.amenagement[index]?.idm !== undefined) {
+    //     this.file = this.foncier.amenagement[index]?.idm + this.imageExtension;
+    //     // this.fd.append('imgs_amenagement', this.selectedFile, this.file);
+    //    this.help.selecteAmenagementFiles(event, this.fd, fileName)
+    //    this.fd.append('file',this.file);
+    //   }
+    // }
+
+    if (event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
       if (!this.update) {
         this.file = this.idm + index + this.imageExtension;
-        // this.fd.append('imgs_amenagement', this.selectedFile, this.file);
-        this.help.selecteAmenagementFiles(event, this.fd, fileName)
-        this.fd.append('file',this.file);
+        this.fd.append(fileName, this.selectedFile, this.file);
       }
       if (this.update && this.foncier.amenagement[index]?.idm === undefined) {
         this.file = this.idm + index + this.imageExtension;
-        // this.fd.append('imgs_amenagement', this.selectedFile, this.file);
-       this.help.selecteAmenagementFiles(event, this.fd, fileName)
-       this.fd.append('file',this.file);
-
+        this.fd.append(fileName, this.selectedFile, this.file);
       }
       if (this.update && this.foncier.amenagement[index]?.idm !== undefined) {
         this.file = this.foncier.amenagement[index]?.idm + this.imageExtension;
-        // this.fd.append('imgs_amenagement', this.selectedFile, this.file);
-       this.help.selecteAmenagementFiles(event, this.fd, fileName)
-       this.fd.append('file',this.file);
+        this.fd.append(fileName, this.selectedFile, this.file);
       }
     }
   }
@@ -554,11 +577,9 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
         setTimeout(() => {
           this.foncierForm.reset();
           this.postDone = false;
-          this.router
-              .navigate(['/foncier/list'])
-              .then(() => {
-                this.help.refrechPage();
-              });
+          this.router.navigate(['/foncier/list']).then(() => {
+            this.help.refrechPage();
+          });
         }, 3000);
       },
       (error) => {
