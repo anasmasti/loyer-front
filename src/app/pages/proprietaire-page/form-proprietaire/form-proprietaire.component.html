@@ -389,6 +389,7 @@
             class="form-select rounded-pill"
             [(ngModel)]="hasDeclarationOption"
             formControlName="declaration_option"
+            (change)="calculMontant();calculMontantAvance();calculCaution()"
           >
             <option value="oui">Oui</option>
             <option value="non">Non</option>
@@ -424,7 +425,7 @@
             type="number"
             class="form-control rounded-pill"
             formControlName="part_proprietaire"
-            (keyup)="calculMontant(); calculMontantAvance(); calculCaution()"
+            (keyup)="calculMontant();calculMontantAvance();calculCaution()"
             [ngClass]="{
               'is-invalid': checkInputsValidation(part_proprietaire)
             }"

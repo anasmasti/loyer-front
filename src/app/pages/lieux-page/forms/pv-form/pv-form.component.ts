@@ -86,7 +86,7 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
         Validators.maxLength(10),
       ]),
       attached_DR: new FormControl(''),
-      attached_SUP: new FormControl(''),
+      attached_SUP: new FormControl('',Validators.required),
     });
 
     this.getDr();
