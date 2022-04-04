@@ -9,9 +9,6 @@
         </a>
         <h3>Gestion des loyers</h3>
       </div>
-  
-    
-     
 
       <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,14 +29,22 @@
         <div id="#user-card" class="card border-0 me-5 main-card">
           <div *ngIf="user.existedUser" class="card-body">
             <h6 class="mainText text-capitalize">
-              {{ user.existedUser.nom }} {{ user.existedUser.prenom }}
+              <a [routerLink]="['/profile']" class="goback-link">
+                {{ user.existedUser.nom }} {{ user.existedUser.prenom }}
+              </a>
               <span class="text-secondary"> • </span>
               <span class="main-muted-text">
                 {{ user.existedUser.userMatricul }}
               </span>
             </h6>
-            <div *ngFor="let userR of user.existedUser.userRoles; let i = index">
-              <span class="badge user-admin-title" *ngIf="!userRole[i].deleted" >{{ userRole[i].roleName }}</span>
+            <div
+              *ngFor="let userR of user.existedUser.userRoles; let i = index"
+            >
+              <span
+                class="badge user-admin-title"
+                *ngIf="!userRole[i].deleted"
+                >{{ userRole[i].roleName }}</span
+              >
             </div>
           </div>
           <div *ngIf="!user.existedUser" class="card-body">
@@ -59,14 +64,17 @@
           {{ notifCount >= 0 ? notifCount : 0 }}
         </a>
         <a
-        [routerLink]="['/profile']"
-        routerLinkActive="router-link-active"
-        class="btn main-btn mx-2"
-        title="Profile"
-      >
-        <i class="fal fa-user"></i>
-      </a>
-        <a class="btn danger-btn me-2" (click)="openConfirmationModal()" title="Déconnexion"
+          [routerLink]="['/profile']"
+          routerLinkActive="router-link-active"
+          class="btn main-btn mx-2"
+          title="Profile"
+        >
+          <i class="fal fa-user"></i>
+        </a>
+        <a
+          class="btn danger-btn me-2"
+          (click)="openConfirmationModal()"
+          title="Déconnexion"
           ><i class="far fa-sign-out"></i
         ></a>
       </div>

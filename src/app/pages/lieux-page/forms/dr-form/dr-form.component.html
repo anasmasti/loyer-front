@@ -18,7 +18,7 @@
   <!--Début de Div qui contient le formulaire dr-form-->
   <div class="form-box mt-4">
     <!--Début Formulaire dr-form-->
-    <form [formGroup]="drForm" enctype="multipart/form-data" (ngSubmit)="Lieu == '' ? addDR() : updateDR()" id="test">
+    <form [formGroup]="drForm" enctype="multipart/form-data" (ngSubmit)="Lieu === '' ? addDR() : updateDR()" id="test">
       <div class="w-100 d-flex justify-content-center">
         <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
         <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
@@ -118,10 +118,10 @@
       </div>
 
       <div class="form-group mt-5 col-lg-2 d-flex">
-        <button type="submit" class="btn second-btn form-control" *ngIf="Lieu != ''" (click)="scrollToTop()" [disabled]="drForm.invalid">
+        <button type="submit" class="btn second-btn form-control" *ngIf="Lieu !== ''" (click)="scrollToTop()" [disabled]="drForm.invalid">
           Modifier
         </button>
-        <button type="submit" class="btn second-btn form-control" *ngIf="Lieu == ''" (click)="scrollToTop()" [disabled]="drForm.invalid">
+        <button type="submit" class="btn second-btn form-control" *ngIf="Lieu === ''" (click)="scrollToTop()" [disabled]="drForm.invalid">
           Ajouter
         </button>
       </div>

@@ -31,7 +31,7 @@
   </div>
 </div>
 
-<div class="w-100 d-flex justify-content-center">
+<div class="w-100 d-flex justify-content-center" id="form_content">
   <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
   <div *ngIf="deleteDone" class="done-alert p-2 my-2">{{ deleteSucces }}</div>
 </div>
@@ -164,9 +164,9 @@
         <!-- <td>{{ contrat.date_fin_contrat | date }}</td> -->
         <td
           [ngClass]="{
-            'info-txt': contrat.statut_caution == 'Récupérée',
-            'danger-txt': contrat.statut_caution == 'Consommée',
-            'success-txt': contrat.statut_caution == 'En cours'
+            'info-txt': contrat.statut_caution === 'Récupérée',
+            'danger-txt': contrat.statut_caution === 'Consommée',
+            'success-txt': contrat.statut_caution === 'En cours'
           }"
         >
           {{ contrat.statut_caution }}
@@ -174,7 +174,7 @@
 
         <td
           class="py-3 success-txt"
-          *ngIf="contrat.etat_contrat?.libelle == 'Avenant'"
+          *ngIf="contrat.etat_contrat?.libelle === 'Avenant'"
         >
           Actif
           <span
@@ -189,7 +189,7 @@
 
         <!-- <td
         class="py-3 info-txt"
-        *ngIf="contrat.etat_contrat?.libelle == 'Modifié'"
+        *ngIf="contrat.etat_contrat?.libelle === 'Modifié'"
       >
         Modifié 
       </td> -->
@@ -198,17 +198,17 @@
           class="py-3"
           [ngClass]="{
             'info-txt':
-              contrat.etat_contrat?.libelle == 'Avenant' ||
-              contrat.etat_contrat?.libelle == 'Soumettre' ||
-              contrat.etat_contrat?.libelle == 'Modifié',
+              contrat.etat_contrat?.libelle === 'Avenant' ||
+              contrat.etat_contrat?.libelle === 'Initié' ||
+              contrat.etat_contrat?.libelle === 'Modifié',
             'danger-txt':
-              contrat.etat_contrat?.libelle == 'Suspendu' ||
-              contrat.etat_contrat?.libelle == 'Résilié',
-            'success-txt': contrat.etat_contrat?.libelle == 'Actif',
+              contrat.etat_contrat?.libelle === 'Suspendu' ||
+              contrat.etat_contrat?.libelle === 'Résilié',
+            'success-txt': contrat.etat_contrat?.libelle === 'Actif',
             'main-txt':
-              contrat.etat_contrat?.libelle == 'En cours de validation'
+              contrat.etat_contrat?.libelle === 'En cours de validation'
           }"
-          *ngIf="contrat.etat_contrat?.libelle != 'Avenant'"
+          *ngIf="contrat.etat_contrat?.libelle !== 'Avenant'"
         >
           {{ this.contrat.etat_contrat?.libelle }}
         </td>
@@ -239,19 +239,29 @@
               class="btn btn-sm main-btn me-2"
               ><i class="fal fa-eye"></i
             ></a>
+            <!-- *ngIf="
+              (this.contrat.etat_contrat?.libelle === 'Soumettre' &&
+                userRoles.includes('CSLA')) ||
+              ((userRoles.includes('CDGSP') || userRoles.includes('CSLA')) &&
+                !contrat.validation1_DMG &&
+                this.contrat.etat_contrat?.libelle ===
+                  'En cours de validation') ||
+              (userRoles.includes('CSLA') && !contrat.validation1_DMG)
+            " -->
+            <!-- *ngIf="!userRoles.includes('DAJC')" -->
             <a
               *ngIf="
-                (this.contrat.etat_contrat?.libelle == 'Soumettre' &&
-                  userRoles.includes('CSLA')) ||
-                ((userRoles.includes('CDGSP') || userRoles.includes('CSLA')) &&
-                  !contrat.validation1_DMG &&
-                  this.contrat.etat_contrat?.libelle ==
-                    'En cours de validation') ||
-                (userRoles.includes('CSLA') && !contrat.validation1_DMG)
+                ((this.contrat.etat_contrat?.libelle === 'Initié' && userRoles.includes('CSLA')) ||
+                (this.contrat.etat_contrat?.libelle === 'Actif' && userRoles.includes('CSLA')))
+                ||
+                ((userRoles.includes('CDGSP') && this.contrat.etat_contrat?.libelle === 'Initié') || 
+                (userRoles.includes('CDGSP') && this.contrat.etat_contrat?.libelle === 'Actif'))
+                ||
+                (userRoles.includes('DAJC') && this.contrat.validation2_DAJC && this.contrat.etat_contrat?.libelle !== 'Résilié')
               "
               (click)="openEditModal(contrat)"
               class="btn btn-sm info-btn me-2"
-              ><i class="far fa-user-edit"></i
+              ><i class="far fa-edit"></i
             ></a>
             <!-- <a
               class="btn btn-sm danger-btn"
@@ -266,17 +276,16 @@
           *ngIf="
             (userRoles.includes('CDGSP') ||
               userRoles.includes('CSLA') ||
-              userRoles.includes('DAJC')) &&(
-                this.contrat.etat_contrat?.libelle == 'En cours de validation' ||
-                this.contrat.etat_contrat?.libelle == 'Actif'
-            )
+              userRoles.includes('DAJC')) &&
+            (this.contrat.etat_contrat?.libelle === 'En cours de validation' ||
+              this.contrat.etat_contrat?.libelle === 'Actif')
           "
         >
           <div
             class="text-center my-1"
             *ngIf="
-              contrat.etat_contrat?.libelle == 'Résilié' ||
-              contrat.etat_contrat?.libelle == 'Modifié'
+              contrat.etat_contrat?.libelle === 'Résilié' ||
+              contrat.etat_contrat?.libelle === 'Modifié'
             "
           >
             --
@@ -285,8 +294,8 @@
             class="btn-group d-grid"
             role="group"
             *ngIf="
-              contrat.etat_contrat?.libelle != 'Résilié' &&
-              contrat.etat_contrat?.libelle != 'Modifié'
+              contrat.etat_contrat?.libelle !== 'Résilié' &&
+              contrat.etat_contrat?.libelle !== 'Modifié'
             "
           >
             <a
@@ -297,6 +306,7 @@
               "
               data-bs-toggle="dropdown"
               aria-expanded="false"
+              *ngIf="!userRoles.includes('CSLA')"
             >
               <ng-container *ngIf="!contrat.validation2_DAJC">
                 A valider
@@ -312,7 +322,7 @@
               aria-labelledby="btnGroupDrop1"
             >
               <li>
-                <!-- <h5 *ngIf="contrat.etat_contrat?.libelle != 'Résilié'" class="main-title">
+                <!-- <h5 *ngIf="contrat.etat_contrat?.libelle !== 'Résilié'" class="main-title">
                   Validation
                 </h5> -->
                 <div class="d-flex flex-column gap-2">
@@ -322,7 +332,7 @@
                     "
                   >
                     <button
-                      *ngIf="contrat.etat_contrat?.libelle != 'Résilié'"
+                      *ngIf="contrat.etat_contrat?.libelle !== 'Résilié'"
                       class="btn"
                       [ngClass]="
                         contrat.validation1_DMG ? 'success-btn' : 'second-btn'
@@ -341,7 +351,7 @@
                   <div *ngIf="userRoles.includes('DAJC')">
                     <button
                       *ngIf="
-                        contrat.etat_contrat?.libelle != 'Résilié' &&
+                        contrat.etat_contrat?.libelle !== 'Résilié' &&
                         contrat.validation1_DMG
                       "
                       [ngClass]="
@@ -378,16 +388,16 @@
         </td>
         <td
           *ngIf="
-            userRoles.includes('CSLA') &&
-            this.contrat.etat_contrat?.libelle == 'Soumettre'
+            (userRoles.includes('CSLA') || userRoles.includes('CDGSP')) &&
+            this.contrat.etat_contrat?.libelle === 'Initié'
           "
         >
           <div
             class="btn-group d-grid"
             role="group"
             *ngIf="
-              contrat.etat_contrat?.libelle != 'Résilié' &&
-              contrat.etat_contrat?.libelle != 'Modifié'
+              contrat.etat_contrat?.libelle !== 'Résilié' &&
+              contrat.etat_contrat?.libelle !== 'Modifié'
             "
           >
             <a
@@ -437,7 +447,9 @@
               "
             >
               <ng-container *ngIf="!proprietaire.deleted">
-                <td>{{ proprietaire.nom_prenom || proprietaire.raison_social }}</td>
+                <td>
+                  {{ proprietaire.nom_prenom || proprietaire.raison_social }}
+                </td>
                 <td>
                   {{
                     proprietaire.cin
@@ -455,7 +467,7 @@
                   >
                     {{ checkAndPutText(proprietaire?.is_mandataire) }}
                   </span>
-                  <a
+                  <!-- <a
                     id="proprietaireList"
                     class="btn btn-sm second-btn me-2"
                     data-bs-toggle="dropdown"
@@ -466,7 +478,7 @@
                     <i class="fal fa-users"></i>
                     {{ getProprietaireLength(proprietaire.proprietaire_list) }}
                     Proprietaires
-                  </a>
+                  </a> -->
                   <ul
                     id="proprietaireListDropdown"
                     class="dropdown-menu p-4 main-card border-0"

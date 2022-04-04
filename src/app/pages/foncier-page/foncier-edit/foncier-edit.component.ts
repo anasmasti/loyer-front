@@ -2,7 +2,7 @@ import { Foncier } from './../../../models/Foncier';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'edit-foncier',
+  selector: 'app-edit-foncier',
   templateUrl: './foncier-edit.component.html',
   styleUrls: ['./foncier-edit.component.scss']
 })

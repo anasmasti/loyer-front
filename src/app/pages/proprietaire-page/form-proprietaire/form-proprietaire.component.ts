@@ -6,6 +6,10 @@ import { ProprietaireService } from 'src/app/services/proprietaire-service/propr
 import { ActivatedRoute, Router } from '@angular/router';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
+import {
+  checkProprietaireMoral,
+  checkProprietairePhysique,
+} from '../proprietaire.validator';
 
 @Component({
   selector: 'app-form-proprietaire',
@@ -76,8 +80,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   ];
 
   // Proprietaire type
-  personPhysique: boolean = true;
+  personPhysique!: boolean;
   type_proprietaire!: string;
+  proprTypeCheck: boolean = false;
   constructor(
     private proprietaireService: ProprietaireService,
     private mainModalService: MainModalService,
@@ -89,24 +94,33 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnChanges() {
-    if (this.proprietaire != '') {
+    if (this.proprietaire != '' ) {
       this.fetchProprietaire();
     }
   }
 
   ngOnInit(): void {
-
     this.proprietaireForm = new FormGroup({
       // Champs du propriètaire
-      cin: new FormControl('', [Validators.maxLength(8), Validators.required]),
+      cin: new FormControl('', [
+        Validators.maxLength(8),
+        checkProprietairePhysique(this.personPhysique),
+      ]),
       passport: new FormControl('', [Validators.maxLength(8)]),
       carte_sejour: new FormControl('', [Validators.maxLength(8)]),
       nom_prenom: new FormControl('', [
         Validators.minLength(6),
         Validators.pattern('[a-zA-Z ]*'),
+        checkProprietairePhysique(this.personPhysique),
       ]),
-      raison_social: new FormControl('', [this.personPhysique ? Validators.pattern('[a-zA-Z ]*') : Validators.pattern('[a-zA-Z ]*') ]),
-      n_registre_commerce: new FormControl('', [Validators.pattern('[0-9]*')]),
+      raison_social: new FormControl('', [
+        checkProprietaireMoral(!this.personPhysique),
+        Validators.pattern('[a-zA-Z ]*'),
+      ]),
+      n_registre_commerce: new FormControl('', [
+        checkProprietaireMoral(!this.personPhysique),
+        Validators.pattern('[0-9]*'),
+      ]),
       telephone: new FormControl('', [
         Validators.pattern('[0-9]*'),
         Validators.maxLength(10),
@@ -213,7 +227,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     this.getFoncierId();
     this.proprietaireTypeToggel(this.proprietaire.type_proprietaire);
     this.callGetContratAndLieuMethods();
-
+    // this.proprTypeCheck = true;
     // this.removeAllMandateires();
 
     // if (this.proprietaire.mandataire) {
@@ -314,8 +328,16 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       // n_compte_bancaire_mandataire: '',
     });
 
+    this.isMand = this.proprietaire.is_mandataire;
+    this.CheckMandataire(this.isMand);
     this.montantLoyer = this.proprietaire.montant_loyer;
-    this.fillProprietaireInfos();
+    // this.fillProprietaireInfos();
+    setTimeout(() => {
+      // Calcul montants
+      this.calculMontant();
+      this.calculMontantAvance();
+      this.calculCaution();
+    }, 2000);
   }
 
   fillProprietaireInfos() {
@@ -332,7 +354,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     this.proprietaireService
       .getFoncierIdByProprietaire(this.proprietaire._id, this.userMatricule)
       .subscribe((data: any) => {
-        this.foncier_id = data[0]._id;
+        this.foncier_id = data[0]?._id;
       });
   }
 
@@ -379,10 +401,10 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
             ) {
               if (
                 this.contratByFoncier[0].foncier.proprietaire[index]
-                  .is_mandataire == false &&
+                  .is_mandataire === false &&
                 this.contratByFoncier[0].foncier.proprietaire[index]
-                  .has_mandataire == null &&
-                this.contratByFoncier[0].foncier.proprietaire[index]._id !=
+                  .has_mandataire === null &&
+                this.contratByFoncier[0].foncier.proprietaire[index]._id !==
                   this.proprietaire._id
               )
                 this.proprietaires.push(
@@ -404,15 +426,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     }
   }
 
-  // setPeriodicite(periodicite: string){
-  //   periodicite = this.contratByFoncier[0].periodicite_paiement;
-  //   let number: number = 1;
-  //   if(periodicite == 'mensuelle') number = 12
-  //   if(periodicite == 'trimestrielle') number = 4
-  //   if(periodicite == 'annuelle') number = 1
-
-  //   return number
-  // }
 
   // Calculer le montant (retenue à la source / montant apres impot / TAX)
   calculMontant() {
@@ -454,11 +467,11 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     this.montantLoyer =
       (this.partProprietaire * montantLoyerContrat) / nbrPartContrat;
     // // ------First Condition--------
-    if (etatContratTypes != 'Résilié') {
+    if (etatContratTypes !== 'Résilié') {
       this.duree = 12;
 
       this.periodicite.forEach((period) => {
-        if (namePeriodicite == period.name) {
+        if (namePeriodicite === period.name) {
           if (this.hasDeclarationOption === 'non') {
             if (this.montantLoyer * period.number <= 30000) {
               result = 0;
@@ -542,7 +555,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     // }
 
     // // ------Third Condition--------
-    if (etatContratTypes == 'Résilié') {
+    if (etatContratTypes === 'Résilié') {
       // nombre des mois louer
       let nbr_mois_louer = monthResiliation - month + 1;
       this.duree = nbr_mois_louer;
@@ -583,104 +596,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     }
   }
 
-  //Fake calcul
-  // // Calculer le montant (retenue à la source / montant apres impot / TAX)
-  // calculMontant() {
-  // let montantLoyerForYear = this.montantLoyer * 12;
-  //   let tauxImpot: number = 0;
-  //   let montantApresImpot: number = 0;
-  //   let result: number = 0;
-  //   // // Date debut de loyer
-  //   let dateDebutLoyer = this.contratByFoncier[0].date_debut_loyer;
-  //   dateDebutLoyer = new Date(dateDebutLoyer);
-  //   let month = dateDebutLoyer.getMonth() + 1;
-  //   // // Date resilition
-  //   let dateResiliation =
-  //     this.contratByFoncier[0]?.etat_contrat?.etat?.date_resiliation;
-  //   dateResiliation = new Date(dateResiliation);
-  //   let monthResiliation = dateResiliation.getMonth() + 1;
-  //   // Les etats de contrats
-  //   let etatContratTypes = this.contratByFoncier[0]?.etat_contrat?.libelle;
-
-  //   let dureeLocation = this.contratByFoncier[0].duree_location;
-
-  //   // Get value of input pourcentage
-  //   this.pourcentageProprietaire = Number(
-  //     this.proprietaireForm.get('pourcentage')?.value
-  //   );
-  //   //Get montant loyer from contrat (Montant de loyer Global)
-  //   let montantLoyerContrat = this.contratByFoncier[0]?.montant_loyer;
-
-  //   // condition to control if the total pourcentage are > 100 the we show an error message and take 100 minus the total pourcentage and stock the result in the pourcentageProprietaire
-  //   if (
-  //     this.totalPourcentageProprietaires + this.pourcentageProprietaire >
-  //     100
-  //   ) {
-  //     this.pourcentageProprietaire = 100 - this.totalPourcentageProprietaires;
-  //     this.openConfirmationModal();
-  //   }
-  //   //  CALCULER LE MONTANT DE LOYER A PARTIR DE POURCENTAGE DONNE PAR L'UTILISATEUR
-  //   this.montantLoyer =
-  //     (this.pourcentageProprietaire * montantLoyerContrat) / 100;
-
-  //   // Condition for etat != resilié
-  //   if (etatContratTypes != 'Résilié') {
-  //     // Condition taux d'impot 0%
-  //     if (this.montantLoyer * dureeLocation <= 30000) {
-  //       result = 0;
-  //       montantApresImpot = this.montantLoyer - result / dureeLocation;
-  //       tauxImpot = 0;
-  //     }
-  //     // Condition taux d'impot 10%
-  //     if (
-  //       this.montantLoyer * dureeLocation > 30000 &&
-  //       this.montantLoyer * this.contratByFoncier[0].duree_location < 120000
-  //     ) {
-  //       result = this.montantLoyer * 0.1 * dureeLocation;
-  //       montantApresImpot = this.montantLoyer - result / dureeLocation;
-  //       tauxImpot = 10;
-  //     }
-  //     // Condition taux d'impot 15%
-  //     if (this.montantLoyer * dureeLocation >= 120000) {
-  //       result = this.montantLoyer * 0.15 * dureeLocation;
-  //       montantApresImpot = this.montantLoyer - result / dureeLocation;
-  //       tauxImpot = 15;
-  //     }
-  //   } //End if (etatContratTypes != 'Résilié')
-
-  //   // Condition for etat resilié
-  //   if (etatContratTypes == 'Résilié') {
-  //     // nombre des mois louer
-  //     let nbr_mois_louer = dureeLocation - monthResiliation;
-
-  //     // Condition taux d'impot 0%
-  //     if (this.montantLoyer * nbr_mois_louer <= 30000) {
-  //       result = 0;
-  //       montantApresImpot = this.montantLoyer - result / nbr_mois_louer;
-  //       tauxImpot = 0;
-  //     }
-  //     // Condition taux d'impot 10%
-  //     if (
-  //       this.montantLoyer * nbr_mois_louer > 30000 &&
-  //       this.montantLoyer * nbr_mois_louer < 120000
-  //     ) {
-  //       result = this.montantLoyer * 0.1 * nbr_mois_louer;
-  //       montantApresImpot = this.montantLoyer - result / nbr_mois_louer;
-  //       tauxImpot = 10;
-  //     }
-  //     // Condition taux d'impot 15%
-  //     if (this.montantLoyer * nbr_mois_louer >= 120000) {
-  //       result = this.montantLoyer * 0.15 * nbr_mois_louer;
-  //       montantApresImpot = this.montantLoyer - result / nbr_mois_louer;
-  //       tauxImpot = 15;
-  //     }
-  //   } // End if (etatContratTypes == 'Résilié')
-
-  //   this.retenueSource = result;
-  //   this.montantApresImpot = montantApresImpot;
-  //   this.tauxImpot = tauxImpot;
-  // }
-
   //calculate the montant avance and tax d'avance of each proprietaire
   calculMontantAvance() {
     let dureeAvance = this.contratByFoncier[0]?.duree_avance;
@@ -692,15 +607,15 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     // this.taxAvance = (this.retenueSource / dureeLocation) * dureeAvance;
     this.taxAvance = this.retenueSource * dureeAvance;
 
-    if (periodicite == 'mensuelle') {
+    if (periodicite === 'mensuelle') {
       // this.taxPeriodicite = this.retenueSource / dureeLocation;
       this.taxPeriodicite = this.retenueSource;
     }
-    if (periodicite == 'trimestrielle') {
+    if (periodicite === 'trimestrielle') {
       // this.taxPeriodicite = this.retenueSource / (dureeLocation * 3);
       this.taxPeriodicite = this.retenueSource * 3;
     }
-    if (periodicite == 'annuelle') {
+    if (periodicite === 'annuelle') {
       // this.taxPeriodicite = this.retenueSource / 12;
       this.taxPeriodicite = this.retenueSource * 12;
     }
@@ -722,9 +637,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
   // store the unchecked proprietaire , so we can update his ' has_mondataire ' value in the backend
   setUncheckedProp(Action: string, prop: any) {
-    if (Action == 'Remove')
+    if (Action === 'Remove')
       this.oldProprietairesList.splice(this.oldProprietairesList.indexOf(prop));
-    if (Action == 'Add') this.oldProprietairesList.push(prop);
+    if (Action === 'Add') this.oldProprietairesList.push(prop);
   }
 
   // Select proprietaire
@@ -736,7 +651,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       if (this.update) {
         // remove selected proprietaire id  from proprietaires and add it in proprietaireList
         for (let i = 0; i < this.proprietaires.length; i++) {
-          if (this.proprietaires[i]._id == Element._id) {
+          if (this.proprietaires[i]._id === Element._id) {
             this.proprietaires.splice(i, 1);
           }
         }
@@ -746,7 +661,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     } else {
       if (!this.update) {
         this.newProprietairesList.forEach((prop: any, i: number) => {
-          if (prop == InputElement.value) {
+          if (prop === InputElement.value) {
             // remove selected proprietaire id from proprietaire list & add it in proprietaires
             this.unselectProp(i);
           }
@@ -754,7 +669,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       }
       if (this.update) {
         for (let i = 0; i < this.proprietaireList.length; i++) {
-          if (this.proprietaireList[i]._id == Element._id) {
+          if (this.proprietaireList[i]._id === Element._id) {
             // remove selected proprietaire id  from proprietaireList
             this.proprietaireList.splice(i, 1);
           }
@@ -782,8 +697,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       raison_social: this.proprietaireForm.get('raison_social')?.value,
       n_registre_commerce:
         this.proprietaireForm.get('n_registre_commerce')?.value || '',
-      // telephone: this.proprietaireForm.get('telephone')?.value,
-      telephone: '',
+      telephone: this.proprietaireForm.get('telephone')?.value,
       fax: this.proprietaireForm.get('fax')?.value,
       adresse: this.proprietaireForm.get('adresse')?.value,
       n_compte_bancaire: this.proprietaireForm.get('n_compte_bancaire')?.value,
@@ -860,8 +774,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       raison_social: this.proprietaireForm.get('raison_social')?.value || '',
       n_registre_commerce:
         this.proprietaireForm.get('n_registre_commerce')?.value || '',
-      // telephone: this.proprietaireForm.get('telephone')?.value,
-      telephone: '',
+      telephone: this.proprietaireForm.get('telephone')?.value,
       fax: this.proprietaireForm.get('fax')?.value || '',
       adresse: this.proprietaireForm.get('adresse')?.value,
       n_compte_bancaire: this.proprietaireForm.get('n_compte_bancaire')?.value,
@@ -952,17 +865,11 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
 
   proprietaireTypeToggel(value: string) {
-    if (value == 'Personne physique') {
-      this.personPhysique = true;
-      this.proprietaireForm.controls["cin"].setValidators([Validators.required, Validators.maxLength(8)]);
-    } else {
-      console.log('teeeeeeeeeeeeeeest');
-      this.proprietaireForm.controls["cin"].clearValidators()
-      // this.proprietaireForm.controls["cin"].setValidators(Validators.maxLength(8));
-      this.personPhysique = false;
-    }
-    console.log(this.proprietaireForm.controls["cin"]);
-    
+    if (value === 'Personne physique') this.personPhysique = true;
+    else this.personPhysique = false;
+
+    this.proprTypeCheck = true;
+    this.proprietaireForm.reset();
     this.type_proprietaire = value;
   }
 
@@ -1025,7 +932,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   get retenue_source() {
     return this.proprietaireForm.get('retenue_source');
   }
-  
+
   get montant_apres_impot() {
     return this.proprietaireForm.get('montant_apres_impot');
   }

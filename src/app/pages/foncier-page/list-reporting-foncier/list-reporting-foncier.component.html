@@ -105,7 +105,7 @@
                 >
                   Expoter les reportings
                 </a>
-                <p *ngIf="reporting?.image == null" class="main-muted-text">
+                <p *ngIf="reporting?.image === null" class="main-muted-text">
                   Il n'y a aucun fichier à télécharger
                 </p>
               </div>
@@ -191,7 +191,7 @@
                     >
                     <i class="far fa-file-export"></i> Expoter les reportings
                     </a>
-                    <p *ngIf="reporting?.reportingPaths == null" class="main-muted-text">
+                    <p *ngIf="reporting?.reportingPaths === null" class="main-muted-text">
                       <a class="btn btn-sm success-btn" disabled>
                         aucun fichier à télécharger
                       </a>

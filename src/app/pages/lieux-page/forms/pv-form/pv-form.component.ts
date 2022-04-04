@@ -19,7 +19,7 @@ import { HelperService } from 'src/app/services/helpers/helper.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'pv-form',
+  selector: 'app-pv-form',
   templateUrl: './pv-form.component.html',
   styleUrls: ['./pv-form.component.scss'],
 })
@@ -85,6 +85,8 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
         Validators.pattern('[0-9]*'),
         Validators.maxLength(10),
       ]),
+      attached_DR: new FormControl(''),
+      attached_SUP: new FormControl(''),
     });
 
     this.getDr();
@@ -105,6 +107,8 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
       intitule_rattache_SUP_PV: this.Lieu.intitule_rattache_SUP_PV,
       centre_cout_siege: this.Lieu.centre_cout_siege,
       categorie_pointVente: this.Lieu.categorie_pointVente,
+      attached_DR: this.Lieu.attached_DR?._id,
+      attached_SUP: this.Lieu.attached_SUP?._id
     });
 
     this.fillSupAndDR();
@@ -146,6 +150,8 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
       intitule_rattache_SUP_PV: this.intitule_rattache_SUP,
       centre_cout_siege: this.PvForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.PvForm.get('categorie_pointVente')?.value,
+      attached_DR: this.getIdLieuByCodeLieu(this.codeRattacheDR),
+      attached_SUP: this.PvForm.get('attached_SUP')?.value || null,
     };
 
 
@@ -187,6 +193,8 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
       intitule_rattache_SUP_PV: this.intitule_rattache_SUP,
       centre_cout_siege: this.PvForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.PvForm.get('categorie_pointVente')?.value,
+      attached_DR: this.getIdLieuByCodeLieu(this.PvForm.get('code_rattache_DR')?.value),
+      attached_SUP: this.PvForm.get('attached_SUP')?.value || null,
     };
 
     this.lieuService.updateLieux(id, pvData, this.userMatricule).subscribe(
@@ -211,16 +219,16 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
 
   // Fill Sup and DR inputs
   fillSupAndDR() {
-    const codeSup = this.PvForm.get('code_rattache_SUP')?.value;
-    let check = false;
+    const idSup = this.PvForm.get('attached_SUP')?.value;
+    let check = false
 
     for (let i = 0; i < this.Sup.length; i++) {
-      if (this.Sup[i].code_lieu == codeSup) {
+      if (this.Sup[i]._id === idSup) {
         check = true;
-        if (codeSup != undefined) {
+        if (idSup != undefined) {
           this.intitule_rattache_SUP = this.Sup[i].intitule_lieu;
-          this.codeRattacheDR = this.Sup[i].code_rattache_DR;
-          this.intitule_rattache_DR = this.displayIntituleDR(this.codeRattacheDR);
+          this.codeRattacheDR = this.Sup[i].attached_DR.code_lieu;
+          this.intitule_rattache_DR = this.Sup[i].attached_DR.intitule_lieu;
         } else {
           this.intitule_rattache_SUP =
             this.codeRattacheDR =
@@ -238,16 +246,25 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-  // Get intitule dr by its code 
-  displayIntituleDR(codeDr: any) {
-    const codeDR = codeDr;
-
-    for (let i = 0; i < this.Dr.length; i++) {
-      if (this.Dr[i].code_lieu == codeDR) {
-        return this.Dr[i].intitule_lieu;
-      }
-    }
+  getIdLieuByCodeLieu(codeDr: any){
+    let idLieu = null
+    this.Dr.forEach((dr: any) => {
+      if(dr.code_lieu === codeDr ){
+        idLieu = dr._id
+      } 
+    });
+    return idLieu
   }
+  // Get intitule dr by its code 
+  // displayIntituleDR(codeDr: any) {
+  //   const codeDR = codeDr;
+
+  //   for (let i = 0; i < this.Dr.length; i++) {
+  //     if (this.Dr[i].code_lieu === codeDR) {
+  //       return this.Dr[i].intitule_lieu;
+  //     }
+  //   }
+  // }
 
   // Get Dr and Sup from the server
   getDrSup() {
@@ -306,5 +323,9 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
 
   get fax() {
     return this.PvForm.get('fax');
+  }
+
+  get attached_SUP() {
+    return this.PvForm.get('attached_SUP');
   }
 }
