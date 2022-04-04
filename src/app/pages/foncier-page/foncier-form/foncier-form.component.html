@@ -280,7 +280,7 @@
             />
           </div>
 
-          <div class="col-lg-5 form-group mt-4">
+          <div class="col-lg-4 form-group mt-4">
             <label for=""
               >Valeur et nature des travaux à la charge du propriétaire
               </label
@@ -304,10 +304,20 @@
             />
           </div>
 
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Raison sociale fournisseur</label>
+            <input
+              type="text"
+              class="form-control rounded-pill"
+              formControlName="fournisseur"
+            />
+          </div>
+
          </div>
 
+         <!-- <div class="row"> -->
 
-              <div class="col-lg-12 form-group my-4">
+              <!-- <div class="col-lg-12 form-group my-4">
                 <label for="">Fournisseur</label>
                 <a
                   *ngIf="!amenagementForm.controls[i].value.has_fournisseur"
@@ -343,22 +353,6 @@
                           formControlName="nom"
                         />
                       </div>
-                      <!-- <div class="col-lg-3 form-group">
-                        <label for="">Prénom</label>
-                        <input
-                          type="text"
-                          class="form-control rounded-pill"
-                          formControlName="prenom"
-                        />
-                      </div> -->
-                      <!-- <div class="col-lg-3 form-group">
-                        <label for="">Amenagement effectué</label>
-                        <input
-                          type="text"
-                          class="form-control rounded-pill"
-                          formControlName="amenagement_effectue"
-                        />
-                      </div> -->
                       <input
                         type="hidden"
                         id="{{ 'deleted ' + i + ' ' + j }}"
@@ -367,7 +361,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
 
               <div class="col-lg-4 form-group mt-4">
                 <label for="">Evaluation du fournisseur</label>
