@@ -32,7 +32,7 @@ export class ListContratComponent implements OnInit {
 
   //Delete succes message
   deleteDone: boolean = false;
-  deleteSucces: string = 'Contrat supprimé avec succés';
+  deleteSucces: string = 'Contrat soumis à la validation.';
 
   // Pagination options
   listContratPage: number = 1;
