@@ -69,12 +69,14 @@
       <div class="col-lg-6">
         <h5 class="main-txt">Image d’entrée</h5>
         <div class="my-2">
-          <a *ngIf="selectedImageEntrer?.image" class="btn second-btn" href="{{ url }}{{ selectedImageEntrer?.image }}"
-            target="_blank">
-            Ouvrir
-          </a>
-          <p *ngIf="selectedImageEntrer?.image === null" class="main-muted-text">
-            Il n'y a aucun fichier à télécharger
+          <p *ngFor="let imageEntre of selectedImageEntrer">
+            <a *ngIf="imageEntre?.image" class="btn second-btn" href="{{ url }}{{ imageEntre?.image }}"
+              target="_blank">
+              Ouvrir
+            </a>
+            <span *ngIf="imageEntre?.image === null" class="main-muted-text">
+              Il n'y a aucun fichier à télécharger
+            </span>
           </p>
         </div>
       </div>

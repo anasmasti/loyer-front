@@ -477,22 +477,24 @@
         }}
       </p>
     </div>
+
     <div class="col-lg-3">
       <h5 class="main-txt">Images d'état des lieux de sortie</h5>
-      <p>
+      <p *ngFor="let imageSortie of selected_images_res_sortie">
         <a
           class="btn second-btn"
-          *ngIf="selected_images_res_sortie !== undefined"
-          href="{{ url }}{{ selected_images_res_sortie?.image }}"
+          *ngIf="imageSortie !== undefined"
+          href="{{ url }}{{ imageSortie?.image }}"
           target="_blank"
         >
           Ouvrir
         </a>
-        <span *ngIf="selected_images_res_sortie === undefined">
+        <span *ngIf="imageSortie === undefined">
           Aucun fichier
         </span>
       </p>
     </div>
+
 
     <div class="col-lg-3">
       <h5 class="main-txt">La lettre de Résilié scannée</h5>
