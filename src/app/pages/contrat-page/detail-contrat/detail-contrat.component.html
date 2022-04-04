@@ -1,303 +1,512 @@
-<div class="row title  " *ngIf="contrat">
-    <div class="col-lg-12 mt-3">
-        <div class="d-flex justify-content-between">
-
-            <h3 class="main-title">
-                <a [routerLink]="['/contrat/list-global/list']" class="goback-link">Liste des contrats</a>/<span
-                class="selected-text">
-                {{contrat.foncier.type_lieu !== undefined ? contrat.foncier.type_lieu : '--'}}
-            </span>/<span
-                    class="selected-text">
-                    {{contrat.numero_contrat !== undefined ? contrat.numero_contrat : '--'}}
-                </span>
-            </h3>
-            <div class="d-none d-lg-block">
-                <a [routerLink]="['/contrat/list-global/list']" class="btn btn-sm second-btn me-3 "
-                    data-bs-toggle="tooltip" data-bs-placement="top" title="Retour à la liste"><i
-                        class="far fa-arrow-left"></i>
-                    Retour à la liste des contrats
-                </a>
-                <span data-bs-toggle="tooltip" data-bs-placement="top" title="Ici vous pouvez voir les détails de   ">
-                    <i class="fal fa-info"></i>
-                </span>
-            </div>
-        </div>
+<div class="row title" *ngIf="contrat">
+  <div class="col-lg-12 mt-3">
+    <div class="d-flex justify-content-between">
+      <h3 class="main-title">
+        <a [routerLink]="['/contrat/list-global/list']" class="goback-link"
+          >Liste des contrats</a
+        >/<span class="selected-text">
+          {{
+            contrat.foncier.type_lieu !== undefined
+              ? contrat.foncier.type_lieu
+              : "--"
+          }} </span
+        >/<span class="selected-text">
+          {{
+            contrat.numero_contrat !== undefined ? contrat.numero_contrat : "--"
+          }}
+        </span>
+      </h3>
+      <div class="d-none d-lg-block">
+        <a
+          [routerLink]="['/contrat/list-global/list']"
+          class="btn btn-sm second-btn me-3"
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          title="Retour à la liste"
+          ><i class="far fa-arrow-left"></i>
+          Retour à la liste des contrats
+        </a>
+        <span
+          data-bs-toggle="tooltip"
+          data-bs-placement="top"
+          title="Ici vous pouvez voir les détails de   "
+        >
+          <i class="fal fa-info"></i>
+        </span>
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="row d-flex justify-content-around" *ngIf="contrat">
-    <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-5">
-        <div class="row">
-            <div class="col-lg-6">
-                <h5 class="main-txt">Type d’entité</h5>
-                <p>{{contrat.foncier.type_lieu !== undefined ? contrat.foncier.type_lieu : '--'}}</p>
-            </div>
+  <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-5">
+    <div class="row">
+      <div class="col-lg-6">
+        <h5 class="main-txt">Type d’entité</h5>
+        <p>
+          {{
+            contrat.foncier.type_lieu !== undefined
+              ? contrat.foncier.type_lieu
+              : "--"
+          }}
+        </p>
+      </div>
 
-            <div class="col-lg-6">
-                <h5 class="main-txt">Numéro de contrat</h5>
-                <p>{{contrat.numero_contrat !== undefined ? contrat.numero_contrat : '--'}}</p>
-            </div>
-            <div class="col-lg-6">
+      <div class="col-lg-6">
+        <h5 class="main-txt">Numéro de contrat</h5>
+        <p>
+          {{
+            contrat.numero_contrat !== undefined ? contrat.numero_contrat : "--"
+          }}
+        </p>
+      </div>
+      <div class="col-lg-6">
+        <h5 class="main-txt">Date de début</h5>
+        <p>
+          {{
+            contrat.date_debut_loyer !== null
+              ? (contrat.date_debut_loyer | date)
+              : "--"
+          }}
+        </p>
+      </div>
 
-                <h5 class="main-txt">Date de début</h5>
-                <p>{{ contrat.date_debut_loyer !== null ? (contrat.date_debut_loyer | date) : '--'}}</p>
-            </div>
+      <div class="col-lg-6">
+        <h5 class="main-txt">Date fin</h5>
+        <p>
+          {{
+            contrat.date_fin_contrat !== null
+              ? (contrat.date_fin_contrat | date)
+              : "--"
+          }}
+        </p>
+      </div>
 
-            <div class="col-lg-6">
-                <h5 class="main-txt">Date fin</h5>
-                <p>{{ contrat.date_fin_contrat !==null ? (contrat.date_fin_contrat | date) : '--'}}</p>
-            </div>
+      <div class="col-lg-6">
+        <h5 class="main-txt">Périodicité de paiement</h5>
+        <p>
+          {{
+            contrat.periodicite_paiement !== ""
+              ? contrat.periodicite_paiement
+              : "--"
+          }}
+        </p>
+      </div>
 
-            <div class="col-lg-6">
-                <h5 class="main-txt">Périodicité de paiement</h5>
-                <p>{{ contrat.periodicite_paiement !== '' ? contrat.periodicite_paiement : '--'}}</p>
-            </div>
+      <div class="col-lg-6">
+        <h5 class="main-txt">Date 1er paiement</h5>
+        <p>
+          {{
+            contrat.date_premier_paiement !== null
+              ? (contrat.date_premier_paiement | date)
+              : "--"
+          }}
+        </p>
+      </div>
 
-            <div class="col-lg-6">
-                <h5 class="main-txt">Date 1er paiement</h5>
-                <p>{{contrat.date_premier_paiement !== null ? (contrat.date_premier_paiement | date) : '--'}}</p>
-            </div>
+      <div class="col-lg-6">
+        <h5 class="main-txt">Taxe d'édilité comprise dans loyer</h5>
+        <p>
+          {{
+            contrat.taxe_edilite_loyer !== ""
+              ? contrat.taxe_edilite_loyer
+              : "--"
+          }}
+        </p>
+      </div>
 
-            <div class="col-lg-6">
-                <h5 class="main-txt">Taxe d'édilité comprise dans loyer</h5>
-                <p>{{contrat.taxe_edilite_loyer !== '' ? contrat.taxe_edilite_loyer : '--'}}</p>
-            </div>
+      <div class="col-lg-6">
+        <h5 class="main-txt">Taxe d'édilité non comprise dans loyer</h5>
+        <p>
+          {{
+            contrat.taxe_edilite_non_loyer !== ""
+              ? contrat.taxe_edilite_non_loyer
+              : "--"
+          }}
+        </p>
+      </div>
 
-            <div class="col-lg-6">
-                <h5 class="main-txt">Taxe d'édilité non comprise dans loyer</h5>
-                <p>{{ contrat.taxe_edilite_non_loyer !== '' ? contrat.taxe_edilite_non_loyer : '--'}}</p>
-            </div>
+      <div class="col-lg-6">
+        <h5 class="main-txt">Etat de contrat</h5>
+        <p
+          *ngIf="contrat.etat_contrat?.libelle === 'Actif'"
+          class="success-txt"
+        >
+          {{
+            this.contrat.etat_contrat?.libelle !== ""
+              ? this.contrat.etat_contrat?.libelle
+              : "--"
+          }}
+        </p>
+      </div>
 
-            <div class="col-lg-6">
-                <h5 class="main-txt">Etat de contrat</h5>
-                <p *ngIf="contrat.etat_contrat?.libelle === 'Actif'" class="success-txt">
-                    {{this.contrat.etat_contrat?.libelle !== '' ? this.contrat.etat_contrat?.libelle : '--'}}</p>
-            </div>
+      <div class="col-lg-6">
+        <h5 class="main-txt">Pièce jointe</h5>
+        <p *ngFor="let pieceContrat of selectedPieceContrat">
+          <a
+            class="btn second-btn"
+            *ngIf="pieceContrat !== undefined"
+            href="{{ url }}{{ pieceContrat?.image }}"
+            target="_blank"
+          >
+            Ouvrir
+          </a>
 
-            <div class="col-lg-6">
-                <h5 class="main-txt">Pièce jointe</h5>
-                <p>
-                    <a class="btn second-btn" *ngIf="selectedPieceContrat !== undefined"
-                        href="{{url}}{{selectedPieceContrat?.image}}" target="_blank">
-                        Ouvrir
-                    </a>
+          <span *ngIf="pieceContrat === undefined"> Aucun fichier </span>
+        </p>
+      </div>
+    </div>
+  </div>
 
-                    <span *ngIf="selectedPieceContrat === undefined">
-                        Aucun fichier
-                    </span>
-                </p>
-            </div>
-
-        </div>
-
+  <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-6">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h5 class="main-txt">Montant du loyer</h5>
+        <p>
+          {{
+            contrat.montant_loyer !== undefined ? contrat.montant_loyer : "--"
+          }}
+        </p>
+      </div>
     </div>
 
-    <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-6">
+    <div class="row">
+      <div class="col-lg-6">
+        <h5 class="main-txt">Montant de caution</h5>
+        <p>
+          {{
+            contrat.montant_caution !== undefined
+              ? contrat.montant_caution
+              : "--"
+          }}
+        </p>
+      </div>
 
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h5 class="main-txt">Montant du loyer</h5>
-                <p>{{ contrat.montant_loyer !== undefined ? contrat.montant_loyer : '--'}}</p>
-            </div>
-        </div>
+      <div class="col-lg-6">
+        <h5 class="main-txt">Durée de caution</h5>
+        <p>{{ contrat.duree_caution !== "" ? contrat.duree_caution : "--" }}</p>
+      </div>
+      <div class="col-lg-6">
+        <h5 class="main-txt">Date de reprise de caution</h5>
+        <p>
+          {{
+            contrat.date_reprise_caution !== null
+              ? (contrat.date_reprise_caution | date)
+              : "--"
+          }}
+        </p>
+      </div>
 
-           
-        
-        <div class="row">
-
-            <div class="col-lg-6">
-                <h5 class="main-txt">Montant de caution</h5>
-                <p>{{ contrat.montant_caution !== undefined ? contrat.montant_caution : '--'}}</p>
-            </div>
-
-            <div class="col-lg-6">
-                <h5 class="main-txt">Durée de caution</h5>
-                <p>{{ contrat.duree_caution !== '' ? contrat.duree_caution : '--'}}</p>
-            </div>
-            <div class="col-lg-6">
-                <h5 class="main-txt">Date de reprise de caution</h5>
-                <p>{{ contrat.date_reprise_caution !== null ? (contrat.date_reprise_caution | date) : '--'}}</p>
-            </div>
-
-            <div class="col-lg-6">
-                <h5 class="main-txt">Statut de la caution</h5>
-                <p>{{contrat.statut_caution !== '' ? contrat.statut_caution : '--'}}</p>
-            </div>
-            <div class="col-lg-6">
-                <h5 class="main-txt">Montant d'avance</h5>
-                <p>{{contrat.montant_avance !== undefined ? contrat.montant_avance : '--'}}</p>
-            </div>
-            <div class="col-lg-6">
-                <h5 class="main-txt">Durée de l'avance</h5>
-                <p>{{contrat.duree_avance !== undefined ? contrat.duree_avance : '--'}}</p>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h5 class="main-txt">Date fin de l'avance</h5>
-                <p>{{contrat.date_fin_avance !== null ? (contrat.date_fin_avance | date) : '--'}}</p>
-            </div>
-        </div>
+      <div class="col-lg-6">
+        <h5 class="main-txt">Statut de la caution</h5>
+        <p>
+          {{ contrat.statut_caution !== "" ? contrat.statut_caution : "--" }}
+        </p>
+      </div>
+      <div class="col-lg-6">
+        <h5 class="main-txt">Montant d'avance</h5>
+        <p>
+          {{
+            contrat.montant_avance !== undefined ? contrat.montant_avance : "--"
+          }}
+        </p>
+      </div>
+      <div class="col-lg-6">
+        <h5 class="main-txt">Durée de l'avance</h5>
+        <p>
+          {{ contrat.duree_avance !== undefined ? contrat.duree_avance : "--" }}
+        </p>
+      </div>
     </div>
+
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h5 class="main-txt">Date fin de l'avance</h5>
+        <p>
+          {{
+            contrat.date_fin_avance !== null
+              ? (contrat.date_fin_avance | date)
+              : "--"
+          }}
+        </p>
+      </div>
+    </div>
+  </div>
 </div>
 
+<div
+  *ngIf="
+    contrat &&
+    contrat.etat_contrat?.libelle !== 'Actif' &&
+    contrat.etat_contrat?.libelle === 'Avenant'
+  "
+  class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white"
+>
+  <h5 class="main-title mb-4">
+    Etat de contrat:
+    <span
+      [ngClass]="{
+        'info-txt': contrat.etat_contrat?.libelle === 'Avenant',
+        'danger-txt':
+          contrat.etat_contrat?.libelle === 'Suspendu' ||
+          contrat.etat_contrat?.libelle === 'Résilié',
+        'success-txt': contrat.etat_contrat?.libelle === 'Actif'
+      }"
+    >
+      {{ this.contrat.etat_contrat?.libelle }}
+    </span>
+  </h5>
 
-<div *ngIf="contrat && contrat.etat_contrat?.libelle !== 'Actif' && contrat.etat_contrat?.libelle === 'Avenant'"
-    class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white">
-    <h5 class="main-title mb-4">
-        Etat de contrat:
-        <span
-            [ngClass]="{'info-txt': contrat.etat_contrat?.libelle === 'Avenant', 'danger-txt': contrat.etat_contrat?.libelle === 'Suspendu' || contrat.etat_contrat?.libelle === 'Résilié', 'success-txt': contrat.etat_contrat?.libelle === 'Actif'}">
-            {{this.contrat.etat_contrat?.libelle}}
+  <div class="row">
+    <div class="col-lg-3">
+      <h5 class="main-txt">N° avenant</h5>
+      <p>
+        {{
+          contrat.etat_contrat?.etat?.n_avenant !== ""
+            ? contrat.etat_contrat?.etat?.n_avenant
+            : "--"
+        }}
+      </p>
+    </div>
+    <div class="col-lg-3">
+      <h5 class="main-txt">Motif</h5>
+      <p>
+        {{
+          contrat.etat_contrat?.etat?.motif !== ""
+            ? contrat.etat_contrat?.etat?.motif
+            : "--"
+        }}
+      </p>
+    </div>
+
+    <div class="col-lg-3">
+      <h5 class="main-txt">Montant nouveau loyer</h5>
+      <p>
+        {{
+          contrat.etat_contrat?.etat?.montant_nouveau_loyer !== undefined
+            ? contrat.etat_contrat?.etat?.montant_nouveau_loyer
+            : "--"
+        }}
+      </p>
+    </div>
+    <div class="col-lg-3">
+      <h5 class="main-txt">Signaletique successeur</h5>
+      <p>
+        {{
+          contrat.etat_contrat?.etat?.signaletique_successeur !== ""
+            ? contrat.etat_contrat?.etat?.signaletique_successeur
+            : "--"
+        }}
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-3">
+      <h5 class="main-txt">Intitule d'entité</h5>
+      <p>
+        {{
+          contrat.etat_contrat?.etat?.intitule_lieu !== ""
+            ? contrat.etat_contrat?.etat?.intitule_lieu
+            : "--"
+        }}
+      </p>
+    </div>
+    <div class="col-lg-3">
+      <h5 class="main-txt">Pièce jointe</h5>
+      <p>
+        <a
+          class="btn second-btn"
+          *ngIf="selected_piece_jointe_avenant !== undefined"
+          href="{{ url }}{{ selected_piece_jointe_avenant?.image }}"
+          target="_blank"
+        >
+          Ouvrir
+        </a>
+        <span *ngIf="selected_piece_jointe_avenant === undefined">
+          Aucun fichier
         </span>
-    </h5>
-
-    <div class="row">
-        <div class="col-lg-3">
-            <h5 class="main-txt">N° avenant</h5>
-            <p>{{contrat.etat_contrat?.etat?.n_avenant !== '' ? contrat.etat_contrat?.etat?.n_avenant : '--'}}</p>
-        </div>
-        <div class="col-lg-3">
-            <h5 class="main-txt">Motif</h5>
-            <p>{{contrat.etat_contrat?.etat?.motif !== '' ? contrat.etat_contrat?.etat?.motif : '--'}}</p>
-        </div>
-
-        <div class="col-lg-3">
-            <h5 class="main-txt">Montant nouveau loyer</h5>
-            <p>{{contrat.etat_contrat?.etat?.montant_nouveau_loyer !== undefined ?
-                contrat.etat_contrat?.etat?.montant_nouveau_loyer : '--'}}</p>
-        </div>
-        <div class="col-lg-3">
-            <h5 class="main-txt">Signaletique successeur</h5>
-            <p>{{contrat.etat_contrat?.etat?.signaletique_successeur !== '' ?
-                contrat.etat_contrat?.etat?.signaletique_successeur : '--'}}</p>
-        </div>
+      </p>
     </div>
-
-    <div class="row">
-        <div class="col-lg-3">
-            <h5 class="main-txt">Intitule d'entité</h5>
-            <p>{{contrat.etat_contrat?.etat?.intitule_lieu !== '' ? contrat.etat_contrat?.etat?.intitule_lieu : '--'}}
-            </p>
-        </div>
-        <div class="col-lg-3">
-            <h5 class="main-txt">Pièce jointe</h5>
-            <p>
-                <a class="btn second-btn" *ngIf="selected_piece_jointe_avenant !== undefined"
-                    href="{{url}}{{selected_piece_jointe_avenant?.image}}" target="_blank">
-                    Ouvrir
-                </a>
-                <span *ngIf="selected_piece_jointe_avenant === undefined">
-                    Aucun fichier
-                </span>
-            </p>
-        </div>
-    </div>
-
+  </div>
 </div>
 
-<div *ngIf="contrat && contrat.etat_contrat?.libelle !== 'Actif' && contrat.etat_contrat?.libelle === 'Suspendu'"
-    class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white">
-    <h5 class="main-title mb-4">
-        Etat de contrat:
-        <span
-            [ngClass]="{'info-txt': contrat.etat_contrat?.libelle === 'Avenant', 'danger-txt': contrat.etat_contrat?.libelle === 'Suspendu' || contrat.etat_contrat?.libelle === 'Résilié', 'success-txt': contrat.etat_contrat?.libelle === 'Actif'}">
-            {{this.contrat.etat_contrat?.libelle}}
-        </span>
-    </h5>
+<div
+  *ngIf="
+    contrat &&
+    contrat.etat_contrat?.libelle !== 'Actif' &&
+    contrat.etat_contrat?.libelle === 'Suspendu'
+  "
+  class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white"
+>
+  <h5 class="main-title mb-4">
+    Etat de contrat:
+    <span
+      [ngClass]="{
+        'info-txt': contrat.etat_contrat?.libelle === 'Avenant',
+        'danger-txt':
+          contrat.etat_contrat?.libelle === 'Suspendu' ||
+          contrat.etat_contrat?.libelle === 'Résilié',
+        'success-txt': contrat.etat_contrat?.libelle === 'Actif'
+      }"
+    >
+      {{ this.contrat.etat_contrat?.libelle }}
+    </span>
+  </h5>
 
-    <div class="row">
-        <div class="col-lg-3">
-            <h5 class="main-txt">Intitule de d'entité</h5>
-            <p>{{contrat.etat_contrat?.etat?.intitule_lieu !== '' ? contrat.etat_contrat?.etat?.intitule_lieu : '--'}}
-            </p>
-        </div>
-        <div class="col-lg-3">
-            <h5 class="main-txt">Date de Suspendu</h5>
-            <p>{{contrat.etat_contrat?.etat?.date_suspension !== null ? (contrat.etat_contrat?.etat?.date_suspension |
-                date) : '--'}}</p>
-        </div>
-
-        <div class="col-lg-3">
-            <h5 class="main-txt">Durée de Suspendu</h5>
-            <p>{{contrat.etat_contrat?.etat?.duree_suspension !== undefined ?
-                contrat.etat_contrat?.etat?.duree_suspension : '--'}}</p>
-        </div>
-        <div class="col-lg-3">
-            <h5 class="main-txt">Motif Suspendu</h5>
-            <p>{{contrat.etat_contrat?.etat?.motif_suspension !== '' ? contrat.etat_contrat?.etat?.motif_suspension :
-                '--'}}</p>
-        </div>
+  <div class="row">
+    <div class="col-lg-3">
+      <h5 class="main-txt">Intitule de d'entité</h5>
+      <p>
+        {{
+          contrat.etat_contrat?.etat?.intitule_lieu !== ""
+            ? contrat.etat_contrat?.etat?.intitule_lieu
+            : "--"
+        }}
+      </p>
+    </div>
+    <div class="col-lg-3">
+      <h5 class="main-txt">Date de Suspendu</h5>
+      <p>
+        {{
+          contrat.etat_contrat?.etat?.date_suspension !== null
+            ? (contrat.etat_contrat?.etat?.date_suspension | date)
+            : "--"
+        }}
+      </p>
     </div>
 
+    <div class="col-lg-3">
+      <h5 class="main-txt">Durée de Suspendu</h5>
+      <p>
+        {{
+          contrat.etat_contrat?.etat?.duree_suspension !== undefined
+            ? contrat.etat_contrat?.etat?.duree_suspension
+            : "--"
+        }}
+      </p>
+    </div>
+    <div class="col-lg-3">
+      <h5 class="main-txt">Motif Suspendu</h5>
+      <p>
+        {{
+          contrat.etat_contrat?.etat?.motif_suspension !== ""
+            ? contrat.etat_contrat?.etat?.motif_suspension
+            : "--"
+        }}
+      </p>
+    </div>
+  </div>
 </div>
 
-<div *ngIf="contrat && contrat.etat_contrat?.libelle !== 'Actif' && contrat.etat_contrat?.libelle === 'Résilié'"
-    class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white">
-    <h5 class="main-title mb-4">
-        Etat de contrat:
-        <span
-            [ngClass]="{'info-txt': contrat.etat_contrat?.libelle === 'Avenant', 'danger-txt': contrat.etat_contrat?.libelle === 'Suspendu' || contrat.etat_contrat?.libelle === 'Résilié', 'success-txt': contrat.etat_contrat?.libelle === 'Actif'}">
-            {{this.contrat.etat_contrat?.libelle}}
+<div
+  *ngIf="
+    contrat &&
+    contrat.etat_contrat?.libelle !== 'Actif' &&
+    contrat.etat_contrat?.libelle === 'Résilié'
+  "
+  class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white"
+>
+  <h5 class="main-title mb-4">
+    Etat de contrat:
+    <span
+      [ngClass]="{
+        'info-txt': contrat.etat_contrat?.libelle === 'Avenant',
+        'danger-txt':
+          contrat.etat_contrat?.libelle === 'Suspendu' ||
+          contrat.etat_contrat?.libelle === 'Résilié',
+        'success-txt': contrat.etat_contrat?.libelle === 'Actif'
+      }"
+    >
+      {{ this.contrat.etat_contrat?.libelle }}
+    </span>
+  </h5>
+
+  <div class="row">
+    <div class="col-lg-3">
+      <h5 class="main-txt">Intitulé d'entité</h5>
+      <p>
+        {{
+          contrat.etat_contrat?.etat?.intitule_lieu !== ""
+            ? contrat.etat_contrat?.etat?.intitule_lieu
+            : "--"
+        }}
+      </p>
+    </div>
+    <div class="col-lg-3">
+      <h5 class="main-txt">Reprise caution</h5>
+      <p>
+        {{
+          contrat.etat_contrat?.etat?.reprise_caution !== ""
+            ? contrat.etat_contrat?.etat?.reprise_caution
+            : "--"
+        }}
+      </p>
+    </div>
+
+    <div class="col-lg-3">
+      <h5 class="main-txt">Etat des lieux de sortie</h5>
+      <p>
+        {{
+          contrat.etat_contrat?.etat?.etat_lieu_sortie !== ""
+            ? contrat.etat_contrat?.etat?.etat_lieu_sortie
+            : "--"
+        }}
+      </p>
+    </div>
+    <div class="col-lg-3">
+      <h5 class="main-txt">Préavis</h5>
+      <p>
+        {{
+          contrat.etat_contrat?.etat?.preavis !== ""
+            ? (contrat.etat_contrat?.etat?.preavis | date)
+            : "--"
+        }}
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-3">
+      <h5 class="main-txt">Date de Résilié</h5>
+      <p>
+        {{
+          contrat.etat_contrat?.etat?.date_resiliation !== null
+            ? (contrat.etat_contrat?.etat?.date_resiliation | date)
+            : "--"
+        }}
+      </p>
+    </div>
+    <div class="col-lg-3">
+      <h5 class="main-txt">Images d'état des lieux de sortie</h5>
+      <p>
+        <a
+          class="btn second-btn"
+          *ngIf="selected_images_res_sortie !== undefined"
+          href="{{ url }}{{ selected_images_res_sortie?.image }}"
+          target="_blank"
+        >
+          Ouvrir
+        </a>
+        <span *ngIf="selected_images_res_sortie === undefined">
+          Aucun fichier
         </span>
-    </h5>
-
-    <div class="row">
-        <div class="col-lg-3">
-            <h5 class="main-txt">Intitulé d'entité</h5>
-            <p>{{contrat.etat_contrat?.etat?.intitule_lieu !== '' ? contrat.etat_contrat?.etat?.intitule_lieu : '--'}}
-            </p>
-        </div>
-        <div class="col-lg-3">
-            <h5 class="main-txt">Reprise caution</h5>
-            <p>{{contrat.etat_contrat?.etat?.reprise_caution !== '' ? contrat.etat_contrat?.etat?.reprise_caution :
-                '--'}}</p>
-        </div>
-
-        <div class="col-lg-3">
-            <h5 class="main-txt">Etat des lieux de sortie</h5>
-            <p>{{contrat.etat_contrat?.etat?.etat_lieu_sortie !== '' ? contrat.etat_contrat?.etat?.etat_lieu_sortie :
-                '--'}}</p>
-        </div>
-        <div class="col-lg-3">
-            <h5 class="main-txt">Préavis</h5>
-            <p>{{contrat.etat_contrat?.etat?.preavis !== '' ? (contrat.etat_contrat?.etat?.preavis | date) : '--'}}</p>
-        </div>
+      </p>
     </div>
 
-    <div class="row">
-        <div class="col-lg-3">
-            <h5 class="main-txt">Date de Résilié</h5>
-            <p>{{contrat.etat_contrat?.etat?.date_resiliation !== null ? (contrat.etat_contrat?.etat?.date_resiliation |
-                date) : '--'}}</p>
-        </div>
-        <div class="col-lg-3">
-            <h5 class="main-txt">Images d'état des lieux de sortie</h5>
-            <p>
-                <a class="btn second-btn" *ngIf="selected_images_res_sortie !== undefined"
-                    href="{{url}}{{selected_images_res_sortie?.image}}" target="_blank">
-                    Ouvrir
-                </a>
-                <span *ngIf="selected_images_res_sortie === undefined">
-                    Aucun fichier
-                </span>
-            </p>
-        </div>
-
-        <div class="col-lg-3">
-            <h5 class="main-txt">La lettre de Résilié scannée</h5>
-            <p>
-                <a class="btn second-btn" *ngIf="selected_lettre_res !== undefined"
-                    href="{{url}}{{selected_lettre_res?.image}}" target="_blank">
-                    Ouvrir
-                </a>
-                <span *ngIf="selected_lettre_res === undefined">
-                    Aucun fichier
-                </span>
-            </p>
-        </div>
-
+    <div class="col-lg-3">
+      <h5 class="main-txt">La lettre de Résilié scannée</h5>
+      <p>
+        <a
+          class="btn second-btn"
+          *ngIf="selected_lettre_res !== undefined"
+          href="{{ url }}{{ selected_lettre_res?.image }}"
+          target="_blank"
+        >
+          Ouvrir
+        </a>
+        <span *ngIf="selected_lettre_res === undefined"> Aucun fichier </span>
+      </p>
     </div>
-
+  </div>
 </div>

@@ -300,7 +300,7 @@ export class ListContratComponent implements OnInit {
         this.scrollToTop();
         setTimeout(() => {
           this.showErrorMessage();
-        }, 3000);
+        }, 5000);
         this.hideErrorMessage();
       }
     );
