@@ -266,6 +266,10 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
         amenagementControl.date_passation_commande
       );
 
+      formGroupAmenagement.controls.fournisseur.setValue(
+        amenagementControl.fournisseur
+      );
+
       formGroupAmenagement.controls.evaluation_fournisseur.setValue(
         amenagementControl.evaluation_fournisseur
       );
@@ -281,40 +285,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
       formGroupAmenagement.controls.deleted.setValue(
         amenagementControl.deleted
       );
-
-      if (amenagementControl.fournisseur.length !== 0) {
-        formGroupAmenagement.controls.has_fournisseur.setValue(true);
-        for (let FourniseurControl of amenagementControl.fournisseur) {
-          let formGroupFournisseur = new FormGroup({
-            nom: new FormControl(''),
-            prenom: new FormControl(''),
-            amenagement_effectue: new FormControl(''),
-            deleted: new FormControl(''),
-            NewOrOld: new FormControl('old'),
-          });
-
-          (<FormArray>formGroupAmenagement.controls.fournisseur).push(
-            <FormGroup>formGroupFournisseur
-          );
-
-          formGroupFournisseur.controls.nom.setValue(FourniseurControl.nom);
-
-          formGroupFournisseur.controls.prenom.setValue(
-            FourniseurControl.prenom
-          );
-
-          formGroupFournisseur.controls.amenagement_effectue.setValue(
-            FourniseurControl.amenagement_effectue
-          );
-
-          formGroupFournisseur.controls.deleted.setValue(
-            FourniseurControl.deleted
-          );
-          if (!FourniseurControl.deleted) {
-            this.isFournisseurExist = true;
-          }
-        }
-      }
 
       if (!amenagementControl.deleted) {
         this.hasAmenagement = true;
@@ -388,7 +358,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
       evaluation_fournisseur: new FormControl(''),
       date_fin_travaux: new FormControl(''),
       date_livraison_local: new FormControl(''),
-      fournisseur: new FormArray([]),
+      fournisseur: new FormControl(''),
       images_apres_travaux_files: new FormControl(''),
       images_apres_travaux: new FormControl(''),
       croquis_travaux_files: new FormControl(''),
@@ -440,57 +410,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
         nature.checked = checkedValue;
       }
     });
-  }
-
-  // FournisseurData
-  addFournisseur(amenagementForm: any, index: number, NewOrOld: string) {
-    amenagementForm.controls[index].controls.has_fournisseur.setValue(true);
-
-    let fournisseurData = new FormGroup({
-      nom: new FormControl(''),
-      prenom: new FormControl(''),
-      amenagement_effectue: new FormControl(''),
-      deleted: new FormControl(''),
-      NewOrOld: new FormControl(NewOrOld),
-    });
-
-    (<FormArray>amenagementForm.controls[index].controls.fournisseur).push(
-      <FormGroup>fournisseurData
-    );
-
-    // amenagementForm.controls.controls.has_fournisseur.setValue(true);
-
-    return <FormGroup>fournisseurData;
-  }
-
-  removeFournisseur(
-    amenagementForm: any,
-    indexAmng: number,
-    indexFourn: number
-  ) {
-    amenagementForm.controls[indexAmng].controls.has_fournisseur.setValue(
-      false
-    );
-
-    let fournisseur = <FormArray>(
-      amenagementForm.controls[indexAmng].controls.fournisseur
-    );
-
-    if (fournisseur.value[indexFourn].NewOrOld === 'New') {
-      (<FormArray>(
-        amenagementForm.controls[indexAmng].controls.fournisseur
-      )).removeAt(indexFourn);
-    } else {
-      let element = this.document.getElementById(
-        'deleted ' + indexAmng + ' ' + indexFourn.toString()
-      ) as HTMLInputElement;
-      element.value = 'True';
-      fournisseur.value[indexFourn].deleted = 'true';
-    }
-  }
-
-  getFournisseur(amenagementForm: any, i: number) {
-    return amenagementForm.controls[i].controls.fournisseur.controls;
   }
 
   hasAmengmnt(HasAmng: string) {
@@ -817,13 +736,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
   // Afficher « En cours de transfert » et « Transféré » sur la liste des locaux , sous l’intitulé (c’est pas la peine de créer une nouvelle colonne)
-
-  public toggelFournisseur(isAdd: boolean, ...args: any): void {
-    this.isFournisseurExist = isAdd;
-
-    isAdd && this.addFournisseur(args[0], args[1], 'New');
-    !isAdd && this.removeFournisseur(args[0], args[1], args[2]);
-  }
 
   get amenagementForm(): FormArray {
     return <FormArray>this.foncierForm.get('amenagementForm');

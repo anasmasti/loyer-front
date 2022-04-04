@@ -100,9 +100,11 @@
     <thead>
       <tr class="text-truncate">
         <th>Type</th>
-        <th>Ville</th>
+        <!-- <th>Ville</th> -->
         <th>Code d'entité</th>
         <th>Intitulé</th>
+        <th>Code DR</th>
+        <th>Code SUP</th>
         <th>Aménagement</th>
         <th>Propriétaires</th>
         <th>Contrat</th>
@@ -123,7 +125,7 @@
         "
       >
         <td>{{ foncier.type_lieu || "--" }}</td>
-        <td>{{ foncier.ville }}</td>
+        <!-- <td>{{ foncier.ville }}</td> -->
         <td>
           {{
             foncier.type_lieu === "Logement de fonction"
@@ -143,6 +145,9 @@
           </ng-container>
           <!-- <br> <span class="info-txt" *ngIf="foncier.lieu.transferer">En cours de transfert</span> -->
         </td>
+
+        <td>{{ foncier.lieu[0].lieu?.attached_DR }}</td>
+        <td>{{ foncier.lieu[0].lieu?.attached_SUP }}</td>
         <td>
           <div class="d-grid">
             <span
