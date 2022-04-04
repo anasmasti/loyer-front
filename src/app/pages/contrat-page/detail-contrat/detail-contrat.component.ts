@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DetailContratComponent implements OnInit {
 
-  selectedPieceContrat!: any;
+  selectedPieceContrat: any[] = [];
   selected_images_res_sortie!: any;
   selected_lettre_res!: any;
   selected_piece_jointe_avenant!: any;
@@ -24,7 +24,7 @@ export class DetailContratComponent implements OnInit {
 
   constructor(
     private contratService: ContratService,
-    private actRoute: ActivatedRoute
+    private actRoute: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
@@ -40,17 +40,19 @@ export class DetailContratComponent implements OnInit {
       this.contrat.piece_joint_contrat = data.piece_joint_contrat;
       this.contrat.etat_contrat = data.etat_contrat
 
-      for (let index = 0; index < 1; index++) {
-        this.selectedPieceContrat = this.contrat.piece_joint_contrat[index];
+      for (let index = 0; index < this.contrat.piece_joint_contrat.length; index++) {
+        console.log('teeeeeeeeeeeeeeetst');
+        
+        this.selectedPieceContrat.push(this.contrat.piece_joint_contrat[index]);
         this.selected_lettre_res = this.contrat.etat_contrat?.etat.lettre_res_piece_jointe[index];
         this.selected_piece_jointe_avenant = this.contrat.etat_contrat?.etat.piece_jointe_avenant[index];
         this.selected_images_res_sortie = this.contrat.etat_contrat?.etat.images_etat_res_lieu_sortie[index];
       }
 
+      console.log(this.selectedPieceContrat);
     });
-
-
   }
+
 
   scroll() {
     setTimeout(() => {
