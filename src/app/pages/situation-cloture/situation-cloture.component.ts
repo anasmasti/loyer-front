@@ -44,6 +44,8 @@ export class SituationClotureComponent implements OnInit {
   getNextCloture() {
     this.help.getNextClotureDate().subscribe((date: dateClotureType) => {
       this.dateCloture = date;
+      console.log(date);
+      
     });
   }
 
@@ -96,7 +98,7 @@ export class SituationClotureComponent implements OnInit {
   }
 
   downloadExcelFiles(fileName: string) {
-    this.downloadService.dowloadExcelFiles(fileName).catch(console.error);
+    this.downloadService.dowloadExcelFiles(fileName,this.dateCloture.mois,this.dateCloture.annee).catch(console.error);
   }
 
   // Afficher le message d'erreur de serveur

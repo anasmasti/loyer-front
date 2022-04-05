@@ -311,6 +311,18 @@
               "
               data-bs-toggle="dropdown"
               aria-expanded="false"
+              *ngIf="
+                ((userRoles.includes('CDGSP') || userRoles.includes('CSLA')) &&
+                  !contrat.validation1_DMG) ||
+                (userRoles.includes('DAJC') &&
+                  !contrat.validation2_DAJC &&
+                  contrat.validation1_DMG) ||
+                ((userRoles.includes('CDGSP') ||
+                  userRoles.includes('CSLA') ||
+                  userRoles.includes('DAJC')) &&
+                  contrat.validation2_DAJC &&
+                  contrat.validation1_DMG)
+              "
             >
               <!-- [disabled]="userRoles.includes('DAJC') && !contrat.validation1_DMG" -->
               <ng-container *ngIf="!contrat.validation2_DAJC">
@@ -321,6 +333,29 @@
                 <i class="fal fa-clipboard-check"></i>
               </ng-container>
             </a>
+            <button
+              id="btnGroupDrop1"
+              class="btn btn-sm second-btn"
+              *ngIf="
+                (userRoles.includes('CDGSP') || userRoles.includes('CSLA')) &&
+                contrat.validation1_DMG && !contrat.validation2_DAJC
+              "
+              disabled
+            >
+              Validé
+            </button>
+            <button
+              id="btnGroupDrop1"
+              class="btn btn-sm second-btn"
+              *ngIf="
+                userRoles.includes('DAJC') &&
+                !contrat.validation2_DAJC &&
+                !contrat.validation2_DAJC
+              "
+              disabled
+            >
+              A valider
+            </button>
             <ul
               id="actions"
               class="dropdown-menu p-3 main-card border-0"
