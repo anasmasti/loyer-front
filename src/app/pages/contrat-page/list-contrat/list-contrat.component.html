@@ -282,7 +282,8 @@
               userRoles.includes('CSLA') ||
               userRoles.includes('DAJC')) &&
             (this.contrat.etat_contrat?.libelle === 'En cours de validation' ||
-              this.contrat.etat_contrat?.libelle === 'Actif' || this.contrat.etat_contrat?.libelle === 'Résilié')
+              this.contrat.etat_contrat?.libelle === 'Actif' ||
+              this.contrat.etat_contrat?.libelle === 'Résilié')
           "
         >
           <div
@@ -310,7 +311,7 @@
               "
               data-bs-toggle="dropdown"
               aria-expanded="false"
-              >
+            >
               <!-- [disabled]="userRoles.includes('DAJC') && !contrat.validation1_DMG" -->
               <ng-container *ngIf="!contrat.validation2_DAJC">
                 A valider
@@ -393,6 +394,7 @@
                     <button
                       *ngIf="
                         contrat.etat_contrat?.libelle !== 'Résilié' &&
+                        contrat.validation1_DMG &&
                         !contrat.validation2_DAJC
                       "
                       class="btn danger-btn mt-2"
