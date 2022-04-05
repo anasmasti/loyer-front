@@ -3,12 +3,15 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { saveAs } from 'file-saver';
 import { async } from '@angular/core/testing';
+import { HelperService } from '@services/helpers/helper.service';
+import dateClotureType from 'src/app/pages/cloture/date-cloture.type';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DownloadService {
-  constructor(private http: HttpClient) {}
+  dateCloture!: dateClotureType;
+  constructor(private http: HttpClient, private help: HelperService) {}
 
   setFilename(filename: string) {
     const param = new HttpParams().set('filename', filename);
@@ -30,8 +33,15 @@ export class DownloadService {
     );
   }
 
+  // Get the next cloture date from the server
+  getNextCloture() {
+    this.help.getNextClotureDate().subscribe((date: dateClotureType) => {
+      this.dateCloture = date;
+    });
+  }
+  
   dowloadExcelFiles(filename: string) {
-    let date = new Date();
+    // let date = new Date();
     return this.http
       .get(
         `${
@@ -39,7 +49,7 @@ export class DownloadService {
           environment.API_VERSION +
           'download-excel/' +
           filename
-        }/${date.getMonth() + 1}/${date.getFullYear()}`,
+        }/${this.dateCloture.mois}/${this.dateCloture.annee}`,
         {
           responseType: 'blob',
         }
