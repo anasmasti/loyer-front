@@ -18,6 +18,7 @@ import { StoreModule } from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePipe } from '@angular/common';
 import { ReportingsComponent } from './pages/reportings/reportings.component';
+import { DeclarationAnnuelleComponent } from './pages/declaration-annuelle/declaration-annuelle.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { ReportingsComponent } from './pages/reportings/reportings.component';
     MainContentComponent,
     FooterComponent,
     ReportingsComponent,
+    DeclarationAnnuelleComponent,
   ],
   imports: [
     BrowserModule,

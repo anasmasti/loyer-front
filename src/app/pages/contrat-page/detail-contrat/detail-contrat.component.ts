@@ -53,7 +53,6 @@ export class DetailContratComponent implements OnInit {
       let lengthImageSortie = this.contrat?.etat_contrat?.etat.images_etat_res_lieu_sortie.length || 0;
       for (let index = 0; index < lengthImageSortie; index++) {
         this.selected_images_res_sortie.push(this.contrat.etat_contrat?.etat.images_etat_res_lieu_sortie[index]);
-        console.log(this.selected_images_res_sortie);
       }
 
     });

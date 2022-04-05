@@ -104,6 +104,13 @@ const routes: Routes = [
       )
   },
   {
+    path: 'declaration-annuelle',
+    loadChildren: () =>
+      import('./pages/declaration-annuelle/declaration-annuelle.module').then(
+        (m) => m.DeclarationAnnuelleModule
+      )
+  },
+  {
     path: '**',
     loadChildren: () =>
       import('./pages/notfound-page/notfound-page.module').then(
