@@ -14,7 +14,7 @@ export class SituationClotureComponent implements OnInit {
   situations = ['état_virements', 'état_taxes'];
   url: string = environment.API_URL_WITHOUT_PARAM;
   generationDone: boolean;
-  generationSuccesMessage: string = 'Calcule des totaux fait avec succés';
+  generationSuccesMessage: string = 'Calcule de la situation fait avec succés';
   errors!: string;
   userMatricule: any = localStorage.getItem('matricule');
   situationClotureDetails!: any;
