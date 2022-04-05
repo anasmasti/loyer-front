@@ -7,6 +7,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { saveAs } from 'file-saver';
 import { DownloadService } from 'src/app/services/download-service/download.service';
 import { environment } from 'src/environments/environment';
+import dateClotureType from '../cloture/date-cloture.type';
 
 @Component({
   selector: 'app-files-generation',
@@ -35,7 +36,8 @@ export class FilesGenerationComponent implements OnInit {
 
   constructor(
     private downloadService: DownloadService,
-    private reportingService: ReportingService
+    private reportingService: ReportingService,
+    private help: HelperService
   ) {
     this.reporting = environment.REPORTING;
   }
@@ -56,20 +58,28 @@ export class FilesGenerationComponent implements OnInit {
     return (this.dateSelected = true);
   }
 
+    // Get the next cloture date from the server
+    getNextCloture() {
+      this.help.getNextClotureDate().subscribe((date: dateClotureType) => {
+        this.dateCloture = date;
+      });
+    }
+
   downloadFiles(params: string[]) {
     // let today = new Date()
     let date_gen = new Date(this.filesForm.get('date_gen')?.value);
     // Fill date cloture
-    let date = {
-      mois: date_gen.getMonth() + 1,
-      annee: date_gen.getFullYear(),
-    };
+    // let date = {
+    //   mois: date_gen.getMonth() + 1,
+    //   annee: date_gen.getFullYear(),
+    // };
 
     params.forEach((param) => {
       // Path name
-      let filename = param + `_${date.mois}-${date.annee}`;
+      // let filename = param + `_${date.mois}-${date.annee}`;
+      let filename = param + `_${this.dateCloture.mois}-${this.dateCloture.annee}`;
       this.downloadService
-        .dowloadFiles(filename, date, param)
+        .dowloadFiles(filename, this.dateCloture, param)
         .subscribe((res) => {
           if (res) {
             saveAs(res, filename);
