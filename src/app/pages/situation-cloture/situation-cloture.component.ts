@@ -44,8 +44,6 @@ export class SituationClotureComponent implements OnInit {
   getNextCloture() {
     this.help.getNextClotureDate().subscribe((date: dateClotureType) => {
       this.dateCloture = date;
-      console.log(date);
-      
     });
   }
 
