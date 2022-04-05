@@ -60,13 +60,14 @@ export class ListContratComponent implements OnInit {
   reporting: boolean;
   statut!: string;
 
-  comparedContrat!: Contrat[]
+  comparedContrat!: Contrat[];
 
   // Soumettre
   soumettreModal: string = 'soumettreModal';
   isSoumettre: boolean = false;
   test: string = 'test';
-  
+  isRejeter: boolean = false;
+
   soumettreSuccess: string = 'Contrat prêt à être validé';
   soumettreDone: boolean = false;
 
@@ -99,11 +100,12 @@ export class ListContratComponent implements OnInit {
       }
     }
   }
+
   getContrat() {
     this.contratService.getContrat().subscribe(
       (data: any) => {
         this.contrats = data;
-        this.comparedContrat = data
+        this.comparedContrat = data;
       },
       (error: any) => {
         this.accessError = error.error.message;
@@ -114,19 +116,22 @@ export class ListContratComponent implements OnInit {
   checkAndPutText(value: boolean) {
     return this.helperService.booleanToText(value);
   }
+
   // Filter by intitule
   search() {
     if (this.findContrat != '') {
       this.searchService.mainSearch(
         (this.contrats = this.contrats.filter((res) => {
-          return res.numero_contrat
-            ?.toString()
-            ?.toLowerCase()
-            .match(this.findContrat.toLowerCase()) || 
+          return (
+            res.numero_contrat
+              ?.toString()
+              ?.toLowerCase()
+              .match(this.findContrat.toLowerCase()) ||
             res.foncier.type_lieu
-            ?.toString()
-            ?.toLowerCase()
-            .match(this.findContrat.toLowerCase());
+              ?.toString()
+              ?.toLowerCase()
+              .match(this.findContrat.toLowerCase())
+          );
         }))
       );
     } else if (this.findContrat == '') {
@@ -138,16 +143,15 @@ export class ListContratComponent implements OnInit {
     if (event.target.checked) {
       if (statut == 'all') return this.getContrat();
 
-        if (statut == 'Avenant') {
-          this.contrats = this.comparedContrat.filter((res) => {            
-            return res.old_contrat.length > 0;
-          });
-        }
-        else if (statut == 'Actif') {
-          this.contrats = this.comparedContrat.filter((res) => {
-              return res.etat_contrat?.libelle?.toString().match(statut);
-            });
-        }
+      if (statut == 'Avenant') {
+        this.contrats = this.comparedContrat.filter((res) => {
+          return res.old_contrat.length > 0;
+        });
+      } else if (statut == 'Actif') {
+        this.contrats = this.comparedContrat.filter((res) => {
+          return res.etat_contrat?.libelle?.toString().match(statut);
+        });
+      }
     }
     return;
   }
@@ -212,15 +216,10 @@ export class ListContratComponent implements OnInit {
     }
   }
 
-  openConfirmationSoumettre(id: string) {
-    this.id = id;
-    this.isSoumettre = true;
-   this.confirmationModalService.open(); //  Open soumettre confirmation modal
-  }
-
   // Close confirmation modal
-  closeConfirmationModal(id: string = 'confirmationModal') {
+  closeConfirmationModal() {
     this.isSoumettre = false;
+    this.isRejeter = false;
     this.confirmationModalService.close(); // Close delete confirmation modal
   }
 
@@ -281,36 +280,6 @@ export class ListContratComponent implements OnInit {
       'form_content'
     ) as HTMLElement;
     element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  soumettreContrat() {
-    this.contratService.updateSoumettre(this.id, this.userMatricule).subscribe(
-      (_) => {
-        this.closeConfirmationModal(this.soumettreModal)
-        this.scrollToTop();
-        this.soumettreDone = true;
-        setTimeout(() => {
-          this.soumettreDone = false;
-          this.helperService.refrechPage()
-        }, 3000);
-      },
-      (error) => {
-        this.errors = error.error.message;
-        this.closeConfirmationModal(this.soumettreModal)
-        this.scrollToTop();
-        setTimeout(() => {
-          this.showErrorMessage();
-        }, 5000);
-        this.hideErrorMessage();
-      }
-    );
-  }
-
-  annulerContrat() {
-    this.contratService.annulerContrat(this.id, this.userMatricule).subscribe();
-    setTimeout(() => {
-      location.reload();
-    }, 400);
   }
 
   validation2Contrat() {
@@ -421,5 +390,48 @@ export class ListContratComponent implements OnInit {
       }
     });
     return count;
+  }
+
+  // Soumettre
+  openConfirmationSoumettre(id: string) {
+    this.id = id;
+    this.isSoumettre = true;
+    this.confirmationModalService.open(); //  Open soumettre confirmation modal
+  }
+
+  openConfirmationAnnulerContrat(id: string) {
+    this.id = id;
+    this.isRejeter = true;
+    this.confirmationModalService.open(); //  Open soumettre confirmation modal
+  }
+
+  soumettreContrat() {
+    this.contratService.updateSoumettre(this.id, this.userMatricule).subscribe(
+      (_) => {
+        this.closeConfirmationModal();
+        this.scrollToTop();
+        this.soumettreDone = true;
+        setTimeout(() => {
+          this.soumettreDone = false;
+          this.helperService.refrechPage();
+        }, 3000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        this.closeConfirmationModal();
+        this.scrollToTop();
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 5000);
+        this.hideErrorMessage();
+      }
+    );
+  }
+
+  annulerContrat() {
+    this.contratService.annulerContrat(this.id, this.userMatricule).subscribe();
+    setTimeout(() => {
+      location.reload();
+    }, 400);
   }
 }
