@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 export class DetailContratComponent implements OnInit {
 
   selectedPieceContrat: any[] = [];
-  selected_images_res_sortie!: any;
+  selected_images_res_sortie: any[] = [];
   selected_lettre_res!: any;
   selected_piece_jointe_avenant!: any;
   url: string = environment.API_URL_WITHOUT_PARAM;
@@ -21,7 +21,7 @@ export class DetailContratComponent implements OnInit {
 
   userMatricule: any = localStorage.getItem('matricule')
 
-
+  lengthImageSortie!: number
   constructor(
     private contratService: ContratService,
     private actRoute: ActivatedRoute,
@@ -34,6 +34,7 @@ export class DetailContratComponent implements OnInit {
   getSelectedContrat() {
     const id = this.actRoute.snapshot.paramMap.get('id') || '';
 
+
     this.contratService.getSelectedContrat(id).subscribe((data: any) => {
       this.contrat = data;
 
@@ -41,15 +42,19 @@ export class DetailContratComponent implements OnInit {
       this.contrat.etat_contrat = data.etat_contrat
 
       for (let index = 0; index < this.contrat.piece_joint_contrat.length; index++) {
-        console.log('teeeeeeeeeeeeeeetst');
-        
         this.selectedPieceContrat.push(this.contrat.piece_joint_contrat[index]);
-        this.selected_lettre_res = this.contrat.etat_contrat?.etat.lettre_res_piece_jointe[index];
-        this.selected_piece_jointe_avenant = this.contrat.etat_contrat?.etat.piece_jointe_avenant[index];
-        this.selected_images_res_sortie = this.contrat.etat_contrat?.etat.images_etat_res_lieu_sortie[index];
       }
 
-      console.log(this.selectedPieceContrat);
+      for (let index = 0; index < 1; index++) {
+        this.selected_lettre_res = this.contrat.etat_contrat?.etat.lettre_res_piece_jointe[index];
+        this.selected_piece_jointe_avenant = this.contrat.etat_contrat?.etat.piece_jointe_avenant[index];
+      }
+      
+      let lengthImageSortie = this.contrat?.etat_contrat?.etat.images_etat_res_lieu_sortie.length || 0;
+      for (let index = 0; index < lengthImageSortie; index++) {
+        this.selected_images_res_sortie.push(this.contrat.etat_contrat?.etat.images_etat_res_lieu_sortie[index]);
+      }
+
     });
   }
 
