@@ -6,14 +6,12 @@
           >Liste des contrats</a
         >/<span class="selected-text">
           {{
-            contrat.foncier.type_lieu !== undefined
+            contrat.foncier.type_lieu !== null
               ? contrat.foncier.type_lieu
               : "--"
           }} </span
         >/<span class="selected-text">
-          {{
-            contrat.numero_contrat !== undefined ? contrat.numero_contrat : "--"
-          }}
+          {{ contrat.numero_contrat !== null ? contrat.numero_contrat : "--" }}
         </span>
       </h3>
       <div class="d-none d-lg-block">
@@ -45,7 +43,7 @@
         <h5 class="main-txt">Type d’entité</h5>
         <p>
           {{
-            contrat.foncier.type_lieu !== undefined
+            contrat.foncier.type_lieu !== null
               ? contrat.foncier.type_lieu
               : "--"
           }}
@@ -55,9 +53,7 @@
       <div class="col-lg-6">
         <h5 class="main-txt">Numéro de contrat</h5>
         <p>
-          {{
-            contrat.numero_contrat !== undefined ? contrat.numero_contrat : "--"
-          }}
+          {{ contrat.numero_contrat !== null ? contrat.numero_contrat : "--" }}
         </p>
       </div>
       <div class="col-lg-6">
@@ -128,13 +124,24 @@
 
       <div class="col-lg-6">
         <h5 class="main-txt">Etat de contrat</h5>
+        <!-- *ngIf="contrat.etat_contrat?.libelle === 'Actif'" -->
+        <!-- class="success-txt" -->
         <p
-          *ngIf="contrat.etat_contrat?.libelle === 'Actif'"
-          class="success-txt"
+          [ngClass]="{
+            'info-txt':
+              contrat.etat_contrat?.libelle === 'Avenant' ||
+              contrat.etat_contrat?.libelle === 'Initié',
+            'danger-txt':
+              contrat.etat_contrat?.libelle === 'Suspendu' ||
+              contrat.etat_contrat?.libelle === 'Résilié',
+            'success-txt': contrat.etat_contrat?.libelle === 'Actif',
+            'second-txt':
+              contrat.etat_contrat?.libelle === 'En cours de validation'
+          }"
         >
           {{
-            this.contrat.etat_contrat?.libelle !== ""
-              ? this.contrat.etat_contrat?.libelle
+            contrat.etat_contrat?.libelle !== ""
+              ? contrat.etat_contrat?.libelle
               : "--"
           }}
         </p>
@@ -142,18 +149,18 @@
 
       <div class="col-lg-6">
         <h5 class="main-txt">Pièce jointe</h5>
-        <p *ngFor="let pieceContrat of selectedPieceContrat">
-          <a
-            class="btn second-btn"
-            *ngIf="pieceContrat !== undefined"
-            href="{{ url }}{{ pieceContrat?.image }}"
-            target="_blank"
-          >
-            Ouvrir
-          </a>
-
-          <span *ngIf="pieceContrat === undefined"> Aucun fichier </span>
-        </p>
+        <ng-container *ngIf="selectedPieceContrat.length > 0">
+          <p *ngFor="let pieceContrat of selectedPieceContrat; let i = index;">
+           Fichier {{i + 1}} :  <a
+              class="btn second-btn"
+              href="{{ url }}{{ pieceContrat?.image }}"
+              target="_blank"
+            >
+              Ouvrir
+            </a>
+          </p>
+        </ng-container>
+        <span *ngIf="selectedPieceContrat.length == 0"> Aucun fichier </span>
       </div>
     </div>
   </div>
@@ -163,9 +170,7 @@
       <div class="col-lg-12 text-center">
         <h5 class="main-txt">Montant du loyer</h5>
         <p>
-          {{
-            contrat.montant_loyer !== undefined ? contrat.montant_loyer : "--"
-          }}
+          {{ contrat.montant_loyer !== null ? contrat.montant_loyer : "--" }}
         </p>
       </div>
     </div>
@@ -175,9 +180,7 @@
         <h5 class="main-txt">Montant de caution</h5>
         <p>
           {{
-            contrat.montant_caution !== undefined
-              ? contrat.montant_caution
-              : "--"
+            contrat.montant_caution !== null ? contrat.montant_caution : "--"
           }}
         </p>
       </div>
@@ -206,15 +209,13 @@
       <div class="col-lg-6">
         <h5 class="main-txt">Montant d'avance</h5>
         <p>
-          {{
-            contrat.montant_avance !== undefined ? contrat.montant_avance : "--"
-          }}
+          {{ contrat.montant_avance !== null ? contrat.montant_avance : "--" }}
         </p>
       </div>
       <div class="col-lg-6">
         <h5 class="main-txt">Durée de l'avance</h5>
         <p>
-          {{ contrat.duree_avance !== undefined ? contrat.duree_avance : "--" }}
+          {{ contrat.duree_avance !== null ? contrat.duree_avance : "--" }}
         </p>
       </div>
     </div>
@@ -246,14 +247,21 @@
     Etat de contrat:
     <span
       [ngClass]="{
-        'info-txt': contrat.etat_contrat?.libelle === 'Avenant',
+        'info-txt':
+          contrat.etat_contrat?.libelle === 'Avenant' ||
+          contrat.etat_contrat?.libelle === 'Initié',
         'danger-txt':
           contrat.etat_contrat?.libelle === 'Suspendu' ||
           contrat.etat_contrat?.libelle === 'Résilié',
-        'success-txt': contrat.etat_contrat?.libelle === 'Actif'
+        'success-txt': contrat.etat_contrat?.libelle === 'Actif',
+        'second-txt': contrat.etat_contrat?.libelle === 'En cours de validation'
       }"
     >
-      {{ this.contrat.etat_contrat?.libelle }}
+      {{
+        contrat.etat_contrat?.libelle !== ""
+          ? contrat.etat_contrat?.libelle
+          : "--"
+      }}
     </span>
   </h5>
 
@@ -283,7 +291,7 @@
       <h5 class="main-txt">Montant nouveau loyer</h5>
       <p>
         {{
-          contrat.etat_contrat?.etat?.montant_nouveau_loyer !== undefined
+          contrat.etat_contrat?.etat?.montant_nouveau_loyer !== null
             ? contrat.etat_contrat?.etat?.montant_nouveau_loyer
             : "--"
         }}
@@ -317,15 +325,13 @@
       <p>
         <a
           class="btn second-btn"
-          *ngIf="selected_piece_jointe_avenant !== undefined"
+          *ngIf="selected_piece_jointe_avenant"
           href="{{ url }}{{ selected_piece_jointe_avenant?.image }}"
           target="_blank"
         >
           Ouvrir
         </a>
-        <span *ngIf="selected_piece_jointe_avenant === undefined">
-          Aucun fichier
-        </span>
+        <span *ngIf="!selected_piece_jointe_avenant"> Aucun fichier </span>
       </p>
     </div>
   </div>
@@ -343,14 +349,21 @@
     Etat de contrat:
     <span
       [ngClass]="{
-        'info-txt': contrat.etat_contrat?.libelle === 'Avenant',
+        'info-txt':
+          contrat.etat_contrat?.libelle === 'Avenant' ||
+          contrat.etat_contrat?.libelle === 'Initié',
         'danger-txt':
           contrat.etat_contrat?.libelle === 'Suspendu' ||
           contrat.etat_contrat?.libelle === 'Résilié',
-        'success-txt': contrat.etat_contrat?.libelle === 'Actif'
+        'success-txt': contrat.etat_contrat?.libelle === 'Actif',
+        'second-txt': contrat.etat_contrat?.libelle === 'En cours de validation'
       }"
     >
-      {{ this.contrat.etat_contrat?.libelle }}
+      {{
+        contrat.etat_contrat?.libelle !== ""
+          ? contrat.etat_contrat?.libelle
+          : "--"
+      }}
     </span>
   </h5>
 
@@ -380,7 +393,7 @@
       <h5 class="main-txt">Durée de Suspendu</h5>
       <p>
         {{
-          contrat.etat_contrat?.etat?.duree_suspension !== undefined
+          contrat.etat_contrat?.etat?.duree_suspension !== null
             ? contrat.etat_contrat?.etat?.duree_suspension
             : "--"
         }}
@@ -411,14 +424,21 @@
     Etat de contrat:
     <span
       [ngClass]="{
-        'info-txt': contrat.etat_contrat?.libelle === 'Avenant',
+        'info-txt':
+          contrat.etat_contrat?.libelle === 'Avenant' ||
+          contrat.etat_contrat?.libelle === 'Initié',
         'danger-txt':
           contrat.etat_contrat?.libelle === 'Suspendu' ||
           contrat.etat_contrat?.libelle === 'Résilié',
-        'success-txt': contrat.etat_contrat?.libelle === 'Actif'
+        'success-txt': contrat.etat_contrat?.libelle === 'Actif',
+        'second-txt': contrat.etat_contrat?.libelle === 'En cours de validation'
       }"
     >
-      {{ this.contrat.etat_contrat?.libelle }}
+      {{
+        contrat.etat_contrat?.libelle !== ""
+          ? contrat.etat_contrat?.libelle
+          : "--"
+      }}
     </span>
   </h5>
 
@@ -480,34 +500,32 @@
 
     <div class="col-lg-3">
       <h5 class="main-txt">Images d'état des lieux de sortie</h5>
-      <p *ngFor="let imageSortie of selected_images_res_sortie">
-        <a
-          class="btn second-btn"
-          *ngIf="imageSortie !== undefined"
-          href="{{ url }}{{ imageSortie?.image }}"
-          target="_blank"
-        >
-          Ouvrir
-        </a>
-        <span *ngIf="imageSortie === undefined">
-          Aucun fichier
-        </span>
-      </p>
+      <ng-container *ngIf="selected_images_res_sortie.length">
+        <p *ngFor="let imageSortie of selected_images_res_sortie">
+          <a
+            class="btn second-btn"
+            href="{{ url }}{{ imageSortie?.image }}"
+            target="_blank"
+          >
+            Ouvrir
+          </a>
+        </p>
+      </ng-container>
+      <span *ngIf="!selected_images_res_sortie.length"> Aucun fichier</span>
     </div>
-
 
     <div class="col-lg-3">
       <h5 class="main-txt">La lettre de Résilié scannée</h5>
       <p>
         <a
           class="btn second-btn"
-          *ngIf="selected_lettre_res !== undefined"
+          *ngIf="selected_lettre_res"
           href="{{ url }}{{ selected_lettre_res?.image }}"
           target="_blank"
         >
           Ouvrir
         </a>
-        <span *ngIf="selected_lettre_res === undefined"> Aucun fichier </span>
+        <span *ngIf="!selected_lettre_res"> Aucun fichier </span>
       </p>
     </div>
   </div>
