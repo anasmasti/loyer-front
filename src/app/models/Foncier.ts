@@ -13,14 +13,7 @@ export interface Foncier {
   adresse: string;
   lieu: [
     {
-      lieu?: {
-        intitule_lieu: string,
-        type_lieu: string,
-        code_lieu: string,
-        code_rattache_DR: string,
-        attached_DR: any,
-        attached_SUP: any,
-      };
+      lieu?: any
       // transferer?: boolean,
       etat_lieu: string;
       deleted?: boolean;

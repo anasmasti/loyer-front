@@ -59,7 +59,7 @@ export class FoncierListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getFoncier();
+    this.getFonciers();
     this.isDC = this.authService.checkUserRole('DC');
     this.isCDGSP = this.authService.checkUserRole('CDGSP');
     this.isCSLA = this.authService.checkUserRole('CSLA');
@@ -70,11 +70,13 @@ export class FoncierListComponent implements OnInit {
     });
   }
 
-  getFoncier() {
+  getFonciers() {
     // Select foncier from store
     this.foncierSubscription$ = this.store
       .select(getFonciers)
       .subscribe((data) => {
+        console.log(data);
+        
         // Check if foncier data is empty then fetch it from server
         if (data.length === 0) {
           // Dispatch action to handle the NgRx get foncier from server effect
@@ -104,12 +106,12 @@ export class FoncierListComponent implements OnInit {
         );
       });
     } else if (this.findFoncier === '') {
-      this.getFoncier();
+      this.getFonciers();
     }
   }
 
   searchByAmenagement(event: any, statut: string) {
-    this.getFoncier();
+    this.getFonciers();
 
     if (event.target.checked) {
       if (statut === 'all') {
