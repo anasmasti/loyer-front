@@ -16,7 +16,7 @@ export class DeclarationAnnuelleComponent implements OnInit {
 
   ngOnInit(): void {
     this.declarationAnnuelleForm = new FormGroup({
-      date_gen: new FormControl('', [Validators.required]),
+      date_gen: new FormControl('', [Validators.required, Validators.pattern('[0-9]{4}')]),
     });
   }
 
