@@ -4,7 +4,7 @@
       <!-- <h3 class=""></h3> -->
       <h3 class="main-title">Liste des locaux</h3>
       <div class="d-none d-lg-block">
-        <a *ngIf="!isDC" class="btn btn-sm main-btn" [routerLink]="['/foncier']">
+        <a *ngIf="!isDC && !isDAJC" class="btn btn-sm main-btn" [routerLink]="['/foncier']">
           <i class="fal fa-plus-octagon"></i> Nouveau local
         </a>
         <a class="btn btn-sm second-btn mx-3" (click)="reload()"

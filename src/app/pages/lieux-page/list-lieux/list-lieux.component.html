@@ -4,7 +4,7 @@
       <h3 class="main-title">Liste des entités organisationnelles</h3>
 
       <div class="d-none d-lg-block">
-        <a *ngIf="!isDC" class="btn btn-sm main-btn" [routerLink]="['/lieux']">
+        <a *ngIf="!isDC && !isDAJC" class="btn btn-sm main-btn" [routerLink]="['/lieux']">
           <i class="fal fa-plus-octagon"></i> Nouvelle entité
         </a>
         <a class="btn btn-sm second-btn mx-2" (click)="refrechPage()"><i class="far fa-undo-alt"></i>
