@@ -10,6 +10,8 @@ import { Store } from '@ngrx/store';
 import { getFoncierAction } from '../foncier-store/foncier.actions';
 import { getFonciers, getError } from '../foncier-store/foncier.selector';
 import { environment } from 'src/environments/environment';
+import { getUserType } from 'src/app/store/shared/shared.selector';
+import { AuthService } from '@services/auth-service/auth.service';
 
 @Component({
   selector: 'app-foncier-list',
@@ -41,8 +43,13 @@ export class FoncierListComponent implements OnInit {
   accessError!: any;
   reporting: boolean;
 
+  isDC!: boolean;
+  isCDGSP!: boolean;
+  isCSLA!: boolean;
+  isDAJC!: boolean;
   constructor(
     private foncierService: FoncierService,
+    public authService: AuthService,
     private helperService: HelperService,
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
@@ -53,7 +60,10 @@ export class FoncierListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getFoncier();
-
+    this.isDC = this.authService.checkUserRole('DC');
+    this.isCDGSP = this.authService.checkUserRole('CDGSP');
+    this.isCSLA = this.authService.checkUserRole('CSLA');
+    this.isDAJC = this.authService.checkUserRole('DAJC');
     // Check error
     this.store.select(getError).subscribe((data) => {
       if (data) this.accessError = data;
@@ -174,5 +184,33 @@ export class FoncierListComponent implements OnInit {
   }
   reload() {
     this.helperService.refrechPage();
+  }
+  
+  getUserRole() {
+    this.store.select(getUserType).subscribe((roles) => {
+      this.checkRole(roles);
+    });
+  }
+
+  checkRole(role: string[]) {
+    role.forEach((item) => {
+      switch (item) {
+        case 'DC':
+          this.isDC;
+          break;
+          case 'CDGSP':
+          this.isCDGSP;
+          break;
+          case 'CSLA':
+          this.isCSLA;
+          break;
+          case 'DAJC':
+          this.isDAJC;
+          break;
+
+        default:
+          break;
+      }
+    });
   }
 }
