@@ -57,8 +57,6 @@ export class ClotureComponent implements OnInit {
         today.setFullYear(this.dateCloture.annee);
         today.setMonth(this.dateCloture.mois - 1);
         this.today = today;
-        console.log("==>",this.today);
-        
 
         return [
           this.today,
