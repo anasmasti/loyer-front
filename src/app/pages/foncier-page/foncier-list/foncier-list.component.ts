@@ -75,8 +75,6 @@ export class FoncierListComponent implements OnInit {
     this.foncierSubscription$ = this.store
       .select(getFonciers)
       .subscribe((data) => {
-        console.log(data);
-        
         // Check if foncier data is empty then fetch it from server
         if (data.length === 0) {
           // Dispatch action to handle the NgRx get foncier from server effect
