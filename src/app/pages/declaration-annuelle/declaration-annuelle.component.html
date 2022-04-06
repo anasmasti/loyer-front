@@ -28,23 +28,6 @@
       enctype="multipart/form-data"
       class="col-5"
     >
-<<<<<<< HEAD
-      <!-- <h5 class="main-title">Exportation des fichiers</h5> -->
-      <form [formGroup]="declarationAnnuelleForm" enctype="multipart/form-data" class="col-5">
-        <input
-          type="year"
-          class="form-control rounded-pill"
-          (change)="showButtons()"
-          formControlName="date_gen"
-          [ngClass]="{
-            'is-invalid': checkInputsValidation(date_gen),
-            'is-valid': !date_gen?.invalid
-          }"
-        />
-      </form>
-    </div>
-    <div *ngIf="dateSelected; then fileSection; else Error"></div>
-=======
       <h5 class="main-muted-text mt-4 text-center">Merci de saisir l'année</h5>
       <input
         type="year"
@@ -57,7 +40,6 @@
         }"
       />
     </form>
->>>>>>> 991852297fb6288e71b78aa52c3f43c10cde810b
   </div>
   <div *ngIf="dateSelected; then fileSection"></div>
 </div>

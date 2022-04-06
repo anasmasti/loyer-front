@@ -51,8 +51,8 @@ export class ClotureComponent implements OnInit {
     if (this.hasNextCluture) {
       // Put this month is cloture and show cloture section if next cloture match with today
       if (
-        this.dateCloture.annee >= today.getFullYear() &&
-        this.dateCloture.mois >= today.getMonth() + 1
+        this.dateCloture.annee <= today.getFullYear() &&
+        this.dateCloture.mois <= today.getMonth() + 1
       ) {
         today.setFullYear(this.dateCloture.annee);
         today.setMonth(this.dateCloture.mois - 1);
