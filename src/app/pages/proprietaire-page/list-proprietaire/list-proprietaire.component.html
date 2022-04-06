@@ -103,12 +103,12 @@
             class="btn btn-sm main-btn"
             ><i class="fal fa-eye"></i
           ></a>
-          <a
+          <a *ngIf="!isDC && !isDAJC"
             class="btn btn-sm info-btn mx-2"
             (click)="openModalAndPushProprietaire(proprietaire)"
             ><i class="far fa-user-edit"></i
           ></a>
-          <a
+          <a *ngIf="!isCSLA && !isDC && !isDAJC"
             class="btn btn-sm danger-btn"
             (click)="
               openDeleteConfirmationModal(); getProprietaireId(proprietaire._id)
