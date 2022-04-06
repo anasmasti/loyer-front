@@ -78,17 +78,12 @@ export class SituationClotureComponent implements OnInit {
   }
 
   getSituationCloturePath(data: any) {
-    // Get date of now
-    let today = new Date();
-
-    // Fill date cloture
-    let date = {
-      mois: today.getMonth() + 1,
-      annee: today.getFullYear(),
-    };
-
     this.clotureService
-      .getPathSituationCloture(date.mois, date.annee, data)
+      .getPathSituationCloture(
+        this.dateCloture.mois,
+        this.dateCloture.annee,
+        data
+      )
       .subscribe((data) => {
         this.situationClotureDetails = data[0];
         this.filesLoading = false;
@@ -96,7 +91,13 @@ export class SituationClotureComponent implements OnInit {
   }
 
   downloadExcelFiles(fileName: string) {
-    this.downloadService.dowloadExcelFiles(fileName,this.dateCloture.mois,this.dateCloture.annee).catch(console.error);
+    this.downloadService
+      .dowloadExcelFiles(
+        fileName,
+        this.dateCloture.mois,
+        this.dateCloture.annee
+      )
+      .catch(console.error);
   }
 
   // Afficher le message d'erreur de serveur
