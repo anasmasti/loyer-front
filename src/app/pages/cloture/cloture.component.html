@@ -8,7 +8,7 @@
       }">
     <!-- <h4 *ngIf="!isCloture">Clôture du {{ today | date }}</h4> -->
     <h4 *ngIf="isCloture">Le mois {{ today | date }} clôturé</h4>
-    <a *ngIf="!isCloture" class="btn danger-btn" (click)="openConfirmationModal()">Clôturer le mois {{ today?.getMonth() | date : 'MMMM' | titlecase }}</a>
+    <a *ngIf="!isCloture" class="btn danger-btn" (click)="openConfirmationModal()">Clôturer le mois {{  today | date : 'MMMM' | titlecase }}</a>
   </div>
 
   <div *ngIf="!showClotureSection" class="cloture-skeleton"></div>

@@ -4,7 +4,7 @@
       <h3 class="main-title">Liste des entités organisationnelles</h3>
 
       <div class="d-none d-lg-block">
-        <a class="btn btn-sm main-btn" [routerLink]="['/lieux']">
+        <a *ngIf="!isDC && !isDAJC" class="btn btn-sm main-btn" [routerLink]="['/lieux']">
           <i class="fal fa-plus-octagon"></i> Nouvelle entité
         </a>
         <a class="btn btn-sm second-btn mx-2" (click)="refrechPage()"><i class="far fa-undo-alt"></i>
@@ -68,8 +68,8 @@
         <td>{{ lieu.attached_DR ? lieu.attached_DR.code_lieu : '--' }}</td>
         <td>
           <a [routerLink]="['list', lieu._id]" class="btn btn-sm main-btn"><i class="fal fa-eye"></i></a>
-          <a class="btn btn-sm info-btn mx-2" (click)="openModalAndPushLieu(lieu)"><i class="far fa-edit"></i></a>
-          <a class="btn btn-sm danger-btn" (click)="openConfirmationModal(lieu)"><i class="fas fa-trash-alt"></i></a>
+          <a *ngIf="!isDC && !isDAJC" class="btn btn-sm info-btn mx-2" (click)="openModalAndPushLieu(lieu)"><i class="far fa-edit"></i></a>
+          <a *ngIf="!isCSLA && !isDC && !isDAJC" class="btn btn-sm danger-btn" (click)="openConfirmationModal(lieu)"><i class="fas fa-trash-alt"></i></a>
         </td>
       </tr>
 

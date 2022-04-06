@@ -26,11 +26,12 @@
     <form
       [formGroup]="declarationAnnuelleForm"
       enctype="multipart/form-data"
-      class="col-5"
+      class="col-3"
     >
-      <h5 class="main-muted-text mt-4 text-center">Merci de saisir l'année</h5>
+      <h5 class="main-title mt-4 mb-3">Merci de saisir l'année</h5>
       <input
-        type="year"
+        type="text"
+        placeholder="Par exemple : 2022"
         class="form-control rounded-pill"
         (change)="showButtons()"
         formControlName="date_gen"

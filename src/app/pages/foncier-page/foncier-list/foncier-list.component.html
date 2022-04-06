@@ -4,26 +4,18 @@
       <!-- <h3 class=""></h3> -->
       <h3 class="main-title">Liste des locaux</h3>
       <div class="d-none d-lg-block">
-        <a class="btn btn-sm main-btn" [routerLink]="['/foncier']">
+        <a *ngIf="!isDC && !isDAJC" class="btn btn-sm main-btn" [routerLink]="['/foncier']">
           <i class="fal fa-plus-octagon"></i> Nouveau local
         </a>
-        <a class="btn btn-sm second-btn mx-3" (click)="reload()"
-          ><i class="far fa-undo-alt"></i>
+        <a class="btn btn-sm second-btn mx-3" (click)="reload()"><i class="far fa-undo-alt"></i>
           Rafraîchir la liste
         </a>
         <ng-container *ngIf="reporting">
-          <a
-            [routerLink]="['/foncier/list/list-reporting']"
-            class="btn btn-sm success-btn me-3"
-          >
+          <a [routerLink]="['/foncier/list/list-reporting']" class="btn btn-sm success-btn me-3">
             <i class="far fa-file-chart-line"></i> Voir la liste des reportings
           </a>
         </ng-container>
-        <span
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-          title="Ici vous pouvez consulter la list des locaux"
-        >
+        <span data-bs-toggle="tooltip" data-bs-placement="top" title="Ici vous pouvez consulter la list des locaux">
           <i class="fal fa-info"></i>
         </span>
       </div>
@@ -39,59 +31,29 @@
 <div class="main-card bg-white table-responsive p-lg-3 mt-4">
   <div class="row d-flex justify-content-between">
     <div class="col-lg-4 mb-4">
-      <label for="" class="main-muted-text"
-        ><i class="far fa-search"></i> Recherche</label
-      >
-      <input
-        type="text"
-        [(ngModel)]="findFoncier"
-        (input)="search()"
-        class="form-control rounded-pill"
-        placeholder="Rechercher par code d'entité, type ou ville ou n° contrat"
-      />
+      <label for="" class="main-muted-text"><i class="far fa-search"></i> Recherche</label>
+      <input type="text" [(ngModel)]="findFoncier" (input)="search()" class="form-control rounded-pill"
+        placeholder="Rechercher par code d'entité, type ou ville ou n° contrat" />
     </div>
 
     <div class="d-flex justify-content-end col-lg-7 my-4">
       <div class="">
-        <input
-          id="all"
-          type="radio"
-          name="search-by-amenagement"
-          (click)="searchByAmenagement($event, 'all')"
-          class="btn-check check"
-          [checked]="true"
-          autocomplete="off"
-        />
-        <label class="px-3 rounded-pill checkbox-list-btns" for="all"
-          >Tout</label
-        >
+        <input id="all" type="radio" name="search-by-amenagement" (click)="searchByAmenagement($event, 'all')"
+          class="btn-check check" [checked]="true" autocomplete="off" />
+        <label class="px-3 rounded-pill checkbox-list-btns" for="all">Tout</label>
       </div>
 
       <div class="">
-        <input
-          id="oui"
-          type="radio"
-          name="search-by-amenagement"
-          class="btn-check check"
-          (click)="searchByAmenagement($event, 'true')"
-          autocomplete="off"
-        />
+        <input id="oui" type="radio" name="search-by-amenagement" class="btn-check check"
+          (click)="searchByAmenagement($event, 'true')" autocomplete="off" />
         <label class="px-3 mx-2 rounded-pill checkbox-list-btns" for="oui">
-          Avec aménagement</label
-        >
+          Avec aménagement</label>
       </div>
       <div class="col-sm-4">
-        <input
-          id="non"
-          type="radio"
-          name="search-by-amenagement"
-          (click)="searchByAmenagement($event, 'false')"
-          class="btn-check check"
-          autocomplete="off"
-        />
+        <input id="non" type="radio" name="search-by-amenagement" (click)="searchByAmenagement($event, 'false')"
+          class="btn-check check" autocomplete="off" />
         <label class="px-3 rounded-pill checkbox-list-btns" for="non">
-          Sans aménagement</label
-        >
+          Sans aménagement</label>
       </div>
     </div>
   </div>
@@ -112,8 +74,7 @@
       </tr>
     </thead>
     <tbody *ngIf="fonciers.length">
-      <tr
-        *ngFor="
+      <tr *ngFor="
           let foncier of fonciers
             | paginate
               : {
@@ -122,41 +83,35 @@
                   id: 'listFoncierPagination',
                   totalItems: count
                 }
-        "
-      >
+        ">
         <td>{{ foncier.type_lieu || "--" }}</td>
         <!-- <td>{{ foncier.ville }}</td> -->
         <td>
           {{
-            foncier.type_lieu === "Logement de fonction"
-              ? foncier.lieu[0]?.lieu?.code_rattache_DR
-              : foncier.lieu[0]?.lieu?.code_lieu || "--"
+          foncier.type_lieu === "Logement de fonction"
+          ? foncier.lieu[0]?.lieu[0]?.code_rattache_DR
+          : foncier.lieu[0]?.lieu[0]?.code_lieu || "--"
           }}
         </td>
         <td>
-          {{ foncier.lieu[0].lieu?.intitule_lieu }}
+          {{ foncier.lieu[0]?.lieu[0]?.intitule_lieu }}
           <br />
           <ng-container *ngFor="let lieu of foncier.lieu">
-            <span
-              class="info-txt"
-              *ngIf="!lieu.deleted && lieu.etat_lieu !== 'Occupé'"
-              >{{ lieu.etat_lieu }}</span
-            >
+            <span class="info-txt" *ngIf="!lieu.deleted && lieu.etat_lieu !== 'Occupé'">
+              {{ lieu.etat_lieu }}
+            </span>
           </ng-container>
           <!-- <br> <span class="info-txt" *ngIf="foncier.lieu.transferer">En cours de transfert</span> -->
         </td>
 
-        <td>{{ foncier.lieu[0].lieu?.attached_DR }}</td>
-        <td>{{ foncier.lieu[0].lieu?.attached_SUP }}</td>
+        <td>{{ foncier.lieu[0].lieu[0]?.attached_DR[0]?.code_lieu || '--' }}</td>
+        <td>{{ foncier.lieu[0].lieu[0]?.attached_SUP[0]?.code_lieu || '--' }}</td>
         <td>
           <div class="d-grid">
-            <span
-              class="p-1"
-              [ngClass]="{
+            <span class="p-1" [ngClass]="{
                 'success-txt': foncier.has_amenagements,
                 'danger-txt': !foncier.has_amenagements
-              }"
-            >
+              }">
               {{ checkAndPutText(foncier?.has_amenagements) }}
             </span>
           </div>
@@ -167,30 +122,19 @@
             <div *ngIf="foncier.proprietaire.length">
               <span class="col-sm-6 main-txt">
                 {{
-                  foncier.proprietaire.length >= 1
-                    ? foncier.proprietaire.length
-                    : ""
+                foncier.proprietaire.length >= 1
+                ? foncier.proprietaire.length
+                : ""
                 }}
-                propriétaire<span *ngIf="foncier.proprietaire.length > 1"
-                  >s</span
-                >
+                propriétaire<span *ngIf="foncier.proprietaire.length > 1">s</span>
               </span>
               <span class="mx-1 text-secondary"> • </span>
-              <a
-                [routerLink]="['/proprietaire', foncier._id]"
-                class="short-link success-txt"
-              >
-                Ajouter un autre</a
-              >
+              <a [routerLink]="['/proprietaire', foncier._id]" class="short-link success-txt">
+                Ajouter un autre</a>
             </div>
 
-            <button
-              *ngIf="!foncier.proprietaire.length"
-              [routerLink]="['/proprietaire', foncier._id]"
-              class="btn btn-sm second-btn"
-              [disabled]="!foncier.contrat.length"
-              type="button"
-            >
+            <button *ngIf="!foncier.proprietaire.length" [routerLink]="['/proprietaire', foncier._id]"
+              class="btn btn-sm second-btn" [disabled]="!foncier.contrat.length" type="button">
               Ajouter un propriétaire
             </button>
           </div>
@@ -201,42 +145,31 @@
 
         <td>
           <ng-container *ngIf="foncier.contrat.length">
-            <p *ngIf="(foncier?.contrat[0]?.etat_contrat?.libelle !== 'Résilié') && (foncier?.contrat[0]?.etat_contrat?.libelle !== 'Suspendu')"  class="success-txt">
+            <p *ngIf="(foncier?.contrat[0]?.etat_contrat?.libelle !== 'Résilié') && (foncier?.contrat[0]?.etat_contrat?.libelle !== 'Suspendu')"
+              class="success-txt">
               <i class="fas fa-check"></i>&nbsp;&nbsp;{{
-                foncier?.contrat[0]?.numero_contrat
+              foncier?.contrat[0]?.numero_contrat
               }}
             </p>
-            <p *ngIf="(foncier?.contrat[0]?.etat_contrat?.libelle === 'Résilié') || (foncier?.contrat[0]?.etat_contrat?.libelle === 'Suspendu')" class="danger-txt">
+            <p *ngIf="(foncier?.contrat[0]?.etat_contrat?.libelle === 'Résilié') || (foncier?.contrat[0]?.etat_contrat?.libelle === 'Suspendu')"
+              class="danger-txt">
               <i class="fas fa-times"></i>&nbsp;&nbsp; Contrat &nbsp;{{
-                foncier?.contrat[0]?.numero_contrat
+              foncier?.contrat[0]?.numero_contrat
               }}&nbsp; {{foncier?.contrat[0]?.etat_contrat?.libelle}}
             </p>
           </ng-container>
-          <a
-            *ngIf="!foncier.contrat.length"
-            [routerLink]="['/contrat', foncier._id]"
-            class="btn btn-sm second-btn"
-            >Ajouter un contrat</a
-          >
+          <a *ngIf="!foncier.contrat.length" [routerLink]="['/contrat', foncier._id]"
+            class="btn btn-sm second-btn">Ajouter un contrat</a>
         </td>
 
         <td>
           <div class="btn-group" role="group">
-            <a
-              id="btnGroupDrop1"
-              class="btn"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
+            <a id="btnGroupDrop1" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
               <h4>
                 <i class="fal fa-ellipsis-v-alt"></i>
               </h4>
             </a>
-            <ul
-              class="dropdown-menu p-3 main-card border-0"
-              id="actions"
-              aria-labelledby="btnGroupDrop1"
-            >
+            <ul class="dropdown-menu p-3 main-card border-0" id="actions" aria-labelledby="btnGroupDrop1">
               <li>
                 <h5 class="main-title">Actions</h5>
                 <div class="d-flex">
@@ -245,11 +178,11 @@
                     class="btn btn-sm main-btn"
                     ><i class="fal fa-eye"></i
                   ></a>
-                  <a
+                  <a *ngIf="!isDC && !isDAJC"
                     class="btn btn-sm info-btn mx-2"
                     (click)="openModalAndPushFoncier(foncier)"
                     ><i class="far fa-edit"></i></a>
-                  <a
+                  <a *ngIf="!isCSLA && !isDAJC && !isDC"
                     class="btn btn-sm danger-btn"
                     (click)="openConfirmationModal(foncier)"
                     ><i class="fas fa-trash-alt"></i></a>
@@ -271,24 +204,13 @@
         </h3>
         <p class="mt-3">Êtes-vous sûr de vouloir supprimer ce local ?</p>
         <div class="d-inline-flex justify-content-start mt-5">
-          <a
-            class="btn btn-lg px-lg-4 danger-btn me-2"
-            (click)="deleteFoncier()"
-            >Oui</a
-          >
-          <a
-            class="btn btn-lg px-lg-4 main-btn"
-            (click)="closeConfirmationModal()"
-            >Non</a
-          >
+          <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)="deleteFoncier()">Oui</a>
+          <a class="btn btn-lg px-lg-4 main-btn" (click)="closeConfirmationModal()">Non</a>
         </div>
       </app-confirmation-modal>
     </tbody>
 
-    <tbody
-      *ngIf="!fonciers.length && !accessError"
-      class="w-100 d-flex align-items-center"
-    >
+    <tbody *ngIf="!fonciers.length && !accessError" class="w-100 d-flex align-items-center">
       <h5 class="main-muted-text my-4">Aucun local à afficher</h5>
       <a class="btn btn-sm second-btn ms-3" [routerLink]="['/foncier']">
         + Nouveau local
@@ -302,11 +224,7 @@
       </a>
     </tbody>
   </table>
-  <pagination-controls
-    id="listFoncierPagination"
-    (pageChange)="listFoncierPage = $event"
-    previousLabel="Précédent"
-    nextLabel="Suivant"
-  >
+  <pagination-controls id="listFoncierPagination" (pageChange)="listFoncierPage = $event" previousLabel="Précédent"
+    nextLabel="Suivant">
   </pagination-controls>
 </div>

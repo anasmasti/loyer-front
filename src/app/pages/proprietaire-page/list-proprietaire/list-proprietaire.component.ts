@@ -5,6 +5,10 @@ import { Proprietaire } from '../../../models/Proprietaire';
 import { Component, OnInit } from '@angular/core';
 import { ProprietaireService } from 'src/app/services/proprietaire-service/proprietaire.service';
 import { ContratService } from '@services/contrat-service/contrat.service';
+import { AuthService } from '@services/auth-service/auth.service';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.state';
+import { getUserType } from 'src/app/store/shared/shared.selector';
 
 @Component({
   selector: 'app-list-proprietaire',
@@ -35,18 +39,30 @@ export class ListProprietaireComponent implements OnInit {
 
   fonciers!: any;
 
+  isDC!: boolean;
+  isCDGSP!: boolean;
+  isCSLA!: boolean;
+  isDAJC!: boolean;
+
   constructor(
     private contratService: ContratService,
     private proprietaireService: ProprietaireService,
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
-    private helperService: HelperService
+    public authService: AuthService,
+    private helperService: HelperService,
+    private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
     setTimeout(() => {
       this.getAllFonciers();
     }, 1000); // Trow the fitching data
+
+    this.isDC = this.authService.checkUserRole('DC');
+    this.isCDGSP = this.authService.checkUserRole('CDGSP');
+    this.isCSLA = this.authService.checkUserRole('CSLA');
+    this.isDAJC = this.authService.checkUserRole('DAJC');
   }
 
   // ngOnChanges() {
@@ -180,5 +196,33 @@ export class ListProprietaireComponent implements OnInit {
   // Refrtech the page
   refrechPage() {
     this.helperService.refrechPage();
+  }
+
+  getUserRole() {
+    this.store.select(getUserType).subscribe((roles) => {
+      this.checkRole(roles);
+    });
+  }
+
+  checkRole(role: string[]) {
+    role.forEach((item) => {
+      switch (item) {
+        case 'DC':
+          this.isDC;
+          break;
+          case 'CDGSP':
+          this.isCDGSP;
+          break;
+          case 'CSLA':
+          this.isCSLA;
+          break;
+          case 'DAJC':
+          this.isDAJC;
+          break;
+
+        default:
+          break;
+      }
+    });
   }
 }
