@@ -1,14 +1,14 @@
 <div class="row mt-5">
-  <h5 class="main-title mb-3">Clôturer le mois</h5>
+  <h5 class="main-title mb-3">Clôture du mois</h5>
   <div *ngIf="showClotureSection"
-    class="main-card col-lg-8 col-md-9 col-sm-12 d-flex align-items-lg-center justify-content-lg-between flex-row p-4"
+    class="main-card col-lg-3 col-md-9 col-sm-12 d-flex align-items-lg-center justify-content-lg-center flex-row p-4"
     [ngClass]="{
         'success-light-card-bg success-txt': isCloture,
         'danger-light-card-bg danger-txt': !isCloture
       }">
-    <h4 *ngIf="!isCloture">Clôture du {{ today | date }}</h4>
-    <h4 *ngIf="isCloture">Le mois {{ today?.getMonth() | date }} clôturé</h4>
-    <a *ngIf="!isCloture" class="btn danger-btn" (click)="openConfirmationModal()">Clôturer ce mois</a>
+    <!-- <h4 *ngIf="!isCloture">Clôture du {{ today | date }}</h4> -->
+    <h4 *ngIf="isCloture">Le mois {{ today | date }} clôturé</h4>
+    <a *ngIf="!isCloture" class="btn danger-btn" (click)="openConfirmationModal()">Clôturer le mois {{ today?.getMonth() | date : 'MMMM' | titlecase }}</a>
   </div>
 
   <div *ngIf="!showClotureSection" class="cloture-skeleton"></div>
