@@ -2,10 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { saveAs } from 'file-saver';
-import { async } from '@angular/core/testing';
-import { HelperService } from '@services/helpers/helper.service';
 import dateClotureType from 'src/app/pages/cloture/date-cloture.type';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

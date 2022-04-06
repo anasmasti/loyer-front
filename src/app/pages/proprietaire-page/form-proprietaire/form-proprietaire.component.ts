@@ -701,8 +701,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       adresse: this.proprietaireForm.get('adresse')?.value,
       n_compte_bancaire: this.proprietaireForm.get('n_compte_bancaire')?.value,
       banque: this.proprietaireForm.get('banque')?.value,
-      nom_agence_bancaire: this.proprietaireForm.get('nom_agence_bancaire')
-        ?.value || '',
+      nom_agence_bancaire: this.proprietaireForm.get('nom_agence_bancaire')?.value || '',
       montant_loyer: this.montantLoyer,
       banque_rib: this.proprietaireForm.get('banque_rib')?.value,
       ville_rib: this.proprietaireForm.get('ville_rib')?.value,

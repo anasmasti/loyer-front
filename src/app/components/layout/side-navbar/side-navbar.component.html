@@ -52,7 +52,7 @@
                     </span>
                 </a>
                 <ul class="sub-menu list-unstyled" id="entite">
-                    <li>
+                    <li *ngIf="!isCmptbl">
                         <a [routerLink]="['/lieux']" class="nav-link sub-menu-btn">
                             Ajouter une entité organisationnelle
                         </a>
