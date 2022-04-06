@@ -154,11 +154,12 @@ export class ListProprietaireComponent implements OnInit {
       .deleteProprietaire(id, data, this.userMatricule)
       .subscribe(
         (_) => {
-          this.getAllFonciers(); // Trow the fitching data
+          // this.getAllFonciers(); // Trow the fitching data
           this.closeDeleteConfirmationModal();
           this.deleteDone = true;
           setTimeout(() => {
             this.deleteDone = false;
+            this.helperService.refrechPage()
           }, 3000);
         },
         (error) => {
