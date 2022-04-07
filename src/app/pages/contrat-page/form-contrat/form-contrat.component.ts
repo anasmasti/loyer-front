@@ -132,8 +132,8 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   // Motif
   motif: any[] = [];
   user: any = localStorage.getItem('user')
-  ? JSON.parse(localStorage.getItem('user') || '')
-  : [];
+    ? JSON.parse(localStorage.getItem('user') || '')
+    : [];
   userRoles: any[] = [];
 
   constructor(
@@ -178,7 +178,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
         }
       }
     }
-    
+
     // this.selectedEtatContrat = 'Avenant'
     this.contratForm = new FormGroup({
       numero_contrat: new FormControl(''),
@@ -558,7 +558,8 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   addNewContrat() {
     let ctr_data: any = {
       numero_contrat: this.num_contrat,
-      date_debut_loyer: this.contratForm.get('date_debut_loyer')?.value || '',
+      // date_debut_loyer: this.contratForm.get('date_debut_loyer')?.value || '',
+      date_debut_loyer: this.date_debut_loyer_ || '',
       // piece_jointe: this.contratForm.get('piece_jointe')?.value || '',
       montant_loyer: this.contratForm.get('montant_loyer')?.value || '',
       taxe_edilite_loyer:
@@ -731,6 +732,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
         // etat_contrat_lettre_res_piece_jointe: this.contrat.etat_contrat?.etat?.lettre_res_piece_jointe,
         // etat_contrat_piece_jointe_avenant: this.contrat.etat_contrat?.etat?.piece_jointe_avenant,
       });
+      this.date_debut_loyer_ = this.contrat.date_debut_loyer;
       this.deletedProprietaires = [];
       this.proprietaires = this.contrat.foncier.proprietaire;
       // this.contrat.numero_contrat
@@ -752,7 +754,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
 
     let ctr_data: any = {
       numero_contrat: this.contratForm.get('numero_contrat')?.value || '',
-      date_debut_loyer: this.contratForm.get('date_debut_loyer')?.value || '',
+      date_debut_loyer: this.date_debut_loyer_ || '',
       montant_loyer: this.contratForm.get('montant_loyer')?.value || '',
       taxe_edilite_loyer:
         this.contratForm.get('taxe_edilite_comprise_loyer')?.value || '',
