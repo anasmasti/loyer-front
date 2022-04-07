@@ -114,7 +114,7 @@ export class ListProprietaireComponent implements OnInit {
         if (!lieu.deleted) {
           foncier?.proprietaire.forEach((proprietaire: any) => {
             proprietaire.numero_contrat = foncier?.contrat?.numero_contrat || '--';
-            proprietaire.intitule_lieu = lieu.lieu.intitule_lieu || '--';
+            proprietaire.intitule_lieu = lieu?.lieu?.intitule_lieu || '--';
             proprietaire.type_lieu = foncier.type_lieu || '--';
             this.proprietaires.push(proprietaire);
           });

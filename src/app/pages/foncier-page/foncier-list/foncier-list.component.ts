@@ -82,8 +82,6 @@ export class FoncierListComponent implements OnInit {
   
         }
         this.fonciers = data;
-        console.log(data);
-        
       });
   }
 
