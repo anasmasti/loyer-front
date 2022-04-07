@@ -22,7 +22,8 @@
 }
 
 .modal-content{
-overflow-y: auto;
+ overflow-y: auto;
+ min-width: 50%;
 }
 
 .modal-content::-webkit-scrollbar-track {

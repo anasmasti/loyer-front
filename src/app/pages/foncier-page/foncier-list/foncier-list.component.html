@@ -183,15 +183,15 @@
                 <div class="d-flex">
                   <a
                     [routerLink]="['list', foncier._id]"
-                    class="btn btn-sm main-btn"
+                    class="btn btn-sm main-btn me-2"
                     ><i class="fal fa-eye"></i
                   ></a>
-                  <a *ngIf="!isDC && !isDAJC"
-                    class="btn btn-sm info-btn mx-2"
+                  <a *ngIf="!isDC && !isDAJC && foncier?.contrat[0]?.validation2_DAJC"
+                    class="btn btn-sm info-btn me-2"
                     (click)="openModalAndPushFoncier(foncier)"
                     ><i class="far fa-edit"></i></a>
                   <a *ngIf="!isCSLA && !isDAJC && !isDC"
-                    class="btn btn-sm danger-btn"
+                    class="btn btn-sm danger-btn me-2"
                     (click)="openConfirmationModal(foncier)"
                     ><i class="fas fa-trash-alt"></i></a>
                 </div>
