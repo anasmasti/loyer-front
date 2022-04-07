@@ -190,7 +190,7 @@
                     class="btn btn-sm info-btn me-2"
                     (click)="openModalAndPushFoncier(foncier)"
                     ><i class="far fa-edit"></i></a>
-                  <a *ngIf="!isCSLA && !isDAJC && !isDC"
+                  <a *ngIf="!isCSLA && !isDAJC && !isDC  && foncier?.contrat[0]?.etat_contrat.etat.libelle" 
                     class="btn btn-sm danger-btn me-2"
                     (click)="openConfirmationModal(foncier)"
                     ><i class="fas fa-trash-alt"></i></a>
