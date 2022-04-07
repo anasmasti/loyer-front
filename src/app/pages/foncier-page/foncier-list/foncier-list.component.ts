@@ -79,7 +79,7 @@ export class FoncierListComponent implements OnInit {
         if (data.length === 0) {
           // Dispatch action to handle the NgRx get foncier from server effect
           this.store.dispatch(getFoncierAction());
-          
+  
         }
         this.fonciers = data;
         console.log(data);
