@@ -176,7 +176,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     });
 
     if (!this.update) {
-      this.proprietaireForm.reset();
+      // this.proprietaireForm.reset();
       this.foncier_id = this.actRoute.snapshot.paramMap.get('id_foncier') || '';
       this.callGetContratAndLieuMethods();
     }
@@ -735,7 +735,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         (_) => {
           this.postDone = true;
           setTimeout(() => {
-            this.proprietaireForm.reset();
+            //this.proprietaireForm.reset();
             this.postDone = false;
             this.help.toTheUp();
             this.router.navigate(['/foncier/list']).then(() => {

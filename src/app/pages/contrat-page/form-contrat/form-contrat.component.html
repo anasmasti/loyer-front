@@ -104,9 +104,9 @@
           <label for=""
             >Date de début du loyer <span class="danger-txt">*</span></label
           >
+          <!-- [(ngModel)]="date_debut_loyer_" -->
           <input
             type="date"
-            [(ngModel)]="date_debut_loyer_"
             class="form-control rounded-pill"
             (change)="reinitialiserDateDebut()"
             formControlName="date_debut_loyer"
