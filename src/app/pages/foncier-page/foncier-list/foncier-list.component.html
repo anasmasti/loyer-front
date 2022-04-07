@@ -66,8 +66,10 @@
         <th>Code d'entité</th>
         <th>Intitulé</th>
         <th>Code DR</th>
+        <th>Intitulé DR</th>
         <th>Code SUP</th>
-        <th>Aménagement</th>
+        <th>Intitulé SUP</th>
+        <!-- <th>Aménagement</th> -->
         <th>Propriétaires</th>
         <th>Contrat</th>
         <th>Actions</th>
@@ -105,8 +107,10 @@
         </td>
 
         <td>{{ foncier.lieu[0].lieu[0]?.attached_DR[0]?.code_lieu || '--' }}</td>
+        <td>{{ foncier.lieu[0].lieu[0]?.attached_DR[0]?.intitule_lieu || '--' }}</td>
         <td>{{ foncier.lieu[0].lieu[0]?.attached_SUP[0]?.code_lieu || '--' }}</td>
-        <td>
+        <td>{{ foncier.lieu[0].lieu[0]?.attached_SUP[0]?.intitule_lieu || '--' }}</td>
+        <!-- <td>
           <div class="d-grid">
             <span class="p-1" [ngClass]="{
                 'success-txt': foncier.has_amenagements,
@@ -115,7 +119,7 @@
               {{ checkAndPutText(foncier?.has_amenagements) }}
             </span>
           </div>
-        </td>
+        </td> -->
 
         <td>
           <div *ngIf="foncier.contrat">
