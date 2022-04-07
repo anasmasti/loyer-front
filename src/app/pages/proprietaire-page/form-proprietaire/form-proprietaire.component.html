@@ -35,7 +35,7 @@
         />
         <!-- formControlName="is_person_physique" -->
         <!-- [value]="true"
-          [(ngModel)]="isPersonPhysique" -->
+          [(ngModel)]="personPhysique" -->
         <label
           class="px-3 py-1 rounded-pill checkbox-list-btns text-center w-100"
           for="pres-physique"
@@ -56,7 +56,7 @@
         />
         <!-- formControlName="is_person_physique" -->
         <!-- [value]="false"
-          [(ngModel)]="isPersonPhysique" -->
+          [(ngModel)]="personPhysique" -->
         <label
           class="px-3 py-1 rounded-pill checkbox-list-btns text-center w-100"
           for="pres-morale"
@@ -69,106 +69,102 @@
       <!--Début 1er Row-->
       <div class="row">
         <!-- If isMand true show list of proprietaire to checked -->
-        <div *ngIf="isPersonPhysique; then PersonPhysique"></div>
-        <div *ngIf="!isPersonPhysique; then PersonMoral"></div>
+        <div *ngIf="personPhysique; then PersonPhysique"></div>
+        <div *ngIf="!personPhysique; then PersonMoral"></div>
 
         <ng-template #PersonPhysique>
-          <form [formGroup]="proprietairePhysiqueForm">
-            <div class="col-lg-3 form-group mt-4" *ngIf="isPersonPhysique">
-              <label for=""
-                >Nom et prénom <span class="danger-txt">*</span></label
+          <div class="col-lg-3 form-group mt-4" *ngIf="personPhysique">
+            <label for=""
+              >Nom et prénom <span class="danger-txt">*</span></label
+            >
+            <input
+              type="text"
+              class="form-control rounded-pill"
+              formControlName="nom_prenom"
+              [ngClass]="{
+                'is-invalid': checkInputsValidation(nom_prenom)
+              }"
+            />
+            <!-- Error Message  -->
+            <div class="" *ngIf="checkInputsValidation(nom_prenom)">
+              <p
+                class="danger-txt"
+                *ngIf="nom_prenom?.errors?.requiredWhenIsPhysique"
               >
-              <input
-                type="text"
-                class="form-control rounded-pill"
-                formControlName="nom_prenom"
-                [ngClass]="{
-                  'is-invalid': checkInputsValidation(nom_prenom)
-                }"
-              />
-              <!-- Error Message  -->
-              <div class="" *ngIf="checkInputsValidation(nom_prenom)">
-                <p
-                  class="danger-txt"
-                  *ngIf="nom_prenom?.errors?.required"
-                >
-                  Veuillez remplir ce champ
-                </p>
-                <p class="danger-txt" *ngIf="nom_prenom?.errors?.minlength">
-                  Vous devez entrer 6 caractères au moin
-                </p>
-                <p class="danger-txt" *ngIf="nom_prenom?.errors?.pattern">
-                  Vous devez entrer seulement des alphabets
-                </p>
-              </div>
+                Veuillez remplir ce champ
+              </p>
+              <p class="danger-txt" *ngIf="nom_prenom?.errors?.minlength">
+                Vous devez entrer 6 caractères au moin
+              </p>
+              <p class="danger-txt" *ngIf="nom_prenom?.errors?.pattern">
+                Vous devez entrer seulement des alphabets
+              </p>
             </div>
-  
-            <div class="col-lg-3 form-group mt-4" *ngIf="isPersonPhysique">
-              <label for="">N° CIN <span class="danger-txt">*</span></label>
-              <input
-                type="text"
-                class="form-control rounded-pill"
-                formControlName="cin"
-                [ngClass]="{
-                  'is-invalid': checkInputsValidation(cin)
-                }"
-              />
-              <!-- Error Message  -->
-              <div class="" *ngIf="checkInputsValidation(cin)">
-                <p class="danger-txt" *ngIf="cin?.errors?.required">
-                  Veuillez remplir ce champ
-                </p>
-                <p class="danger-txt" *ngIf="cin?.errors?.maxlength">
-                  Ce champ ne doit pas dépasser 8 caractères
-                </p>
-                <p class="danger-txt" *ngIf="cin?.errors?.required">
-                  Veuillez remplir ce champ
-                </p>
-              </div>
+          </div>
+
+          <div class="col-lg-3 form-group mt-4" *ngIf="personPhysique">
+            <label for="">N° CIN <span class="danger-txt">*</span></label>
+            <input
+              type="text"
+              class="form-control rounded-pill"
+              formControlName="cin"
+              [ngClass]="{
+                'is-invalid': checkInputsValidation(cin)
+              }"
+            />
+            <!-- Error Message  -->
+            <div class="" *ngIf="checkInputsValidation(cin)">
+              <p class="danger-txt" *ngIf="cin?.errors?.requiredWhenIsPhysique">
+                Veuillez remplir ce champ
+              </p>
+              <p class="danger-txt" *ngIf="cin?.errors?.maxlength">
+                Ce champ ne doit pas dépasser 8 caractères
+              </p>
+              <p class="danger-txt" *ngIf="cin?.errors?.required">
+                Veuillez remplir ce champ
+              </p>
             </div>
-  
-            <div class="col-lg-3 form-group mt-4" *ngIf="isPersonPhysique">
-              <label for="">Passeport Propriétaire</label>
-              <input
-                type="text"
-                class="form-control rounded-pill"
-                formControlName="passport"
-                [ngClass]="{
-                  'is-invalid': checkInputsValidation(passport)
-                }"
-              />
-              <!-- Error Message  -->
-              <div class="" *ngIf="checkInputsValidation(passport)">
-                <p class="danger-txt" *ngIf="passport?.errors?.maxlength">
-                  Ce champ ne doit pas dépasser 8 caractères
-                </p>
-              </div>
+          </div>
+
+          <div class="col-lg-3 form-group mt-4" *ngIf="personPhysique">
+            <label for="">Passeport Propriétaire</label>
+            <input
+              type="text"
+              class="form-control rounded-pill"
+              formControlName="passport"
+              [ngClass]="{
+                'is-invalid': checkInputsValidation(passport)
+              }"
+            />
+            <!-- Error Message  -->
+            <div class="" *ngIf="checkInputsValidation(passport)">
+              <p class="danger-txt" *ngIf="passport?.errors?.maxlength">
+                Ce champ ne doit pas dépasser 8 caractères
+              </p>
             </div>
-  
-            <div class="col-lg-3 form-group mt-4" *ngIf="isPersonPhysique">
-              <label for="">Carte séjour Propriétaire</label>
-              <input
-                type="text"
-                class="form-control rounded-pill"
-                formControlName="carte_sejour"
-                [ngClass]="{
-                  'is-invalid': checkInputsValidation(carte_sejour)
-                }"
-              />
-              <!-- Error Message  -->
-              <div class="" *ngIf="checkInputsValidation(carte_sejour)">
-                <p class="danger-txt" *ngIf="carte_sejour?.errors?.maxlength">
-                  Ce champ ne doit pas dépasser 8 caractères
-                </p>
-              </div>
+          </div>
+
+          <div class="col-lg-3 form-group mt-4" *ngIf="personPhysique">
+            <label for="">Carte séjour Propriétaire</label>
+            <input
+              type="text"
+              class="form-control rounded-pill"
+              formControlName="carte_sejour"
+              [ngClass]="{
+                'is-invalid': checkInputsValidation(carte_sejour)
+              }"
+            />
+            <!-- Error Message  -->
+            <div class="" *ngIf="checkInputsValidation(carte_sejour)">
+              <p class="danger-txt" *ngIf="carte_sejour?.errors?.maxlength">
+                Ce champ ne doit pas dépasser 8 caractères
+              </p>
             </div>
-          </form>
-          
+          </div>
         </ng-template>
 
         <ng-template #PersonMoral>
-         <form [formGroup]="proprietaireMoralForm">
-          <div class="col-lg-3 form-group mt-4" *ngIf="!isPersonPhysique">
+          <div class="col-lg-3 form-group mt-4" *ngIf="!personPhysique">
             <label for=""
               >Raison sociale <span class="danger-txt">*</span></label
             >
@@ -185,16 +181,16 @@
             <div class="" *ngIf="checkInputsValidation(raison_social)">
               <p
                 class="danger-txt"
-                *ngIf="raison_social?.errors?.required"
+                *ngIf="raison_social?.errors?.requiredWhenIsMoral"
               >
                 Veuillez remplir ce champ
               </p>
-              <!-- <p class="danger-txt" *ngIf="raison_social?.errors?.pattern">
+              <p class="danger-txt" *ngIf="raison_social?.errors?.pattern">
                 Vous devez entrer seulement des alphabets
-              </p> -->
+              </p>
             </div>
           </div>
-          <div class="col-lg-3 form-group mt-4" *ngIf="!isPersonPhysique">
+          <div class="col-lg-3 form-group mt-4" *ngIf="!personPhysique">
             <label for=""
               >N° de l’Identifiant Fiscal
               <span class="danger-txt">*</span></label
@@ -212,7 +208,7 @@
             <div class="" *ngIf="checkInputsValidation(n_registre_commerce)">
               <p
                 class="danger-txt"
-                *ngIf="n_registre_commerce?.errors?.required"
+                *ngIf="n_registre_commerce?.errors?.requiredWhenIsMoral"
               >
                 Veuillez remplir ce champ
               </p>
@@ -224,7 +220,6 @@
               </p>
             </div>
           </div>
-         </form>
         </ng-template>
 
         <div class="col-lg-3 form-group mt-4">
