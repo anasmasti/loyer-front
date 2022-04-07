@@ -160,7 +160,7 @@
         <td>{{ contrat.numero_contrat }}</td>
         <!-- <td>{{ contrat.montant_loyer | currency: "MAD" }}</td> -->
         <td>{{ contrat.montant_loyer }}</td>
-        <td>{{ contrat.date_debut_loyer | date }}</td>
+        <td>{{ contrat.date_debut_loyer | date: 'dd/MM/yyyy' }}</td>
         <!-- <td>{{ contrat.date_fin_contrat | date }}</td> -->
         <td
           [ngClass]="{
