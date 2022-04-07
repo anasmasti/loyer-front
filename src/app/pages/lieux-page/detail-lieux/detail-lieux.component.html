@@ -75,17 +75,17 @@
         <div class="row">
             <div class="col-lg-6" *ngIf="lieu?.type_lieu === 'Point de vente' || lieu?.type_lieu === 'Logement de fonction' || lieu?.type_lieu === 'Supervision'">
                 <h5 class="main-txt">Code direction régionale</h5>
-                <p>{{ lieu?.attached_DR.code_lieu !== '' ? lieu?.attached_DR.code_lieu : '--'}}</p>
+                <p>{{ lieu?.attached_DR?.code_lieu !== ('' || null) ? lieu?.attached_DR?.code_lieu : '--'}}</p>
             </div>
             <div class="col-lg-6" *ngIf="lieu?.type_lieu === 'Point de vente'">
                 <h5 class="main-txt">Code Supervision</h5>
-                <p>{{ lieu?.attached_SUP.code_lieu !== '' ? lieu?.attached_SUP.code_lieu : '--'}}</p>
+                <p>{{ lieu?.attached_SUP?.code_lieu !== '' ? lieu?.attached_SUP?.code_lieu : '--'}}</p>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-6" *ngIf="lieu?.type_lieu === 'Point de vente'">
                 <h5 class="main-txt">Intitulé supervision du point de vente</h5>
-                <p>{{ lieu?.attached_SUP.intitule_lieu !== '' ? lieu?.attached_SUP.intitule_lieu : '--'}}</p>
+                <p>{{ lieu?.attached_SUP?.intitule_lieu !== '' ? lieu?.attached_SUP?.intitule_lieu : '--'}}</p>
             </div>
            
         </div>

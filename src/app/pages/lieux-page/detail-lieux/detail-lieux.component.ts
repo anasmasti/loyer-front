@@ -29,6 +29,8 @@ export class DetailLieuxComponent implements OnInit {
       .getLieuById(id, this.userMatricule)
       .subscribe((data: Lieu) => {
         this.lieu = data;
+        console.log(data);
+        
       });
   }
 
