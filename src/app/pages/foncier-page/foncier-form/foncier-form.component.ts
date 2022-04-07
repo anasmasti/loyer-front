@@ -636,7 +636,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
     };
 
     this.fd.append('data', JSON.stringify(foncier));
-
+    
     this.foncierService
       .updateFoncier(id, this.fd, this.userMatricule)
       .subscribe(
@@ -746,13 +746,13 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   // Foncier Lieu is the Array that has All this foncier's lieux , that's gonna be stored in the DB
-  pushIntoFoncierLieux(lieu: any) {
+  pushIntoFoncierLieux(lieu: any) {    
     if (lieu != null) {
       this.foncierLieux.push({
         deleted: lieu.deleted,
         // transferer: lieu.transferer,
         etat_lieu: lieu.etat_lieu,
-        lieu: lieu.lieu._id,
+        lieu: lieu.lieu[0]._id,
       });
     }
   }
