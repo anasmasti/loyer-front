@@ -28,6 +28,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   mandataireList: any = [];
   updateDone: boolean = false;
   proprietaireForm!: FormGroup;
+  proprietairePhysiqueForm!: FormGroup;
+  proprietaireMoralForm!: FormGroup;
 
   userMatricule: any = localStorage.getItem('matricule');
 
@@ -80,8 +82,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   ];
 
   // Proprietaire type
-  personPhysique!: boolean;
-  type_proprietaire!: string;
+  isPersonPhysique: boolean = true;
+  typeProprietaire!: string;
   proprTypeCheck: boolean = false;
   constructor(
     private proprietaireService: ProprietaireService,
@@ -91,36 +93,25 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     private help: HelperService,
     private lieuService: LieuxService,
     private confirmationModalService: ConfirmationModalService
-  ) {}
-
-  ngOnChanges() {
-    if (this.proprietaire != '') {
-      this.fetchProprietaire();
-    }
-  }
-
-  ngOnInit(): void {
-    this.proprietaireForm = new FormGroup({
-      // Champs du propriètaire
-      cin: new FormControl('', [
-        Validators.maxLength(8),
-        checkProprietairePhysique(this.personPhysique),
-      ]),
+  ) {
+    this.proprietairePhysiqueForm = new FormGroup({
+      cin: new FormControl('', [Validators.maxLength(8),Validators.required]),
       passport: new FormControl('', [Validators.maxLength(8)]),
       carte_sejour: new FormControl('', [Validators.maxLength(8)]),
       nom_prenom: new FormControl('', [
+        Validators.required,
         Validators.minLength(6),
         Validators.pattern('[a-zA-Z ]*'),
-        checkProprietairePhysique(this.personPhysique),
       ]),
-      raison_social: new FormControl('', [
-        checkProprietaireMoral(!this.personPhysique),
-        Validators.pattern('[a-zA-Z ]*'),
-      ]),
-      n_registre_commerce: new FormControl('', [
-        checkProprietaireMoral(!this.personPhysique),
-        Validators.pattern('[0-9]*'),
-      ]),
+    });
+
+    this.proprietaireMoralForm = new FormGroup({
+      raison_social: new FormControl('', [Validators.required]),
+      n_registre_commerce: new FormControl('', [Validators.pattern('[0-9]*'),Validators.required]),
+    });
+
+    this.proprietaireForm = new FormGroup({
+      // Champs du propriètaire
       telephone: new FormControl('', [
         Validators.pattern('[0-9]*'),
         Validators.maxLength(10),
@@ -135,21 +126,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         Validators.pattern('[0-9]{24}'),
         Validators.maxLength(24),
       ]),
-      // banque_rib: new FormControl('', [
-      //   Validators.required,
-      //   Validators.pattern('[0-9]{3}'),
-      //   Validators.maxLength(3),
-      // ]),
-      // ville_rib: new FormControl('', [
-      //   Validators.required,
-      //   Validators.pattern('[0-9]{3}'),
-      //   Validators.maxLength(3),
-      // ]),
-      // cle_rib: new FormControl('', [
-      //   Validators.required,
-      //   Validators.pattern('[0-9]{2}'),
-      //   Validators.maxLength(2),
-      // ]),
       banque: new FormControl('', [Validators.required]),
       nom_agence_bancaire: new FormControl(''),
       montant_loyer: new FormControl('', [Validators.pattern('[0-9]*')]),
@@ -170,13 +146,30 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       new_proprietaire_list: new FormControl(),
       old_proprietaires_list: new FormControl(),
       is_person_physique: new FormControl(''),
-
-      // Champs du mandataire
-      // mandataireForm: new FormArray([]),
     });
+  }
+
+  ngOnChanges() {
+    if (this.proprietaire != '') {
+      this.fetchProprietaire();
+    }
+
+  
+  }
+
+  ngOnInit(): void {
+    // this.proprietaireForm.valueChanges.subscribe((val) => { 
+     
+    //   this.proprietaireForm.setValidators([
+    //     checkProprietairePhysique(this.isPersonPhysique),
+    //     checkProprietaireMoral(this.isPersonPhysique),
+    //   ]);
+    // });
+
+ 
 
     if (!this.update) {
-      this.proprietaireForm.reset();
+      // this.proprietaireForm.reset();
       this.foncier_id = this.actRoute.snapshot.paramMap.get('id_foncier') || '';
       this.callGetContratAndLieuMethods();
     }
@@ -284,14 +277,19 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     //   }
     // } else {
     // this.isMand = false;
-
-    this.proprietaireForm.patchValue({
+    this.proprietairePhysiqueForm.patchValue({
       cin: this.proprietaire.cin,
       passport: this.proprietaire.passport,
       carte_sejour: this.proprietaire.carte_sejour,
       nom_prenom: this.proprietaire.nom_prenom,
+    });
+
+    this.proprietaireMoralForm.patchValue({
       raison_social: this.proprietaire.raison_social,
       n_registre_commerce: this.proprietaire.n_registre_commerce,
+    });
+
+    this.proprietaireForm.patchValue({
       telephone: this.proprietaire.telephone,
       fax: this.proprietaire.fax,
       adresse: this.proprietaire.adresse,
@@ -689,19 +687,20 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   addProprietaire() {
     let proprietaire_data: any = {
       // _id: this.proprietaireForm.get('_id').value ,
-      cin: this.proprietaireForm.get('cin')?.value || '',
-      passport: this.proprietaireForm.get('passport')?.value || '',
-      carte_sejour: this.proprietaireForm.get('carte_sejour')?.value || '',
-      nom_prenom: this.proprietaireForm.get('nom_prenom')?.value,
-      raison_social: this.proprietaireForm.get('raison_social')?.value,
+      cin: this.proprietairePhysiqueForm.get('cin')?.value || '',
+      passport: this.proprietairePhysiqueForm.get('passport')?.value || '',
+      carte_sejour: this.proprietairePhysiqueForm.get('carte_sejour')?.value || '',
+      nom_prenom: this.proprietairePhysiqueForm.get('nom_prenom')?.value,
+      raison_social: this.proprietaireMoralForm.get('raison_social')?.value,
       n_registre_commerce:
-        this.proprietaireForm.get('n_registre_commerce')?.value || '',
+        this.proprietaireMoralForm.get('n_registre_commerce')?.value || '',
       telephone: this.proprietaireForm.get('telephone')?.value || '',
       fax: this.proprietaireForm.get('fax')?.value,
       adresse: this.proprietaireForm.get('adresse')?.value,
       n_compte_bancaire: this.proprietaireForm.get('n_compte_bancaire')?.value,
       banque: this.proprietaireForm.get('banque')?.value,
-      nom_agence_bancaire: this.proprietaireForm.get('nom_agence_bancaire')?.value || '',
+      nom_agence_bancaire:
+        this.proprietaireForm.get('nom_agence_bancaire')?.value || '',
       montant_loyer: this.montantLoyer,
       banque_rib: this.proprietaireForm.get('banque_rib')?.value,
       ville_rib: this.proprietaireForm.get('ville_rib')?.value,
@@ -724,7 +723,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         this.proprietaireForm.get('is_person_physique')?.value,
 
       proprietaire_list: this.newProprietairesList,
-      type_proprietaire: this.type_proprietaire,
+      type_proprietaire: this.typeProprietaire,
       // mandataire: this.proprietaireForm.get('mandataireForm')?.value,
       // deleted:false,
     };
@@ -735,7 +734,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         (_) => {
           this.postDone = true;
           setTimeout(() => {
-            this.proprietaireForm.reset();
+            // this.proprietaireForm.reset();
             this.postDone = false;
             this.help.toTheUp();
             this.router.navigate(['/foncier/list']).then(() => {
@@ -765,13 +764,13 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
     let proprietaireData: any = {
       // _id: this.proprietaireForm.get('_id').value ,
-      cin: this.proprietaireForm.get('cin')?.value || '',
-      passport: this.proprietaireForm.get('passport')?.value || '',
-      carte_sejour: this.proprietaireForm.get('carte_sejour')?.value || '',
-      nom_prenom: this.proprietaireForm.get('nom_prenom')?.value || '',
-      raison_social: this.proprietaireForm.get('raison_social')?.value || '',
+      cin: this.proprietairePhysiqueForm.get('cin')?.value || '',
+      passport: this.proprietairePhysiqueForm.get('passport')?.value || '',
+      carte_sejour: this.proprietairePhysiqueForm.get('carte_sejour')?.value || '',
+      nom_prenom: this.proprietairePhysiqueForm.get('nom_prenom')?.value || '',
+      raison_social: this.proprietaireMoralForm.get('raison_social')?.value || '',
       n_registre_commerce:
-        this.proprietaireForm.get('n_registre_commerce')?.value || '',
+        this.proprietaireMoralForm.get('n_registre_commerce')?.value || '',
       telephone: this.proprietaireForm.get('telephone')?.value || '',
       fax: this.proprietaireForm.get('fax')?.value || '',
       adresse: this.proprietaireForm.get('adresse')?.value,
@@ -801,7 +800,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         this.proprietaireForm.get('is_person_physique')?.value,
       proprietaire_list: this.newProprietairesList,
       old_proprietaires_list: this.oldProprietairesList,
-      type_proprietaire: this.type_proprietaire,
+      type_proprietaire: this.typeProprietaire,
     };
 
     this.proprietaireService
@@ -863,32 +862,35 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
 
   proprietaireTypeToggel(value: string) {
-    if (value === 'Personne physique') this.personPhysique = true;
-    else this.personPhysique = false;
+    if (value === 'Personne physique') this.isPersonPhysique = true;
+    if (value === 'Personne morale') this.isPersonPhysique = false;
+    console.log('inside function', this.isPersonPhysique);
+
+    // else this.personPhysique = false;
 
     this.proprTypeCheck = true;
-    this.proprietaireForm.reset();
-    this.type_proprietaire = value;
+    // this.proprietaireForm.reset();
+    this.typeProprietaire = value;
   }
 
   // Get proprietaire form controlers
   get cin() {
-    return this.proprietaireForm.get('cin');
+    return this.proprietairePhysiqueForm.get('cin');
   }
   get passport() {
-    return this.proprietaireForm.get('passport');
+    return this.proprietairePhysiqueForm.get('passport');
   }
   get carte_sejour() {
-    return this.proprietaireForm.get('carte_sejour');
+    return this.proprietairePhysiqueForm.get('carte_sejour');
   }
   get nom_prenom() {
-    return this.proprietaireForm.get('nom_prenom');
+    return this.proprietairePhysiqueForm.get('nom_prenom');
   }
   get raison_social() {
-    return this.proprietaireForm.get('raison_social');
+    return this.proprietaireMoralForm.get('raison_social');
   }
   get n_registre_commerce() {
-    return this.proprietaireForm.get('n_registre_commerce');
+    return this.proprietaireMoralForm.get('n_registre_commerce');
   }
   get telephone() {
     return this.proprietaireForm.get('telephone');
