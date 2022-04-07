@@ -132,15 +132,18 @@
                 }}
                 propriétaire<span *ngIf="foncier.proprietaire.length > 1">s</span>
               </span>
-              <span class="mx-1 text-secondary"> • </span>
-              <a [routerLink]="['/proprietaire', foncier._id]" class="short-link success-txt">
-                Ajouter un autre</a>
+              <ng-container *ngIf="!isDC && !isDAJC">
+                <span class="mx-1 text-secondary"> • </span>
+                <a  [routerLink]="['/proprietaire', foncier._id]" class="short-link success-txt">
+                  Ajouter un autre</a>
+              </ng-container>
             </div>
 
-            <button *ngIf="!foncier.proprietaire.length" [routerLink]="['/proprietaire', foncier._id]"
+            <button *ngIf="!foncier.proprietaire.length && !isDC && !isDAJC" [routerLink]="['/proprietaire', foncier._id]"
               class="btn btn-sm second-btn" [disabled]="!foncier.contrat.length" type="button">
               Ajouter un propriétaire
             </button>
+            <span *ngIf="!foncier.proprietaire.length && isDC && isDAJC">--</span>
           </div>
           <!-- <p *ngIf="!foncier.contrat" class="danger-txt">
             Vous devez créer un contrat avant d'ajouter un proprietaire
@@ -162,8 +165,9 @@
               }}&nbsp; {{foncier?.contrat[0]?.etat_contrat?.libelle}}
             </p>
           </ng-container>
-          <a *ngIf="!foncier.contrat.length" [routerLink]="['/contrat', foncier._id]"
+          <a *ngIf="!foncier.contrat.length && !isDC && !isDAJC" [routerLink]="['/contrat', foncier._id]"
             class="btn btn-sm second-btn">Ajouter un contrat</a>
+            <span *ngIf="!foncier.contrat.length && isDC && isDAJC">--</span>
         </td>
 
         <td>
