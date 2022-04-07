@@ -779,7 +779,7 @@
         class="btn second-btn form-control"
         (click)="scrollToTop()"
         *ngIf="proprietaire === ''"
-        [disabled]="proprietaireForm.invalid"
+        [disabled]="proprietaireForm.status == 'INVALID'"
       >
         Ajouter
       </button>
