@@ -6,10 +6,7 @@ import { ProprietaireService } from 'src/app/services/proprietaire-service/propr
 import { ActivatedRoute, Router } from '@angular/router';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
-import {
-  checkProprietaireMoral,
-  checkProprietairePhysique,
-} from '../proprietaire.validator';
+import { PropValidator } from './proprietaire-valodators.service';
 
 @Component({
   selector: 'app-form-proprietaire',
@@ -83,7 +80,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   personPhysique!: boolean;
   type_proprietaire!: string;
   proprTypeCheck: boolean = false;
-  
+
   constructor(
     private proprietaireService: ProprietaireService,
     private mainModalService: MainModalService,
@@ -95,21 +92,12 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   ) {
     this.proprietaireForm = new FormGroup({
       // Champs du propriètaire
-      cin: new FormControl('', [
-        Validators.maxLength(8),
-      ]),
+      cin: new FormControl(''),
       passport: new FormControl('', [Validators.maxLength(8)]),
       carte_sejour: new FormControl('', [Validators.maxLength(8)]),
-      nom_prenom: new FormControl('', [
-        Validators.minLength(6),
-        Validators.pattern('[a-zA-Z ]*')
-      ]),
-      raison_social: new FormControl('', [
-        Validators.pattern('[a-zA-Z ]*'),
-      ]),
-      n_registre_commerce: new FormControl('', [
-        Validators.pattern('[0-9]*'),
-      ]),
+      nom_prenom: new FormControl(''),
+      raison_social: new FormControl(''),
+      n_registre_commerce: new FormControl(''),
       telephone: new FormControl('', [
         Validators.pattern('[0-9]*'),
         Validators.maxLength(10),
@@ -151,32 +139,61 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     if (this.proprietaire != '') {
       this.fetchProprietaire();
     }
-    
+
     this.proprietaireForm.get('cin')?.valueChanges.subscribe((_) => {
+      this.proprietaireForm.get('cin')?.clearValidators();
       this.proprietaireForm
         .get('cin')
-        ?.setValidators(checkProprietairePhysique(this.personPhysique));
+        ?.setValidators(
+          PropValidator.runInOrder([
+            Validators.maxLength(8),
+            PropValidator.checkProprietairePhysique(this.personPhysique),
+          ])
+        );
     });
+
     this.proprietaireForm.get('nom_prenom')?.valueChanges.subscribe((_) => {
+      this.proprietaireForm.get('nom_prenom')?.clearValidators();
       this.proprietaireForm
         .get('nom_prenom')
-        ?.setValidators(checkProprietairePhysique(this.personPhysique));
+        ?.setValidators(
+          PropValidator.runInOrder([
+            Validators.minLength(6),
+            Validators.pattern('[a-zA-Z ]*'),
+            PropValidator.checkProprietairePhysique(this.personPhysique),
+          ])
+        );
     });
+
     this.proprietaireForm.get('raison_social')?.valueChanges.subscribe((_) => {
-      console.log(this.proprietaireForm);
-       
+      this.proprietaireForm.get('raison_social')?.clearValidators();
       this.proprietaireForm
         .get('raison_social')
-        ?.setValidators(checkProprietaireMoral(this.personPhysique));
+        ?.setValidators(
+          PropValidator.runInOrder([
+            Validators.pattern('[a-zA-Z ]*'),
+            PropValidator.checkProprietaireMoral(this.personPhysique),
+          ])
+        );
     });
-    this.proprietaireForm.get('n_registre_commerce')?.valueChanges.subscribe((_) => {
-      this.proprietaireForm
-        .get('n_registre_commerce')
-        ?.setValidators(checkProprietaireMoral(this.personPhysique));
-    });
+
+    this.proprietaireForm
+      .get('n_registre_commerce')
+      ?.valueChanges.subscribe((_) => {
+        this.proprietaireForm.get('n_registre_commerce')?.clearValidators();
+        this.proprietaireForm
+          .get('n_registre_commerce')
+          ?.setValidators(
+            PropValidator.runInOrder([
+              Validators.pattern('[0-9]*'),
+              PropValidator.checkProprietaireMoral(this.personPhysique),
+            ])
+          );
+      });
   }
 
   ngOnInit(): void {
+    // this.proprietaireForm.markAllAsTouched()
     if (!this.update) {
       // this.proprietaireForm.reset();
       this.foncier_id = this.actRoute.snapshot.paramMap.get('id_foncier') || '';
