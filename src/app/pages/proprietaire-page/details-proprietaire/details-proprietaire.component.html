@@ -30,22 +30,36 @@
     <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-6">
         <div class="row">
             <h5 class="main-title mb-4">Informations Propriétaire</h5>
-            <div class="col-lg-4">
-                <h5 class="main-txt">Nom et prénom</h5>
-                <p>{{ proprietaire?.nom_prenom !== '' ? proprietaire?.nom_prenom : '--' }}</p>
+            <div class="row" *ngIf="proprietaire?.type_proprietaire == 'Personne physique'">
+                <div class="col-lg-6">
+                    <h5 class="main-txt">Nom et prénom</h5>
+                    <p>{{ proprietaire?.nom_prenom !== '' ? proprietaire?.nom_prenom : '--' }}</p>
+                </div>
+                <div class="col-lg-6">
+                    <h5 class="main-txt">CIN</h5>
+                    <p>{{ proprietaire?.cin !== '' ? proprietaire?.cin : '--' }}</p>
+                </div>
+                <div class="col-lg-6">
+                    <h5 class="main-txt">Passeport</h5>
+                    <p>{{ proprietaire?.passport !== '' ? proprietaire?.passport : '--'  }}</p>
+                </div>
+                <div class="col-lg-6">
+                    <h5 class="main-txt">Carte séjour</h5>
+                    <p>{{ proprietaire?.carte_sejour !== '' ? proprietaire?.carte_sejour : '--' }}</p>
+                </div>
             </div>
-            <div class="col-lg-4">
-                <h5 class="main-txt">CIN</h5>
-                <p>{{ proprietaire?.cin !== '' ? proprietaire?.cin : '--' }}</p>
+
+            <div class="row" *ngIf="proprietaire?.type_proprietaire == 'Personne morale'">
+                <div class="col-lg-6">
+                    <h5 class="main-txt">Raison sociale</h5>
+                    <p>{{ proprietaire?.raison_social !== '' ? proprietaire?.raison_social : '--' }}</p>
+                </div>
+                <div class="col-lg-6">
+                    <h5 class="main-txt">N° IF</h5>
+                    <p>{{ proprietaire?.n_registre_commerce !== '' ? proprietaire?.n_registre_commerce : '--' }}</p>
+                </div>
             </div>
-            <div class="col-lg-4">
-                <h5 class="main-txt">Passeport</h5>
-                <p>{{ proprietaire?.passport !== '' ? proprietaire?.passport : '--'  }}</p>
-            </div>
-            <div class="col-lg-4">
-                <h5 class="main-txt">Carte séjour</h5>
-                <p>{{ proprietaire?.carte_sejour !== '' ? proprietaire?.carte_sejour : '--' }}</p>
-            </div>
+
             <div class="col-lg-4">
                 <h5 class="main-txt">Adresse</h5>
                 <p>{{ proprietaire?.adresse !== '' ? proprietaire?.adresse : '--' }}</p>
@@ -59,10 +73,7 @@
                 <h5 class="main-txt">Fax</h5>
                 <p>{{ proprietaire?.fax !== '' ? proprietaire?.fax : '--' }}</p>
             </div>
-            <div class="col-lg-4">
-                <h5 class="main-txt">Raison sociale</h5>
-                <p>{{ proprietaire?.raison_social !== '' ? proprietaire?.raison_social : '--' }}</p>
-            </div>
+           
             <div class="col-lg-4">
                 <h5 class="main-txt">Banque</h5>
                 <p>{{ proprietaire?.banque !== '' ? proprietaire?.banque : '--' }}</p>

@@ -31,6 +31,8 @@ export class DetailsProprietaireComponent implements OnInit {
       if (data) {
         this.proprietaire = data;
         this.mandataire = data.is_mandataire;
+        console.log(data);
+        
       }
     });
   }
