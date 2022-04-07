@@ -532,7 +532,6 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     let date = new Date(this.contratForm.get('date_debut_loyer')?.value);
     date.setDate(1);
     this.date_debut_loyer_ = date.toISOString().slice(0, 10);
-    console.log(this.date_debut_loyer_);
   }
 
   //functions
