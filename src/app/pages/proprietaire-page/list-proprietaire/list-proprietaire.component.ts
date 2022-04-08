@@ -110,10 +110,12 @@ export class ListProprietaireComponent implements OnInit {
 
   collectProprietaireData() {
     this.fonciers?.forEach((foncier: any) => {
+      
       foncier?.lieu?.forEach((lieu: any) => {
         if (!lieu.deleted) {
           foncier?.proprietaire.forEach((proprietaire: any) => {
             proprietaire.numero_contrat = foncier?.contrat?.numero_contrat || '--';
+            proprietaire.libelle =foncier?.contrat?.etat_contrat?.libelle;
             proprietaire.intitule_lieu = lieu?.lieu?.intitule_lieu || '--';
             proprietaire.type_lieu = foncier.type_lieu || '--';
             this.proprietaires.push(proprietaire);
