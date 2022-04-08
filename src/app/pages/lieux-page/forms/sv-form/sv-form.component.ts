@@ -69,7 +69,7 @@ export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
       code_localite: new FormControl(''),
       etat_logement_fonction: new FormControl(''),
       type_lieu: new FormControl(''),
-      code_rattache_DR: new FormControl('', [Validators.required]),
+      code_rattache_DR: new FormControl(''),
       code_rattache_SUP: new FormControl(''),
       intitule_rattache_SUP_PV: new FormControl(''),
       centre_cout_siege: new FormControl(''),
@@ -79,7 +79,7 @@ export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
         Validators.pattern('[0-9]*'),
         Validators.maxLength(10),
       ]),
-      attached_DR: new FormControl(''),
+      attached_DR: new FormControl('', [Validators.required]),
       attached_SUP: new FormControl(''),
     });
 
