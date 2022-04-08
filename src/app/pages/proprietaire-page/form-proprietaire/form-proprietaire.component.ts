@@ -59,7 +59,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   //Total des parts des proprietaires
   totalPartProprietaires: number = 0;
   partProprietaire: number = 0;
-  hasDeclarationOption: string = 'non';
+  hasDeclarationOption!: string;
 
   periodicite: any[] = [
     {
@@ -347,6 +347,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       // n_compte_bancaire_mandataire: '',
     });
 
+    this.hasDeclarationOption = this.proprietaire.declaration_option;
     this.isMand = this.proprietaire.is_mandataire;
     this.CheckMandataire(this.isMand);
     this.montantLoyer = this.proprietaire.montant_loyer;
@@ -883,8 +884,20 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
 
   proprietaireTypeToggel(value: string) {
-    if (value === 'Personne physique') this.personPhysique = true;
-    else this.personPhysique = false;
+    if (value === 'Personne physique') {
+      this.personPhysique = true;
+      if (this.proprietaire == '') {
+        this.hasDeclarationOption = 'non';
+      }
+    }
+    if (value === 'Personne morale') {
+      this.personPhysique = false;
+      if (this.proprietaire == '') {
+        this.hasDeclarationOption = 'oui';
+      }
+    }
+
+    console.log(this.hasDeclarationOption);
 
     this.proprTypeCheck = true;
     this.proprietaireForm.reset();

@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { HelperService } from '@services/helpers/helper.service';
@@ -24,7 +25,8 @@ export class SideNavbarComponent implements OnInit {
   constructor(
     public authService: AuthService,
     private help: HelperService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -34,9 +36,25 @@ export class SideNavbarComponent implements OnInit {
     this.isCDGSP = this.authService.checkUserRole('CDGSP');
     this.isCSLA = this.authService.checkUserRole('CSLA');
     this.isDAJC = this.authService.checkUserRole('DAJC');
-    
+
     this.getNextClotureDate();
     this.getUserRole();
+  }
+
+  putActiveLink(pathName: string) {
+    let targetLinks: string[] = ['lieux', 'foncier'];
+
+    // Remove active from links active
+    targetLinks.forEach((targetLink: string) => {
+      let link = document.getElementById(`${targetLink}-link`);
+      link?.classList.remove('router-link-active');
+    });
+
+    // Set active class to target link
+    if (pathName === 'lieux' || pathName === 'foncier') {
+      let link = document.getElementById(`${pathName}-link`);
+      link?.classList.add('router-link-active');
+    }
   }
 
   // Toggel sub menu
@@ -78,13 +96,13 @@ export class SideNavbarComponent implements OnInit {
         case 'DC':
           this.isDC;
           break;
-          case 'CDGSP':
+        case 'CDGSP':
           this.isCDGSP;
           break;
-          case 'CSLA':
+        case 'CSLA':
           this.isCSLA;
           break;
-          case 'DAJC':
+        case 'DAJC':
           this.isDAJC;
           break;
 

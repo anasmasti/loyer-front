@@ -21,8 +21,7 @@
     </div>
 
     <div class="mt-3">
-        <div
-        class="
+        <div class="
           main-card
           main-light-card-bg
           d-flex
@@ -33,9 +32,8 @@
           px-3
           mx-3
           mb-4
-        "
-        >
-        <h5 class="main-txt">{{ monthName }} {{ dateNextCloture?.annee}}</h5>
+        ">
+            <h5 class="main-txt">{{ monthName }} {{ dateNextCloture?.annee}}</h5>
         </div>
         <ul class="nav flex-column p-4">
             <li class="nav-item">
@@ -46,19 +44,20 @@
             </li>
 
             <li class="nav-item my-4" *ngIf="!isAdmin">
-                <a href="#" routerLinkActive="router-link-active" class="nav-link main-btn" (click)="showSubMenu('entite')">
-                    <span >
+                <a href="#" id="lieux-link" class="nav-link main-btn" (click)="showSubMenu('entite')">
+                    <span>
                         <i class="fal fa-building"></i>&nbsp;&nbsp;Entités organisat..
                     </span>
                 </a>
                 <ul class="sub-menu list-unstyled" id="entite">
                     <li *ngIf="!isDC && !isDAJC">
-                        <a [routerLink]="['/lieux']" class="nav-link sub-menu-btn">
+                        <a [routerLink]="['/lieux']" class="nav-link sub-menu-btn" (click)="putActiveLink('lieux')">
                             Ajouter une entité organisationnelle
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/lieux/list']" class="nav-link sub-menu-btn">
+                        <a [routerLink]="['/lieux/list']" class="nav-link sub-menu-btn"
+                            (click)="putActiveLink('lieux')">
                             Liste des entités organisationnelles
                         </a>
                     </li>
@@ -66,19 +65,20 @@
             </li>
 
             <li class="nav-item" *ngIf="!isAdmin">
-                <a href="#" routerLinkActive="router-link-active" class="nav-link main-btn" (click)="showSubMenu('lieux')">
-                    <span >
+                <a href="#" id="foncier-link" class="nav-link main-btn" (click)="showSubMenu('lieux')">
+                    <span>
                         <i class="fas fa-hotel"></i>&nbsp;&nbsp;Locaux
                     </span>
                 </a>
                 <ul class="sub-menu list-unstyled" id="lieux">
                     <li *ngIf="!isDC && !isDAJC">
-                        <a [routerLink]="['/foncier']" class="nav-link sub-menu-btn">
+                        <a [routerLink]="['/foncier']" class="nav-link sub-menu-btn" (click)="putActiveLink('foncier')">
                             Ajouter un local
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/foncier/list']" class="nav-link sub-menu-btn">
+                        <a [routerLink]="['/foncier/list']" class="nav-link sub-menu-btn"
+                            (click)="putActiveLink('foncier')">
                             Liste des locaux
                         </a>
                     </li>
@@ -95,7 +95,7 @@
                 </ul>
             </li>
 
-          
+
 
             <!-- <li class="nav-item my-4">
                 <a [routerLink]="['/foncier']" routerLinkActive="router-link-active" class="nav-link main-btn">
@@ -112,7 +112,7 @@
             </li> -->
             <li class="nav-item my-4" *ngIf="!isAdmin">
                 <a [routerLink]="['/contrat/list-global/list']" routerLinkActive="router-link-active"
-                    class="nav-link main-btn">
+                    class="nav-link main-btn" (click)="putActiveLink('-')">
                     <i class="fal fa-file-signature"></i>&nbsp;&nbsp;Liste des contrats
                 </a>
                 <!-- <ul class="sub-menu list-unstyled" id="contrat">
@@ -127,7 +127,7 @@
 
             <li class="nav-item" *ngIf="!isAdmin">
                 <a [routerLink]="['/proprietaire/list-global/list']" routerLinkActive="router-link-active"
-                    class="nav-link main-btn">
+                    class="nav-link main-btn" (click)="putActiveLink('-')">
                     <i class="fal fa-users"></i>&nbsp;Liste des propriétaires
                 </a>
                 <!-- <ul class="sub-menu list-unstyled" id="proprietaire">
@@ -145,40 +145,44 @@
             </li>
 
             <li class="nav-item my-4" *ngIf="!isAdmin">
-                <a [routerLink]="['/reportings']" routerLinkActive="router-link-active"
-                    class="nav-link main-btn">
+                <a [routerLink]="['/reportings']" routerLinkActive="router-link-active" class="nav-link main-btn"
+                    (click)="putActiveLink('-')">
                     <i class="far fa-file-chart-line"></i>&nbsp;&nbsp;Reportings
                 </a>
             </li>
-            
+
             <li class="nav-item" *ngIf="isDC">
-                <a [routerLink]="['/situation']" routerLinkActive="router-link-active" class="nav-link success-btn">
+                <a [routerLink]="['/situation']" routerLinkActive="router-link-active" class="nav-link success-btn"
+                    (click)="putActiveLink('-')">
                     <i class="fal fa-copy"></i>&nbsp;&nbsp;Situation de clôture
                 </a>
             </li>
 
             <li class="nav-item my-4" *ngIf="isDC">
-                <a [routerLink]="['/files']" routerLinkActive="router-link-active" class="nav-link success-btn">
+                <a [routerLink]="['/files']" routerLinkActive="router-link-active" class="nav-link success-btn"
+                    (click)="putActiveLink('-')">
                     <i class="far fa-lock"></i>&nbsp;&nbsp;Clôture et écritures
                 </a>
             </li>
-            
+
             <!-- <li *ngIf="isDC" class="nav-item">
                 <a [routerLink]="['/files']" routerLinkActive="router-link-active" class="nav-link success-btn">
                     <i class="far fa-file-export"></i>&nbsp;&nbsp;Ecritures
                 </a>
             </li> -->
-            
-            
+
+
             <li class="nav-item" *ngIf="isDC">
-                <a [routerLink]="['/declaration-annuelle']" routerLinkActive="router-link-active" class="nav-link success-btn">
+                <a [routerLink]="['/declaration-annuelle']" routerLinkActive="router-link-active"
+                    class="nav-link success-btn" (click)="putActiveLink('-')">
                     <i class="far fa-file-export"></i>&nbsp;&nbsp;Déclaration annuelle
                 </a>
             </li>
 
 
             <li *ngIf="isAdmin" class="nav-item my-4">
-                <a [routerLink]="['/admin']" routerLinkActive="router-link-active" class="nav-link danger-btn">
+                <a [routerLink]="['/admin']" routerLinkActive="router-link-active" class="nav-link danger-btn"
+                    (click)="putActiveLink('-')">
                     <i class="far fa-user-shield"></i>&nbsp;&nbsp;Administration
                 </a>
                 <!-- <ul class="sub-menu list-unstyled" id="admin">
