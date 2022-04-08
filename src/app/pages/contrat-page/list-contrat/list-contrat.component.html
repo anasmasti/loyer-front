@@ -272,11 +272,12 @@
               class="btn btn-sm info-btn me-2"
               ><i class="far fa-edit"></i
             ></a>
-            <!-- <a
+            <a
+            *ngIf="isCDGSP && !contrat?.validation1_DMG"
               class="btn btn-sm danger-btn"
               (click)="openConfirmationContratModal(contrat._id)"
               ><i class="far fa-user-minus"></i
-            ></a> -->
+            ></a>
           </div>
         </td>
 

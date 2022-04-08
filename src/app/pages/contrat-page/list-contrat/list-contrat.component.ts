@@ -7,6 +7,10 @@ import { ContratService } from 'src/app/services/contrat-service/contrat.service
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { SearchServiceService } from 'src/app/services/search-service/search-service.service';
 import { environment } from 'src/environments/environment';
+import { AuthService } from '@services/auth-service/auth.service';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.state';
+import { getUserType } from 'src/app/store/shared/shared.selector';
 
 @Component({
   selector: 'app-list-contrat',
@@ -71,18 +75,29 @@ export class ListContratComponent implements OnInit {
   soumettreSuccess: string = 'Contrat prêt à être validé';
   soumettreDone: boolean = false;
 
+  isDC!: boolean;
+  isCDGSP!: boolean;
+  isCSLA!: boolean;
+  isDAJC!: boolean;
+
   constructor(
     private contratService: ContratService,
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
     private helperService: HelperService,
     private reportingService: ReportingService,
-    private searchService: SearchServiceService
+    private searchService: SearchServiceService,
+    public authService: AuthService,
+    private store: Store<AppState>
   ) {
     this.reporting = environment.REPORTING;
   }
 
   ngOnInit(): void {
+    this.isDC = this.authService.checkUserRole('DC');
+    this.isCDGSP = this.authService.checkUserRole('CDGSP');
+    this.isCSLA = this.authService.checkUserRole('CSLA');
+    this.isDAJC = this.authService.checkUserRole('DAJC');
     setTimeout(() => {
       this.getContrat();
     }, 200);
@@ -435,5 +450,33 @@ export class ListContratComponent implements OnInit {
     setTimeout(() => {
       location.reload();
     }, 400);
+  }
+
+  getUserRole() {
+    this.store.select(getUserType).subscribe((roles) => {
+      this.checkRole(roles);
+    });
+  }
+
+  checkRole(role: string[]) {
+    role.forEach((item) => {
+      switch (item) {
+        case 'DC':
+          this.isDC;
+          break;
+          case 'CDGSP':
+          this.isCDGSP;
+          break;
+          case 'CSLA':
+          this.isCSLA;
+          break;
+          case 'DAJC':
+          this.isDAJC;
+          break;
+
+        default:
+          break;
+      }
+    });
   }
 }

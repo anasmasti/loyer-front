@@ -181,7 +181,7 @@
         <button type="submit" class="btn second-btn form-control" (click)="scrollToTop()" *ngIf="Lieu !== ''">
           Modifier
         </button>
-        <button type="submit" class="btn second-btn form-control" (click)="scrollToTop()" *ngIf="Lieu === ''" [disabled]="PvForm.invalid">
+        <button type="submit" class="btn second-btn form-control" [disabled]="PvForm.invalid" (click)="scrollToTop()" *ngIf="Lieu === ''">
           Ajouter
         </button>
       </div>

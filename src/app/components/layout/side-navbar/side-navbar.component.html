@@ -38,7 +38,7 @@
         <ul class="nav flex-column p-4">
             <li class="nav-item">
                 <a [routerLink]="['']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{exact: true}"
-                    class="nav-link main-btn">
+                    class="nav-link main-btn" (click)="putActiveLink('-')">
                     <i class="fal fa-home"></i> Tableau de bord
                 </a>
             </li>

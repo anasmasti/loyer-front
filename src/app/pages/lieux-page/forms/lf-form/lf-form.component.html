@@ -413,6 +413,7 @@
           class="btn second-btn form-control"
           (click)="scrollToTop()"
           *ngIf="Lieu === ''"
+          [disabled]="LfForm.invalid"
         >
           Ajouter
         </button>
