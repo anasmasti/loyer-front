@@ -46,19 +46,19 @@
             </li>
 
             <li class="nav-item my-4" *ngIf="!isAdmin">
-                <a href="#" routerLinkActive="router-link-active" class="nav-link main-btn" (click)="showSubMenu('entite')">
+                <a href="#" id="lieux-link" class="nav-link main-btn" (click)="showSubMenu('entite')">
                     <span >
                         <i class="fal fa-building"></i>&nbsp;&nbsp;Entités organisat..
                     </span>
                 </a>
                 <ul class="sub-menu list-unstyled" id="entite">
                     <li *ngIf="!isDC && !isDAJC">
-                        <a [routerLink]="['/lieux']" class="nav-link sub-menu-btn">
+                        <a [routerLink]="['/lieux']" class="nav-link sub-menu-btn" (click)="putActiveLink('lieux')">
                             Ajouter une entité organisationnelle
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/lieux/list']" class="nav-link sub-menu-btn">
+                        <a [routerLink]="['/lieux/list']" class="nav-link sub-menu-btn" (click)="putActiveLink('lieux')">
                             Liste des entités organisationnelles
                         </a>
                     </li>
@@ -66,19 +66,19 @@
             </li>
 
             <li class="nav-item" *ngIf="!isAdmin">
-                <a href="#" routerLinkActive="router-link-active" class="nav-link main-btn" (click)="showSubMenu('lieux')">
+                <a href="#" id="foncier-link" class="nav-link main-btn" (click)="showSubMenu('lieux')">
                     <span >
                         <i class="fas fa-hotel"></i>&nbsp;&nbsp;Locaux
                     </span>
                 </a>
                 <ul class="sub-menu list-unstyled" id="lieux">
                     <li *ngIf="!isDC && !isDAJC">
-                        <a [routerLink]="['/foncier']" class="nav-link sub-menu-btn">
+                        <a [routerLink]="['/foncier']" class="nav-link sub-menu-btn" (click)="putActiveLink('foncier')">
                             Ajouter un local
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/foncier/list']" class="nav-link sub-menu-btn">
+                        <a [routerLink]="['/foncier/list']" class="nav-link sub-menu-btn" (click)="putActiveLink('foncier')">
                             Liste des locaux
                         </a>
                     </li>
