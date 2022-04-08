@@ -220,6 +220,11 @@
             title="Ici vous pouvez consulter les proprietaires liés au contrat"
           >
             <div class="d-grid">
+              <div class="mb-1">
+                <!-- <span class="mx-1 text-secondary"> • </span> -->
+                <a  [routerLink]="['/proprietaire/add', contrat?.foncier?._id, 'AV']" class="short-link success-txt">
+                 + Ajouter un autre</a>
+              </div>
               <a
                 class="btn btn-sm second-btn me-2"
                 (click)="openListeProprietairesModal(contrat)"
