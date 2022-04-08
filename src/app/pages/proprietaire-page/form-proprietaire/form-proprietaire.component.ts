@@ -31,6 +31,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   contratByFoncier!: any[];
 
   foncier_id!: string;
+  foncier_etat!: string;
 
   //les calcules
   montantLoyer!: number;
@@ -104,6 +105,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     if (!this.update) {
       // this.proprietaireForm.reset();
       this.foncier_id = this.actRoute.snapshot.paramMap.get('id_foncier') || '';
+      this.foncier_etat = this.actRoute.snapshot.paramMap.get('etat_ajout') || '';
       this.callGetContratAndLieuMethods();
     }
 
@@ -750,6 +752,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
       proprietaire_list: this.newProprietairesList,
       type_proprietaire: this.type_proprietaire,
+      statut: this.foncier_etat == 'AV' ? 'Inactif' : 'Actif'
       // mandataire: this.proprietaireForm.get('mandataireForm')?.value,
       // deleted:false,
     };
