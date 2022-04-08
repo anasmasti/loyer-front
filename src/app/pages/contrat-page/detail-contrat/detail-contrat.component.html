@@ -61,7 +61,7 @@
         <p>
           {{
             contrat.date_debut_loyer !== null
-              ? (contrat.date_debut_loyer | date)
+              ? (contrat.date_debut_loyer | date: 'dd/MM/yyyy')
               : "--"
           }}
         </p>
@@ -72,7 +72,7 @@
         <p>
           {{
             contrat.date_fin_contrat !== null
-              ? (contrat.date_fin_contrat | date)
+              ? (contrat.date_fin_contrat | date: 'dd/MM/yyyy')
               : "--"
           }}
         </p>
@@ -94,7 +94,7 @@
         <p>
           {{
             contrat.date_premier_paiement !== null
-              ? (contrat.date_premier_paiement | date)
+              ? (contrat.date_premier_paiement | date: 'dd/MM/yyyy')
               : "--"
           }}
         </p>
@@ -194,7 +194,7 @@
         <p>
           {{
             contrat.date_reprise_caution !== null
-              ? (contrat.date_reprise_caution | date)
+              ? (contrat.date_reprise_caution | date: 'dd/MM/yyyy')
               : "--"
           }}
         </p>
@@ -226,7 +226,7 @@
         <p>
           {{
             contrat.date_fin_avance !== null
-              ? (contrat.date_fin_avance | date)
+              ? (contrat.date_fin_avance | date: 'dd/MM/yyyy')
               : "--"
           }}
         </p>
@@ -383,7 +383,7 @@
       <p>
         {{
           contrat.etat_contrat?.etat?.date_suspension !== null
-            ? (contrat.etat_contrat?.etat?.date_suspension | date)
+            ? (contrat.etat_contrat?.etat?.date_suspension | date: 'dd/MM/yyyy')
             : "--"
         }}
       </p>
@@ -479,7 +479,7 @@
       <p>
         {{
           contrat.etat_contrat?.etat?.preavis !== ""
-            ? (contrat.etat_contrat?.etat?.preavis | date)
+            ? (contrat.etat_contrat?.etat?.preavis | date: 'dd/MM/yyyy')
             : "--"
         }}
       </p>
@@ -492,7 +492,7 @@
       <p>
         {{
           contrat.etat_contrat?.etat?.date_resiliation !== null
-            ? (contrat.etat_contrat?.etat?.date_resiliation | date)
+            ? (contrat.etat_contrat?.etat?.date_resiliation | date: 'dd/MM/yyyy')
             : "--"
         }}
       </p>
