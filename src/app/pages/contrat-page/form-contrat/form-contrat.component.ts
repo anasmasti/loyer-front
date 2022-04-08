@@ -746,6 +746,8 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
 
   // Update contrat
   updateContrat() {
+    return console.log(this.contratForm.get('etat_contrat_libelle')?.value);
+    
     let id = this.contrat._id;
 
     // Get all checked motif values
