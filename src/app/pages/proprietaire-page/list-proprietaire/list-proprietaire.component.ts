@@ -108,11 +108,8 @@ export class ListProprietaireComponent implements OnInit {
     );
   }
 
-  collectProprietaireData() {
-    
+  collectProprietaireData() {  
     this.fonciers?.forEach((foncier: any) => {
-      
-      console.log(foncier);
       foncier?.lieu?.forEach((lieu: any) => {
         if (!lieu.deleted) {
           foncier?.proprietaire.forEach((proprietaire: any) => {
@@ -125,9 +122,6 @@ export class ListProprietaireComponent implements OnInit {
         }
       });
     });
-
-    console.log(this.proprietaires);
-    
     this.sortProprietaireList();
   }
   
