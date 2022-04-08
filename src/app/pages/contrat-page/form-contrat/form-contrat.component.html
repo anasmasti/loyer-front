@@ -16,11 +16,10 @@
   <form [formGroup]="contratForm" enctype="multipart/form-data">
     <div class="w-100 d-flex justify-content-center">
       <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
+      <div *ngIf="isStatutError" class="error-alert p-2 my-2">{{ statutContratError }}</div>
       <!-- alert de reussite -->
       <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
-      <div *ngIf="updateDone" class="done-alert p-2 my-2">
-        {{ updateSucces }}
-      </div>
+      <div *ngIf="updateDone" class="done-alert p-2 my-2">{{ updateSucces }}</div>
     </div>
 
     <!--Début 1er Row-->
@@ -945,15 +944,15 @@
       >
         Ajouter
       </button>
-     
+      <!-- && contrat?.etat_contrat?.libelle == (undefined || null) -->
       <button
         *ngIf="update"
         type="submit"
         id="Modifier"
         class="btn second-btn form-control"
         (click)="openResiliationModel(); scrollToTop()"
-        [disabled]="contrat?.etat_contrat?.libelle !== undefined"
         >
+        <!-- [disabled]="contrat?.etat_contrat?.libelle === (undefined || null) " -->
         Modifier
       </button>
     </div>

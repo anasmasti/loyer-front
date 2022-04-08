@@ -37,6 +37,8 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   PostSucces: string = 'Contrat ajouté avec succés';
   updateDone: boolean = false;
   updateSucces: string = 'Contrat modifié avec succés';
+  isStatutError: boolean = false;
+  statutContratError: string = 'Veillez séléctionnez le statut de contrat'
 
   foncier!: any;
   fd: FormData = new FormData();
@@ -665,6 +667,8 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
         }
       });
 
+      console.log("==>",this.contrat);
+      
       // this.etatContrat = this.contrat.etat_contrat.libelle
 
       this.contratForm?.patchValue({
@@ -747,7 +751,13 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   // Update contrat
   updateContrat() {    
     let id = this.contrat._id;
-
+    if(this.contratForm.get('etat_contrat_libelle')?.value == (undefined || null)) {
+      this.isStatutError = true;
+      setTimeout(() => {
+        this.isStatutError = false;
+      }, 3000);
+    }
+    else {
     // Get all checked motif values
     this.contratForm.get('etat_contrat_libelle')?.value === 'Avenant' &&
       this.getMotifs();
@@ -849,7 +859,8 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
 
-    // patch the formdata (data+files)
+   
+   // patch the formdata (data+files)
     this.contratService.updateContrat(id, this.fd).subscribe(
       (_) => {
         this.updateDone = true;
@@ -867,6 +878,9 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
         this.hideErrorMessage();
       }
     );
+    }
+    
+  
   }
 
   getMotifs() {
