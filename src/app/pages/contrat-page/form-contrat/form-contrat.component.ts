@@ -745,7 +745,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   }
 
   // Update contrat
-  updateContrat() {
+  updateContrat() {    
     let id = this.contrat._id;
 
     // Get all checked motif values
@@ -793,7 +793,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       //etat de contrat
       etat_contrat: {
         libelle:
-          this.contratForm.get('etat_contrat_libelle')?.value || 'En cours',
+          this.contratForm.get('etat_contrat_libelle')?.value || null,
         etat: {
           n_avenant:
             this.contratForm.get('etat_contrat_n_avenant')?.value || '',

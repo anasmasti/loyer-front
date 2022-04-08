@@ -75,7 +75,7 @@
         formControlName="numero_contrat"
       />
 
-      <ng-container *ngIf="!update || (contrat.etat_contrat?.libelle !== 'Actif' && contrat.etat_contrat?.libelle !== 'Suspendu' && update)">
+      <ng-container *ngIf="!update || (contrat?.etat_contrat?.libelle !== 'Actif' && contrat?.etat_contrat?.libelle !== 'Suspendu' && update)">
         <div class="col-lg-3 form-group mt-4">
           <label for="">Pièce jointe</label>
           <input
@@ -438,7 +438,7 @@
       </ng-container>
 
       <div
-        *ngIf="update && contrat.etat_contrat?.libelle === 'Actif' || contrat.etat_contrat?.libelle === 'Suspendu'"
+        *ngIf="update && contrat?.etat_contrat?.libelle === 'Actif' || contrat?.etat_contrat?.libelle === 'Suspendu'"
         class="form-group mt-4"
       >
         <label for="">Statut contrat</label>
@@ -458,13 +458,13 @@
         >
         A créer avenant
       </option>
-      <option *ngIf="contrat.etat_contrat?.libelle !== 'Suspendu' && this.contrat.validation2_DAJC && userRoles.includes('DAJC')" value="Suspendu">
+      <option *ngIf="contrat?.etat_contrat?.libelle !== 'Suspendu' && contrat?.validation2_DAJC && userRoles.includes('DAJC')" value="Suspendu">
         À suspendre
       </option>
       <option *ngIf="this.contrat.validation2_DAJC && (userRoles.includes('DAJC') || userRoles.includes('CSLA'))" value="Résilié">
         À résilier
       </option>
-      <option *ngIf="contrat.etat_contrat?.libelle === 'Suspendu'" value="Actif" >Actif</option>
+      <option *ngIf="contrat?.etat_contrat?.libelle === 'Suspendu'" value="Actif" >Actif</option>
         </select>
       </div>
 
@@ -945,13 +945,15 @@
       >
         Ajouter
       </button>
+     
       <button
-        *ngIf="update"
+        *ngIf="update && (contrat?.etat_contrat?.libelle !== undefined ? contrat?.etat_contrat?.libelle === '--' : contrat?.etat_contrat?.libelle)"
         type="submit"
         id="Modifier"
         class="btn second-btn form-control"
         (click)="openResiliationModel(); scrollToTop()"
-      >
+        >
+        <!-- [disabled]="" -->
         Modifier
       </button>
     </div>
