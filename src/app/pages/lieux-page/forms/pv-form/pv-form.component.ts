@@ -193,7 +193,7 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
       intitule_rattache_SUP_PV: this.intitule_rattache_SUP,
       centre_cout_siege: this.PvForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.PvForm.get('categorie_pointVente')?.value,
-      attached_DR: this.getIdLieuByCodeLieu(this.PvForm.get('code_rattache_DR')?.value),
+      attached_DR: this.getIdLieuByCodeLieu(this.codeRattacheDR),
       attached_SUP: this.PvForm.get('attached_SUP')?.value || null,
     };
 
@@ -214,7 +214,7 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
         }, 3000);
         this.hideErrorMessage();
       }
-    );
+    );    
   }
 
   // Fill Sup and DR inputs
