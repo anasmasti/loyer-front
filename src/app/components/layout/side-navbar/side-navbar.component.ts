@@ -42,8 +42,6 @@ export class SideNavbarComponent implements OnInit {
   }
 
   putActiveLink(pathName: string) {
-    console.log(pathName);
-    
     let targetLinks: string[] = ['lieux', 'foncier'];
 
     // Remove active from links active
