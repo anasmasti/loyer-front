@@ -947,13 +947,13 @@
       </button>
      
       <button
-        *ngIf="update && (contrat?.etat_contrat?.libelle !== undefined ? contrat?.etat_contrat?.libelle === '--' : contrat?.etat_contrat?.libelle)"
+        *ngIf="update"
         type="submit"
         id="Modifier"
         class="btn second-btn form-control"
         (click)="openResiliationModel(); scrollToTop()"
+        [disabled]="contrat?.etat_contrat?.libelle !== undefined"
         >
-        <!-- [disabled]="" -->
         Modifier
       </button>
     </div>
