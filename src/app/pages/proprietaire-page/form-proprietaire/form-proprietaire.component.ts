@@ -90,54 +90,21 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     private lieuService: LieuxService,
     private confirmationModalService: ConfirmationModalService
   ) {
-    this.proprietaireForm = new FormGroup({
-      // Champs du propriètaire
-      cin: new FormControl(''),
-      passport: new FormControl('', [Validators.maxLength(8)]),
-      carte_sejour: new FormControl('', [Validators.maxLength(8)]),
-      nom_prenom: new FormControl(''),
-      raison_social: new FormControl(''),
-      n_registre_commerce: new FormControl(''),
-      telephone: new FormControl('', [
-        Validators.pattern('[0-9]*'),
-        Validators.maxLength(10),
-      ]),
-      fax: new FormControl('', [
-        Validators.pattern('[0-9]*'),
-        Validators.maxLength(10),
-      ]),
-      adresse: new FormControl('', [Validators.required]),
-      n_compte_bancaire: new FormControl('', [
-        Validators.required,
-        Validators.pattern('[0-9]{24}'),
-        Validators.maxLength(24),
-      ]),
-      banque: new FormControl('', [Validators.required]),
-      nom_agence_bancaire: new FormControl(''),
-      montant_loyer: new FormControl('', [Validators.pattern('[0-9]*')]),
-      is_mandataire: new FormControl('', []),
-      taux_impot: new FormControl(),
-      retenue_source: new FormControl(),
-      montant_apres_impot: new FormControl(),
-      declaration_option: new FormControl(),
-
-      montant_avance_proprietaire: new FormControl(),
-      tax_avance_proprietaire: new FormControl(),
-      tax_par_periodicite: new FormControl(),
-
-      caution_par_proprietaire: new FormControl(),
-      part_proprietaire: new FormControl('', [Validators.required]),
-
-      proprietaire_list: new FormControl(),
-      new_proprietaire_list: new FormControl(),
-      old_proprietaires_list: new FormControl(),
-      is_person_physique: new FormControl(''),
-    });
+    this.insertProprietaireForm();
   }
 
   ngOnChanges() {
     if (this.proprietaire != '') {
       this.fetchProprietaire();
+    }
+  }
+
+  ngOnInit(): void {
+    // this.proprietaireForm.markAllAsTouched()
+    if (!this.update) {
+      // this.proprietaireForm.reset();
+      this.foncier_id = this.actRoute.snapshot.paramMap.get('id_foncier') || '';
+      this.callGetContratAndLieuMethods();
     }
 
     this.proprietaireForm.get('cin')?.valueChanges.subscribe((_) => {
@@ -190,16 +157,53 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
             ])
           );
       });
-  }
-
-  ngOnInit(): void {
-    // this.proprietaireForm.markAllAsTouched()
-    if (!this.update) {
-      // this.proprietaireForm.reset();
-      this.foncier_id = this.actRoute.snapshot.paramMap.get('id_foncier') || '';
-      this.callGetContratAndLieuMethods();
-    }
   } //End ngOnInit
+
+  insertProprietaireForm() {
+    this.proprietaireForm = new FormGroup({
+      // Champs du propriètaire
+      cin: new FormControl(''),
+      passport: new FormControl('', [Validators.maxLength(8)]),
+      carte_sejour: new FormControl('', [Validators.maxLength(8)]),
+      nom_prenom: new FormControl(''),
+      raison_social: new FormControl(''),
+      n_registre_commerce: new FormControl(''),
+      telephone: new FormControl('', [
+        Validators.pattern('[0-9]*'),
+        Validators.maxLength(10),
+      ]),
+      fax: new FormControl('', [
+        Validators.pattern('[0-9]*'),
+        Validators.maxLength(10),
+      ]),
+      adresse: new FormControl('', [Validators.required]),
+      n_compte_bancaire: new FormControl('', [
+        Validators.required,
+        Validators.pattern('[0-9]{24}'),
+        Validators.maxLength(24),
+      ]),
+      banque: new FormControl('', [Validators.required]),
+      nom_agence_bancaire: new FormControl(''),
+      montant_loyer: new FormControl('', [Validators.pattern('[0-9]*')]),
+      is_mandataire: new FormControl('', []),
+      taux_impot: new FormControl(),
+      retenue_source: new FormControl(),
+      montant_apres_impot: new FormControl(),
+      declaration_option: new FormControl(),
+
+      montant_avance_proprietaire: new FormControl(),
+      tax_avance_proprietaire: new FormControl(),
+      tax_par_periodicite: new FormControl(),
+
+      caution_par_proprietaire: new FormControl(),
+      part_proprietaire: new FormControl('', [Validators.required]),
+
+      proprietaire_list: new FormControl(),
+      new_proprietaire_list: new FormControl(),
+      old_proprietaires_list: new FormControl(),
+      is_person_physique: new FormControl(''),
+    });
+  }
 
   // addFormMandateire() {
   //   const mandataireData = new FormGroup({
@@ -897,11 +901,10 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       }
     }
 
-    console.log(this.hasDeclarationOption);
-
     this.proprTypeCheck = true;
-    this.proprietaireForm.reset();
+    // this.proprietaireForm.reset();
     this.type_proprietaire = value;
+    // this.insertProprietaireForm();
   }
 
   // Get proprietaire form controlers
