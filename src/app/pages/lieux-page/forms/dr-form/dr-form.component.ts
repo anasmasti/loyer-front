@@ -105,9 +105,11 @@ export class DrFormComponent implements OnInit, OnChanges {
     return targetInput?.invalid && (targetInput.dirty || targetInput.touched);
   }
 
-  scrollToTop(){
-    let element : HTMLElement = document.getElementById('form_content') as HTMLElement;    
-    element.scrollIntoView({behavior: "smooth", block: "start"});
+  scrollToTop() {
+    let element: HTMLElement = document.getElementById(
+      'form_content'
+    ) as HTMLElement;
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   //Add direction regional

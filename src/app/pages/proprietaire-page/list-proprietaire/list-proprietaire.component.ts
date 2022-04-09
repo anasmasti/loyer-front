@@ -15,7 +15,6 @@ import { getUserType } from 'src/app/store/shared/shared.selector';
   templateUrl: './list-proprietaire.component.html',
   styleUrls: ['./list-proprietaire.component.scss'],
 })
-
 export class ListProprietaireComponent implements OnInit {
   proprietaires: any[] = [];
   targetProprietaire: Proprietaire[] = [];
@@ -108,28 +107,32 @@ export class ListProprietaireComponent implements OnInit {
     );
   }
 
-  collectProprietaireData() {  
+  collectProprietaireData() {
     this.fonciers?.forEach((foncier: any) => {
       foncier?.lieu?.forEach((lieu: any) => {
         if (!lieu.deleted) {
           foncier?.proprietaire.forEach((proprietaire: any) => {
-            proprietaire.numero_contrat = foncier?.contrat?.numero_contrat || '--';
+            // if (proprietaire.statut ) {
+            proprietaire.numero_contrat =
+              foncier?.contrat?.numero_contrat || '--';
             proprietaire.libelle = foncier?.contrat?.etat_contrat?.libelle;
             proprietaire.intitule_lieu = lieu?.lieu?.intitule_lieu || '--';
             proprietaire.type_lieu = foncier.type_lieu || '--';
             this.proprietaires.push(proprietaire);
+            // }
           });
         }
       });
     });
     this.sortProprietaireList();
   }
-  
+
   // Sort proprietaire list by its updated date
   sortProprietaireList() {
-    this.proprietaires.sort((a: any,b: any) => (
-      new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
-      ))
+    this.proprietaires.sort(
+      (a: any, b: any) =>
+        new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+    );
   }
 
   // Open the update proprietaire form and push index and data of proprietaire
@@ -176,7 +179,7 @@ export class ListProprietaireComponent implements OnInit {
           this.deleteDone = true;
           setTimeout(() => {
             this.deleteDone = false;
-            this.helperService.refrechPage()
+            this.helperService.refrechPage();
           }, 3000);
         },
         (error) => {
@@ -211,13 +214,13 @@ export class ListProprietaireComponent implements OnInit {
         case 'DC':
           this.isDC;
           break;
-          case 'CDGSP':
+        case 'CDGSP':
           this.isCDGSP;
           break;
-          case 'CSLA':
+        case 'CSLA':
           this.isCSLA;
           break;
-          case 'DAJC':
+        case 'DAJC':
           this.isDAJC;
           break;
 

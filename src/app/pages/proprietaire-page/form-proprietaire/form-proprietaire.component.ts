@@ -105,7 +105,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     if (!this.update) {
       // this.proprietaireForm.reset();
       this.foncier_id = this.actRoute.snapshot.paramMap.get('id_foncier') || '';
-      this.foncier_etat = this.actRoute.snapshot.paramMap.get('etat_ajout') || '';
+      this.foncier_etat =
+        this.actRoute.snapshot.paramMap.get('etat_ajout') || '';
       this.callGetContratAndLieuMethods();
     }
 
@@ -752,7 +753,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
       proprietaire_list: this.newProprietairesList,
       type_proprietaire: this.type_proprietaire,
-      statut: this.foncier_etat == 'AV' ? 'Inactif' : 'Actif'
+      statut: this.foncier_etat == 'AV' ? 'À ajouter' : 'Actif',
       // mandataire: this.proprietaireForm.get('mandataireForm')?.value,
       // deleted:false,
     };
@@ -830,6 +831,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       proprietaire_list: this.newProprietairesList,
       old_proprietaires_list: this.oldProprietairesList,
       type_proprietaire: this.type_proprietaire,
+      statut: this.proprietaire.statut,
     };
 
     this.proprietaireService

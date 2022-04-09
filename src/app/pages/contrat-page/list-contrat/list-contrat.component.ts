@@ -121,7 +121,7 @@ export class ListContratComponent implements OnInit {
       (data: any) => {
         this.contrats = data;
         console.log(data);
-        
+
         this.comparedContrat = data;
       },
       (error: any) => {
@@ -399,10 +399,14 @@ export class ListContratComponent implements OnInit {
     }
   }
 
-  getProprietaireLength(proprietaires: any[]) {
+  getProprietaireLength(contrat: Contrat) {
     let count = 0;
-    proprietaires.forEach((proprietaire) => {
-      if (!proprietaire.deleted) {
+    contrat.foncier.proprietaire.forEach((proprietaire: any) => {
+      if (
+        !proprietaire.deleted &&
+        ((proprietaire?.statut != 'À supprimer' && contrat.is_avenant) ||
+          !contrat.is_avenant)
+      ) {
         count = count + 1;
       }
     });
@@ -464,13 +468,13 @@ export class ListContratComponent implements OnInit {
         case 'DC':
           this.isDC;
           break;
-          case 'CDGSP':
+        case 'CDGSP':
           this.isCDGSP;
           break;
-          case 'CSLA':
+        case 'CSLA':
           this.isCSLA;
           break;
-          case 'DAJC':
+        case 'DAJC':
           this.isDAJC;
           break;
 

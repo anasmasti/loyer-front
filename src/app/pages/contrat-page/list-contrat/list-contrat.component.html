@@ -160,7 +160,7 @@
         <td>{{ contrat.numero_contrat }}</td>
         <!-- <td>{{ contrat.montant_loyer | currency: "MAD" }}</td> -->
         <td>{{ contrat.montant_loyer }}</td>
-        <td>{{ contrat.date_debut_loyer | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ contrat.date_debut_loyer | date: "dd/MM/yyyy" }}</td>
         <!-- <td>{{ contrat.date_fin_contrat | date }}</td> -->
         <td
           [ngClass]="{
@@ -220,17 +220,30 @@
             title="Ici vous pouvez consulter les proprietaires liés au contrat"
           >
             <div class="d-grid">
-              <div class="mb-1">
-                <!-- <span class="mx-1 text-secondary"> • </span> -->
-                <a  [routerLink]="['/proprietaire/add', contrat?.foncier?._id, 'AV']" class="short-link success-txt">
-                 + Ajouter un autre</a>
+              <div
+                class="mb-1"
+                *ngIf="
+                  contrat?.is_avenant &&
+                  contrat?.etat_contrat?.libelle == 'Initié'
+                "
+              >
+                <a
+                  [routerLink]="[
+                    '/proprietaire/add',
+                    contrat?.foncier?._id,
+                    'AV'
+                  ]"
+                  class="short-link success-txt"
+                >
+                  + Ajouter un autre</a
+                >
               </div>
               <a
                 class="btn btn-sm second-btn me-2"
                 (click)="openListeProprietairesModal(contrat)"
               >
                 <i class="fal fa-users"></i> Voir ({{
-                  getProprietaireLength(contrat.foncier.proprietaire)
+                  getProprietaireLength(contrat)
                 }})
               </a>
             </div>
@@ -273,7 +286,7 @@
               ><i class="far fa-edit"></i
             ></a>
             <a
-            *ngIf="isCDGSP && !contrat?.validation1_DMG"
+              *ngIf="isCDGSP && !contrat?.validation1_DMG"
               class="btn btn-sm danger-btn"
               (click)="openConfirmationContratModal(contrat._id)"
               ><i class="far fa-user-minus"></i
@@ -344,7 +357,8 @@
               class="btn btn-sm second-btn"
               *ngIf="
                 (userRoles.includes('CDGSP') || userRoles.includes('CSLA')) &&
-                contrat.validation1_DMG && !contrat.validation2_DAJC
+                contrat.validation1_DMG &&
+                !contrat.validation2_DAJC
               "
               disabled
             >
@@ -517,7 +531,14 @@
                 let i = index
               "
             >
-              <ng-container *ngIf="!proprietaire.deleted">
+              <ng-container
+                *ngIf="
+                  !proprietaire.deleted &&
+                  ((proprietaire?.statut != 'À supprimer' &&
+                    selectedContrat.is_avenant) ||
+                    !selectedContrat.is_avenant)
+                "
+              >
                 <td>
                   {{ proprietaire.nom_prenom || proprietaire.raison_social }}
                 </td>
