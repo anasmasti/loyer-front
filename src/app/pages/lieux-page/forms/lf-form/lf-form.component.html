@@ -44,10 +44,10 @@
           <select
             *ngIf="Dr"
             class="form-select rounded-pill"
-            formControlName="code_rattache_DR"
+            formControlName="attached_DR"
             (change)="displayIntituleLF()"
           >
-            <option [value]="drItem.code_lieu" *ngFor="let drItem of Dr">
+            <option [value]="drItem._id" *ngFor="let drItem of Dr">
               {{ drItem.code_lieu }}
             </option>
           </select>

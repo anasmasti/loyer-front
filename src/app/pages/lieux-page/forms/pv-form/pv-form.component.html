@@ -67,19 +67,19 @@
           <p *ngIf="!Sup" class="danger-txt">
             Une erreur s'est produite, veuillez réessayer plus tard.
           </p>
-          <select *ngIf="Sup" class="form-select rounded-pill" (change)="fillSupAndDR();" formControlName="code_rattache_SUP" [ngClass]="{
-              'is-invalid': checkInputsValidation(code_rattache_SUP),
-              'is-valid': !code_rattache_SUP?.invalid
+          <select *ngIf="Sup" class="form-select rounded-pill" (change)="fillSupAndDR();" formControlName="attached_SUP" [ngClass]="{
+              'is-invalid': checkInputsValidation(attached_SUP),
+              'is-valid': !attached_SUP?.invalid
             }">
             <option [value]="'--'">
               ---
             </option>
-            <option [value]="supItem.code_lieu" *ngFor="let supItem of Sup">
+            <option [value]="supItem._id" *ngFor="let supItem of Sup">
               {{ supItem.code_lieu }}
             </option>
           </select>
-          <div class="" *ngIf="checkInputsValidation(code_rattache_SUP)">
-            <p class="danger-txt" *ngIf="code_rattache_SUP?.errors?.required">
+          <div class="" *ngIf="checkInputsValidation(attached_SUP)">
+            <p class="danger-txt" *ngIf="attached_SUP?.errors?.required">
               Veuillez remplir ce champ
             </p>
           </div>

@@ -7,6 +7,8 @@ export interface Lieu {
   fax?: string;
   etat_logement_fonction?: string;
   type_lieu?: string;
+  attached_DR?: any;
+  attached_SUP?: any;
   code_rattache_DR?: string;
   code_rattache_SUP?: string;
   intitule_rattache_SUP_PV?: string;

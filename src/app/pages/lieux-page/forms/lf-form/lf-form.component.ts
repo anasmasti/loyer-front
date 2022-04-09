@@ -94,6 +94,9 @@ export class LfFormComponent implements OnInit, OnDestroy, OnChanges {
       deleted: new FormControl(''),
       etat_logement_fonction: new FormControl(''),
 
+      attached_DR: new FormControl(''),
+      attached_SUP: new FormControl(''),
+
       //Directeur
       matricule_directeur: new FormControl(''),
       nom_directeur: new FormControl(''),
@@ -109,7 +112,6 @@ export class LfFormComponent implements OnInit, OnDestroy, OnChanges {
     this.RemoveAllDericteurs();
 
     this.etatLogement = this.Lieu.etat_logement_fonction;
-
     this.LfForm.patchValue({
       code_lieu: this.Lieu.code_lieu,
       intitule_lieu: this.Lieu.intitule_lieu,
@@ -123,6 +125,9 @@ export class LfFormComponent implements OnInit, OnDestroy, OnChanges {
       intitule_rattache_SUP_PV: this.Lieu.intitule_rattache_SUP_PV,
       centre_cout_siege: this.Lieu.centre_cout_siege,
       categorie_pointVente: this.Lieu.categorie_pointVente,
+
+      attached_DR: this.Lieu.attached_DR?._id,
+      attached_SUP: this.Lieu.attached_SUP?._id,
     });
 
     // Directeur
@@ -303,10 +308,10 @@ export class LfFormComponent implements OnInit, OnDestroy, OnChanges {
 
   // Get intitule lf by code dr 
   displayIntituleLF() {
-    const codeDR = this.LfForm.get('code_rattache_DR')?.value;
-
+    // const codeDR = this.LfForm.get('code_rattache_DR')?.value;
+    const idDr = this.LfForm.get('attached_DR')?.value;
     for (let i = 0; i < this.Dr.length; i++) {
-      if (this.Dr[i].code_lieu == codeDR) {
+      if (this.Dr[i]._id == idDr) {
         this.intituleLF = `LF/${this.Dr[i].intitule_lieu}`;
       }
     }
@@ -328,6 +333,9 @@ export class LfFormComponent implements OnInit, OnDestroy, OnChanges {
         ?.value,
       centre_cout_siege: this.LfForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.LfForm.get('categorie_pointVente')?.value,
+
+      attached_DR: this.LfForm.get('attached_DR')?.value || null,
+      attached_SUP: this.LfForm.get('attached_SUP')?.value || null,
 
       // Directeur
       directeur_regional: [
@@ -383,6 +391,9 @@ export class LfFormComponent implements OnInit, OnDestroy, OnChanges {
         ?.value,
       centre_cout_siege: this.LfForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.LfForm.get('categorie_pointVente')?.value,
+
+      attached_DR: this.LfForm.get('attached_DR')?.value || null,
+      attached_SUP: this.LfForm.get('attached_SUP')?.value || null,
 
       // Directeur
       directeur_regional: this.LfForm.get('directeur_regional')?.value,

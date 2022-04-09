@@ -79,6 +79,8 @@ export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
         Validators.pattern('[0-9]*'),
         Validators.maxLength(10),
       ]),
+      attached_DR: new FormControl(''),
+      attached_SUP: new FormControl(''),
     });
 
     this.getDr();
@@ -94,11 +96,14 @@ export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
       fax: this.Lieu.fax,
       etat_logement_fonction: this.Lieu.etat_logement_fonction,
       type_lieu: this.Lieu.type_lieu,
-      code_rattache_DR: this.Lieu.code_rattache_DR,
+      // code_rattache_DR: this.Lieu.code_rattache_DR,
+      code_rattache_DR: this.Lieu.attached_DR.code_lieu,
       code_rattache_SUP: this.Lieu.code_rattache_SUP,
       intitule_rattache_SUP_PV: this.Lieu.intitule_rattache_SUP_PV,
       centre_cout_siege: this.Lieu.centre_cout_siege,
       categorie_pointVente: this.Lieu.categorie_pointVente,
+      attached_DR: this.Lieu.attached_DR?._id,
+      attached_SUP: this.Lieu.attached_SUP?._id
     });
 
     this.displayIntituleDR();
@@ -139,6 +144,9 @@ export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
         ?.value,
       centre_cout_siege: this.svForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.svForm.get('categorie_pointVente')?.value,
+      attached_DR: this.svForm.get('attached_DR')?.value || null,
+      attached_SUP: this.svForm.get('attached_SUP')?.value || null,
+      
     };
 
     this.svService.addLieu(svData, this.userMatricule).subscribe(
@@ -179,6 +187,8 @@ export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
         ?.value,
       centre_cout_siege: this.svForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.svForm.get('categorie_pointVente')?.value,
+      attached_DR: this.svForm.get('attached_DR')?.value || null,
+      attached_SUP: this.svForm.get('attached_SUP')?.value || null,
     };
 
 
@@ -218,10 +228,11 @@ export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   displayIntituleDR() {
-    const codeDR = this.svForm.get('code_rattache_DR')?.value;
+    // const codeDR = this.svForm.get('code_rattache_DR')?.value;
+    const idDR = this.svForm.get('attached_DR')?.value;
 
     for (let i = 0; i < this.Dr.length; i++) {
-      if (this.Dr[i].code_lieu == codeDR) {
+      if (this.Dr[i]._id == idDR) {
         this.intitule_rattache_DR = this.Dr[i].intitule_lieu;
       }
     }
@@ -277,5 +288,9 @@ export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
 
   get categorie_pointVente() {
     return this.svForm.get('categorie_pointVente');
+  }
+
+  get attached_DR() {
+    return this.svForm.get('attached_DR');
   }
 }
