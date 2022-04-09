@@ -255,19 +255,19 @@
             " -->
             <!-- *ngIf="!userRoles.includes('DAJC')" -->
             <a
-              *ngIf="
-                (this.contrat.etat_contrat?.libelle === 'Initié' &&
-                  userRoles.includes('CSLA')) ||
-                (this.contrat.etat_contrat?.libelle === 'Actif' &&
-                  userRoles.includes('CSLA')) ||
-                (userRoles.includes('CDGSP') &&
-                  this.contrat.etat_contrat?.libelle === 'Initié') ||
-                (userRoles.includes('CDGSP') &&
-                  this.contrat.etat_contrat?.libelle === 'Actif') ||
-                (userRoles.includes('DAJC') &&
-                  this.contrat.validation2_DAJC &&
-                  this.contrat.etat_contrat?.libelle !== 'Résilié')
-              "
+            *ngIf="
+            (this.contrat.etat_contrat?.libelle === 'Initié' &&
+              userRoles.includes('CSLA')) ||
+            (this.contrat.etat_contrat?.libelle === 'Actif' &&
+              userRoles.includes('CSLA')) ||
+            (userRoles.includes('CDGSP') &&
+              this.contrat.etat_contrat?.libelle === 'Initié') ||
+            (userRoles.includes('CDGSP') &&
+              this.contrat.etat_contrat?.libelle === 'Actif') ||
+            (userRoles.includes('DAJC') &&
+              this.contrat.validation2_DAJC &&
+              this.contrat.etat_contrat?.libelle !== 'Résilié')
+          "
               (click)="openEditModal(contrat)"
               class="btn btn-sm info-btn me-2"
               ><i class="far fa-edit"></i

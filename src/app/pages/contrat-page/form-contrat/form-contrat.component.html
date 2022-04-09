@@ -17,6 +17,7 @@
     <div class="w-100 d-flex justify-content-center">
       <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
       <div *ngIf="isStatutError" class="error-alert p-2 my-2">{{ statutContratError }}</div>
+      <div *ngIf="isSuspensionValidError" class="error-alert p-2 my-2">{{ suspensionErrorMsg }}</div>
       <!-- alert de reussite -->
       <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
       <div *ngIf="updateDone" class="done-alert p-2 my-2">{{ updateSucces }}</div>
@@ -730,51 +731,32 @@
           </div>
 
           <div class="col-lg-3 form-group mt-4">
-            <label for=""
-              >Date de suspension <span class="danger-txt">*</span></label
-            >
-            <input
-              type="date"
-              class="form-control rounded-pill"
-              formControlName="etat_contrat_date_suspension"
-              [ngClass]="{
-                'is-invalid': checkInputsValidation(
-                  etat_contrat_date_suspension
-                ),
-                'is-valid': !etat_contrat_date_suspension?.invalid
-              }"
-            />
-
+            <label for="">Date de suspension <span class="danger-txt">*</span></label>
+            <input type="date" class="form-control rounded-pill" formControlName="etat_contrat_date_suspension" [ngClass]="{
+                'is-invalid': checkInputsValidation(etat_contrat_date_suspension),'is-valid': !etat_contrat_date_suspension?.invalid}"/>
             <!-- Error Message  -->
-            <div
-              class=""
-              *ngIf="checkInputsValidation(etat_contrat_date_suspension)"
-            >
-              <p
-                class="danger-txt"
-                *ngIf="etat_contrat_date_suspension?.errors?.required"
-              >
+            <div class="" *ngIf="checkInputsValidation(etat_contrat_date_suspension)">
+              <p class="danger-txt" *ngIf="etat_contrat_date_suspension?.errors?.required" >
                 Veuillez remplir ce champ
               </p>
             </div>
           </div>
 
           <div class="col-lg-3 form-group mt-4">
-            <label for="">Durée de suspension</label>
-            <input
-              type="number"
-              class="form-control rounded-pill"
-              formControlName="etat_contrat_duree_suspension"
-            />
+            <label for="">Durée de suspension <span class="danger-txt">*</span></label>
+            <input type="number" class="form-control rounded-pill" formControlName="etat_contrat_duree_suspension" [ngClass]="{
+              'is-invalid': checkInputsValidation(etat_contrat_duree_suspension),'is-valid': !etat_contrat_duree_suspension?.invalid}"/>
+              <!-- Error Message  -->
+            <div class="" *ngIf="checkInputsValidation(etat_contrat_duree_suspension)">
+              <p class="danger-txt" *ngIf="etat_contrat_duree_suspension?.errors?.required" >
+                Veuillez remplir ce champ
+              </p>
+            </div>
           </div>
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Motif de suspension</label>
-            <input
-              type="text"
-              class="form-control rounded-pill"
-              formControlName="etat_contrat_motif_suspension"
-            />
+            <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_motif_suspension"/>
           </div>
         </div>
       </ng-template>
@@ -944,6 +926,7 @@
       >
         Ajouter
       </button>
+      <!-- [disabled]="etat_contrat_duree_suspension?.invalid || etat_contrat_date_suspension?.invalid" -->
       <button
         *ngIf="update"
         type="submit"
