@@ -756,27 +756,23 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     let contratLibelle = this.contratForm.get('etat_contrat_libelle')?.value;
 
     if(contratLibelle != 'Initié'){
-      console.log("dateSuspension",dateSuspension);
-      console.log("durreSuspension",durreSuspension);
-      console.log("contratLibelle",contratLibelle);
-      if ((dateSuspension == null || durreSuspension == null)) {
+      if ((dateSuspension == null || durreSuspension == null) && contratLibelle != null) {
         console.log("inside date and duree");
-        
         this.isSuspensionValidError = true;
         setTimeout(() => {
           this.isSuspensionValidError = false;
         }, 3000);
-      } else this.succesUpdate();
+      }
 
       if(contratLibelle == (undefined || null)) {
         console.log("inside contrat libelle");
-
         this.isStatutError = true;
         setTimeout(() => {
           this.isStatutError = false;
         }, 3000);
-      } else this.succesUpdate();
-    } 
+      } 
+      if((dateSuspension != null || durreSuspension != null) && contratLibelle != (undefined || null)) this.succesUpdate();
+    } else this.succesUpdate();
   }
 
   succesUpdate(){
