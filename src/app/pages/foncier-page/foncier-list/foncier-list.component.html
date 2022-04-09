@@ -202,7 +202,7 @@
 
             <button
               *ngIf="!foncier.proprietaire.length && !isDC && !isDAJC"
-              [routerLink]="['/proprietaire', foncier._id]"
+              [routerLink]="['/proprietaire/add', foncier._id, 'Actif']"
               class="btn btn-sm second-btn"
               [disabled]="!foncier.contrat.length"
               type="button"
