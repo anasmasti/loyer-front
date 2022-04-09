@@ -346,7 +346,7 @@
   class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white"
 >
   <h5 class="main-title mb-4">
-    Etat de contrat:
+    <!-- Etat de contrat:
     <span
       [ngClass]="{
         'info-txt':
@@ -364,7 +364,8 @@
           ? contrat.etat_contrat?.libelle
           : "--"
       }}
-    </span>
+    </span> -->
+    Informations de la suspension
   </h5>
 
   <div class="row">
@@ -400,7 +401,7 @@
       </p>
     </div>
     <div class="col-lg-3">
-      <h5 class="main-txt">Motif Suspendu</h5>
+      <h5 class="main-txt">Motif de suspension</h5>
       <p>
         {{
           contrat.etat_contrat?.etat?.motif_suspension !== ""
@@ -421,7 +422,7 @@
   class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white"
 >
   <h5 class="main-title mb-4">
-    Etat de contrat:
+    <!-- Etat de contrat:
     <span
       [ngClass]="{
         'info-txt':
@@ -439,7 +440,8 @@
           ? contrat.etat_contrat?.libelle
           : "--"
       }}
-    </span>
+    </span> -->
+    Informations de la résiliation
   </h5>
 
   <div class="row">
@@ -454,7 +456,7 @@
       </p>
     </div> -->
     <div class="col-lg-3">
-      <h5 class="main-txt">Reprise caution</h5>
+      <h5 class="main-txt">Statut caution</h5>
       <p>
         {{
           contrat.etat_contrat?.etat?.reprise_caution !== ""
@@ -475,7 +477,7 @@
       </p>
     </div>
     <div class="col-lg-3">
-      <h5 class="main-txt">Préavis</h5>
+      <h5 class="main-txt">Date de préavis</h5>
       <p>
         {{
           contrat.etat_contrat?.etat?.preavis !== ""
@@ -488,7 +490,7 @@
 
   <div class="row">
     <div class="col-lg-3">
-      <h5 class="main-txt">Date de Résilié</h5>
+      <h5 class="main-txt">Date de résiliation</h5>
       <p>
         {{
           contrat.etat_contrat?.etat?.date_resiliation !== null
@@ -515,7 +517,7 @@
     </div>
 
     <div class="col-lg-3">
-      <h5 class="main-txt">La lettre de Résilié scannée</h5>
+      <h5 class="main-txt">Lettre de résiliation</h5>
       <p>
         <a
           class="btn second-btn"
