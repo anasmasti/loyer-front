@@ -668,8 +668,6 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
         }
       });
 
-      console.log("==>",this.contrat);
-      
       // this.etatContrat = this.contrat.etat_contrat.libelle
 
       this.contratForm?.patchValue({
