@@ -5,7 +5,7 @@ import { ReportingService } from './../../../services/reporting/reporting.servic
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'reporting-lieux',
+  selector: 'app-reporting-lieux',
   templateUrl: './list-reporting-lieux.component.html',
   styleUrls: ['./list-reporting-lieux.component.scss'],
 })
@@ -110,11 +110,11 @@ export class ListReportingLieuxComponent implements OnInit {
 
   search(date: any) {
     let splitedDate = date.split('-');
-    if (splitedDate[0] != '') {
+    if (splitedDate[0] !== '') {
       this.reportings = this.reportingsClone.filter((res: any) => {
-        return res.annee == splitedDate[0] && res.mois == splitedDate[1];
+        return res.annee === splitedDate[0] && res.mois === splitedDate[1];
       });
-    } else if (splitedDate[0] == '') {
+    } else if (splitedDate[0] === '') {
       this.getReportings('reporting/all', this.lieuxList);
     }
   }

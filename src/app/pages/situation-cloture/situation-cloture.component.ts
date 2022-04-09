@@ -14,7 +14,7 @@ export class SituationClotureComponent implements OnInit {
   situations = ['état_virements', 'état_taxes'];
   url: string = environment.API_URL_WITHOUT_PARAM;
   generationDone: boolean;
-  generationSuccesMessage: string = 'Calcule des totaux fait avec succés';
+  generationSuccesMessage: string = 'Calcule de la situation fait avec succés';
   errors!: string;
   userMatricule: any = localStorage.getItem('matricule');
   situationClotureDetails!: any;
@@ -78,17 +78,12 @@ export class SituationClotureComponent implements OnInit {
   }
 
   getSituationCloturePath(data: any) {
-    // Get date of now
-    let today = new Date();
-
-    // Fill date cloture
-    let date = {
-      mois: today.getMonth() + 1,
-      annee: today.getFullYear(),
-    };
-
     this.clotureService
-      .getPathSituationCloture(date.mois, date.annee, data)
+      .getPathSituationCloture(
+        this.dateCloture.mois,
+        this.dateCloture.annee,
+        data
+      )
       .subscribe((data) => {
         this.situationClotureDetails = data[0];
         this.filesLoading = false;
@@ -96,7 +91,13 @@ export class SituationClotureComponent implements OnInit {
   }
 
   downloadExcelFiles(fileName: string) {
-    this.downloadService.dowloadExcelFiles(fileName).catch(console.error);
+    this.downloadService
+      .dowloadExcelFiles(
+        fileName,
+        this.dateCloture.mois,
+        this.dateCloture.annee
+      )
+      .catch(console.error);
   }
 
   // Afficher le message d'erreur de serveur

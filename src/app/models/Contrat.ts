@@ -26,6 +26,7 @@ export interface Contrat {
   type_lieu: string;
   foncier: any;
   nombre_part: number;
+  is_avenant: boolean;
   //new
   montant_loyer_ttc: number;
   etat_contrat?: {
@@ -46,14 +47,14 @@ export interface Contrat {
       images_etat_res_lieu_sortie: [];
       lettre_res_piece_jointe: [];
       piece_jointe_avenant: [];
-       //caution consommé
-       etat_caution_consomme: string;
-       duree_consomme: number;
-       duree_a_recupere: number;
+      //caution consommé
+      etat_caution_consomme: string;
+      duree_consomme: number;
+      duree_a_recupere: number;
     };
   };
   deleted: boolean;
-  validation1_DMG: boolean
-  validation2_DAJC: boolean
+  validation1_DMG: boolean;
+  validation2_DAJC: boolean;
   old_contrat: [];
 }

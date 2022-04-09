@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { saveAs } from 'file-saver';
-import { async } from '@angular/core/testing';
+import dateClotureType from 'src/app/pages/cloture/date-cloture.type';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DownloadService {
+  dateCloture!: dateClotureType;
   constructor(private http: HttpClient) {}
 
   setFilename(filename: string) {
@@ -30,8 +31,9 @@ export class DownloadService {
     );
   }
 
-  dowloadExcelFiles(filename: string) {
-    let date = new Date();
+
+  dowloadExcelFiles(filename: string, mois: number, annee:number) {
+    // let date = new Date();
     return this.http
       .get(
         `${
@@ -39,7 +41,7 @@ export class DownloadService {
           environment.API_VERSION +
           'download-excel/' +
           filename
-        }/${date.getMonth() + 1}/${date.getFullYear()}`,
+        }/${mois}/${annee}`,
         {
           responseType: 'blob',
         }

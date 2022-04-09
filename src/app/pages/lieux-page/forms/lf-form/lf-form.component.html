@@ -24,7 +24,7 @@
     <form
       [formGroup]="LfForm"
       enctype="multipart/form-data"
-      (ngSubmit)="Lieu == '' ? addLf() : updateLf()"
+      (ngSubmit)="Lieu === '' ? addLf() : updateLf()"
     >
       <div class="w-100 d-flex justify-content-center">
         <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
@@ -124,18 +124,18 @@
           >
             <option
               value="disponible"
-              [disabled]="Lieu != '' ? 'disabled' : false"
+              [disabled]="Lieu !== '' ? 'disabled' : false"
             >
               Disponible
             </option>
-            <option value="occupe" [disabled]="Lieu != '' ? 'disabled' : false">
+            <option value="occupe" [disabled]="Lieu !== '' ? 'disabled' : false">
               Occupé
             </option>
           </select>
         </div> -->
 
         <!-- Condition to show form directeur -->
-        <!-- <div *ngIf="etatLogement == 'occupe'; then directeur"></div> -->
+        <!-- <div *ngIf="etatLogement === 'occupe'; then directeur"></div> -->
         <!-- Directeur form -->
         <div class="row mt-5">
           <!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
@@ -154,7 +154,7 @@
                 <div
                   class="d-flex justify-content-start main-card bg-white p-3"
                 >
-                  <div *ngIf="etatLogement == 'occupe'">
+                  <div *ngIf="etatLogement === 'occupe'">
                     <h5 class="card-title">{{ FullNameDerct }}</h5>
                     <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
                   </div>
@@ -163,16 +163,16 @@
                       class="btn btn-sm success-btn rounded-pill"
                       (click)="openReplaceModal('remplacer')"
                     >
-                      <span *ngIf="etatLogement == 'occupe'"
+                      <span *ngIf="etatLogement === 'occupe'"
                         >Remplacer <i [class]="'fal fa-sync'"></i
                       ></span>
-                      <span class="mx-3" *ngIf="etatLogement != 'occupe'"
+                      <span class="mx-3" *ngIf="etatLogement !== 'occupe'"
                         >Ajouter <i [class]="'fal fa-plus'"></i
                       ></span>
                     </a>
                     <a
                       class="btn btn-sm info-btn mx-2 rounded-pill"
-                      *ngIf="etatLogement == 'occupe'"
+                      *ngIf="etatLogement === 'occupe'"
                       (click)="openReplaceModal('modifier')"
                     >
                       Modifier
@@ -180,7 +180,7 @@
                     </a>
                     <a
                       class="btn btn-sm danger-btn rounded-pill"
-                      *ngIf="etatLogement == 'occupe'"
+                      *ngIf="etatLogement === 'occupe'"
                       (click)="openConfirmationModal(); switchIsReplace()"
                     >
                       Supprimer
@@ -189,17 +189,17 @@
                   </div>
                 </div>
 
-                <div *ngIf="isReplace == 'remplacer'; then remplacer"></div>
-                <div *ngIf="isReplace == 'modifier'; then modifier"></div>
+                <div *ngIf="isReplace === 'remplacer'; then remplacer"></div>
+                <div *ngIf="isReplace === 'modifier'; then modifier"></div>
                 <!-- Form to replace directeur -->
                 <ng-template #remplacer>
                   <div class="main-card bg-white p-3 mt-3">
                     <div class="row title">
                       <div class="col-lg-12">
-                        <h2 class="main-title" *ngIf="etatLogement == 'occupe'">
+                        <h2 class="main-title" *ngIf="etatLogement === 'occupe'">
                           Remplacer Directeur
                         </h2>
-                        <h2 class="main-title" *ngIf="etatLogement != 'occupe'">
+                        <h2 class="main-title" *ngIf="etatLogement !== 'occupe'">
                           Ajouter Directeur
                         </h2>
                       </div>
@@ -236,14 +236,14 @@
                       <div class="col-lg-3 form-group mt-5">
                         <a
                           class="btn second-btn form-control"
-                          *ngIf="etatLogement == 'occupe'"
+                          *ngIf="etatLogement === 'occupe'"
                           (click)="openConfirmationModal()"
                         >
                           Remplacer
                         </a>
                         <a
                           class="btn second-btn form-control"
-                          *ngIf="etatLogement != 'occupe'"
+                          *ngIf="etatLogement !== 'occupe'"
                           (click)="RemplacerDirecteur()"
                         >
                           Ajouter
@@ -292,7 +292,7 @@
                       <div class="col-lg-3 form-group mt-5">
                         <a
                           class="btn second-btn form-control"
-                          *ngIf="isReplace == 'modifier'"
+                          *ngIf="isReplace === 'modifier'"
                           (click)="ModifierDirecteur()"
                         >
                           Modifier
@@ -305,7 +305,7 @@
                 <!-- Confirmation modal   -->
                 <app-confirmation-modal [closeBtn]="true">
                   <div
-                    *ngIf="isReplace == 'remplacer'; then replace; else delete"
+                    *ngIf="isReplace === 'remplacer'; then replace; else delete"
                   ></div>
 
                   <ng-template #replace>
@@ -317,7 +317,7 @@
                       Ce directeur sera supprimé et remplacé par un nouveau
                       directeur. <br />
                       <span align="center"
-                        >Voulez-vous supprimer ce directeur?</span
+                        >Êtes-vous sûr de vouloir supprimer ce directeur?</span
                       >
                     </p>
                     <div class="d-inline-flex justify-content-start mt-5">
@@ -339,7 +339,7 @@
                       Confirmation de la supression
                       <i class="far fa-exclamation-circle"></i>
                     </h3>
-                    <p class="mt-3">Voulez-vous supprimer ce directeur?</p>
+                    <p class="mt-3">Êtes-vous sûr de vouloir supprimer ce directeur?</p>
                     <div class="d-inline-flex justify-content-start mt-5">
                       <a
                         class="btn btn-lg px-lg-4 danger-btn me-2"
@@ -372,7 +372,7 @@
                 type="text"
                 class="form-control rounded-pill"
                 formControlName="matricule_directeur"
-                [readOnly]="Lieu != ''"
+                [readOnly]="Lieu !== ''"
               />
             </div>
 
@@ -382,7 +382,7 @@
                 type="text"
                 class="form-control rounded-pill"
                 formControlName="nom_directeur"
-                [readOnly]="Lieu != ''"
+                [readOnly]="Lieu !== ''"
               />
             </div>
 
@@ -392,7 +392,7 @@
                 type="text"
                 class="form-control rounded-pill"
                 formControlName="prenom_directeur"
-                [readOnly]="Lieu != ''"
+                [readOnly]="Lieu !== ''"
               />
             </div>
           </ng-template>
@@ -404,7 +404,7 @@
           type="submit"
           class="btn second-btn form-control"
           (click)="scrollToTop()"
-          *ngIf="Lieu != ''"
+          *ngIf="Lieu !== ''"
         >
           Modifier
         </button>
@@ -412,7 +412,8 @@
           type="submit"
           class="btn second-btn form-control"
           (click)="scrollToTop()"
-          *ngIf="Lieu == ''"
+          *ngIf="Lieu === ''"
+          [disabled]="LfForm.invalid"
         >
           Ajouter
         </button>

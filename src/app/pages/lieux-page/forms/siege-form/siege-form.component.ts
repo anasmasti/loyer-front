@@ -7,7 +7,7 @@ import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { MainModalService } from './../../../../services/main-modal/main-modal.service';
 
 @Component({
-  selector: 'siege-form',
+  selector: 'app-siege-form',
   templateUrl: './siege-form.component.html',
   styleUrls: ['./siege-form.component.scss']
 })

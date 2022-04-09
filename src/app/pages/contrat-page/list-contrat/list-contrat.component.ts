@@ -7,6 +7,10 @@ import { ContratService } from 'src/app/services/contrat-service/contrat.service
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { SearchServiceService } from 'src/app/services/search-service/search-service.service';
 import { environment } from 'src/environments/environment';
+import { AuthService } from '@services/auth-service/auth.service';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.state';
+import { getUserType } from 'src/app/store/shared/shared.selector';
 
 @Component({
   selector: 'app-list-contrat',
@@ -32,12 +36,12 @@ export class ListContratComponent implements OnInit {
 
   //Delete succes message
   deleteDone: boolean = false;
-  deleteSucces: string = 'Contrat supprimé avec succés';
+  deleteSucces: string = 'Contrat soumis à la validation.';
 
   // Pagination options
   listContratPage: number = 1;
   count: number = 0;
-  tableSize: number = 6;
+  tableSize: number = 10;
 
   userMatricule: any = localStorage.getItem('matricule');
   accessError!: any;
@@ -60,15 +64,21 @@ export class ListContratComponent implements OnInit {
   reporting: boolean;
   statut!: string;
 
-  comparedContrat!: Contrat[]
+  comparedContrat!: Contrat[];
 
   // Soumettre
   soumettreModal: string = 'soumettreModal';
   isSoumettre: boolean = false;
   test: string = 'test';
-  
+  isRejeter: boolean = false;
+
   soumettreSuccess: string = 'Contrat prêt à être validé';
   soumettreDone: boolean = false;
+
+  isDC!: boolean;
+  isCDGSP!: boolean;
+  isCSLA!: boolean;
+  isDAJC!: boolean;
 
   constructor(
     private contratService: ContratService,
@@ -76,12 +86,18 @@ export class ListContratComponent implements OnInit {
     private confirmationModalService: ConfirmationModalService,
     private helperService: HelperService,
     private reportingService: ReportingService,
-    private searchService: SearchServiceService
+    private searchService: SearchServiceService,
+    public authService: AuthService,
+    private store: Store<AppState>
   ) {
     this.reporting = environment.REPORTING;
   }
 
   ngOnInit(): void {
+    this.isDC = this.authService.checkUserRole('DC');
+    this.isCDGSP = this.authService.checkUserRole('CDGSP');
+    this.isCSLA = this.authService.checkUserRole('CSLA');
+    this.isDAJC = this.authService.checkUserRole('DAJC');
     setTimeout(() => {
       this.getContrat();
     }, 200);
@@ -99,11 +115,14 @@ export class ListContratComponent implements OnInit {
       }
     }
   }
+
   getContrat() {
     this.contratService.getContrat().subscribe(
       (data: any) => {
         this.contrats = data;
-        this.comparedContrat = data
+        console.log(data);
+
+        this.comparedContrat = data;
       },
       (error: any) => {
         this.accessError = error.error.message;
@@ -114,19 +133,22 @@ export class ListContratComponent implements OnInit {
   checkAndPutText(value: boolean) {
     return this.helperService.booleanToText(value);
   }
+
   // Filter by intitule
   search() {
     if (this.findContrat != '') {
       this.searchService.mainSearch(
         (this.contrats = this.contrats.filter((res) => {
-          return res.numero_contrat
-            ?.toString()
-            ?.toLowerCase()
-            .match(this.findContrat.toLowerCase()) || 
+          return (
+            res.numero_contrat
+              ?.toString()
+              ?.toLowerCase()
+              .match(this.findContrat.toLowerCase()) ||
             res.foncier.type_lieu
-            ?.toString()
-            ?.toLowerCase()
-            .match(this.findContrat.toLowerCase());
+              ?.toString()
+              ?.toLowerCase()
+              .match(this.findContrat.toLowerCase())
+          );
         }))
       );
     } else if (this.findContrat == '') {
@@ -138,16 +160,15 @@ export class ListContratComponent implements OnInit {
     if (event.target.checked) {
       if (statut == 'all') return this.getContrat();
 
-        if (statut == 'Avenant') {
-          this.contrats = this.comparedContrat.filter((res) => {            
-            return res.old_contrat.length > 0;
-          });
-        }
-        else if (statut == 'Actif') {
-          this.contrats = this.comparedContrat.filter((res) => {
-              return res.etat_contrat?.libelle?.toString().match(statut);
-            });
-        }
+      if (statut == 'Avenant') {
+        this.contrats = this.comparedContrat.filter((res) => {
+          return res.old_contrat.length > 0;
+        });
+      } else if (statut == 'Actif') {
+        this.contrats = this.comparedContrat.filter((res) => {
+          return res.etat_contrat?.libelle?.toString().match(statut);
+        });
+      }
     }
     return;
   }
@@ -212,15 +233,10 @@ export class ListContratComponent implements OnInit {
     }
   }
 
-  openConfirmationSoumettre(id: string) {
-    this.id = id;
-    this.isSoumettre = true;
-   this.confirmationModalService.open(); //  Open soumettre confirmation modal
-  }
-
   // Close confirmation modal
-  closeConfirmationModal(id: string = 'confirmationModal') {
+  closeConfirmationModal() {
     this.isSoumettre = false;
+    this.isRejeter = false;
     this.confirmationModalService.close(); // Close delete confirmation modal
   }
 
@@ -281,36 +297,6 @@ export class ListContratComponent implements OnInit {
       'form_content'
     ) as HTMLElement;
     element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  soumettreContrat() {
-    this.contratService.updateSoumettre(this.id, this.userMatricule).subscribe(
-      (_) => {
-        this.closeConfirmationModal(this.soumettreModal)
-        this.scrollToTop();
-        this.soumettreDone = true;
-        setTimeout(() => {
-          this.soumettreDone = false;
-          this.helperService.refrechPage()
-        }, 3000);
-      },
-      (error) => {
-        this.errors = error.error.message;
-        this.closeConfirmationModal(this.soumettreModal)
-        this.scrollToTop();
-        setTimeout(() => {
-          this.showErrorMessage();
-        }, 3000);
-        this.hideErrorMessage();
-      }
-    );
-  }
-
-  annulerContrat() {
-    this.contratService.annulerContrat(this.id, this.userMatricule).subscribe();
-    setTimeout(() => {
-      location.reload();
-    }, 400);
   }
 
   validation2Contrat() {
@@ -413,13 +399,88 @@ export class ListContratComponent implements OnInit {
     }
   }
 
-  getProprietaireLength(proprietaires: any[]) {
+  getProprietaireLength(contrat: Contrat) {
     let count = 0;
-    proprietaires.forEach((proprietaire) => {
-      if (!proprietaire.deleted) {
+    contrat.foncier.proprietaire.forEach((proprietaire: any) => {
+      if (
+        !proprietaire.deleted &&
+        ((proprietaire?.statut != 'À supprimer' && contrat.is_avenant) ||
+          !contrat.is_avenant)
+      ) {
         count = count + 1;
       }
     });
     return count;
+  }
+
+  // Soumettre
+  openConfirmationSoumettre(id: string) {
+    this.id = id;
+    this.isSoumettre = true;
+    this.confirmationModalService.open(); //  Open soumettre confirmation modal
+  }
+
+  openConfirmationAnnulerContrat(id: string) {
+    this.id = id;
+    this.isRejeter = true;
+    this.confirmationModalService.open(); //  Open soumettre confirmation modal
+  }
+
+  soumettreContrat() {
+    this.contratService.updateSoumettre(this.id, this.userMatricule).subscribe(
+      (_) => {
+        this.closeConfirmationModal();
+        this.scrollToTop();
+        this.soumettreDone = true;
+        setTimeout(() => {
+          this.soumettreDone = false;
+          this.helperService.refrechPage();
+        }, 3000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        this.closeConfirmationModal();
+        this.scrollToTop();
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 5000);
+        this.hideErrorMessage();
+      }
+    );
+  }
+
+  annulerContrat() {
+    this.contratService.annulerContrat(this.id, this.userMatricule).subscribe();
+    setTimeout(() => {
+      location.reload();
+    }, 400);
+  }
+
+  getUserRole() {
+    this.store.select(getUserType).subscribe((roles) => {
+      this.checkRole(roles);
+    });
+  }
+
+  checkRole(role: string[]) {
+    role.forEach((item) => {
+      switch (item) {
+        case 'DC':
+          this.isDC;
+          break;
+        case 'CDGSP':
+          this.isCDGSP;
+          break;
+        case 'CSLA':
+          this.isCSLA;
+          break;
+        case 'DAJC':
+          this.isDAJC;
+          break;
+
+        default:
+          break;
+      }
+    });
   }
 }

@@ -1,6 +1,6 @@
 <form
   [formGroup]="adminForm"
-  (ngSubmit)="SubmitForm != 'Ajouter' ? updateUserRole() : postUserRole()"
+  (ngSubmit)="SubmitForm !== 'Ajouter' ? updateUserRole() : postUserRole()"
 >
   <div class="w-100 d-flex justify-content-center">
     <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
@@ -290,7 +290,7 @@
     <button
       type="submit"
       class="btn second-btn"
-      *ngIf="SubmitForm == 'Ajouter'"
+      *ngIf="SubmitForm === 'Ajouter'"
       [disabled]="adminForm.invalid"
     >
       Ajouter un utilisateur
@@ -299,7 +299,7 @@
     <button
       type="submit"
       class="btn second-btn"
-      *ngIf="SubmitForm == 'Modifier'"
+      *ngIf="SubmitForm === 'Modifier'"
     >
       Modifier
     </button>

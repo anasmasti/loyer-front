@@ -10,6 +10,8 @@ import { Store } from '@ngrx/store';
 import { getFoncierAction } from '../foncier-store/foncier.actions';
 import { getFonciers, getError } from '../foncier-store/foncier.selector';
 import { environment } from 'src/environments/environment';
+import { getUserType } from 'src/app/store/shared/shared.selector';
+import { AuthService } from '@services/auth-service/auth.service';
 
 @Component({
   selector: 'app-foncier-list',
@@ -41,8 +43,13 @@ export class FoncierListComponent implements OnInit {
   accessError!: any;
   reporting: boolean;
 
+  isDC!: boolean;
+  isCDGSP!: boolean;
+  isCSLA!: boolean;
+  isDAJC!: boolean;
   constructor(
     private foncierService: FoncierService,
+    public authService: AuthService,
     private helperService: HelperService,
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
@@ -52,15 +59,18 @@ export class FoncierListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getFoncier();
-
+    this.getFonciers();
+    this.isDC = this.authService.checkUserRole('DC');
+    this.isCDGSP = this.authService.checkUserRole('CDGSP');
+    this.isCSLA = this.authService.checkUserRole('CSLA');
+    this.isDAJC = this.authService.checkUserRole('DAJC');
     // Check error
     this.store.select(getError).subscribe((data) => {
       if (data) this.accessError = data;
     });
   }
 
-  getFoncier() {
+  getFonciers() {
     // Select foncier from store
     this.foncierSubscription$ = this.store
       .select(getFonciers)
@@ -69,6 +79,7 @@ export class FoncierListComponent implements OnInit {
         if (data.length === 0) {
           // Dispatch action to handle the NgRx get foncier from server effect
           this.store.dispatch(getFoncierAction());
+  
         }
         this.fonciers = data;
       });
@@ -80,7 +91,7 @@ export class FoncierListComponent implements OnInit {
 
   // Filter by intitule
   search() {
-    if (this.findFoncier != '') {
+    if (this.findFoncier !== '') {
       this.fonciers = this.fonciers.filter((res: any) => {
         return (
           res.type_lieu?.toLowerCase().match(this.findFoncier.toLowerCase()) ||
@@ -93,20 +104,20 @@ export class FoncierListComponent implements OnInit {
             .match(this.findFoncier.toLowerCase())
         );
       });
-    } else if (this.findFoncier == '') {
-      this.getFoncier();
+    } else if (this.findFoncier === '') {
+      this.getFonciers();
     }
   }
 
   searchByAmenagement(event: any, statut: string) {
-    this.getFoncier();
+    this.getFonciers();
 
     if (event.target.checked) {
-      if (statut == 'all') {
+      if (statut === 'all') {
         return this.fonciers;
       }
 
-      if (statut != 'all') {
+      if (statut !== 'all') {
         this.filtredFonciers = this.fonciers.filter((res) => {
           return res.has_amenagements?.toString().match(statut);
         });
@@ -174,5 +185,33 @@ export class FoncierListComponent implements OnInit {
   }
   reload() {
     this.helperService.refrechPage();
+  }
+  
+  getUserRole() {
+    this.store.select(getUserType).subscribe((roles) => {
+      this.checkRole(roles);
+    });
+  }
+
+  checkRole(role: string[]) {
+    role.forEach((item) => {
+      switch (item) {
+        case 'DC':
+          this.isDC;
+          break;
+          case 'CDGSP':
+          this.isCDGSP;
+          break;
+          case 'CSLA':
+          this.isCSLA;
+          break;
+          case 'DAJC':
+          this.isDAJC;
+          break;
+
+        default:
+          break;
+      }
+    });
   }
 }

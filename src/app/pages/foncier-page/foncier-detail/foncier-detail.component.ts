@@ -18,7 +18,7 @@ export class FoncierDetailComponent implements OnInit {
   //Get image apres amenagement to download
   selectedAmenagementImage!: any;
   displayAmenagementSection: boolean = false;
-  selectedImageEntrer!: any;
+  selectedImageEntrer: any [] = [];
   url: string = environment.API_URL_WITHOUT_PARAM;
 
   intituleLieu: string | undefined = '';
@@ -45,7 +45,7 @@ export class FoncierDetailComponent implements OnInit {
           this.foncier = data;
     
           // @ts-ignore
-          if (data.amenagement.length.toString() == '0') {
+          if (data.amenagement.length.toString() === '0') {
             this.hasAmenagement = false;
           }
 
@@ -61,7 +61,7 @@ export class FoncierDetailComponent implements OnInit {
             index++
           ) {
             // @ts-ignore: Object is possibly 'null'.
-            this.selectedImageEntrer = this.foncier?.imgs_lieu_entrer[index];
+            this.selectedImageEntrer.push(this.foncier?.imgs_lieu_entrer[index]);
           }
 
           for (let j = 0; j < this.foncier.amenagement.length; j++) {
@@ -85,7 +85,7 @@ export class FoncierDetailComponent implements OnInit {
   displayAmenagement(id: any) {
     if (this.foncier.amenagement?.length) {
       for (let index = 0; index < this.foncier.amenagement.length; index++) {
-        if (this.foncier.amenagement[index]._id == id) {
+        if (this.foncier.amenagement[index]._id === id) {
           this.selectedAmenagement = this.foncier.amenagement[index];
         }
       }

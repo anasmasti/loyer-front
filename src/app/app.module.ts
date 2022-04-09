@@ -18,6 +18,8 @@ import { StoreModule } from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePipe } from '@angular/common';
 import { ReportingsComponent } from './pages/reportings/reportings.component';
+import { DeclarationAnnuelleComponent } from './pages/declaration-annuelle/declaration-annuelle.component';
+import { SharedEffects } from './store/shared/shared.effect';
 
 
 @NgModule({
@@ -28,6 +30,7 @@ import { ReportingsComponent } from './pages/reportings/reportings.component';
     MainContentComponent,
     FooterComponent,
     ReportingsComponent,
+    DeclarationAnnuelleComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +42,7 @@ import { ReportingsComponent } from './pages/reportings/reportings.component';
     HeaderNavbarModule,
     StoreModule.forRoot(appReducer),
     EffectsModule.forRoot([]),
+    EffectsModule.forFeature([SharedEffects]),
     environment.production == true ? [] : StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [

@@ -6,10 +6,7 @@ import { ProprietaireService } from 'src/app/services/proprietaire-service/propr
 import { ActivatedRoute, Router } from '@angular/router';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
-import {
-  checkProprietaireMoral,
-  checkProprietairePhysique,
-} from '../proprietaire.validator';
+import { PropValidator } from './proprietaire-valodators.service';
 
 @Component({
   selector: 'app-form-proprietaire',
@@ -34,6 +31,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   contratByFoncier!: any[];
 
   foncier_id!: string;
+  foncier_etat!: string;
 
   //les calcules
   montantLoyer!: number;
@@ -62,7 +60,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   //Total des parts des proprietaires
   totalPartProprietaires: number = 0;
   partProprietaire: number = 0;
-  hasDeclarationOption: string = 'non';
+  hasDeclarationOption!: string;
 
   periodicite: any[] = [
     {
@@ -83,6 +81,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   personPhysique!: boolean;
   type_proprietaire!: string;
   proprTypeCheck: boolean = false;
+
   constructor(
     private proprietaireService: ProprietaireService,
     private mainModalService: MainModalService,
@@ -91,7 +90,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     private help: HelperService,
     private lieuService: LieuxService,
     private confirmationModalService: ConfirmationModalService
-  ) {}
+  ) {
+    this.insertProprietaireForm();
+  }
 
   ngOnChanges() {
     if (this.proprietaire != '') {
@@ -100,27 +101,76 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    // this.proprietaireForm.markAllAsTouched()
+    if (!this.update) {
+      // this.proprietaireForm.reset();
+      this.foncier_id = this.actRoute.snapshot.paramMap.get('id_foncier') || '';
+      this.foncier_etat =
+        this.actRoute.snapshot.paramMap.get('etat_ajout') || '';
+      this.callGetContratAndLieuMethods();
+    }
+
+    this.proprietaireForm.get('cin')?.valueChanges.subscribe((_) => {
+      this.proprietaireForm.get('cin')?.clearValidators();
+      this.proprietaireForm
+        .get('cin')
+        ?.setValidators(
+          PropValidator.runInOrder([
+            Validators.maxLength(8),
+            PropValidator.checkProprietairePhysique(this.personPhysique),
+          ])
+        );
+    });
+
+    this.proprietaireForm.get('nom_prenom')?.valueChanges.subscribe((_) => {
+      this.proprietaireForm.get('nom_prenom')?.clearValidators();
+      this.proprietaireForm
+        .get('nom_prenom')
+        ?.setValidators(
+          PropValidator.runInOrder([
+            Validators.minLength(6),
+            Validators.pattern('[a-zA-Z ]*'),
+            PropValidator.checkProprietairePhysique(this.personPhysique),
+          ])
+        );
+    });
+
+    this.proprietaireForm.get('raison_social')?.valueChanges.subscribe((_) => {
+      this.proprietaireForm.get('raison_social')?.clearValidators();
+      this.proprietaireForm
+        .get('raison_social')
+        ?.setValidators(
+          PropValidator.runInOrder([
+            Validators.pattern('[a-zA-Z ]*'),
+            PropValidator.checkProprietaireMoral(this.personPhysique),
+          ])
+        );
+    });
+
+    this.proprietaireForm
+      .get('n_registre_commerce')
+      ?.valueChanges.subscribe((_) => {
+        this.proprietaireForm.get('n_registre_commerce')?.clearValidators();
+        this.proprietaireForm
+          .get('n_registre_commerce')
+          ?.setValidators(
+            PropValidator.runInOrder([
+              Validators.pattern('[0-9]*'),
+              PropValidator.checkProprietaireMoral(this.personPhysique),
+            ])
+          );
+      });
+  } //End ngOnInit
+
+  insertProprietaireForm() {
     this.proprietaireForm = new FormGroup({
       // Champs du propriètaire
-      cin: new FormControl('', [
-        Validators.maxLength(8),
-        checkProprietairePhysique(this.personPhysique),
-      ]),
+      cin: new FormControl(''),
       passport: new FormControl('', [Validators.maxLength(8)]),
       carte_sejour: new FormControl('', [Validators.maxLength(8)]),
-      nom_prenom: new FormControl('', [
-        Validators.minLength(6),
-        Validators.pattern('[a-zA-Z ]*'),
-        checkProprietairePhysique(this.personPhysique),
-      ]),
-      raison_social: new FormControl('', [
-        checkProprietaireMoral(!this.personPhysique),
-        Validators.pattern('[a-zA-Z ]*'),
-      ]),
-      n_registre_commerce: new FormControl('', [
-        checkProprietaireMoral(!this.personPhysique),
-        Validators.pattern('[0-9]*'),
-      ]),
+      nom_prenom: new FormControl(''),
+      raison_social: new FormControl(''),
+      n_registre_commerce: new FormControl(''),
       telephone: new FormControl('', [
         Validators.pattern('[0-9]*'),
         Validators.maxLength(10),
@@ -135,21 +185,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         Validators.pattern('[0-9]{24}'),
         Validators.maxLength(24),
       ]),
-      // banque_rib: new FormControl('', [
-      //   Validators.required,
-      //   Validators.pattern('[0-9]{3}'),
-      //   Validators.maxLength(3),
-      // ]),
-      // ville_rib: new FormControl('', [
-      //   Validators.required,
-      //   Validators.pattern('[0-9]{3}'),
-      //   Validators.maxLength(3),
-      // ]),
-      // cle_rib: new FormControl('', [
-      //   Validators.required,
-      //   Validators.pattern('[0-9]{2}'),
-      //   Validators.maxLength(2),
-      // ]),
       banque: new FormControl('', [Validators.required]),
       nom_agence_bancaire: new FormControl(''),
       montant_loyer: new FormControl('', [Validators.pattern('[0-9]*')]),
@@ -170,17 +205,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       new_proprietaire_list: new FormControl(),
       old_proprietaires_list: new FormControl(),
       is_person_physique: new FormControl(''),
-
-      // Champs du mandataire
-      // mandataireForm: new FormArray([]),
     });
-
-    if (!this.update) {
-      this.proprietaireForm.reset();
-      this.foncier_id = this.actRoute.snapshot.paramMap.get('id_foncier') || '';
-      this.callGetContratAndLieuMethods();
-    }
-  } //End ngOnInit
+  }
 
   // addFormMandateire() {
   //   const mandataireData = new FormGroup({
@@ -328,8 +354,11 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       // n_compte_bancaire_mandataire: '',
     });
 
+    this.hasDeclarationOption = this.proprietaire.declaration_option;
+    this.isMand = this.proprietaire.is_mandataire;
+    this.CheckMandataire(this.isMand);
     this.montantLoyer = this.proprietaire.montant_loyer;
-    this.fillProprietaireInfos();
+    // this.fillProprietaireInfos();
     setTimeout(() => {
       // Calcul montants
       this.calculMontant();
@@ -352,7 +381,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     this.proprietaireService
       .getFoncierIdByProprietaire(this.proprietaire._id, this.userMatricule)
       .subscribe((data: any) => {
-        this.foncier_id = data[0]._id;
+        this.foncier_id = data[0]?._id;
       });
   }
 
@@ -399,10 +428,10 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
             ) {
               if (
                 this.contratByFoncier[0].foncier.proprietaire[index]
-                  .is_mandataire == false &&
+                  .is_mandataire === false &&
                 this.contratByFoncier[0].foncier.proprietaire[index]
-                  .has_mandataire == null &&
-                this.contratByFoncier[0].foncier.proprietaire[index]._id !=
+                  .has_mandataire === null &&
+                this.contratByFoncier[0].foncier.proprietaire[index]._id !==
                   this.proprietaire._id
               )
                 this.proprietaires.push(
@@ -423,7 +452,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         });
     }
   }
-
 
   // Calculer le montant (retenue à la source / montant apres impot / TAX)
   calculMontant() {
@@ -465,11 +493,11 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     this.montantLoyer =
       (this.partProprietaire * montantLoyerContrat) / nbrPartContrat;
     // // ------First Condition--------
-    if (etatContratTypes != 'Résilié') {
+    if (etatContratTypes !== 'Résilié') {
       this.duree = 12;
 
       this.periodicite.forEach((period) => {
-        if (namePeriodicite == period.name) {
+        if (namePeriodicite === period.name) {
           if (this.hasDeclarationOption === 'non') {
             if (this.montantLoyer * period.number <= 30000) {
               result = 0;
@@ -553,7 +581,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     // }
 
     // // ------Third Condition--------
-    if (etatContratTypes == 'Résilié') {
+    if (etatContratTypes === 'Résilié') {
       // nombre des mois louer
       let nbr_mois_louer = monthResiliation - month + 1;
       this.duree = nbr_mois_louer;
@@ -605,15 +633,15 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     // this.taxAvance = (this.retenueSource / dureeLocation) * dureeAvance;
     this.taxAvance = this.retenueSource * dureeAvance;
 
-    if (periodicite == 'mensuelle') {
+    if (periodicite === 'mensuelle') {
       // this.taxPeriodicite = this.retenueSource / dureeLocation;
       this.taxPeriodicite = this.retenueSource;
     }
-    if (periodicite == 'trimestrielle') {
+    if (periodicite === 'trimestrielle') {
       // this.taxPeriodicite = this.retenueSource / (dureeLocation * 3);
       this.taxPeriodicite = this.retenueSource * 3;
     }
-    if (periodicite == 'annuelle') {
+    if (periodicite === 'annuelle') {
       // this.taxPeriodicite = this.retenueSource / 12;
       this.taxPeriodicite = this.retenueSource * 12;
     }
@@ -635,9 +663,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
   // store the unchecked proprietaire , so we can update his ' has_mondataire ' value in the backend
   setUncheckedProp(Action: string, prop: any) {
-    if (Action == 'Remove')
+    if (Action === 'Remove')
       this.oldProprietairesList.splice(this.oldProprietairesList.indexOf(prop));
-    if (Action == 'Add') this.oldProprietairesList.push(prop);
+    if (Action === 'Add') this.oldProprietairesList.push(prop);
   }
 
   // Select proprietaire
@@ -649,7 +677,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       if (this.update) {
         // remove selected proprietaire id  from proprietaires and add it in proprietaireList
         for (let i = 0; i < this.proprietaires.length; i++) {
-          if (this.proprietaires[i]._id == Element._id) {
+          if (this.proprietaires[i]._id === Element._id) {
             this.proprietaires.splice(i, 1);
           }
         }
@@ -659,7 +687,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     } else {
       if (!this.update) {
         this.newProprietairesList.forEach((prop: any, i: number) => {
-          if (prop == InputElement.value) {
+          if (prop === InputElement.value) {
             // remove selected proprietaire id from proprietaire list & add it in proprietaires
             this.unselectProp(i);
           }
@@ -667,7 +695,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       }
       if (this.update) {
         for (let i = 0; i < this.proprietaireList.length; i++) {
-          if (this.proprietaireList[i]._id == Element._id) {
+          if (this.proprietaireList[i]._id === Element._id) {
             // remove selected proprietaire id  from proprietaireList
             this.proprietaireList.splice(i, 1);
           }
@@ -695,14 +723,13 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       raison_social: this.proprietaireForm.get('raison_social')?.value,
       n_registre_commerce:
         this.proprietaireForm.get('n_registre_commerce')?.value || '',
-      // telephone: this.proprietaireForm.get('telephone')?.value,
-      telephone: '',
+      telephone: this.proprietaireForm.get('telephone')?.value || '',
       fax: this.proprietaireForm.get('fax')?.value,
       adresse: this.proprietaireForm.get('adresse')?.value,
       n_compte_bancaire: this.proprietaireForm.get('n_compte_bancaire')?.value,
       banque: this.proprietaireForm.get('banque')?.value,
-      nom_agence_bancaire: this.proprietaireForm.get('nom_agence_bancaire')
-        ?.value,
+      nom_agence_bancaire:
+        this.proprietaireForm.get('nom_agence_bancaire')?.value || '',
       montant_loyer: this.montantLoyer,
       banque_rib: this.proprietaireForm.get('banque_rib')?.value,
       ville_rib: this.proprietaireForm.get('ville_rib')?.value,
@@ -726,6 +753,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
       proprietaire_list: this.newProprietairesList,
       type_proprietaire: this.type_proprietaire,
+      statut: this.foncier_etat == 'AV' ? 'À ajouter' : 'Actif',
       // mandataire: this.proprietaireForm.get('mandataireForm')?.value,
       // deleted:false,
     };
@@ -736,7 +764,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         (_) => {
           this.postDone = true;
           setTimeout(() => {
-            this.proprietaireForm.reset();
+            //this.proprietaireForm.reset();
             this.postDone = false;
             this.help.toTheUp();
             this.router.navigate(['/foncier/list']).then(() => {
@@ -773,8 +801,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       raison_social: this.proprietaireForm.get('raison_social')?.value || '',
       n_registre_commerce:
         this.proprietaireForm.get('n_registre_commerce')?.value || '',
-      // telephone: this.proprietaireForm.get('telephone')?.value,
-      telephone: '',
+      telephone: this.proprietaireForm.get('telephone')?.value || '',
       fax: this.proprietaireForm.get('fax')?.value || '',
       adresse: this.proprietaireForm.get('adresse')?.value,
       n_compte_bancaire: this.proprietaireForm.get('n_compte_bancaire')?.value,
@@ -804,6 +831,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       proprietaire_list: this.newProprietairesList,
       old_proprietaires_list: this.oldProprietairesList,
       type_proprietaire: this.type_proprietaire,
+      statut: this.proprietaire.statut,
     };
 
     this.proprietaireService
@@ -865,12 +893,23 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
 
   proprietaireTypeToggel(value: string) {
-    if (value == 'Personne physique') this.personPhysique = true;
-    else this.personPhysique = false;
+    if (value === 'Personne physique') {
+      this.personPhysique = true;
+      if (this.proprietaire == '') {
+        this.hasDeclarationOption = 'non';
+      }
+    }
+    if (value === 'Personne morale') {
+      this.personPhysique = false;
+      if (this.proprietaire == '') {
+        this.hasDeclarationOption = 'oui';
+      }
+    }
 
     this.proprTypeCheck = true;
-    this.proprietaireForm.reset();
+    // this.proprietaireForm.reset();
     this.type_proprietaire = value;
+    // this.insertProprietaireForm();
   }
 
   // Get proprietaire form controlers

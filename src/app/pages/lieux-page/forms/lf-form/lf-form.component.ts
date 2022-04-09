@@ -14,7 +14,7 @@ import { HelperService } from 'src/app/services/helpers/helper.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'lf-form',
+  selector: 'app-lf-form',
   templateUrl: './lf-form.component.html',
   styleUrls: ['./lf-form.component.scss'],
 })
@@ -71,7 +71,6 @@ export class LfFormComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit(): void {
     this.LfForm = new FormGroup({
       code_lieu: new FormControl('', [
-        Validators.required,
         Validators.maxLength(3),
         Validators.pattern('[0-9]*'),
       ]),
@@ -94,7 +93,7 @@ export class LfFormComponent implements OnInit, OnDestroy, OnChanges {
       deleted: new FormControl(''),
       etat_logement_fonction: new FormControl(''),
 
-      attached_DR: new FormControl(''),
+      attached_DR: new FormControl('', Validators.required),
       attached_SUP: new FormControl(''),
 
       //Directeur

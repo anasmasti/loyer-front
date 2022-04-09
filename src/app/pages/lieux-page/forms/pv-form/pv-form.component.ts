@@ -19,7 +19,7 @@ import { HelperService } from 'src/app/services/helpers/helper.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'pv-form',
+  selector: 'app-pv-form',
   templateUrl: './pv-form.component.html',
   styleUrls: ['./pv-form.component.scss'],
 })
@@ -72,8 +72,8 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
       code_localite: new FormControl(''),
       etat_logement_fonction: new FormControl(''),
       type_lieu: new FormControl(''),
-      code_rattache_DR: new FormControl('', [Validators.required]),
-      code_rattache_SUP: new FormControl('', [Validators.required]),
+      code_rattache_DR: new FormControl(''),
+      code_rattache_SUP: new FormControl(''),
       intitule_rattache_SUP_PV: new FormControl(''),
       centre_cout_siege: new FormControl(''),
       categorie_pointVente: new FormControl(''),
@@ -86,7 +86,7 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
         Validators.maxLength(10),
       ]),
       attached_DR: new FormControl(''),
-      attached_SUP: new FormControl(''),
+      attached_SUP: new FormControl('',Validators.required),
     });
 
     this.getDr();
@@ -193,7 +193,7 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
       intitule_rattache_SUP_PV: this.intitule_rattache_SUP,
       centre_cout_siege: this.PvForm.get('centre_cout_siege')?.value,
       categorie_pointVente: this.PvForm.get('categorie_pointVente')?.value,
-      attached_DR: this.getIdLieuByCodeLieu(this.PvForm.get('code_rattache_DR')?.value),
+      attached_DR: this.getIdLieuByCodeLieu(this.codeRattacheDR),
       attached_SUP: this.PvForm.get('attached_SUP')?.value || null,
     };
 
@@ -214,7 +214,7 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
         }, 3000);
         this.hideErrorMessage();
       }
-    );
+    );    
   }
 
   // Fill Sup and DR inputs
@@ -222,10 +222,8 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
     const idSup = this.PvForm.get('attached_SUP')?.value;
     let check = false
 
-    console.log(this.Sup);
-    
     for (let i = 0; i < this.Sup.length; i++) {
-      if (this.Sup[i]._id == idSup) {
+      if (this.Sup[i]._id === idSup) {
         check = true;
         if (idSup != undefined) {
           this.intitule_rattache_SUP = this.Sup[i].intitule_lieu;
@@ -251,7 +249,7 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
   getIdLieuByCodeLieu(codeDr: any){
     let idLieu = null
     this.Dr.forEach((dr: any) => {
-      if(dr.code_lieu == codeDr ){
+      if(dr.code_lieu === codeDr ){
         idLieu = dr._id
       } 
     });
@@ -262,7 +260,7 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
   //   const codeDR = codeDr;
 
   //   for (let i = 0; i < this.Dr.length; i++) {
-  //     if (this.Dr[i].code_lieu == codeDR) {
+  //     if (this.Dr[i].code_lieu === codeDR) {
   //       return this.Dr[i].intitule_lieu;
   //     }
   //   }

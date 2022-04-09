@@ -4,7 +4,11 @@
       <!-- <h3 class=""></h3> -->
       <h3 class="main-title">Liste des locaux</h3>
       <div class="d-none d-lg-block">
-        <a class="btn btn-sm main-btn" [routerLink]="['/foncier']">
+        <a
+          *ngIf="!isDC && !isDAJC"
+          class="btn btn-sm main-btn"
+          [routerLink]="['/foncier']"
+        >
           <i class="fal fa-plus-octagon"></i> Nouveau local
         </a>
         <a class="btn btn-sm second-btn mx-3" (click)="reload()"
@@ -100,10 +104,14 @@
     <thead>
       <tr class="text-truncate">
         <th>Type</th>
-        <th>Ville</th>
+        <!-- <th>Ville</th> -->
         <th>Code d'entité</th>
         <th>Intitulé</th>
-        <th>Aménagement</th>
+        <th>Code DR</th>
+        <th>Intitulé DR</th>
+        <th>Code SUP</th>
+        <th>Intitulé SUP</th>
+        <!-- <th>Aménagement</th> -->
         <th>Propriétaires</th>
         <th>Contrat</th>
         <th>Actions</th>
@@ -123,39 +131,50 @@
         "
       >
         <td>{{ foncier.type_lieu || "--" }}</td>
-        <td>{{ foncier.ville }}</td>
+        <!-- <td>{{ foncier.ville }}</td> -->
         <td>
           {{
-            foncier.type_lieu == "Logement de fonction"
-              ? foncier.lieu[0]?.lieu?.code_rattache_DR
-              : foncier.lieu[0]?.lieu?.code_lieu || "--"
+            foncier.type_lieu === "Logement de fonction"
+              ? foncier.lieu[0]?.lieu[0]?.code_rattache_DR
+              : foncier.lieu[0]?.lieu[0]?.code_lieu || "--"
           }}
         </td>
         <td>
-          {{ foncier.lieu[0].lieu?.intitule_lieu }}
+          {{ foncier.lieu[0]?.lieu[0]?.intitule_lieu }}
           <br />
           <ng-container *ngFor="let lieu of foncier.lieu">
             <span
               class="info-txt"
-              *ngIf="!lieu.deleted && lieu.etat_lieu != 'Occupé'"
-              >{{ lieu.etat_lieu }}</span
+              *ngIf="!lieu.deleted && lieu.etat_lieu !== 'Occupé'"
             >
+              {{ lieu.etat_lieu }}
+            </span>
           </ng-container>
           <!-- <br> <span class="info-txt" *ngIf="foncier.lieu.transferer">En cours de transfert</span> -->
         </td>
+
         <td>
+          {{ foncier.lieu[0].lieu[0]?.attached_DR[0]?.code_lieu || "--" }}
+        </td>
+        <td>
+          {{ foncier.lieu[0].lieu[0]?.attached_DR[0]?.intitule_lieu || "--" }}
+        </td>
+        <td>
+          {{ foncier.lieu[0].lieu[0]?.attached_SUP[0]?.code_lieu || "--" }}
+        </td>
+        <td>
+          {{ foncier.lieu[0].lieu[0]?.attached_SUP[0]?.intitule_lieu || "--" }}
+        </td>
+        <!-- <td>
           <div class="d-grid">
-            <span
-              class="p-1"
-              [ngClass]="{
+            <span class="p-1" [ngClass]="{
                 'success-txt': foncier.has_amenagements,
                 'danger-txt': !foncier.has_amenagements
-              }"
-            >
+              }">
               {{ checkAndPutText(foncier?.has_amenagements) }}
             </span>
           </div>
-        </td>
+        </td> -->
 
         <td>
           <div *ngIf="foncier.contrat">
@@ -170,17 +189,19 @@
                   >s</span
                 >
               </span>
-              <span class="mx-1 text-secondary"> • </span>
-              <a
-                [routerLink]="['/proprietaire', foncier._id]"
-                class="short-link success-txt"
-              >
-                Ajouter un autre</a
-              >
+              <ng-container *ngIf="!isDC && !isDAJC">
+                <span class="mx-1 text-secondary"> • </span>
+                <a
+                  [routerLink]="['/proprietaire/add', foncier._id, 'Actif']"
+                  class="short-link success-txt"
+                >
+                  Ajouter un autre</a
+                >
+              </ng-container>
             </div>
 
             <button
-              *ngIf="!foncier.proprietaire.length"
+              *ngIf="!foncier.proprietaire.length && !isDC && !isDAJC"
               [routerLink]="['/proprietaire', foncier._id]"
               class="btn btn-sm second-btn"
               [disabled]="!foncier.contrat.length"
@@ -188,6 +209,9 @@
             >
               Ajouter un propriétaire
             </button>
+            <span *ngIf="!foncier.proprietaire.length && isDC && isDAJC"
+              >--</span
+            >
           </div>
           <!-- <p *ngIf="!foncier.contrat" class="danger-txt">
             Vous devez créer un contrat avant d'ajouter un proprietaire
@@ -196,23 +220,36 @@
 
         <td>
           <ng-container *ngIf="foncier.contrat.length">
-            <p *ngIf="(foncier?.contrat[0]?.etat_contrat?.libelle != 'Résilié') && (foncier?.contrat[0]?.etat_contrat?.libelle != 'Suspendu')"  class="success-txt">
+            <p
+              *ngIf="
+                foncier?.contrat[0]?.etat_contrat?.libelle !== 'Résilié' &&
+                foncier?.contrat[0]?.etat_contrat?.libelle !== 'Suspendu'
+              "
+              class="success-txt"
+            >
               <i class="fas fa-check"></i>&nbsp;&nbsp;{{
                 foncier?.contrat[0]?.numero_contrat
               }}
             </p>
-            <p *ngIf="(foncier?.contrat[0]?.etat_contrat?.libelle == 'Résilié') || (foncier?.contrat[0]?.etat_contrat?.libelle == 'Suspendu')" class="danger-txt">
+            <p
+              *ngIf="
+                foncier?.contrat[0]?.etat_contrat?.libelle === 'Résilié' ||
+                foncier?.contrat[0]?.etat_contrat?.libelle === 'Suspendu'
+              "
+              class="danger-txt"
+            >
               <i class="fas fa-times"></i>&nbsp;&nbsp; Contrat &nbsp;{{
                 foncier?.contrat[0]?.numero_contrat
-              }}&nbsp; {{foncier?.contrat[0]?.etat_contrat?.libelle}}
+              }}&nbsp; {{ foncier?.contrat[0]?.etat_contrat?.libelle }}
             </p>
           </ng-container>
           <a
-            *ngIf="!foncier.contrat.length"
+            *ngIf="!foncier.contrat.length && !isDC && !isDAJC"
             [routerLink]="['/contrat', foncier._id]"
             class="btn btn-sm second-btn"
             >Ajouter un contrat</a
           >
+          <span *ngIf="!foncier.contrat.length && isDC && isDAJC">--</span>
         </td>
 
         <td>
@@ -237,17 +274,28 @@
                 <div class="d-flex">
                   <a
                     [routerLink]="['list', foncier._id]"
-                    class="btn btn-sm main-btn"
+                    class="btn btn-sm main-btn me-2"
                     ><i class="fal fa-eye"></i
                   ></a>
                   <a
-                    class="btn btn-sm info-btn mx-2"
+                    *ngIf="
+                      !isDC && !isDAJC && foncier?.contrat[0]?.validation2_DAJC
+                    "
+                    class="btn btn-sm info-btn me-2"
                     (click)="openModalAndPushFoncier(foncier)"
-                    ><i class="far fa-edit"></i></a>
+                    ><i class="far fa-edit"></i
+                  ></a>
                   <a
-                    class="btn btn-sm danger-btn"
+                    *ngIf="
+                      !isCSLA &&
+                      !isDAJC &&
+                      !isDC &&
+                      foncier?.contrat[0]?.etat_contrat?.etat?.libelle
+                    "
+                    class="btn btn-sm danger-btn me-2"
                     (click)="openConfirmationModal(foncier)"
-                    ><i class="fas fa-trash-alt"></i></a>
+                    ><i class="fas fa-trash-alt"></i
+                  ></a>
                 </div>
               </li>
             </ul>
@@ -256,7 +304,7 @@
       </tr>
 
       <app-main-modal [closeBtn]="true">
-        <edit-foncier [foncier]="targetFoncier"> </edit-foncier>
+        <app-edit-foncier [foncier]="targetFoncier"> </app-edit-foncier>
       </app-main-modal>
 
       <app-confirmation-modal [closeBtn]="true">

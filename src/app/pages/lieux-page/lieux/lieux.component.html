@@ -21,33 +21,33 @@
 
 <div class="mt-4">
     <div class="form-box mt-5">
-        <div *ngIf="activeLieux == 'DR'; then DR"></div>
-        <div *ngIf="activeLieux == 'LF'; then LF"></div>
-        <div *ngIf="activeLieux == 'SV'; then SV"></div>
-        <div *ngIf="activeLieux == 'PV'; then PV"></div>
-        <div *ngIf="activeLieux == 'Siege'; then SIEGE"></div>
-        <div *ngIf="activeLieux == ''; then Error"></div>
+        <div *ngIf="activeLieux === 'DR'; then DR"></div>
+        <div *ngIf="activeLieux === 'LF'; then LF"></div>
+        <div *ngIf="activeLieux === 'SV'; then SV"></div>
+        <div *ngIf="activeLieux === 'PV'; then PV"></div>
+        <div *ngIf="activeLieux === 'Siege'; then SIEGE"></div>
+        <div *ngIf="activeLieux === ''; then Error"></div>
     </div>
 </div>
 
 <ng-template #DR>
-    <dr-form [Lieu]="Lieu" [LieuName]="LieuName" ></dr-form>
+    <app-dr-form [Lieu]="Lieu" [LieuName]="LieuName" ></app-dr-form>
 </ng-template>
 
 <ng-template #LF>
-    <lf-form [Lieu]="Lieu" [LieuName]="LieuName"></lf-form>
+    <app-lf-form [Lieu]="Lieu" [LieuName]="LieuName"></app-lf-form>
 </ng-template>
 
 <ng-template #SV>
-    <sv-form [Lieu]="Lieu" [LieuName]="LieuName"></sv-form>
+    <app-sv-form [Lieu]="Lieu" [LieuName]="LieuName"></app-sv-form>
 </ng-template>
 
 <ng-template #PV>
-    <pv-form [Lieu]="Lieu" [LieuName]="LieuName"></pv-form>
+    <app-pv-form [Lieu]="Lieu" [LieuName]="LieuName"></app-pv-form>
 </ng-template>
 
 <ng-template #SIEGE>
-    <siege-form [Lieu]="Lieu" [LieuName]="LieuName"></siege-form>
+    <app-siege-form [Lieu]="Lieu" [LieuName]="LieuName"></app-siege-form>
 </ng-template>
 
 

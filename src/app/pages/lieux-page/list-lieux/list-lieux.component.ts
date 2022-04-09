@@ -1,6 +1,6 @@
 import { Lieu } from '../../../models/Lieu';
 import { HelperService } from './../../../services/helpers/helper.service';
-import { getLoading } from './../../../store/shared/shared.selector';
+import { getLoading, getUserType } from './../../../store/shared/shared.selector';
 import { AppState } from './../../../store/app.state';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ConfirmationModalService } from '../../../services/confirmation-modal-service/confirmation-modal.service';
@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { getError, getLieux } from '../lieux-store/lieux.selector';
 import { getLieuxAction } from '../lieux-store/lieux.actions';
 import { environment } from 'src/environments/environment';
+import { AuthService } from '@services/auth-service/auth.service';
 
 @Component({
   selector: 'app-list-lieux',
@@ -37,7 +38,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
 
   //Delete succes message
   deleteDone: boolean = false;
-  deleteSucces: string = 'Entités organisationnelles supprimé avec succés';
+  deleteSucces: string = 'Entité supprimé avec succés';
 
   userMatricule: any = localStorage.getItem('matricule');
   accessError!: any;
@@ -45,9 +46,15 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
   reportingModalId: string = 'lieuxRep';
   reporting: boolean;
 
+  isDC!: boolean;
+  isCDGSP!: boolean;
+  isCSLA!: boolean;
+  isDAJC!: boolean;
+
   constructor(
     private lieuxService: LieuxService,
     private mainModalService: MainModalService,
+    public authService: AuthService,
     private confirmationModalService: ConfirmationModalService,
     private helperService: HelperService,
     private store: Store<AppState>
@@ -58,6 +65,10 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // Throw get lieux from server function
     this.getAllLieux();
+    this.isDC = this.authService.checkUserRole('DC');
+    this.isCDGSP = this.authService.checkUserRole('CDGSP');
+    this.isCSLA = this.authService.checkUserRole('CSLA');
+    this.isDAJC = this.authService.checkUserRole('DAJC');
     // Check data loading status
     this.store.select(getLoading).subscribe((data) => {
       this.loading = data;
@@ -69,10 +80,10 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
     });
   }
 
-  //=======================================================================================================
+  //==========================================================================================================================================================
   // Filter by intitule
   search() {
-    if (this.findLieu != '') {
+    if (this.findLieu !== '') {
       this.lieux = this.lieux.filter((res: any) => {
         return (
           res.type_lieu?.toLowerCase().match(this.findLieu.toLowerCase()) ||
@@ -81,12 +92,12 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
           res.code_lieu?.toLowerCase().match(this.findLieu.toLowerCase())
         );
       });
-    } else if (this.findLieu == '') {
+    } else if (this.findLieu === '') {
       this.getAllLieux();
     }
   }
 
-  //=======================================================================================================
+  //==========================================================================================================================================================
 
   getAllLieux() {
     // Select lieux from store
@@ -96,9 +107,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
         // Dispatch action to handle the NgRx get lieux from server effect
         this.store.dispatch(getLieuxAction());
       }
-      this.lieux = data;  
-      console.log(data);
-         
+      this.lieux = data;
     });
   }
 
@@ -169,5 +178,33 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
           this.hideErrorMessage();
         }
       );
+  }
+
+  getUserRole() {
+    this.store.select(getUserType).subscribe((roles) => {
+      this.checkRole(roles);
+    });
+  }
+
+  checkRole(role: string[]) {
+    role.forEach((item) => {
+      switch (item) {
+        case 'DC':
+          this.isDC;
+          break;
+          case 'CDGSP':
+          this.isCDGSP;
+          break;
+          case 'CSLA':
+          this.isCSLA;
+          break;
+          case 'DAJC':
+          this.isDAJC;
+          break;
+
+        default:
+          break;
+      }
+    });
   }
 }

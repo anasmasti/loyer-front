@@ -3,7 +3,7 @@
   <!--Début Formulaire form-contrat-->
   <form
     [formGroup]="foncierForm"
-    (ngSubmit)="foncier == '' ? addFoncier() : updateFoncier()"
+    (ngSubmit)="foncier === '' ? addFoncier() : updateFoncier()"
   >
     <div class="w-100 d-flex justify-content-center">
       <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
@@ -14,8 +14,8 @@
     </div>
 
     <!--Début 1er Row-->
-    <div class="row">
-      <div *ngIf="!update" class="col-lg-4 form-group mt-4">
+    <div class="row" *ngIf="!update">
+      <div class="col-lg-4 form-group mt-4">
         <label for=""
           >Type d'entité organisationnelle
           <span class="danger-txt">*</span></label
@@ -41,7 +41,7 @@
         </div>
       </div>
 
-      <div *ngIf="!update" class="col-lg-4 form-group mt-4">
+      <div class="col-lg-4 form-group mt-4">
         <label for=""
           >Code d'entité organisationnelle
           <span class="danger-txt">*</span></label
@@ -58,8 +58,8 @@
         >
           <option [value]="lieu._id" *ngFor="let lieu of lieuxByType">
             {{
-              lieu.type_lieu == "Logement de fonction"
-                ? lieu.code_rattache_DR
+              lieu.type_lieu === "Logement de fonction"
+                ? lieu.attached_DR.code_lieu
                 : lieu.code_lieu
             }}
           </option>
@@ -71,7 +71,7 @@
         </div>
       </div>
 
-      <div class="col-lg-4 form-group mt-4" *ngIf="!update">
+      <div class="col-lg-4 form-group mt-4">
         <label for="">Intitulé d'entité organisationnelle</label>
         <input
           type="text"
@@ -252,7 +252,7 @@
                 </div>
               </div>
               
-              <!-- && amenagementForm.controls[i].value.idm.length !== 0  -->
+              <!-- && amenagementForm.controls[i].value.idm.length !==== 0  -->
          <div class="row">
           <div class="col-lg-4 form-group mt-4">
             <label for="">Montant des travaux d’aménagement</label>
@@ -280,7 +280,7 @@
             />
           </div>
 
-          <div class="col-lg-5 form-group mt-4">
+          <div class="col-lg-4 form-group mt-4">
             <label for=""
               >Valeur et nature des travaux à la charge du propriétaire
               </label
@@ -304,10 +304,20 @@
             />
           </div>
 
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Raison sociale fournisseur</label>
+            <input
+              type="text"
+              class="form-control rounded-pill"
+              formControlName="fournisseur"
+            />
+          </div>
+
          </div>
 
+         <!-- <div class="row"> -->
 
-              <div class="col-lg-12 form-group my-4">
+              <!-- <div class="col-lg-12 form-group my-4">
                 <label for="">Fournisseur</label>
                 <a
                   *ngIf="!amenagementForm.controls[i].value.has_fournisseur"
@@ -343,22 +353,6 @@
                           formControlName="nom"
                         />
                       </div>
-                      <!-- <div class="col-lg-3 form-group">
-                        <label for="">Prénom</label>
-                        <input
-                          type="text"
-                          class="form-control rounded-pill"
-                          formControlName="prenom"
-                        />
-                      </div> -->
-                      <!-- <div class="col-lg-3 form-group">
-                        <label for="">Amenagement effectué</label>
-                        <input
-                          type="text"
-                          class="form-control rounded-pill"
-                          formControlName="amenagement_effectue"
-                        />
-                      </div> -->
                       <input
                         type="hidden"
                         id="{{ 'deleted ' + i + ' ' + j }}"
@@ -367,7 +361,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
 
               <div class="col-lg-4 form-group mt-4">
                 <label for="">Evaluation du fournisseur</label>
@@ -465,7 +459,7 @@
         <h4 class="main-text">Entité organisationnelle</h4>
       </div>
 
-      <div class="mt-1" *ngIf="currentLieu?.etat_lieu == 'Occupé' || currentLieu?.etat_lieu == 'En cours de transfert'">
+      <div class="mt-1" *ngIf="currentLieu?.etat_lieu === 'Occupé' || currentLieu?.etat_lieu === 'En cours de transfert'">
         <div class="row">
           <div class="col-lg-4 form-group mt-2">
             <label for="">Type d'entité organisationnelle</label>
@@ -479,7 +473,7 @@
 
           <div class="col-lg-3 form-group mt-2">
             <label for="">Code d'entité organisationnelle</label>
-            <!-- *ngIf="ActiveForm != 'TransfererForm'" -->
+            <!-- *ngIf="ActiveForm !== 'TransfererForm'" -->
             <input
               type="text"
               class="form-control rounded-pill"
@@ -502,11 +496,11 @@
         </div>
         <div
           class="form-group my-4 col-lg-3 d-flex"
-          *ngIf="ActiveForm != 'TransfererForm'"
+          *ngIf="ActiveForm !== 'TransfererForm'"
         >
           <!-- A Transferer & Annuler la Transformation buttons  -->
           <button
-            *ngIf="currentLieu.etat_lieu != 'En cours de transfert'"
+            *ngIf="currentLieu.etat_lieu !== 'En cours de transfert'"
             type="button"
             id="Transferer"
             class="btn second-btn form-control"
@@ -515,7 +509,7 @@
             En cours de transfert
           </button>
           <button
-            *ngIf="currentLieu.etat_lieu == 'En cours de transfert'"
+            *ngIf="currentLieu.etat_lieu === 'En cours de transfert'"
             type="button"
             id="Transferer"
             class="btn second-btn form-control"
@@ -577,7 +571,7 @@
             [id]="AnnulerTransfereModalId"
           >
             <h3 class="main-title">Entité organisationnelle</h3>
-            <p class="mt-3">Voulez-vous annuler ce transfére?</p>
+            <p class="mt-3">Êtes-vous sûr de vouloir annuler ce transfére ?</p>
             <div class="d-inline-flex justify-content-start mt-5">
               <a
                 class="btn btn-lg px-lg-4 danger-btn me-2"
@@ -595,7 +589,7 @@
       </div>
 
       <!-- Add new ( lieu ) -->
-      <div *ngIf="currentLieu?.etat_lieu == 'Transféré'">
+      <div *ngIf="currentLieu?.etat_lieu === 'Transféré'">
         <div class="row">
           <div class="col-lg-3 form-group mt-2">
             <label for="">Type d'entité organisationnelle</label>
@@ -653,7 +647,7 @@
     <!-- Button Ajouter -->
     <div class="form-group col-lg-2 d-flex mt-5">
       <button
-        *ngIf="foncier == ''"
+        *ngIf="foncier === ''"
         type="submit"
         id="Ajouter"
         class="btn second-btn form-control mt-4"
@@ -663,7 +657,7 @@
         Ajouter
       </button>
       <button
-        *ngIf="foncier != ''"
+        *ngIf="foncier !== ''"
         type="submit"
         id="Modifier"
         class="btn second-btn form-control mt-4"

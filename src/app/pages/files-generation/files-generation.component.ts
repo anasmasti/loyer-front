@@ -1,7 +1,4 @@
 import { ReportingService } from './../../services/reporting/reporting.service';
-import { ClotureService } from '../../services/cloture/cloture.service';
-import { ConfirmationModalService } from './../../services/confirmation-modal-service/confirmation-modal.service';
-import { HelperService } from 'src/app/services/helpers/helper.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { saveAs } from 'file-saver';
@@ -9,7 +6,7 @@ import { DownloadService } from 'src/app/services/download-service/download.serv
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'files-generation',
+  selector: 'app-files-generation',
   templateUrl: './files-generation.component.html',
   styleUrls: ['./files-generation.component.scss'],
 })

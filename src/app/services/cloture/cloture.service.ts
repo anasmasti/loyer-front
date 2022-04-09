@@ -30,6 +30,4 @@ export class ClotureService {
   getPathSituationCloture(mois: any, annee: any, data: any){
     return this.http.post<any>(`${environment.API_URL_TEST + environment.API_VERSION + this.param_url2 + mois + '/' + annee}`, data);
   }
-
-
 }

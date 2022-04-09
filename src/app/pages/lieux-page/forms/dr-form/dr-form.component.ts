@@ -7,7 +7,7 @@ import { DOCUMENT } from '@angular/common';
 import { HelperService } from 'src/app/services/helpers/helper.service';
 
 @Component({
-  selector: 'dr-form',
+  selector: 'app-dr-form',
   templateUrl: './dr-form.component.html',
   styleUrls: ['./dr-form.component.scss'],
 })
@@ -135,8 +135,6 @@ export class DrFormComponent implements OnInit, OnChanges {
       attached_DR: this.drForm.get('attached_DR')?.value || null,
       attached_SUP: this.drForm.get('attached_SUP')?.value || null,
     };
-
-    console.log(dr_data);
 
     this.lieuService.addLieu(dr_data, this.userMatricule).subscribe(
       (_) => {
