@@ -279,7 +279,7 @@
                   ></a>
                   <a
                     *ngIf="
-                      !isDC && !isDAJC && foncier?.contrat[0]?.validation2_DAJC
+                      !isDC && !isDAJC && !foncier?.contrat[0]?.validation1_DMG 
                     "
                     class="btn btn-sm info-btn me-2"
                     (click)="openModalAndPushFoncier(foncier)"
