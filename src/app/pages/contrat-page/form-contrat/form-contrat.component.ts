@@ -753,11 +753,6 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     let dateSuspension = this.contratForm.get('etat_contrat_duree_suspension')?.value;
     let contratLibelle = this.contratForm.get('etat_contrat_libelle')?.value;
 
-    console.log("durreSuspension",durreSuspension);
-    console.log("dateSuspension",dateSuspension);
-    console.log("contratLibelle",contratLibelle);
-    
-
     if(contratLibelle != 'Initié'){
       if ((dateSuspension == (null || undefined) || durreSuspension == (null || undefined || '')) && contratLibelle != null) {
         this.isSuspensionValidError = true;
@@ -878,8 +873,6 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     };
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
-
-    console.log("inside put");
     
    // patch the formdata (data+files)
     this.contratService.updateContrat(id, this.fd).subscribe(
