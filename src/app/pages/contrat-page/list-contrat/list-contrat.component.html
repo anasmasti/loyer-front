@@ -268,19 +268,19 @@
             " -->
             <!-- *ngIf="!userRoles.includes('DAJC')" -->
             <a
-            *ngIf="
-            (this.contrat.etat_contrat?.libelle === 'Initié' &&
-              userRoles.includes('CSLA')) ||
-            (this.contrat.etat_contrat?.libelle === 'Actif' &&
-              userRoles.includes('CSLA')) ||
-            (userRoles.includes('CDGSP') &&
-              this.contrat.etat_contrat?.libelle === 'Initié') ||
-            (userRoles.includes('CDGSP') &&
-              this.contrat.etat_contrat?.libelle === 'Actif') ||
-            (userRoles.includes('DAJC') &&
-              this.contrat.validation2_DAJC &&
-              this.contrat.etat_contrat?.libelle !== 'Résilié')
-          "
+              *ngIf="
+                (this.contrat.etat_contrat?.libelle === 'Initié' &&
+                  userRoles.includes('CSLA')) ||
+                (this.contrat.etat_contrat?.libelle === 'Actif' &&
+                  userRoles.includes('CSLA')) ||
+                (userRoles.includes('CDGSP') &&
+                  this.contrat.etat_contrat?.libelle === 'Initié') ||
+                (userRoles.includes('CDGSP') &&
+                  this.contrat.etat_contrat?.libelle === 'Actif') ||
+                (userRoles.includes('DAJC') &&
+                  this.contrat.validation2_DAJC &&
+                  this.contrat.etat_contrat?.libelle !== 'Résilié')
+              "
               (click)="openEditModal(contrat)"
               class="btn btn-sm info-btn me-2"
               ><i class="far fa-edit"></i
@@ -331,14 +331,11 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
               *ngIf="
-                ((userRoles.includes('CDGSP')) &&
-                  !contrat.validation1_DMG) ||
+                (userRoles.includes('CDGSP') && !contrat.validation1_DMG) ||
                 (userRoles.includes('DAJC') &&
                   !contrat.validation2_DAJC &&
                   contrat.validation1_DMG) ||
-                ((userRoles.includes('CDGSP') ||
-                 
-                  userRoles.includes('DAJC')) &&
+                ((userRoles.includes('CDGSP') || userRoles.includes('DAJC')) &&
                   contrat.validation2_DAJC &&
                   contrat.validation1_DMG)
               "
@@ -403,9 +400,7 @@
                       [disabled]="contrat.validation1_DMG"
                     >
                       {{
-                        contrat.validation1_DMG
-                          ? "Contrat validé"
-                          : "Valider"
+                        contrat.validation1_DMG ? "Contrat validé" : "Valider"
                       }}
                     </button>
 
@@ -441,9 +436,7 @@
                       class="btn"
                     >
                       {{
-                        contrat.validation2_DAJC
-                          ? "Contrat validé"
-                          : "Valider"
+                        contrat.validation2_DAJC ? "Contrat validé" : "Valider"
                       }}
                     </button>
                     <button
@@ -536,7 +529,8 @@
                   !proprietaire.deleted &&
                   ((proprietaire?.statut != 'À supprimer' &&
                     selectedContrat.is_avenant) ||
-                    !selectedContrat.is_avenant)
+                    (!selectedContrat.is_avenant &&
+                      proprietaire?.statut != 'À ajouter'))
                 "
               >
                 <td>
@@ -739,7 +733,7 @@
 
         <ng-template #rejeter>
           <h3 class="main-title">
-            Confirmation du rejet de contrat 
+            Confirmation du rejet de contrat
             <i class="far fa-exclamation-circle"></i>
           </h3>
           <p class="mt-3">Êtes-vous sûr de vouloir rejeter ce contrat ?</p>
