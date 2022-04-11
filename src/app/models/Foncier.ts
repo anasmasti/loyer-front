@@ -7,6 +7,7 @@ export interface Foncier {
       cin?: string;
       raison_social?: string;
       n_registre_commerce?: string;
+      is_mandataire: boolean;
     }
   ];
   type_lieu: string;

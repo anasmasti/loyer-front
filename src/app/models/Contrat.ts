@@ -33,7 +33,7 @@ export interface Contrat {
     libelle: string;
     etat: {
       n_avenant: string;
-      motif: string;
+      motif: any;
       montant_nouveau_loyer: number;
       signaletique_successeur: string;
       intitule_lieu: string;
@@ -47,6 +47,7 @@ export interface Contrat {
       images_etat_res_lieu_sortie: [];
       lettre_res_piece_jointe: [];
       piece_jointe_avenant: [];
+      date_effet_av: Date;
       //caution consommé
       etat_caution_consomme: string;
       duree_consomme: number;

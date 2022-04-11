@@ -140,6 +140,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     ? JSON.parse(localStorage.getItem('user') || '')
     : [];
   userRoles: any[] = [];
+  isAV: boolean = false;
 
   constructor(
     private contratService: ContratService,
@@ -163,6 +164,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    this.checkAvenant()
     if (this.isInsertForm) {
       // this.foncier_id = this.actRoute.snapshot.paramMap.get('id_foncier') || '';
       this.actRoute.url.subscribe((data) => {
@@ -663,6 +665,11 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   }
 
   fetchContrat() {
+    this.isAV = false;
+    let index = this.contrat?.numero_contrat.indexOf('/AV');
+    let checkAv = this.contrat?.numero_contrat.slice(index)
+    if(checkAv == '/AV') this.isAV = true;
+    
     if (this.contrat) {
       this.contrat.foncier.lieu.forEach((lieu: any) => {
         if (!lieu.deleted) {
@@ -749,6 +756,9 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     }
   }
 
+  checkAvenant(){
+      console.log('=>',this.contrat);
+  }
   // Update contrat
   updateContrat() {
     let dateSuspension = this.contratForm.get(

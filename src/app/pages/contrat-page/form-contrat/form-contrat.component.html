@@ -76,7 +76,7 @@
         formControlName="numero_contrat"
       />
 
-      <ng-container *ngIf="!update || (contrat?.etat_contrat?.libelle !== 'Actif' && contrat?.etat_contrat?.libelle !== 'Suspendu' && update)">
+      <ng-container *ngIf="!update || (contrat?.etat_contrat?.libelle !== 'Actif' && contrat?.etat_contrat?.libelle !== 'Suspendu' && update && !isAV)">
         <div class="col-lg-3 form-group mt-4">
           <label for="">Pièce jointe</label>
           <input
@@ -498,7 +498,7 @@
 
       <div class="mt-4">
         <div class="form-box mt-2">
-          <div *ngIf="selectedEtatContrat === 'Avenant'; then AV"></div>
+          <div *ngIf="selectedEtatContrat === 'Avenant' || isAV; then AV"></div>
           <div *ngIf="selectedEtatContrat === 'Suspendu'; then SUS"></div>
           <div *ngIf="selectedEtatContrat === 'Résilié'; then RES"></div>
         </div>
@@ -506,224 +506,224 @@
 
       <!-- Template Avenant start -->
       <ng-template #AV>
-        <h6>Etat du contrat: &nbsp;<span>Avenant</span></h6>
-        <div class="row">
-          <div class="col-lg-3 form-group mt-4">
-            <label for="">N° Avenant</label>
-            <input
-              type="text"
-              class="form-control rounded-pill"
-              formControlName="etat_contrat_n_avenant"
-              readonly
-            />
-          </div>
-
-          <div class="col-lg-3 form-group mt-4">
-            <label for="">Pièce jointe</label>
-            <input
-              type="file"
-              class="form-control rounded-pill btn success-btn"
-              formControlName="etat_contrat_piece_jointe_avenant"
-              accept=".pdf"
-              (change)="onFileSelected($event, 'piece_jointe_avenant')"
-            />
-          </div>
-
-          <div class="col-lg-3 form-group mt-4">
-            <label for="">Date d’effet de l’avenant <span class="danger-txt">*</span></label>
-            <input
-              type="date"
-              class="form-control rounded-pill"
-              (change)="reinitialiserDateDebut()"
-              formControlName="date_effet_av"
-              required
-              [ngClass]="{
-                'is-invalid': checkInputsValidation(date_effet_av)
-              }"
-            />
-            
-          <!-- Error Message  -->
-          <div class="" *ngIf="checkInputsValidation(date_effet_av)">
-            <p class="danger-txt" *ngIf="date_effet_av?.errors?.required">
-              Veuillez remplir ce champ
-            </p>
-          </div>
-          </div>
-
-          <!-- <div class="col-lg-3 form-group mt-4">
-            <label for="">Motif</label>
-             <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_motif">
-            <select
-              class="form-select rounded-pill"
-              formControlName="etat_contrat_motif"
-            >
-              <option value="Décès">Décès</option>
-              <option value="Cession">Cession</option>
-              <option value="Révision_prix_loyer">
-                Révision du prix du loyer
-              </option>
-            </select>
-          </div> -->
-
-          <!-- <div class="col-lg-3 form-group mt-4">
-            <label for="">Montant du nouveau loyer</label>
-            <input
-              type="number"
-              class="form-control rounded-pill"
-              formControlName="etat_contrat_montant_nouveau_loyer"
-            />
-          </div> -->
-
-          <div class="row form-group mt-4">
-            <label for="">Motif</label>
-            <div class="col-lg-3">
-              <input
-                type="checkbox"
-                id="deces"
-                class="btn-check check"
-                (click)="displayForms('deces')"
-                autocomplete="off"
-              />
-              <label
-                class="px-3 py-1 rounded-pill checkbox-list-btns text-center w-100"
-                for="deces"
-                >Décès</label
-              >
-            </div>
-            <div class="col-lg-3">
-              <input
-                type="checkbox"
-                class="btn-check check"
-                id="cession"
-                (click)="displayForms('cession')"
-                autocomplete="off"
-              />
-              <label
-                class="px-3 py-1 rounded-pill checkbox-list-btns text-center w-100"
-                for="cession"
-                >Cession</label
-              >
-            </div>
-            <div class="col-lg-3">
-              <input
-                type="checkbox"
-                class="btn-check check"
-                id="revison_mnt_loyer"
-                (click)="displayForms('revison_mnt_loyer')"
-                autocomplete="off"
-              />
-              <label
-                class="px-3 py-1 rounded-pill checkbox-list-btns text-center w-100"
-                for="revison_mnt_loyer"
-                >Révision du prix du loyer</label
-              >
-            </div>
-            <!-- <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_motif"> -->
-          </div>
-
-          <div
-            *ngIf="
-              proprDecesFormList || proprCessionFormList;
-              then ListProprietaires
-            "
-          ></div>
-          <div *ngIf="montantLoyerForm; then MontantLoyer"></div>
-          <!-- List proprietaire  -->
-          <ng-template #ListProprietaires>
-            <div class="py-5 mt-2">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>Nom complet</th>
-                    <th>Raison social</th>
-                    <th>CIN/IF</th>
-                    <th>Mandataire</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-
-                <tbody *ngIf="proprietaires?.length">
-                  <tr *ngFor="let proprietaire of proprietaires">
-                    <!-- <td>{{ proprietaire._id }}</td> -->
-                    <td>
-                      {{
-                        proprietaire.nom_prenom ? proprietaire.nom_prenom : "--"
-                      }}
-                    </td>
-                    <td>
-                      {{
-                        proprietaire.raison_social
-                          ? proprietaire.raison_social
-                          : "--"
-                      }}
-                    </td>
-                    <td>{{ proprietaire.cin || proprietaire.n_registre_commerce }}</td>
-                    <td>
-                      <div class="d-grid">
-                        <span
-                          class="p-1"
-                          [ngClass]="{
-                            'success-txt': proprietaire?.is_mandataire,
-                            'danger-txt': !proprietaire?.is_mandataire
-                          }"
-                        >
-                          {{ checkAndPutText(proprietaire.is_mandataire) }}
-                        </span>
-                      </div>
-                    </td>
-                    <td>
-                      <a
-                        class="btn btn-sm danger-btn"
-                        (click)="openDeleteConfirmationModal(proprietaire?._id)"
-                        ><i class="far fa-user-minus"></i
-                      ></a>
-                    </td>
-                  </tr>
-
-                  <app-confirmation-modal [closeBtn]="true" [id]="id">
-                    <h3 class="main-title">
-                      Confirmation de la suppression
-                      <i class="far fa-exclamation-circle"></i>
-                    </h3>
-                    <p class="mt-3">Êtes-vous sûr de vouloir supprimer ce propriétaire ?</p>
-                    <div class="d-inline-flex justify-content-start mt-5">
-                      <a
-                        class="btn btn-lg px-lg-4 danger-btn me-2"
-                        (click)="deleteProprietaire()"
-                        >Oui</a
-                      >
-                      <a
-                        class="btn btn-lg px-lg-4 main-btn"
-                        (click)="closeDeleteConfirmationModal()"
-                        >Non</a
-                      >
-                    </div>
-                  </app-confirmation-modal>
-                </tbody>
-
-                <tbody
-                  *ngIf="!proprietaires?.length"
-                  class="w-100 d-flex align-items-center"
-                >
-                  <h5 class="main-muted-text my-4">
-                    Aucun proprietaire à afficher
-                  </h5>
-                </tbody>
-              </table>
-            </div>
-          </ng-template>
-
-          <ng-template #MontantLoyer>
+          <h6>Etat du contrat: &nbsp;<span>Avenant</span></h6>
+          <div class="row">
             <div class="col-lg-3 form-group mt-4">
+              <label for="">N° Avenant</label>
+              <input
+                type="text"
+                class="form-control rounded-pill"
+                formControlName="etat_contrat_n_avenant"
+                readonly
+              />
+            </div>
+  
+            <div class="col-lg-3 form-group mt-4">
+              <label for="">Pièce jointe</label>
+              <input
+                type="file"
+                class="form-control rounded-pill btn success-btn"
+                formControlName="etat_contrat_piece_jointe_avenant"
+                accept=".pdf"
+                (change)="onFileSelected($event, 'piece_jointe_avenant')"
+              />
+            </div>
+  
+            <div class="col-lg-3 form-group mt-4">
+              <label for="">Date d’effet de l’avenant <span class="danger-txt">*</span></label>
+              <input
+                type="date"
+                class="form-control rounded-pill"
+                (change)="reinitialiserDateDebut()"
+                formControlName="date_effet_av"
+                required
+                [ngClass]="{
+                  'is-invalid': checkInputsValidation(date_effet_av)
+                }"
+              />
+              
+            <!-- Error Message  -->
+            <div class="" *ngIf="checkInputsValidation(date_effet_av)">
+              <p class="danger-txt" *ngIf="date_effet_av?.errors?.required">
+                Veuillez remplir ce champ
+              </p>
+            </div>
+            </div>
+  
+            <!-- <div class="col-lg-3 form-group mt-4">
+              <label for="">Motif</label>
+               <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_motif">
+              <select
+                class="form-select rounded-pill"
+                formControlName="etat_contrat_motif"
+              >
+                <option value="Décès">Décès</option>
+                <option value="Cession">Cession</option>
+                <option value="Révision_prix_loyer">
+                  Révision du prix du loyer
+                </option>
+              </select>
+            </div> -->
+  
+            <!-- <div class="col-lg-3 form-group mt-4">
               <label for="">Montant du nouveau loyer</label>
               <input
                 type="number"
                 class="form-control rounded-pill"
                 formControlName="etat_contrat_montant_nouveau_loyer"
               />
+            </div> -->
+  
+            <div class="row form-group mt-4">
+              <label for="">Motif</label>
+              <div class="col-lg-3">
+                <input
+                  type="checkbox"
+                  id="deces"
+                  class="btn-check check"
+                  (click)="displayForms('deces')"
+                  autocomplete="off"
+                />
+                <label
+                  class="px-3 py-1 rounded-pill checkbox-list-btns text-center w-100"
+                  for="deces"
+                  >Décès</label
+                >
+              </div>
+              <div class="col-lg-3">
+                <input
+                  type="checkbox"
+                  class="btn-check check"
+                  id="cession"
+                  (click)="displayForms('cession')"
+                  autocomplete="off"
+                />
+                <label
+                  class="px-3 py-1 rounded-pill checkbox-list-btns text-center w-100"
+                  for="cession"
+                  >Cession</label
+                >
+              </div>
+              <div class="col-lg-3">
+                <input
+                  type="checkbox"
+                  class="btn-check check"
+                  id="revison_mnt_loyer"
+                  (click)="displayForms('revison_mnt_loyer')"
+                  autocomplete="off"
+                />
+                <label
+                  class="px-3 py-1 rounded-pill checkbox-list-btns text-center w-100"
+                  for="revison_mnt_loyer"
+                  >Révision du prix du loyer</label
+                >
+              </div>
+              <!-- <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_motif"> -->
             </div>
-          </ng-template>
-        </div>
+  
+            <div
+              *ngIf="
+                proprDecesFormList || proprCessionFormList;
+                then ListProprietaires
+              "
+            ></div>
+            <div *ngIf="montantLoyerForm; then MontantLoyer"></div>
+            <!-- List proprietaire  -->
+            <ng-template #ListProprietaires>
+              <div class="py-5 mt-2">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Nom complet</th>
+                      <th>Raison social</th>
+                      <th>CIN/IF</th>
+                      <th>Mandataire</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+  
+                  <tbody *ngIf="proprietaires?.length">
+                    <tr *ngFor="let proprietaire of proprietaires">
+                      <!-- <td>{{ proprietaire._id }}</td> -->
+                      <td>
+                        {{
+                          proprietaire.nom_prenom ? proprietaire.nom_prenom : "--"
+                        }}
+                      </td>
+                      <td>
+                        {{
+                          proprietaire.raison_social
+                            ? proprietaire.raison_social
+                            : "--"
+                        }}
+                      </td>
+                      <td>{{ proprietaire.cin || proprietaire.n_registre_commerce }}</td>
+                      <td>
+                        <div class="d-grid">
+                          <span
+                            class="p-1"
+                            [ngClass]="{
+                              'success-txt': proprietaire?.is_mandataire,
+                              'danger-txt': !proprietaire?.is_mandataire
+                            }"
+                          >
+                            {{ checkAndPutText(proprietaire.is_mandataire) }}
+                          </span>
+                        </div>
+                      </td>
+                      <td>
+                        <a
+                          class="btn btn-sm danger-btn"
+                          (click)="openDeleteConfirmationModal(proprietaire?._id)"
+                          ><i class="far fa-user-minus"></i
+                        ></a>
+                      </td>
+                    </tr>
+  
+                    <app-confirmation-modal [closeBtn]="true" [id]="id">
+                      <h3 class="main-title">
+                        Confirmation de la suppression
+                        <i class="far fa-exclamation-circle"></i>
+                      </h3>
+                      <p class="mt-3">Êtes-vous sûr de vouloir supprimer ce propriétaire ?</p>
+                      <div class="d-inline-flex justify-content-start mt-5">
+                        <a
+                          class="btn btn-lg px-lg-4 danger-btn me-2"
+                          (click)="deleteProprietaire()"
+                          >Oui</a
+                        >
+                        <a
+                          class="btn btn-lg px-lg-4 main-btn"
+                          (click)="closeDeleteConfirmationModal()"
+                          >Non</a
+                        >
+                      </div>
+                    </app-confirmation-modal>
+                  </tbody>
+  
+                  <tbody
+                    *ngIf="!proprietaires?.length"
+                    class="w-100 d-flex align-items-center"
+                  >
+                    <h5 class="main-muted-text my-4">
+                      Aucun proprietaire à afficher
+                    </h5>
+                  </tbody>
+                </table>
+              </div>
+            </ng-template>
+  
+            <ng-template #MontantLoyer>
+              <div class="col-lg-3 form-group mt-4">
+                <label for="">Montant du nouveau loyer</label>
+                <input
+                  type="number"
+                  class="form-control rounded-pill"
+                  formControlName="etat_contrat_montant_nouveau_loyer"
+                />
+              </div>
+            </ng-template>
+          </div>
       </ng-template>
       <!-- Template Avenant end -->
 
