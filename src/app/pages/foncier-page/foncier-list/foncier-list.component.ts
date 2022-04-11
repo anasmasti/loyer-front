@@ -12,6 +12,7 @@ import { getFonciers, getError } from '../foncier-store/foncier.selector';
 import { environment } from 'src/environments/environment';
 import { getUserType } from 'src/app/store/shared/shared.selector';
 import { AuthService } from '@services/auth-service/auth.service';
+import { Contrat } from 'src/app/models/Contrat';
 
 @Component({
   selector: 'app-foncier-list',
@@ -79,9 +80,9 @@ export class FoncierListComponent implements OnInit {
         if (data.length === 0) {
           // Dispatch action to handle the NgRx get foncier from server effect
           this.store.dispatch(getFoncierAction());
-  
         }
         this.fonciers = data;
+        console.log(data);
       });
   }
 
@@ -179,6 +180,19 @@ export class FoncierListComponent implements OnInit {
         }
       );
   }
+  getProprietaireLength(foncier: Foncier) {
+    let count = 0;
+    foncier.proprietaire.forEach((proprietaire: any) => {
+      if (
+        !proprietaire.deleted && (proprietaire?.statut == 'Actif' || proprietaire?.statut == 'À supprimer')
+      ) {
+        count = count + 1;
+        console.log(proprietaire);
+        
+      }
+    });
+    return count;
+  }
   openModalAndPushFoncier(foncier: any) {
     this.targetFoncier = foncier;
     this.mainModalService.open(); // Open delete confirmation modal
@@ -186,7 +200,7 @@ export class FoncierListComponent implements OnInit {
   reload() {
     this.helperService.refrechPage();
   }
-  
+
   getUserRole() {
     this.store.select(getUserType).subscribe((roles) => {
       this.checkRole(roles);
@@ -199,13 +213,13 @@ export class FoncierListComponent implements OnInit {
         case 'DC':
           this.isDC;
           break;
-          case 'CDGSP':
+        case 'CDGSP':
           this.isCDGSP;
           break;
-          case 'CSLA':
+        case 'CSLA':
           this.isCSLA;
           break;
-          case 'DAJC':
+        case 'DAJC':
           this.isDAJC;
           break;
 

@@ -9,8 +9,6 @@ import { ConfirmationModalService } from '@services/confirmation-modal-service/c
 import { FoncierService } from '@services/foncier-service/foncier.service';
 import { Motif } from './motif.class';
 import { Proprietaire } from 'src/app/models/Proprietaire';
-import { LoginModule } from '../../login-page/login.module';
-// import { addMonths } from './date.class';
 
 @Component({
   selector: 'app-form-contrat',
@@ -40,9 +38,10 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   isStatutError: boolean = false;
   statutContratError: string = 'Veuillez séléctionnez le statut de contrat';
   isSuspensionValidError: boolean = false;
-  suspensionErrorMsg: string = 'Veuillez séléctionnez la date et la durée de suspension';
+  suspensionErrorMsg: string =
+    'Veuillez séléctionnez la date et la durée de suspension';
   isAvenantError: boolean = false;
-  avenantErrorMsg: string = "Veuillez séléctionnez la date d’effet"
+  avenantErrorMsg: string = 'Veuillez séléctionnez la date d’effet';
 
   foncier!: any;
   fd: FormData = new FormData();
@@ -761,21 +760,33 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       console.log('=>',this.contrat);
   }
   // Update contrat
-  updateContrat() {    
-    let dateSuspension = this.contratForm.get('etat_contrat_date_suspension')?.value;
-    let durreSuspension = this.contratForm.get('etat_contrat_duree_suspension')?.value;
+  updateContrat() {
+    let dateSuspension = this.contratForm.get(
+      'etat_contrat_date_suspension'
+    )?.value;
+    let durreSuspension = this.contratForm.get(
+      'etat_contrat_duree_suspension'
+    )?.value;
     let dateEffetAvenant = this.contratForm.get('date_effet_av')?.value;
     let contratLibelle = this.contratForm.get('etat_contrat_libelle')?.value;
 
-    if(contratLibelle != 'Initié'){
-      if ((dateSuspension == (null || undefined) || durreSuspension == null) && contratLibelle != null && contratLibelle == 'Suspendu') {
+    if (contratLibelle != 'Initié') {
+      if (
+        (dateSuspension == (null || undefined) || durreSuspension == null) &&
+        contratLibelle != null &&
+        contratLibelle == 'Suspendu'
+      ) {
         this.isSuspensionValidError = true;
         setTimeout(() => {
           this.isSuspensionValidError = false;
         }, 3000);
       }
 
-      if (dateEffetAvenant == (null || undefined || '') && contratLibelle != null && contratLibelle == 'Avenant') {
+      if (
+        dateEffetAvenant == (null || undefined || '') &&
+        contratLibelle != null &&
+        contratLibelle == 'Avenant'
+      ) {
         this.isAvenantError = true;
         setTimeout(() => {
           this.isAvenantError = false;
@@ -787,8 +798,13 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
         setTimeout(() => {
           this.isStatutError = false;
         }, 3000);
-      } 
-      if((dateSuspension != null && durreSuspension != null || dateEffetAvenant.length != 0) && contratLibelle != (undefined || null)) this.succesUpdate();
+      }
+      if (
+        ((dateSuspension != null && durreSuspension != null) ||
+          dateEffetAvenant.length != 0) &&
+        contratLibelle != (undefined || null)
+      )
+        this.succesUpdate();
     } else this.succesUpdate();
   }
 
@@ -894,8 +910,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     };
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
-
-  //  patch the formdata (data+files)
+    //  patch the formdata (data+files)
     this.contratService.updateContrat(id, this.fd).subscribe(
       (_) => {
         this.updateDone = true;

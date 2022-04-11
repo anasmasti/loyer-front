@@ -6,12 +6,8 @@
         <a class="btn btn-sm main-btn me-4" [routerLink]="['/']">
           <i class="fal fa-home"></i> Tableau de board
         </a>
-        <a
-          lass="text-dark ms-5"
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-          title="Ici vous pouvez consulter les notifications et les alerts"
-        >
+        <a lass="text-dark ms-5" data-bs-toggle="tooltip" data-bs-placement="top"
+          title="Ici vous pouvez consulter les notifications et les alerts">
           <i class="fal fa-info"></i>
         </a>
       </div>
@@ -21,18 +17,9 @@
 <div class="my-5">
   <div *ngIf="!hasError">
     <h6>Aujourd'hui</h6>
-    <div
-      *ngFor="let notif of notifications"
-      class="alert alert-dismissible fade show notif-section mt-3"
-      role="alert"
-    >
-      <strong>{{ notif.message }}</strong> {{ notif.created_at | date }}
-      <button
-        type="button"
-        class="btn-close"
-        data-bs-dismiss="alert"
-        aria-label="Close"
-      ></button>
+    <div *ngFor="let notif of notifications" class="alert alert-dismissible fade show notif-section mt-3" role="alert">
+      <strong>{{ notif.message }}</strong> {{ notif.created_at | date : 'dd/MM/YYYY' }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 
     <h4 *ngIf="!notifications?.length" class="main-muted-text">

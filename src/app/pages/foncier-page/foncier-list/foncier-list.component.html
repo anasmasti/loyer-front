@@ -180,11 +180,10 @@
           <div *ngIf="foncier.contrat">
             <div *ngIf="foncier.proprietaire.length">
               <span class="col-sm-6 main-txt">
-                {{
-                  foncier.proprietaire.length >= 1
-                    ? foncier.proprietaire.length
-                    : ""
-                }}
+                <!-- foncier.proprietaire.length >= 1
+                  ? foncier.proprietaire.length
+                  : "" -->
+                {{ getProprietaireLength(foncier) }}
                 propriétaire<span *ngIf="foncier.proprietaire.length > 1"
                   >s</span
                 >

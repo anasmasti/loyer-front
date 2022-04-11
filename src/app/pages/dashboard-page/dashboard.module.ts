@@ -19,6 +19,6 @@ const route: Routes = [
     ComingSoonModule,
     EffectsModule.forFeature([SharedEffects]),
     NgxChartsModule
-  ]
+  ],
 })
 export class DashboardModule { }
