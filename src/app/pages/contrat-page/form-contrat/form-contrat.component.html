@@ -636,7 +636,7 @@
                   <tr>
                     <th>Nom complet</th>
                     <th>Raison social</th>
-                    <th>CIN</th>
+                    <th>CIN/IF</th>
                     <th>Mandataire</th>
                     <th>Actions</th>
                   </tr>
@@ -657,7 +657,7 @@
                           : "--"
                       }}
                     </td>
-                    <td>{{ proprietaire.cin }}</td>
+                    <td>{{ proprietaire.cin || proprietaire.n_registre_commerce }}</td>
                     <td>
                       <div class="d-grid">
                         <span
