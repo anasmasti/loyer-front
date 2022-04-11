@@ -141,7 +141,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         .get('raison_social')
         ?.setValidators(
           PropValidator.runInOrder([
-            Validators.pattern('[a-zA-Z ]*'),
             PropValidator.checkProprietaireMoral(this.personPhysique),
           ])
         );
