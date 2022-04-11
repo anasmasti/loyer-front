@@ -54,7 +54,6 @@ export class DetailContratComponent implements OnInit {
       for (let index = 0; index < lengthImageSortie; index++) {
         this.selected_images_res_sortie.push(this.contrat.etat_contrat?.etat.images_etat_res_lieu_sortie[index]);
       }
-
     });
   }
 

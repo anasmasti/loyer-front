@@ -164,7 +164,6 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.checkAvenant()
     if (this.isInsertForm) {
       // this.foncier_id = this.actRoute.snapshot.paramMap.get('id_foncier') || '';
       this.actRoute.url.subscribe((data) => {
@@ -756,9 +755,6 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     }
   }
 
-  checkAvenant(){
-      console.log('=>',this.contrat);
-  }
   // Update contrat
   updateContrat() {
     let dateSuspension = this.contratForm.get(

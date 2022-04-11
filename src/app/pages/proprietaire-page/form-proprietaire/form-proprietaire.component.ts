@@ -107,8 +107,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       this.foncier_id = this.actRoute.snapshot.paramMap.get('id_foncier') || '';
       this.foncier_etat =
         this.actRoute.snapshot.paramMap.get('etat_ajout') || '';
-        console.log(this.foncier_etat);
-        
       this.callGetContratAndLieuMethods();
     }
 
@@ -416,8 +414,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
         .getContratByFoncier(this.foncier_id, this.userMatricule)
         .subscribe((data) => {
           if (data) {
-            console.log(data);
-            
             this.contratByFoncier = data;
             this.lengthProprietaire =
               this.contratByFoncier[0]?.foncier?.proprietaire.length;
@@ -761,7 +757,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       // deleted:false,
     };
 
-    // console.log(proprietaire_data);
     
     this.proprietaireService
       .postProprietaire(proprietaire_data, this.foncier_id, this.userMatricule)
