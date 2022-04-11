@@ -636,6 +636,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
     };
 
     this.fd.append('data', JSON.stringify(foncier));
+    console.log('data',foncier);
     
     this.foncierService
       .updateFoncier(id, this.fd, this.userMatricule)

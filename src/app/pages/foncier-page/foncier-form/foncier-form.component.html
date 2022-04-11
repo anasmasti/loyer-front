@@ -14,8 +14,8 @@
     </div>
 
     <!--Début 1er Row-->
-    <div class="row" *ngIf="!update">
-      <div class="col-lg-4 form-group mt-4">
+    <div class="row">
+      <div class="col-lg-4 form-group mt-4" *ngIf="!update">
         <label for=""
           >Type d'entité organisationnelle
           <span class="danger-txt">*</span></label
@@ -41,7 +41,7 @@
         </div>
       </div>
 
-      <div class="col-lg-4 form-group mt-4">
+      <div class="col-lg-4 form-group mt-4" *ngIf="!update">
         <label for=""
           >Code d'entité organisationnelle
           <span class="danger-txt">*</span></label
@@ -71,7 +71,7 @@
         </div>
       </div>
 
-      <div class="col-lg-4 form-group mt-4">
+      <div class="col-lg-4 form-group mt-4" *ngIf="!update">
         <label for="">Intitulé d'entité organisationnelle</label>
         <input
           type="text"
@@ -81,7 +81,7 @@
         />
       </div>
 
-      <div class="col-lg-4 form-group mt-4">
+      <div class="col-lg-4 form-group mt-4" *ngIf="!update || (update  && foncier?.contrat.length == 0)">
         <label for="">Superficie</label>
         <input
           type="text"
@@ -90,7 +90,7 @@
         />
       </div>
 
-      <div class="col-lg-4 form-group mt-4">
+      <div class="col-lg-4 form-group mt-4" *ngIf="!update || (update && !foncier?.contrat[0]?.validation2_DAJC)">
         <label for="">Ville <span class="danger-txt">*</span></label>
         <p *ngIf="!cities.length" class="danger-txt">
           Une erreur s'est produite, veuillez réessayer plus tard.
@@ -115,7 +115,7 @@
         </div>
       </div>
 
-      <div class="col-lg-4 form-group mt-4">
+      <div class="col-lg-4 form-group mt-4" *ngIf="!update || (update && !foncier?.contrat[0]?.validation2_DAJC)">
         <label for="">Etage</label>
         <input
           type="text"
@@ -124,7 +124,7 @@
         />
       </div>
 
-      <div class="col-lg-12 form-group mt-4">
+      <div class="col-lg-12 form-group mt-4" *ngIf="!update || (update && !foncier?.contrat[0]?.validation2_DAJC)">
         <label for="">Adresse <span class="danger-txt">*</span></label>
         <textarea
           type="text"
@@ -142,7 +142,7 @@
         </div>
       </div>
 
-      <div class="col-lg-12 form-group mt-4">
+      <div class="col-lg-12 form-group mt-4" *ngIf="!update || (update && !foncier?.contrat[0]?.validation2_DAJC)">
         <label for="">Descriptif du local</label>
         <textarea
           type="text"
@@ -151,7 +151,7 @@
         ></textarea>
       </div>
 
-      <div class="col-lg-3 form-group mt-4">
+      <div class="col-lg-3 form-group mt-4" *ngIf="!update || (update && !foncier?.contrat[0]?.validation2_DAJC)">
         <label for="">Images du local avant aménagement</label>
         <input
           type="file"

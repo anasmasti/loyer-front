@@ -279,7 +279,7 @@
                   ></a>
                   <a
                     *ngIf="
-                      !isDC && !isDAJC && foncier?.contrat.length == 0
+                      !isDC && !isDAJC
                     "
                     class="btn btn-sm info-btn me-2"
                     (click)="openModalAndPushFoncier(foncier)"
@@ -289,8 +289,7 @@
                     *ngIf="
                       !isCSLA &&
                       !isDAJC &&
-                      !isDC &&
-                      foncier?.contrat.length == 0
+                      !isDC && foncier?.contrat.length == 0
                     "
                     class="btn btn-sm danger-btn me-2"
                     (click)="openConfirmationModal(foncier)"

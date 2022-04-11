@@ -238,8 +238,7 @@
 <div
   *ngIf="
     contrat &&
-    contrat.etat_contrat?.libelle !== 'Actif' &&
-    contrat.etat_contrat?.libelle === 'Avenant'
+    contrat?.is_avenant
   "
   class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white"
 >
@@ -281,8 +280,8 @@
       <h5 class="main-txt">Motif</h5>
       <p>
         {{
-          contrat.etat_contrat?.etat?.motif !== ""
-            ? contrat.etat_contrat?.etat?.motif
+          contrat.etat_contrat?.etat?.motif.type_motif
+            ? contrat.etat_contrat?.etat?.motif.type_motif
             : "--"
         }}
       </p>
@@ -292,12 +291,24 @@
       <h5 class="main-txt">Montant nouveau loyer</h5>
       <p>
         {{
-          contrat.etat_contrat?.etat?.montant_nouveau_loyer !== null
-            ? contrat.etat_contrat?.etat?.montant_nouveau_loyer
+          contrat.montant_loyer !== null
+            ? contrat.montant_loyer
             : "--"
         }}
       </p>
     </div>
+
+    <div class="col-lg-3">
+      <h5 class="main-txt">Date d'effet</h5>
+      <p>
+        {{
+          contrat.etat_contrat?.etat?.date_effet_av !== null
+            ? contrat.etat_contrat?.etat?.date_effet_av
+            : "--"
+        }}
+      </p>
+    </div>
+
     <div class="col-lg-3">
       <h5 class="main-txt">Signaletique successeur</h5>
       <p>
@@ -308,34 +319,35 @@
         }}
       </p>
     </div>
-  </div>
-
-  <div class="row">
-    <!-- <div class="col-lg-3">
-      <h5 class="main-txt">Intitule d'entité</h5>
-      <p>
-        {{
-          contrat.etat_contrat?.etat?.intitule_lieu !== ""
-            ? contrat.etat_contrat?.etat?.intitule_lieu
-            : "--"
-        }}
-      </p>
-    </div> -->
     <div class="col-lg-3">
-      <h5 class="main-txt">Pièce jointe</h5>
-      <p>
-        <a
-          class="btn second-btn"
-          *ngIf="selected_piece_jointe_avenant"
-          href="{{ url }}{{ selected_piece_jointe_avenant?.image }}"
-          target="_blank"
-        >
-          Ouvrir
-        </a>
-        <span *ngIf="!selected_piece_jointe_avenant"> Aucun fichier </span>
-      </p>
+      <!-- <div class="col-lg-3">
+        <h5 class="main-txt">Intitule d'entité</h5>
+        <p>
+          {{
+            contrat.etat_contrat?.etat?.intitule_lieu !== ""
+              ? contrat.etat_contrat?.etat?.intitule_lieu
+              : "--"
+          }}
+        </p>
+      </div> -->
+      <!-- <div class="col-lg-3"> -->
+        <h5 class="main-txt">Pièce jointe</h5>
+        <p>
+          <a
+            class="btn second-btn"
+            *ngIf="selected_piece_jointe_avenant"
+            href="{{ url }}{{ selected_piece_jointe_avenant?.image }}"
+            target="_blank"
+          >
+            Ouvrir
+          </a>
+          <span *ngIf="!selected_piece_jointe_avenant"> Aucun fichier </span>
+        </p>
+      <!-- </div> -->
     </div>
   </div>
+
+
 </div>
 
 <div

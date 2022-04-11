@@ -9,6 +9,7 @@ import { ConfirmationModalService } from '@services/confirmation-modal-service/c
 import { FoncierService } from '@services/foncier-service/foncier.service';
 import { Motif } from './motif.class';
 import { Proprietaire } from 'src/app/models/Proprietaire';
+import { LoginModule } from '../../login-page/login.module';
 // import { addMonths } from './date.class';
 
 @Component({
@@ -140,6 +141,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     ? JSON.parse(localStorage.getItem('user') || '')
     : [];
   userRoles: any[] = [];
+  isAV: boolean = false;
 
   constructor(
     private contratService: ContratService,
@@ -163,6 +165,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    this.checkAvenant()
     if (this.isInsertForm) {
       // this.foncier_id = this.actRoute.snapshot.paramMap.get('id_foncier') || '';
       this.actRoute.url.subscribe((data) => {
@@ -663,6 +666,11 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   }
 
   fetchContrat() {
+    this.isAV = false;
+    let index = this.contrat?.numero_contrat.indexOf('/AV');
+    let checkAv = this.contrat?.numero_contrat.slice(index)
+    if(checkAv == '/AV') this.isAV = true;
+    
     if (this.contrat) {
       this.contrat.foncier.lieu.forEach((lieu: any) => {
         if (!lieu.deleted) {
@@ -749,6 +757,9 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     }
   }
 
+  checkAvenant(){
+      console.log('=>',this.contrat);
+  }
   // Update contrat
   updateContrat() {    
     let dateSuspension = this.contratForm.get('etat_contrat_date_suspension')?.value;
