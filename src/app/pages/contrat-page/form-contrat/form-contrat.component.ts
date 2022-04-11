@@ -9,7 +9,6 @@ import { ConfirmationModalService } from '@services/confirmation-modal-service/c
 import { FoncierService } from '@services/foncier-service/foncier.service';
 import { Motif } from './motif.class';
 import { Proprietaire } from 'src/app/models/Proprietaire';
-// import { addMonths } from './date.class';
 
 @Component({
   selector: 'app-form-contrat',
