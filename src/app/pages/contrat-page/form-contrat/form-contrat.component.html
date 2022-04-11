@@ -461,7 +461,7 @@
       <option *ngIf="contrat?.etat_contrat?.libelle !== 'Suspendu' && contrat?.validation2_DAJC && userRoles.includes('DAJC')" value="Suspendu">
         À suspendre
       </option>
-      <option *ngIf="this.contrat.validation2_DAJC && (userRoles.includes('DAJC') || userRoles.includes('CSLA'))" value="Résilié">
+      <option *ngIf="this.contrat.validation2_DAJC && userRoles.includes('CSLA')" value="Résilié">
         À résilier
       </option>
       <option *ngIf="contrat?.etat_contrat?.libelle === 'Suspendu'" value="Actif" >Actif</option>
