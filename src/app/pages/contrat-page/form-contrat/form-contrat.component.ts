@@ -882,23 +882,23 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     console.log("inside put");
     
    // patch the formdata (data+files)
-    // this.contratService.updateContrat(id, this.fd).subscribe(
-    //   (_) => {
-    //     this.updateDone = true;
-    //     setTimeout(() => {
-    //       this.mainModalService.close();
-    //       this.updateDone = false;
-    //       this.help.refrechPage();
-    //     }, 3000);
-    //   },
-    //   (error) => {
-    //     this.errors = error.error.message;
-    //     setTimeout(() => {
-    //       this.showErrorMessage();
-    //     }, 3000);
-    //     this.hideErrorMessage();
-    //   }
-    // );
+    this.contratService.updateContrat(id, this.fd).subscribe(
+      (_) => {
+        this.updateDone = true;
+        setTimeout(() => {
+          this.mainModalService.close();
+          this.updateDone = false;
+          this.help.refrechPage();
+        }, 3000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+    );
   }
 
   getMotifs() {
