@@ -749,25 +749,17 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   }
 
   // Update contrat
-  updateContrat() {
-    let durreSuspension = this.contratForm.get(
-      'etat_contrat_date_suspension'
-    )?.value;
-    let dateSuspension = this.contratForm.get(
-      'etat_contrat_duree_suspension'
-    )?.value;
+  updateContrat() {    
+    let dateSuspension = this.contratForm.get('etat_contrat_date_suspension')?.value;
+    let durreSuspension = this.contratForm.get('etat_contrat_duree_suspension')?.value;
     let contratLibelle = this.contratForm.get('etat_contrat_libelle')?.value;
 
     console.log('durreSuspension', durreSuspension);
     console.log('dateSuspension', dateSuspension);
     console.log('contratLibelle', contratLibelle);
 
-    if (contratLibelle != 'Initié') {
-      if (
-        (dateSuspension == (null || undefined) ||
-          durreSuspension == (null || undefined || '')) &&
-        contratLibelle != null
-      ) {
+    if(contratLibelle != 'Initié'){
+      if ((dateSuspension == (null || undefined) || durreSuspension == null) && contratLibelle != null) {
         this.isSuspensionValidError = true;
         setTimeout(() => {
           this.isSuspensionValidError = false;
@@ -779,12 +771,8 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
         setTimeout(() => {
           this.isStatutError = false;
         }, 3000);
-      }
-      if (
-        (dateSuspension != null || durreSuspension != null) &&
-        contratLibelle != (undefined || null)
-      )
-        this.succesUpdate();
+      } 
+      if(dateSuspension != null && durreSuspension != null && contratLibelle != (undefined || null)) this.succesUpdate();
     } else this.succesUpdate();
   }
 
@@ -891,26 +879,24 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
 
-    console.log('inside put');
-
-    // patch the formdata (data+files)
-    // this.contratService.updateContrat(id, this.fd).subscribe(
-    //   (_) => {
-    //     this.updateDone = true;
-    //     setTimeout(() => {
-    //       this.mainModalService.close();
-    //       this.updateDone = false;
-    //       this.help.refrechPage();
-    //     }, 3000);
-    //   },
-    //   (error) => {
-    //     this.errors = error.error.message;
-    //     setTimeout(() => {
-    //       this.showErrorMessage();
-    //     }, 3000);
-    //     this.hideErrorMessage();
-    //   }
-    // );
+  //  patch the formdata (data+files)
+    this.contratService.updateContrat(id, this.fd).subscribe(
+      (_) => {
+        this.updateDone = true;
+        setTimeout(() => {
+          this.mainModalService.close();
+          this.updateDone = false;
+          this.help.refrechPage();
+        }, 3000);
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+    );
   }
 
   getMotifs() {
