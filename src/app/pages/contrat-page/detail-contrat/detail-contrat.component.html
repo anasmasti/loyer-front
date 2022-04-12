@@ -287,8 +287,8 @@
       <h5 class="main-txt">Motif</h5>
       <p>
         {{
-          contrat.etat_contrat?.etat?.motif.type_motif
-            ? contrat.etat_contrat?.etat?.motif.type_motif
+          contrat.etat_contrat?.etat?.motif[0].type_motif
+            ? contrat.etat_contrat?.etat?.motif[0].type_motif
             : "--"
         }}
       </p>
@@ -316,7 +316,7 @@
       </p>
     </div>
 
-    <div class="col-lg-3">
+    <!-- <div class="col-lg-3">
       <h5 class="main-txt">Signaletique successeur</h5>
       <p>
         {{
@@ -325,7 +325,7 @@
             : "--"
         }}
       </p>
-    </div>
+    </div> -->
     <div class="col-lg-3">
       <!-- <div class="col-lg-3">
         <h5 class="main-txt">Intitule d'entité</h5>
