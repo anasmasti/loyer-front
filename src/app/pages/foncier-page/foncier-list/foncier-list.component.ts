@@ -82,7 +82,6 @@ export class FoncierListComponent implements OnInit {
           this.store.dispatch(getFoncierAction());
         }
         this.fonciers = data;
-        console.log(data);
       });
   }
 
@@ -187,8 +186,6 @@ export class FoncierListComponent implements OnInit {
         !proprietaire.deleted && (proprietaire?.statut == 'Actif' || proprietaire?.statut == 'À supprimer')
       ) {
         count = count + 1;
-        console.log(proprietaire);
-        
       }
     });
     return count;

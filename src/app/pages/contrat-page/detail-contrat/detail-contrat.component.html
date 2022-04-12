@@ -496,6 +496,18 @@
         }}
       </p>
     </div>
+
+    <div class="col-lg-3">
+      <h5 class="main-txt">Frais de réaménagement</h5>
+      <p>
+        {{
+          contrat.etat_contrat?.etat?.frais_reamenagement !== ""
+            ? contrat.etat_contrat?.etat?.frais_reamenagement
+            : "--"
+        }}
+      </p>
+    </div>
+
     <div class="col-lg-3">
       <h5 class="main-txt">Date de préavis</h5>
       <p>

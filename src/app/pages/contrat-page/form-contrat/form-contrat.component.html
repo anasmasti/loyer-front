@@ -101,13 +101,38 @@
           </div>
         </div>
 
+        <!-- <div class="col-lg-3 form-group mt-4">
+          <label for=""
+            >Date de début du loyer <span class="danger-txt">*</span></label
+          >
+          [(ngModel)]="date_debut_loyer_"
+          <input
+            type="date"
+            class="form-control rounded-pill"
+            (change)="reinitialiserDateDebut()"
+            formControlName="date_debut_loyer"
+            required
+            [ngClass]="{
+              'is-invalid': checkInputsValidation(date_debut_loyer),
+              'is-valid': !date_debut_loyer?.invalid
+            }"
+          /> -->
+
+          <!-- Error Message  -->
+          <!-- <div class="" *ngIf="checkInputsValidation(date_debut_loyer)">
+            <p class="danger-txt" *ngIf="date_debut_loyer?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+          </div>
+        </div> -->
+
         <div class="col-lg-3 form-group mt-4">
           <label for=""
             >Date de début du loyer <span class="danger-txt">*</span></label
           >
-          <!-- [(ngModel)]="date_debut_loyer_" -->
           <input
             type="date"
+            [(ngModel)]="date_debut_loyer_"
             class="form-control rounded-pill"
             (change)="reinitialiserDateDebut()"
             formControlName="date_debut_loyer"
@@ -898,6 +923,15 @@
           </div>
 
           <div class="col-lg-3 form-group mt-4">
+            <label for="">Frais de réaménagement</label>
+            <input
+              type="text"
+              class="form-control rounded-pill"
+              formControlName="etat_contrat_frais_reamenagement"
+            />
+          </div>
+
+          <div class="col-lg-3 form-group mt-4">
             <label for="">Images d'état des lieux de sortie</label>
             <input
               type="file"
@@ -958,7 +992,7 @@
     </h3>
     <p class="mt-3">Êtes-vous de vouloir résilier le contrat ?</p>
     <div class="d-inline-flex justify-content-start mt-5">
-      <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)="updateContrat()"
+      <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)="succesUpdate()"
         >Résilier</a
       >
       <a class="btn btn-lg px-lg-4 main-btn" (click)="closeConfirmationModal()"

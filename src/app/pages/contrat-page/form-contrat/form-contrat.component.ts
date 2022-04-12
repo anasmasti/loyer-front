@@ -164,7 +164,6 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.checkAvenant()
     if (this.isInsertForm) {
       // this.foncier_id = this.actRoute.snapshot.paramMap.get('id_foncier') || '';
       this.actRoute.url.subscribe((data) => {
@@ -234,6 +233,8 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       etat_contrat_piece_jointe_avenant: new FormControl(),
       deleted_proprietaires: new FormControl(),
       date_effet_av: new FormControl('', Validators.required),
+      etat_contrat_frais_reamenagement: new FormControl(),
+
       //caution consommé
       etat_caution_consomme: new FormControl(),
       duree_consomme: new FormControl(),
@@ -441,6 +442,49 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   }
 
   // calcul Date fin de l’avance et Date 1er de l'avance
+  // calculDate() {
+  //   let montant_loyer = parseInt(this.contratForm.get('montant_loyer')?.value,10);
+  //   let date = new Date(this.contratForm.get('date_debut_loyer')?.value);
+  //   let month = date.getMonth();
+  //   this.dureeAvance = this.contratForm.get('duree_avance')?.value;
+
+  //   if (this.dureeAvance > 0) {
+  //     switch (this.periodicite) {
+  //       case 'mensuelle':
+  //         month += this.dureeAvance;
+  //         break;
+  //       case 'trimestrielle':
+  //         month += this.dureeAvance * 3;
+  //         break;
+  //       case 'annuelle':
+  //         month += this.dureeAvance * 12;
+  //         break;
+  //       default:
+  //         break;
+  //     }
+  //     // if ((date.getMonth() + 1) === 4) {
+
+  //     //   this.datePremierPaiement = new Date(`${date.getFullYear()}-${month}-${1}`).toISOString().slice(0, 10);
+  //     // }
+  //     // Date fin de l'avance
+  //     date.setMonth(month);
+  //     this.datePremierPaiement = date.toISOString().slice(0, 10);
+      
+
+  //     // Date 1er paiment
+  //     date.setDate(0);
+  //     this.formattedDateFinAvance = date.toISOString().slice(0, 10);
+
+  //     // Montant de l'avance
+  //     this.montantAvance = montant_loyer * this.dureeAvance;
+  //   } else {
+  //     // this.datePremierPaiement = null;
+  //     this.datePremierPaiement = this.date_debut_loyer_;
+  //     this.formattedDateFinAvance = null;
+  //     this.montantAvance = 0;
+  //   }
+  // }
+
   calculDate() {
     let montant_loyer = parseInt(
       this.contratForm.get('montant_loyer')?.value,
@@ -740,6 +784,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
           this.contrat.etat_contrat?.etat?.preavis
         ),
         nombre_part: this.contrat.nombre_part,
+        etat_contrat_frais_reamenagement: this.contrat.etat_contrat?.etat?.frais_reamenagement
         // etat_contrat_images_etat_res_lieu_sortie: this.contrat.etat_contrat?.etat?.images_etat_res_lieu_sortie,
         // etat_contrat_lettre_res_piece_jointe: this.contrat.etat_contrat?.etat?.lettre_res_piece_jointe,
         // etat_contrat_piece_jointe_avenant: this.contrat.etat_contrat?.etat?.piece_jointe_avenant,
@@ -756,9 +801,6 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     }
   }
 
-  checkAvenant(){
-      console.log('=>',this.contrat);
-  }
   // Update contrat
   updateContrat() {
     let dateSuspension = this.contratForm.get(
@@ -896,6 +938,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
           duree_a_recupere: this.durreeRecuperer,
           deleted_proprietaires: this.deletedProprietaires,
           date_effet_av: this.contratForm.get('date_effet_av')?.value || '',
+          frais_reamenagement: this.contratForm.get('etat_contrat_frais_reamenagement')?.value || '',
         },
       },
 
@@ -910,6 +953,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     };
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
+
     //  patch the formdata (data+files)
     this.contratService.updateContrat(id, this.fd).subscribe(
       (_) => {
