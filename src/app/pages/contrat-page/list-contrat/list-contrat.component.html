@@ -229,7 +229,7 @@
                   contrat?.etat_contrat?.etat?.motif[0]?.type_motif == 'Cession'
                 "
               >
-                <a *ngIf="!isDC && !isDAJC"
+                <a *ngIf="!isDC && !isDAJC && contrat?.etat_contrat?.libelle == 'Initié'"
                   [routerLink]="[
                     '/proprietaire/add',
                     contrat?.foncier?._id,
