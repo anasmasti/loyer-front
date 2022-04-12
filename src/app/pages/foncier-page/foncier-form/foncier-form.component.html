@@ -503,7 +503,7 @@
             *ngIf="currentLieu.etat_lieu !== 'En cours de transfert'"
             type="button"
             id="Transferer"
-            class="btn second-btn form-control"
+            class="btn second-btn form-control w-100"
             (click)="openConfirmationModal('ATransfererModalId')"
           >
             En cours de transfert
@@ -512,7 +512,7 @@
             *ngIf="currentLieu.etat_lieu === 'En cours de transfert'"
             type="button"
             id="Transferer"
-            class="btn second-btn form-control"
+            class="btn second-btn form-control w-100"
             (click)="openConfirmationModal('AnnulerTransféreModalId')"
           >
             Annuler le transfére
@@ -522,7 +522,7 @@
           <button
             type="button"
             id="supprimer"
-            class="btn btn-sm danger-btn form-control mx-3"
+            class="btn btn-sm danger-btn form-control mx-3 w-100"
             (click)="openConfirmationModal('TransfererModalId')"
           >
           Transférer définitivement cette entité 
