@@ -224,7 +224,9 @@
                 class="mb-1"
                 *ngIf="
                   contrat?.is_avenant &&
-                  contrat?.etat_contrat?.libelle == 'Initié'
+                  contrat?.etat_contrat?.libelle == 'Initié' && 
+                  contrat?.etat_contrat?.etat?.motif[0]?.type_motif == 'Décès' || 
+                  contrat?.etat_contrat?.etat?.motif[0]?.type_motif == 'Cession'
                 "
               >
                 <a

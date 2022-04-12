@@ -120,6 +120,8 @@ export class ListContratComponent implements OnInit {
     this.contratService.getContrat().subscribe(
       (data: any) => {
         this.contrats = data;
+        console.log("==>",this.contrats);
+        
         this.comparedContrat = data;
       },
       (error: any) => {
