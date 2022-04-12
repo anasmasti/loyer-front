@@ -407,7 +407,7 @@
           <input type="checkbox" [name]="prop?._id" class="btn-check check" [id]="prop?._id" autocomplete="off"
             [value]="prop?._id" (click)="selectProp(prop)" checked />
           <label class="px-3 py-1 rounded-pill checkbox-list-btns" [for]="prop?._id">
-            {{ prop?.cin }} • {{ prop?.nom_prenom || prop?.raison_social }}
+            {{ prop?.cin ? prop?.cin : prop?.n_registre_commerce }} • {{ prop?.nom_prenom ? prop?.nom_prenom : prop?.raison_social}}
           </label>
         </div>
       </div>
@@ -423,7 +423,7 @@
           <input type="checkbox" [name]="proprietaire._id" class="btn-check check" [id]="proprietaire._id"
             autocomplete="off" [value]="proprietaire._id" (click)="selectProp(proprietaire)" />
           <label class="px-3 py-1 rounded-pill checkbox-list-btns" [for]="proprietaire._id">
-            {{ proprietaire.cin }} • {{ proprietaire.nom_prenom }}
+         {{ proprietaire.cin ? proprietaire.cin : proprietaire.n_registre_commerce }} • {{ proprietaire.nom_prenom ? proprietaire.nom_prenom : proprietaire.raison_social}}
           </label>
         </div>
       </div>
@@ -442,7 +442,7 @@
             autocomplete="off" [value]="proprietaire._id" (click)="selectProp(proprietaire)"
             formControlName="proprietaire_list" />
           <label class="px-3 py-1 rounded-pill checkbox-list-btns" [for]="proprietaire._id">
-            {{ proprietaire.cin }} • {{ proprietaire.nom_prenom }}
+            {{ proprietaire.cin ? proprietaire.cin : proprietaire.n_registre_commerce }} • {{ proprietaire.nom_prenom ? proprietaire.nom_prenom : proprietaire.raison_social}}
           </label>
         </div>
       </div>
