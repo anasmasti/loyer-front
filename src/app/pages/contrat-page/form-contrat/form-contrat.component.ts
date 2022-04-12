@@ -141,6 +141,9 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     : [];
   userRoles: any[] = [];
   isAV: boolean = false;
+  checkDeces: boolean = false;
+  checkCession: boolean = false;
+  checkMontantLoyer: boolean = false;
 
   constructor(
     private contratService: ContratService,
@@ -157,9 +160,9 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   ngOnChanges() {
     if (this.contrat && this.contrat.length !== 0) {
       this.fetchContrat();
-      this.proprDecesFormList = false;
-      this.proprCessionFormList = false;
-      this.montantLoyerForm = false;
+      // this.proprDecesFormList = false;
+      // this.proprCessionFormList = false;
+      // this.montantLoyerForm = false;
     }
   }
 
@@ -469,7 +472,6 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   //     // Date fin de l'avance
   //     date.setMonth(month);
   //     this.datePremierPaiement = date.toISOString().slice(0, 10);
-      
 
   //     // Date 1er paiment
   //     date.setDate(0);
@@ -709,12 +711,17 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   }
 
   fetchContrat() {
+    this.proprDecesFormList = false;
+    this.proprCessionFormList = false;
+    this.montantLoyerForm = false;
     this.isAV = false;
     let index = this.contrat?.numero_contrat.indexOf('/AV');
-    let checkAv = this.contrat?.numero_contrat.slice(index)
-    if(checkAv == '/AV') this.isAV = true;
+    let checkAv = this.contrat?.numero_contrat.slice(index);
+    if (checkAv == '/AV') this.isAV = true;
 
     if (this.contrat) {
+      console.log(this.contrat);
+
       this.contrat.foncier.lieu.forEach((lieu: any) => {
         if (!lieu.deleted) {
           this.currentLieu = lieu;
@@ -787,7 +794,8 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
           this.contrat.etat_contrat?.etat?.date_effet_av
         ),
         nombre_part: this.contrat.nombre_part,
-        etat_contrat_frais_reamenagement: this.contrat.etat_contrat?.etat?.frais_reamenagement
+        etat_contrat_frais_reamenagement:
+          this.contrat.etat_contrat?.etat?.frais_reamenagement,
         // etat_contrat_images_etat_res_lieu_sortie: this.contrat.etat_contrat?.etat?.images_etat_res_lieu_sortie,
         // etat_contrat_lettre_res_piece_jointe: this.contrat.etat_contrat?.etat?.lettre_res_piece_jointe,
         // etat_contrat_piece_jointe_avenant: this.contrat.etat_contrat?.etat?.piece_jointe_avenant,
@@ -798,6 +806,28 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       // this.contrat.numero_contrat
       //   ? (this.foncier_id = this.contrat.lieu._id)
       //   : null;
+      // Check motif checkboxs
+      if (this.contrat.is_avenant) {
+        this.contrat.etat_contrat.etat.motif.forEach((motif: any) => {
+          switch (motif.type_motif) {
+            case 'Révision du prix du loyer':
+              this.checkMontantLoyer = true;
+              this.montantLoyerForm = true;
+              this.contratForm?.patchValue({
+                etat_contrat_montant_nouveau_loyer: motif.montant_nouveau_loyer,
+              });
+              break;
+            case 'Décès':
+              this.proprDecesFormList = true;
+              this.checkDeces = true;
+              break;
+            case 'Cession':
+              this.checkCession = true;
+              this.proprCessionFormList = true;
+              break;
+          }
+        });
+      }
       this.contrat.numero_contrat
         ? (this.foncier_id = this.contrat.foncier)
         : null;
@@ -856,7 +886,8 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   succesUpdate() {
     let id = this.contrat._id;
     // Get all checked motif values
-    this.contratForm.get('etat_contrat_libelle')?.value === 'Avenant' &&
+    (this.contratForm.get('etat_contrat_libelle')?.value == 'Avenant' ||
+      this.contrat.is_avenant) &&
       this.getMotifs();
 
     let ctr_data: any = {
@@ -896,7 +927,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
         this.contratForm.get('n_engagement_depense')?.value || '',
       lieu: this.contratForm.get('lieu')?.value || '',
       duree_location: this.contratForm.get('duree_location')?.value || '',
-
+      is_avenant: this.contrat.is_avenant,
       //etat de contrat
       etat_contrat: {
         libelle: this.contratForm.get('etat_contrat_libelle')?.value || null,
@@ -941,7 +972,9 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
           duree_a_recupere: this.durreeRecuperer,
           deleted_proprietaires: this.deletedProprietaires,
           date_effet_av: this.contratForm.get('date_effet_av')?.value || '',
-          frais_reamenagement: this.contratForm.get('etat_contrat_frais_reamenagement')?.value || '',
+          frais_reamenagement:
+            this.contratForm.get('etat_contrat_frais_reamenagement')?.value ||
+            '',
         },
       },
 
@@ -956,6 +989,8 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     };
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
+
+    // console.log(ctr_data);
 
     //  patch the formdata (data+files)
     this.contratService.updateContrat(id, this.fd).subscribe(
@@ -978,9 +1013,17 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   }
 
   getMotifs() {
+    console.log('Iiiiiiiin', this.montantLoyerForm);
+
     this.proprDecesFormList && this.motif.push({ type_motif: 'Décès' });
     this.proprCessionFormList && this.motif.push({ type_motif: 'Cession' });
-    this.montantLoyerForm && this.motif.push({type_motif: 'Révision du prix du loyer', montant_nouveau_loyer: this.contratForm.get('etat_contrat_montant_nouveau_loyer')?.value,});
+    this.montantLoyerForm &&
+      this.motif.push({
+        type_motif: 'Révision du prix du loyer',
+        montant_nouveau_loyer: this.contratForm.get(
+          'etat_contrat_montant_nouveau_loyer'
+        )?.value,
+      });
   }
 
   // :::: Proprietaire List ::::
