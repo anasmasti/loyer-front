@@ -703,6 +703,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
         code_lieu: Lieu.code_lieu,
         type_lieu: Lieu.type_lieu,
         intitule_lieu: Lieu.intitule_lieu,
+        attached_DR: Lieu.attached_DR
       },
     };
 
@@ -739,7 +740,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
       deleted: lieu.deleted,
       // transferer: lieu.transferer,
       etat_lieu: lieu.etat_lieu,
-      lieu: lieu.lieu,
+      lieu: lieu.lieu[0] || lieu.lieu,
     };
 
     this.selectedLieuId = '';
@@ -752,7 +753,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
         deleted: lieu.deleted,
         // transferer: lieu.transferer,
         etat_lieu: lieu.etat_lieu,
-        lieu: lieu.lieu[0]._id,
+        lieu: lieu.lieu[0]?._id != undefined ? lieu.lieu[0]._id : lieu.lieu._id,
       });
     }
   }

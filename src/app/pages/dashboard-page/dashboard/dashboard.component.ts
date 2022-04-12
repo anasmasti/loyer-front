@@ -133,25 +133,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   getChartLine() {
     this.chartService.getChartBarH().subscribe((data) => {
-      // this.statisticsBarH = data;
-      this.statisticsBarH = [
-        {
-          name: 'Point de vente',
-          value: 4000,
-        },
-        {
-          name: 'Direction régionale',
-          value: 2200,
-        },
-        {
-          name: 'Logement de fonction',
-          value: 5000,
-        },
-        {
-          name: 'Siège',
-          value: 3600,
-        },
-      ];
+      this.statisticsBarH = data
     });
   }
 
@@ -169,54 +151,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   getChartBar() {
     this.chartService.getChartBarV().subscribe((data) => {
-      // this.statisticsBarV = data;
-      this.statisticsBarV = [
-        {
-          name: 'DR1',
-          value: 40,
-        },
-        {
-          name: 'DR10',
-          value: 2,
-        },
-        {
-          name: 'DR2',
-          value: 50,
-        },
-        {
-          name: 'DR3',
-          value: 36,
-        },
-        {
-          name: 'DR9',
-          value: 8,
-        },
-        {
-          name: 'DR4',
-          value: 31,
-        },
-        {
-          name: 'DR5',
-          value: 33,
-        },
-        {
-          name: 'DR6',
-          value: 35,
-        },
-        {
-          name: 'DR7',
-          value: 25,
-        },
-        {
-          name: 'DR8',
-          value: 16,
-        },
-        {
-          name: 'DR11',
-          value: 20,
-        },
-      ];
-    });
+      this.statisticsBarV = data;
+      });
   }
 
   getNotifications() {

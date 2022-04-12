@@ -466,7 +466,7 @@
             <input
               type="text"
               class="form-control rounded-pill"
-              [value]="currentLieu.lieu.type_lieu"
+              [value]="currentLieu?.lieu?.type_lieu"
               readonly
             />
           </div>
@@ -477,7 +477,7 @@
             <input
               type="text"
               class="form-control rounded-pill"
-              [value]="currentLieu.lieu.code_lieu"
+              [value]="currentLieu?.lieu?.type_lieu == 'Logement de fonction' ? currentLieu?.lieu?.attached_DR?.code_lieu : currentLieu?.lieu?.code_lieu"
               readonly
             />
             <!-- [value]="currentLieu.code_lieu" -->
@@ -489,7 +489,7 @@
             <input
               type="text"
               class="form-control rounded-pill"
-              [value]="currentLieu.lieu.intitule_lieu"
+              [value]="currentLieu?.lieu?.intitule_lieu"
               readonly
             />
           </div>
@@ -615,7 +615,11 @@
             >
               <option value="Default_option" selected>-</option>
               <option [value]="lieu._id" *ngFor="let lieu of lieuxByType">
-                {{ lieu.code_lieu }}
+                {{
+                  lieu.type_lieu === "Logement de fonction"
+                    ? lieu.attached_DR.code_lieu
+                    : lieu.code_lieu
+                }}
               </option>
             </select>
           </div>
