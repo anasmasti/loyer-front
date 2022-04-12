@@ -101,6 +101,7 @@ export class ListReportingContratComponent implements OnInit {
 
   search(date: any) {
     let splitedDate = date.split('-');
+    
     if (splitedDate[0] != '') {
       this.reportings = this.reportingsClone.filter((res: any) => {
         return res.annee == splitedDate[0] && res.mois == splitedDate[1];
