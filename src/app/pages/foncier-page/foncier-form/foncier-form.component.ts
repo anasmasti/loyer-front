@@ -192,11 +192,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
 
   // (click)="checkValue(amenagementForm.controls[i], nature.id + '-' + i)"
   fetchFc(HasAmenagement: string) {
-    console.log("=>",this.foncier);
-    
     this.removeAllAmenagement();
-    console.log('dattaaaa',this.foncier);
-    
 
     // reintialise variables
     this.currentLieu = null;
@@ -219,7 +215,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
 
     // Fetch lieu
     this.foncier.lieu.forEach((element: any) => {
-      console.log(element);
       if (!element.deleted) this.fillCurrentLieuObject(element);
       else this.pushIntoFoncierLieux(element);
     });
@@ -741,8 +736,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
 
   // Current Lieu is the lieu object that its rendreing now
   fillCurrentLieuObject(lieu: any) {
-    console.log('CurrentLieu', lieu);
-    
     this.currentLieu = {
       deleted: lieu.deleted,
       // transferer: lieu.transferer,
