@@ -192,6 +192,8 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
 
   // (click)="checkValue(amenagementForm.controls[i], nature.id + '-' + i)"
   fetchFc(HasAmenagement: string) {
+    console.log("=>",this.foncier);
+    
     this.removeAllAmenagement();
 
     // reintialise variables
