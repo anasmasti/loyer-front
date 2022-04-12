@@ -98,6 +98,7 @@ export class ListReportingFoncierComponent implements OnInit {
     if (splitedDate[0] !== '') {
       this.reportings = this.reportingsClone.filter((res: any) => {
         return res.annee === splitedDate[0] && res.mois === splitedDate[1];
+        
       });
     } else if (splitedDate[0] === '') {
       this.getReportings('reporting/all', this.foncierList);

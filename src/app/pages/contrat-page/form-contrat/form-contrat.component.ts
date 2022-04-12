@@ -440,6 +440,49 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   }
 
   // calcul Date fin de l’avance et Date 1er de l'avance
+  // calculDate() {
+  //   let montant_loyer = parseInt(this.contratForm.get('montant_loyer')?.value,10);
+  //   let date = new Date(this.contratForm.get('date_debut_loyer')?.value);
+  //   let month = date.getMonth();
+  //   this.dureeAvance = this.contratForm.get('duree_avance')?.value;
+
+  //   if (this.dureeAvance > 0) {
+  //     switch (this.periodicite) {
+  //       case 'mensuelle':
+  //         month += this.dureeAvance;
+  //         break;
+  //       case 'trimestrielle':
+  //         month += this.dureeAvance * 3;
+  //         break;
+  //       case 'annuelle':
+  //         month += this.dureeAvance * 12;
+  //         break;
+  //       default:
+  //         break;
+  //     }
+  //     // if ((date.getMonth() + 1) === 4) {
+
+  //     //   this.datePremierPaiement = new Date(`${date.getFullYear()}-${month}-${1}`).toISOString().slice(0, 10);
+  //     // }
+  //     // Date fin de l'avance
+  //     date.setMonth(month);
+  //     this.datePremierPaiement = date.toISOString().slice(0, 10);
+      
+
+  //     // Date 1er paiment
+  //     date.setDate(0);
+  //     this.formattedDateFinAvance = date.toISOString().slice(0, 10);
+
+  //     // Montant de l'avance
+  //     this.montantAvance = montant_loyer * this.dureeAvance;
+  //   } else {
+  //     // this.datePremierPaiement = null;
+  //     this.datePremierPaiement = this.date_debut_loyer_;
+  //     this.formattedDateFinAvance = null;
+  //     this.montantAvance = 0;
+  //   }
+  // }
+
   calculDate() {
     let montant_loyer = parseInt(
       this.contratForm.get('montant_loyer')?.value,
