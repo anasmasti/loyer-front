@@ -923,6 +923,15 @@
           </div>
 
           <div class="col-lg-3 form-group mt-4">
+            <label for="">Frais de réaménagement</label>
+            <input
+              type="text"
+              class="form-control rounded-pill"
+              formControlName="etat_contrat_frais_reamenagement"
+            />
+          </div>
+
+          <div class="col-lg-3 form-group mt-4">
             <label for="">Images d'état des lieux de sortie</label>
             <input
               type="file"
@@ -983,7 +992,7 @@
     </h3>
     <p class="mt-3">Êtes-vous de vouloir résilier le contrat ?</p>
     <div class="d-inline-flex justify-content-start mt-5">
-      <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)="updateContrat()"
+      <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)="succesUpdate()"
         >Résilier</a
       >
       <a class="btn btn-lg px-lg-4 main-btn" (click)="closeConfirmationModal()"

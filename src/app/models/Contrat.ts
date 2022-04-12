@@ -48,6 +48,7 @@ export interface Contrat {
       lettre_res_piece_jointe: [];
       piece_jointe_avenant: [];
       date_effet_av: Date;
+      frais_reamenagement: string;
       //caution consommé
       etat_caution_consomme: string;
       duree_consomme: number;
