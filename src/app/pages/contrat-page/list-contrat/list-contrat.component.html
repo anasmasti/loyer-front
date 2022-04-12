@@ -223,14 +223,13 @@
               <div
                 class="mb-1"
                 *ngIf="
-                  !isDC && !isDAJC &&
                   contrat?.is_avenant &&
                   contrat?.etat_contrat?.libelle == 'Initié' && 
                   contrat?.etat_contrat?.etat?.motif[0]?.type_motif == 'Décès' || 
                   contrat?.etat_contrat?.etat?.motif[0]?.type_motif == 'Cession'
                 "
               >
-                <a
+                <a *ngIf="!isDC && !isDAJC"
                   [routerLink]="[
                     '/proprietaire/add',
                     contrat?.foncier?._id,
