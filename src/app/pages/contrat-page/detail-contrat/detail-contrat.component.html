@@ -310,7 +310,7 @@
       <p>
         {{
           contrat.etat_contrat?.etat?.date_effet_av !== null
-            ? contrat.etat_contrat?.etat?.date_effet_av
+            ? (contrat.etat_contrat?.etat?.date_effet_av | date: 'dd/MM/yyyy')
             : "--"
         }}
       </p>
