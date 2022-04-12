@@ -607,6 +607,7 @@
                   id="deces"
                   class="btn-check check"
                   (click)="displayForms('deces')"
+                  [checked]="contrat.etat_contrat?.etat?.motif[0]?.type_motif == 'Décès'"
                   autocomplete="off"
                 />
                 <label
@@ -621,6 +622,7 @@
                   class="btn-check check"
                   id="cession"
                   (click)="displayForms('cession')"
+                  [checked]="contrat.etat_contrat?.etat?.motif[0]?.type_motif == 'Cession'"
                   autocomplete="off"
                 />
                 <label
@@ -635,6 +637,7 @@
                   class="btn-check check"
                   id="revison_mnt_loyer"
                   (click)="displayForms('revison_mnt_loyer')"
+                  [checked]="contrat.etat_contrat?.etat?.motif[0]?.type_motif == 'Révision du prix du loyer'"
                   autocomplete="off"
                 />
                 <label
@@ -645,7 +648,6 @@
               </div>
               <!-- <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_motif"> -->
             </div>
-  
             <div
               *ngIf="
                 proprDecesFormList || proprCessionFormList;

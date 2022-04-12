@@ -713,7 +713,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     let index = this.contrat?.numero_contrat.indexOf('/AV');
     let checkAv = this.contrat?.numero_contrat.slice(index)
     if(checkAv == '/AV') this.isAV = true;
-    
+
     if (this.contrat) {
       this.contrat.foncier.lieu.forEach((lieu: any) => {
         if (!lieu.deleted) {
@@ -760,7 +760,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
 
         etat_contrat_libelle: this.contrat.etat_contrat?.libelle,
         etat_contrat_n_avenant: this.contrat.etat_contrat?.etat?.n_avenant,
-        etat_contrat_motif: this.contrat.etat_contrat?.etat?.motif,
+        etat_contrat_motif: this.contrat.etat_contrat?.etat?.motif?.type_motif,
         etat_contrat_montant_nouveau_loyer:
           this.contrat.etat_contrat?.etat?.montant_nouveau_loyer,
         etat_contrat_signaletique_successeur:
@@ -782,6 +782,9 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
           this.contrat.etat_contrat?.etat?.etat_lieu_sortie,
         etat_contrat_preavis: this.formatDate(
           this.contrat.etat_contrat?.etat?.preavis
+        ),
+        date_effet_av: this.formatDate(
+          this.contrat.etat_contrat?.etat?.date_effet_av
         ),
         nombre_part: this.contrat.nombre_part,
         etat_contrat_frais_reamenagement: this.contrat.etat_contrat?.etat?.frais_reamenagement
@@ -825,7 +828,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       }
 
       if (
-        dateEffetAvenant == (null || undefined || '') &&
+        dateEffetAvenant == (null || undefined) &&
         contratLibelle != null &&
         contratLibelle == 'Avenant'
       ) {
@@ -843,7 +846,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       }
       if (
         ((dateSuspension != null && durreSuspension != null) ||
-          dateEffetAvenant.length != 0) &&
+          dateEffetAvenant != null) &&
         contratLibelle != (undefined || null)
       )
         this.succesUpdate();
@@ -977,13 +980,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   getMotifs() {
     this.proprDecesFormList && this.motif.push({ type_motif: 'Décès' });
     this.proprCessionFormList && this.motif.push({ type_motif: 'Cession' });
-    this.montantLoyerForm &&
-      this.motif.push({
-        type_motif: 'Révision du prix du loyer',
-        montant_nouveau_loyer: this.contratForm.get(
-          'etat_contrat_montant_nouveau_loyer'
-        )?.value,
-      });
+    this.montantLoyerForm && this.motif.push({type_motif: 'Révision du prix du loyer', montant_nouveau_loyer: this.contratForm.get('etat_contrat_montant_nouveau_loyer')?.value,});
   }
 
   // :::: Proprietaire List ::::
