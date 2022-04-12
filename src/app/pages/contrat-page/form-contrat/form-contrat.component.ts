@@ -40,6 +40,9 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   statutContratError: string = 'Veillez séléctionnez le statut de contrat';
   isSuspensionValidError: boolean = false;
   suspensionErrorMsg: string = 'Veillez séléctionnez la date et la durée de suspension';
+  isAvenantError: boolean = false;
+  AvenantErrorMsg: string = "Veillez séléctionnez la date d’effet de l’avenant";
+
 
   foncier!: any;
   fd: FormData = new FormData();
@@ -603,12 +606,12 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       montant_avance_tax: this.montant_avance_tax_,
       montant_loyer_ttc: this.montantLoyerTTC,
       nombre_part: this.contratForm.get('nombre_part')?.value || '',
+      // date_effet_av: this.contratForm.get('date_effet_av')?.value || undefined,
     };
 
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
     // let idFoncier = this.actRoute.snapshot.paramMap.get('id_foncier');
-
     // post the formdata (data+files)
     this.contratService
       .addContrat(this.fd, this.userMatricule, this.foncier_id)
@@ -620,7 +623,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
             this.postDone = false;
             this.help.toTheUp();
             this.router
-              .navigate(['/proprietaire', this.foncier_id])
+              .navigate(['/proprietaire/add', this.foncier_id, 'Actif'])
               .then(() => {
                 this.help.refrechPage();
               });
@@ -751,25 +754,36 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   updateContrat() {    
     let durreSuspension = this.contratForm.get('etat_contrat_date_suspension')?.value;
     let dateSuspension = this.contratForm.get('etat_contrat_duree_suspension')?.value;
+    let dateEffetAV = this.contratForm.get('date_effet_av')?.value;
     let contratLibelle = this.contratForm.get('etat_contrat_libelle')?.value;
 
     if(contratLibelle != 'Initié'){
+      console.log("date av",dateEffetAV);
+      console.log("dateSuspension",dateSuspension);
+      console.log("durreSuspension",durreSuspension);
+      console.log("contratLibelle",contratLibelle);
+      
       if ((dateSuspension == null || durreSuspension == null) && contratLibelle != null) {
-        console.log("inside date and duree");
         this.isSuspensionValidError = true;
         setTimeout(() => {
           this.isSuspensionValidError = false;
         }, 3000);
       }
 
+      if (dateEffetAV == null && contratLibelle != null) {
+        this.isAvenantError = true;
+        setTimeout(() => {
+          this.isAvenantError = false;
+        }, 3000);
+      }
+
       if(contratLibelle == (undefined || null)) {
-        console.log("inside contrat libelle");
         this.isStatutError = true;
         setTimeout(() => {
           this.isStatutError = false;
         }, 3000);
       } 
-      if((dateSuspension != null || durreSuspension != null) && contratLibelle != (undefined || null)) this.succesUpdate();
+      if((dateSuspension != null || durreSuspension != null) && contratLibelle != (undefined || null) && dateEffetAV != null) this.succesUpdate();
     } else this.succesUpdate();
   }
 
@@ -860,7 +874,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
           duree_consomme: this.contratForm.get('duree_consomme')?.value || '',
           duree_a_recupere: this.durreeRecuperer,
           deleted_proprietaires: this.deletedProprietaires,
-          date_effet_av: this.contratForm.get('date_effet_av')?.value || '',
+          date_effet_av: this.contratForm.get('date_effet_av')?.value || null,
         },
       },
 
@@ -978,5 +992,8 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   }
   get etat_contrat_duree_suspension() {
     return this.contratForm.get('etat_contrat_duree_suspension');
+  }
+  get date_effet_av() {
+    return this.contratForm.get('date_effet_av');
   }
 }

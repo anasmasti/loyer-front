@@ -18,6 +18,7 @@
       <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
       <div *ngIf="isStatutError" class="error-alert p-2 my-2">{{ statutContratError }}</div>
       <div *ngIf="isSuspensionValidError" class="error-alert p-2 my-2">{{ suspensionErrorMsg }}</div>
+      <div *ngIf="isAvenantError" class="error-alert p-2 my-2">{{ AvenantErrorMsg }}</div>
       <!-- alert de reussite -->
       <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
       <div *ngIf="updateDone" class="done-alert p-2 my-2">{{ updateSucces }}</div>
@@ -529,14 +530,26 @@
           </div>
 
           <div class="col-lg-3 form-group mt-4">
-            <label for="">Date d’effet de l’avenant</label>
+            <label for="">Date d’effet de l’avenant <span class="danger-txt">*</span></label>
             <input
               type="date"
               class="form-control rounded-pill"
               (change)="reinitialiserDateDebut()"
               formControlName="date_effet_av"
+              [ngClass]="{
+                'is-invalid': checkInputsValidation(date_effet_av)
+              }"
               required
             />
+                  <!-- Error Message  -->
+          <div class="" *ngIf="checkInputsValidation(date_effet_av)">
+            <p
+              class="danger-txt"
+              *ngIf="date_effet_av?.errors?.required"
+            >
+              Veuillez remplir ce champ
+            </p>
+          </div>
           </div>
 
           <!-- <div class="col-lg-3 form-group mt-4">
