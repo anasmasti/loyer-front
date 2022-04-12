@@ -135,7 +135,7 @@
         <td>
           {{
             foncier.type_lieu === "Logement de fonction"
-              ? foncier.lieu[0]?.lieu[0]?.code_rattache_DR
+              ? foncier.lieu[0]?.lieu[0]?.attached_DR[0]?.code_lieu
               : foncier.lieu[0]?.lieu[0]?.code_lieu || "--"
           }}
         </td>
