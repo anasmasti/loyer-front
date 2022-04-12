@@ -203,6 +203,8 @@ export class ListContratComponent implements OnInit {
   openConfirmationContratModal(id: string) {
     this.isValidate = false;
     this.isValidate2 = false;
+    this.isSoumettre = false;
+    this.isRejeter = false;
     this.id = id;
     this.confirmationModalService.open(); // Open delete confirmation modal
   }
