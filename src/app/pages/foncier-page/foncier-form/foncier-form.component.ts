@@ -193,6 +193,8 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
   // (click)="checkValue(amenagementForm.controls[i], nature.id + '-' + i)"
   fetchFc(HasAmenagement: string) {
     this.removeAllAmenagement();
+    console.log('dattaaaa',this.foncier);
+    
 
     // reintialise variables
     this.currentLieu = null;
@@ -215,6 +217,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
 
     // Fetch lieu
     this.foncier.lieu.forEach((element: any) => {
+      console.log(element);
       if (!element.deleted) this.fillCurrentLieuObject(element);
       else this.pushIntoFoncierLieux(element);
     });
@@ -703,6 +706,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
         code_lieu: Lieu.code_lieu,
         type_lieu: Lieu.type_lieu,
         intitule_lieu: Lieu.intitule_lieu,
+        attached_DR: Lieu.attached_DR
       },
     };
 
@@ -735,11 +739,13 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
 
   // Current Lieu is the lieu object that its rendreing now
   fillCurrentLieuObject(lieu: any) {
+    console.log('CurrentLieu', lieu);
+    
     this.currentLieu = {
       deleted: lieu.deleted,
       // transferer: lieu.transferer,
       etat_lieu: lieu.etat_lieu,
-      lieu: lieu.lieu,
+      lieu: lieu.lieu[0] || lieu.lieu,
     };
 
     this.selectedLieuId = '';
@@ -752,7 +758,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
         deleted: lieu.deleted,
         // transferer: lieu.transferer,
         etat_lieu: lieu.etat_lieu,
-        lieu: lieu.lieu[0]._id,
+        lieu: lieu.lieu[0]?._id != undefined ? lieu.lieu[0]._id : lieu.lieu._id,
       });
     }
   }
