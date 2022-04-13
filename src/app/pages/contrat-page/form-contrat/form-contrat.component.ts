@@ -719,7 +719,8 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     let index = this.contrat?.numero_contrat.indexOf('/AV');
     let checkAv = this.contrat?.numero_contrat.slice(index);
     if (checkAv == '/AV') this.isAV = true;
-
+    console.log(this.contrat);
+    
     if (this.contrat) {
       this.contrat.foncier.lieu.forEach((lieu: any) => {
         if (!lieu.deleted) {
@@ -799,7 +800,8 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
         // etat_contrat_lettre_res_piece_jointe: this.contrat.etat_contrat?.etat?.lettre_res_piece_jointe,
         // etat_contrat_piece_jointe_avenant: this.contrat.etat_contrat?.etat?.piece_jointe_avenant,
       });
-      this.date_debut_loyer_ = this.contrat.date_debut_loyer;
+      // this.date_debut_loyer_ = this.contrat.date_debut_loyer;
+      this.date_debut_loyer_ = this.formatDate(this.contrat.date_debut_loyer);
       this.deletedProprietaires = this.contrat.etat_contrat.etat.deleted_proprietaires || [];
       this.proprietaires = this.contrat.foncier.proprietaire;
       // this.contrat.numero_contrat
