@@ -562,7 +562,7 @@
 
       <div class="mt-4">
         <div class="form-box mt-2">
-          <div *ngIf="selectedEtatContrat === 'Avenant' || isAV; then AV"></div>
+          <div *ngIf="selectedEtatContrat === 'Avenant' && isAV; then AV"></div>
           <div *ngIf="selectedEtatContrat === 'Suspendu'; then SUS"></div>
           <div *ngIf="selectedEtatContrat === 'Résilié'; then RES"></div>
         </div>
