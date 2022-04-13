@@ -713,7 +713,6 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     let index = this.contrat?.numero_contrat.indexOf('/AV');
     let checkAv = this.contrat?.numero_contrat.slice(index)
     if(checkAv == '/AV') this.isAV = true;
-
     if (this.contrat) {
       this.contrat.foncier.lieu.forEach((lieu: any) => {
         if (!lieu.deleted) {
