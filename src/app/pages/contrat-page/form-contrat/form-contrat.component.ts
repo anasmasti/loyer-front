@@ -1011,8 +1011,6 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   }
 
   getMotifs() {
-    console.log('Iiiiiiiin', this.montantLoyerForm);
-
     this.proprDecesFormList && this.motif.push({ type_motif: 'Décès' });
     this.proprCessionFormList && this.motif.push({ type_motif: 'Cession' });
     this.montantLoyerForm &&
