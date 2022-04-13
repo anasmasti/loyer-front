@@ -1,13 +1,11 @@
 <div *ngFor="let foncier of foncierById?.lieu">
-  <span class="main-txt"
-    >{{ foncier?.lieu.type_lieu }} •
+  <span class="main-txt">{{ foncier?.lieu.type_lieu }} •
     {{
-      foncier?.lieu.code_lieu
-        ? foncier?.lieu.code_lieu
-        : foncier?.lieu.attached_DR.code_lieu
+    foncier?.lieu.code_lieu
+    ? foncier?.lieu.code_lieu
+    : foncier?.lieu.attached_DR.code_lieu
     }}
-    • {{ foncier?.lieu.intitule_lieu }}</span
-  >
+    • {{ foncier?.lieu.intitule_lieu }}</span>
 </div>
 
 <!--Début de Div qui contient le formulaire form-contrat-->
@@ -35,78 +33,33 @@
     <!--Début 1er Row-->
     <div class="row">
       <!-- Calcul retenue a la source par mois/ total brut loyer / total net loyer -->
-      <input
-        type="hidden"
-        class="form-control"
-        [value]="duree"
-        formControlName="duree"
-      />
-      <input
-        type="hidden"
-        class="form-control"
-        [value]="retunue_source_par_mois"
-        formControlName="retunue_source_par_mois"
-      />
-      <input
-        type="hidden"
-        class="form-control"
-        [value]="totalBrutLoyer"
-        formControlName="total_montant_brut_loyer"
-      />
-      <input
-        type="hidden"
-        class="form-control"
-        [value]="totalNetLoyer"
-        formControlName="total_montant_net_loyer"
-      />
+      <input type="hidden" class="form-control" [value]="duree" formControlName="duree" />
+      <input type="hidden" class="form-control" [value]="retunue_source_par_mois"
+        formControlName="retunue_source_par_mois" />
+      <input type="hidden" class="form-control" [value]="totalBrutLoyer" formControlName="total_montant_brut_loyer" />
+      <input type="hidden" class="form-control" [value]="totalNetLoyer" formControlName="total_montant_net_loyer" />
       <!-- Montant Avance Tax -->
-      <input
-        type="hidden"
-        class="form-control"
-        [value]="montant_avance_tax_"
-        formControlName="montant_avance_tax"
-      />
+      <input type="hidden" class="form-control" [value]="montant_avance_tax_" formControlName="montant_avance_tax" />
 
       <!-- Validation inputs -->
-      <input
-        type="hidden"
-        class="form-control btn success-btn"
-        formControlName="validation1_DMG"
-      />
-      <input
-        type="hidden"
-        class="form-control btn success-btn"
-        formControlName="validation2_DAJC"
-      />
-      <input
-        type="hidden"
-        class="form-control btn success-btn"
-        formControlName="numero_contrat"
-      />
+      <input type="hidden" class="form-control btn success-btn" formControlName="validation1_DMG" />
+      <input type="hidden" class="form-control btn success-btn" formControlName="validation2_DAJC" />
+      <input type="hidden" class="form-control btn success-btn" formControlName="numero_contrat" />
 
-      <ng-container
-        *ngIf="
+      <ng-container *ngIf="
           !update ||
           (contrat?.etat_contrat?.libelle !== 'Actif' &&
             contrat?.etat_contrat?.libelle !== 'Suspendu' &&
             update &&
             !isAV)
-        "
-      >
+        ">
         <div class="col-lg-3 form-group mt-4">
           <label for="">Pièce jointe</label>
-          <input
-            type="file"
-            class="form-control btn success-btn"
-            formControlName="piece_jointe"
-            accept=".pdf"
-            (change)="onFileSelected($event, 'piece_joint_contrat')"
-            [ngClass]="{
+          <input type="file" class="form-control btn success-btn" formControlName="piece_jointe" accept=".pdf"
+            (change)="onFileSelected($event, 'piece_joint_contrat')" [ngClass]="{
               'is-invalid': checkInputsValidation(piece_jointe),
               'is-valid': !piece_jointe?.invalid
-            }"
-            multiple
-          />
+            }" multiple />
           <!-- (change)="onFileSelected($event,'piece_joint_contrat')" -->
 
           <!-- Error Message  -->
@@ -143,21 +96,12 @@
         </div> -->
 
         <div class="col-lg-3 form-group mt-4">
-          <label for=""
-            >Date de début du loyer <span class="danger-txt">*</span></label
-          >
-          <input
-            type="date"
-            [(ngModel)]="date_debut_loyer_"
-            class="form-control rounded-pill"
-            (change)="reinitialiserDateDebut()"
-            formControlName="date_debut_loyer"
-            required
-            [ngClass]="{
+          <label for="">Date de début du loyer <span class="danger-txt">*</span></label>
+          <input type="date" [(ngModel)]="date_debut_loyer_" class="form-control rounded-pill"
+            (change)="reinitialiserDateDebut()" formControlName="date_debut_loyer" required [ngClass]="{
               'is-invalid': checkInputsValidation(date_debut_loyer),
               'is-valid': !date_debut_loyer?.invalid
-            }"
-          />
+            }" />
 
           <!-- Error Message  -->
           <div class="" *ngIf="checkInputsValidation(date_debut_loyer)">
@@ -168,20 +112,12 @@
         </div>
 
         <div class="col-lg-3 form-group mt-4">
-          <label for=""
-            >Montant du loyer <span class="danger-txt">*</span></label
-          >
-          <input
-            type="number"
-            [(ngModel)]="montantLoyer"
-            class="form-control rounded-pill"
-            formControlName="montant_loyer"
-            [ngClass]="{
+          <label for="">Montant du loyer <span class="danger-txt">*</span></label>
+          <input type="number" [(ngModel)]="montantLoyer" class="form-control rounded-pill"
+            formControlName="montant_loyer" [ngClass]="{
               'is-invalid': checkInputsValidation(montant_loyer),
               'is-valid': !montant_loyer?.invalid
-            }"
-            (keyup)="calculDate()"
-          />
+            }" (keyup)="calculDate()" />
           <!-- (keyup)="calculTaxeNonComprise();calculMontantLoyerTTC()" -->
           <!-- <div class="col-lg-3 form-group mt-4">
             <label for="">Montant du loyer <span class="danger-txt">*</span></label>
@@ -210,15 +146,10 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Nombre de part <span class="danger-txt">*</span></label>
-          <input
-            type="number"
-            class="form-control rounded-pill"
-            formControlName="nombre_part"
-            [ngClass]="{
+          <input type="number" class="form-control rounded-pill" formControlName="nombre_part" [ngClass]="{
               'is-invalid': checkInputsValidation(nombre_part),
               'is-valid': !nombre_part?.invalid
-            }"
-          />
+            }" />
 
           <!-- Error Message  -->
           <div class="" *ngIf="checkInputsValidation(nombre_part)">
@@ -230,20 +161,12 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Taxe d’édilité comprise dans le loyer</label>
-          <input
-            type="text"
-            class="form-control rounded-pill"
-            formControlName="taxe_edilite_comprise_loyer"
-          />
+          <input type="text" class="form-control rounded-pill" formControlName="taxe_edilite_comprise_loyer" />
         </div>
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Taxe d’édilité non comprise dans le loyer</label>
-          <input
-            type="text"
-            class="form-control rounded-pill"
-            formControlName="taxe_edilite_noncomprise_loyer"
-          />
+          <input type="text" class="form-control rounded-pill" formControlName="taxe_edilite_noncomprise_loyer" />
         </div>
 
         <!-- <div class="col-lg-3 form-group mt-4">
@@ -272,30 +195,19 @@
         <!-- ///////////////////////////////////////////////// -->
 
         <div class="col-lg-3 form-group mt-4">
-          <label for=""
-            >Périodicité de paiement <span class="danger-txt">*</span></label
-          >
+          <label for="">Périodicité de paiement <span class="danger-txt">*</span></label>
           <!-- <input type="text" class="form-control rounded-pill" formControlName="periodicite_paiement" /> -->
-          <select
-            class="form-select rounded-pill"
-            formControlName="periodicite_paiement"
-            [ngClass]="{
+          <select class="form-select rounded-pill" formControlName="periodicite_paiement" [ngClass]="{
               'is-invalid': checkInputsValidation(periodicite_paiement),
               'is-valid': !periodicite_paiement?.invalid
-            }"
-            [(ngModel)]="periodicite"
-            (change)="reinitialiserDates()"
-          >
+            }" [(ngModel)]="periodicite" (change)="reinitialiserDates()">
             <option value="mensuelle">Mensuelle</option>
             <option value="trimestrielle">Trimestrielle</option>
             <option value="annuelle">Annuelle</option>
           </select>
           <!-- Error Message  -->
           <div class="" *ngIf="checkInputsValidation(periodicite_paiement)">
-            <p
-              class="danger-txt"
-              *ngIf="periodicite_paiement?.errors?.required"
-            >
+            <p class="danger-txt" *ngIf="periodicite_paiement?.errors?.required">
               Veuillez remplir ce champ
             </p>
           </div>
@@ -317,15 +229,10 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Date fin de contrat de bail</label>
-          <input
-            type="date"
-            class="form-control rounded-pill"
-            formControlName="date_fin_contrat"
-            [ngClass]="{
+          <input type="date" class="form-control rounded-pill" formControlName="date_fin_contrat" [ngClass]="{
               'is-invalid': checkInputsValidation(date_fin_contrat),
               'is-valid': !date_fin_contrat?.invalid
-            }"
-          />
+            }" />
           <!-- Error Message  -->
           <!-- <div class="" *ngIf="checkInputsValidation(date_fin_contrat)">
             <p class="danger-txt" *ngIf="date_fin_contrat?.errors?.required">
@@ -367,24 +274,14 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Montant de la caution</label>
-          <input
-            type="number"
-            class="form-control rounded-pill"
-            [(ngModel)]="montantCaution"
-            (keyup)="calculEffortCaution()"
-            formControlName="montant_caution"
-          />
+          <input type="number" class="form-control rounded-pill" [(ngModel)]="montantCaution"
+            (keyup)="calculEffortCaution()" formControlName="montant_caution" />
         </div>
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Durée de la caution</label>
-          <input
-            type="text"
-            class="form-control rounded-pill"
-            [(ngModel)]="dureeCaution"
-            formControlName="duree_caution"
-            readonly
-          />
+          <input type="text" class="form-control rounded-pill" [(ngModel)]="dureeCaution"
+            formControlName="duree_caution" readonly />
           <p class="danger-txt" *ngIf="hasErrorEffort">
             Montant de caution erroné
           </p>
@@ -392,15 +289,10 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Date de reprise de la caution</label>
-          <input
-            type="date"
-            class="form-control rounded-pill"
-            formControlName="date_reprise_caution"
-            [ngClass]="{
+          <input type="date" class="form-control rounded-pill" formControlName="date_reprise_caution" [ngClass]="{
               'is-invalid': checkInputsValidation(date_reprise_caution),
               'is-valid': !date_reprise_caution?.invalid
-            }"
-          />
+            }" />
           <!-- Error Message  -->
           <!-- <div class="" *ngIf="checkInputsValidation(date_reprise_caution)">
             <p class="danger-txt" *ngIf="date_reprise_caution?.errors?.required">
@@ -411,61 +303,32 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Statut de la caution</label>
-          <input
-            type="text"
-            [(ngModel)]="statutCaution"
-            class="form-control rounded-pill"
-            formControlName="statut_caution"
-            readonly
-          />
+          <input type="text" [(ngModel)]="statutCaution" class="form-control rounded-pill"
+            formControlName="statut_caution" readonly />
         </div>
 
         <div class="col-lg-3 form-group mt-4">
-          <label for=""
-            >Durée de l’avance ({{ periodicite ? periodicite : "--" }})</label
-          >
-          <input
-            type="number"
-            class="form-control rounded-pill"
-            [(ngModel)]="dureeAvance"
-            (keyup)="calculDate()"
-            formControlName="duree_avance"
-            [readonly]="periodicite ? false : true"
-          />
+          <label for="">Durée de l’avance ({{ periodicite ? periodicite : "--" }})</label>
+          <input type="number" class="form-control rounded-pill" [(ngModel)]="dureeAvance" (keyup)="calculDate()"
+            formControlName="duree_avance" [readonly]="periodicite ? false : true" />
         </div>
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Date fin de l’avance</label>
-          <input
-            type="date"
-            class="form-control rounded-pill"
-            [value]="formattedDateFinAvance"
-            formControlName="date_fin_avance"
-            readonly
-          />
+          <input type="date" class="form-control rounded-pill" [value]="formattedDateFinAvance"
+            formControlName="date_fin_avance" readonly />
         </div>
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Date 1er paiement</label>
-          <input
-            type="date"
-            class="form-control rounded-pill"
-            [value]="datePremierPaiement"
-            formControlName="date_premier_paiement"
-            readonly
-          />
+          <input type="text" class="form-control rounded-pill" [value]="datePremierPaiement"
+            formControlName="date_premier_paiement" readonly />
         </div>
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Montant de l’avance</label>
-          <input
-            type="number"
-            class="form-control rounded-pill"
-            formControlName="montant_avance"
-            [(ngModel)]="montantAvance"
-            (keyup)="calculMontantAvanceTax()"
-            [readonly]="true"
-          />
+          <input type="number" class="form-control rounded-pill" formControlName="montant_avance"
+            [(ngModel)]="montantAvance" (keyup)="calculMontantAvanceTax()" [readonly]="true" />
         </div>
 
         <!-- <div class="col-lg-3 form-group mt-4">
@@ -479,55 +342,36 @@
       </div> -->
       </ng-container>
 
-      <div
-        *ngIf="
+      <div *ngIf="
           (update && contrat?.etat_contrat?.libelle === 'Actif') ||
           contrat?.etat_contrat?.libelle === 'Suspendu'
-        "
-        class="form-group mt-4"
-      >
+        " class="form-group mt-4">
         <label for="">Statut contrat</label>
-        <select
-          class="form-select rounded-pill"
-          formControlName="etat_contrat_libelle"
-          [(ngModel)]="selectedEtatContrat"
-          (change)="showEtatSection($event)"
-        >
+        <select class="form-select rounded-pill" formControlName="etat_contrat_libelle"
+          [(ngModel)]="selectedEtatContrat" (change)="showEtatSection($event)">
           <!--  -->
           <option value="--">--</option>
-          <option
-            *ngIf="
+          <option *ngIf="
               this.contrat.validation2_DAJC &&
               (userRoles.includes('CDGSP') || userRoles.includes('CSLA'))
-            "
-            [value]="
+            " [value]="
               selectedEtatContrat === 'Avenant'
                 ? selectedEtatContrat
                 : 'Avenant'
-            "
-          >
+            ">
             A créer avenant
           </option>
-          <option
-            *ngIf="
+          <option *ngIf="
               contrat?.etat_contrat?.libelle !== 'Suspendu' &&
               contrat?.validation2_DAJC &&
               userRoles.includes('DAJC')
-            "
-            value="Suspendu"
-          >
+            " value="Suspendu">
             À suspendre
           </option>
-          <option
-            *ngIf="this.contrat.validation2_DAJC && userRoles.includes('CSLA')"
-            value="Résilié"
-          >
+          <option *ngIf="this.contrat.validation2_DAJC && userRoles.includes('CSLA')" value="Résilié">
             À résilier
           </option>
-          <option
-            *ngIf="contrat?.etat_contrat?.libelle === 'Suspendu'"
-            value="Actif"
-          >
+          <option *ngIf="contrat?.etat_contrat?.libelle === 'Suspendu'" value="Actif">
             Actif
           </option>
         </select>
@@ -535,11 +379,7 @@
 
       <div *ngIf="!update && foncier" class="col-lg-3 form-group mt-4">
         <label for="">Addresse du foncier</label>
-        <input
-          type="hidden"
-          [(ngModel)]="foncier._id"
-          formControlName="foncier"
-        />
+        <input type="hidden" [(ngModel)]="foncier._id" formControlName="foncier" />
         <p>
           <strong>
             {{ foncier.adresse }}
@@ -548,11 +388,7 @@
       </div>
 
       <div *ngIf="!update && foncier" class="col-lg-3 form-group mt-4">
-        <input
-          type="hidden"
-          [(ngModel)]="foncier.lieu"
-          formControlName="lieu"
-        />
+        <input type="hidden" [(ngModel)]="foncier.lieu" formControlName="lieu" />
       </div>
 
       <div *ngIf="update" class="col-lg-3 form-group mt-4">
@@ -573,164 +409,89 @@
         <div class="row">
           <div class="col-lg-3 form-group mt-4">
             <label for="">Date de début du loyer</label>
-            <input
-              type="date"
-              [value]="date_debut_loyer_"
-              class="form-control rounded-pill"
-              (change)="reinitialiserDateDebut()"
-              formControlName="date_debut_loyer"
-              readonly
-            />
+            <input type="date" [value]="date_debut_loyer_" class="form-control rounded-pill"
+              (change)="reinitialiserDateDebut()" formControlName="date_debut_loyer" readonly />
           </div>
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Montant du loyer</label>
-            <input
-              type="number"
-              [value]="montantLoyer"
-              class="form-control rounded-pill"
-              formControlName="montant_loyer"
-              readonly
-            />
+            <input type="number" [value]="montantLoyer" class="form-control rounded-pill"
+              formControlName="montant_loyer" readonly />
           </div>
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Nombre de part</label>
-            <input
-              type="number"
-              class="form-control rounded-pill"
-              formControlName="nombre_part"
-              readonly
-            />
+            <input type="number" class="form-control rounded-pill" formControlName="nombre_part" readonly />
           </div>
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Taxe d’édilité comprise dans le loyer</label>
-            <input
-              type="text"
-              class="form-control rounded-pill"
-              formControlName="taxe_edilite_comprise_loyer"
-              readonly
-            />
+            <input type="text" class="form-control rounded-pill" formControlName="taxe_edilite_comprise_loyer"
+              readonly />
           </div>
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Taxe d’édilité non comprise dans le loyer</label>
-            <input
-              type="text"
-              class="form-control rounded-pill"
-              formControlName="taxe_edilite_noncomprise_loyer"
-              readonly
-            />
+            <input type="text" class="form-control rounded-pill" formControlName="taxe_edilite_noncomprise_loyer"
+              readonly />
           </div>
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Périodicité de paiement</label>
-            <input
-              class="form-control rounded-pill"
-              formControlName="periodicite_paiement"
-              [value]="periodicite"
-              readonly
-            />
+            <input class="form-control rounded-pill" formControlName="periodicite_paiement" [value]="periodicite"
+              readonly />
           </div>
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Date fin de contrat de bail</label>
-            <input
-              type="date"
-              class="form-control rounded-pill"
-              formControlName="date_fin_contrat"
-              readonly
-            />
+            <input type="date" class="form-control rounded-pill" formControlName="date_fin_contrat" readonly />
           </div>
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Montant de la caution</label>
-            <input
-              type="number"
-              class="form-control rounded-pill"
-              [value]="montantCaution"
-              formControlName="montant_caution"
-              readonly
-            />
+            <input type="number" class="form-control rounded-pill" [value]="montantCaution"
+              formControlName="montant_caution" readonly />
           </div>
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Durée de la caution</label>
-            <input
-              type="text"
-              class="form-control rounded-pill"
-              [value]="dureeCaution"
-              formControlName="duree_caution"
-              readonly
-            />
+            <input type="text" class="form-control rounded-pill" [value]="dureeCaution" formControlName="duree_caution"
+              readonly />
           </div>
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Date de reprise de la caution</label>
-            <input
-              type="date"
-              class="form-control rounded-pill"
-              formControlName="date_reprise_caution"
-              readonly
-            />
+            <input type="date" class="form-control rounded-pill" formControlName="date_reprise_caution" readonly />
           </div>
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Statut de la caution</label>
-            <input
-              type="text"
-              [value]="statutCaution"
-              class="form-control rounded-pill"
-              formControlName="statut_caution"
-              readonly
-            />
+            <input type="text" [value]="statutCaution" class="form-control rounded-pill"
+              formControlName="statut_caution" readonly />
           </div>
 
           <div class="col-lg-3 form-group mt-4">
-            <label for=""
-              >Durée de l’avance ({{ periodicite ? periodicite : "--" }})</label
-            >
-            <input
-              type="number"
-              class="form-control rounded-pill"
-              [value]="dureeAvance"
-              formControlName="duree_avance"
-              readonly
-            />
+            <label for="">Durée de l’avance ({{ periodicite ? periodicite : "--" }})</label>
+            <input type="number" class="form-control rounded-pill" [value]="dureeAvance" formControlName="duree_avance"
+              readonly />
           </div>
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Date fin de l’avance</label>
-            <input
-              type="date"
-              class="form-control rounded-pill"
-              [value]="formattedDateFinAvance"
-              formControlName="date_fin_avance"
-              readonly
-            />
+            <input type="date" class="form-control rounded-pill" [value]="formattedDateFinAvance"
+              formControlName="date_fin_avance" readonly />
           </div>
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Date 1er paiement</label>
-            <input
-              type="date"
-              class="form-control rounded-pill"
-              [value]="datePremierPaiement"
-              formControlName="date_premier_paiement"
-              readonly
-            />
+            <input type="date" class="form-control rounded-pill" [value]="datePremierPaiement"
+              formControlName="date_premier_paiement" readonly />
           </div>
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Montant de l’avance</label>
-            <input
-              type="number"
-              class="form-control rounded-pill"
-              formControlName="montant_avance"
-              [value]="montantAvance"
-              readonly
-            />
+            <input type="number" class="form-control rounded-pill" formControlName="montant_avance"
+              [value]="montantAvance" readonly />
           </div>
         </div>
 
@@ -738,40 +499,23 @@
         <div class="row">
           <div class="col-lg-3 form-group mt-4">
             <label for="">N° Avenant</label>
-            <input
-              type="text"
-              class="form-control rounded-pill"
-              formControlName="etat_contrat_n_avenant"
-              readonly
-            />
+            <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_n_avenant" readonly />
           </div>
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Pièce jointe</label>
-            <input
-              type="file"
-              class="form-control rounded-pill btn success-btn"
-              formControlName="etat_contrat_piece_jointe_avenant"
-              accept=".pdf"
-              (change)="onFileSelected($event, 'piece_jointe_avenant')"
-            />
+            <input type="file" class="form-control rounded-pill btn success-btn"
+              formControlName="etat_contrat_piece_jointe_avenant" accept=".pdf"
+              (change)="onFileSelected($event, 'piece_jointe_avenant')" />
           </div>
 
           <div class="col-lg-3 form-group mt-4">
-            <label for=""
-              >Date d’effet de l’avenant
-              <span class="danger-txt">*</span></label
-            >
-            <input
-              type="date"
-              class="form-control rounded-pill"
-              (change)="reinitialiserDateDebut()"
-              formControlName="date_effet_av"
-              required
-              [ngClass]="{
+            <label for="">Date d’effet de l’avenant
+              <span class="danger-txt">*</span></label>
+            <input type="date" class="form-control rounded-pill" (change)="reinitialiserDateDebut()"
+              formControlName="date_effet_av" required [ngClass]="{
                 'is-invalid': checkInputsValidation(date_effet_av)
-              }"
-            />
+              }" />
 
             <!-- Error Message  -->
             <div class="" *ngIf="checkInputsValidation(date_effet_av)">
@@ -808,58 +552,27 @@
           <div class="row form-group mt-4">
             <label for="">Motif</label>
             <div class="col-lg-3">
-              <input
-                type="checkbox"
-                id="deces"
-                class="btn-check check"
-                (click)="displayForms('deces')"
-                [checked]="checkDeces"
-                autocomplete="off"
-              />
-              <label
-                class="px-3 py-1 rounded-pill checkbox-list-btns text-center w-100"
-                for="deces"
-                >Décès</label
-              >
+              <input type="checkbox" id="deces" class="btn-check check" (click)="displayForms('deces')"
+                [checked]="checkDeces" autocomplete="off" />
+              <label class="px-3 py-1 rounded-pill checkbox-list-btns text-center w-100" for="deces">Décès</label>
             </div>
             <div class="col-lg-3">
-              <input
-                type="checkbox"
-                class="btn-check check"
-                id="cession"
-                (click)="displayForms('cession')"
-                [checked]="checkCession"
-                autocomplete="off"
-              />
-              <label
-                class="px-3 py-1 rounded-pill checkbox-list-btns text-center w-100"
-                for="cession"
-                >Cession</label
-              >
+              <input type="checkbox" class="btn-check check" id="cession" (click)="displayForms('cession')"
+                [checked]="checkCession" autocomplete="off" />
+              <label class="px-3 py-1 rounded-pill checkbox-list-btns text-center w-100" for="cession">Cession</label>
             </div>
             <div class="col-lg-3">
-              <input
-                type="checkbox"
-                class="btn-check check"
-                id="revison_mnt_loyer"
-                (click)="displayForms('revison_mnt_loyer')"
-                [checked]="checkMontantLoyer"
-                autocomplete="off"
-              />
-              <label
-                class="px-3 py-1 rounded-pill checkbox-list-btns text-center w-100"
-                for="revison_mnt_loyer"
-                >Révision du prix du loyer</label
-              >
+              <input type="checkbox" class="btn-check check" id="revison_mnt_loyer"
+                (click)="displayForms('revison_mnt_loyer')" [checked]="checkMontantLoyer" autocomplete="off" />
+              <label class="px-3 py-1 rounded-pill checkbox-list-btns text-center w-100"
+                for="revison_mnt_loyer">Révision du prix du loyer</label>
             </div>
             <!-- <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_motif"> -->
           </div>
-          <div
-            *ngIf="
+          <div *ngIf="
               proprDecesFormList || proprCessionFormList;
               then ListProprietaires
-            "
-          ></div>
+            "></div>
           <div *ngIf="montantLoyerForm; then MontantLoyer"></div>
           <!-- List proprietaire  -->
           <ng-template #ListProprietaires>
@@ -881,44 +594,37 @@
                     <ng-container *ngIf="proprietaire.statut == 'Actif'">
                       <td>
                         {{
-                          proprietaire.nom_prenom
-                            ? proprietaire.nom_prenom
-                            : "--"
+                        proprietaire.nom_prenom
+                        ? proprietaire.nom_prenom
+                        : "--"
                         }}
                       </td>
                       <td>
                         {{
-                          proprietaire.raison_social
-                            ? proprietaire.raison_social
-                            : "--"
+                        proprietaire.raison_social
+                        ? proprietaire.raison_social
+                        : "--"
                         }}
                       </td>
                       <td>
                         {{
-                          proprietaire.cin || proprietaire.n_registre_commerce
+                        proprietaire.cin || proprietaire.n_registre_commerce
                         }}
                       </td>
                       <td>
                         <div class="d-grid">
-                          <span
-                            class="p-1"
-                            [ngClass]="{
+                          <span class="p-1" [ngClass]="{
                               'success-txt': proprietaire?.is_mandataire,
                               'danger-txt': !proprietaire?.is_mandataire
-                            }"
-                          >
+                            }">
                             {{ checkAndPutText(proprietaire.is_mandataire) }}
                           </span>
                         </div>
                       </td>
                       <td>
-                        <a
-                          class="btn btn-sm danger-btn"
-                          (click)="
+                        <a class="btn btn-sm danger-btn" (click)="
                             openDeleteConfirmationModal(proprietaire?._id)
-                          "
-                          ><i class="far fa-user-minus"></i
-                        ></a>
+                          "><i class="far fa-user-minus"></i></a>
                       </td>
                     </ng-container>
                   </tr>
@@ -932,24 +638,13 @@
                       Êtes-vous sûr de vouloir supprimer ce propriétaire ?
                     </p>
                     <div class="d-inline-flex justify-content-start mt-5">
-                      <a
-                        class="btn btn-lg px-lg-4 danger-btn me-2"
-                        (click)="deleteProprietaire()"
-                        >Oui</a
-                      >
-                      <a
-                        class="btn btn-lg px-lg-4 main-btn"
-                        (click)="closeDeleteConfirmationModal()"
-                        >Non</a
-                      >
+                      <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)="deleteProprietaire()">Oui</a>
+                      <a class="btn btn-lg px-lg-4 main-btn" (click)="closeDeleteConfirmationModal()">Non</a>
                     </div>
                   </app-confirmation-modal>
                 </tbody>
 
-                <tbody
-                  *ngIf="!proprietaires?.length"
-                  class="w-100 d-flex align-items-center"
-                >
+                <tbody *ngIf="!proprietaires?.length" class="w-100 d-flex align-items-center">
                   <h5 class="main-muted-text my-4">
                     Aucun proprietaire à afficher
                   </h5>
@@ -961,11 +656,8 @@
           <ng-template #MontantLoyer>
             <div class="col-lg-3 form-group mt-4">
               <label for="">Montant du nouveau loyer</label>
-              <input
-                type="number"
-                class="form-control rounded-pill"
-                formControlName="etat_contrat_montant_nouveau_loyer"
-              />
+              <input type="number" class="form-control rounded-pill"
+                formControlName="etat_contrat_montant_nouveau_loyer" />
             </div>
           </ng-template>
         </div>
@@ -978,67 +670,39 @@
         <div class="row">
           <div class="col-lg-3 form-group mt-4">
             <label for="">Intitulé de d'entité</label>
-            <input
-              type="text"
-              class="form-control rounded-pill"
-              formControlName="etat_contrat_intitule_lieu"
-              readonly
-            />
+            <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_intitule_lieu"
+              readonly />
           </div>
 
           <div class="col-lg-3 form-group mt-4">
-            <label for=""
-              >Date de suspension <span class="danger-txt">*</span></label
-            >
-            <input
-              type="date"
-              class="form-control rounded-pill"
-              formControlName="etat_contrat_date_suspension"
+            <label for="">Date de suspension <span class="danger-txt">*</span></label>
+            <input type="date" class="form-control rounded-pill" formControlName="etat_contrat_date_suspension"
               [ngClass]="{
                 'is-invalid': checkInputsValidation(
                   etat_contrat_date_suspension
                 ),
                 'is-valid': !etat_contrat_date_suspension?.invalid
-              }"
-            />
+              }" />
             <!-- Error Message  -->
-            <div
-              class=""
-              *ngIf="checkInputsValidation(etat_contrat_date_suspension)"
-            >
-              <p
-                class="danger-txt"
-                *ngIf="etat_contrat_date_suspension?.errors?.required"
-              >
+            <div class="" *ngIf="checkInputsValidation(etat_contrat_date_suspension)">
+              <p class="danger-txt" *ngIf="etat_contrat_date_suspension?.errors?.required">
                 Veuillez remplir ce champ
               </p>
             </div>
           </div>
 
           <div class="col-lg-3 form-group mt-4">
-            <label for=""
-              >Durée de suspension <span class="danger-txt">*</span></label
-            >
-            <input
-              type="number"
-              class="form-control rounded-pill"
-              formControlName="etat_contrat_duree_suspension"
+            <label for="">Durée de suspension <span class="danger-txt">*</span></label>
+            <input type="number" class="form-control rounded-pill" formControlName="etat_contrat_duree_suspension"
               [ngClass]="{
                 'is-invalid': checkInputsValidation(
                   etat_contrat_duree_suspension
                 ),
                 'is-valid': !etat_contrat_duree_suspension?.invalid
-              }"
-            />
+              }" />
             <!-- Error Message  -->
-            <div
-              class=""
-              *ngIf="checkInputsValidation(etat_contrat_duree_suspension)"
-            >
-              <p
-                class="danger-txt"
-                *ngIf="etat_contrat_duree_suspension?.errors?.required"
-              >
+            <div class="" *ngIf="checkInputsValidation(etat_contrat_duree_suspension)">
+              <p class="danger-txt" *ngIf="etat_contrat_duree_suspension?.errors?.required">
                 Veuillez remplir ce champ
               </p>
             </div>
@@ -1046,11 +710,7 @@
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Motif de suspension</label>
-            <input
-              type="text"
-              class="form-control rounded-pill"
-              formControlName="etat_contrat_motif_suspension"
-            />
+            <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_motif_suspension" />
           </div>
         </div>
       </ng-template>
@@ -1063,67 +723,42 @@
         <div class="row">
           <div class="col-lg-3 form-group mt-4">
             <label for="">Intitulé de d'entité</label>
-            <input
-              type="text"
-              class="form-control rounded-pill"
-              formControlName="etat_contrat_intitule_lieu"
-              readonly
-            />
+            <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_intitule_lieu"
+              readonly />
           </div>
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Statut de la caution </label>
             <!-- <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_reprise_caution"> -->
-            <select
-              class="form-select rounded-pill"
-              formControlName="etat_contrat_reprise_caution"
-              [(ngModel)]="repriseCaution"
-            >
+            <select class="form-select rounded-pill" formControlName="etat_contrat_reprise_caution"
+              [(ngModel)]="repriseCaution">
               <option value="Consommée">Consommée</option>
               <option value="Récupérée">Récupérée</option>
             </select>
           </div>
 
-          <div
-            class="col-lg-3 form-group mt-4"
-            *ngIf="repriseCaution === 'Consommée'"
-          >
+          <div class="col-lg-3 form-group mt-4" *ngIf="repriseCaution === 'Consommée'">
             <label for="">Etat caution consommée</label>
-            <select
-              class="form-select rounded-pill"
-              formControlName="etat_caution_consomme"
-              [(ngModel)]="cautionConsommee"
-            >
+            <select class="form-select rounded-pill" formControlName="etat_caution_consomme"
+              [(ngModel)]="cautionConsommee">
               <option value="Partial">Partielle</option>
               <option value="totale">Totale</option>
             </select>
           </div>
 
-          <div
-            class="row"
-            *ngIf="
+          <div class="row" *ngIf="
               cautionConsommee === 'Partial' && repriseCaution === 'Consommée'
-            "
-          >
+            ">
             <div class="col-lg-3 form-group mt-4">
               <label for="">Durée consommée</label>
-              <input
-                type="number"
-                class="form-control rounded-pill"
-                formControlName="duree_consomme"
-                (keyup)="calculCautionDurreeRecuperer()"
-              />
+              <input type="number" class="form-control rounded-pill" formControlName="duree_consomme"
+                (keyup)="calculCautionDurreeRecuperer()" />
             </div>
 
             <div class="col-lg-3 form-group mt-4">
               <label for="">Durée à récupérer</label>
-              <input
-                type="number"
-                class="form-control rounded-pill"
-                formControlName="duree_a_recupere"
-                [value]="durreeRecuperer"
-                readonly
-              />
+              <input type="number" class="form-control rounded-pill" formControlName="duree_a_recupere"
+                [value]="durreeRecuperer" readonly />
               <p class="danger-txt" *ngIf="hasErrordurreeRecuperer">
                 Attention! la durée à récupérer doit être un nombre positive
               </p>
@@ -1131,31 +766,17 @@
           </div>
 
           <div class="col-lg-3 form-group mt-4">
-            <label for=""
-              >Date de résiliation <span class="danger-txt">*</span></label
-            >
-            <input
-              type="date"
-              class="form-control rounded-pill"
-              formControlName="etat_contrat_date_resiliation"
-              [(ngModel)]="dateResiliation"
-              (change)="calculPreavis()"
-              [ngClass]="{
+            <label for="">Date de résiliation <span class="danger-txt">*</span></label>
+            <input type="date" class="form-control rounded-pill" formControlName="etat_contrat_date_resiliation"
+              [(ngModel)]="dateResiliation" (change)="calculPreavis()" [ngClass]="{
                 'is-invalid': checkInputsValidation(
                   etat_contrat_date_resiliation
                 ),
                 'is-valid': !etat_contrat_date_resiliation?.invalid
-              }"
-            />
+              }" />
             <!-- Error Message  -->
-            <div
-              class=""
-              *ngIf="checkInputsValidation(etat_contrat_date_resiliation)"
-            >
-              <p
-                class="danger-txt"
-                *ngIf="etat_contrat_date_resiliation?.errors?.required"
-              >
+            <div class="" *ngIf="checkInputsValidation(etat_contrat_date_resiliation)">
+              <p class="danger-txt" *ngIf="etat_contrat_date_resiliation?.errors?.required">
                 Veuillez remplir ce champ
               </p>
             </div>
@@ -1163,56 +784,32 @@
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Préavis</label>
-            <input
-              type="date"
-              class="form-control rounded-pill"
-              [value]="date_preavis"
-              formControlName="etat_contrat_preavis"
-              readonly
-            />
+            <input type="date" class="form-control rounded-pill" [value]="date_preavis"
+              formControlName="etat_contrat_preavis" readonly />
           </div>
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Etat des lieux de sortie</label>
-            <input
-              type="text"
-              class="form-control rounded-pill"
-              formControlName="etat_contrat_etat_lieu_sortie"
-            />
+            <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_etat_lieu_sortie" />
           </div>
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Frais de réaménagement</label>
-            <input
-              type="text"
-              class="form-control rounded-pill"
-              formControlName="etat_contrat_frais_reamenagement"
-            />
+            <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_frais_reamenagement" />
           </div>
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Images d'état des lieux de sortie</label>
-            <input
-              type="file"
-              class="form-control btn success-btn"
-              formControlName="etat_contrat_images_etat_res_lieu_sortie"
-              accept=".pdf"
-              (change)="onFileSelected($event, 'images_etat_res_lieu_sortie')"
-              multiple
-            />
+            <input type="file" class="form-control btn success-btn"
+              formControlName="etat_contrat_images_etat_res_lieu_sortie" accept=".pdf"
+              (change)="onFileSelected($event, 'images_etat_res_lieu_sortie')" multiple />
           </div>
 
           <div class="col-lg-3 form-group mt-4">
-            <label for=""
-              >Piéce jointe (la lettre de résiliation scannée)</label
-            >
-            <input
-              type="file"
-              class="form-control btn success-btn"
-              formControlName="etat_contrat_lettre_res_piece_jointe"
-              accept=".pdf"
-              (change)="onFileSelected($event, 'lettre_res_piece_jointe')"
-            />
+            <label for="">Piéce jointe (la lettre de résiliation scannée)</label>
+            <input type="file" class="form-control btn success-btn"
+              formControlName="etat_contrat_lettre_res_piece_jointe" accept=".pdf"
+              (change)="onFileSelected($event, 'lettre_res_piece_jointe')" />
           </div>
         </div>
       </ng-template>
@@ -1221,23 +818,13 @@
 
     <!-- Button Ajouter -->
     <div class="form-group mt-5 col-lg-4 d-flex">
-      <button
-        *ngIf="!update"
-        type="submit"
-        id="Ajouter"
-        class="btn second-btn form-control"
-        (click)="addNewContrat(); scrollToTop()"
-      >
+      <button *ngIf="!update" type="submit" id="Ajouter" class="btn second-btn form-control"
+        (click)="addNewContrat(); scrollToTop()">
         Ajouter
       </button>
       <!-- [disabled]="etat_contrat_duree_suspension?.invalid || etat_contrat_date_suspension?.invalid" -->
-      <button
-        *ngIf="update"
-        type="submit"
-        id="Modifier"
-        class="btn second-btn form-control"
-        (click)="openResiliationModel(); scrollToTop()"
-      >
+      <button *ngIf="update" type="submit" id="Modifier" class="btn second-btn form-control"
+        (click)="openResiliationModel(); scrollToTop()">
         Modifier
       </button>
     </div>
@@ -1251,12 +838,8 @@
     </h3>
     <p class="mt-3">Êtes-vous de vouloir résilier le contrat ?</p>
     <div class="d-inline-flex justify-content-start mt-5">
-      <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)="succesUpdate()"
-        >Résilier</a
-      >
-      <a class="btn btn-lg px-lg-4 main-btn" (click)="closeConfirmationModal()"
-        >Annuler</a
-      >
+      <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)="succesUpdate()">Résilier</a>
+      <a class="btn btn-lg px-lg-4 main-btn" (click)="closeConfirmationModal()">Annuler</a>
     </div>
   </app-confirmation-modal>
   <!-- Fin de formulaire-->

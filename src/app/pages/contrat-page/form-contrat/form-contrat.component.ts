@@ -516,7 +516,8 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       // }
       // Date fin de l'avance
       date.setMonth(month);
-      this.datePremierPaiement = date.toISOString().slice(0, 10);
+      // this.datePremierPaiement = date.toISOString().slice(0, 10);
+      this.datePremierPaiement = `${date.getFullYear()}-${month + 1}-01`;
 
       // Date 1er paiment
       date.setDate(0);
