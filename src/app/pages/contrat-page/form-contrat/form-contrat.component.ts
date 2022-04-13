@@ -800,7 +800,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
         // etat_contrat_piece_jointe_avenant: this.contrat.etat_contrat?.etat?.piece_jointe_avenant,
       });
       this.date_debut_loyer_ = this.contrat.date_debut_loyer;
-      this.deletedProprietaires = [];
+      this.deletedProprietaires = this.contrat.etat_contrat.etat.deleted_proprietaires || [];
       this.proprietaires = this.contrat.foncier.proprietaire;
       // this.contrat.numero_contrat
       //   ? (this.foncier_id = this.contrat.lieu._id)
