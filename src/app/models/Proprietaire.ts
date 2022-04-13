@@ -11,8 +11,8 @@ export interface Proprietaire {
   adresse: string;
   n_compte_bancaire: string;
   banque_rib: string;
-  ville_rib:string;
-  cle_rib:string;
+  ville_rib: string;
+  cle_rib: string;
   banque: string;
   nom_agence_bancaire: string;
   montant_loyer: number;
@@ -21,18 +21,18 @@ export interface Proprietaire {
   retenue_source: string;
   montant_apres_impot: number;
   declaration_option: string;
+  statut: string;
+  montant_avance_proprietaire: number;
+  tax_avance_proprietaire: number;
+  tax_par_periodicite: number;
 
-  montant_avance_proprietaire: number,
-  tax_avance_proprietaire: number,
-  tax_par_periodicite: number,
+  pourcentage_caution: number;
+  caution_par_proprietaire: number;
 
-  pourcentage_caution: number,
-  caution_par_proprietaire: number,
-
-  proprietaire_list:[],
-  is_person_physique: boolean,
-  part_proprietaire: number,
-  type_proprietaire: string
+  proprietaire_list: [];
+  is_person_physique: boolean;
+  part_proprietaire: number;
+  type_proprietaire: string;
   // mandataire: [{
   //   cin_mandataire: string;
   //   nom_prenom_mandataire: string;
