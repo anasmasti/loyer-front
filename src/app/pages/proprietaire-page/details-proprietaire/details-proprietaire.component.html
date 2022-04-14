@@ -4,7 +4,7 @@
             <!-- <h3 class=""></h3> -->
             <h3 class="main-title">
                 <a [routerLink]="['/proprietaire/list-global/list']" class="goback-link">Liste des
-                    propriétaires</a>/<span class="selected-text">{{ proprietaire?.nom_prenom }}</span>
+                    propriétaires</a>/<span class="selected-text">{{ proprietaire?.nom_prenom || proprietaire?.raison_social }} </span>
                     <span class="text-secondary" *ngIf="mandataire">
                         •
                       </span> 
