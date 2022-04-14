@@ -300,11 +300,10 @@
             </p>
           </div> -->
         </div>
-
         <div class="col-lg-3 form-group mt-4">
           <label for="">Statut de la caution</label>
           <input type="text" [(ngModel)]="statutCaution" class="form-control rounded-pill"
-            formControlName="statut_caution" readonly />
+            formControlName="statut_caution" readonly/>
         </div>
 
         <div class="col-lg-3 form-group mt-4">
@@ -896,7 +895,7 @@
               readonly />
           </div>
 
-          <div class="col-lg-3 form-group mt-4">
+          <div *ngIf="contrat?.statut_caution !== '--'" class="col-lg-3 form-group mt-4">
             <label for="">Statut de la caution </label>
             <!-- <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_reprise_caution"> -->
             <select class="form-select rounded-pill" formControlName="etat_contrat_reprise_caution"

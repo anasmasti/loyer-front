@@ -719,10 +719,6 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     let index = this.contrat?.numero_contrat.indexOf('/AV');
     let checkAv = this.contrat?.numero_contrat.slice(index);
     if (checkAv == '/AV') this.isAV = true;
-    console.log('=>',checkAv);
-    
-    // console.log("=>",this.contrat?.etat_contrat?.etat?.libelle);
-    
     if (this.contrat) {
       this.contrat.foncier.lieu.forEach((lieu: any) => {
         if (!lieu.deleted) {
@@ -993,8 +989,6 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     };
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
-
-    // console.log(ctr_data);
 
     //  patch the formdata (data+files)
     this.contratService.updateContrat(id, this.fd).subscribe(
