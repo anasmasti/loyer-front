@@ -719,7 +719,10 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     let index = this.contrat?.numero_contrat.indexOf('/AV');
     let checkAv = this.contrat?.numero_contrat.slice(index);
     if (checkAv == '/AV') this.isAV = true;
-
+    console.log('=>',checkAv);
+    
+    // console.log("=>",this.contrat?.etat_contrat?.etat?.libelle);
+    
     if (this.contrat) {
       this.contrat.foncier.lieu.forEach((lieu: any) => {
         if (!lieu.deleted) {
@@ -764,13 +767,14 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
         montant_avance_tax: this.contrat.montant_avance_tax,
         montant_loyer_ttc: this.contrat.montant_loyer_ttc,
 
-        etat_contrat_libelle: this.contrat.etat_contrat?.libelle,
+        
+        etat_contrat_libelle:this.contrat.etat_contrat?.libelle,
         etat_contrat_n_avenant: this.contrat.etat_contrat?.etat?.n_avenant,
-        etat_contrat_motif: this.contrat.etat_contrat?.etat?.motif?.type_motif,
+        etat_contrat_motif: (this.contrat.etat_contrat?.libelle == 'Initié' && this.isAV) ? this.contrat.etat_contrat?.etat?.motif?.type_motif : '',
         etat_contrat_montant_nouveau_loyer:
-          this.contrat.etat_contrat?.etat?.montant_nouveau_loyer,
+        (this.contrat.etat_contrat?.libelle == 'Initié' && this.isAV) ? this.contrat.etat_contrat?.etat?.montant_nouveau_loyer : '',
         etat_contrat_signaletique_successeur:
-          this.contrat.etat_contrat?.etat?.signaletique_successeur,
+        (this.contrat.etat_contrat?.libelle == 'Initié' && this.isAV) ? this.contrat.etat_contrat?.etat?.signaletique_successeur : '',
         etat_contrat_intitule_lieu: this.currentLieu?.lieu?.intitule_lieu,
         etat_contrat_date_suspension: this.formatDate(
           this.contrat.etat_contrat?.etat?.date_suspension
@@ -789,9 +793,9 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
         etat_contrat_preavis: this.formatDate(
           this.contrat.etat_contrat?.etat?.preavis
         ),
-        date_effet_av: this.formatDate(
+        date_effet_av: (this.contrat.etat_contrat?.libelle == 'Initié' && this.isAV) ? this.formatDate(
           this.contrat.etat_contrat?.etat?.date_effet_av
-        ),
+        ) : '',
         nombre_part: this.contrat.nombre_part,
         etat_contrat_frais_reamenagement:
           this.contrat.etat_contrat?.etat?.frais_reamenagement,
@@ -799,14 +803,15 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
         // etat_contrat_lettre_res_piece_jointe: this.contrat.etat_contrat?.etat?.lettre_res_piece_jointe,
         // etat_contrat_piece_jointe_avenant: this.contrat.etat_contrat?.etat?.piece_jointe_avenant,
       });
-      this.date_debut_loyer_ = this.contrat.date_debut_loyer;
-      this.deletedProprietaires = this.contrat.etat_contrat.etat.deleted_proprietaires || [];
+      // this.date_debut_loyer_ = this.contrat.date_debut_loyer;
+      this.date_debut_loyer_ = this.formatDate(this.contrat.date_debut_loyer);
+      this.deletedProprietaires =  (this.contrat.etat_contrat?.libelle == 'Initié' && this.contrat.is_avenant) ? this.contrat.etat_contrat.etat.deleted_proprietaires : [];
       this.proprietaires = this.contrat.foncier.proprietaire;
       // this.contrat.numero_contrat
       //   ? (this.foncier_id = this.contrat.lieu._id)
       //   : null;
       // Check motif checkboxs
-      if (this.contrat.is_avenant) {
+      if ((this.contrat.etat_contrat?.libelle == 'Initié' && this.contrat.is_avenant)) {
         this.contrat.etat_contrat.etat.motif.forEach((motif: any) => {
           switch (motif.type_motif) {
             case 'Révision du prix du loyer':
