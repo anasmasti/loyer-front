@@ -726,7 +726,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
           this.currentLieu = lieu;
         }
       });
-
+      
       // this.etatContrat = this.contrat.etat_contrat.libelle
 
       this.contratForm?.patchValue({
