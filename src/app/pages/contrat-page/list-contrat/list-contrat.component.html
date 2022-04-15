@@ -157,7 +157,17 @@
         "
       >
         <td>{{ contrat.foncier.type_lieu }}</td>
-        <td>{{ contrat.numero_contrat }}</td>
+        <td>{{ contrat.numero_contrat }}
+          <br />
+          <ng-container *ngFor="let lieu of contrat?.foncier.lieu">
+            <span
+              class="info-txt"
+              *ngIf="!lieu.deleted && lieu.etat_lieu !== 'Occupé'"
+            >
+              {{ lieu.etat_lieu }}
+            </span>
+          </ng-container>
+        </td>
         <!-- <td>{{ contrat.montant_loyer | currency: "MAD" }}</td> -->
         <td>{{ contrat.montant_loyer }}</td>
         <td>{{ contrat.date_debut_loyer | date: "dd/MM/yyyy" }}</td>
