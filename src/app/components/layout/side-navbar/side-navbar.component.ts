@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { HelperService } from '@services/helpers/helper.service';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
@@ -11,7 +11,7 @@ import { getUserType } from 'src/app/store/shared/shared.selector';
   templateUrl: './side-navbar.component.html',
   styleUrls: ['./side-navbar.component.scss'],
 })
-export class SideNavbarComponent implements OnInit {
+export class SideNavbarComponent implements OnInit, AfterViewInit {
   isAdmin!: boolean;
   isDC!: boolean;
   isCDGSP!: boolean;
@@ -39,6 +39,10 @@ export class SideNavbarComponent implements OnInit {
 
     this.getNextClotureDate();
     this.getUserRole();
+  }
+  
+  ngAfterViewInit(): void {
+    this.putActiveLink(this.location.path().replace('/','').split('/')[0]) 
   }
 
   putActiveLink(pathName: string) {
