@@ -81,7 +81,7 @@
         />
       </div>
 
-      <div class="col-lg-4 form-group mt-4" *ngIf="!update || (update  && foncier?.contrat.length == 0)">
+      <div class="col-lg-4 form-group mt-4" *ngIf="!update || (update  && foncier?.contrat.length === 0)">
         <label for="">Superficie</label>
         <input
           type="text"
@@ -477,7 +477,7 @@
             <input
               type="text"
               class="form-control rounded-pill"
-              [value]="currentLieu?.lieu?.type_lieu == 'Logement de fonction' ? currentLieu?.lieu?.attached_DR?.code_lieu : currentLieu?.lieu?.code_lieu"
+              [value]="currentLieu?.lieu?.type_lieu === 'Logement de fonction' ? currentLieu?.lieu?.attached_DR?.code_lieu : currentLieu?.lieu?.code_lieu"
               readonly
             />
             <!-- [value]="currentLieu.code_lieu" -->

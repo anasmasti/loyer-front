@@ -553,7 +553,7 @@
         Modifier
       </button>
       <button type="submit" class="btn second-btn form-control" (click)="scrollToTop()" *ngIf="proprietaire === ''"
-        [disabled]="proprietaireForm.status == 'INVALID' || n_registre_commerce?.errors?.requiredWhenIsMoral || raison_social?.errors?.requiredWhenIsMoral || nom_prenom?.errors?.requiredWhenIsPhysique || cin?.errors?.requiredWhenIsPhysique">
+        [disabled]="proprietaireForm.status === 'INVALID' || n_registre_commerce?.errors?.requiredWhenIsMoral || raison_social?.errors?.requiredWhenIsMoral || nom_prenom?.errors?.requiredWhenIsPhysique || cin?.errors?.requiredWhenIsPhysique">
         Ajouter
       </button>
     </div>
