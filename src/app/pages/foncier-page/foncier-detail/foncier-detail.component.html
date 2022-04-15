@@ -229,7 +229,7 @@
         <p>
           {{
             selectedAmenagement?.date_passation_commande !== ""
-              ? selectedAmenagement?.date_passation_commande
+              ? (selectedAmenagement?.date_passation_commande | date: 'dd/MM/yyyy')
               : "--"
           }}
         </p>
@@ -251,7 +251,7 @@
         <p>
           {{
             selectedAmenagement?.date_fin_travaux !== ""
-              ? selectedAmenagement?.date_fin_travaux
+              ? (selectedAmenagement?.date_fin_travaux | date: 'dd/MM/yyyy')
               : "--"
           }}
         </p>
@@ -261,7 +261,7 @@
         <p>
           {{
             selectedAmenagement?.date_livraison_local !== ""
-              ? selectedAmenagement?.date_livraison_local
+              ? (selectedAmenagement?.date_livraison_local | date: 'dd/MM/yyyy')
               : "--"
           }}
         </p>
