@@ -38,10 +38,9 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   isStatutError: boolean = false;
   statutContratError: string = 'Veuillez séléctionnez le statut de contrat';
   isSuspensionValidError: boolean = false;
-  suspensionErrorMsg: string =
-    'Veuillez séléctionnez la date et la durée de suspension';
   isAvenantError: boolean = false;
-  avenantErrorMsg: string = 'Veuillez séléctionnez la date d’effet';
+  isContratError: boolean = false;
+  contratMsgError: string = 'Veuillez remplir les champs obligatoire';
 
   foncier!: any;
   fd: FormData = new FormData();
@@ -610,82 +609,95 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   //----------------- Update and Post  --------------------------
   //Add contrat
   addNewContrat() {
-    let ctr_data: any = {
-      numero_contrat: this.num_contrat,
-      // date_debut_loyer: this.contratForm.get('date_debut_loyer')?.value || '',
-      date_debut_loyer: this.date_debut_loyer_ || '',
-      // piece_jointe: this.contratForm.get('piece_jointe')?.value || '',
-      montant_loyer: this.contratForm.get('montant_loyer')?.value || '',
-      taxe_edilite_loyer:
-        this.contratForm.get('taxe_edilite_comprise_loyer')?.value || '',
-      // taxe_edilite_loyer: this.taxNonComprise,
-      taxe_edilite_non_loyer:
-        this.contratForm.get('taxe_edilite_noncomprise_loyer')?.value || '',
-      // taxe_edilite_non_loyer: this.taxNonComprise,
-      periodicite_paiement:
-        this.contratForm.get('periodicite_paiement')?.value || '',
-      date_fin_contrat:
-        this.contratForm.get('date_fin_contrat')?.value ||
-        new Date('2999-01-01'),
-      declaration_option:
-        this.contratForm.get('declaration_option')?.value || '',
-      taux_impot: this.tauxImpot,
-      retenue_source: this.retenueSource,
-      montant_apres_impot: this.montantApresImpot,
-      montant_caution: this.contratForm.get('montant_caution')?.value || 0,
-      duree_caution: this.dureeCaution,
-      date_reprise_caution:
-        this.contratForm.get('date_reprise_caution')?.value || '',
-      statut_caution: this.contratForm.get('statut_caution')?.value || '',
-      montant_avance: this.contratForm.get('montant_avance')?.value || '',
-      date_fin_avance: this.formattedDateFinAvance,
-      date_premier_paiement: this.datePremierPaiement || '',
-      duree_avance: this.contratForm.get('duree_avance')?.value || '',
-      echeance_revision_loyer:
-        this.contratForm.get('echeance_revision_loyer')?.value || '',
-      n_engagement_depense:
-        this.contratForm.get('n_engagement_depense')?.value || '',
-      foncier: this.foncier_id,
-      duree_location: this.contratForm.get('duree_location')?.value || '',
-      duree: this.duree || '',
-      retunue_source_par_mois: this.retunue_source_par_mois || '',
-      total_montant_brut_loyer: this.totalBrutLoyer || '',
-      total_montant_net_loyer: this.totalNetLoyer || '',
-      montant_avance_tax: this.montant_avance_tax_,
-      montant_loyer_ttc: this.montantLoyerTTC,
-      nombre_part: this.contratForm.get('nombre_part')?.value || '',
-    };
+    let dateDebutLoyer = this.date_debut_loyer_;
+    let montantLoyer = this.contratForm.get('montant_loyer')?.value;
+    let nbrPart = this.contratForm.get('nombre_part')?.value;
+    let periodicite = this.contratForm.get('periodicite_paiement')?.value;
+    let contratLibelle = this.contratForm.get('etat_contrat_libelle')?.value;
 
-    //Append contrat-data in formdata
-    this.fd.append('data', JSON.stringify(ctr_data));
-    // let idFoncier = this.actRoute.snapshot.paramMap.get('id_foncier');
+    if ((dateDebutLoyer == null || montantLoyer == null || nbrPart == null || periodicite == null) && contratLibelle == null) {
+      this.isContratError = true;
+      setTimeout(() => {
+        this.isContratError = false;
+      }, 3000);
+    } else {
+      let ctr_data: any = {
+        numero_contrat: this.num_contrat,
+        // date_debut_loyer: this.contratForm.get('date_debut_loyer')?.value || '',
+        date_debut_loyer: this.date_debut_loyer_ || null,
+        // piece_jointe: this.contratForm.get('piece_jointe')?.value || '',
+        montant_loyer: this.contratForm.get('montant_loyer')?.value || null,
+        taxe_edilite_loyer:
+          this.contratForm.get('taxe_edilite_comprise_loyer')?.value || '',
+        // taxe_edilite_loyer: this.taxNonComprise,
+        taxe_edilite_non_loyer:
+          this.contratForm.get('taxe_edilite_noncomprise_loyer')?.value || '',
+        // taxe_edilite_non_loyer: this.taxNonComprise,
+        periodicite_paiement:
+          this.contratForm.get('periodicite_paiement')?.value || null,
+        date_fin_contrat:
+          this.contratForm.get('date_fin_contrat')?.value ||
+          new Date('2999-01-01'),
+        declaration_option:
+          this.contratForm.get('declaration_option')?.value || '',
+        taux_impot: this.tauxImpot,
+        retenue_source: this.retenueSource,
+        montant_apres_impot: this.montantApresImpot,
+        montant_caution: this.contratForm.get('montant_caution')?.value || 0,
+        duree_caution: this.dureeCaution,
+        date_reprise_caution:
+          this.contratForm.get('date_reprise_caution')?.value || '',
+        statut_caution: this.contratForm.get('statut_caution')?.value || '',
+        montant_avance: this.contratForm.get('montant_avance')?.value || '',
+        date_fin_avance: this.formattedDateFinAvance,
+        date_premier_paiement: this.datePremierPaiement || '',
+        duree_avance: this.contratForm.get('duree_avance')?.value || '',
+        echeance_revision_loyer:
+          this.contratForm.get('echeance_revision_loyer')?.value || '',
+        n_engagement_depense:
+          this.contratForm.get('n_engagement_depense')?.value || '',
+        foncier: this.foncier_id,
+        duree_location: this.contratForm.get('duree_location')?.value || '',
+        duree: this.duree || '',
+        retunue_source_par_mois: this.retunue_source_par_mois || '',
+        total_montant_brut_loyer: this.totalBrutLoyer || '',
+        total_montant_net_loyer: this.totalNetLoyer || '',
+        montant_avance_tax: this.montant_avance_tax_,
+        montant_loyer_ttc: this.montantLoyerTTC,
+        nombre_part: this.contratForm.get('nombre_part')?.value || null,
+      };
 
-    // post the formdata (data+files)
-    this.contratService
-      .addContrat(this.fd, this.userMatricule, this.foncier_id)
-      .subscribe(
-        (_) => {
-          this.postDone = true;
-          setTimeout(() => {
-            this.contratForm.reset();
-            this.postDone = false;
-            this.help.toTheUp();
-            this.router
-              .navigate(['/proprietaire/add', this.foncier_id, 'Actif'])
-              .then(() => {
-                this.help.refrechPage();
-              });
-          }, 3000);
-        },
-        (error) => {
-          this.errors = error.error.message;
-          setTimeout(() => {
-            this.showErrorMessage();
-            // this.contratForm.reset();
-          }, 5000);
-          this.hideErrorMessage();
-        }
-      );
+      //Append contrat-data in formdata
+      // let idFoncier = this.actRoute.snapshot.paramMap.get('id_foncier');
+
+      this.fd.append('data', JSON.stringify(ctr_data));
+      // post the formdata (data+files)
+      this.contratService
+        .addContrat(this.fd, this.userMatricule, this.foncier_id)
+        .subscribe(
+          (_) => {
+            this.postDone = true;
+            setTimeout(() => {
+              this.contratForm.reset();
+              this.postDone = false;
+              this.help.toTheUp();
+              this.router
+                .navigate(['/proprietaire/add', this.foncier_id, 'Actif'])
+                .then(() => {
+                  this.help.refrechPage();
+                });
+            }, 3000);
+          },
+          (error) => {
+            this.errors = error.error.message;
+            setTimeout(() => {
+              this.showErrorMessage();
+              // this.contratForm.reset();
+            }, 5000);
+            this.hideErrorMessage();
+          }
+        );
+    }
   }
 
   // Check if all inputs has invalid errors
@@ -725,7 +737,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
           this.currentLieu = lieu;
         }
       });
-      
+
       // this.etatContrat = this.contrat.etat_contrat.libelle
 
       this.contratForm?.patchValue({
@@ -763,14 +775,20 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
         montant_avance_tax: this.contrat.montant_avance_tax,
         montant_loyer_ttc: this.contrat.montant_loyer_ttc,
 
-        
-        etat_contrat_libelle:this.contrat.etat_contrat?.libelle,
+        etat_contrat_libelle: this.contrat.etat_contrat?.libelle,
         etat_contrat_n_avenant: this.contrat.etat_contrat?.etat?.n_avenant,
-        etat_contrat_motif: (this.contrat.etat_contrat?.libelle == 'Initié' && this.isAV) ? this.contrat.etat_contrat?.etat?.motif?.type_motif : '',
+        etat_contrat_motif:
+          this.contrat.etat_contrat?.libelle == 'Initié' && this.isAV
+            ? this.contrat.etat_contrat?.etat?.motif?.type_motif
+            : '',
         etat_contrat_montant_nouveau_loyer:
-        (this.contrat.etat_contrat?.libelle == 'Initié' && this.isAV) ? this.contrat.etat_contrat?.etat?.montant_nouveau_loyer : '',
+          this.contrat.etat_contrat?.libelle == 'Initié' && this.isAV
+            ? this.contrat.etat_contrat?.etat?.montant_nouveau_loyer
+            : '',
         etat_contrat_signaletique_successeur:
-        (this.contrat.etat_contrat?.libelle == 'Initié' && this.isAV) ? this.contrat.etat_contrat?.etat?.signaletique_successeur : '',
+          this.contrat.etat_contrat?.libelle == 'Initié' && this.isAV
+            ? this.contrat.etat_contrat?.etat?.signaletique_successeur
+            : '',
         etat_contrat_intitule_lieu: this.currentLieu?.lieu?.intitule_lieu,
         etat_contrat_date_suspension: this.formatDate(
           this.contrat.etat_contrat?.etat?.date_suspension
@@ -789,9 +807,10 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
         etat_contrat_preavis: this.formatDate(
           this.contrat.etat_contrat?.etat?.preavis
         ),
-        date_effet_av: (this.contrat.etat_contrat?.libelle == 'Initié' && this.isAV) ? this.formatDate(
-          this.contrat.etat_contrat?.etat?.date_effet_av
-        ) : '',
+        date_effet_av:
+          this.contrat.etat_contrat?.libelle == 'Initié' && this.isAV
+            ? this.formatDate(this.contrat.etat_contrat?.etat?.date_effet_av)
+            : '',
         nombre_part: this.contrat.nombre_part,
         etat_contrat_frais_reamenagement:
           this.contrat.etat_contrat?.etat?.frais_reamenagement,
@@ -801,13 +820,20 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       });
       // this.date_debut_loyer_ = this.contrat.date_debut_loyer;
       this.date_debut_loyer_ = this.formatDate(this.contrat.date_debut_loyer);
-      this.deletedProprietaires =  (this.contrat.etat_contrat?.libelle == 'Initié' && this.contrat.is_avenant) ? this.contrat.etat_contrat.etat.deleted_proprietaires : [];
+      this.deletedProprietaires =
+        this.contrat.etat_contrat?.libelle == 'Initié' &&
+        this.contrat.is_avenant
+          ? this.contrat.etat_contrat.etat.deleted_proprietaires
+          : [];
       this.proprietaires = this.contrat.foncier.proprietaire;
       // this.contrat.numero_contrat
       //   ? (this.foncier_id = this.contrat.lieu._id)
       //   : null;
       // Check motif checkboxs
-      if ((this.contrat.etat_contrat?.libelle == 'Initié' && this.contrat.is_avenant)) {
+      if (
+        this.contrat.etat_contrat?.libelle == 'Initié' &&
+        this.contrat.is_avenant
+      ) {
         this.contrat.etat_contrat.etat.motif.forEach((motif: any) => {
           switch (motif.type_motif) {
             case 'Révision du prix du loyer':
@@ -836,32 +862,20 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
 
   // Update contrat
   updateContrat() {
-    let dateSuspension = this.contratForm.get(
-      'etat_contrat_date_suspension'
-    )?.value;
-    let durreSuspension = this.contratForm.get(
-      'etat_contrat_duree_suspension'
-    )?.value;
+    let dateSuspension = this.contratForm.get('etat_contrat_date_suspension')?.value;
+    let durreSuspension = this.contratForm.get('etat_contrat_duree_suspension')?.value;
     let dateEffetAvenant = this.contratForm.get('date_effet_av')?.value;
     let contratLibelle = this.contratForm.get('etat_contrat_libelle')?.value;
 
     if (contratLibelle != 'Initié') {
-      if (
-        (dateSuspension == (null || undefined) || durreSuspension == null) &&
-        contratLibelle != null &&
-        contratLibelle == 'Suspendu'
-      ) {
+      if ((dateSuspension == (null || undefined) || durreSuspension == (null || undefined)) && contratLibelle == 'Suspendu') {
         this.isSuspensionValidError = true;
         setTimeout(() => {
           this.isSuspensionValidError = false;
         }, 3000);
       }
 
-      if (
-        dateEffetAvenant == (null || undefined) &&
-        contratLibelle != null &&
-        contratLibelle == 'Avenant'
-      ) {
+      if (dateEffetAvenant == (null || undefined || '') && contratLibelle != null && contratLibelle == 'Avenant') {
         this.isAvenantError = true;
         setTimeout(() => {
           this.isAvenantError = false;
@@ -874,12 +888,8 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
           this.isStatutError = false;
         }, 3000);
       }
-      if (
-        ((dateSuspension != null && durreSuspension != null) ||
-          dateEffetAvenant != null) &&
-        contratLibelle != (undefined || null)
-      )
-        this.succesUpdate();
+      if (((dateSuspension != null && durreSuspension != (null || undefined)) || dateEffetAvenant != (null || '')) && contratLibelle != (undefined || null)) this.succesUpdate();
+        
     } else this.succesUpdate();
   }
 
@@ -971,13 +981,12 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
           duree_consomme: this.contratForm.get('duree_consomme')?.value || '',
           duree_a_recupere: this.durreeRecuperer,
           deleted_proprietaires: this.deletedProprietaires,
-          date_effet_av: this.contratForm.get('date_effet_av')?.value || '',
+          date_effet_av: this.contratForm.get('date_effet_av')?.value || null,
           frais_reamenagement:
             this.contratForm.get('etat_contrat_frais_reamenagement')?.value ||
             '',
         },
       },
-
       //Validation
       validation1_DMG: this.contratForm.get('validation1_DMG')?.value || false,
       validation2_DAJC:

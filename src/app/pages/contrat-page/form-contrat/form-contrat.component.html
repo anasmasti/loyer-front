@@ -18,11 +18,12 @@
         {{ statutContratError }}
       </div>
       <div *ngIf="isSuspensionValidError" class="error-alert p-2 my-2">
-        {{ suspensionErrorMsg }}
+        {{ contratMsgError }}
       </div>
       <div *ngIf="isAvenantError" class="error-alert p-2 my-2">
-        {{ avenantErrorMsg }}
+        {{ contratMsgError }}
       </div>
+      <div *ngIf="isContratError" class="error-alert p-2 my-2">{{ contratMsgError }}</div>
       <!-- alert de reussite -->
       <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
       <div *ngIf="updateDone" class="done-alert p-2 my-2">
@@ -396,7 +397,7 @@
       </div>
       <div class="mt-4">
         <div class="form-box mt-2">
-          <div *ngIf="contrat?.etat_contrat?.libelle === 'Initié'  && isAV; then UpdateAV"></div>
+          <div *ngIf="contrat?.etat_contrat?.libelle === 'Initié' && isAV; then UpdateAV"></div>
           <div *ngIf="selectedEtatContrat === 'Avenant'; then AV"></div>
           <div *ngIf="selectedEtatContrat === 'Suspendu'; then SUS"></div>
           <div *ngIf="selectedEtatContrat === 'Résilié'; then RES"></div>
