@@ -224,12 +224,12 @@
                 class="mb-1"
                 *ngIf="
                   contrat?.is_avenant &&
-                  contrat?.etat_contrat?.libelle == 'Initié' && 
-                  contrat?.etat_contrat?.etat?.motif[0]?.type_motif == 'Décès' || 
-                  contrat?.etat_contrat?.etat?.motif[0]?.type_motif == 'Cession'
+                  contrat?.etat_contrat?.libelle === 'Initié' && 
+                  contrat?.etat_contrat?.etat?.motif[0]?.type_motif === 'Décès' || 
+                  contrat?.etat_contrat?.etat?.motif[0]?.type_motif === 'Cession'
                 "
               >
-                <a *ngIf="!isDC && !isDAJC && contrat?.etat_contrat?.libelle == 'Initié'"
+                <a *ngIf="!isDC && !isDAJC && contrat?.etat_contrat?.libelle === 'Initié'"
                   [routerLink]="[
                     '/proprietaire/add',
                     contrat?.foncier?._id,
@@ -243,7 +243,7 @@
               <a
                 class="btn btn-sm second-btn me-2"
                 (click)="openListeProprietairesModal(contrat)"
-                *ngIf="contrat?.etat_contrat?.libelle != 'Modifié'"
+                *ngIf="contrat?.etat_contrat?.libelle !=='Modifié'"
               >
                 <i class="fal fa-users"></i> Voir ({{
                   getProprietaireLength(contrat)
@@ -530,10 +530,10 @@
               <ng-container
                 *ngIf="
                   !proprietaire.deleted &&
-                  ((proprietaire?.statut != 'À supprimer' &&
+                  ((proprietaire?.statut !=='À supprimer' &&
                     selectedContrat.is_avenant) ||
                     (!selectedContrat.is_avenant &&
-                      proprietaire?.statut != 'À ajouter'))
+                      proprietaire?.statut !== 'À ajouter'))
                 "
               >
                 <td>

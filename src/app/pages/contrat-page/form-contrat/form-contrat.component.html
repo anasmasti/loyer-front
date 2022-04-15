@@ -396,7 +396,7 @@
       </div>
       <div class="mt-4">
         <div class="form-box mt-2">
-          <div *ngIf="contrat?.etat_contrat?.libelle == 'Initié'  && isAV; then UpdateAV"></div>
+          <div *ngIf="contrat?.etat_contrat?.libelle === 'Initié'  && isAV; then UpdateAV"></div>
           <div *ngIf="selectedEtatContrat === 'Avenant'; then AV"></div>
           <div *ngIf="selectedEtatContrat === 'Suspendu'; then SUS"></div>
           <div *ngIf="selectedEtatContrat === 'Résilié'; then RES"></div>
@@ -588,7 +588,7 @@
                 <tbody *ngIf="proprietaires?.length">
                   <tr *ngFor="let proprietaire of proprietaires">
                     <!-- <td>{{ proprietaire._id }}</td> -->
-                    <ng-container *ngIf="proprietaire.statut == 'Actif'">
+                    <ng-container *ngIf="proprietaire.statut === 'Actif'">
                       <td>
                         {{
                         proprietaire.nom_prenom
@@ -847,7 +847,7 @@
                 <tbody *ngIf="proprietaires?.length">
                   <tr *ngFor="let proprietaire of proprietaires">
                     <!-- <td>{{ proprietaire._id }}</td> -->
-                    <ng-container *ngIf="proprietaire.statut == 'Actif'">
+                    <ng-container *ngIf="proprietaire.statut === 'Actif'">
                       <td>
                         {{
                         proprietaire.nom_prenom
