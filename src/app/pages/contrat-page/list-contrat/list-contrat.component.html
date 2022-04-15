@@ -157,11 +157,16 @@
         "
       >
         <td>{{ contrat.foncier.type_lieu }}</td>
-        <td>{{ contrat.numero_contrat }}
+        <td>
+          {{ contrat.numero_contrat }}
           <br />
           <ng-container *ngFor="let lieu of contrat?.foncier.lieu">
             <span
-              *ngIf="!lieu.deleted && lieu.etat_lieu !== 'Occupé'"
+              *ngIf="
+                !lieu.deleted &&
+                lieu.etat_lieu !== 'Occupé' &&
+               contrat?.etat_contrat?.libelle !== ('Initié' || 'Modifé' || 'En cours de validation')
+              "
               [ngClass]="{
                 'info-txt': lieu.etat_lieu === 'En cours de transfert',
                 'danger-txt': lieu.etat_lieu === 'Transféré'
@@ -236,13 +241,20 @@
               <div
                 class="mb-1"
                 *ngIf="
-                  contrat?.is_avenant &&
-                  contrat?.etat_contrat?.libelle === 'Initié' && 
-                  contrat?.etat_contrat?.etat?.motif[0]?.type_motif === 'Décès' || 
-                  contrat?.etat_contrat?.etat?.motif[0]?.type_motif === 'Cession'
+                  (contrat?.is_avenant &&
+                    contrat?.etat_contrat?.libelle === 'Initié' &&
+                    contrat?.etat_contrat?.etat?.motif[0]?.type_motif ===
+                      'Décès') ||
+                  contrat?.etat_contrat?.etat?.motif[0]?.type_motif ===
+                    'Cession'
                 "
               >
-                <a *ngIf="!isDC && !isDAJC && contrat?.etat_contrat?.libelle === 'Initié'"
+                <a
+                  *ngIf="
+                    !isDC &&
+                    !isDAJC &&
+                    contrat?.etat_contrat?.libelle === 'Initié'
+                  "
                   [routerLink]="[
                     '/proprietaire/add',
                     contrat?.foncier?._id,
@@ -256,7 +268,7 @@
               <a
                 class="btn btn-sm second-btn me-2"
                 (click)="openListeProprietairesModal(contrat)"
-                *ngIf="contrat?.etat_contrat?.libelle !=='Modifié'"
+                *ngIf="contrat?.etat_contrat?.libelle !== 'Modifié'"
               >
                 <i class="fal fa-users"></i> Voir ({{
                   getProprietaireLength(contrat)
@@ -543,7 +555,7 @@
               <ng-container
                 *ngIf="
                   !proprietaire.deleted &&
-                  ((proprietaire?.statut !=='À supprimer' &&
+                  ((proprietaire?.statut !== 'À supprimer' &&
                     selectedContrat.is_avenant) ||
                     (!selectedContrat.is_avenant &&
                       proprietaire?.statut !== 'À ajouter'))
