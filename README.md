@@ -1,3 +1,3 @@
 ## Gestion des loyers
  
-> version : 1 beta4
+> version: 1 beta4
