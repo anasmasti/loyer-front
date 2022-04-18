@@ -12,7 +12,6 @@ import { getFonciers, getError } from '../foncier-store/foncier.selector';
 import { environment } from 'src/environments/environment';
 import { getUserType } from 'src/app/store/shared/shared.selector';
 import { AuthService } from '@services/auth-service/auth.service';
-import { Contrat } from 'src/app/models/Contrat';
 
 @Component({
   selector: 'app-foncier-list',

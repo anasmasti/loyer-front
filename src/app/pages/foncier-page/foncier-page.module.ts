@@ -20,7 +20,6 @@ import { FormsModule } from '@angular/forms';
 import { lieuxReducer } from '../lieux-page/lieux-store/lieux.reducer';
 import { ListReportingFoncierComponent } from './list-reporting-foncier/list-reporting-foncier.component';
 import { PipesModule } from 'src/app/core/pipes/pipes.module';
-// import { getNameOfObject } from 'src/app/shared/pipes/getNameOfObject.pipe';
 
 
 const route: Routes = [
