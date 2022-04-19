@@ -517,7 +517,8 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       // Date 1er paiment
       this.datePremierPaiement = moment(date).add(0, 'M').format('DD/MM/YYYY');
       // Date fin de l'avance
-      this.formattedDateFinAvance = moment(date).add(-1, 'days').format('DD/MM/YYYY');
+      this.formattedDateFinAvance = moment(date).add(-1, 'days').format('YYYY/MM/DD');
+      
       // Montant de l'avance
       this.montantAvance = montant_loyer * this.dureeAvance;
     } else {
@@ -647,8 +648,8 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
           this.contratForm.get('date_reprise_caution')?.value || '',
         statut_caution: this.contratForm.get('statut_caution')?.value || '',
         montant_avance: this.contratForm.get('montant_avance')?.value || '',
-        date_fin_avance: this.formattedDateFinAvance,
-        date_premier_paiement: this.datePremierPaiement || '',
+        date_fin_avance: this.formatDate(this.formattedDateFinAvance),
+        date_premier_paiement: this.formatDate(this.datePremierPaiement)|| '',
         duree_avance: this.contratForm.get('duree_avance')?.value || '',
         echeance_revision_loyer:
           this.contratForm.get('echeance_revision_loyer')?.value || '',
@@ -669,6 +670,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       // let idFoncier = this.actRoute.snapshot.paramMap.get('id_foncier');
 
       this.fd.append('data', JSON.stringify(ctr_data));
+      
       // post the formdata (data+files)
       this.contratService
         .addContrat(this.fd, this.userMatricule, this.foncier_id)
@@ -925,10 +927,10 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       statut_caution: this.contratForm.get('statut_caution')?.value || '',
       montant_avance: this.contratForm.get('montant_avance')?.value || '',
       date_fin_avance: this.formattedDateFinAvance
-        ? this.formattedDateFinAvance
+        ? this.formatDate(this.formattedDateFinAvance)
         : this.contratForm.get('date_fin_avance')?.value,
       date_premier_paiement: this.datePremierPaiement
-        ? this.datePremierPaiement
+        ? this.formatDate(this.datePremierPaiement)
         : this.contratForm.get('date_premier_paiement')?.value,
       duree_avance: this.contratForm.get('duree_avance')?.value || '',
       echeance_revision_loyer:

@@ -577,6 +577,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
         setTimeout(() => {
           this.foncierForm.reset();
           this.postDone = false;
+          // '/contrat', foncier._id
           this.router.navigate(['/foncier/list']).then(() => {
             this.help.refrechPage();
           });
