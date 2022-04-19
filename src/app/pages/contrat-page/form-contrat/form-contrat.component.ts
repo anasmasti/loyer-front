@@ -226,7 +226,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       etat_contrat_signaletique_successeur: new FormControl(),
       etat_contrat_intitule_lieu: new FormControl(),
       etat_contrat_date_suspension: new FormControl('', Validators.required),
-      etat_contrat_date_fin_suspension: new FormControl('', Validators.required),
+      etat_contrat_date_fin_suspension: new FormControl(),
       etat_contrat_duree_suspension: new FormControl('', Validators.required),
       etat_contrat_motif_suspension: new FormControl(),
       etat_contrat_reprise_caution: new FormControl(),
@@ -547,7 +547,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   calculDateFinSuspension(){
     let dateSuspension = this.contratForm.get('etat_contrat_date_suspension')?.value;
     let durreSuspension = this.contratForm.get('etat_contrat_duree_suspension')?.value;
-    this.dateFinSuspension = moment(dateSuspension).add(durreSuspension, 'M').format('DD-MM-YYYY');
+    this.dateFinSuspension = moment(dateSuspension).add(durreSuspension, 'M').format('DD/MM/YYYY');
   }
 
   getFoncierById() {
@@ -956,8 +956,8 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
             this.contratForm.get('etat_contrat_intitule_lieu')?.value || '',
           date_suspension:
             this.contratForm.get('etat_contrat_date_suspension')?.value || null, 
-            date_fin_suspension:
-            this.contratForm.get('etat_contrat_date_fin_suspension')?.value || null,
+          date_fin_suspension:
+          this.dateFinSuspension || null,
           duree_suspension:
             this.contratForm.get('etat_contrat_duree_suspension')?.value ||
             null,
@@ -1001,7 +1001,6 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     };
     //Append contrat-data in formdata
     this.fd.append('data', JSON.stringify(ctr_data));
-
     //  patch the formdata (data+files)
     this.contratService.updateContrat(id, this.fd).subscribe(
       (_) => {
