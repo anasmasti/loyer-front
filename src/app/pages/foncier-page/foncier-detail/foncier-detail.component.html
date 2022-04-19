@@ -211,6 +211,25 @@
           }}
         </p>
       </div>
+      <div class="col-lg-6">
+        <h5 class="main-txt">Valeur et nature des travaux(à la charge du propriétaire)</h5>
+        <p>
+          {{
+            selectedAmenagement?.valeur_nature_chargeFondation !== ""
+              ? selectedAmenagement?.valeur_nature_chargeFondation
+              : "--"
+          }}
+        </p>
+      </div>  <div class="col-lg-6">
+        <h5 class="main-txt">Valeur et nature des travaux(à la charge de la Fondation)</h5>
+        <p>
+          {{
+            selectedAmenagement?.valeur_nature_chargeProprietaire !== ""
+              ? selectedAmenagement?.valeur_nature_chargeProprietaire
+              : "--"
+          }}
+        </p>
+      </div>
     </div>
 
     <div class="row">
@@ -235,18 +254,6 @@
         </p>
       </div>
       <div class="col-lg-4">
-        <h5 class="main-txt">Evaluation du fournisseur</h5>
-        <p>
-          {{
-            selectedAmenagement?.evaluation_fournisseur !== ""
-              ? selectedAmenagement?.evaluation_fournisseur
-              : "--"
-          }}
-        </p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-4">
         <h5 class="main-txt">Date de fin de travaux</h5>
         <p>
           {{
@@ -256,6 +263,9 @@
           }}
         </p>
       </div>
+    </div>
+    <div class="row">
+    
       <div class="col-lg-4">
         <h5 class="main-txt">Date de livraison du local</h5>
         <p>
@@ -311,7 +321,7 @@
     <div>
       <h5 class="main-title">Fournisseurs</h5>
       <div class="d-flex justify-content-between flex-row">
-        <div class="mt-3">
+        <div class="mt-3 col-lg-4">
           <h6 class="main-txt">Raison sociale</h6>
           <p>
             {{
@@ -320,6 +330,16 @@
                 : "--"
             }}
           </p>
+          </div>
+          <div class="col-lg-4">
+            <h6 class="main-txt">Evaluation du fournisseur</h6>
+            <p>
+              {{
+                selectedAmenagement?.evaluation_fournisseur !== ""
+                  ? selectedAmenagement?.evaluation_fournisseur
+                  : "--"
+              }}
+            </p>
           </div>
         <!-- <div
           *ngFor="let selected_fournisseur of selectedAmenagement?.fournisseur"

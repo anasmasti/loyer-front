@@ -150,7 +150,7 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Téléphone </label>
-          <input type="text" class="form-control rounded-pill" formControlName="telephone" [ngClass]="{
+          <input type="text" class="form-control rounded-pill" formControlName="telephone" maxlength="10" [ngClass]="{
               'is-invalid': checkInputsValidation(telephone)
             }" />
 
@@ -167,7 +167,7 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Fax </label>
-          <input type="text" class="form-control rounded-pill" formControlName="fax" [ngClass]="{
+          <input type="text" class="form-control rounded-pill" formControlName="fax" maxlength="10" [ngClass]="{
               'is-invalid': checkInputsValidation(fax)
             }" />
 
@@ -393,11 +393,12 @@
         <input type="radio" name="is_mandataire" [value]="false" class="form-check-input mx-2" [(ngModel)]="isMand"
           formControlName="is_mandataire" (click)="CheckMandataire(false)" />
       </div>
-    </ng-container>
-
-    <!-- If isMand true show list of proprietaire to checked -->
+       <!-- If isMand true show list of proprietaire to checked -->
     <div *ngIf="isMand && update; then coProprietaireUpdate"></div>
     <div *ngIf="isMand && !update; then coProprietaireAdd"></div>
+    </ng-container>
+
+   
 
     <!-- Show the proprietaire list if the lengthProprietaire === 0 if not show an error message -->
     <ng-template #coProprietaireUpdate>

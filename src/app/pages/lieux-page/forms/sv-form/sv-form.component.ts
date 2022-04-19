@@ -155,7 +155,7 @@ export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
         setTimeout(() => {
           this.svForm.reset();
           this.postDone = false;
-          this.router.navigate(['/lieux/list']).then(() => {
+          this.router.navigate(['/foncier']).then(() => {
             this.help.refrechPage();
           });
         }, 3000);
