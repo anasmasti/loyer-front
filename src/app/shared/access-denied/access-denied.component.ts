@@ -1,4 +1,3 @@
-import { HelperService } from './../../services/helpers/helper.service';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { MainModalService } from './../../services/main-modal/main-modal.service';
 import { AfterViewInit, Component, OnInit } from '@angular/core';

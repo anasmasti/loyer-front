@@ -15,11 +15,10 @@ export const environment = {
   // Api version
   API_VERSION: 'v1/',
   // Application version
-  APP_VERSION: '1 (Beta3 Dev)',
+  APP_VERSION: '1 (Beta 4)',
   // Reporting
   REPORTING: true,
 };
-
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

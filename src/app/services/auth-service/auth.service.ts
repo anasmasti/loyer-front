@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { share, shareReplay } from 'rxjs/operators';
+import { shareReplay } from 'rxjs/operators';
 import { User } from 'src/app/models/User';
 
 @Injectable({

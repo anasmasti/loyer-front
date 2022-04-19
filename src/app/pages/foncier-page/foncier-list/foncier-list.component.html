@@ -144,7 +144,10 @@
           <br />
           <ng-container *ngFor="let lieu of foncier.lieu">
             <span
-              class="info-txt"
+            [ngClass]="{
+              'info-txt': lieu.etat_lieu === 'En cours de transfert',
+              'danger-txt': lieu.etat_lieu === 'Transférée'
+            }"
               *ngIf="!lieu.deleted && lieu.etat_lieu !== 'Occupé'"
             >
               {{ lieu.etat_lieu }}
@@ -288,7 +291,7 @@
                     *ngIf="
                       !isCSLA &&
                       !isDAJC &&
-                      !isDC && foncier?.contrat.length == 0
+                      !isDC && foncier?.contrat.length === 0
                     "
                     class="btn btn-sm danger-btn me-2"
                     (click)="openConfirmationModal(foncier)"

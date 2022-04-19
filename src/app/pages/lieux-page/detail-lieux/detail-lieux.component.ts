@@ -1,4 +1,3 @@
-import { environment } from './../../../../environments/environment';
 import { Lieu } from 'src/app/models/Lieu';
 import { Component, OnInit } from '@angular/core';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';

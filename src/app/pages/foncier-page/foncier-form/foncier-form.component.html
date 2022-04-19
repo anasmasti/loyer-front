@@ -81,7 +81,7 @@
         />
       </div>
 
-      <div class="col-lg-4 form-group mt-4" *ngIf="!update || (update  && foncier?.contrat.length == 0)">
+      <div class="col-lg-4 form-group mt-4" *ngIf="!update || (update  && foncier?.contrat.length === 0)">
         <label for="">Superficie</label>
         <input
           type="text"
@@ -462,7 +462,7 @@
       <div class="mt-1" *ngIf="currentLieu?.etat_lieu === 'Occupé' || currentLieu?.etat_lieu === 'En cours de transfert'">
         <div class="row">
           <div class="col-lg-4 form-group mt-2">
-            <label for="">Type d'entité organisationnelle</label>
+            <label for="">Type d'entité</label>
             <input
               type="text"
               class="form-control rounded-pill"
@@ -471,21 +471,21 @@
             />
           </div>
 
-          <div class="col-lg-3 form-group mt-2">
-            <label for="">Code d'entité organisationnelle</label>
+          <div class="col-lg-4 form-group mt-2">
+            <label for="">Code d'entité</label>
             <!-- *ngIf="ActiveForm !== 'TransfererForm'" -->
             <input
               type="text"
               class="form-control rounded-pill"
-              [value]="currentLieu?.lieu?.type_lieu == 'Logement de fonction' ? currentLieu?.lieu?.attached_DR?.code_lieu : currentLieu?.lieu?.code_lieu"
+              [value]="currentLieu?.lieu?.type_lieu === 'Logement de fonction' ? currentLieu?.lieu?.attached_DR?.code_lieu : currentLieu?.lieu?.code_lieu"
               readonly
             />
             <!-- [value]="currentLieu.code_lieu" -->
             <!-- [value]="CodeLieu" -->
           </div>
 
-          <div class="col-lg-3 form-group mt-2">
-            <label for="">Intitule d'entité organisationnelle</label>
+          <div class="col-lg-4 form-group mt-2">
+            <label for="">Intitule d'entité</label>
             <input
               type="text"
               class="form-control rounded-pill"
@@ -495,7 +495,7 @@
           </div>
         </div>
         <div
-          class="form-group my-4 col-lg-3 d-flex"
+          class="form-group my-4 col-lg-5 d-flex"
           *ngIf="ActiveForm !== 'TransfererForm'"
         >
           <!-- A Transferer & Annuler la Transformation buttons  -->
@@ -503,7 +503,7 @@
             *ngIf="currentLieu.etat_lieu !== 'En cours de transfert'"
             type="button"
             id="Transferer"
-            class="btn second-btn form-control w-100"
+            class="btn second-btn form-control col-lg-3"
             (click)="openConfirmationModal('ATransfererModalId')"
           >
             En cours de transfert
@@ -512,26 +512,26 @@
             *ngIf="currentLieu.etat_lieu === 'En cours de transfert'"
             type="button"
             id="Transferer"
-            class="btn second-btn form-control w-100"
+            class="btn second-btn form-control col-lg-3"
             (click)="openConfirmationModal('AnnulerTransféreModalId')"
           >
-            Annuler le transfére
+            Annuler le transféret
           </button>
 
           <!-- Supprimer button  -->
-          <button
+          <!-- <button
             type="button"
             id="supprimer"
-            class="btn btn-sm danger-btn form-control mx-3 w-100"
+            class="btn btn-sm danger-btn form-control mx-3 col-lg-3"
             (click)="openConfirmationModal('TransfererModalId')"
           >
           Transférer définitivement cette entité 
-          </button>
+          </button> -->
 
           <!-- Transferer modal -->
           <app-confirmation-modal [closeBtn]="true" [id]="TransfereModalId">
             <h3 class="main-title">Entité organisationnelle</h3>
-            <p class="mt-3">Êtes-vous sûr de transférer définitivement cette entité ?</p>
+            <p class="mt-3">Êtes-vous sûr de vouloir transférer définitivement cette entité ?</p>
             <div class="d-inline-flex justify-content-start mt-5">
               <a
                 class="btn btn-lg px-lg-4 danger-btn me-2"
@@ -550,7 +550,7 @@
           <!-- A Transferer modal -->
           <app-confirmation-modal [closeBtn]="true" [id]="ATransfereModalId">
             <h3 class="main-title">Entité organisationnelle</h3>
-            <p class="mt-3">Êtes-vous sûr de transférer cette entité ?</p>
+            <p class="mt-3">Êtes-vous sûr de vouloir transférer cette entité ?</p>
             <div class="d-inline-flex justify-content-start mt-5">
               <a
                 class="btn btn-lg px-lg-4 danger-btn me-2"

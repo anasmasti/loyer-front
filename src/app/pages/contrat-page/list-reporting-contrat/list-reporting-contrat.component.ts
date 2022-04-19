@@ -3,9 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { HelperService } from 'src/app/services/helpers/helper.service';
 import { ReportingService } from 'src/app/services/reporting/reporting.service';
 import { SearchServiceService } from 'src/app/services/search-service/search-service.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { debounceTime, filter, map, mergeMap, tap } from 'rxjs/operators';
-import { from, fromEvent, throwError } from 'rxjs';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-list-reporting-contrat',
