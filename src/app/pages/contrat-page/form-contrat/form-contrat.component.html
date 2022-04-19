@@ -934,6 +934,7 @@
           <div class="col-lg-3 form-group mt-4">
             <label for="">Date de suspension <span class="danger-txt">*</span></label>
             <input type="date" class="form-control rounded-pill" formControlName="etat_contrat_date_suspension"
+            (change)="calculDateFinSuspension()"
               [ngClass]="{
                 'is-invalid': checkInputsValidation(
                   etat_contrat_date_suspension
@@ -949,25 +950,15 @@
           </div>
 
           <div class="col-lg-3 form-group mt-4">
-            <label for="">Durée de suspension <span class="danger-txt">*</span></label>
+            <label for="">Durée de suspension</label>
             <input type="number" class="form-control rounded-pill" formControlName="etat_contrat_duree_suspension"
-              [ngClass]="{
-                'is-invalid': checkInputsValidation(
-                  etat_contrat_duree_suspension
-                ),
-                'is-valid': !etat_contrat_duree_suspension?.invalid
-              }" />
-            <!-- Error Message  -->
-            <div class="" *ngIf="checkInputsValidation(etat_contrat_duree_suspension)">
-              <p class="danger-txt" *ngIf="etat_contrat_duree_suspension?.errors?.required">
-                Veuillez remplir ce champ
-              </p>
-            </div>
+              (keyup)="calculDateFinSuspension()"
+               />
           </div>
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Date fin de la suspension</label>
-            <input type="date" class="form-control rounded-pill" formControlName="etat_contrat_date_fin_suspension" />
+            <input type="text" placeholder="JJ-MM-AAAA"  class="form-control rounded-pill" [value]="dateFinSuspension" formControlName="etat_contrat_date_fin_suspension" readonly/>
           </div>
 
           <div class="col-lg-3 form-group mt-4">

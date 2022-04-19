@@ -127,6 +127,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   id: string = 'ea2022';
   test!: any;
   foncierById!: any;
+  dateFinSuspension: any;
 
   // Proprietaire
   targetProprietaireId!: string;
@@ -551,10 +552,11 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     }
   }
 
-  // calculDateFinSuspension(){
-  //   let date = moment().add(1, 'M').format('DD-MM-YYYY');
-  //   // console.log(date);
-  // }
+  calculDateFinSuspension(){
+    let dateSuspension = this.contratForm.get('etat_contrat_date_suspension')?.value;
+    let durreSuspension = this.contratForm.get('etat_contrat_duree_suspension')?.value;
+    this.dateFinSuspension = moment(dateSuspension).add(durreSuspension, 'M').format('DD-MM-YYYY');
+  }
 
   getFoncierById() {
     this.foncierService
@@ -870,12 +872,12 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   // Update contrat
   updateContrat() {
     let dateSuspension = this.contratForm.get('etat_contrat_date_suspension')?.value;
-    let durreSuspension = this.contratForm.get('etat_contrat_duree_suspension')?.value;
+    // let durreSuspension = this.contratForm.get('etat_contrat_duree_suspension')?.value;
     let dateEffetAvenant = this.contratForm.get('date_effet_av')?.value;
     let contratLibelle = this.contratForm.get('etat_contrat_libelle')?.value;
 
     if (contratLibelle != 'Initié') {
-      if ((dateSuspension == (null || undefined) || durreSuspension == (null || undefined)) && contratLibelle == 'Suspendu') {
+      if ((dateSuspension == (null || undefined)) && contratLibelle == 'Suspendu') {
         this.isSuspensionValidError = true;
         setTimeout(() => {
           this.isSuspensionValidError = false;
@@ -895,7 +897,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
           this.isStatutError = false;
         }, 3000);
       }
-      if (((dateSuspension != null && durreSuspension != (null || undefined)) || dateEffetAvenant != (null || '')) && contratLibelle != (undefined || null)) this.succesUpdate();
+      if (((dateSuspension != null) || dateEffetAvenant != (null || '')) && contratLibelle != (undefined || null)) this.succesUpdate();
         
     } else this.succesUpdate();
   }
