@@ -120,8 +120,6 @@ export class ListContratComponent implements OnInit {
     this.contratService.getContrat().subscribe(
       (data: any) => {
         this.contrats = data;
-        console.log(data);
-
         this.comparedContrat = data;
       },
       (error: any) => {
@@ -205,6 +203,8 @@ export class ListContratComponent implements OnInit {
   openConfirmationContratModal(id: string) {
     this.isValidate = false;
     this.isValidate2 = false;
+    this.isSoumettre = false;
+    this.isRejeter = false;
     this.id = id;
     this.confirmationModalService.open(); // Open delete confirmation modal
   }
@@ -405,7 +405,7 @@ export class ListContratComponent implements OnInit {
       if (
         !proprietaire.deleted &&
         ((proprietaire?.statut != 'À supprimer' && contrat.is_avenant) ||
-          !contrat.is_avenant)
+          (!contrat.is_avenant && proprietaire?.statut != 'À ajouter'))
       ) {
         count = count + 1;
       }

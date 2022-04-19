@@ -176,6 +176,7 @@ export class ListLieuxComponent implements OnInit, OnDestroy {
             this.showErrorMessage();
           }, 3000);
           this.hideErrorMessage();
+          this.closeConfirmationModal();
         }
       );
   }

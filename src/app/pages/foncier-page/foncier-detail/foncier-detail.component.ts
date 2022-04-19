@@ -3,6 +3,7 @@ import { FoncierService } from '@services/foncier-service/foncier.service';
 import { Foncier } from './../../../models/Foncier';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { HelperService } from '@services/helpers/helper.service';
 
 @Component({
   selector: 'app-foncier-detail',
@@ -27,7 +28,8 @@ export class FoncierDetailComponent implements OnInit {
 
   constructor(
     private foncierService: FoncierService,
-    private actRoute: ActivatedRoute
+    private actRoute: ActivatedRoute,
+    private helperService: HelperService
   ) {}
 
   ngOnInit(): void {
@@ -91,6 +93,9 @@ export class FoncierDetailComponent implements OnInit {
       }
       this.displayAmenagementSection = true;
     }
+  }
+  checkAndPutText(value: boolean) {
+    return this.helperService.booleanToText(value);
   }
 
   scroll() {

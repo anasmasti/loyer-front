@@ -135,7 +135,7 @@
         <td>
           {{
             foncier.type_lieu === "Logement de fonction"
-              ? foncier.lieu[0]?.lieu[0]?.code_rattache_DR
+              ? foncier.lieu[0]?.lieu[0]?.attached_DR[0]?.code_lieu
               : foncier.lieu[0]?.lieu[0]?.code_lieu || "--"
           }}
         </td>
@@ -180,11 +180,10 @@
           <div *ngIf="foncier.contrat">
             <div *ngIf="foncier.proprietaire.length">
               <span class="col-sm-6 main-txt">
-                {{
-                  foncier.proprietaire.length >= 1
-                    ? foncier.proprietaire.length
-                    : ""
-                }}
+                <!-- foncier.proprietaire.length >= 1
+                  ? foncier.proprietaire.length
+                  : "" -->
+                {{ getProprietaireLength(foncier) }}
                 propriétaire<span *ngIf="foncier.proprietaire.length > 1"
                   >s</span
                 >
@@ -279,7 +278,7 @@
                   ></a>
                   <a
                     *ngIf="
-                      !isDC && !isDAJC && foncier?.contrat[0]?.validation2_DAJC
+                      !isDC && !isDAJC
                     "
                     class="btn btn-sm info-btn me-2"
                     (click)="openModalAndPushFoncier(foncier)"
@@ -289,8 +288,7 @@
                     *ngIf="
                       !isCSLA &&
                       !isDAJC &&
-                      !isDC &&
-                      foncier?.contrat[0]?.etat_contrat?.etat?.libelle
+                      !isDC && foncier?.contrat.length == 0
                     "
                     class="btn btn-sm danger-btn me-2"
                     (click)="openConfirmationModal(foncier)"
@@ -309,7 +307,7 @@
 
       <app-confirmation-modal [closeBtn]="true">
         <h3 class="main-title">
-          Confirmation de la supression
+          Confirmation de la suppression
           <i class="far fa-exclamation-circle"></i>
         </h3>
         <p class="mt-3">Êtes-vous sûr de vouloir supprimer ce local ?</p>

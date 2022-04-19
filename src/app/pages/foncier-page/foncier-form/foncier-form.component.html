@@ -14,8 +14,8 @@
     </div>
 
     <!--Début 1er Row-->
-    <div class="row" *ngIf="!update">
-      <div class="col-lg-4 form-group mt-4">
+    <div class="row">
+      <div class="col-lg-4 form-group mt-4" *ngIf="!update">
         <label for=""
           >Type d'entité organisationnelle
           <span class="danger-txt">*</span></label
@@ -41,7 +41,7 @@
         </div>
       </div>
 
-      <div class="col-lg-4 form-group mt-4">
+      <div class="col-lg-4 form-group mt-4" *ngIf="!update">
         <label for=""
           >Code d'entité organisationnelle
           <span class="danger-txt">*</span></label
@@ -71,7 +71,7 @@
         </div>
       </div>
 
-      <div class="col-lg-4 form-group mt-4">
+      <div class="col-lg-4 form-group mt-4" *ngIf="!update">
         <label for="">Intitulé d'entité organisationnelle</label>
         <input
           type="text"
@@ -81,7 +81,7 @@
         />
       </div>
 
-      <div class="col-lg-4 form-group mt-4">
+      <div class="col-lg-4 form-group mt-4" *ngIf="!update || (update  && foncier?.contrat.length == 0)">
         <label for="">Superficie</label>
         <input
           type="text"
@@ -90,7 +90,7 @@
         />
       </div>
 
-      <div class="col-lg-4 form-group mt-4">
+      <div class="col-lg-4 form-group mt-4" *ngIf="!update || (update && !foncier?.contrat[0]?.validation2_DAJC)">
         <label for="">Ville <span class="danger-txt">*</span></label>
         <p *ngIf="!cities.length" class="danger-txt">
           Une erreur s'est produite, veuillez réessayer plus tard.
@@ -115,7 +115,7 @@
         </div>
       </div>
 
-      <div class="col-lg-4 form-group mt-4">
+      <div class="col-lg-4 form-group mt-4" *ngIf="!update || (update && !foncier?.contrat[0]?.validation2_DAJC)">
         <label for="">Etage</label>
         <input
           type="text"
@@ -124,7 +124,7 @@
         />
       </div>
 
-      <div class="col-lg-12 form-group mt-4">
+      <div class="col-lg-12 form-group mt-4" *ngIf="!update || (update && !foncier?.contrat[0]?.validation2_DAJC)">
         <label for="">Adresse <span class="danger-txt">*</span></label>
         <textarea
           type="text"
@@ -142,7 +142,7 @@
         </div>
       </div>
 
-      <div class="col-lg-12 form-group mt-4">
+      <div class="col-lg-12 form-group mt-4" *ngIf="!update || (update && !foncier?.contrat[0]?.validation2_DAJC)">
         <label for="">Descriptif du local</label>
         <textarea
           type="text"
@@ -151,7 +151,7 @@
         ></textarea>
       </div>
 
-      <div class="col-lg-3 form-group mt-4">
+      <div class="col-lg-3 form-group mt-4" *ngIf="!update || (update && !foncier?.contrat[0]?.validation2_DAJC)">
         <label for="">Images du local avant aménagement</label>
         <input
           type="file"
@@ -466,7 +466,7 @@
             <input
               type="text"
               class="form-control rounded-pill"
-              [value]="currentLieu.lieu.type_lieu"
+              [value]="currentLieu?.lieu?.type_lieu"
               readonly
             />
           </div>
@@ -477,7 +477,7 @@
             <input
               type="text"
               class="form-control rounded-pill"
-              [value]="currentLieu.lieu.code_lieu"
+              [value]="currentLieu?.lieu?.type_lieu == 'Logement de fonction' ? currentLieu?.lieu?.attached_DR?.code_lieu : currentLieu?.lieu?.code_lieu"
               readonly
             />
             <!-- [value]="currentLieu.code_lieu" -->
@@ -489,7 +489,7 @@
             <input
               type="text"
               class="form-control rounded-pill"
-              [value]="currentLieu.lieu.intitule_lieu"
+              [value]="currentLieu?.lieu?.intitule_lieu"
               readonly
             />
           </div>
@@ -503,7 +503,7 @@
             *ngIf="currentLieu.etat_lieu !== 'En cours de transfert'"
             type="button"
             id="Transferer"
-            class="btn second-btn form-control"
+            class="btn second-btn form-control w-100"
             (click)="openConfirmationModal('ATransfererModalId')"
           >
             En cours de transfert
@@ -512,7 +512,7 @@
             *ngIf="currentLieu.etat_lieu === 'En cours de transfert'"
             type="button"
             id="Transferer"
-            class="btn second-btn form-control"
+            class="btn second-btn form-control w-100"
             (click)="openConfirmationModal('AnnulerTransféreModalId')"
           >
             Annuler le transfére
@@ -522,7 +522,7 @@
           <button
             type="button"
             id="supprimer"
-            class="btn btn-sm danger-btn form-control mx-3"
+            class="btn btn-sm danger-btn form-control mx-3 w-100"
             (click)="openConfirmationModal('TransfererModalId')"
           >
           Transférer définitivement cette entité 
@@ -615,7 +615,11 @@
             >
               <option value="Default_option" selected>-</option>
               <option [value]="lieu._id" *ngFor="let lieu of lieuxByType">
-                {{ lieu.code_lieu }}
+                {{
+                  lieu.type_lieu === "Logement de fonction"
+                    ? lieu.attached_DR.code_lieu
+                    : lieu.code_lieu
+                }}
               </option>
             </select>
           </div>
@@ -635,7 +639,7 @@
           <button
             type="button"
             id="Transferer"
-            class="btn second-btn form-control w-50"
+            class="btn second-btn form-control w-100"
             (click)="addNewLocal()"
           >
             Affecter cette entité organisationnelle
