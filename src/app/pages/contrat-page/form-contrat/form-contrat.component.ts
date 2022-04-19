@@ -512,20 +512,12 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
         default:
           break;
       }
-      // if ((date.getMonth() + 1) === 4) {
 
-      //   this.datePremierPaiement = new Date(`${date.getFullYear()}-${month}-${1}`).toISOString().slice(0, 10);
-      // }
-      // Date fin de l'avance
       date.setMonth(month);
-      // this.datePremierPaiement = date.toISOString().slice(0, 10);
-      this.datePremierPaiement = `${date.getFullYear()}-${month + 1}-01`;
-
       // Date 1er paiment
-      // this.formattedDateFinAvance = `${date.getFullYear()}-${month}-${date.getDate()}`;
-      date.setDate(0);
-      this.formattedDateFinAvance = date.toISOString().slice(0, 10);
-
+      this.datePremierPaiement = moment(date).add(0, 'M').format('DD/MM/YYYY');
+      // Date fin de l'avance
+      this.formattedDateFinAvance = moment(date).add(-1, 'days').format('DD/MM/YYYY');
       // Montant de l'avance
       this.montantAvance = montant_loyer * this.dureeAvance;
     } else {

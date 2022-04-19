@@ -315,14 +315,14 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Date fin de l’avance</label>
-          <input type="date" class="form-control rounded-pill" [value]="formattedDateFinAvance"
+          <input type="text" placeholder="JJ/MM/AAAA" class="form-control rounded-pill" [value]="formattedDateFinAvance"
             formControlName="date_fin_avance" readonly />
         </div>
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Date 1er paiement</label>
           <input type="text" class="form-control rounded-pill" [value]="datePremierPaiement"
-            formControlName="date_premier_paiement" readonly />
+            formControlName="date_premier_paiement" placeholder="JJ/MM/AAAA" readonly />
         </div>
 
         <div class="col-lg-3 form-group mt-4">
