@@ -38,6 +38,7 @@ export interface Contrat {
       signaletique_successeur: string;
       intitule_lieu: string;
       date_suspension: Date;
+      date_fin_suspension: Date;
       duree_suspension: number;
       motif_suspension: string;
       reprise_caution: string;

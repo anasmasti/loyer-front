@@ -89,6 +89,8 @@ export class FoncierDetailComponent implements OnInit {
       for (let index = 0; index < this.foncier.amenagement.length; index++) {
         if (this.foncier.amenagement[index]._id === id) {
           this.selectedAmenagement = this.foncier.amenagement[index];
+          console.log(this.selectedAmenagement);
+          
         }
       }
       this.displayAmenagementSection = true;

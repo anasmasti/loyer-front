@@ -166,6 +166,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    // this.calculDateFinSuspension()
     if (this.isInsertForm) {
       // this.foncier_id = this.actRoute.snapshot.paramMap.get('id_foncier') || '';
       this.actRoute.url.subscribe((data) => {
@@ -224,6 +225,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       etat_contrat_signaletique_successeur: new FormControl(),
       etat_contrat_intitule_lieu: new FormControl(),
       etat_contrat_date_suspension: new FormControl('', Validators.required),
+      etat_contrat_date_fin_suspension: new FormControl('', Validators.required),
       etat_contrat_duree_suspension: new FormControl('', Validators.required),
       etat_contrat_motif_suspension: new FormControl(),
       etat_contrat_reprise_caution: new FormControl(),
@@ -519,6 +521,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       this.datePremierPaiement = `${date.getFullYear()}-${month + 1}-01`;
 
       // Date 1er paiment
+      // this.formattedDateFinAvance = `${date.getFullYear()}-${month}-${date.getDate()}`;
       date.setDate(0);
       this.formattedDateFinAvance = date.toISOString().slice(0, 10);
 
@@ -533,12 +536,8 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   }
 
   calculPreavis() {
-    let date_resiliation = new Date(
-      this.contratForm.get('etat_contrat_date_resiliation')?.value
-    );
-    this.dateResiliation = this.contratForm.get(
-      'etat_contrat_date_resiliation'
-    )?.value;
+    let date_resiliation = new Date(this.contratForm.get('etat_contrat_date_resiliation')?.value);
+    this.dateResiliation = this.contratForm.get('etat_contrat_date_resiliation')?.value;
     let month = date_resiliation.getMonth();
     let day = date_resiliation.getDate();
 
@@ -551,6 +550,11 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       this.date_preavis = date.toISOString().slice(0, 10);
     }
   }
+
+  // calculDateFinSuspension(){
+  //   let date = moment().add(1, 'M').format('DD-MM-YYYY');
+  //   // console.log(date);
+  // }
 
   getFoncierById() {
     this.foncierService
@@ -792,6 +796,9 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
         etat_contrat_intitule_lieu: this.currentLieu?.lieu?.intitule_lieu,
         etat_contrat_date_suspension: this.formatDate(
           this.contrat.etat_contrat?.etat?.date_suspension
+        ), 
+        etat_contrat_date_fin_suspension: this.formatDate(
+          this.contrat.etat_contrat?.etat?.date_fin_suspension
         ),
         etat_contrat_duree_suspension:
           this.contrat.etat_contrat?.etat?.duree_suspension,
@@ -954,7 +961,9 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
           intitule_lieu:
             this.contratForm.get('etat_contrat_intitule_lieu')?.value || '',
           date_suspension:
-            this.contratForm.get('etat_contrat_date_suspension')?.value || null,
+            this.contratForm.get('etat_contrat_date_suspension')?.value || null, 
+            date_fin_suspension:
+            this.contratForm.get('etat_contrat_date_fin_suspension')?.value || null,
           duree_suspension:
             this.contratForm.get('etat_contrat_duree_suspension')?.value ||
             null,
