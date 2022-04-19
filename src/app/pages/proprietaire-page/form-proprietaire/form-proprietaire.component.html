@@ -150,7 +150,7 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Téléphone </label>
-          <input type="text" class="form-control rounded-pill" formControlName="telephone" [ngClass]="{
+          <input type="text" class="form-control rounded-pill" formControlName="telephone" maxlength="10" [ngClass]="{
               'is-invalid': checkInputsValidation(telephone)
             }" />
 
@@ -167,7 +167,7 @@
 
         <div class="col-lg-3 form-group mt-4">
           <label for="">Fax </label>
-          <input type="text" class="form-control rounded-pill" formControlName="fax" [ngClass]="{
+          <input type="text" class="form-control rounded-pill" formControlName="fax" maxlength="10" [ngClass]="{
               'is-invalid': checkInputsValidation(fax)
             }" />
 
