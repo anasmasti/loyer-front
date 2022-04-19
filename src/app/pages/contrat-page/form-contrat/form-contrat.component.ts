@@ -609,84 +609,6 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   //----------------- Update and Post  --------------------------
   //Add contrat
   addNewContrat() {
-<<<<<<< HEAD
-    let ctr_data: any = {
-      numero_contrat: this.num_contrat,
-      // date_debut_loyer: this.contratForm.get('date_debut_loyer')?.value || '',
-      date_debut_loyer: this.date_debut_loyer_ || '',
-      // piece_jointe: this.contratForm.get('piece_jointe')?.value || '',
-      montant_loyer: this.contratForm.get('montant_loyer')?.value || '',
-      taxe_edilite_loyer:
-        this.contratForm.get('taxe_edilite_comprise_loyer')?.value || '',
-      // taxe_edilite_loyer: this.taxNonComprise,
-      taxe_edilite_non_loyer:
-        this.contratForm.get('taxe_edilite_noncomprise_loyer')?.value || '',
-      // taxe_edilite_non_loyer: this.taxNonComprise,
-      periodicite_paiement:
-        this.contratForm.get('periodicite_paiement')?.value || '',
-      date_fin_contrat:
-        this.contratForm.get('date_fin_contrat')?.value ||
-        new Date('2999-01-01'),
-      declaration_option:
-        this.contratForm.get('declaration_option')?.value || '',
-      taux_impot: this.tauxImpot,
-      retenue_source: this.retenueSource,
-      montant_apres_impot: this.montantApresImpot,
-      montant_caution: this.contratForm.get('montant_caution')?.value || 0,
-      duree_caution: this.dureeCaution,
-      date_reprise_caution:
-        this.contratForm.get('date_reprise_caution')?.value || '',
-      statut_caution: this.contratForm.get('statut_caution')?.value || '',
-      montant_avance: this.contratForm.get('montant_avance')?.value || '',
-      date_fin_avance: this.formattedDateFinAvance,
-      date_premier_paiement: this.datePremierPaiement || '',
-      duree_avance: this.contratForm.get('duree_avance')?.value || '',
-      echeance_revision_loyer:
-        this.contratForm.get('echeance_revision_loyer')?.value || '',
-      n_engagement_depense:
-        this.contratForm.get('n_engagement_depense')?.value || '',
-      foncier: this.foncier_id,
-      duree_location: this.contratForm.get('duree_location')?.value || '',
-      duree: this.duree || '',
-      retunue_source_par_mois: this.retunue_source_par_mois || '',
-      total_montant_brut_loyer: this.totalBrutLoyer || '',
-      total_montant_net_loyer: this.totalNetLoyer || '',
-      montant_avance_tax: this.montant_avance_tax_,
-      montant_loyer_ttc: this.montantLoyerTTC,
-      nombre_part: this.contratForm.get('nombre_part')?.value || '',
-      // date_effet_av: this.contratForm.get('date_effet_av')?.value || undefined,
-    };
-
-    //Append contrat-data in formdata
-    this.fd.append('data', JSON.stringify(ctr_data));
-    // let idFoncier = this.actRoute.snapshot.paramMap.get('id_foncier');
-    // post the formdata (data+files)
-    this.contratService
-      .addContrat(this.fd, this.userMatricule, this.foncier_id)
-      .subscribe(
-        (_) => {
-          this.postDone = true;
-          setTimeout(() => {
-            this.contratForm.reset();
-            this.postDone = false;
-            this.help.toTheUp();
-            this.router
-              .navigate(['/proprietaire/add', this.foncier_id, 'Actif'])
-              .then(() => {
-                this.help.refrechPage();
-              });
-          }, 3000);
-        },
-        (error) => {
-          this.errors = error.error.message;
-          setTimeout(() => {
-            this.showErrorMessage();
-            // this.contratForm.reset();
-          }, 5000);
-          this.hideErrorMessage();
-        }
-      );
-=======
     let dateDebutLoyer = this.date_debut_loyer_;
     let montantLoyer = this.contratForm.get('montant_loyer')?.value;
     let nbrPart = this.contratForm.get('nombre_part')?.value;
@@ -776,7 +698,6 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
           }
         );
     }
->>>>>>> 5c8dc8ef859e27d3d5d730d1808fbae417c23628
   }
 
   // Check if all inputs has invalid errors

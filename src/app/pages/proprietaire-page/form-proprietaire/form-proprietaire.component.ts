@@ -17,7 +17,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   @Input() proprietaire!: any;
   @Input() update!: boolean;
 
-  isMand: boolean = false;
+  isMand: boolean = true;
   errors!: any;
   Updatesuccess: string = 'Propriétaire modifié avec succés';
   PostSucces: string = 'Propriétaire ajouté avec succés';
