@@ -517,7 +517,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       // Date 1er paiment
       this.datePremierPaiement = moment(date).add(0, 'M').format('DD/MM/YYYY');
       // Date fin de l'avance
-      this.formattedDateFinAvance = moment(date).add(-1, 'days').format('YYYY/MM/DD');
+      this.formattedDateFinAvance = moment(date).add(-1, 'days').format('DD/MM/YYYY');
       
       // Montant de l'avance
       this.montantAvance = montant_loyer * this.dureeAvance;
@@ -670,7 +670,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       // let idFoncier = this.actRoute.snapshot.paramMap.get('id_foncier');
 
       this.fd.append('data', JSON.stringify(ctr_data));
-      
+
       // post the formdata (data+files)
       this.contratService
         .addContrat(this.fd, this.userMatricule, this.foncier_id)
