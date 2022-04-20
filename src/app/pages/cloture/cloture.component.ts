@@ -17,6 +17,7 @@ export class ClotureComponent implements OnInit {
   hasNextCluture: boolean = false;
   userMatricule: any = localStorage.getItem('matricule');
   today!: Date;
+  errors!: string;
 
   constructor(
     private help: HelperService,
@@ -54,17 +55,25 @@ export class ClotureComponent implements OnInit {
       //   this.dateCloture.annee <= today.getFullYear() &&
       //   this.dateCloture.mois <= today.getMonth() + 1
       // ) {
-        today.setFullYear(this.dateCloture.annee);
-        today.setMonth(this.dateCloture.mois - 1);
-        this.today = today;
+      today.setFullYear(this.dateCloture.annee);
+      today.setMonth(this.dateCloture.mois - 1);
+      this.today = today;
 
-        return [
-          this.today,
-          (this.isCloture = false),
-          (this.showClotureSection = true),
-        ];
+      return [
+        this.today,
+        (this.isCloture = false),
+        (this.showClotureSection = true),
+      ];
       // } else return [(this.isCloture = true), (this.showClotureSection = true)];
     } else return (this.showClotureSection = false);
+  }
+  // Afficher le message d'erreur de serveur
+  showErrorMessage() {
+    $('.error-alert').addClass('active');
+  }
+  // hide le message d'erreur de serveur
+  hideErrorMessage() {
+    $('.error-alert').removeClass('active');
   }
 
   // Cloture this month
@@ -76,9 +85,18 @@ export class ClotureComponent implements OnInit {
     };
 
     // Throw cloture function from cloture service
-    this.clotureService.Cloture(date, this.userMatricule).subscribe((data) => {
-      if (data) this.isCloture = true;
-    });
+    this.clotureService.Cloture(date, this.userMatricule).subscribe(
+      (data) => {
+        if (data) this.isCloture = true;
+      },
+      (error) => {
+        this.errors = error.error.message;
+        setTimeout(() => {
+          this.showErrorMessage();
+        }, 3000);
+        this.hideErrorMessage();
+      }
+    );
   }
 
   // Open confirmation modal

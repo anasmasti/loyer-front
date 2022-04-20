@@ -670,6 +670,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       // let idFoncier = this.actRoute.snapshot.paramMap.get('id_foncier');
 
       this.fd.append('data', JSON.stringify(ctr_data));
+console.log(ctr_data);
 
       // post the formdata (data+files)
       this.contratService
@@ -1007,6 +1008,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     this.contratService.updateContrat(id, this.fd).subscribe(
       (_) => {
         this.updateDone = true;
+        this.scrollToTop();
         setTimeout(() => {
           this.mainModalService.close();
           this.updateDone = false;
