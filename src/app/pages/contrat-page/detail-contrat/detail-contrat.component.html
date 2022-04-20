@@ -415,7 +415,7 @@
       <p>
         {{
           contrat.etat_contrat?.etat?.date_fin_suspension !== null
-            ? contrat.etat_contrat?.etat?.date_fin_suspension
+            ? (contrat.etat_contrat?.etat?.date_fin_suspension | date: 'dd/MM/yyyy')
             : "--"
         }}
       </p>

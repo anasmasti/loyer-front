@@ -127,7 +127,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   id: string = 'ea2022';
   test!: any;
   foncierById!: any;
-  dateFinSuspension: any;
+  dateFinSuspension: any = '';
 
   // Proprietaire
   targetProprietaireId!: string;
@@ -144,6 +144,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   checkDeces: boolean = false;
   checkCession: boolean = false;
   checkMontantLoyer: boolean = false;
+  dureeSusp: number = 0;
 
   constructor(
     private contratService: ContratService,
@@ -554,8 +555,9 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
 
   calculDateFinSuspension() {
     let dateSuspension = this.contratForm.get('etat_contrat_date_suspension')?.value;
-    let durreSuspension = this.contratForm.get('etat_contrat_duree_suspension')?.value;
-    this.dateFinSuspension = moment(dateSuspension).add(durreSuspension, 'M').format('MM/DD/YYYY');
+    // let durreSuspension = this.contratForm.get('etat_contrat_duree_suspension')?.value;
+    this.dureeSusp = this.contratForm.get('etat_contrat_duree_suspension')?.value;
+    this.dateFinSuspension = moment(dateSuspension).add(this.dureeSusp, 'M').format('MM/DD/YYYY');
   }
 
   getFoncierById() {
