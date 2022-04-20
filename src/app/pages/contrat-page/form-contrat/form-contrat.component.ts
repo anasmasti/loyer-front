@@ -515,9 +515,9 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
 
       date.setMonth(month);
       // Date 1er paiment
-      this.datePremierPaiement = moment(date).add(0, 'M').format('DD/MM/YYYY');
+      this.datePremierPaiement = moment(date).add(0, 'M').format('MM/DD/YYYY');
       // Date fin de l'avance
-      this.formattedDateFinAvance = moment(date).add(-1, 'days').format('DD/MM/YYYY');
+      this.formattedDateFinAvance = moment(date).add(-1, 'days').format('MM/DD/YYYY');
       
       // Montant de l'avance
       this.montantAvance = montant_loyer * this.dureeAvance;
