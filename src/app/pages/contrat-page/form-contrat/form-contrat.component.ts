@@ -516,11 +516,11 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
 
       date.setMonth(month);
       // Date 1er paiment
-      this.datePremierPaiement = moment(date).add(0, 'M').format('DD/MM/YYYY');
+      this.datePremierPaiement = moment(date).add(0, 'M').format('MM/DD/YYYY');
       // Date fin de l'avance
       this.formattedDateFinAvance = moment(date)
         .add(-1, 'days')
-        .format('DD/MM/YYYY');
+        .format('MM/DD/YYYY');
 
       // Montant de l'avance
       this.montantAvance = montant_loyer * this.dureeAvance;
@@ -553,15 +553,9 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   }
 
   calculDateFinSuspension() {
-    let dateSuspension = this.contratForm.get(
-      'etat_contrat_date_suspension'
-    )?.value;
-    let durreSuspension = this.contratForm.get(
-      'etat_contrat_duree_suspension'
-    )?.value;
-    this.dateFinSuspension = moment(dateSuspension)
-      .add(durreSuspension, 'M')
-      .format('DD/MM/YYYY');
+    let dateSuspension = this.contratForm.get('etat_contrat_date_suspension')?.value;
+    let durreSuspension = this.contratForm.get('etat_contrat_duree_suspension')?.value;
+    this.dateFinSuspension = moment(dateSuspension).add(durreSuspension, 'M').format('MM/DD/YYYY');
   }
 
   getFoncierById() {
@@ -1037,24 +1031,24 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     console.log(ctr_data);
 
     //  patch the formdata (data+files)
-    this.contratService.updateContrat(id, this.fd).subscribe(
-      (_) => {
-        this.updateDone = true;
-        this.scrollToTop();
-        setTimeout(() => {
-          this.mainModalService.close();
-          this.updateDone = false;
-          this.help.refrechPage();
-        }, 3000);
-      },
-      (error) => {
-        this.errors = error.error.message;
-        setTimeout(() => {
-          this.showErrorMessage();
-        }, 3000);
-        this.hideErrorMessage();
-      }
-    );
+    // this.contratService.updateContrat(id, this.fd).subscribe(
+    //   (_) => {
+    //     this.updateDone = true;
+    //     this.scrollToTop();
+    //     setTimeout(() => {
+    //       this.mainModalService.close();
+    //       this.updateDone = false;
+    //       this.help.refrechPage();
+    //     }, 3000);
+    //   },
+    //   (error) => {
+    //     this.errors = error.error.message;
+    //     setTimeout(() => {
+    //       this.showErrorMessage();
+    //     }, 3000);
+    //     this.hideErrorMessage();
+    //   }
+    // );
   }
 
   getMotifs() {
