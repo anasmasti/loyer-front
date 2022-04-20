@@ -570,17 +570,13 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
     };
 
     this.fd.append('data', JSON.stringify(foncier));
-
     this.foncierService.addFoncier(this.fd, this.userMatricule).subscribe(
-      (_) => {
+      (id) => {
         this.postDone = true;
         setTimeout(() => {
           this.foncierForm.reset();
           this.postDone = false;
-          // '/contrat', foncier._id
-          this.router.navigate(['/foncier/list']).then(() => {
-            this.help.refrechPage();
-          });
+          this.router.navigate(['/contrat/',id])
         }, 3000);
       },
       (error) => {
