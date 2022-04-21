@@ -17,7 +17,7 @@ export class DetailContratComponent implements OnInit {
   selected_piece_jointe_avenant!: any;
   url: string = environment.API_URL_WITHOUT_PARAM;
 
-  contrat!: Contrat
+  contrat!: Contrat;
 
   userMatricule: any = localStorage.getItem('matricule')
 
@@ -39,7 +39,6 @@ export class DetailContratComponent implements OnInit {
       this.contrat = data;
       this.contrat.piece_joint_contrat = data.piece_joint_contrat;
       this.contrat.etat_contrat = data.etat_contrat
-
       for (let index = 0; index < this.contrat.piece_joint_contrat.length; index++) {
         this.selectedPieceContrat.push(this.contrat.piece_joint_contrat[index]);
       }

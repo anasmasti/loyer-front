@@ -44,8 +44,8 @@ export class FoncierEffects {
                 }
             ),
             catchError((error: any) => {
-                this.store.dispatch(setFonciersrrorAction({ error: error.error.message }))
-                return throwError(error.error.message)
+                this.store.dispatch(setFonciersrrorAction({ error: error?.error?.message }))
+                return throwError(error?.error?.message)
             })
         )
     }

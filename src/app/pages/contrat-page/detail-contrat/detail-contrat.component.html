@@ -287,8 +287,8 @@
       <h5 class="main-txt">Motif</h5>
       <p>
         {{
-          contrat.etat_contrat?.etat?.motif[0].type_motif
-            ? contrat.etat_contrat?.etat?.motif[0].type_motif
+          contrat.etat_contrat?.etat?.motif[0]?.type_motif
+            ? contrat.etat_contrat?.etat?.motif[0]?.type_motif
             : "--"
         }}
       </p>
