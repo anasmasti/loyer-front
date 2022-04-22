@@ -362,8 +362,8 @@
           <option *ngIf="this.contrat.validation2_DAJC && userRoles.includes('CSLA')" value="Résilié">
             À résilier
           </option>
-          <option *ngIf="contrat?.etat_contrat?.libelle === 'Suspendu'" value="à activer">
-            à activer
+          <option *ngIf="contrat?.etat_contrat?.libelle === 'Suspendu'" value="toactivate">
+            À activer
           </option>
         </select>
       </div>
@@ -392,7 +392,7 @@
           <div *ngIf="selectedEtatContrat === 'Avenant'; then AV"></div>
           <div *ngIf="selectedEtatContrat === 'Suspendu'; then SUS"></div>
           <div *ngIf="selectedEtatContrat === 'Résilié'; then RES"></div>
-          <div *ngIf="selectedEtatContrat === 'à activer'; then ACTIF"></div>
+          <div *ngIf="selectedEtatContrat === 'toactivate'; then ACTIF"></div>
         </div>
       </div>
       
@@ -950,7 +950,7 @@
                   etat_contrat_date_suspension
                 ),
                 'is-valid': !etat_contrat_date_suspension?.invalid
-              }" />
+              }"  (change)="calculDateFinSuspension()"/>
             <!-- Error Message  -->
             <div class="" *ngIf="checkInputsValidation(etat_contrat_date_suspension)">
               <p class="danger-txt" *ngIf="etat_contrat_date_suspension?.errors?.required">
@@ -961,14 +961,14 @@
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Durée de suspension</label>
-            <input type="number" class="form-control rounded-pill" formControlName="etat_contrat_duree_suspension"
-              (keyup)="calculDateFinSuspension()"
+            <input type="number" min="1" class="form-control rounded-pill" formControlName="etat_contrat_duree_suspension"
+              (keyup)="calculDateFinSuspension()" [readonly]="isValidDate"
                />
           </div>
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Date fin de la suspension</label>
-            <input type="text" placeholder="JJ/MM/AAAA"  class="form-control rounded-pill" [(ngModel)]="dateFinSuspension" formControlName="etat_contrat_date_fin_suspension" readonly/>
+            <input type="text" placeholder="JJ/MM/AAAA"  class="form-control rounded-pill" [value]="dateFinSuspension" formControlName="etat_contrat_date_fin_suspension" readonly/>
           </div>
 
           <div class="col-lg-3 form-group mt-4">

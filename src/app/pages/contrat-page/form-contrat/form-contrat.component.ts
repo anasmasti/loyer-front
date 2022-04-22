@@ -145,6 +145,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   checkDeces: boolean = false;
   checkCession: boolean = false;
   checkMontantLoyer: boolean = false;
+  isValidDate: boolean = true;
 
   constructor(
     private contratService: ContratService,
@@ -556,8 +557,13 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   calculDateFinSuspension() {
     let dateSuspension = this.contratForm.get('etat_contrat_date_suspension')?.value;
     let durreSuspension = this.contratForm.get('etat_contrat_duree_suspension')?.value;
-    durreSuspension = this.contratForm.get('etat_contrat_duree_suspension')?.value;
-    this.dateFinSuspension = moment(dateSuspension).add(durreSuspension, 'M').format('MM/DD/YYYY');
+    if(dateSuspension == (undefined || null)) this.isValidDate = true
+    else this.isValidDate = false
+    if(durreSuspension == (undefined || null)) {
+      this.dateFinSuspension = new Date('2999-01-01');
+      this.dateFinSuspension = this.formatDate(this.dateFinSuspension)
+    }
+    else this.dateFinSuspension = moment(dateSuspension).add(durreSuspension, 'M').format('MM/DD/YYYY');
   }
 
   getFoncierById() {
@@ -910,7 +916,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       if (
         dateActivation == null &&
         contratLibelle != null &&
-        contratLibelle == 'à activer'
+        contratLibelle == 'toactivate'
       ) {
         this.isActifError = true;
         setTimeout(() => {

@@ -61,7 +61,7 @@
         <p>
           {{
             contrat.date_debut_loyer !== null
-              ? (contrat.date_debut_loyer | date: 'dd/MM/yyyy')
+              ? (contrat.date_debut_loyer | date : 'MMMM/y' | titlecase)
               : "--"
           }}
         </p>

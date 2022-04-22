@@ -1,5 +1,5 @@
 import { LieuxEffects } from './../lieux-page/lieux-store/lieux.effect';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { CommonModule} from '@angular/common';
 import { ContratComponent } from './contrat/contrat.component';
 import { FormContratComponent } from './form-contrat/form-contrat.component';
@@ -19,6 +19,9 @@ import { FoncierEffects } from '../foncier-page/foncier-store/foncier.effect';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ListReportingContratComponent } from './list-reporting-contrat/list-reporting-contrat.component';
 import { PipesModule } from 'src/app/core/pipes/pipes.module';
+import localeFr from '@angular/common/locales/fr';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localeFr);
 
 
 const route: Routes = [
@@ -51,5 +54,6 @@ const route: Routes = [
     NgxPaginationModule,
     PipesModule
   ],
+  providers: [ {provide: LOCALE_ID, useValue: "fr-FR" } ]
 })
 export class ContratModule {}

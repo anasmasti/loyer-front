@@ -7,7 +7,6 @@ import { PipesModule } from 'src/app/core/pipes/pipes.module';
 import { registerLocaleData } from '@angular/common';
 
 import localeFr from '@angular/common/locales/fr';
-
 registerLocaleData(localeFr);
 
 @NgModule({
