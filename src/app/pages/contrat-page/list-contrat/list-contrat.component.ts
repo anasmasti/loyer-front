@@ -1,6 +1,6 @@
 import { ReportingService } from './../../../services/reporting/reporting.service';
 import { HelperService } from './../../../services/helpers/helper.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Contrat } from 'src/app/models/Contrat';
 import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
 import { ContratService } from 'src/app/services/contrat-service/contrat.service';
@@ -18,6 +18,7 @@ import { getUserType } from 'src/app/store/shared/shared.selector';
   styleUrls: ['./list-contrat.component.scss'],
 })
 export class ListContratComponent implements OnInit {
+  @ViewChild('formSection') formSection !: HTMLElement
   errors!: string;
   contrats!: Contrat[];
   id: string = '0';
@@ -293,10 +294,7 @@ export class ListContratComponent implements OnInit {
   }
 
   scrollToTop() {
-    let element: HTMLElement = document.getElementById(
-      'form_content'
-    ) as HTMLElement;
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    this.formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   validation2Contrat() {

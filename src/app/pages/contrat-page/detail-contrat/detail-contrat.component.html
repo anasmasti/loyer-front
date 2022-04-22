@@ -285,10 +285,10 @@
     </div>
     <div class="col-lg-3">
       <h5 class="main-txt">Motif</h5>
-      <p>
+      <p *ngFor="let motif of contrat?.etat_contrat?.etat?.motif">
         {{
-          contrat.etat_contrat?.etat?.motif[0]?.type_motif
-            ? contrat.etat_contrat?.etat?.motif[0]?.type_motif
+          motif?.type_motif
+            ? motif?.type_motif
             : "--"
         }}
       </p>
