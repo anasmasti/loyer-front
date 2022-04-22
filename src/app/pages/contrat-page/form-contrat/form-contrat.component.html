@@ -23,6 +23,9 @@
       <div *ngIf="isAvenantError" class="error-alert p-2 my-2">
         {{ contratMsgError }}
       </div>
+      <div *ngIf="isActifError" class="error-alert p-2 my-2">
+        {{ contratMsgError }}
+      </div>
       <div *ngIf="isContratError" class="error-alert p-2 my-2">{{ contratMsgError }}</div>
       <!-- alert de reussite -->
       <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
@@ -345,14 +348,8 @@
           [(ngModel)]="selectedEtatContrat" (change)="showEtatSection($event)">
           <!--  -->
           <option value="--">--</option>
-          <option *ngIf="
-              this.contrat.validation2_DAJC &&
-              (userRoles.includes('CDGSP') || userRoles.includes('CSLA'))
-            " [value]="
-              selectedEtatContrat === 'Avenant'
-                ? selectedEtatContrat
-                : 'Avenant'
-            ">
+          <option *ngIf="this.contrat.validation2_DAJC &&(userRoles.includes('CDGSP') || userRoles.includes('CSLA'))" 
+          [value]="selectedEtatContrat === 'Avenant' ? selectedEtatContrat : 'Avenant'">
             A créer avenant
           </option>
           <option *ngIf="
@@ -365,8 +362,8 @@
           <option *ngIf="this.contrat.validation2_DAJC && userRoles.includes('CSLA')" value="Résilié">
             À résilier
           </option>
-          <option *ngIf="contrat?.etat_contrat?.libelle === 'Suspendu'" value="Actif">
-            Actif
+          <option *ngIf="contrat?.etat_contrat?.libelle === 'Suspendu'" value="à activer">
+            à activer
           </option>
         </select>
       </div>
@@ -395,8 +392,28 @@
           <div *ngIf="selectedEtatContrat === 'Avenant'; then AV"></div>
           <div *ngIf="selectedEtatContrat === 'Suspendu'; then SUS"></div>
           <div *ngIf="selectedEtatContrat === 'Résilié'; then RES"></div>
+          <div *ngIf="selectedEtatContrat === 'à activer'; then ACTIF"></div>
         </div>
       </div>
+      
+      <ng-template #ACTIF>
+        <div class="col-lg-3 form-group mt-4">
+          <label for="">Date d'activation <span class="danger-txt">*</span></label>
+          <input type="date" class="form-control rounded-pill" formControlName="etat_contrat_date_fin_suspension"
+            [ngClass]="{
+              'is-invalid': checkInputsValidation(
+                etat_contrat_date_fin_suspension
+              ),
+              'is-valid': !etat_contrat_date_fin_suspension?.invalid
+            }" />
+          <!-- Error Message  -->
+          <div class="" *ngIf="checkInputsValidation(etat_contrat_date_fin_suspension)">
+            <p class="danger-txt" *ngIf="etat_contrat_date_fin_suspension?.errors?.required">
+              Veuillez remplir ce champ
+            </p>
+          </div>
+        </div>
+      </ng-template>
 
       <ng-template #UpdateAV>
         <div  class="row">
@@ -944,7 +961,7 @@
 
           <div class="col-lg-3 form-group mt-4">
             <label for="">Durée de suspension</label>
-            <input type="number" class="form-control rounded-pill" [(ngModel)]="dureeSusp" formControlName="etat_contrat_duree_suspension"
+            <input type="number" class="form-control rounded-pill" formControlName="etat_contrat_duree_suspension"
               (keyup)="calculDateFinSuspension()"
                />
           </div>
