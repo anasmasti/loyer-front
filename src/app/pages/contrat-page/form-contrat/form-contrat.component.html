@@ -274,18 +274,18 @@
         </div> -->
 
         <div class="col-lg-3 form-group mt-4">
-          <label for="">Montant de la caution</label>
-          <input type="number" class="form-control rounded-pill" [(ngModel)]="montantCaution"
-            (keyup)="calculEffortCaution()" formControlName="montant_caution" />
+          <label for="">Durée de la caution</label>
+          <input type="text" class="form-control rounded-pill" [(ngModel)]="dureeCaution"
+            formControlName="duree_caution" (keyup)="calculEffortCaution()"/>
+          <!-- <p class="danger-txt" *ngIf="hasErrorEffort">
+            Montant de caution erroné
+          </p> -->
         </div>
 
         <div class="col-lg-3 form-group mt-4">
-          <label for="">Durée de la caution</label>
-          <input type="text" class="form-control rounded-pill" [(ngModel)]="dureeCaution"
-            formControlName="duree_caution" readonly />
-          <p class="danger-txt" *ngIf="hasErrorEffort">
-            Montant de caution erroné
-          </p>
+          <label for="">Montant de la caution</label>
+          <input type="number" class="form-control rounded-pill" [(ngModel)]="montantCaution"
+             formControlName="montant_caution" readonly/>
         </div>
 
         <div class="col-lg-3 form-group mt-4">
