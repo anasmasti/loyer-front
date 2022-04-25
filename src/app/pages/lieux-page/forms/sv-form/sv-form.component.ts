@@ -6,7 +6,7 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  OnChanges,
+  OnChanges
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -119,9 +119,8 @@ export class SvFormComponent implements OnInit, OnDestroy, OnChanges {
     $('.error-alert').removeClass('active');
   }
 
-  scrollToTop(){
-    let element : HTMLElement = document.getElementById('form_content') as HTMLElement;    
-    element.scrollIntoView({behavior: "smooth", block: "start"});
+  scrollToTop() {
+    this.help.scrollToTop();
   }
 
   // Check if all inputs has invalid errors

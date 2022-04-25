@@ -18,7 +18,6 @@ import { StoreModule } from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePipe } from '@angular/common';
 import { ReportingsComponent } from './pages/reportings/reportings.component';
-import { DeclarationAnnuelleComponent } from './pages/declaration-annuelle/declaration-annuelle.component';
 import { SharedEffects } from './store/shared/shared.effect';
 
 
@@ -30,7 +29,6 @@ import { SharedEffects } from './store/shared/shared.effect';
     MainContentComponent,
     FooterComponent,
     ReportingsComponent,
-    DeclarationAnnuelleComponent,
   ],
   imports: [
     BrowserModule,

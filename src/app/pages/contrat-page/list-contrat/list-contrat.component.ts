@@ -18,7 +18,6 @@ import { getUserType } from 'src/app/store/shared/shared.selector';
   styleUrls: ['./list-contrat.component.scss'],
 })
 export class ListContratComponent implements OnInit {
-  @ViewChild('formSection') formSection !: HTMLElement
   errors!: string;
   contrats!: Contrat[];
   id: string = '0';
@@ -294,7 +293,7 @@ export class ListContratComponent implements OnInit {
   }
 
   scrollToTop() {
-    this.formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    this.helperService.scrollToTop();
   }
 
   validation2Contrat() {

@@ -7,7 +7,7 @@ import {
   Input,
   OnChanges,
   OnDestroy,
-  OnInit,
+  OnInit
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { getDrWithSupAction } from '../../lieux-store/lieux.actions';
@@ -125,9 +125,8 @@ export class PvFormComponent implements OnInit, OnDestroy, OnChanges {
     $('.error-alert').removeClass('active');
   }
 
-  scrollToTop(){
-    let element : HTMLElement = document.getElementById('form_content') as HTMLElement;    
-    element.scrollIntoView({behavior: "smooth", block: "start"});
+  scrollToTop() {
+    this.help.scrollToTop();
   }
 
   // Check if all inputs has invalid errors

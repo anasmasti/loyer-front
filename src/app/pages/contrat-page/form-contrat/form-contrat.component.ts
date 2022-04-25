@@ -19,7 +19,6 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   // displayProprFormList() {
   //   throw new Error('Method not implemented.');
   // }
-
   // whitch form to load
   @Input() update!: boolean;
   //incomming contrat from list in update case
@@ -110,8 +109,8 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   montant_avance_tax_!: number;
 
   montantAvance: number = 0;
-  hasErrorEffort: boolean = false;
   hasErrordurreeRecuperer: boolean = false;
+  hasErrorNewMontant: boolean = false;
 
   // repriseCaution!: string;
 
@@ -265,10 +264,13 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   }
 
   scrollToTop() {
-    let element: HTMLElement = document.getElementById(
-      'form_content'
-    ) as HTMLElement;
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    this.help.scrollToTop();
+  }
+
+  checkNewMontant(){
+    let newMontant = this.contratForm.get('etat_contrat_montant_nouveau_loyer')?.value;
+    if(newMontant == this.montantLoyer) this.hasErrorNewMontant = true
+    else this.hasErrorNewMontant = false
   }
   // Calculer le montant
   calculMontant() {
@@ -416,14 +418,10 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
 
   // Calcul effort caution and show error if the outside is a decimal number
   calculEffortCaution() {
-    let montantCaution: number = this.contratForm.get('montant_caution')?.value;
-    let dureeCaution!: number;
-    dureeCaution = montantCaution / this.montantLoyer;
-    this.montantCaution = montantCaution;
-    this.dureeCaution = dureeCaution || 0;
-    if (montantCaution % this.montantLoyer !== 0) {
-      this.hasErrorEffort = true;
-    } else this.hasErrorEffort = false;
+    let montantCaution!: number;
+    let dureeCaution: number = this.contratForm.get('duree_caution')?.value;
+    this.montantCaution = this.montantLoyer * dureeCaution;
+    this.dureeCaution = dureeCaution;
 
     // Change status caution
     if (montantCaution > 0) this.statutCaution = 'En cours';

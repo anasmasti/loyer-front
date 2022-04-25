@@ -11,6 +11,7 @@ import {
   OnDestroy,
   Inject,
   OnChanges,
+  ViewChild,
 } from '@angular/core';
 import { HelperService } from 'src/app/services/helpers/helper.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
@@ -36,7 +37,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
   @Input() formType!: string;
   @Input() foncier!: any;
   @Input() update!: boolean;
-
   hasAmenagement: boolean = false;
   hasAmenagementCheck: string = '';
   file!: string;
@@ -144,10 +144,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   scrollToTop() {
-    let element: HTMLElement = document.getElementById(
-      'form_content'
-    ) as HTMLElement;
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    this.help.scrollToTop();
   }
 
   getCities() {

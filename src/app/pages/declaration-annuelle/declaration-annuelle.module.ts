@@ -10,7 +10,7 @@ const route: Routes = [
 
 
 @NgModule({
-  declarations: [],
+  declarations: [DeclarationAnnuelleComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(route),
