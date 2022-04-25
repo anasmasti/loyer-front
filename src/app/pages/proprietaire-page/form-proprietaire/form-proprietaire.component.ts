@@ -93,7 +93,11 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    if (this.proprietaire != '') {
+   
+    
+    if (this.proprietaire) {
+      console.log('prop');
+      
       this.fetchProprietaire();
     }
   }
@@ -179,7 +183,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     });
   }
 
-  fetchProprietaire() {
+  fetchProprietaire() { 
     this.proprietaireTypeToggel(this.proprietaire.type_proprietaire);
 
     this.proprietaireForm.patchValue({

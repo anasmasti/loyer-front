@@ -201,10 +201,7 @@ export class FormAssignComponent implements OnInit {
   }
 
   scrollToTop() {
-    let element: HTMLElement = document.getElementById(
-      'form_content'
-    ) as HTMLElement;
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    this.help.scrollToTop();
   }
 
   // To get the contrat and proprietaire in lieux
