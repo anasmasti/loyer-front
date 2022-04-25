@@ -4,7 +4,6 @@ import { MainModalService } from '../../../services/main-modal/main-modal.servic
 import { Proprietaire } from '../../../models/Proprietaire';
 import { Component, OnInit } from '@angular/core';
 import { ProprietaireService } from 'src/app/services/proprietaire-service/proprietaire.service';
-import { ContratService } from '@services/contrat-service/contrat.service';
 import { AuthService } from '@services/auth-service/auth.service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
@@ -19,7 +18,7 @@ export class ListProprietaireComponent implements OnInit {
   proprietaires: any[] = [];
   targetProprietaire: Proprietaire[] = [];
   targetProprietaireId: string = '';
-  findProprietaire!: string;
+  searchProprietaireInputValue!: string;
   errors!: string;
   accessError!: string;
 
@@ -44,7 +43,6 @@ export class ListProprietaireComponent implements OnInit {
   isDAJC!: boolean;
 
   constructor(
-    private contratService: ContratService,
     private proprietaireService: ProprietaireService,
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
@@ -54,76 +52,36 @@ export class ListProprietaireComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.getAllFonciers();
-    }, 1000); // Trow the fitching data
-
     this.isDC = this.authService.checkUserRole('DC');
     this.isCDGSP = this.authService.checkUserRole('CDGSP');
     this.isCSLA = this.authService.checkUserRole('CSLA');
     this.isDAJC = this.authService.checkUserRole('DAJC');
+
+    this.getProprietaires();
   }
-
-  // ngOnChanges() {
-  //   this.getAllProprietaires(); // Trow the fitching data if anything changes
-  // }
-
-  // Get data from proprietaire service
-  // getAllProprietaires() {
-  //   this.proprietaireService.getProprietaire(this.userMatricule).subscribe((data) => {
-  //     this.foncier = data;
-  //     this.proprietaires = this.foncier[0].foncier.proprietaire
-  //   }, error => {
-  //     this.accessError = error.error.message
-  //   });
-  // }
 
   // Filter by intitule
   search() {
-    if (this.findProprietaire !== '') {
+    if (this.searchProprietaireInputValue !== '') {
       this.proprietaires = this.proprietaires.filter((res) => {
         return res.cin
           ?.toLowerCase()
-          .match(this.findProprietaire.toLowerCase());
+          .match(this.searchProprietaireInputValue.toLowerCase());
         // res.passport?.toLowerCase().match(this.findProprietaire.toLowerCase()) ||
         // res.carte_sejour?.toLowerCase().match(this.findProprietaire.toLowerCase()) ||
         // res.nom_prenom?.toLowerCase().match(this.findProprietaire.toLowerCase())
       });
-    } else if (this.findProprietaire === '') {
-      this.getAllFonciers();
+    } else if (this.searchProprietaireInputValue === '') {
+      this.getProprietaires();
     }
   }
 
-  // Get data from proprietaire service
-  getAllFonciers() {
-    this.proprietaireService.getProprietaire(this.userMatricule).subscribe(
-      (data) => {
-        this.fonciers = data;
-        this.collectProprietaireData();
-      },
-      (error) => {
-        this.accessError = error.error.message;
-      }
-    );
-  }
-
-  collectProprietaireData() {
-    this.fonciers?.forEach((foncier: any) => {
-      foncier?.lieu?.forEach((lieu: any) => {
-        if (!lieu.deleted) {
-          foncier?.proprietaire.forEach((proprietaire: any) => {
-            // if (proprietaire.statut ) {
-            proprietaire.numero_contrat =
-              foncier?.contrat?.numero_contrat || '--';
-            proprietaire.libelle = foncier?.contrat?.etat_contrat?.libelle;
-            proprietaire.intitule_lieu = lieu?.lieu?.intitule_lieu || '--';
-            proprietaire.type_lieu = foncier.type_lieu || '--';
-            this.proprietaires.push(proprietaire);
-            // }
-          });
-        }
+  getProprietaires() {
+    this.proprietaireService
+      .getProprietaires(this.userMatricule)
+      .subscribe((data) => {
+        this.proprietaires = data;
       });
-    });
     this.sortProprietaireList();
   }
 
