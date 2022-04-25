@@ -33,8 +33,18 @@
                     </p>
                 </div>
             </div>
+
+            <div class="col-lg-3 form-group mt-4">
+                <label for="">Paiement spontané de TSR </label>
+                <select class="form-select rounded-pill" [(ngModel)]="hasDeclarationOption"
+                  formControlName="declaration_option" (change)="calculMontant();calculMontantAvance();calculCaution()">
+                  <option value="oui">Oui</option>
+                  <option value="non">Non</option>
+                </select>
+              </div>
          
             <div class="col-lg-3 form-group mt-4">
+
                 <label for="">Part du propriétaire <span class="danger-txt">*</span></label>
                 <input type="number" min="0" class="form-control rounded-pill" formControlName="part_proprietaire"
                     (keyup)="calculMontant();calculMontantAvance();calculCaution()" [ngClass]="{
