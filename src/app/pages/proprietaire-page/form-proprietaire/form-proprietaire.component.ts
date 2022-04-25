@@ -48,11 +48,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-   
-    
     if (this.proprietaire) {
-      console.log('prop');
-      
       this.fetchProprietaire();
     }
   }
@@ -205,8 +201,9 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       banque_rib: this.proprietaireForm.get('banque_rib')?.value,
       ville_rib: this.proprietaireForm.get('ville_rib')?.value,
       cle_rib: this.proprietaireForm.get('cle_rib')?.value,
+      type_proprietaire: this.type_proprietaire
     };
-    
+
     this.proprietaireService
       .postProprietaire(proprietaire_data, this.userMatricule)
       .subscribe(
@@ -253,6 +250,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       banque_rib: this.proprietaireForm.get('banque_rib')?.value,
       ville_rib: this.proprietaireForm.get('ville_rib')?.value,
       cle_rib: this.proprietaireForm.get('cle_rib')?.value,
+      type_proprietaire: this.type_proprietaire
     };
 
     this.proprietaireService

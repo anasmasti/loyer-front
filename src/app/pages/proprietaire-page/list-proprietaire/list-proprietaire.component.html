@@ -103,12 +103,14 @@
             class="btn btn-sm main-btn"
             ><i class="fal fa-eye"></i
           ></a>
-          <a *ngIf="!isDC && !isDAJC && (proprietaire.libelle === 'Initié' || proprietaire.statut === 'À ajouter')"
+          <!-- *ngIf="!isDC && !isDAJC && (proprietaire.libelle === 'Initié' || proprietaire.statut === 'À ajouter')" -->
+          <a 
             class="btn btn-sm info-btn mx-2"
             (click)="openModalAndPushProprietaire(proprietaire)"
             ><i class="far fa-user-edit"></i
           ></a>
-          <a *ngIf="!isCSLA && !isDC && !isDAJC && proprietaire.libelle === 'Initié'"
+          <!-- *ngIf="!isCSLA && !isDC && !isDAJC && proprietaire.libelle === 'Initié'" -->
+          <a 
             class="btn btn-sm danger-btn"
             (click)="
               openDeleteConfirmationModal(); getProprietaireId(proprietaire._id)
