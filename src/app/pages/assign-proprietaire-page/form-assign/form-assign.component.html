@@ -23,7 +23,7 @@
                 <select class="form-select rounded-pill" formControlName="proprietaire" [ngClass]="{
                     'is-invalid': checkInputsValidation(proprietaire)
                   }">
-                    <option *ngFor="let proprietaire of proprietaires" [value]="proprietaire._id">{{proprietaire.nom_prenom || proprietaire.raison_social}}</option>
+                    <option *ngFor="let proprietaire of proprietaires" [value]="proprietaire._id">{{proprietaire.cin || proprietaire.n_registre_commerce}} • {{proprietaire.nom_prenom || proprietaire.raison_social}}</option>
                 </select>
                
                 <!-- Error Message  -->

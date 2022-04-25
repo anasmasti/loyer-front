@@ -11,5 +11,4 @@ export class AssignProprietairePageComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

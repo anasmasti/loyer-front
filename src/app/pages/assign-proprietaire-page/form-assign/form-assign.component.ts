@@ -6,6 +6,7 @@ import { ConfirmationModalService } from '@services/confirmation-modal-service/c
 import { HelperService } from '@services/helpers/helper.service';
 import { LieuxService } from '@services/lieux-service/lieux.service';
 import { MainModalService } from '@services/main-modal/main-modal.service';
+import { ProprietaireService } from '@services/proprietaire-service/proprietaire.service';
 import { Proprietaire } from 'src/app/models/Proprietaire';
 
 @Component({
@@ -85,7 +86,7 @@ export class FormAssignComponent implements OnInit, OnChanges {
     public router: Router,
     private help: HelperService,
     private confirmationModalService: ConfirmationModalService,
-    private lieuService: LieuxService
+    private proprietaireService: ProprietaireService
   ) {
     this.insertProprietaireForm();
   }
@@ -98,6 +99,7 @@ export class FormAssignComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     // this.proprietaireForm.markAllAsTouched()
+    this.getProprietaires()
     if (!this.isUpdate) {
       // this.proprietaireForm.reset();
       this.contrat_id = this.actRoute.snapshot.paramMap.get('id_contrat') || '';
@@ -183,6 +185,15 @@ export class FormAssignComponent implements OnInit, OnChanges {
       this.proprietaireList.push(element);
     });
     this.getTauxImpot();
+  }
+
+  
+  getProprietaires() {
+    this.proprietaireService
+      .getProprietaires(this.userMatricule)
+      .subscribe((data) => {
+        this.proprietaires = data;
+      });
   }
 
   // Check if all inputs has invalid errors
