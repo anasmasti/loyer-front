@@ -33,13 +33,5 @@ export interface Proprietaire {
   is_person_physique: boolean;
   part_proprietaire: number;
   type_proprietaire: string;
-  // mandataire: [{
-  //   cin_mandataire: string;
-  //   nom_prenom_mandataire: string;
-  //   raison_social_mandataire: string;
-  //   telephone_mandataire: string;
-  //   fax_mandataire: string;
-  //   adresse_mandataire: string;
-  //   n_compte_bancaire_mandataire: string;
-  // }];
+
 }
