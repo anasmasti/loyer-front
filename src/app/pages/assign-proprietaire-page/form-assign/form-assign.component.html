@@ -1,4 +1,4 @@
-<div *ngFor="let ctr of contratByFoncier">
+<div *ngFor="let ctr of contrats">
     <!-- <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_motif"> -->
     <span class="main-txt">{{ ctr?.numero_contrat }}</span> •
     <span class="info-txt">{{ ctr?.foncier.type_lieu }}</span>
@@ -209,7 +209,7 @@
             </button>
             <button type="submit" class="btn second-btn form-control" (click)="scrollToTop()"
                 *ngIf="!isUpdate" [disabled]="assignProprietaireForm.status === 'INVALID'">
-                Affectuer
+                Affecter
             </button>
         </div>
     </form>

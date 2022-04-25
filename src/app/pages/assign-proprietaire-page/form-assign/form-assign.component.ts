@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AssignmentProprietaireService } from '@services/assignment-proprietaire-service/assignment-proprietaire.service';
 import { ConfirmationModalService } from '@services/confirmation-modal-service/confirmation-modal.service';
+import { ContratService } from '@services/contrat-service/contrat.service';
 import { HelperService } from '@services/helpers/helper.service';
 import { LieuxService } from '@services/lieux-service/lieux.service';
 import { MainModalService } from '@services/main-modal/main-modal.service';
@@ -28,13 +29,10 @@ export class FormAssignComponent implements OnInit, OnChanges {
   assignProprietaireForm!: FormGroup;
   assignProprietaire!: any;
   userMatricule: any = localStorage.getItem('matricule');
-
-  contratByFoncier!: any[];
-
   //les calcules
   montantLoyer!: number;
   tauxImpot!: any;
-  contrat!: any[];
+  contrats!: any[];
   retenueSource!: number;
   montantApresImpot!: number;
   duree: number = 12;
@@ -86,7 +84,8 @@ export class FormAssignComponent implements OnInit, OnChanges {
     public router: Router,
     private help: HelperService,
     private confirmationModalService: ConfirmationModalService,
-    private proprietaireService: ProprietaireService
+    private proprietaireService: ProprietaireService,
+    private contratService: ContratService
   ) {
     this.insertProprietaireForm();
   }
@@ -99,7 +98,8 @@ export class FormAssignComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     // this.proprietaireForm.markAllAsTouched()
-    this.getProprietaires()
+    this.getContrat()
+    this.getProprietaires();
     if (!this.isUpdate) {
       // this.proprietaireForm.reset();
       this.contrat_id = this.actRoute.snapshot.paramMap.get('id_contrat') || '';
@@ -187,7 +187,6 @@ export class FormAssignComponent implements OnInit, OnChanges {
     this.getTauxImpot();
   }
 
-  
   getProprietaires() {
     this.proprietaireService
       .getProprietaires(this.userMatricule)
@@ -228,6 +227,12 @@ export class FormAssignComponent implements OnInit, OnChanges {
     }
   }
 
+  getContrat(){
+    this.contratService.getContrat().subscribe((data: any) => {
+      this.contrats = data;
+    })
+  }
+
   // Calculer le montant (retenue à la source / montant apres impot / TAX)
   calculMontant() {
     let tauxImpot: number = 0;
@@ -235,18 +240,18 @@ export class FormAssignComponent implements OnInit, OnChanges {
     let result: number = 0;
 
     // // Date debut de loyer
-    let dateDebutLoyer = this.contratByFoncier[0].date_debut_loyer;
+    let dateDebutLoyer = this.contrats[0].date_debut_loyer;
     dateDebutLoyer = new Date(dateDebutLoyer);
     let month = dateDebutLoyer.getMonth() + 1;
 
     // // Date resilition
     let dateResiliation =
-      this.contratByFoncier[0]?.etat_contrat?.etat?.date_resiliation;
+      this.contrats[0]?.etat_contrat?.etat?.date_resiliation;
     dateResiliation = new Date(dateResiliation);
     let monthResiliation = dateResiliation.getMonth() + 1;
 
     // Les etats de contrats
-    let etatContratTypes = this.contratByFoncier[0]?.etat_contrat?.libelle;
+    let etatContratTypes = this.contrats[0]?.etat_contrat?.libelle;
 
     // Get value of input part
     this.partProprietaire = Number(
@@ -254,8 +259,8 @@ export class FormAssignComponent implements OnInit, OnChanges {
     );
 
     //Get montant loyer from contrat (Montant de loyer Global)
-    let montantLoyerContrat = this.contratByFoncier[0]?.montant_loyer;
-    let nbrPartContrat = this.contratByFoncier[0]?.nombre_part;
+    let montantLoyerContrat = this.contrats[0]?.montant_loyer;
+    let nbrPartContrat = this.contrats[0]?.nombre_part;
 
     // condition to control if the total part are > nbrPartContrat the we show an error message and take nbrPartContrat minus the total part and stock the result in the partProprietaire
     if (this.totalPartProprietaires + this.partProprietaire > nbrPartContrat) {
@@ -263,7 +268,7 @@ export class FormAssignComponent implements OnInit, OnChanges {
       this.openConfirmationModal();
     }
 
-    let namePeriodicite = this.contratByFoncier[0].periodicite_paiement;
+    let namePeriodicite = this.contrats[0].periodicite_paiement;
     //  CALCULER LE MONTANT DE LOYER A PARTIR DE PART DONNE PAR L'UTILISATEUR
     this.montantLoyer =
       (this.partProprietaire * montantLoyerContrat) / nbrPartContrat;
@@ -354,10 +359,10 @@ export class FormAssignComponent implements OnInit, OnChanges {
 
   //calculate the montant avance and tax d'avance of each proprietaire
   calculMontantAvance() {
-    let dureeAvance = this.contratByFoncier[0]?.duree_avance;
-    let dureeLocation = this.contratByFoncier[0]?.duree_location;
+    let dureeAvance = this.contrats[0]?.duree_avance;
+    let dureeLocation = this.contrats[0]?.duree_location;
     // let dureeLocation = 2;
-    let periodicite = this.contratByFoncier[0]?.periodicite_paiement;
+    let periodicite = this.contrats[0]?.periodicite_paiement;
 
     this.montantAvance = this.montantLoyer * dureeAvance;
     // this.taxAvance = (this.retenueSource / dureeLocation) * dureeAvance;
@@ -379,8 +384,8 @@ export class FormAssignComponent implements OnInit, OnChanges {
 
   // caluclate the caution of each proprietaire
   calculCaution() {
-    let cautionContrat = this.contratByFoncier[0]?.montant_caution;
-    let nbrPartContrat = this.contratByFoncier[0]?.nombre_part;
+    let cautionContrat = this.contrats[0]?.montant_caution;
+    let nbrPartContrat = this.contrats[0]?.nombre_part;
     let cautionProprietaire =
       (cautionContrat * this.partProprietaire) / nbrPartContrat;
     this.montantCautionProprietaire = cautionProprietaire;
