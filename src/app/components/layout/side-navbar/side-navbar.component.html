@@ -95,21 +95,7 @@
                 </ul>
             </li>
 
-
-
-            <!-- <li class="nav-item my-4">
-                <a [routerLink]="['/foncier']" routerLinkActive="router-link-active" class="nav-link main-btn">
-                    <span (click)="showSubMenu('foncier')">Foncier</span>
-                </a>
-                <ul class="sub-menu list-unstyled" id="foncier">
-                    <li>
-                        <a [routerLink]="['/foncier/list']" class="nav-link sub-menu-btn">
-                            List des fonciers
-                        </a>
-                    </li>
-
-                </ul>
-            </li> -->
+           
             <li class="nav-item my-4" *ngIf="!isAdmin">
                 <a [routerLink]="['/contrat/list-global/list']" routerLinkActive="router-link-active"
                     class="nav-link main-btn" (click)="putActiveLink('-')">
@@ -126,7 +112,7 @@
             </li>
 
             <li class="nav-item" *ngIf="!isAdmin">
-                <a href="#" class="nav-link main-btn" (click)="showSubMenu('proprietaire')">
+                <a href="#" id="proprietaire-link" class="nav-link main-btn" (click)="showSubMenu('proprietaire')">
                     <i class="fal fa-users"></i>&nbsp;Propriétaires
                 </a>
                 <ul class="sub-menu list-unstyled" id="proprietaire">

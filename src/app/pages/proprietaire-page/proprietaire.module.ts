@@ -14,7 +14,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 
 const route: Routes = [
-  { path: 'add/:id_foncier/:etat_ajout', component: ProprietaireComponent },
+  { path: 'add', component: ProprietaireComponent },
   { path: 'list-global/list/list/:id', component: DetailsProprietaireComponent },
   { path: 'list-global/list', component: ListProprietaireComponent }
 ];

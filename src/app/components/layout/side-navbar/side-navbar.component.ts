@@ -40,9 +40,9 @@ export class SideNavbarComponent implements OnInit, AfterViewInit {
     this.getNextClotureDate();
     this.getUserRole();
   }
-  
+
   ngAfterViewInit(): void {
-    this.putActiveLink(this.location.path().replace('/','').split('/')[0]) 
+    this.putActiveLink(this.location.path().replace('/', '').split('/')[0]);
   }
 
   putActiveLink(pathName: string) {
@@ -55,7 +55,11 @@ export class SideNavbarComponent implements OnInit, AfterViewInit {
     });
 
     // Set active class to target link
-    if (pathName === 'lieux' || pathName === 'foncier') {
+    if (
+      pathName === 'lieux' ||
+      pathName === 'foncier' ||
+      pathName === 'proprietaire'
+    ) {
       let link = document.getElementById(`${pathName}-link`);
       link?.classList.add('router-link-active');
     }
@@ -65,7 +69,8 @@ export class SideNavbarComponent implements OnInit, AfterViewInit {
   showSubMenu(targetId: string) {
     if (targetId == 'lieux') $('.sub-menu#lieux').toggleClass('active'); // Check if the sub menu is lieux
     if (targetId == 'entite') $('.sub-menu#entite').toggleClass('active'); // Check if the sub menu is entités organisationnelles
-    if (targetId == 'proprietaire') $('.sub-menu#proprietaire').toggleClass('active'); // Check if the sub menu is proprietaire
+    if (targetId == 'proprietaire')
+      $('.sub-menu#proprietaire').toggleClass('active'); // Check if the sub menu is proprietaire
     // Else return false
     return false;
   }
