@@ -5,6 +5,7 @@ import { AssignmentProprietaireService } from '@services/assignment-proprietaire
 import { ConfirmationModalService } from '@services/confirmation-modal-service/confirmation-modal.service';
 import { HelperService } from '@services/helpers/helper.service';
 import { MainModalService } from '@services/main-modal/main-modal.service';
+import { Proprietaire } from 'src/app/models/Proprietaire';
 
 @Component({
   selector: 'app-form-assign',
@@ -47,7 +48,6 @@ export class FormAssignComponent implements OnInit {
   uncheckedProprietaires: any = [];
 
   default_proprietaire: any;
-  proprietaires: any = [];
   proprietaireList: any = [];
   newProprietairesList: any = [];
   oldProprietairesList: any = [];
@@ -73,7 +73,8 @@ export class FormAssignComponent implements OnInit {
   ];
   contrat_id: any;
 
-  proprietaire!: any
+  selectedProprietaire!: Proprietaire
+  proprietaires!: Proprietaire[]
 
   constructor(
     private assignmentProprietaireService: AssignmentProprietaireService,
@@ -205,17 +206,17 @@ export class FormAssignComponent implements OnInit {
 
   // To get the contrat and proprietaire in lieux
   // getTauxImpot() {
-  //   if (this.foncier_id) {
+  //   if (this.contrat_id) {
   //     this.totalPartProprietaires = 0;
   //     this.lieuService
-  //       .getContratByFoncier(this.foncier_id, this.userMatricule)
+  //       .getContratByFoncier(this.contrat_id, this.userMatricule)
   //       .subscribe((data) => {
   //         if (data) {
   //           this.contratByFoncier = data;
   //           this.lengthProprietaire =
   //             this.contratByFoncier[0]?.foncier?.proprietaire.length;
 
-  //           this.proprietaires = [];
+  //           let proprietaires = [];
 
   //           for (
   //             let index = 0;
@@ -228,9 +229,9 @@ export class FormAssignComponent implements OnInit {
   //               this.contratByFoncier[0].foncier.proprietaire[index]
   //                 .has_mandataire === null &&
   //               this.contratByFoncier[0].foncier.proprietaire[index]._id !==
-  //                 this.proprietaire._id
+  //                 this.selectedProprietaire._id
   //             )
-  //               this.proprietaires.push(
+  //               proprietaires.push(
   //                 this.contratByFoncier[0].foncier.proprietaire[index]
   //               );
   //             // this.uncheckedProprietaires.push(this.contratByFoncier[0].foncier.proprietaire[index])
@@ -239,10 +240,10 @@ export class FormAssignComponent implements OnInit {
   //                 index
   //               ].part_proprietaire;
   //           }
-  //           if (this.update) {
+  //           if (this.isUpdate) {
   //             this.totalPartProprietaires =
   //               this.totalPartProprietaires -
-  //               this.proprietaires.part_proprietaire;
+  //               proprietaires.part_proprietaire;
   //           }
   //         }
   //       });
@@ -517,7 +518,7 @@ this.assignProprietaireForm.get('proprietaire')?.value,
   }
 
   updateAssignmentProprietaire() {
-    let id = this.proprietaire._id;
+    let id = this.selectedProprietaire._id || "";
     this.newProprietairesList = [];
 
     if (this.newProprietairesList) {
@@ -580,7 +581,7 @@ this.assignProprietaireForm.get('proprietaire')?.value,
     if (this.isUpdate) {
       this.closeModel();
       this.assignProprietaireForm.patchValue({
-        part_proprietaire: this.proprietaire.part_proprietaire,
+        part_proprietaire: this.selectedProprietaire.part_proprietaire,
       });
     }
     // check if it is in add form
@@ -602,7 +603,7 @@ this.assignProprietaireForm.get('proprietaire')?.value,
       if (isMand) {
         this.fillAssignmentProprietaireInfos();
       } else {
-        this.proprietaire.proprietaire_list.forEach((element: any) => {
+        this.selectedProprietaire.proprietaire_list.forEach((element: any) => {
           this.oldProprietairesList.push(element._id);
         });
         this.proprietaireList = [];
@@ -612,6 +613,10 @@ this.assignProprietaireForm.get('proprietaire')?.value,
 
 
   // Get proprietaire form controlers
+  
+  get proprietaire() {
+    return this.assignProprietaireForm.get('proprietaire');
+  }
 
   get montant_loyer() {
     return this.assignProprietaireForm.get('montant_loyer');

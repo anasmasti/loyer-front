@@ -33,5 +33,4 @@ export interface Proprietaire {
   is_person_physique: boolean;
   part_proprietaire: number;
   type_proprietaire: string;
-
 }

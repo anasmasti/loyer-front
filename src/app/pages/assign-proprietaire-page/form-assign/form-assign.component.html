@@ -19,6 +19,22 @@
         </div>
         <div class="row">
             <div class="col-lg-3 form-group mt-4">
+                <label for="">Propriétaire <span class="danger-txt">*</span></label>
+                <select class="form-select rounded-pill" formControlName="proprietaire" [ngClass]="{
+                    'is-invalid': checkInputsValidation(proprietaire)
+                  }">
+                    <option *ngFor="let proprietaire of proprietaires" [value]="proprietaire._id">{{proprietaire.nom_prenom || proprietaire.raison_social}}</option>
+                </select>
+               
+                <!-- Error Message  -->
+                <div class="" *ngIf="checkInputsValidation(proprietaire)">
+                    <p class="danger-txt" *ngIf="proprietaire?.errors?.required">
+                        Veuillez remplir ce champ
+                    </p>
+                </div>
+            </div>
+         
+            <div class="col-lg-3 form-group mt-4">
                 <label for="">Part du propriétaire <span class="danger-txt">*</span></label>
                 <input type="number" min="0" class="form-control rounded-pill" formControlName="part_proprietaire"
                     (keyup)="calculMontant();calculMontantAvance();calculCaution()" [ngClass]="{
@@ -176,12 +192,12 @@
         <!-- Button Modifier & Ajouter -->
         <div class="form-group mt-5 col-lg-3 d-flex">
             <button type="submit" class="btn second-btn form-control" (click)="scrollToTop()"
-                *ngIf="proprietaire !== ''">
+                *ngIf="isUpdate">
                 <!-- [disabled]="proprietaireForm.invalid" -->
                 Modifier l'affectation
             </button>
             <button type="submit" class="btn second-btn form-control" (click)="scrollToTop()"
-                *ngIf="proprietaire === ''" [disabled]="assignProprietaireForm.status === 'INVALID'">
+                *ngIf="!isUpdate" [disabled]="assignProprietaireForm.status === 'INVALID'">
                 Affectuer
             </button>
         </div>
