@@ -666,7 +666,10 @@
             <div class="col-lg-3 form-group mt-4">
               <label for="">Montant du nouveau loyer</label>
               <input type="number" class="form-control rounded-pill"
-                formControlName="etat_contrat_montant_nouveau_loyer" />
+                formControlName="etat_contrat_montant_nouveau_loyer" (keyup)="checkNewMontant()"/>
+                <p class="danger-txt" *ngIf="hasErrorNewMontant">
+                  Attention! le nouveau montant de loyer ne doit pas être comme l'ancien montant.
+                </p>
             </div>
           </ng-template>
         </div>
@@ -925,7 +928,10 @@
             <div class="col-lg-3 form-group mt-4">
               <label for="">Montant du nouveau loyer</label>
               <input type="number" class="form-control rounded-pill"
-                formControlName="etat_contrat_montant_nouveau_loyer" />
+                formControlName="etat_contrat_montant_nouveau_loyer" (keyup)="checkNewMontant()"/>
+                <p class="danger-txt" *ngIf="hasErrorNewMontant">
+                  Attention! le nouveau montant de loyer ne doit pas être comme l'ancien montant.
+                </p>
             </div>
           </ng-template>
         </div>

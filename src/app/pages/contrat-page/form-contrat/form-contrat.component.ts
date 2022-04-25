@@ -112,6 +112,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   montantAvance: number = 0;
   hasErrorEffort: boolean = false;
   hasErrordurreeRecuperer: boolean = false;
+  hasErrorNewMontant: boolean = false;
 
   // repriseCaution!: string;
 
@@ -269,6 +270,14 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       'form_content'
     ) as HTMLElement;
     element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  checkNewMontant(){
+    let newMontant = this.contratForm.get('etat_contrat_montant_nouveau_loyer')?.value;
+    if(newMontant == this.montantLoyer) this.hasErrorNewMontant = true
+    else this.hasErrorNewMontant = false
+    console.log(this.hasErrorNewMontant);
+    
   }
   // Calculer le montant
   calculMontant() {
