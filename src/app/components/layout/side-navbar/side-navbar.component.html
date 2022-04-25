@@ -126,22 +126,23 @@
             </li>
 
             <li class="nav-item" *ngIf="!isAdmin">
-                <a [routerLink]="['/proprietaire/list-global/list']" routerLinkActive="router-link-active"
-                    class="nav-link main-btn" (click)="putActiveLink('-')">
-                    <i class="fal fa-users"></i>&nbsp;Liste des propriétaires
+                <a href="#" class="nav-link main-btn" (click)="showSubMenu('proprietaire')">
+                    <i class="fal fa-users"></i>&nbsp;Propriétaires
                 </a>
-                <!-- <ul class="sub-menu list-unstyled" id="proprietaire">
+                <ul class="sub-menu list-unstyled" id="proprietaire">
                     <li>
-                        <a [routerLink]="['/proprietaire/list']" class="nav-link sub-menu-btn">
+                        <a [routerLink]="['/proprietaire/list-global/list']" class="nav-link sub-menu-btn"
+                            (click)="putActiveLink('proprietaire')">
                             Liste des propriétaires
                         </a>
-                    </li> -->
-                <!-- <li>
-                    <a [routerLink]="['/proprietaire/detail']" class="nav-link sub-menu-btn">
-                        Détails
-                    </a>
-                </li> -->
-                <!-- </ul> -->
+                    </li>
+                    <li>
+                        <a [routerLink]="['/proprietaire/add']" class="nav-link sub-menu-btn"
+                            (click)="putActiveLink('proprietaire')">
+                            Ajouter un propriétaire
+                        </a>
+                    </li>
+                </ul>
             </li>
 
             <li class="nav-item my-4" *ngIf="!isAdmin">

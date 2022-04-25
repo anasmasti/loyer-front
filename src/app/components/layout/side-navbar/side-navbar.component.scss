@@ -36,6 +36,10 @@
     display: flex !important;
     flex-direction: column;
   }
+  &#proprietaire.active {
+    display: flex !important;
+    flex-direction: column;
+  }
 }
 
 @include mobile($min-screen, $max-screen) {

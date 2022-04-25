@@ -46,7 +46,7 @@ export class SideNavbarComponent implements OnInit, AfterViewInit {
   }
 
   putActiveLink(pathName: string) {
-    let targetLinks: string[] = ['lieux', 'foncier'];
+    let targetLinks: string[] = ['lieux', 'foncier', 'proprietaire'];
 
     // Remove active from links active
     targetLinks.forEach((targetLink: string) => {
@@ -65,6 +65,8 @@ export class SideNavbarComponent implements OnInit, AfterViewInit {
   showSubMenu(targetId: string) {
     if (targetId == 'lieux') $('.sub-menu#lieux').toggleClass('active'); // Check if the sub menu is lieux
     if (targetId == 'entite') $('.sub-menu#entite').toggleClass('active'); // Check if the sub menu is entités organisationnelles
+    if (targetId == 'proprietaire') $('.sub-menu#proprietaire').toggleClass('active'); // Check if the sub menu is proprietaire
+    // Else return false
     return false;
   }
 
