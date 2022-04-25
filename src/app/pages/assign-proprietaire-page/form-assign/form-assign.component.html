@@ -150,7 +150,7 @@
 
                 <h6 class="mt-3">Propriétaires à sélectionner</h6>
                 <div *ngIf="lengthProprietaire" class="d-flex justify-content-start align-items-center flex-wrap gap-2">
-                    <div *ngFor="let proprietaire of proprietaires">
+                    <div *ngFor="let proprietaire of proprietairesToSelect">
                         <input type="checkbox" [name]="proprietaire._id" class="btn-check check" [id]="proprietaire._id"
                             autocomplete="off" [value]="proprietaire._id" (click)="selectProp(proprietaire)" />
                         <label class="px-3 py-1 rounded-pill checkbox-list-btns" [for]="proprietaire._id">
@@ -159,7 +159,7 @@
                         </label>
                     </div>
                 </div>
-                <div class="mt-1" *ngIf="!proprietaires.length">
+                <div class="mt-1" *ngIf="!proprietairesToSelect?.length">
                     <!-- Error message -->
                     <p class="main-muted-text">Aucun propriétaire à afficher</p>
                 </div>
@@ -169,7 +169,7 @@
             <ng-template #coProprietaireAdd>
                 <h6 class="mt-4">Propriétaires à sélectionner</h6>
                 <div *ngIf="lengthProprietaire" class="d-flex justify-content-start align-items-center gap-2">
-                    <div *ngFor="let proprietaire of proprietaires">
+                    <div *ngFor="let proprietaire of proprietairesToSelect">
                         <input type="checkbox" [name]="proprietaire._id" class="btn-check check" [id]="proprietaire._id"
                             autocomplete="off" [value]="proprietaire._id" (click)="selectProp(proprietaire)"
                             formControlName="proprietaire_list" />
@@ -179,12 +179,13 @@
                         </label>
                     </div>
                 </div>
-                <div class="mt-1" *ngIf="!proprietaires.length">
+                <div class="mt-1" *ngIf="!proprietairesToSelect?.length">
                     <!-- Error message -->
                     <p class="main-muted-text">Aucun propriétaire à afficher</p>
                 </div>
             </ng-template>
         </div>
+
         <app-confirmation-modal [closeBtn]="false">
             <h3 class="danger-txt">
                 <i class="fas fa-exclamation-triangle"></i> Attention

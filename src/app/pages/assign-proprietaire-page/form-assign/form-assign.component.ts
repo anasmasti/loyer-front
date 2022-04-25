@@ -4,17 +4,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AssignmentProprietaireService } from '@services/assignment-proprietaire-service/assignment-proprietaire.service';
 import { ConfirmationModalService } from '@services/confirmation-modal-service/confirmation-modal.service';
 import { HelperService } from '@services/helpers/helper.service';
+import { LieuxService } from '@services/lieux-service/lieux.service';
 import { MainModalService } from '@services/main-modal/main-modal.service';
 import { Proprietaire } from 'src/app/models/Proprietaire';
 
 @Component({
   selector: 'app-form-assign',
   templateUrl: './form-assign.component.html',
-  styleUrls: ['./form-assign.component.scss']
+  styleUrls: ['./form-assign.component.scss'],
 })
 export class FormAssignComponent implements OnInit {
-  @Input('update') isUpdate!: boolean
-  assignmentProprietaire!: any
+  @Input('update') isUpdate!: boolean;
+  assignmentProprietaire!: any;
 
   isMand: boolean = true;
   errors!: any;
@@ -24,7 +25,7 @@ export class FormAssignComponent implements OnInit {
   mandataireList: any = [];
   updateDone: boolean = false;
   assignProprietaireForm!: FormGroup;
-  assignProprietaire!: any
+  assignProprietaire!: any;
   userMatricule: any = localStorage.getItem('matricule');
 
   contratByFoncier!: any[];
@@ -73,8 +74,9 @@ export class FormAssignComponent implements OnInit {
   ];
   contrat_id: any;
 
-  selectedProprietaire!: Proprietaire
-  proprietaires!: Proprietaire[]
+  selectedProprietaire!: Proprietaire;
+  proprietaires!: Proprietaire[];
+  proprietairesToSelect!: Proprietaire[];
 
   constructor(
     private assignmentProprietaireService: AssignmentProprietaireService,
@@ -82,7 +84,8 @@ export class FormAssignComponent implements OnInit {
     private actRoute: ActivatedRoute,
     public router: Router,
     private help: HelperService,
-    private confirmationModalService: ConfirmationModalService
+    private confirmationModalService: ConfirmationModalService,
+    private lieuService: LieuxService
   ) {
     this.insertProprietaireForm();
   }
@@ -129,16 +132,14 @@ export class FormAssignComponent implements OnInit {
 
   callGetContratAndLieuMethods() {
     setTimeout(() => {
-      // this.getTauxImpot();
+      this.getTauxImpot();
     }, 1000);
   }
 
   fetchAssignmentProprietaire() {
     this.callGetContratAndLieuMethods();
-   
 
     this.assignProprietaireForm.patchValue({
-     
       proprietaire: this.assignmentProprietaire.montant_loyer,
       montant_loyer: this.assignmentProprietaire.montant_loyer,
       is_mandataire: this.assignmentProprietaire.is_mandataire,
@@ -153,11 +154,13 @@ export class FormAssignComponent implements OnInit {
 
       montant_avance_proprietaire:
         this.assignmentProprietaire.montant_avance_proprietaire,
-      tax_avance_proprietaire: this.assignmentProprietaire.tax_avance_proprietaire,
+      tax_avance_proprietaire:
+        this.assignmentProprietaire.tax_avance_proprietaire,
       tax_par_periodicite: this.assignmentProprietaire.tax_par_periodicite,
 
       part_proprietaire: this.assignmentProprietaire.part_proprietaire,
-      caution_par_proprietaire: this.assignmentProprietaire.caution_par_proprietaire,
+      caution_par_proprietaire:
+        this.assignmentProprietaire.caution_par_proprietaire,
     });
 
     this.hasDeclarationOption = this.assignmentProprietaire.declaration_option;
@@ -173,13 +176,13 @@ export class FormAssignComponent implements OnInit {
     }, 2000);
   }
 
-  fillAssignmentProprietaireInfos() {
+  fillFreedProprietaire() {
     this.proprietaireList = [];
     this.oldProprietairesList = [];
     this.assignmentProprietaire.proprietaire_list.forEach((element: any) => {
       this.proprietaireList.push(element);
     });
-    // this.getTauxImpot();
+    this.getTauxImpot();
   }
 
   // Check if all inputs has invalid errors
@@ -205,50 +208,17 @@ export class FormAssignComponent implements OnInit {
   }
 
   // To get the contrat and proprietaire in lieux
-  // getTauxImpot() {
-  //   if (this.contrat_id) {
-  //     this.totalPartProprietaires = 0;
-  //     this.lieuService
-  //       .getContratByFoncier(this.contrat_id, this.userMatricule)
-  //       .subscribe((data) => {
-  //         if (data) {
-  //           this.contratByFoncier = data;
-  //           this.lengthProprietaire =
-  //             this.contratByFoncier[0]?.foncier?.proprietaire.length;
+  getTauxImpot() {
+    if (this.contrat_id) {
+      this.totalPartProprietaires = 0;
 
-  //           let proprietaires = [];
-
-  //           for (
-  //             let index = 0;
-  //             index < this.contratByFoncier[0]?.foncier?.proprietaire.length;
-  //             index++
-  //           ) {
-  //             if (
-  //               this.contratByFoncier[0].foncier.proprietaire[index]
-  //                 .is_mandataire === false &&
-  //               this.contratByFoncier[0].foncier.proprietaire[index]
-  //                 .has_mandataire === null &&
-  //               this.contratByFoncier[0].foncier.proprietaire[index]._id !==
-  //                 this.selectedProprietaire._id
-  //             )
-  //               proprietaires.push(
-  //                 this.contratByFoncier[0].foncier.proprietaire[index]
-  //               );
-  //             // this.uncheckedProprietaires.push(this.contratByFoncier[0].foncier.proprietaire[index])
-  //             this.totalPartProprietaires +=
-  //               this.contratByFoncier[0].foncier.proprietaire[
-  //                 index
-  //               ].part_proprietaire;
-  //           }
-  //           if (this.isUpdate) {
-  //             this.totalPartProprietaires =
-  //               this.totalPartProprietaires -
-  //               proprietaires.part_proprietaire;
-  //           }
-  //         }
-  //       });
-  //   }
-  // }
+      // if (this.isUpdate) {
+      //   this.totalPartProprietaires =
+      //     this.totalPartProprietaires -
+      //     this.proprietairesToSelect.part_proprietaire;
+      // }
+    }
+  }
 
   // Calculer le montant (retenue à la source / montant apres impot / TAX)
   calculMontant() {
@@ -467,9 +437,7 @@ export class FormAssignComponent implements OnInit {
 
   addAssignmentProprietaire() {
     let proprietaire_data: any = {
-
-proprietaire:
-this.assignProprietaireForm.get('proprietaire')?.value,
+      proprietaire: this.assignProprietaireForm.get('proprietaire')?.value,
       montant_loyer: this.montantLoyer,
       declaration_option:
         this.assignProprietaireForm.get('declaration_option')?.value || '',
@@ -493,9 +461,12 @@ this.assignProprietaireForm.get('proprietaire')?.value,
       statut: '',
     };
 
-    
     this.assignmentProprietaireService
-      .assignProprietaire(proprietaire_data, this.contrat_id, this.userMatricule)
+      .assignProprietaire(
+        proprietaire_data,
+        this.contrat_id,
+        this.userMatricule
+      )
       .subscribe(
         (_) => {
           this.postDone = true;
@@ -518,7 +489,7 @@ this.assignProprietaireForm.get('proprietaire')?.value,
   }
 
   updateAssignmentProprietaire() {
-    let id = this.selectedProprietaire._id || "";
+    let id = this.selectedProprietaire._id || '';
     this.newProprietairesList = [];
 
     if (this.newProprietairesList) {
@@ -529,9 +500,9 @@ this.assignProprietaireForm.get('proprietaire')?.value,
 
     let proprietaireData: any = {
       // _id: this.proprietaireForm.get('_id').value ,
-      
+
       montant_loyer: this.montantLoyer,
-     
+
       declaration_option:
         this.assignProprietaireForm.get('declaration_option')?.value || '',
       taux_impot: this.tauxImpot,
@@ -601,7 +572,7 @@ this.assignProprietaireForm.get('proprietaire')?.value,
   CheckMandataire(isMand: boolean) {
     if (this.isUpdate) {
       if (isMand) {
-        this.fillAssignmentProprietaireInfos();
+        this.fillFreedProprietaire();
       } else {
         this.selectedProprietaire.proprietaire_list.forEach((element: any) => {
           this.oldProprietairesList.push(element._id);
@@ -611,9 +582,8 @@ this.assignProprietaireForm.get('proprietaire')?.value,
     }
   }
 
-
   // Get proprietaire form controlers
-  
+
   get proprietaire() {
     return this.assignProprietaireForm.get('proprietaire');
   }

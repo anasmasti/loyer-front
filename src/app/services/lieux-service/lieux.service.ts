@@ -78,13 +78,6 @@ export class LieuxService {
     );
   }
 
-  getContratByFoncier(id: any, matricule: any): Observable<any> {
-    return this.http.get(
-      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url
-      }/contratByLieu/${id}/${matricule}`
-    );
-  }
-
   getLieuByType(matricule: any, data: any): Observable<any> {
     return this.http.post(
       `${environment.API_URL_TEST + environment.API_VERSION + this.param_url
