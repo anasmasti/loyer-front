@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AssignmentProprietaireService {
-  param_url: string = 'assignment';
+  param_url: string = 'affectation-proprietaire';
   
   constructor(private http: HttpClient) { }
 
