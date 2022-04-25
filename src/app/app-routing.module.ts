@@ -22,7 +22,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'effectuer-proprietaire',
+    path: 'affectation-proprietaire',
     loadChildren: () =>
       import('./pages/assign-proprietaire-page/assign-proprietaire.module').then(
         (m) => m.AssignProprietaireModule

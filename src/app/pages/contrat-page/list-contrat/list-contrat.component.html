@@ -256,9 +256,7 @@
                     contrat?.etat_contrat?.libelle === 'Initié'
                   "
                   [routerLink]="[
-                    '/proprietaire/add',
-                    contrat?.foncier?._id,
-                    'AV'
+                    '/affectation-proprietaire', contrat._id
                   ]"
                   class="short-link success-txt"
                 >

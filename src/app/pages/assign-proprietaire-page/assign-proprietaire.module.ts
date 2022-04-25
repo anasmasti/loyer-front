@@ -8,7 +8,7 @@ import { ConfirmationModalModule } from 'src/app/shared/modals/confirmation-moda
 import { MainModalModule } from 'src/app/shared/modals/main-modal/main-modal.module';
 
 const route: Routes = [
-  { path: '', component: AssignProprietairePageComponent },
+  { path: ':id_contrat', component: AssignProprietairePageComponent },
 ];
 
 @NgModule({
