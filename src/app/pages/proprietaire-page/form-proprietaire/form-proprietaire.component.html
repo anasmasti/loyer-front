@@ -353,7 +353,7 @@
         type="submit"
         class="btn second-btn form-control"
         (click)="scrollToTop()"
-        *ngIf="proprietaire !== ''"
+        *ngIf="update"
       >
         <!-- [disabled]="proprietaireForm.invalid" -->
         Modifier
@@ -362,7 +362,7 @@
         type="submit"
         class="btn second-btn form-control"
         (click)="scrollToTop()"
-        *ngIf="proprietaire === ''"
+        *ngIf="!update"
         [disabled]="
           proprietaireForm.status === 'INVALID' ||
           n_registre_commerce?.errors?.requiredWhenIsMoral ||
