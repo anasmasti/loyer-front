@@ -106,8 +106,7 @@ export class DrFormComponent implements OnInit, OnChanges {
   }
 
   scrollToTop() {
-    let element: HTMLElement = document.getElementById('form_section') as HTMLElement;
-    this.help.scrollToTop(element);
+    this.help.scrollToTop();
   }
 
   //Add direction regional

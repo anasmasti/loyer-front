@@ -144,8 +144,7 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   scrollToTop() {
-    let element: HTMLElement = document.getElementById('form_section') as HTMLElement;
-    this.help.scrollToTop(element);
+    this.help.scrollToTop();
   }
 
   getCities() {

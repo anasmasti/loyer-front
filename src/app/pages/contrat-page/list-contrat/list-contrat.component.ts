@@ -293,8 +293,7 @@ export class ListContratComponent implements OnInit {
   }
 
   scrollToTop() {
-    let element: HTMLElement = document.getElementById('form_section') as HTMLElement;
-    this.helperService.scrollToTop(element);
+    this.helperService.scrollToTop();
   }
 
   validation2Contrat() {
