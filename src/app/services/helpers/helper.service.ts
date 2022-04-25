@@ -21,6 +21,10 @@ export class HelperService {
     window.scroll(0, 0);
   }
 
+  scrollToTop(element: HTMLElement) {
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   // Get all counts from server
   getAllCounts() {
     return this.http.get(

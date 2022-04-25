@@ -400,10 +400,8 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   }
 
   scrollToTop() {
-    let element: HTMLElement = document.getElementById(
-      'form_content'
-    ) as HTMLElement;
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    let element: HTMLElement = document.getElementById('form_section') as HTMLElement;
+    this.help.scrollToTop(element);
   }
 
   // To get the contrat and proprietaire in lieux

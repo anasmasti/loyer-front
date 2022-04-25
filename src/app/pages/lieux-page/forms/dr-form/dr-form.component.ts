@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, Inject, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnChanges, OnInit} from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
@@ -106,10 +106,8 @@ export class DrFormComponent implements OnInit, OnChanges {
   }
 
   scrollToTop() {
-    let element: HTMLElement = document.getElementById(
-      'form_content'
-    ) as HTMLElement;
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    let element: HTMLElement = document.getElementById('form_section') as HTMLElement;
+    this.help.scrollToTop(element);
   }
 
   //Add direction regional

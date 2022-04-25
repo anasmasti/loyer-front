@@ -300,9 +300,9 @@ export class LfFormComponent implements OnInit, OnDestroy, OnChanges {
     $('.error-alert').removeClass('active');
   }
 
-  scrollToTop(){
-    let element : HTMLElement = document.getElementById('form_content') as HTMLElement;    
-    element.scrollIntoView({behavior: "smooth", block: "start"});
+  scrollToTop() {
+    let element: HTMLElement = document.getElementById('form_section') as HTMLElement;
+    this.help.scrollToTop(element);
   }
 
   // Get intitule lf by code dr 

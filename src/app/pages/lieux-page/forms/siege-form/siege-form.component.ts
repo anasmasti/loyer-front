@@ -12,7 +12,6 @@ import { MainModalService } from './../../../../services/main-modal/main-modal.s
   styleUrls: ['./siege-form.component.scss']
 })
 export class SiegeFormComponent implements OnInit, OnChanges {
-
   siegeForm!: FormGroup;
   postDone: boolean = false;
   PostSucces: string = 'Siège ajouté avec succés';
@@ -96,9 +95,9 @@ export class SiegeFormComponent implements OnInit, OnChanges {
     $('.error-alert').removeClass('active');
   }
 
-  scrollToTop(){
-    let element : HTMLElement = document.getElementById('form_content') as HTMLElement;    
-    element.scrollIntoView({behavior: "smooth", block: "start"});
+  scrollToTop() {
+    let element: HTMLElement = document.getElementById('form_section') as HTMLElement;
+    this.help.scrollToTop(element);
   }
 
   onAddsiege() {

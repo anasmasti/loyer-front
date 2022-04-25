@@ -19,7 +19,6 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   // displayProprFormList() {
   //   throw new Error('Method not implemented.');
   // }
-
   // whitch form to load
   @Input() update!: boolean;
   //incomming contrat from list in update case
@@ -265,10 +264,8 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   }
 
   scrollToTop() {
-    let element: HTMLElement = document.getElementById(
-      'form_content'
-    ) as HTMLElement;
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    let element: HTMLElement = document.getElementById('form_section') as HTMLElement;
+    this.help.scrollToTop(element);
   }
 
   checkNewMontant(){
