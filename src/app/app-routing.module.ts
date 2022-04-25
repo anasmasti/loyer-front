@@ -22,6 +22,14 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'effectuer-proprietaire',
+    loadChildren: () =>
+      import('./pages/assign-proprietaire-page/assign-proprietaire.module').then(
+        (m) => m.AssignProprietaireModule
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'lieux',
     loadChildren: () =>
       import('./pages/lieux-page/lieux.module').then((m) => m.LieuxModule),
