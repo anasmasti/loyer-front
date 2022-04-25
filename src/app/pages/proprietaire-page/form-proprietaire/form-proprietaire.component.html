@@ -1,9 +1,3 @@
-<div *ngFor="let ctr of contratByFoncier">
-  <!-- <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_motif"> -->
-  <span class="main-txt">{{ ctr?.numero_contrat }}</span> •
-  <span class="info-txt">{{ ctr?.foncier.type_lieu }}</span>
-</div>
-
 <div id="form_section">
   <form
     [formGroup]="proprietaireForm"

@@ -3,8 +3,7 @@ import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MainModalService } from 'src/app/services/main-modal/main-modal.service';
 import { ProprietaireService } from 'src/app/services/proprietaire-service/proprietaire.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { LieuxService } from 'src/app/services/lieux-service/lieux.service';
+import { Router } from '@angular/router';
 import { ConfirmationModalService } from 'src/app/services/confirmation-modal-service/confirmation-modal.service';
 import { PropValidator } from './proprietaire-valodators.service';
 
@@ -17,65 +16,21 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   @Input() proprietaire!: any;
   @Input() update!: boolean;
 
-  isMand: boolean = true;
+
   errors!: any;
   Updatesuccess: string = 'Propriétaire modifié avec succés';
   PostSucces: string = 'Propriétaire ajouté avec succés';
   postDone: boolean = false;
-  mandataireList: any = [];
   updateDone: boolean = false;
   proprietaireForm!: FormGroup;
 
   userMatricule: any = localStorage.getItem('matricule');
 
-  contratByFoncier!: any[];
-
-  foncier_id!: string;
-  foncier_etat!: string;
-
   //les calcules
-  montantLoyer!: number;
-  tauxImpot!: any;
   contrat!: any[];
-  retenueSource!: number;
-  montantApresImpot!: number;
-  duree: number = 12;
-  montantAvance: number = 0;
-  taxAvance!: number;
-  taxPeriodicite!: number;
-
-  montantCautionProprietaire!: number;
-  pourcentageCaution!: number;
-
-  lengthProprietaire!: number;
-
-  uncheckedProprietaires: any = [];
 
   default_proprietaire: any;
   proprietaires: any = [];
-  proprietaireList: any = [];
-  newProprietairesList: any = [];
-  oldProprietairesList: any = [];
-
-  //Total des parts des proprietaires
-  totalPartProprietaires: number = 0;
-  partProprietaire: number = 0;
-  hasDeclarationOption!: string;
-
-  periodicite: any[] = [
-    {
-      number: 1,
-      name: 'annuelle',
-    },
-    {
-      number: 4,
-      name: 'trimestrielle',
-    },
-    {
-      number: 12,
-      name: 'mensuelle',
-    },
-  ];
 
   // Proprietaire type
   personPhysique!: boolean;
@@ -253,7 +208,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
     };
     
     this.proprietaireService
-      .postProprietaire(proprietaire_data, this.foncier_id, this.userMatricule)
+      .postProprietaire(proprietaire_data, this.userMatricule)
       .subscribe(
         (_) => {
           this.postDone = true;
@@ -278,14 +233,7 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
 
   updateProprietaire() {
     let id = this.proprietaire._id;
-    this.newProprietairesList = [];
-
-    if (this.newProprietairesList) {
-      this.proprietaireList.forEach((prop: any) => {
-        this.newProprietairesList.push(prop._id);
-      });
-    }
-
+  
     let proprietaireData: any = {
       // _id: this.proprietaireForm.get('_id').value ,
       cin: this.proprietaireForm.get('cin')?.value || '',
@@ -338,21 +286,13 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
   proprietaireTypeToggel(value: string) {
     if (value === 'Personne physique') {
       this.personPhysique = true;
-      if (this.proprietaire == '') {
-        this.hasDeclarationOption = 'non';
-      }
     }
     if (value === 'Personne morale') {
       this.personPhysique = false;
-      if (this.proprietaire == '') {
-        this.hasDeclarationOption = 'oui';
-      }
     }
 
     this.proprTypeCheck = true;
-    // this.proprietaireForm.reset();
     this.type_proprietaire = value;
-    // this.insertProprietaireForm();
   }
 
   // Get proprietaire form controlers

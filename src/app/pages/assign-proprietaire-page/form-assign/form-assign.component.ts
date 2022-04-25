@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AssignmentProprietaireService } from '@services/assignment-proprietaire-service/assignment-proprietaire.service';
@@ -13,8 +13,8 @@ import { Proprietaire } from 'src/app/models/Proprietaire';
   templateUrl: './form-assign.component.html',
   styleUrls: ['./form-assign.component.scss'],
 })
-export class FormAssignComponent implements OnInit {
-  @Input('update') isUpdate!: boolean;
+export class FormAssignComponent implements OnInit, OnChanges {
+  @Input() isUpdate!: boolean;
   assignmentProprietaire!: any;
 
   isMand: boolean = true;
