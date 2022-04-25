@@ -6,13 +6,14 @@ import { FormAssignComponent } from './form-assign/form-assign.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmationModalModule } from 'src/app/shared/modals/confirmation-modal/confirmation-modal.module';
 import { MainModalModule } from 'src/app/shared/modals/main-modal/main-modal.module';
+import { ListAssignComponent } from './list-assign/list-assign.component';
 
 const route: Routes = [
   { path: ':id_contrat', component: AssignProprietairePageComponent },
 ];
 
 @NgModule({
-  declarations: [AssignProprietairePageComponent, FormAssignComponent],
+  declarations: [AssignProprietairePageComponent, FormAssignComponent, ListAssignComponent],
   imports: [
     RouterModule.forChild(route),
     CommonModule,

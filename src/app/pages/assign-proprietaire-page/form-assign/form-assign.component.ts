@@ -8,6 +8,7 @@ import { HelperService } from '@services/helpers/helper.service';
 import { LieuxService } from '@services/lieux-service/lieux.service';
 import { MainModalService } from '@services/main-modal/main-modal.service';
 import { ProprietaireService } from '@services/proprietaire-service/proprietaire.service';
+import { AssignmentProprietaire } from 'src/app/models/AssignmentProprietaire';
 import { Proprietaire } from 'src/app/models/Proprietaire';
 
 @Component({
@@ -21,8 +22,8 @@ export class FormAssignComponent implements OnInit, OnChanges {
 
   isMand: boolean = true;
   errors!: any;
-  Updatesuccess: string = 'Propriétaire modifié avec succés';
-  PostSucces: string = 'Propriétaire ajouté avec succés';
+  Updatesuccess: string = `L'affectation modifié avec succés`;
+  PostSucces: string = 'Propriétaire affecté avec succés';
   postDone: boolean = false;
   mandataireList: any = [];
   updateDone: boolean = false;
@@ -76,7 +77,8 @@ export class FormAssignComponent implements OnInit, OnChanges {
   selectedProprietaire!: Proprietaire;
   proprietaires!: Proprietaire[];
   proprietairesToSelect!: Proprietaire[];
-
+  assignment!: AssignmentProprietaire
+  
   constructor(
     private assignmentProprietaireService: AssignmentProprietaireService,
     private mainModalService: MainModalService,
@@ -97,7 +99,6 @@ export class FormAssignComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    // this.proprietaireForm.markAllAsTouched()
     this.getContrat()
     this.getProprietaires();
     if (!this.isUpdate) {
