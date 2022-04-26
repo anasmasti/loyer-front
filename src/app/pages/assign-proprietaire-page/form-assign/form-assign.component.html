@@ -20,12 +20,20 @@
         <div class="row">
             <div class="col-lg-3 form-group mt-4">
                 <label for="">Propriétaire <span class="danger-txt">*</span></label>
-                <select class="form-select rounded-pill" formControlName="proprietaire" [ngClass]="{
+                <ng-container  *ngIf="!proprietaires.length">
+                    <a class="short-link success-txt d-inline-flex" [routerLink]="['/proprietaire/add']">+ Ajouter un proprietaire</a>
+                    <p class="main-muted-text">Aucun proprietaire à sélectionner</p>
+                </ng-container>
+                <p></p>
+                <select *ngIf="proprietaires.length" class="form-select rounded-pill" formControlName="proprietaire"
+                    [ngClass]="{
                     'is-invalid': checkInputsValidation(proprietaire)
                   }">
-                    <option *ngFor="let proprietaire of proprietaires" [value]="proprietaire._id">{{proprietaire.cin || proprietaire.n_registre_commerce}} • {{proprietaire.nom_prenom || proprietaire.raison_social}}</option>
+                    <option *ngFor="let proprietaire of proprietaires" [value]="proprietaire._id">{{proprietaire.cin ||
+                        proprietaire.n_registre_commerce}} • {{proprietaire.nom_prenom || proprietaire.raison_social}}
+                    </option>
                 </select>
-               
+
                 <!-- Error Message  -->
                 <div class="" *ngIf="checkInputsValidation(proprietaire)">
                     <p class="danger-txt" *ngIf="proprietaire?.errors?.required">
@@ -37,12 +45,13 @@
             <div class="col-lg-3 form-group mt-4">
                 <label for="">Paiement spontané de TSR </label>
                 <select class="form-select rounded-pill" [(ngModel)]="hasDeclarationOption"
-                  formControlName="declaration_option" (change)="calculMontant();calculMontantAvance();calculCaution()">
-                  <option value="oui">Oui</option>
-                  <option value="non">Non</option>
+                    formControlName="declaration_option"
+                    (change)="calculMontant();calculMontantAvance();calculCaution()">
+                    <option value="oui">Oui</option>
+                    <option value="non">Non</option>
                 </select>
-              </div>
-         
+            </div>
+
             <div class="col-lg-3 form-group mt-4">
 
                 <label for="">Part du propriétaire <span class="danger-txt">*</span></label>
@@ -202,13 +211,12 @@
 
         <!-- Button Modifier & Ajouter -->
         <div class="form-group mt-5 col-lg-3 d-flex">
-            <button type="submit" class="btn second-btn form-control" (click)="scrollToTop()"
-                *ngIf="isUpdate">
+            <button type="submit" class="btn second-btn form-control" (click)="scrollToTop()" *ngIf="isUpdate">
                 <!-- [disabled]="proprietaireForm.invalid" -->
                 Modifier l'affectation
             </button>
-            <button type="submit" class="btn second-btn form-control" (click)="scrollToTop()"
-                *ngIf="!isUpdate" [disabled]="assignProprietaireForm.status === 'INVALID'">
+            <button type="submit" class="btn second-btn form-control" (click)="scrollToTop()" *ngIf="!isUpdate"
+                [disabled]="assignProprietaireForm.status === 'INVALID'">
                 Affecter
             </button>
         </div>
