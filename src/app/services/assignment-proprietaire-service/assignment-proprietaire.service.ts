@@ -37,4 +37,13 @@ export class AssignmentProprietaireService {
         }/affectations/${proprietaireID}/${userMatricule}`
       )
     }
+
+  // Delete assignment proprietaire
+  deleteAssignmentProprietaire(proprietaireID: string, data: any, userMatricule: any): Observable<AssignmentProprietaire> {
+    return this.http.put<AssignmentProprietaire>(
+      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url
+      }/supprimer/${proprietaireID}/${userMatricule}`,
+      data
+    );
+  }
 }

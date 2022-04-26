@@ -20,7 +20,6 @@ import { DatePipe } from '@angular/common';
 import { ReportingsComponent } from './pages/reportings/reportings.component';
 import { SharedEffects } from './store/shared/shared.effect';
 
-
 @NgModule({
   declarations: [
     AppComponent,

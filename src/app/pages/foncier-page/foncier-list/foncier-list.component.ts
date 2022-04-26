@@ -178,17 +178,17 @@ export class FoncierListComponent implements OnInit {
         }
       );
   }
-  getProprietaireLength(foncier: Foncier) {
-    let count = 0;
-    foncier.proprietaire.forEach((proprietaire: any) => {
-      if (
-        !proprietaire.deleted && (proprietaire?.statut == 'Actif' || proprietaire?.statut == 'À supprimer')
-      ) {
-        count = count + 1;
-      }
-    });
-    return count;
-  }
+  // getProprietaireLength(foncier: Foncier) {
+  //   let count = 0;
+  //   foncier.proprietaire.forEach((proprietaire: any) => {
+  //     if (
+  //       !proprietaire.deleted && (proprietaire?.statut == 'Actif' || proprietaire?.statut == 'À supprimer')
+  //     ) {
+  //       count = count + 1;
+  //     }
+  //   });
+  //   return count;
+  // }
   openModalAndPushFoncier(foncier: any) {
     this.targetFoncier = foncier;
     this.mainModalService.open(); // Open delete confirmation modal

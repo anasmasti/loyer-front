@@ -2,13 +2,13 @@
     <div class="col-lg-12 mt-3">
       <div class="d-lg-flex justify-content-lg-between">
         <h3 class="main-title ">Modifier l'affectation du propriétaire <span class="text-capitalize selected-text">{{
-            assignmentProprietaire?.proprietaire?.nom_prenom || assignmentProprietaire?.proprietaire?.raison_social }}</span> </h3>
+            assignmentProprietaire?.is_mandataire  }}</span> </h3>
         <div>
           <!-- <a [routerLink]="['/proprietaire/list']" class="btn main-btn"
               >Voir la liste des propriétaires</a
             > -->
           <span data-bs-toggle="tooltip" data-bs-placement="top" title="Ici vous pouvez modifier l'affectation du propriétaire {{
-            assignmentProprietaire?.proprietaire?.nom_prenom
+            assignmentProprietaire?.is_mandataire
             }}">
             <i class="fal fa-info"></i>
           </span>

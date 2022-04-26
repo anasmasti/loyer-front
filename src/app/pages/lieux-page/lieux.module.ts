@@ -21,6 +21,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
 import { ListReportingLieuxComponent } from './list-reporting-lieux/list-reporting-lieux.component';
 import { PipesModule } from 'src/app/core/pipes/pipes.module';
+import { DirectivesModule } from 'src/app/core/directives/directives.module';
 
 
 
@@ -55,7 +56,8 @@ const route: Routes = [
     EffectsModule.forFeature([LieuxEffects]),
     NgxPaginationModule,
     FormsModule,
-    PipesModule
+    PipesModule,
+    DirectivesModule
     
   ]
 })

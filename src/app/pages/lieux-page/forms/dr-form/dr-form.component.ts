@@ -11,7 +11,7 @@ import { HelperService } from 'src/app/services/helpers/helper.service';
   templateUrl: './dr-form.component.html',
   styleUrls: ['./dr-form.component.scss'],
 })
-export class DrFormComponent implements OnInit, OnChanges {
+export class DrFormComponent implements OnInit, OnChanges{
   errors!: string;
   postDone: boolean = false;
   PostSucces: string = 'Direction régionale ajoutée avec succés';
@@ -42,6 +42,8 @@ export class DrFormComponent implements OnInit, OnChanges {
       }, 100);
     }
   }
+
+  
 
   ngOnInit(): void {
     this.drForm = new FormGroup({

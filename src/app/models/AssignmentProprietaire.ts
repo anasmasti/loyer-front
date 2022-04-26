@@ -18,5 +18,7 @@ export interface AssignmentProprietaire {
     proprietaire_list: [];
     is_person_physique: boolean;
     part_proprietaire: number;
+
+    contrat: any
   }
   

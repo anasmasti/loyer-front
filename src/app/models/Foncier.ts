@@ -1,15 +1,5 @@
 export interface Foncier {
   _id?: any;
-  proprietaire: [
-    {
-      id?: string;
-      nom_prenom?: string;
-      cin?: string;
-      raison_social?: string;
-      n_registre_commerce?: string;
-      is_mandataire: boolean;
-    }
-  ];
   type_lieu: string;
   adresse: string;
   lieu: [
