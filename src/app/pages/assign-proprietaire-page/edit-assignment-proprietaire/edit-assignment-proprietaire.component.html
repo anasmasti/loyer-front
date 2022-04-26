@@ -1,0 +1,28 @@
+<div class="row title">
+    <div class="col-lg-12 mt-3">
+      <div class="d-lg-flex justify-content-lg-between">
+        <h3 class="main-title ">Modifier l'affectation du propriétaire <span class="text-capitalize selected-text">{{
+            assignmentProprietaire?.proprietaire?.nom_prenom || assignmentProprietaire?.proprietaire?.raison_social }}</span> </h3>
+        <div>
+          <!-- <a [routerLink]="['/proprietaire/list']" class="btn main-btn"
+              >Voir la liste des propriétaires</a
+            > -->
+          <span data-bs-toggle="tooltip" data-bs-placement="top" title="Ici vous pouvez modifier l'affectation du propriétaire {{
+            assignmentProprietaire?.proprietaire?.nom_prenom
+            }}">
+            <i class="fal fa-info"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="mt-2">
+    <h6>Remplissage des données</h6>
+    <!-- <p>{{ targetIndex }}</p> -->
+    <!--Début de Div qui contient le formulaire propriètaire de local-->
+    <div class="form-box mt-2">
+      <!--Début Formulaire propriètaire de local-->
+      <app-form-assign [assignmentProprietaire]="assignmentProprietaire" [isUpdate]='true'></app-form-assign>
+    </div>
+  </div>

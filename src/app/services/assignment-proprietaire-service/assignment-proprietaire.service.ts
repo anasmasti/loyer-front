@@ -29,4 +29,12 @@ export class AssignmentProprietaireService {
         data
       );
     }
+
+    // Get all assignment by proprietaire ID
+    getProprietaireAssagnments(proprietaireID: string, userMatricule: string): Observable<AssignmentProprietaire[]> {
+      return this.http.get<AssignmentProprietaire[]>(
+        `${environment.API_URL_TEST + environment.API_VERSION + this.param_url
+        }/affectations/${proprietaireID}/${userMatricule}`
+      )
+    }
 }

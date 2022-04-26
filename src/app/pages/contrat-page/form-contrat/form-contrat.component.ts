@@ -693,14 +693,14 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       this.contratService
         .addContrat(this.fd, this.userMatricule, this.foncier_id)
         .subscribe(
-          (_) => {
+          (contratSentData) => {
             this.postDone = true;
             setTimeout(() => {
               this.contratForm.reset();
               this.postDone = false;
               this.help.toTheUp();
               this.router
-                .navigate(['/proprietaire/add', this.foncier_id, 'Actif'])
+                .navigate(['/affectation-proprietaire/', contratSentData._id])
                 .then(() => {
                   this.help.refrechPage();
                 });
