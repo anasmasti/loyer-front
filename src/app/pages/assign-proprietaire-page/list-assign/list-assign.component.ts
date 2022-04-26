@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AssignmentProprietaireService } from '@services/assignment-proprietaire-service/assignment-proprietaire.service';
 import { ConfirmationModalService } from '@services/confirmation-modal-service/confirmation-modal.service';
 import { HelperService } from '@services/helpers/helper.service';
 import { MainModalService } from '@services/main-modal/main-modal.service';
@@ -36,7 +38,9 @@ export class ListAssignComponent implements OnInit {
   constructor(
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
-    private helperService: HelperService
+    private helperService: HelperService,
+    private activatedRoute: ActivatedRoute,
+    private assignmentService: AssignmentProprietaireService
   ) {}
 
   ngOnInit(): void {
@@ -44,7 +48,15 @@ export class ListAssignComponent implements OnInit {
   }
 
   getAssignmentProprietaires() {
-    throw new Error('Method not implemented.');
+    // Get proprietaire ID from route
+    let proprietaireId: string =
+      this.activatedRoute.snapshot.paramMap.get('id_proprietaire') || '';
+    // Get all proprietaire assignments
+    this.assignmentService
+      .getProprietaireAssagnments(proprietaireId, this.userMatricule)
+      .subscribe((assignment) => {
+        this.assignmentProprietaires = assignment;
+      });
   }
 
   // Open the update proprietaire form and push index and data of proprietaire
@@ -109,8 +121,8 @@ export class ListAssignComponent implements OnInit {
     this.targetAssignmentProprietaire = id;
   }
 
-   // Refrtech the page
-   refrechPage() {
+  // Refrtech the page
+  refrechPage() {
     this.helperService.refrechPage();
   }
 }

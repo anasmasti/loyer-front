@@ -20,11 +20,11 @@
         <div class="row">
             <div class="col-lg-3 form-group mt-4">
                 <label for="">Propriétaire <span class="danger-txt">*</span></label>
-                <ng-container  *ngIf="!proprietaires.length">
+                <ng-container  *ngIf="!proprietaires?.length">
                     <a class="short-link success-txt d-inline-flex" [routerLink]="['/proprietaire/add']">+ Ajouter un proprietaire</a>
                     <p class="main-muted-text">Aucun proprietaire à sélectionner</p>
                 </ng-container>
-                <select *ngIf="proprietaires.length" class="form-select rounded-pill" formControlName="proprietaire"
+                <select *ngIf="proprietaires?.length" class="form-select rounded-pill" formControlName="proprietaire"
                     [ngClass]="{
                     'is-invalid': checkInputsValidation(proprietaire)
                   }">
