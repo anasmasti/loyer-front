@@ -12,6 +12,7 @@ import { EditAssignmentProprietaireComponent } from './edit-assignment-proprieta
 
 const route: Routes = [
   { path: ':id_contrat', component: AssignProprietairePageComponent },
+  { path: 'list/:id_proprietaire', component: ListAssignComponent },
 ];
 
 @NgModule({

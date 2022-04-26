@@ -10,7 +10,6 @@ import { AssignmentProprietaire } from 'src/app/models/AssignmentProprietaire';
   styleUrls: ['./list-assign.component.scss'],
 })
 export class ListAssignComponent implements OnInit {
-  @Input() proprietaireId!: string;
   assignmentProprietaires!: AssignmentProprietaire[];
   targetAssignmentProprietaire!: AssignmentProprietaire;
   targetAssignmentProprietaireId!: string;

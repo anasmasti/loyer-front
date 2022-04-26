@@ -7,15 +7,11 @@
         <a class="btn btn-sm main-btn" [routerLink]="['/']">
           <i class="fal fa-home"></i> Tableau de board
         </a>
-        <a class="btn btn-sm second-btn mx-3" (click)="refrechPage()"
-          ><i class="far fa-undo-alt"></i>
+        <a class="btn btn-sm second-btn mx-3" (click)="refrechPage()"><i class="far fa-undo-alt"></i>
           Rafraîchir la liste
         </a>
-        <span
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-          title="Ici vous pouvez consulter la list des propriétaires"
-        >
+        <span data-bs-toggle="tooltip" data-bs-placement="top"
+          title="Ici vous pouvez consulter la list des propriétaires">
           <i class="fal fa-info"></i>
         </span>
       </div>
@@ -31,33 +27,23 @@
 
 <div class="main-card bg-white table-responsive p-lg-3 mt-4">
   <div class="col-lg-4 mb-4">
-    <label for="" class="main-muted-text"
-      ><i class="far fa-search"></i> Recherche</label
-    >
-    <input
-      type="text"
-      [(ngModel)]="searchProprietaireInputValue"
-      (input)="search()"
-      class="form-control rounded-pill"
-      placeholder="Rechercher par cin/passeport/séjour/nom_prenom/..."
-    />
+    <label for="" class="main-muted-text"><i class="far fa-search"></i> Recherche</label>
+    <input type="text" [(ngModel)]="searchProprietaireInputValue" (input)="search()" class="form-control rounded-pill"
+      placeholder="Rechercher par cin/passeport/séjour/nom_prenom/..." />
   </div>
   <table class="table">
     <thead>
       <tr>
         <th>Propriétaire</th>
         <th>CIN/IF</th>
-        <th>Type entité</th>
-        <th>N° de contrat</th>
-        <!-- <th>Intitulé DR</th> -->
-        <th>Mandataire</th>
+        <th>Affecté</th>
+        <th>Affectation</th>
         <th>Actions</th>
       </tr>
     </thead>
 
     <tbody *ngIf="proprietaires?.length">
-      <tr
-        *ngFor="
+      <tr *ngFor="
           let proprietaire of proprietaires
             | paginate
               : {
@@ -67,9 +53,7 @@
                   totalItems: count
                 };
           let i = index
-        "
-      >
-        <!-- <td>{{ proprietaire._id }}</td> -->
+        ">
         <td>
           {{ proprietaire.nom_prenom ? proprietaire.nom_prenom : proprietaire.raison_social | titlecase }}
         </td>
@@ -78,45 +62,30 @@
           {{ proprietaire.cin ? proprietaire.cin : proprietaire.n_registre_commerce || '--'}}
         </td>
         <td>
-          {{ proprietaire.type_lieu }}
-        </td>
-        <td>{{ proprietaire.numero_contrat }}</td>
-        <!-- <td>
-          {{ proprietaire.intitule_lieu ? proprietaire.intitule_lieu : "--" }}
-        </td> -->
-        <td>
           <div class="d-grid">
-            <span
-              class="p-1"
-              [ngClass]="{
-                'success-txt': proprietaire?.is_mandataire,
-                'danger-txt': !proprietaire?.is_mandataire
-              }"
-            >
-              {{ checkAndPutText(proprietaire.is_mandataire) }}
+            <span class="p-1" [ngClass]="{
+                'success-txt': proprietaire?.has_contrat,
+                'danger-txt': !proprietaire?.has_contrat
+              }">
+              {{ checkAndPutText(proprietaire.has_contrat) }}
             </span>
           </div>
         </td>
         <td>
-          <a
-            [routerLink]="['list', proprietaire._id]"
-            class="btn btn-sm main-btn"
-            ><i class="fal fa-eye"></i
-          ></a>
+          <a class="btn btn-sm second-btn mx-2" [routerLink]="['/affectation-proprietaire/list', proprietaire._id]">
+            <i class="far fa-users"></i>
+            Liste des affectations
+          </a>
+        </td>
+        <td>
+          <a [routerLink]="['list', proprietaire._id]" class="btn btn-sm main-btn"><i class="fal fa-eye"></i></a>
           <!-- *ngIf="!isDC && !isDAJC && (proprietaire.libelle === 'Initié' || proprietaire.statut === 'À ajouter')" -->
-          <a 
-            class="btn btn-sm info-btn mx-2"
-            (click)="openModalAndPushProprietaire(proprietaire)"
-            ><i class="far fa-user-edit"></i
-          ></a>
+          <a class="btn btn-sm info-btn mx-2" (click)="openModalAndPushProprietaire(proprietaire)"><i
+              class="far fa-user-edit"></i></a>
           <!-- *ngIf="!isCSLA && !isDC && !isDAJC && proprietaire.libelle === 'Initié'" -->
-          <a 
-            class="btn btn-sm danger-btn"
-            (click)="
+          <a class="btn btn-sm danger-btn" (click)="
               openDeleteConfirmationModal(); getProprietaireId(proprietaire._id)
-            "
-            ><i class="far fa-user-minus"></i
-          ></a>
+            "><i class="far fa-user-minus"></i></a>
         </td>
       </tr>
 
@@ -132,24 +101,13 @@
         </h3>
         <p class="mt-3">Êtes-vous sûr de vouloir supprimer ce propriétaire?</p>
         <div class="d-inline-flex justify-content-start mt-5">
-          <a
-            class="btn btn-lg px-lg-4 danger-btn me-2"
-            (click)="deleteProprietaire(targetProprietaireId)"
-            >Oui</a
-          >
-          <a
-            class="btn btn-lg px-lg-4 main-btn"
-            (click)="closeDeleteConfirmationModal()"
-            >Non</a
-          >
+          <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)="deleteProprietaire(targetProprietaireId)">Oui</a>
+          <a class="btn btn-lg px-lg-4 main-btn" (click)="closeDeleteConfirmationModal()">Non</a>
         </div>
       </app-confirmation-modal>
     </tbody>
 
-    <tbody
-      *ngIf="!proprietaires?.length && !accessError"
-      class="w-100 d-flex align-items-center"
-    >
+    <tbody *ngIf="!proprietaires?.length && !accessError" class="w-100 d-flex align-items-center">
       <h5 class="main-muted-text my-4">Aucun proprietaire à afficher</h5>
       <a class="btn btn-sm second-btn ms-3" [routerLink]="['/foncier/list']">
         + Nouveau proprietaire
@@ -163,10 +121,6 @@
       </a>
     </tbody>
   </table>
-  <pagination-controls
-    id="listProprietaitePagination"
-    (pageChange)="listProprietairePage = $event"
-    previousLabel="Précédent"
-    nextLabel="Suivant"
-  ></pagination-controls>
+  <pagination-controls id="listProprietaitePagination" (pageChange)="listProprietairePage = $event"
+    previousLabel="Précédent" nextLabel="Suivant"></pagination-controls>
 </div>
