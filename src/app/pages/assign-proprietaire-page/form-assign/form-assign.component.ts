@@ -98,6 +98,8 @@ export class FormAssignComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+   console.log(this.assignmentProprietaire);
+    
     this.getContrat()
     this.getProprietaires();
     if (!this.isUpdate) {

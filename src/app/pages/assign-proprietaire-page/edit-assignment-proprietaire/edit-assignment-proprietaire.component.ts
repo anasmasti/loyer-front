@@ -10,5 +10,7 @@ export class EditAssignmentProprietaireComponent implements OnInit {
   @Input() assignmentProprietaire!: AssignmentProprietaire;
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
+
 }

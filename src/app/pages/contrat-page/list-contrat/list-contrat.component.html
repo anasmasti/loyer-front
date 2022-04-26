@@ -7,23 +7,15 @@
         <a class="btn btn-sm main-btn" [routerLink]="['/']">
           <i class="fal fa-home"></i> Tableau de board
         </a>
-        <a class="btn btn-sm second-btn mx-3" (click)="reload()"
-          ><i class="far fa-undo-alt"></i>
+        <a class="btn btn-sm second-btn mx-3" (click)="reload()"><i class="far fa-undo-alt"></i>
           Rafraîchir la liste
         </a>
         <ng-container *ngIf="reporting">
-          <a
-            [routerLink]="['/contrat/list-global/list/list-reporting']"
-            class="btn btn-sm success-btn me-3"
-          >
+          <a [routerLink]="['/contrat/list-global/list/list-reporting']" class="btn btn-sm success-btn me-3">
             <i class="far fa-file-chart-line"></i> Voir la liste des reportings
           </a>
         </ng-container>
-        <span
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-          title="Ici vous pouvez consulter la list des contrats"
-        >
+        <span data-bs-toggle="tooltip" data-bs-placement="top" title="Ici vous pouvez consulter la list des contrats">
           <i class="fal fa-info"></i>
         </span>
       </div>
@@ -34,73 +26,32 @@
 <div class="main-card bg-white table-responsive p-lg-3 mt-4">
   <div class="row d-flex justify-content-between">
     <div class="col-lg-4 mb-4">
-      <label for="" class="main-muted-text"
-        ><i class="far fa-search"></i> Recherche</label
-      >
-      <input
-        type="text"
-        [(ngModel)]="findContrat"
-        (input)="search()"
-        class="form-control rounded-pill"
-        placeholder="Rechercher par numéro de contrat ou type d'entité..."
-      />
+      <label for="" class="main-muted-text"><i class="far fa-search"></i> Recherche</label>
+      <input type="text" [(ngModel)]="findContrat" (input)="search()" class="form-control rounded-pill"
+        placeholder="Rechercher par numéro de contrat ou type d'entité..." />
     </div>
 
     <div class="d-flex justify-content-end col-lg-7 my-4">
       <div class="">
-        <input
-          id="all"
-          type="radio"
-          name="search-by-libelle"
-          (click)="searchByEtat($event, 'all')"
-          class="btn-check check"
-          [checked]="true"
-          autocomplete="off"
-        />
-        <label class="px-3 rounded-pill checkbox-list-btns" for="all"
-          >Tout</label
-        >
+        <input id="all" type="radio" name="search-by-libelle" (click)="searchByEtat($event, 'all')"
+          class="btn-check check" [checked]="true" autocomplete="off" />
+        <label class="px-3 rounded-pill checkbox-list-btns" for="all">Tout</label>
       </div>
 
       <div class="">
-        <input
-          id="oui"
-          type="radio"
-          name="search-by-libelle"
-          class="btn-check check"
-          (click)="searchByEtat($event, 'Actif')"
-          autocomplete="off"
-        />
-        <label class="px-3 mx-2 rounded-pill checkbox-list-btns" for="oui"
-          >Contrats actifs</label
-        >
+        <input id="oui" type="radio" name="search-by-libelle" class="btn-check check"
+          (click)="searchByEtat($event, 'Actif')" autocomplete="off" />
+        <label class="px-3 mx-2 rounded-pill checkbox-list-btns" for="oui">Contrats actifs</label>
       </div>
       <div class="">
-        <input
-          id="av"
-          type="radio"
-          name="search-by-libelle"
-          class="btn-check check"
-          (click)="searchByEtat($event, 'Avenant')"
-          autocomplete="off"
-        />
-        <label class="px-3 mx-2 rounded-pill checkbox-list-btns" for="av"
-          >Contrats avenants</label
-        >
+        <input id="av" type="radio" name="search-by-libelle" class="btn-check check"
+          (click)="searchByEtat($event, 'Avenant')" autocomplete="off" />
+        <label class="px-3 mx-2 rounded-pill checkbox-list-btns" for="av">Contrats avenants</label>
       </div>
       <div class="">
-        <input
-          id="st_caution"
-          type="radio"
-          name="search-by-libelle"
-          class="btn-check check"
-          (click)="searchByStatutCaution($event, 'En cours')"
-          autocomplete="off"
-        />
-        <label
-          class="px-3 mx-2 rounded-pill checkbox-list-btns"
-          for="st_caution"
-        >
+        <input id="st_caution" type="radio" name="search-by-libelle" class="btn-check check"
+          (click)="searchByStatutCaution($event, 'En cours')" autocomplete="off" />
+        <label class="px-3 mx-2 rounded-pill checkbox-list-btns" for="st_caution">
           Caution en cours
         </label>
       </div>
@@ -132,20 +83,17 @@
         <th>Statut</th>
         <th>Proprietaires liés</th>
         <th>Actions</th>
-        <th
-          *ngIf="
+        <th *ngIf="
             userRoles.includes('CDGSP') ||
             userRoles.includes('CSLA') ||
             userRoles.includes('DAJC')
-          "
-        >
+          ">
           Validation
         </th>
       </tr>
     </thead>
     <tbody *ngIf="contrats?.length">
-      <tr
-        *ngFor="
+      <tr *ngFor="
           let contrat of contrats
             | paginate
               : {
@@ -154,24 +102,20 @@
                   id: 'listContratPagination',
                   totalItems: count
                 }
-        "
-      >
+        ">
         <td>{{ contrat.foncier.type_lieu }}</td>
         <td>
           {{ contrat.numero_contrat }}
           <br />
           <ng-container *ngFor="let lieu of contrat?.foncier.lieu">
-            <span
-              *ngIf="
+            <span *ngIf="
                 !lieu.deleted &&
                 lieu.etat_lieu !== 'Occupé' &&
                contrat?.etat_contrat?.libelle !== ('Initié' || 'Modifé' || 'En cours de validation')
-              "
-              [ngClass]="{
+              " [ngClass]="{
                 'info-txt': lieu.etat_lieu === 'En cours de transfert',
                 'danger-txt': lieu.etat_lieu === 'Transférée'
-              }"
-            >
+              }">
               {{ lieu.etat_lieu }}
             </span>
           </ng-container>
@@ -180,27 +124,17 @@
         <td>{{ contrat.montant_loyer }}</td>
         <td>{{ contrat.date_debut_loyer | date: "dd/MM/yyyy" }}</td>
         <!-- <td>{{ contrat.date_fin_contrat | date }}</td> -->
-        <td
-          [ngClass]="{
+        <td [ngClass]="{
             'info-txt': contrat.statut_caution === 'Récupérée',
             'danger-txt': contrat.statut_caution === 'Consommée',
             'success-txt': contrat.statut_caution === 'En cours'
-          }"
-        >
+          }">
           {{ contrat.statut_caution }}
         </td>
 
-        <td
-          class="py-3 success-txt"
-          *ngIf="contrat.etat_contrat?.libelle === 'Avenant'"
-        >
+        <td class="py-3 success-txt" *ngIf="contrat.etat_contrat?.libelle === 'Avenant'">
           Actif
-          <span
-            class="av p-1"
-            data-bs-toggle="tooltip"
-            data-bs-placement="top"
-            title="Avenant"
-          >
+          <span class="av p-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Avenant">
             AV
           </span>
         </td>
@@ -212,9 +146,7 @@
         Modifié 
       </td> -->
 
-        <td
-          class="py-3"
-          [ngClass]="{
+        <td class="py-3" [ngClass]="{
             'info-txt':
               contrat.etat_contrat?.libelle === 'Avenant' ||
               contrat.etat_contrat?.libelle === 'Initié' ||
@@ -225,51 +157,29 @@
             'success-txt': contrat.etat_contrat?.libelle === 'Actif',
             'main-txt':
               contrat.etat_contrat?.libelle === 'En cours de validation'
-          }"
-          *ngIf="contrat.etat_contrat?.libelle !== 'Avenant'"
-        >
+          }" *ngIf="contrat.etat_contrat?.libelle !== 'Avenant'">
           {{ this.contrat.etat_contrat?.libelle }}
         </td>
 
         <td>
-          <span
-            data-bs-toggle="tooltip"
-            data-bs-placement="top"
-            title="Ici vous pouvez consulter les proprietaires liés au contrat"
-          >
+          <span data-bs-toggle="tooltip" data-bs-placement="top"
+            title="Ici vous pouvez consulter les proprietaires liés au contrat">
             <div class="d-grid">
-              <div
-                class="mb-1"
-                *ngIf="
-                  (contrat?.is_avenant &&
-                    contrat?.etat_contrat?.libelle === 'Initié' &&
-                    contrat?.etat_contrat?.etat?.motif[0]?.type_motif ===
-                      'Décès') ||
-                  contrat?.etat_contrat?.etat?.motif[0]?.type_motif ===
-                    'Cession'
-                "
-              >
-                <a
-                  *ngIf="
+
+              <div class="mb-1" *ngIf="contrat?.etat_contrat?.libelle === 'Initié'">
+                <a *ngIf="
                     !isDC &&
                     !isDAJC &&
                     contrat?.etat_contrat?.libelle === 'Initié'
-                  "
-                  [routerLink]="[
+                  " [routerLink]="[
                     '/affectation-proprietaire', contrat._id
-                  ]"
-                  class="short-link success-txt"
-                >
-                  + Ajouter un autre</a
-                >
+                  ]" class="short-link success-txt">
+                  + Affecter un proprietaire</a>
               </div>
-              <a
-                class="btn btn-sm second-btn me-2"
-                (click)="openListeProprietairesModal(contrat)"
-                *ngIf="contrat?.etat_contrat?.libelle !== 'Modifié'"
-              >
+              <a class="btn btn-sm second-btn me-2" (click)="openListeProprietairesModal(contrat)"
+                *ngIf="contrat?.etat_contrat?.libelle !== 'Modifié'">
                 <i class="fal fa-users"></i> Voir ({{
-                  getProprietaireLength(contrat)
+                getProprietaireLength(contrat)
                 }})
               </a>
             </div>
@@ -278,11 +188,7 @@
 
         <td>
           <div class="d-flex">
-            <a
-              [routerLink]="['list', contrat._id]"
-              class="btn btn-sm main-btn me-2"
-              ><i class="fal fa-eye"></i
-            ></a>
+            <a [routerLink]="['list', contrat._id]" class="btn btn-sm main-btn me-2"><i class="fal fa-eye"></i></a>
             <!-- *ngIf="
               (this.contrat.etat_contrat?.libelle === 'Soumettre' &&
                 userRoles.includes('CSLA')) ||
@@ -293,8 +199,7 @@
               (userRoles.includes('CSLA') && !contrat.validation1_DMG)
             " -->
             <!-- *ngIf="!userRoles.includes('DAJC')" -->
-            <a
-              *ngIf="
+            <a *ngIf="
                 (this.contrat.etat_contrat?.libelle === 'Initié' &&
                   userRoles.includes('CSLA')) ||
                 (this.contrat.etat_contrat?.libelle === 'Actif' &&
@@ -306,11 +211,7 @@
                 (userRoles.includes('DAJC') &&
                   this.contrat.validation2_DAJC &&
                   this.contrat.etat_contrat?.libelle !== 'Résilié')
-              "
-              (click)="openEditModal(contrat)"
-              class="btn btn-sm info-btn me-2"
-              ><i class="far fa-edit"></i
-            ></a>
+              " (click)="openEditModal(contrat)" class="btn btn-sm info-btn me-2"><i class="far fa-edit"></i></a>
             <!-- <a
               *ngIf="isCDGSP && !contrat?.validation1_DMG"
               class="btn btn-sm danger-btn"
@@ -321,42 +222,27 @@
         </td>
 
         <!-- Validation -->
-        <td
-          *ngIf="
+        <td *ngIf="
             (userRoles.includes('CDGSP') ||
               userRoles.includes('CSLA') ||
               userRoles.includes('DAJC')) &&
             (this.contrat.etat_contrat?.libelle === 'En cours de validation' ||
               this.contrat.etat_contrat?.libelle === 'Actif' ||
               this.contrat.etat_contrat?.libelle === 'Résilié')
-          "
-        >
-          <div
-            class="text-center my-1"
-            *ngIf="
+          ">
+          <div class="text-center my-1" *ngIf="
               contrat.etat_contrat?.libelle === 'Résilié' ||
               contrat.etat_contrat?.libelle === 'Modifié'
-            "
-          >
+            ">
             --
           </div>
-          <div
-            class="btn-group d-grid"
-            role="group"
-            *ngIf="
+          <div class="btn-group d-grid" role="group" *ngIf="
               contrat.etat_contrat?.libelle !== 'Résilié' &&
               contrat.etat_contrat?.libelle !== 'Modifié'
-            "
-          >
-            <a
-              id="btnGroupDrop1"
-              class="btn btn-sm"
-              [ngClass]="
+            ">
+            <a id="btnGroupDrop1" class="btn btn-sm" [ngClass]="
                 contrat.validation2_DAJC ? 'success-btn' : 'second-btn'
-              "
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              *ngIf="
+              " data-bs-toggle="dropdown" aria-expanded="false" *ngIf="
                 (userRoles.includes('CDGSP') && !contrat.validation1_DMG) ||
                 (userRoles.includes('DAJC') &&
                   !contrat.validation2_DAJC &&
@@ -364,8 +250,7 @@
                 ((userRoles.includes('CDGSP') || userRoles.includes('DAJC')) &&
                   contrat.validation2_DAJC &&
                   contrat.validation1_DMG)
-              "
-            >
+              ">
               <!-- [disabled]="userRoles.includes('DAJC') && !contrat.validation1_DMG" -->
               <ng-container *ngIf="!contrat.validation2_DAJC">
                 A valider
@@ -375,113 +260,71 @@
                 <i class="fal fa-clipboard-check"></i>
               </ng-container>
             </a>
-            <button
-              id="btnGroupDrop1"
-              class="btn btn-sm second-btn"
-              *ngIf="
+            <button id="btnGroupDrop1" class="btn btn-sm second-btn" *ngIf="
                 (userRoles.includes('CDGSP') || userRoles.includes('CSLA')) &&
                 contrat.validation1_DMG &&
                 !contrat.validation2_DAJC
-              "
-              disabled
-            >
+              " disabled>
               Validé
             </button>
-            <button
-              id="btnGroupDrop1"
-              class="btn btn-sm second-btn"
-              *ngIf="
+            <button id="btnGroupDrop1" class="btn btn-sm second-btn" *ngIf="
                 userRoles.includes('DAJC') &&
                 !contrat.validation2_DAJC &&
                 !contrat.validation1_DMG
-              "
-              disabled
-            >
+              " disabled>
               A valider
             </button>
-            <ul
-              id="actions"
-              class="dropdown-menu p-3 main-card border-0"
-              aria-labelledby="btnGroupDrop1"
-            >
+            <ul id="actions" class="dropdown-menu p-3 main-card border-0" aria-labelledby="btnGroupDrop1">
               <li>
                 <!-- <h5 *ngIf="contrat.etat_contrat?.libelle !== 'Résilié'" class="main-title">
                   Validation
                 </h5> -->
                 <div class="d-flex flex-column gap-2">
-                  <div
-                    class="row"
-                    *ngIf="
+                  <div class="row" *ngIf="
                       userRoles.includes('CDGSP') || userRoles.includes('CSLA')
-                    "
-                  >
-                    <button
-                      *ngIf="contrat.etat_contrat?.libelle !== 'Résilié'"
-                      class="btn"
-                      [ngClass]="
+                    ">
+                    <button *ngIf="contrat.etat_contrat?.libelle !== 'Résilié'" class="btn" [ngClass]="
                         contrat.validation1_DMG ? 'success-btn' : 'second-btn'
-                      "
-                      [id]="'vld1: ' + contrat._id"
-                      (click)="openConfirmationModalValidation1(contrat._id)"
-                      [disabled]="contrat.validation1_DMG"
-                    >
+                      " [id]="'vld1: ' + contrat._id" (click)="openConfirmationModalValidation1(contrat._id)"
+                      [disabled]="contrat.validation1_DMG">
                       {{
-                        contrat.validation1_DMG ? "Contrat validé" : "Valider"
+                      contrat.validation1_DMG ? "Contrat validé" : "Valider"
                       }}
                     </button>
 
-                    <button
-                      *ngIf="
+                    <button *ngIf="
                         contrat.etat_contrat?.libelle !== 'Résilié' &&
                         !contrat.validation1_DMG
-                      "
-                      class="btn danger-btn mt-2"
-                      [id]="'vld1: ' + contrat._id"
-                      (click)="openConfirmationAnnulerContrat(contrat._id)"
-                    >
+                      " class="btn danger-btn mt-2" [id]="'vld1: ' + contrat._id"
+                      (click)="openConfirmationAnnulerContrat(contrat._id)">
                       Rejeter
                     </button>
                   </div>
                   <div class="row" *ngIf="userRoles.includes('DAJC')">
-                    <button
-                      *ngIf="
+                    <button *ngIf="
                         contrat.etat_contrat?.libelle !== 'Résilié' &&
                         contrat.validation1_DMG
-                      "
-                      [ngClass]="
+                      " [ngClass]="
                         contrat.validation2_DAJC ? 'success-btn' : 'second-btn'
-                      "
-                      [id]="'vld2: ' + contrat._id"
-                      (click)="
+                      " [id]="'vld2: ' + contrat._id" (click)="
                         openConfirmationModalValidation2(
                           contrat._id,
                           contrat.validation1_DMG
                         )
-                      "
-                      [disabled]="contrat.validation2_DAJC"
-                      class="btn"
-                    >
+                      " [disabled]="contrat.validation2_DAJC" class="btn">
                       {{
-                        contrat.validation2_DAJC ? "Contrat validé" : "Valider"
+                      contrat.validation2_DAJC ? "Contrat validé" : "Valider"
                       }}
                     </button>
-                    <button
-                      *ngIf="
+                    <button *ngIf="
                         contrat.etat_contrat?.libelle !== 'Résilié' &&
                         contrat.validation1_DMG &&
                         !contrat.validation2_DAJC
-                      "
-                      class="btn danger-btn mt-2"
-                      [id]="'vld1: ' + contrat._id"
-                      (click)="openConfirmationAnnulerContrat(contrat._id)"
-                    >
+                      " class="btn danger-btn mt-2" [id]="'vld1: ' + contrat._id"
+                      (click)="openConfirmationAnnulerContrat(contrat._id)">
                       Rejeter
                     </button>
-                    <div
-                      class="error-alert p-3 text-center"
-                      *ngIf="!contrat.validation1_DMG"
-                      style="width: 300px"
-                    >
+                    <div class="error-alert p-3 text-center" *ngIf="!contrat.validation1_DMG" style="width: 300px">
                       La première validation n'a pas encore faite.
                     </div>
                   </div>
@@ -490,29 +333,17 @@
             </ul>
           </div>
         </td>
-        <td
-          *ngIf="
+        <td *ngIf="
             (userRoles.includes('CSLA') || userRoles.includes('CDGSP')) &&
             this.contrat.etat_contrat?.libelle === 'Initié'
-          "
-        >
-          <div
-            class="btn-group d-grid"
-            role="group"
-            *ngIf="
+          ">
+          <div class="btn-group d-grid" role="group" *ngIf="
               contrat.etat_contrat?.libelle !== 'Résilié' &&
               contrat.etat_contrat?.libelle !== 'Modifié'
-            "
-          >
-            <a
-              id="btnGroupDrop1"
-              class="btn btn-sm"
-              [ngClass]="
+            ">
+            <a id="btnGroupDrop1" class="btn btn-sm" [ngClass]="
                 contrat.validation2_DAJC ? 'success-btn' : 'second-btn'
-              "
-              aria-expanded="false"
-              (click)="openConfirmationSoumettre(contrat._id)"
-            >
+              " aria-expanded="false" (click)="openConfirmationSoumettre(contrat._id)">
               <ng-container *ngIf="!contrat.validation2_DAJC">
                 Soumettre
               </ng-container>
@@ -544,39 +375,32 @@
           </thead>
 
           <tbody *ngIf="ProprietairesByContart.length">
-            <tr
-              *ngFor="
+            <tr *ngFor="
                 let proprietaire of selectedContrat.foncier.proprietaire;
                 let i = index
-              "
-            >
-              <ng-container
-                *ngIf="
+              ">
+              <ng-container *ngIf="
                   !proprietaire.deleted &&
                   ((proprietaire?.statut !== 'À supprimer' &&
                     selectedContrat.is_avenant) ||
                     (!selectedContrat.is_avenant &&
                       proprietaire?.statut !== 'À ajouter'))
-                "
-              >
+                ">
                 <td>
                   {{ proprietaire.nom_prenom || proprietaire.raison_social }}
                 </td>
                 <td>
                   {{
-                    proprietaire.cin
-                      ? proprietaire.cin
-                      : proprietaire.n_registre_commerce || "--"
+                  proprietaire.cin
+                  ? proprietaire.cin
+                  : proprietaire.n_registre_commerce || "--"
                   }}
                 </td>
                 <td>
-                  <span
-                    class="p-1"
-                    [ngClass]="{
+                  <span class="p-1" [ngClass]="{
                       'success-txt': proprietaire?.is_mandataire,
                       'danger-txt': !proprietaire?.is_mandataire
-                    }"
-                  >
+                    }">
                     {{ checkAndPutText(proprietaire?.is_mandataire) }}
                   </span>
                   <!-- <a
@@ -591,30 +415,27 @@
                     {{ getProprietaireLength(proprietaire.proprietaire_list) }}
                     Proprietaires
                   </a> -->
-                  <ul
-                    id="proprietaireListDropdown"
-                    class="dropdown-menu p-4 main-card border-0"
-                    aria-labelledby="proprietaireList"
-                  >
+                  <ul id="proprietaireListDropdown" class="dropdown-menu p-4 main-card border-0"
+                    aria-labelledby="proprietaireList">
                     <li>
                       <h5 class="main-title">Montant global</h5>
                       <p class="main-muted-text my-0">
                         Total des montants nets :
                         <span class="selected-text">{{
                           mntNetGlobal | currency: "MAD"
-                        }}</span>
+                          }}</span>
                       </p>
                       <p class="main-muted-text my-0">
                         Total des montants bruts :
                         <span class="selected-text">{{
                           mntBrutGlobal | currency: "MAD"
-                        }}</span>
+                          }}</span>
                       </p>
                       <p class="main-muted-text">
                         Total des montants taxes :
                         <span class="selected-text">{{
                           mntTaxGlobal | currency: "MAD"
-                        }}</span>
+                          }}</span>
                       </p>
                     </li>
                     <div *ngFor="let prop of proprietaire.proprietaire_list">
@@ -622,15 +443,15 @@
                         <hr />
                         <h6 class="header-title">
                           {{ prop.nom_prenom }} ({{
-                            prop.cin || prop.carte_sejour || prop.passport
+                          prop.cin || prop.carte_sejour || prop.passport
                           }})
                         </h6>
                         <p class="main-muted-text my-0">
                           Montant net :
                           <span class="selected-text">
                             {{
-                              calculMontantsProprietaire(prop, "mntNet")
-                                | currency: "MAD"
+                            calculMontantsProprietaire(prop, "mntNet")
+                            | currency: "MAD"
                             }}
                           </span>
                         </p>
@@ -638,8 +459,8 @@
                           Montant brut :
                           <span class="selected-text">
                             {{
-                              calculMontantsProprietaire(prop, "mntBrut")
-                                | currency: "MAD"
+                            calculMontantsProprietaire(prop, "mntBrut")
+                            | currency: "MAD"
                             }}
                           </span>
                         </p>
@@ -647,8 +468,8 @@
                           Montant taxe :
                           <span class="selected-text">
                             {{
-                              calculMontantsProprietaire(prop, "mntTaxe")
-                                | currency: "MAD"
+                            calculMontantsProprietaire(prop, "mntTaxe")
+                            | currency: "MAD"
                             }}
                           </span>
                         </p>
@@ -660,10 +481,7 @@
             </tr>
           </tbody>
 
-          <tbody
-            *ngIf="!ProprietairesByContart.length && !accessError"
-            class="w-100 d-flex align-items-center"
-          >
+          <tbody *ngIf="!ProprietairesByContart.length && !accessError" class="w-100 d-flex align-items-center">
             <h5 class="main-muted-text my-4">Aucun proprietaire à afficher</h5>
           </tbody>
 
@@ -680,8 +498,7 @@
 
       <app-confirmation-modal [closeBtn]="true">
         <!-- <div *ngIf="isValidate; then validation1;else delete"></div> -->
-        <div
-          *ngIf="
+        <div *ngIf="
             isValidate;
             then validation1;
             else isValidate2
@@ -691,8 +508,7 @@
               : isRejeter
               ? rejeter
               : delete
-          "
-        ></div>
+          "></div>
         <!-- <div *ngIf="isValidate2; then validation2;"></div> -->
 
         <ng-template #validation1>
@@ -702,16 +518,8 @@
           </h3>
           <p class="mt-3">Êtes-vous sûr de vouloir valider ce contrat ?</p>
           <div class="d-inline-flex justify-content-start mt-5">
-            <a
-              class="btn btn-lg px-lg-4 main-btn me-2"
-              (click)="validation1Contrat(); closeConfirmationModal()"
-              >Oui</a
-            >
-            <a
-              class="btn btn-lg px-lg-4 danger-btn"
-              (click)="closeConfirmationModal()"
-              >Non</a
-            >
+            <a class="btn btn-lg px-lg-4 main-btn me-2" (click)="validation1Contrat(); closeConfirmationModal()">Oui</a>
+            <a class="btn btn-lg px-lg-4 danger-btn" (click)="closeConfirmationModal()">Non</a>
           </div>
         </ng-template>
 
@@ -722,16 +530,8 @@
           </h3>
           <p class="mt-3">Êtes-vous sûr de vouloir valider ce contrat ?</p>
           <div class="d-inline-flex justify-content-start mt-5">
-            <a
-              class="btn btn-lg px-lg-4 main-btn me-2"
-              (click)="validation2Contrat(); closeConfirmationModal()"
-              >Oui</a
-            >
-            <a
-              class="btn btn-lg px-lg-4 danger-btn"
-              (click)="closeConfirmationModal()"
-              >Non</a
-            >
+            <a class="btn btn-lg px-lg-4 main-btn me-2" (click)="validation2Contrat(); closeConfirmationModal()">Oui</a>
+            <a class="btn btn-lg px-lg-4 danger-btn" (click)="closeConfirmationModal()">Non</a>
           </div>
         </ng-template>
 
@@ -744,16 +544,8 @@
             Êtes-vous sûr de vouloir soumettre ce contrat à la validation ?
           </p>
           <div class="d-inline-flex justify-content-start mt-5">
-            <a
-              class="btn btn-lg px-lg-4 danger-btn me-2"
-              (click)="soumettreContrat()"
-              >Oui</a
-            >
-            <a
-              class="btn btn-lg px-lg-4 main-btn"
-              (click)="closeConfirmationModal()"
-              >Non</a
-            >
+            <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)="soumettreContrat()">Oui</a>
+            <a class="btn btn-lg px-lg-4 main-btn" (click)="closeConfirmationModal()">Non</a>
           </div>
         </ng-template>
 
@@ -764,16 +556,8 @@
           </h3>
           <p class="mt-3">Êtes-vous sûr de vouloir rejeter ce contrat ?</p>
           <div class="d-inline-flex justify-content-start mt-5">
-            <a
-              class="btn btn-lg px-lg-4 danger-btn me-2"
-              (click)="annulerContrat(); closeConfirmationModal()"
-              >Oui</a
-            >
-            <a
-              class="btn btn-lg px-lg-4 main-btn"
-              (click)="closeConfirmationModal()"
-              >Non</a
-            >
+            <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)="annulerContrat(); closeConfirmationModal()">Oui</a>
+            <a class="btn btn-lg px-lg-4 main-btn" (click)="closeConfirmationModal()">Non</a>
           </div>
         </ng-template>
 
@@ -784,16 +568,8 @@
           </h3>
           <p class="mt-3">Êtes-vous sûr de vouloir supprimer cette contrat ?</p>
           <div class="d-inline-flex justify-content-start mt-5">
-            <a
-              class="btn btn-lg px-lg-4 danger-btn me-2"
-              (click)="deleteContrat(); closeConfirmationModal()"
-              >Oui</a
-            >
-            <a
-              class="btn btn-lg px-lg-4 main-btn"
-              (click)="closeConfirmationModal()"
-              >Non</a
-            >
+            <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)="deleteContrat(); closeConfirmationModal()">Oui</a>
+            <a class="btn btn-lg px-lg-4 main-btn" (click)="closeConfirmationModal()">Non</a>
           </div>
         </ng-template>
       </app-confirmation-modal>
@@ -820,10 +596,7 @@
       </app-confirmation-modal> -->
     </tbody>
 
-    <tbody
-      *ngIf="!contrats?.length && !accessError"
-      class="w-100 d-flex align-items-center"
-    >
+    <tbody *ngIf="!contrats?.length && !accessError" class="w-100 d-flex align-items-center">
       <h5 class="main-muted-text my-4">Aucun contrat à afficher</h5>
       <a class="btn btn-sm second-btn ms-2" [routerLink]="['/foncier/list']">
         + Nouveau contrat
@@ -838,11 +611,7 @@
     </tbody>
   </table>
 
-  <pagination-controls
-    id="listContratPagination"
-    (pageChange)="listContratPage = $event"
-    previousLabel="Précédent"
-    nextLabel="Suivant"
-  >
+  <pagination-controls id="listContratPagination" (pageChange)="listContratPage = $event" previousLabel="Précédent"
+    nextLabel="Suivant">
   </pagination-controls>
 </div>

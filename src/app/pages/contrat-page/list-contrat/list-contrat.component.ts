@@ -398,15 +398,7 @@ export class ListContratComponent implements OnInit {
 
   getProprietaireLength(contrat: Contrat) {
     let count = 0;
-    contrat.foncier.proprietaire.forEach((proprietaire: any) => {
-      if (
-        !proprietaire.deleted &&
-        ((proprietaire?.statut != 'À supprimer' && contrat.is_avenant) ||
-          (!contrat.is_avenant && proprietaire?.statut != 'À ajouter'))
-      ) {
-        count = count + 1;
-      }
-    });
+   
     return count;
   }
 

@@ -118,43 +118,6 @@
         </tbody>
       </table>
     </div>
-
-    <div class="row">
-      <div class="col-lg-12">
-        <h5 class="main-txt">Proprietaires</h5>
-        <table class="table">
-          <!-- if nom and prenom exist -->
-          <thead>
-            <tr class="text-truncate">
-              <th>Nom et prénom / RS</th>
-              <th>CIN / IF</th>
-              <th>Mandataire</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let prop of foncier?.proprietaire">
-              <td>
-                {{
-                  prop?.nom_prenom
-                    ? prop?.nom_prenom
-                    : prop?.raison_social || "--"
-                }}
-              </td>
-              <td>
-                {{ prop?.cin ? prop?.cin : prop?.n_registre_commerce || "--" }}
-              </td>
-              <td [ngClass]="{
-                'success-txt': prop?.is_mandataire,
-                'danger-txt': !prop?.is_mandataire
-              }">
-              {{ checkAndPutText(prop.is_mandataire) || "--"}}
-              <!-- {{ prop?.is_mandataire || "--"}} -->
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
   </div>
 </div>
 

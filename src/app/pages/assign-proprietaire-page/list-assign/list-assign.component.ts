@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AssignmentProprietaireService } from '@services/assignment-proprietaire-service/assignment-proprietaire.service';
 import { ConfirmationModalService } from '@services/confirmation-modal-service/confirmation-modal.service';
@@ -12,6 +12,8 @@ import { AssignmentProprietaire } from 'src/app/models/AssignmentProprietaire';
   styleUrls: ['./list-assign.component.scss'],
 })
 export class ListAssignComponent implements OnInit {
+  proprietaireId!: string
+  proprietaire!: any;
   assignmentProprietaires!: AssignmentProprietaire[];
   targetAssignmentProprietaire!: AssignmentProprietaire;
   targetAssignmentProprietaireId!: string;
@@ -22,7 +24,7 @@ export class ListAssignComponent implements OnInit {
 
   //Delete succes message
   deleteDone: boolean = false;
-  deleteSucces: string = 'Proprietaire supprimé avec succés';
+  deleteSucces: string = 'Affectation supprimé avec succés';
 
   // Pagination options
   listAssignmentProprietairePage: number = 1;
@@ -41,28 +43,38 @@ export class ListAssignComponent implements OnInit {
     private helperService: HelperService,
     private activatedRoute: ActivatedRoute,
     private assignmentService: AssignmentProprietaireService
-  ) {}
+  ) {
+    this.assignmentProprietaires = []
+  }
 
   ngOnInit(): void {
+    this.getProprietaireID()
     this.getAssignmentProprietaires();
   }
 
-  getAssignmentProprietaires() {
+  getProprietaireID() {
     // Get proprietaire ID from route
-    let proprietaireId: string =
-      this.activatedRoute.snapshot.paramMap.get('id_proprietaire') || '';
+    this.proprietaireId = this.activatedRoute.snapshot.paramMap.get('id_proprietaire') || '';
+  }
+
+  getAssignmentProprietaires() {
     // Get all proprietaire assignments
     this.assignmentService
-      .getProprietaireAssagnments(proprietaireId, this.userMatricule)
-      .subscribe((assignment) => {
-        this.assignmentProprietaires = assignment;
+      .getProprietaireAssagnments(this.proprietaireId, this.userMatricule)
+      .subscribe((proprietaire) => {
+        this.proprietaire = proprietaire;
+        this.proprietaire.affectations.forEach(
+          (assignment: AssignmentProprietaire) => {
+            this.assignmentProprietaires.push(assignment);
+          }
+        );
       });
   }
 
   // Open the update proprietaire form and push index and data of proprietaire
-  openModalAndPushProprietaire(myTargetProprietaire: any) {
+  openModalAndPushProprietaire(myTargetAssignmentProprietaire: any) {
     this.mainModalService.open(); // Open the update proprietaire form
-    this.targetAssignmentProprietaire = myTargetProprietaire; // Push proprietaire data
+    this.targetAssignmentProprietaire = myTargetAssignmentProprietaire; // Push assignment proprietaire data
   }
 
   checkAndPutText(value: boolean) {
@@ -89,36 +101,36 @@ export class ListAssignComponent implements OnInit {
   }
 
   // Delete proprietaire
-  deleteAssignmentProprietaire(id: string) {
-    let data = {
+  deleteAssignmentProprietaire(assignmentId: string) {
+    let deleteData = {
       deleted: true,
     };
     // Call detele proprietaire function from proprietaire service
-    // this.proprietaireService
-    //   .deleteProprietaire(id, data, this.userMatricule)
-    //   .subscribe(
-    //     (_) => {
-    //       // this.getAllFonciers(); // Trow the fitching data
-    //       this.closeDeleteConfirmationModal();
-    //       this.deleteDone = true;
-    //       setTimeout(() => {
-    //         this.deleteDone = false;
-    //         this.helperService.refrechPage();
-    //       }, 3000);
-    //     },
-    //     (error) => {
-    //       this.errors = error.error.message;
-    //       setTimeout(() => {
-    //         this.showErrorMessage();
-    //       }, 3000);
-    //       this.hideErrorMessage();
-    //     }
-    //   );
+    this.assignmentService
+      .deleteAssignmentProprietaire(assignmentId, deleteData, this.userMatricule)
+      .subscribe(
+        (_) => {
+          this.closeDeleteConfirmationModal();
+          this.deleteDone = true;
+          setTimeout(() => {
+            this.deleteDone = false;
+            this.assignmentProprietaires = []
+            this.getAssignmentProprietaires()
+          }, 2000);
+        },
+        (error) => {
+          this.errors = error.error.message;
+          setTimeout(() => {
+            this.showErrorMessage();
+          }, 3000);
+          this.hideErrorMessage();
+        }
+      );
   }
 
   // Get id of selected proprietaire
   getAssignmentProprietaireId(id: any) {
-    this.targetAssignmentProprietaire = id;
+    this.targetAssignmentProprietaireId = id;
   }
 
   // Refrtech the page

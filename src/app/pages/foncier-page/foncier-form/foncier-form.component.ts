@@ -552,7 +552,6 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
       });
 
     let foncier: Foncier = {
-      proprietaire: this.foncierForm.get('proprietaire')?.value,
       type_lieu: this.foncierForm.get('type_lieu')?.value,
       adresse: this.foncierForm.get('adresse')?.value,
       lieu: this.foncierForm.get('lieu')?.value,

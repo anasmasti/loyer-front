@@ -72,10 +72,13 @@
           </div>
         </td>
         <td>
-          <a class="btn btn-sm second-btn mx-2" [routerLink]="['/affectation-proprietaire/list', proprietaire._id]">
+          <a *ngIf="proprietaire.has_contrat" class="btn btn-sm second-btn mx-2" [routerLink]="['/affectation-proprietaire/list', proprietaire._id]">
             <!-- <i class="far fa-users"></i> -->
             Liste des affectations
           </a>
+          <p class="main-muted-text ms-2" *ngIf="!proprietaire.has_contrat">
+            Non affecté
+          </p>
         </td>
         <td>
           <a [routerLink]="['list', proprietaire._id]" class="btn btn-sm main-btn"><i class="fal fa-eye"></i></a>
