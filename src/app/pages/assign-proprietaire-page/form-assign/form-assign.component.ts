@@ -88,18 +88,16 @@ export class FormAssignComponent implements OnInit, OnChanges {
     private proprietaireService: ProprietaireService,
     private contratService: ContratService
   ) {
-    this.insertProprietaireForm();
+    this.insertAssignmentProprietaireForm();
   }
 
   ngOnChanges() {
-    if (this.assignmentProprietaire != '') {
-      // this.fetchProprietaire();
+    if (this.isUpdate) {
+      this.fetchAssignmentProprietaire()
     }
   }
 
-  ngOnInit(): void {
-   console.log(this.assignmentProprietaire);
-    
+  ngOnInit(): void {    
     this.getContrat()
     this.getProprietaires();
     if (!this.isUpdate) {
@@ -109,7 +107,7 @@ export class FormAssignComponent implements OnInit, OnChanges {
     }
   } //End ngOnInit
 
-  insertProprietaireForm() {
+  insertAssignmentProprietaireForm() {
     this.assignProprietaireForm = new FormGroup({
       // Champs du propriètaire
       proprietaire: new FormControl('', [Validators.required]),
@@ -144,33 +142,33 @@ export class FormAssignComponent implements OnInit, OnChanges {
     this.callGetContratAndLieuMethods();
 
     this.assignProprietaireForm.patchValue({
-      proprietaire: this.assignmentProprietaire.montant_loyer,
-      montant_loyer: this.assignmentProprietaire.montant_loyer,
-      is_mandataire: this.assignmentProprietaire.is_mandataire,
-      banque_rib: this.assignmentProprietaire.banque_rib,
-      ville_rib: this.assignmentProprietaire.ville_rib,
-      cle_rib: this.assignmentProprietaire.cle_rib,
-      declaration_option: this.assignmentProprietaire.declaration_option,
-      taux_impot: this.assignmentProprietaire.taux_impot,
-      retenue_source: this.assignmentProprietaire.retenue_source,
-      montant_apres_impot: this.assignmentProprietaire.montant_apres_impot,
-      is_person_physique: this.assignmentProprietaire.is_person_physique,
+      proprietaire: this.assignmentProprietaire?.proprietaire,
+      montant_loyer: this.assignmentProprietaire?.montant_loyer,
+      is_mandataire: this.assignmentProprietaire?.is_mandataire,
+      banque_rib: this.assignmentProprietaire?.banque_rib,
+      ville_rib: this.assignmentProprietaire?.ville_rib,
+      cle_rib: this.assignmentProprietaire?.cle_rib,
+      declaration_option: this.assignmentProprietaire?.declaration_option,
+      taux_impot: this.assignmentProprietaire?.taux_impot,
+      retenue_source: this.assignmentProprietaire?.retenue_source,
+      montant_apres_impot: this.assignmentProprietaire?.montant_apres_impot,
+      is_person_physique: this.assignmentProprietaire?.is_person_physique,
 
       montant_avance_proprietaire:
-        this.assignmentProprietaire.montant_avance_proprietaire,
+        this.assignmentProprietaire?.montant_avance_proprietaire,
       tax_avance_proprietaire:
-        this.assignmentProprietaire.tax_avance_proprietaire,
-      tax_par_periodicite: this.assignmentProprietaire.tax_par_periodicite,
+        this.assignmentProprietaire?.tax_avance_proprietaire,
+      tax_par_periodicite: this.assignmentProprietaire?.tax_par_periodicite,
 
-      part_proprietaire: this.assignmentProprietaire.part_proprietaire,
+      part_proprietaire: this.assignmentProprietaire?.part_proprietaire,
       caution_par_proprietaire:
-        this.assignmentProprietaire.caution_par_proprietaire,
+        this.assignmentProprietaire?.caution_par_proprietaire,
     });
 
-    this.hasDeclarationOption = this.assignmentProprietaire.declaration_option;
-    this.isMand = this.assignmentProprietaire.is_mandataire;
+    this.hasDeclarationOption = this.assignmentProprietaire?.declaration_option;
+    this.isMand = this.assignmentProprietaire?.is_mandataire;
     this.CheckMandataire(this.isMand);
-    this.montantLoyer = this.assignmentProprietaire.montant_loyer;
+    this.montantLoyer = this.assignmentProprietaire?.montant_loyer;
     // this.fillProprietaireInfos();
     setTimeout(() => {
       // Calcul montants
@@ -183,7 +181,7 @@ export class FormAssignComponent implements OnInit, OnChanges {
   fillFreedProprietaire() {
     this.proprietaireList = [];
     this.oldProprietairesList = [];
-    this.assignmentProprietaire.proprietaire_list.forEach((element: any) => {
+    this.assignmentProprietaire?.proprietaire_list.forEach((element: any) => {
       this.proprietaireList.push(element);
     });
     this.getTauxImpot();
@@ -599,7 +597,7 @@ export class FormAssignComponent implements OnInit, OnChanges {
       if (isMand) {
         this.fillFreedProprietaire();
       } else {
-        this.selectedProprietaire.proprietaire_list.forEach((element: any) => {
+        this.selectedProprietaire?.proprietaire_list.forEach((element: any) => {
           this.oldProprietairesList.push(element._id);
         });
         this.proprietaireList = [];
