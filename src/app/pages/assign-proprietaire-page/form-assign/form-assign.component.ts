@@ -56,7 +56,7 @@ export class FormAssignComponent implements OnInit, OnChanges {
   //Total des parts des proprietaires
   totalPartProprietaires: number = 0;
   partProprietaire: number = 0;
-  hasDeclarationOption!: string;
+  hasDeclarationOption: string = 'non';
 
   periodicite: any[] = [
     {
@@ -193,8 +193,18 @@ export class FormAssignComponent implements OnInit, OnChanges {
       .getProprietaires(this.userMatricule)
       .subscribe((data) => {
         this.proprietaires = data;
+        console.log(this.proprietaires);
+        
       });
   }
+
+  // checkPersonMoralOrPhysique(){
+  //   this.proprietaires.forEach((prop) => {
+  //     if(prop.type_proprietaire == 'Personne physique') this.hasDeclarationOption = 'non'
+  //     else this.hasDeclarationOption = 'oui'
+  //     console.log(this.hasDeclarationOption);
+  //   })
+  // }
 
   // Check if all inputs has invalid errors
   checkInputsValidation(targetInput: any) {

@@ -53,7 +53,7 @@
           <input type="text" class="form-control rounded-pill" formControlName="intitule_lieu" [ngClass]="{
               'is-invalid': checkInputsValidation(intitule_lieu),
               'is-valid': !intitule_lieu?.invalid
-            }" />
+            }" appUppercaseDirective/>
           <div class="" *ngIf="checkInputsValidation(intitule_lieu)">
             <p class="danger-txt" *ngIf="intitule_lieu?.errors?.required">
               Veuillez remplir ce champ
