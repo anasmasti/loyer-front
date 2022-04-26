@@ -116,16 +116,16 @@
                     <i class="fal fa-users"></i>&nbsp;Propriétaires
                 </a>
                 <ul class="sub-menu list-unstyled" id="proprietaire">
+                    <li class="mt-2">
+                        <a [routerLink]="['/proprietaire/add']" class="nav-link sub-menu-btn"
+                            (click)="putActiveLink('proprietaire')">
+                            Ajouter un propriétaire
+                        </a>
+                    </li>
                     <li>
                         <a [routerLink]="['/proprietaire/list-global/list']" class="nav-link sub-menu-btn"
                             (click)="putActiveLink('proprietaire')">
                             Liste des propriétaires
-                        </a>
-                    </li>
-                    <li>
-                        <a [routerLink]="['/proprietaire/add']" class="nav-link sub-menu-btn"
-                            (click)="putActiveLink('proprietaire')">
-                            Ajouter un propriétaire
                         </a>
                     </li>
                 </ul>

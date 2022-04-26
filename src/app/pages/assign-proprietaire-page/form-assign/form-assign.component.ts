@@ -5,7 +5,6 @@ import { AssignmentProprietaireService } from '@services/assignment-proprietaire
 import { ConfirmationModalService } from '@services/confirmation-modal-service/confirmation-modal.service';
 import { ContratService } from '@services/contrat-service/contrat.service';
 import { HelperService } from '@services/helpers/helper.service';
-import { LieuxService } from '@services/lieux-service/lieux.service';
 import { MainModalService } from '@services/main-modal/main-modal.service';
 import { ProprietaireService } from '@services/proprietaire-service/proprietaire.service';
 import { AssignmentProprietaire } from 'src/app/models/AssignmentProprietaire';
@@ -18,7 +17,7 @@ import { Proprietaire } from 'src/app/models/Proprietaire';
 })
 export class FormAssignComponent implements OnInit, OnChanges {
   @Input() isUpdate!: boolean;
-  assignmentProprietaire!: any;
+  @Input() assignmentProprietaire!: any;
 
   isMand: boolean = true;
   errors!: any;

@@ -7,13 +7,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmationModalModule } from 'src/app/shared/modals/confirmation-modal/confirmation-modal.module';
 import { MainModalModule } from 'src/app/shared/modals/main-modal/main-modal.module';
 import { ListAssignComponent } from './list-assign/list-assign.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { EditAssignmentProprietaireComponent } from './edit-assignment-proprietaire/edit-assignment-proprietaire.component';
 
 const route: Routes = [
   { path: ':id_contrat', component: AssignProprietairePageComponent },
+  { path: 'list/:id_proprietaire', component: ListAssignComponent },
 ];
 
 @NgModule({
-  declarations: [AssignProprietairePageComponent, FormAssignComponent, ListAssignComponent],
+  declarations: [AssignProprietairePageComponent, FormAssignComponent, ListAssignComponent, EditAssignmentProprietaireComponent],
   imports: [
     RouterModule.forChild(route),
     CommonModule,
@@ -21,6 +24,7 @@ const route: Routes = [
     ConfirmationModalModule,
     FormsModule,
     MainModalModule,
+    NgxPaginationModule
   ],
   exports: [AssignProprietairePageComponent],
 })

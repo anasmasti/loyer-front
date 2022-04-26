@@ -1,5 +1,6 @@
 export interface AssignmentProprietaire {
     _id?: string;
+    proprietaire: any;
     montant_loyer: number;
     is_mandataire: boolean;
     taux_impot: string;
