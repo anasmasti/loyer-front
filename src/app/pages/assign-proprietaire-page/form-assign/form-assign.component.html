@@ -181,8 +181,8 @@
                             autocomplete="off" [value]="proprietaire._id" (click)="selectProp(proprietaire)"
                             formControlName="proprietaire_list" />
                         <label class="px-3 py-1 rounded-pill checkbox-list-btns" [for]="proprietaire._id">
-                            {{ proprietaire.cin ? proprietaire.cin : proprietaire.n_registre_commerce }} • {{
-                            proprietaire.nom_prenom ? proprietaire.nom_prenom : proprietaire.raison_social}}
+                            {{ proprietaire.proprietaire.cin ? proprietaire.proprietaire.cin : proprietaire.proprietaire.n_registre_commerce }} • {{
+                                proprietaire.proprietaire.nom_prenom ? proprietaire.proprietaire.nom_prenom : proprietaire.proprietaire.raison_social}}
                         </label>
                     </div>
                 </div>

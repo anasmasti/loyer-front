@@ -74,7 +74,7 @@ export class FormAssignComponent implements OnInit, OnChanges {
 
   selectedProprietaire!: Proprietaire;
   proprietaires!: Proprietaire[];
-  proprietairesToSelect!: Proprietaire[];
+  proprietairesToSelect!: any[];
   assignment!: AssignmentProprietaire;
 
   // Contrat ID
@@ -102,9 +102,8 @@ export class FormAssignComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.contratId = this.actRoute.snapshot.paramMap.get('id_contrat') || '';
     this.getProprietaires();
+    this.getSelectedProprietaire(this.contratId);
     if (!this.isUpdate) {
-      // this.proprietaireForm.reset();
-      this.callGetContratAndLieuMethods();
       if (this.contratId) this.getContrat(this.contratId);
     }
   } //End ngOnInit
@@ -134,14 +133,8 @@ export class FormAssignComponent implements OnInit, OnChanges {
     });
   }
 
-  callGetContratAndLieuMethods() {
-    setTimeout(() => {
-      // this.getTauxImpot();
-    }, 1000);
-  }
 
   fetchAssignmentProprietaire() {
-    this.callGetContratAndLieuMethods();
     if (this.contratId) this.getContrat(this.contratId);
 
     this.assignProprietaireForm.patchValue({
@@ -187,7 +180,6 @@ export class FormAssignComponent implements OnInit, OnChanges {
     this.assignmentProprietaire?.proprietaire_list.forEach((element: any) => {
       this.proprietaireList.push(element);
     });
-    // this.getTauxImpot();
   }
 
   getProprietaires() {
@@ -237,9 +229,18 @@ export class FormAssignComponent implements OnInit, OnChanges {
   //     // }
   //   }
   // }
+  getSelectedProprietaire(contratId: string){
+    this.assignmentProprietaireService.getSelectedProprietaire(contratId, this.userMatricule).subscribe(data => {
+      this.proprietairesToSelect = data;
+      console.log(this.proprietairesToSelect);
+      
+    })
+  }
+
   getContrat(id: string) {
     this.contratService.getSelectedContrat(id).subscribe((data: any) => {
       this.contrats = data;
+      this.lengthProprietaire = this.contrats.proprietaires.length;
       for (let index = 0; index < this.contrats.proprietaires.length; index++) {
         this.totalPartProprietaires +=
           this.contrats.proprietaires[index]?.part_proprietaire;
