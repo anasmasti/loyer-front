@@ -32,7 +32,7 @@ export class FormAssignComponent implements OnInit, OnChanges {
   //les calcules
   montantLoyer!: number;
   tauxImpot!: any;
-  contrats!: any[];
+  contrats!: any;
   retenueSource!: number;
   montantApresImpot!: number;
   duree: number = 12;
@@ -71,13 +71,15 @@ export class FormAssignComponent implements OnInit, OnChanges {
       name: 'mensuelle',
     },
   ];
-  contrat_id: any;
 
   selectedProprietaire!: Proprietaire;
   proprietaires!: Proprietaire[];
   proprietairesToSelect!: Proprietaire[];
-  assignment!: AssignmentProprietaire
-  
+  assignment!: AssignmentProprietaire;
+
+  // Contrat ID
+  contratId!: string;
+
   constructor(
     private assignmentProprietaireService: AssignmentProprietaireService,
     private mainModalService: MainModalService,
@@ -93,17 +95,17 @@ export class FormAssignComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     if (this.isUpdate) {
-      this.fetchAssignmentProprietaire()
+      this.fetchAssignmentProprietaire();
     }
   }
 
-  ngOnInit(): void {    
-    this.getContrat()
+  ngOnInit(): void {
+    this.contratId = this.actRoute.snapshot.paramMap.get('id_contrat') || '';
     this.getProprietaires();
     if (!this.isUpdate) {
       // this.proprietaireForm.reset();
-      this.contrat_id = this.actRoute.snapshot.paramMap.get('id_contrat') || '';
       this.callGetContratAndLieuMethods();
+      if (this.contratId) this.getContrat(this.contratId);
     }
   } //End ngOnInit
 
@@ -134,12 +136,13 @@ export class FormAssignComponent implements OnInit, OnChanges {
 
   callGetContratAndLieuMethods() {
     setTimeout(() => {
-      this.getTauxImpot();
+      // this.getTauxImpot();
     }, 1000);
   }
 
   fetchAssignmentProprietaire() {
     this.callGetContratAndLieuMethods();
+    if (this.contratId) this.getContrat(this.contratId);
 
     this.assignProprietaireForm.patchValue({
       proprietaire: this.assignmentProprietaire?.proprietaire,
@@ -184,7 +187,7 @@ export class FormAssignComponent implements OnInit, OnChanges {
     this.assignmentProprietaire?.proprietaire_list.forEach((element: any) => {
       this.proprietaireList.push(element);
     });
-    this.getTauxImpot();
+    // this.getTauxImpot();
   }
 
   getProprietaires() {
@@ -192,8 +195,6 @@ export class FormAssignComponent implements OnInit, OnChanges {
       .getProprietaires(this.userMatricule)
       .subscribe((data) => {
         this.proprietaires = data;
-        console.log(this.proprietaires);
-        
       });
   }
 
@@ -225,28 +226,25 @@ export class FormAssignComponent implements OnInit, OnChanges {
   }
 
   // To get the contrat and proprietaire in lieux
-  getTauxImpot() {
-    if (this.contrat_id) {
-      this.totalPartProprietaires = 0;
+  // getTauxImpot() {
+  //   if (this.contrat_id) {
+  //     this.totalPartProprietaires = 0;
 
-      // if (this.isUpdate) {
-      //   this.totalPartProprietaires =
-      //     this.totalPartProprietaires -
-      //     this.proprietairesToSelect.part_proprietaire;
-      // }
-    }
-  }
-
-  getContrat(){
-    this.contratService.getContrat().subscribe((data: any) => {
+  //     // if (this.isUpdate) {
+  //     //   this.totalPartProprietaires =
+  //     //     this.totalPartProprietaires -
+  //     //     this.proprietairesToSelect.part_proprietaire;
+  //     // }
+  //   }
+  // }
+  getContrat(id: string) {
+    this.contratService.getSelectedContrat(id).subscribe((data: any) => {
       this.contrats = data;
-      console.log('contrat',this.contrats);
-      
-      this.lengthProprietaire = data[0].proprietaires.length;
-      for (let i = 0; i < this.lengthProprietaire; i++) {
-        this.totalPartProprietaires += this.contrats[0]?.proprietaires[i].part_proprietaire;
+      for (let index = 0; index < this.contrats.proprietaires.length; index++) {
+        this.totalPartProprietaires +=
+          this.contrats.proprietaires[index]?.part_proprietaire;
       }
-    })
+    });
   }
 
   // Calculer le montant (retenue à la source / montant apres impot / TAX)
@@ -256,25 +254,26 @@ export class FormAssignComponent implements OnInit, OnChanges {
     let result: number = 0;
 
     // // Date debut de loyer
-    let dateDebutLoyer = this.contrats[0].date_debut_loyer;
+    let dateDebutLoyer = this.contrats?.date_debut_loyer;
     dateDebutLoyer = new Date(dateDebutLoyer);
     let month = dateDebutLoyer.getMonth() + 1;
 
     // // Date resilition
-    let dateResiliation =
-      this.contrats[0]?.etat_contrat?.etat?.date_resiliation;
+    let dateResiliation = this.contrats?.etat_contrat?.etat?.date_resiliation;
     dateResiliation = new Date(dateResiliation);
     let monthResiliation = dateResiliation.getMonth() + 1;
 
     // Les etats de contrats
-    let etatContratTypes = this.contrats[0]?.etat_contrat?.libelle;
+    let etatContratTypes = this.contrats?.etat_contrat?.libelle;
 
     // Get value of input part
-    this.partProprietaire = Number(this.assignProprietaireForm.get('part_proprietaire')?.value);
+    this.partProprietaire = Number(
+      this.assignProprietaireForm.get('part_proprietaire')?.value
+    );
 
     //Get montant loyer from contrat (Montant de loyer Global)
-    let montantLoyerContrat = this.contrats[0]?.montant_loyer;
-    let nbrPartContrat = this.contrats[0]?.nombre_part;
+    let montantLoyerContrat = this.contrats?.montant_loyer;
+    let nbrPartContrat = this.contrats?.nombre_part;
 
     // condition to control if the total part are > nbrPartContrat the we show an error message and take nbrPartContrat minus the total part and stock the result in the partProprietaire
     if (this.totalPartProprietaires + this.partProprietaire > nbrPartContrat) {
@@ -282,7 +281,7 @@ export class FormAssignComponent implements OnInit, OnChanges {
       this.openConfirmationModal();
     }
 
-    let namePeriodicite = this.contrats[0].periodicite_paiement;
+    let namePeriodicite = this.contrats?.periodicite_paiement;
     //  CALCULER LE MONTANT DE LOYER A PARTIR DE PART DONNE PAR L'UTILISATEUR
     this.montantLoyer =
       (this.partProprietaire * montantLoyerContrat) / nbrPartContrat;
@@ -373,10 +372,10 @@ export class FormAssignComponent implements OnInit, OnChanges {
 
   //calculate the montant avance and tax d'avance of each proprietaire
   calculMontantAvance() {
-    let dureeAvance = this.contrats[0]?.duree_avance;
-    let dureeLocation = this.contrats[0]?.duree_location;
+    let dureeAvance = this.contrats?.duree_avance;
+    let dureeLocation = this.contrats?.duree_location;
     // let dureeLocation = 2;
-    let periodicite = this.contrats[0]?.periodicite_paiement;
+    let periodicite = this.contrats?.periodicite_paiement;
 
     this.montantAvance = this.montantLoyer * dureeAvance;
     // this.taxAvance = (this.retenueSource / dureeLocation) * dureeAvance;
@@ -398,8 +397,8 @@ export class FormAssignComponent implements OnInit, OnChanges {
 
   // caluclate the caution of each proprietaire
   calculCaution() {
-    let cautionContrat = this.contrats[0]?.montant_caution;
-    let nbrPartContrat = this.contrats[0]?.nombre_part;
+    let cautionContrat = this.contrats?.montant_caution;
+    let nbrPartContrat = this.contrats?.nombre_part;
     let cautionProprietaire =
       (cautionContrat * this.partProprietaire) / nbrPartContrat;
     this.montantCautionProprietaire = cautionProprietaire;
@@ -487,32 +486,33 @@ export class FormAssignComponent implements OnInit, OnChanges {
 
       statut: '',
     };
-
-    this.assignmentProprietaireService
-      .assignProprietaire(
-        proprietaire_data,
-        this.contrat_id,
-        this.userMatricule
-      )
-      .subscribe(
-        (_) => {
-          this.postDone = true;
-          setTimeout(() => {
-            this.postDone = false;
-            this.help.toTheUp();
-            this.router.navigate(['/foncier/list']).then(() => {
-              this.help.refrechPage();
-            });
-          }, 3000);
-        },
-        (error) => {
-          this.errors = error.error?.message;
-          setTimeout(() => {
-            this.showErrorMessage();
-          }, 3000);
-          this.hideErrorMessage();
-        }
-      );
+    if (this.contratId) {
+      this.assignmentProprietaireService
+        .assignProprietaire(
+          proprietaire_data,
+          this.contratId,
+          this.userMatricule
+        )
+        .subscribe(
+          (_) => {
+            this.postDone = true;
+            setTimeout(() => {
+              this.postDone = false;
+              this.help.toTheUp();
+              this.router.navigate(['/foncier/list']).then(() => {
+                this.help.refrechPage();
+              });
+            }, 3000);
+          },
+          (error) => {
+            this.errors = error.error?.message;
+            setTimeout(() => {
+              this.showErrorMessage();
+            }, 3000);
+            this.hideErrorMessage();
+          }
+        );
+    }
   }
 
   updateAssignmentProprietaire() {
