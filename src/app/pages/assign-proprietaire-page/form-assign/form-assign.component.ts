@@ -240,6 +240,12 @@ export class FormAssignComponent implements OnInit, OnChanges {
   getContrat(){
     this.contratService.getContrat().subscribe((data: any) => {
       this.contrats = data;
+      console.log('contrat',this.contrats);
+      
+      this.lengthProprietaire = data[0].proprietaires.length;
+      for (let i = 0; i < this.lengthProprietaire; i++) {
+        this.totalPartProprietaires += this.contrats[0]?.proprietaires[i].part_proprietaire;
+      }
     })
   }
 
@@ -264,9 +270,7 @@ export class FormAssignComponent implements OnInit, OnChanges {
     let etatContratTypes = this.contrats[0]?.etat_contrat?.libelle;
 
     // Get value of input part
-    this.partProprietaire = Number(
-      this.assignProprietaireForm.get('part_proprietaire')?.value
-    );
+    this.partProprietaire = Number(this.assignProprietaireForm.get('part_proprietaire')?.value);
 
     //Get montant loyer from contrat (Montant de loyer Global)
     let montantLoyerContrat = this.contrats[0]?.montant_loyer;
