@@ -38,6 +38,12 @@ export class AssignmentProprietaireService {
       )
     }
 
+    getSelectedProprietaire(contratId: string, matricule: any){
+      return this.http.get<AssignmentProprietaire[]>(
+        `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/libre-proprietaires/${contratId}/${matricule}`
+      )
+    }
+
   // Delete assignment proprietaire
   deleteAssignmentProprietaire(proprietaireID: string, data: any, userMatricule: any): Observable<AssignmentProprietaire> {
     return this.http.put<AssignmentProprietaire>(
