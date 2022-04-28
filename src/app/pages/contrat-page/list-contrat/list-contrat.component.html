@@ -376,7 +376,7 @@
 
           <tbody *ngIf="ProprietairesByContart.length">
             <tr *ngFor="
-                let proprietaire of selectedContrat.foncier.proprietaire;
+                let proprietaire of selectedContrat.proprietaires;
                 let i = index
               ">
               <ng-container *ngIf="
@@ -387,13 +387,13 @@
                       proprietaire?.statut !== 'À ajouter'))
                 ">
                 <td>
-                  {{ proprietaire.nom_prenom || proprietaire.raison_social }}
+                  {{ proprietaire.proprietaire.nom_prenom || proprietaire.proprietaire.raison_social }}
                 </td>
                 <td>
                   {{
-                  proprietaire.cin
-                  ? proprietaire.cin
-                  : proprietaire.n_registre_commerce || "--"
+                  proprietaire.proprietaire.cin
+                  ? proprietaire.proprietaire.cin
+                  : proprietaire.proprietaire.n_registre_commerce || "--"
                   }}
                 </td>
                 <td>

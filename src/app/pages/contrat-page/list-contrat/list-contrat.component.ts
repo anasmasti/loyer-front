@@ -194,9 +194,8 @@ export class ListContratComponent implements OnInit {
 
   openListeProprietairesModal(SelectedContrat: any) {
     this.mainModalService.open(this.id);
-    this.ProprietairesByContart = SelectedContrat.foncier.proprietaire;
+    this.ProprietairesByContart = SelectedContrat.proprietaires;
     this.selectedContrat = SelectedContrat;
-
     this.num_contrat = SelectedContrat.numero_contrat;
   }
 
@@ -398,7 +397,7 @@ export class ListContratComponent implements OnInit {
 
   getProprietaireLength(contrat: Contrat) {
     let count = 0;
-   
+    count = contrat.proprietaires.length
     return count;
   }
 
