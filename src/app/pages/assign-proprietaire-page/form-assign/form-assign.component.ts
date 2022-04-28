@@ -194,13 +194,22 @@ export class FormAssignComponent implements OnInit, OnChanges {
       });
   }
 
-  // checkPersonMoralOrPhysique(){
-  //   this.proprietaires.forEach((prop) => {
-  //     if(prop.type_proprietaire == 'Personne physique') this.hasDeclarationOption = 'non'
-  //     else this.hasDeclarationOption = 'oui'
-  //     console.log(this.hasDeclarationOption);
-  //   })
-  // }
+  checkPersonMoralOrPhysique() {
+    let idProprietaire = (
+      document.getElementById('proprietaire_select') as HTMLInputElement
+    ).value;
+    let selectedProprietaire = this.proprietaires.find((proprietaire) => {
+      return proprietaire._id == idProprietaire;
+    });
+    if (selectedProprietaire.type_proprietaire == 'Personne physique')
+      this.hasDeclarationOption = 'non';
+    if (selectedProprietaire.type_proprietaire == 'Personne morale')
+      this.hasDeclarationOption = 'oui';
+
+    this.calculMontant();
+    this.calculMontantAvance();
+    this.calculCaution();
+  }
 
   // Check if all inputs has invalid errors
   checkInputsValidation(targetInput: any) {

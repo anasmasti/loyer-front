@@ -23,7 +23,9 @@
                     <a class="short-link success-txt d-inline-flex" [routerLink]="['/proprietaire/add']">+ Ajouter un proprietaire</a>
                     <p class="main-muted-text">Aucun proprietaire à sélectionner</p>
                 </ng-container>
-                <select *ngIf="proprietaires?.length" class="form-select rounded-pill" formControlName="proprietaire"
+                <select id="proprietaire_select" *ngIf="proprietaires?.length" class="form-select rounded-pill" 
+                formControlName="proprietaire"
+                (change)="checkPersonMoralOrPhysique()"
                     [ngClass]="{
                     'is-invalid': checkInputsValidation(proprietaire)
                   }">
