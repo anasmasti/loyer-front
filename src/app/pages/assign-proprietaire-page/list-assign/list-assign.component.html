@@ -1,7 +1,7 @@
 <div class="row title">
 	<div class="col-lg-12 mt-3">
 		<div class="d-flex justify-content-between">
-			<h3 class="main-title">Liste des propriétaires affectés à
+			<h3 class="main-title">Liste des affectation de
 				<span class="main-txt">
 					{{ proprietaire?.nom_prenom || proprietaire?.raison_social }}
 				</span>
@@ -97,7 +97,7 @@
 			</tr>
 
 			<app-main-modal [closeBtn]="true">
-				<app-edit-assignment-proprietaire [assignmentProprietaire]="targetAssignmentProprietaire">
+				<app-edit-assignment-proprietaire [assignmentProprietaire]="targetAssignmentProprietaire" [proprietaireInfo]="proprietaire?.nom_prenom ? proprietaire?.nom_prenom : proprietaire?.raison_social">
 				</app-edit-assignment-proprietaire>
 			</app-main-modal>
 
