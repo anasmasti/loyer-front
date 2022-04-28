@@ -72,8 +72,8 @@ export class FormAssignComponent implements OnInit, OnChanges {
     },
   ];
 
-  selectedProprietaire!: Proprietaire;
-  proprietaires!: Proprietaire[];
+  // selectedProprietaire!: Proprietaire;
+  proprietaires!: any[];
   proprietairesToSelect!: any[];
   assignment!: AssignmentProprietaire;
 
@@ -101,6 +101,7 @@ export class FormAssignComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.contratId = this.actRoute.snapshot.paramMap.get('id_contrat') || '';
+
     this.getProprietaires();
     if (!this.isUpdate) {
       if (this.contratId) {
@@ -136,7 +137,10 @@ export class FormAssignComponent implements OnInit, OnChanges {
   }
 
   fetchAssignmentProprietaire() {
-    if (this.contratId) this.getContrat(this.contratId);
+    if (this.assignmentProprietaire?.contrat._id) {
+      this.getSelectedProprietaire(this.assignmentProprietaire?.contrat._id);
+      this.getContrat(this.assignmentProprietaire?.contrat._id);
+    }
 
     this.assignProprietaireForm.patchValue({
       proprietaire: this.assignmentProprietaire?.proprietaire,
@@ -166,7 +170,6 @@ export class FormAssignComponent implements OnInit, OnChanges {
     this.isMand = this.assignmentProprietaire?.is_mandataire;
     this.CheckMandataire(this.isMand);
     this.montantLoyer = this.assignmentProprietaire?.montant_loyer;
-    // this.fillProprietaireInfos();
     setTimeout(() => {
       // Calcul montants
       this.calculMontant();
@@ -235,7 +238,6 @@ export class FormAssignComponent implements OnInit, OnChanges {
       .getSelectedProprietaire(contratId, this.userMatricule)
       .subscribe((data) => {
         this.proprietairesToSelect = data;
-        console.log(this.proprietairesToSelect);
       });
   }
 
@@ -246,6 +248,11 @@ export class FormAssignComponent implements OnInit, OnChanges {
       for (let index = 0; index < this.contrats.proprietaires.length; index++) {
         this.totalPartProprietaires +=
           this.contrats.proprietaires[index]?.part_proprietaire;
+      }
+      if (this.isUpdate) {
+        this.totalPartProprietaires =
+          this.totalPartProprietaires -
+          this.assignmentProprietaire?.part_proprietaire;
       }
     });
   }
@@ -427,9 +434,9 @@ export class FormAssignComponent implements OnInit, OnChanges {
       if (!this.isUpdate) this.newProprietairesList.push(InputElement.value);
       if (this.isUpdate) {
         // remove selected proprietaire id  from proprietaires and add it in proprietaireList
-        for (let i = 0; i < this.proprietaires.length; i++) {
-          if (this.proprietaires[i]._id === Element._id) {
-            this.proprietaires.splice(i, 1);
+        for (let i = 0; i < this.proprietairesToSelect.length; i++) {
+          if (this.proprietairesToSelect[i]._id === Element._id) {
+            this.proprietairesToSelect.splice(i, 1);
           }
         }
         this.proprietaireList.push(Element);
@@ -453,7 +460,7 @@ export class FormAssignComponent implements OnInit, OnChanges {
         }
 
         this.setUncheckedProp('Add', Element._id);
-        this.proprietaires.push(Element);
+        this.proprietairesToSelect.push(Element);
       }
     }
   }
@@ -519,7 +526,7 @@ export class FormAssignComponent implements OnInit, OnChanges {
   }
 
   updateAssignmentProprietaire() {
-    let id = this.selectedProprietaire._id || '';
+    let id = this.assignmentProprietaire._id || '';
     this.newProprietairesList = [];
 
     if (this.newProprietairesList) {
@@ -551,7 +558,7 @@ export class FormAssignComponent implements OnInit, OnChanges {
         this.assignProprietaireForm.get('is_person_physique')?.value,
       proprietaire_list: this.newProprietairesList,
       old_proprietaires_list: this.oldProprietairesList,
-      statut: this.assignProprietaire.statut,
+      statut: this.assignProprietaire?.statut,
     };
 
     this.assignmentProprietaireService
@@ -582,7 +589,7 @@ export class FormAssignComponent implements OnInit, OnChanges {
     if (this.isUpdate) {
       this.closeModel();
       this.assignProprietaireForm.patchValue({
-        part_proprietaire: this.selectedProprietaire.part_proprietaire,
+        part_proprietaire: this.assignmentProprietaire?.part_proprietaire,
       });
     }
     // check if it is in add form
@@ -604,9 +611,11 @@ export class FormAssignComponent implements OnInit, OnChanges {
       if (isMand) {
         this.fillFreedProprietaire();
       } else {
-        this.selectedProprietaire?.proprietaire_list.forEach((element: any) => {
-          this.oldProprietairesList.push(element._id);
-        });
+        this.assignmentProprietaire?.proprietaire_list.forEach(
+          (element: any) => {
+            this.oldProprietairesList.push(element._id);
+          }
+        );
         this.proprietaireList = [];
       }
     }
