@@ -17,7 +17,7 @@
             <!-- <div *ngIf="checkMontant" class="error-alert p-2 my-2">{{ ErrorMontantLoyer }}</div> -->
         </div>
         <div class="row">
-            <div class="col-lg-3 form-group mt-4">
+            <div *ngIf="!isUpdate" class="col-lg-3 form-group mt-4">
                 <label for="">Propriétaire <span class="danger-txt">*</span></label>
                 <a class="short-link success-txt d-inline-flex" [routerLink]="['/proprietaire/add']">&nbsp;&nbsp;+ Ajouter un proprietaire</a>
                 <ng-container  *ngIf="!proprietaires?.length">
