@@ -1,12 +1,12 @@
-<!-- <div *ngFor="let ctr of contrats">
-    <span class="main-txt">{{ ctr?.numero_contrat }}</span> •
-    <span class="info-txt">{{ ctr?.foncier.type_lieu }}</span>
-</div> -->
+<div>
+    <span class="main-txt">{{ contrats?.numero_contrat }}</span> •
+    <span class="info-txt">{{ contrats?.foncier.type_lieu }}</span>
+</div>
 
 <div id="form_section">
     <form [formGroup]="assignProprietaireForm"
-        (ngSubmit)="isUpdate ? updateAssignmentProprietaire() : addAssignmentProprietaire()">
-
+    (ngSubmit)="isUpdate ? updateAssignmentProprietaire() : addAssignmentProprietaire()">
+    
         <div class="w-100 d-flex justify-content-center">
             <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
             <!-- Message de succés de serveur -->
