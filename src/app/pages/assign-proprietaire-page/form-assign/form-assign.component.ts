@@ -188,7 +188,7 @@ export class FormAssignComponent implements OnInit, OnChanges {
 
   getProprietaires() {
     this.proprietaireService
-      .getProprietaires(this.userMatricule)
+      .getUnusableProprietaires(this.userMatricule, this.contratId)
       .subscribe((data) => {
         this.proprietaires = data;
       });

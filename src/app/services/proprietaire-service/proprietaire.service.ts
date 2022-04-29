@@ -20,6 +20,13 @@ export class ProprietaireService {
     );
   }
 
+  //Get unusable proprietaire
+  getUnusableProprietaires(matricule: any,contratId: string): Observable<Proprietaire[]> {
+    return this.http.get<Proprietaire[]>(
+      `${environment.API_URL_TEST + environment.API_VERSION + this.param_url}/proprietaires-inutilisees/${contratId}/${matricule}`
+    );
+  }
+
   // Get one proprietaire by id from database
   getProprietaireById(id: string, matricule: any): Observable<Proprietaire> {
     return this.http.get<Proprietaire>(
