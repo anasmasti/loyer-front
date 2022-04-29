@@ -91,7 +91,7 @@
                 <label for="">Retenue à la source</label>
                 <input type="text" class="form-control rounded-pill" formControlName="retenue_source" [ngClass]="{
                 'is-invalid': checkInputsValidation(retenue_source)
-              }" [value]="retenueSource" readonly />
+              }" [value]="retenueSource | number: '1.2-2'" readonly />
             </div>
 
             <div class="col-lg-3 form-group mt-4">
