@@ -19,8 +19,8 @@
         <div class="row">
             <div class="col-lg-3 form-group mt-4">
                 <label for="">Propriétaire <span class="danger-txt">*</span></label>
+                <a class="short-link success-txt d-inline-flex" [routerLink]="['/proprietaire/add']">&nbsp;&nbsp;+ Ajouter un proprietaire</a>
                 <ng-container  *ngIf="!proprietaires?.length">
-                    <a class="short-link success-txt d-inline-flex" [routerLink]="['/proprietaire/add']">+ Ajouter un proprietaire</a>
                     <p class="main-muted-text">Aucun proprietaire à sélectionner</p>
                 </ng-container>
                 <select id="proprietaire_select" *ngIf="proprietaires?.length" class="form-select rounded-pill" 
