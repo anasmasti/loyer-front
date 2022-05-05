@@ -256,8 +256,6 @@ export class FormAssignComponent implements OnInit, OnChanges {
 
   // Calculer le montant (retenue à la source / montant apres impot / TAX)
   calculMontant() {
-    console.log(this.contrats);
-    
     let tauxImpot: number = 0;
     let montantApresImpot: number = 0;
     let result: number = 0;
@@ -285,9 +283,6 @@ export class FormAssignComponent implements OnInit, OnChanges {
     let nbrPartContrat = this.contrats?.nombre_part;
 
     // condition to control if the total part are > nbrPartContrat the we show an error message and take nbrPartContrat minus the total part and stock the result in the partProprietaire
-    console.log(this.totalPartProprietaires,"====");
-    console.log(this.partProprietaire,"====");
-    console.log(nbrPartContrat,"====");
     if (this.totalPartProprietaires + this.partProprietaire > nbrPartContrat) {
       
       this.partProprietaire = nbrPartContrat - this.totalPartProprietaires;
