@@ -101,8 +101,8 @@ export class FormAssignComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.contratId = this.actRoute.snapshot.paramMap.get('id_contrat') || '';
 
-    this.getProprietaires();
     if (!this.isUpdate) {
+      this.getProprietaires();
       if (this.contratId) {
         this.getContrat(this.contratId);
         this.getSelectedProprietaire(this.contratId);
@@ -173,7 +173,7 @@ export class FormAssignComponent implements OnInit, OnChanges {
       // Calcul montants
       this.calculMontant();
       this.calculMontantAvance();
-      this.calculCaution();
+      this.calculCaution();      
     }, 2000);
   }
 
@@ -238,6 +238,7 @@ export class FormAssignComponent implements OnInit, OnChanges {
   }
 
   getContrat(id: string) {
+    this.totalPartProprietaires = 0;
     this.contratService.getSelectedContrat(id).subscribe((data: any) => {
       this.contrats = data;
       this.lengthProprietaire = this.contrats.proprietaires.length;
@@ -255,6 +256,8 @@ export class FormAssignComponent implements OnInit, OnChanges {
 
   // Calculer le montant (retenue à la source / montant apres impot / TAX)
   calculMontant() {
+    console.log(this.contrats);
+    
     let tauxImpot: number = 0;
     let montantApresImpot: number = 0;
     let result: number = 0;
@@ -282,7 +285,11 @@ export class FormAssignComponent implements OnInit, OnChanges {
     let nbrPartContrat = this.contrats?.nombre_part;
 
     // condition to control if the total part are > nbrPartContrat the we show an error message and take nbrPartContrat minus the total part and stock the result in the partProprietaire
+    console.log(this.totalPartProprietaires,"====");
+    console.log(this.partProprietaire,"====");
+    console.log(nbrPartContrat,"====");
     if (this.totalPartProprietaires + this.partProprietaire > nbrPartContrat) {
+      
       this.partProprietaire = nbrPartContrat - this.totalPartProprietaires;
       this.openConfirmationModal();
     }
