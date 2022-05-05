@@ -131,7 +131,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
 
   // Proprietaire
   targetProprietaireId!: string;
-  proprietaires: Proprietaire[] = [];
+  proprietaires: any[];
   deletedProprietaires: String[] = [];
 
   // Motif
@@ -156,6 +156,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     private foncierService: FoncierService
   ) {
     super();
+    this.proprietaires = [];
   }
 
   ngOnChanges() {
@@ -267,10 +268,12 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     this.help.scrollToTop();
   }
 
-  checkNewMontant(){
-    let newMontant = this.contratForm.get('etat_contrat_montant_nouveau_loyer')?.value;
-    if(newMontant == this.montantLoyer) this.hasErrorNewMontant = true
-    else this.hasErrorNewMontant = false
+  checkNewMontant() {
+    let newMontant = this.contratForm.get(
+      'etat_contrat_montant_nouveau_loyer'
+    )?.value;
+    if (newMontant == this.montantLoyer) this.hasErrorNewMontant = true;
+    else this.hasErrorNewMontant = false;
   }
   // Calculer le montant
   calculMontant() {
@@ -553,15 +556,21 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   }
 
   calculDateFinSuspension() {
-    let dateSuspension = this.contratForm.get('etat_contrat_date_suspension')?.value;
-    let durreSuspension = this.contratForm.get('etat_contrat_duree_suspension')?.value;
-    if(dateSuspension == (undefined || null)) this.isValidDate = true
-    else this.isValidDate = false
-    if(durreSuspension == (undefined || null)) {
+    let dateSuspension = this.contratForm.get(
+      'etat_contrat_date_suspension'
+    )?.value;
+    let durreSuspension = this.contratForm.get(
+      'etat_contrat_duree_suspension'
+    )?.value;
+    if (dateSuspension == (undefined || null)) this.isValidDate = true;
+    else this.isValidDate = false;
+    if (durreSuspension == (undefined || null)) {
       this.dateFinSuspension = new Date('2999-01-01');
-      this.dateFinSuspension = this.formatDate(this.dateFinSuspension)
-    }
-    else this.dateFinSuspension = moment(dateSuspension).add(durreSuspension, 'M').format('MM/DD/YYYY');
+      this.dateFinSuspension = this.formatDate(this.dateFinSuspension);
+    } else
+      this.dateFinSuspension = moment(dateSuspension)
+        .add(durreSuspension, 'M')
+        .format('MM/DD/YYYY');
   }
 
   getFoncierById() {
@@ -846,7 +855,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
         this.contrat.is_avenant
           ? this.contrat.etat_contrat.etat.deleted_proprietaires
           : [];
-      this.proprietaires = this.contrat.foncier.proprietaire;
+      this.proprietaires = this.contrat.proprietaires;
       // this.contrat.numero_contrat
       //   ? (this.foncier_id = this.contrat.lieu._id)
       //   : null;
@@ -883,11 +892,15 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
 
   // Update contrat
   updateContrat() {
-    let dateSuspension = this.contratForm.get('etat_contrat_date_suspension')?.value;
+    let dateSuspension = this.contratForm.get(
+      'etat_contrat_date_suspension'
+    )?.value;
     // let durreSuspension = this.contratForm.get('etat_contrat_duree_suspension')?.value;
     let dateEffetAvenant = this.contratForm.get('date_effet_av')?.value;
     let contratLibelle = this.contratForm.get('etat_contrat_libelle')?.value;
-    let dateActivation = this.contratForm.get('etat_contrat_date_fin_suspension')?.value;
+    let dateActivation = this.contratForm.get(
+      'etat_contrat_date_fin_suspension'
+    )?.value;
 
     if (contratLibelle != 'Initié') {
       if (
@@ -930,8 +943,10 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       }
       if (
         (dateSuspension != null || dateEffetAvenant != (null || '')) &&
-        contratLibelle != (undefined || null) && dateActivation != null
-      ) this.succesUpdate();
+        contratLibelle != (undefined || null) &&
+        dateActivation != null
+      )
+        this.succesUpdate();
     } else this.succesUpdate();
   }
 
@@ -999,7 +1014,9 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
             this.formatDate(
               this.contratForm.get('etat_contrat_date_suspension')?.value
             ) || null,
-          date_fin_suspension: this.formatDate(this.dateFinSuspension) || this.contratForm.get('etat_contrat_date_fin_suspension')?.value,
+          date_fin_suspension:
+            this.formatDate(this.dateFinSuspension) ||
+            this.contratForm.get('etat_contrat_date_fin_suspension')?.value,
           duree_suspension:
             this.contratForm.get('etat_contrat_duree_suspension')?.value ||
             null,
