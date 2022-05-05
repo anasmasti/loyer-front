@@ -8,6 +8,7 @@ import { AssignmentProprietaire } from 'src/app/models/AssignmentProprietaire';
 })
 export class EditAssignmentProprietaireComponent implements OnInit {
   @Input() assignmentProprietaire!: AssignmentProprietaire;
+  @Input() proprietaireInfo!: string;
   constructor() {}
 
   ngOnInit(): void {

@@ -1,13 +1,12 @@
-<div *ngFor="let ctr of contrats">
-    <!-- <input type="text" class="form-control rounded-pill" formControlName="etat_contrat_motif"> -->
-    <span class="main-txt">{{ ctr?.numero_contrat }}</span> •
-    <span class="info-txt">{{ ctr?.foncier.type_lieu }}</span>
+<div>
+    <span class="main-txt">{{ contrats?.numero_contrat }}</span> •
+    <span class="info-txt">{{ contrats?.foncier.type_lieu }}</span>
 </div>
 
 <div id="form_section">
     <form [formGroup]="assignProprietaireForm"
-        (ngSubmit)="isUpdate ? updateAssignmentProprietaire() : addAssignmentProprietaire()">
-
+    (ngSubmit)="isUpdate ? updateAssignmentProprietaire() : addAssignmentProprietaire()">
+    
         <div class="w-100 d-flex justify-content-center">
             <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
             <!-- Message de succés de serveur -->
@@ -18,13 +17,15 @@
             <!-- <div *ngIf="checkMontant" class="error-alert p-2 my-2">{{ ErrorMontantLoyer }}</div> -->
         </div>
         <div class="row">
-            <div class="col-lg-3 form-group mt-4">
+            <div *ngIf="!isUpdate" class="col-lg-3 form-group mt-4">
                 <label for="">Propriétaire <span class="danger-txt">*</span></label>
+                <a class="short-link success-txt d-inline-flex" [routerLink]="['/proprietaire/add']">&nbsp;&nbsp;+ Ajouter un proprietaire</a>
                 <ng-container  *ngIf="!proprietaires?.length">
-                    <a class="short-link success-txt d-inline-flex" [routerLink]="['/proprietaire/add']">+ Ajouter un proprietaire</a>
                     <p class="main-muted-text">Aucun proprietaire à sélectionner</p>
                 </ng-container>
-                <select *ngIf="proprietaires?.length" class="form-select rounded-pill" formControlName="proprietaire"
+                <select id="proprietaire_select" *ngIf="proprietaires?.length" class="form-select rounded-pill" 
+                formControlName="proprietaire"
+                (change)="checkPersonMoralOrPhysique()"
                     [ngClass]="{
                     'is-invalid': checkInputsValidation(proprietaire)
                   }">
@@ -90,7 +91,7 @@
                 <label for="">Retenue à la source</label>
                 <input type="text" class="form-control rounded-pill" formControlName="retenue_source" [ngClass]="{
                 'is-invalid': checkInputsValidation(retenue_source)
-              }" [value]="retenueSource" readonly />
+              }" [value]="retenueSource | number: '1.2-2'" readonly />
             </div>
 
             <div class="col-lg-3 form-group mt-4">
@@ -145,15 +146,15 @@
                         <input type="checkbox" [name]="prop?._id" class="btn-check check" [id]="prop?._id"
                             autocomplete="off" [value]="prop?._id" (click)="selectProp(prop)" checked />
                         <label class="px-3 py-1 rounded-pill checkbox-list-btns" [for]="prop?._id">
-                            {{ prop?.cin ? prop?.cin : prop?.n_registre_commerce }} • {{ prop?.nom_prenom ?
-                            prop?.nom_prenom : prop?.raison_social}}
+                            {{ prop?.proprietaire.cin ? prop?.proprietaire.cin : prop?.proprietaire.n_registre_commerce }} • {{ prop?.proprietaire.nom_prenom ?
+                            prop?.proprietaire.nom_prenom : prop?.proprietaire.raison_social}}
                         </label>
                     </div>
                 </div>
 
                 <div class="mt-1" *ngIf="!proprietaireList.length">
                     <!-- Error message -->
-                    <p class="main-muted-text">Aucun propriétaire à sélectionné</p>
+                    <p class="main-muted-text">Aucun propriétaire sélectionné</p>
                 </div>
 
                 <h6 class="mt-3">Propriétaires à sélectionner</h6>
@@ -162,8 +163,8 @@
                         <input type="checkbox" [name]="proprietaire._id" class="btn-check check" [id]="proprietaire._id"
                             autocomplete="off" [value]="proprietaire._id" (click)="selectProp(proprietaire)" />
                         <label class="px-3 py-1 rounded-pill checkbox-list-btns" [for]="proprietaire._id">
-                            {{ proprietaire.cin ? proprietaire.cin : proprietaire.n_registre_commerce }} • {{
-                            proprietaire.nom_prenom ? proprietaire.nom_prenom : proprietaire.raison_social}}
+                            {{ proprietaire.proprietaire.cin ? proprietaire.proprietaire.cin : proprietaire.proprietaire.n_registre_commerce }} • {{
+                            proprietaire.proprietaire.nom_prenom ? proprietaire.proprietaire.nom_prenom : proprietaire.proprietaire.raison_social}}
                         </label>
                     </div>
                 </div>
@@ -182,8 +183,8 @@
                             autocomplete="off" [value]="proprietaire._id" (click)="selectProp(proprietaire)"
                             formControlName="proprietaire_list" />
                         <label class="px-3 py-1 rounded-pill checkbox-list-btns" [for]="proprietaire._id">
-                            {{ proprietaire.cin ? proprietaire.cin : proprietaire.n_registre_commerce }} • {{
-                            proprietaire.nom_prenom ? proprietaire.nom_prenom : proprietaire.raison_social}}
+                            {{ proprietaire.proprietaire.cin ? proprietaire.proprietaire.cin : proprietaire.proprietaire.n_registre_commerce }} • {{
+                                proprietaire.proprietaire.nom_prenom ? proprietaire.proprietaire.nom_prenom : proprietaire.proprietaire.raison_social}}
                         </label>
                     </div>
                 </div>
