@@ -8,7 +8,6 @@ import { HelperService } from '@services/helpers/helper.service';
 import { MainModalService } from '@services/main-modal/main-modal.service';
 import { ProprietaireService } from '@services/proprietaire-service/proprietaire.service';
 import { AssignmentProprietaire } from 'src/app/models/AssignmentProprietaire';
-import { Proprietaire } from 'src/app/models/Proprietaire';
 
 @Component({
   selector: 'app-form-assign',
@@ -230,18 +229,6 @@ export class FormAssignComponent implements OnInit, OnChanges {
     this.help.scrollToTop();
   }
 
-  // To get the contrat and proprietaire in lieux
-  // getTauxImpot() {
-  //   if (this.contrat_id) {
-  //     this.totalPartProprietaires = 0;
-
-  //     // if (this.isUpdate) {
-  //     //   this.totalPartProprietaires =
-  //     //     this.totalPartProprietaires -
-  //     //     this.proprietairesToSelect.part_proprietaire;
-  //     // }
-  //   }
-  // }
   getSelectedProprietaire(contratId: string) {
     this.assignmentProprietaireService
       .getSelectedProprietaire(contratId, this.userMatricule)
