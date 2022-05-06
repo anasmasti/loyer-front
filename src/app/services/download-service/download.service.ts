@@ -18,7 +18,6 @@ export class DownloadService {
     };
     return options;
   }
-
   dowloadFiles(filename: any, date: any, param: string) {
     return this.http.get(
       `${environment.API_URL_TEST + environment.API_VERSION + param}/${
@@ -30,7 +29,24 @@ export class DownloadService {
       }
     );
   }
-
+  dowloadExcelAnnex2(filename: string,annee: number) {
+    // let date = new Date();
+    return this.http
+      .get(
+        `${
+          environment.API_URL_TEST +
+          environment.API_VERSION +
+          'download-excel-annex/'
+        }${annee}`,
+        {
+          responseType: 'blob',
+        }
+      )
+      .toPromise()
+      .then(async (res) => {
+        return await saveAs(res, filename);
+      });
+  }
 
   dowloadExcelFiles(filename: string, mois: number, annee:number) {
     // let date = new Date();

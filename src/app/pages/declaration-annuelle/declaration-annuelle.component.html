@@ -48,8 +48,9 @@
 <ng-template #fileSection>
   <div class="mt-4">
     <h5>Exporter la télédéclaration annuelle</h5>
-    <a class="btn second-btn" (click)="downloadFiles(fileParams)"
-      ><i class="far fa-file-export"></i> Exporter le fichier</a
-    >
+    <a class="btn second-btn me-3" (click)="downloadFiles(fileParams)"
+      ><i class="far fa-file-export"></i> Exporter le fichier XML</a>
+      <a class="btn second-btn" (click)="dowloadExcelAnnex2('annex2')"
+      ><i class="far fa-file-export"></i> Exporter le fichier Excel</a>
   </div>
 </ng-template>
