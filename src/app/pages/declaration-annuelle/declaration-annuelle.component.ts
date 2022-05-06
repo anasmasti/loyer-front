@@ -16,7 +16,10 @@ export class DeclarationAnnuelleComponent implements OnInit {
 
   ngOnInit(): void {
     this.declarationAnnuelleForm = new FormGroup({
-      date_gen: new FormControl('', [Validators.required, Validators.pattern('[0-9]{4}')]),
+      date_gen: new FormControl('', [
+        Validators.required,
+        Validators.pattern('[0-9]{4}'),
+      ]),
     });
   }
 
@@ -27,6 +30,16 @@ export class DeclarationAnnuelleComponent implements OnInit {
 
   showButtons() {
     return (this.dateSelected = true);
+  }
+
+  dowloadExcelAnnex2(fileName: string) {
+    let date_gen = this.declarationAnnuelleForm.get('date_gen')?.value;
+    this.downloadService
+      .dowloadExcelAnnex2(
+        fileName,
+        date_gen
+      )
+      .catch(console.error);
   }
 
   downloadFiles(params: string[]) {
