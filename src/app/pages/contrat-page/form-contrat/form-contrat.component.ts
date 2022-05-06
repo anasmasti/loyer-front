@@ -421,13 +421,13 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
 
   // Calcul effort caution and show error if the outside is a decimal number
   calculEffortCaution() {
-    let montantCaution!: number;
     let dureeCaution: number = this.contratForm.get('duree_caution')?.value;
     this.montantCaution = this.montantLoyer * dureeCaution;
     this.dureeCaution = dureeCaution;
 
+
     // Change status caution
-    if (montantCaution > 0) this.statutCaution = 'En cours';
+    if (this.montantCaution > 0) this.statutCaution = 'En cours';
     else this.statutCaution = '--';
   }
 
