@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { AssignmentProprietaireService } from '@services/assignment-proprietaire-service/assignment-proprietaire.service';
+import { AuthService } from '@services/auth-service/auth.service';
 import { ConfirmationModalService } from '@services/confirmation-modal-service/confirmation-modal.service';
 import { HelperService } from '@services/helpers/helper.service';
 import { MainModalService } from '@services/main-modal/main-modal.service';
 import { AssignmentProprietaire } from 'src/app/models/AssignmentProprietaire';
+import { AppState } from 'src/app/store/app.state';
+import { getUserType } from 'src/app/store/shared/shared.selector';
 
 @Component({
   selector: 'app-list-assign',
@@ -36,13 +40,19 @@ export class ListAssignComponent implements OnInit {
 
   // Modal id
   modalId: string = 'DeleteAssignmentConfirmation';
+  isDC!: boolean;
+  isCDGSP!: boolean;
+  isCSLA!: boolean;
+  isDAJC!: boolean;
 
   constructor(
     private mainModalService: MainModalService,
     private confirmationModalService: ConfirmationModalService,
     private helperService: HelperService,
     private activatedRoute: ActivatedRoute,
-    private assignmentService: AssignmentProprietaireService
+    public authService: AuthService,
+    private assignmentService: AssignmentProprietaireService,
+    private store: Store<AppState>
   ) {
     this.assignmentProprietaires = []
   }
@@ -50,6 +60,10 @@ export class ListAssignComponent implements OnInit {
   ngOnInit(): void {
     this.getProprietaireID()
     this.getAssignmentProprietaires();
+    this.isDC = this.authService.checkUserRole('DC');
+    this.isCDGSP = this.authService.checkUserRole('CDGSP');
+    this.isCSLA = this.authService.checkUserRole('CSLA');
+    this.isDAJC = this.authService.checkUserRole('DAJC');
   }
 
   getProprietaireID() {
@@ -136,5 +150,33 @@ export class ListAssignComponent implements OnInit {
   // Refrtech the page
   refrechPage() {
     this.helperService.refrechPage();
+  }
+
+  getUserRole() {
+    this.store.select(getUserType).subscribe((roles) => {
+      this.checkRole(roles);
+    });
+  }
+
+  checkRole(role: string[]) {
+    role.forEach((item) => {
+      switch (item) {
+        case 'DC':
+          this.isDC;
+          break;
+          case 'CDGSP':
+          this.isCDGSP;
+          break;
+          case 'CSLA':
+          this.isCSLA;
+          break;
+          case 'DAJC':
+          this.isDAJC;
+          break;
+
+        default:
+          break;
+      }
+    });
   }
 }
