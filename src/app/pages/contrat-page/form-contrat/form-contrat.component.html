@@ -1502,10 +1502,173 @@
 
       <!-- Template Resiliation start -->
       <ng-template #RES>
-        <h6>Etat du contrat: &nbsp;<span>Résilié</span></h6>
-
         <div class="row">
           <div class="col-lg-3 form-group mt-4">
+            <label for="">Date de début du loyer</label>
+            <input
+              type="date"
+              [value]="date_debut_loyer_"
+              class="form-control rounded-pill"
+              (change)="reinitialiserDateDebut()"
+              formControlName="date_debut_loyer"
+              readonly
+            />
+          </div>
+
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Montant du loyer</label>
+            <input
+              type="number"
+              [value]="montantLoyer"
+              class="form-control rounded-pill"
+              formControlName="montant_loyer"
+              readonly
+            />
+          </div>
+
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Nombre de part</label>
+            <input
+              type="number"
+              class="form-control rounded-pill"
+              formControlName="nombre_part"
+              readonly
+            />
+          </div>
+
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Taxe d’édilité comprise dans le loyer</label>
+            <input
+              type="text"
+              class="form-control rounded-pill"
+              formControlName="taxe_edilite_comprise_loyer"
+              readonly
+            />
+          </div>
+
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Taxe d’édilité non comprise dans le loyer</label>
+            <input
+              type="text"
+              class="form-control rounded-pill"
+              formControlName="taxe_edilite_noncomprise_loyer"
+              readonly
+            />
+          </div>
+
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Périodicité de paiement</label>
+            <input
+              class="form-control rounded-pill"
+              formControlName="periodicite_paiement"
+              [value]="periodicite"
+              readonly
+            />
+          </div>
+
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Date fin de contrat de bail</label>
+            <input
+              type="date"
+              class="form-control rounded-pill"
+              formControlName="date_fin_contrat"
+              readonly
+            />
+          </div>
+
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Montant de la caution</label>
+            <input
+              type="number"
+              class="form-control rounded-pill"
+              [value]="montantCaution"
+              formControlName="montant_caution"
+              readonly
+            />
+          </div>
+
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Durée de la caution</label>
+            <input
+              type="text"
+              class="form-control rounded-pill"
+              [value]="dureeCaution"
+              formControlName="duree_caution"
+              readonly
+            />
+          </div>
+
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Date de reprise de la caution</label>
+            <input
+              type="date"
+              class="form-control rounded-pill"
+              formControlName="date_reprise_caution"
+              readonly
+            />
+          </div>
+
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Statut de la caution</label>
+            <input
+              type="text"
+              [value]="statutCaution"
+              class="form-control rounded-pill"
+              formControlName="statut_caution"
+              readonly
+            />
+          </div>
+
+          <div class="col-lg-3 form-group mt-4">
+            <label for=""
+              >Durée de l’avance ({{ periodicite ? periodicite : "--" }})</label
+            >
+            <input
+              type="number"
+              class="form-control rounded-pill"
+              [value]="dureeAvance"
+              formControlName="duree_avance"
+              readonly
+            />
+          </div>
+
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Date fin de l’avance</label>
+            <input
+              type="date"
+              class="form-control rounded-pill"
+              [value]="formattedDateFinAvance"
+              formControlName="date_fin_avance"
+              readonly
+            />
+          </div>
+
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Date 1er paiement</label>
+            <input
+              type="date"
+              class="form-control rounded-pill"
+              [value]="datePremierPaiement"
+              formControlName="date_premier_paiement"
+              readonly
+            />
+          </div>
+
+          <div class="col-lg-3 form-group mt-4">
+            <label for="">Montant de l’avance</label>
+            <input
+              type="number"
+              class="form-control rounded-pill"
+              formControlName="montant_avance"
+              [value]="montantAvance"
+              readonly
+            />
+          </div>
+        </div>
+        <h6 class="mt-4">Etat du contrat: &nbsp;<span>Résilié</span></h6>
+
+        <div class="row">
+          <div class="col-lg-3 form-group mt-2">
             <label for="">Intitulé de d'entité</label>
             <input
               type="text"
