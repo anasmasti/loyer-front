@@ -13,5 +13,4 @@ export class EditAssignmentProprietaireComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }
