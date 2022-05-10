@@ -88,6 +88,9 @@ export class ClotureComponent implements OnInit {
     this.clotureService.Cloture(date, this.userMatricule).subscribe(
       (data) => {
         if (data) this.isCloture = true;
+        setTimeout(() => {
+          this.help.refrechPage();
+        }, 1500);
       },
       (error) => {
         this.errors = error.error.message;

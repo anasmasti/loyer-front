@@ -423,7 +423,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   }
 
   showEtatSection(event: any) {
-    let numeroAvenant = `${this.contrat.numero_contrat}/AV`;
+    let numeroAvenant = `${this.contrat.numero_contrat}`;
     this.contratForm.controls.etat_contrat_n_avenant.setValue(numeroAvenant);
     let selectedEtat = event.target.value;
     this.selectedEtatContrat = selectedEtat;
