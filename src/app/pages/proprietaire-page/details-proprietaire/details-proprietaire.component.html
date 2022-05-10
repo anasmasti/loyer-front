@@ -27,7 +27,7 @@
 </div>
 
 <div class="row d-flex justify-content-around">
-    <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-6">
+    <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-12">
         <div class="row">
             <h5 class="main-title mb-4">Informations Propriétaire</h5>
             <div class="row" *ngIf="proprietaire?.type_proprietaire === 'Personne physique'">
@@ -35,7 +35,7 @@
                     <h5 class="main-txt">Nom et prénom</h5>
                     <p>{{ proprietaire?.nom_prenom !== '' ? proprietaire?.nom_prenom : '--' }}</p>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 ps-4">
                     <h5 class="main-txt">CIN</h5>
                     <p>{{ proprietaire?.cin !== '' ? proprietaire?.cin : '--' }}</p>
                 </div>
@@ -43,7 +43,7 @@
                     <h5 class="main-txt">Passeport</h5>
                     <p>{{ proprietaire?.passport !== '' ? proprietaire?.passport : '--'  }}</p>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 ps-4">
                     <h5 class="main-txt">Carte séjour</h5>
                     <p>{{ proprietaire?.carte_sejour !== '' ? proprietaire?.carte_sejour : '--' }}</p>
                 </div>
@@ -54,27 +54,27 @@
                     <h5 class="main-txt">Raison sociale</h5>
                     <p>{{ proprietaire?.raison_social !== '' ? proprietaire?.raison_social : '--' }}</p>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 ps-4">
                     <h5 class="main-txt">N° IF</h5>
                     <p>{{ proprietaire?.n_registre_commerce !== '' ? proprietaire?.n_registre_commerce : '--' }}</p>
                 </div>
             </div>
 
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <h5 class="main-txt">Adresse</h5>
                 <p>{{ proprietaire?.adresse !== '' ? proprietaire?.adresse : '--' }}</p>
             </div>
            
-            <div class="col-lg-4">
-                <h5 class="main-txt">Télephone</h5>
+            <div class="col-lg-5">
+                <h5 class="main-txt">Téléphone</h5>
                 <p>{{ proprietaire?.telephone !== '' ? proprietaire?.telephone : '--' }}</p>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <h5 class="main-txt">Fax</h5>
                 <p>{{ proprietaire?.fax !== '' ? proprietaire?.fax : '--' }}</p>
             </div>
            
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <h5 class="main-txt">Banque</h5>
                 <p>{{ proprietaire?.banque !== '' ? proprietaire?.banque : '--' }}</p>
             </div>
@@ -88,7 +88,7 @@
             </div>
         </div>
     </div>
-    <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-5 ms-5">
+    <!-- <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-5 ms-5">
         <h5 class="main-title mb-4">Informations montants</h5>
 
         <div class="row">
@@ -136,35 +136,12 @@
                 <h5 class="main-txt">Montant de la caution</h5>
                 <p>{{ proprietaire?.caution_par_proprietaire !== undefined ? (proprietaire?.caution_par_proprietaire | number : '1.2-2') : '--' }}</p>
             </div>
-            
-            <!-- <div class="col-lg-6">
-                <h5 class="main-txt">Banque RIB</h5>
-                <p>{{ proprietaire?.banque_rib !== '' ? proprietaire?.banque_rib : '--' }}</p>
-            </div>
-            <div class="col-lg-6">
-                <h5 class="main-txt">Ville RIB</h5>
-                <p>{{ proprietaire?.ville_rib !== '' ? proprietaire?.ville_rib : '--' }}</p>
-            </div> -->
         </div>
 
-        <div class="row">
-            
-            <!-- <div class="col-lg-6">
-                <h5 class="main-txt">Clé RIB</h5>
-                <p>{{ proprietaire?.cle_rib !== '' ? proprietaire?.cle_rib : '--' }}</p>
-            </div> -->
-          
-           
-            <!-- <div class="col-lg-6">
-                <h5 class="main-txt">Tax par periodicité propriètaire</h5>
-                <p>{{ proprietaire?.tax_par_periodicite !== undefined ? (proprietaire?.tax_par_periodicite | number : '1.2-2') : '--' }}</p>
-            </div> -->
-            
-        </div>
     </div>
 
 
-</div>
+</div> -->
 
 <!-- <div *ngIf="mandataire">
     <div class="main-card p-lg-4 mt-4 table-responsive bg-white col-lg-12">
