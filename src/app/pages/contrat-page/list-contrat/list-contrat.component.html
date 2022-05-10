@@ -535,6 +535,7 @@
               <th>Propriétaire</th>
               <th>CIN/IF</th>
               <th>Mandataire</th>
+              <th>Montants</th>
             </tr>
           </thead>
 
@@ -577,81 +578,82 @@
                   >
                     {{ checkAndPutText(proprietaire?.is_mandataire) }}
                   </span>
-                  <!-- <a
+                </td>
+                <td>
+                  <a
                     id="proprietaireList"
-                    class="btn btn-sm second-btn me-2"
+                    class="btn btn-sm second-btn w-100"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
-                    *ngIf="proprietaire.proprietaire_list.length"
                     (click)="calculMontantsGlobal(proprietaire)"
                   >
-                    <i class="fal fa-users"></i>
-                    {{ getProprietaireLength(proprietaire.proprietaire_list) }}
-                    Proprietaires
-                  </a> -->
+                    <i class="fal fa-eye"></i>
+                    Voir
+                  </a>
                   <ul
                     id="proprietaireListDropdown"
                     class="dropdown-menu p-4 main-card border-0"
                     aria-labelledby="proprietaireList"
                   >
                     <li>
-                      <h5 class="main-title">Montant global</h5>
+                      <h5 class="main-title">Montants du proprietaire</h5>
                       <p class="main-muted-text my-0">
-                        Total des montants nets :
+                        Part du propriétaire :
                         <span class="selected-text">{{
-                          mntNetGlobal | currency: "MAD"
+                          proprietaire.part_proprietaire
                         }}</span>
                       </p>
                       <p class="main-muted-text my-0">
-                        Total des montants bruts :
+                        Montant de loyer :
                         <span class="selected-text">{{
-                          mntBrutGlobal | currency: "MAD"
+                          proprietaire.montant_loyer | currency: "MAD"
                         }}</span>
                       </p>
-                      <p class="main-muted-text">
-                        Total des montants taxes :
+                      <p class="main-muted-text my-0">
+                        Montant d'avance :
                         <span class="selected-text">{{
-                          mntTaxGlobal | currency: "MAD"
+                          proprietaire.montant_avance_proprietaire
+                            | currency: "MAD"
+                        }}</span>
+                      </p>
+                      <p class="main-muted-text my-0">
+                        Paiement spontané de TSR :
+                        <span class="selected-text">{{
+                          proprietaire.declaration_option
+                        }}</span>
+                      </p>
+                      <p class="main-muted-text my-0">
+                        Taux de l'impôt :
+                        <span class="selected-text"
+                          >{{ proprietaire.taux_impot }}%</span
+                        >
+                      </p>
+                      <p class="main-muted-text my-0">
+                        Retenue à la source :
+                        <span class="selected-text">{{
+                          proprietaire.retenue_source | currency: "MAD"
+                        }}</span>
+                      </p>
+                      <p class="main-muted-text my-0">
+                        Montant aprés impôt :
+                        <span class="selected-text">{{
+                          proprietaire.montant_apres_impot | currency: "MAD"
+                        }}</span>
+                      </p>
+                      <p class="main-muted-text my-0">
+                        Tax d'avance :
+                        <span class="selected-text">{{
+                          proprietaire.tax_avance_proprietaire | currency: "MAD"
+                        }}</span>
+                      </p>
+                      <p class="main-muted-text my-0">
+                        Montant de la caution :
+                        <span class="selected-text">{{
+                          proprietaire.caution_par_proprietaire
+                            | currency: "MAD"
                         }}</span>
                       </p>
                     </li>
-                    <div *ngFor="let prop of proprietaire.proprietaire_list">
-                      <li *ngIf="!prop.deleted">
-                        <hr />
-                        <h6 class="header-title">
-                          {{ prop.nom_prenom }} ({{
-                            prop.cin || prop.carte_sejour || prop.passport
-                          }})
-                        </h6>
-                        <p class="main-muted-text my-0">
-                          Montant net :
-                          <span class="selected-text">
-                            {{
-                              calculMontantsProprietaire(prop, "mntNet")
-                                | currency: "MAD"
-                            }}
-                          </span>
-                        </p>
-                        <p class="main-muted-text my-0">
-                          Montant brut :
-                          <span class="selected-text">
-                            {{
-                              calculMontantsProprietaire(prop, "mntBrut")
-                                | currency: "MAD"
-                            }}
-                          </span>
-                        </p>
-                        <p class="main-muted-text">
-                          Montant taxe :
-                          <span class="selected-text">
-                            {{
-                              calculMontantsProprietaire(prop, "mntTaxe")
-                                | currency: "MAD"
-                            }}
-                          </span>
-                        </p>
-                      </li>
-                    </div>
                   </ul>
                 </td>
               </ng-container>
