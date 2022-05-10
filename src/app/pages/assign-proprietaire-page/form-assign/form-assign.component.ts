@@ -8,7 +8,6 @@ import { HelperService } from '@services/helpers/helper.service';
 import { MainModalService } from '@services/main-modal/main-modal.service';
 import { ProprietaireService } from '@services/proprietaire-service/proprietaire.service';
 import { AssignmentProprietaire } from 'src/app/models/AssignmentProprietaire';
-import { Proprietaire } from 'src/app/models/Proprietaire';
 
 @Component({
   selector: 'app-form-assign',
@@ -102,8 +101,8 @@ export class FormAssignComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.contratId = this.actRoute.snapshot.paramMap.get('id_contrat') || '';
 
-    this.getProprietaires();
     if (!this.isUpdate) {
+      this.getProprietaires();
       if (this.contratId) {
         this.getContrat(this.contratId);
         this.getSelectedProprietaire(this.contratId);
@@ -174,7 +173,7 @@ export class FormAssignComponent implements OnInit, OnChanges {
       // Calcul montants
       this.calculMontant();
       this.calculMontantAvance();
-      this.calculCaution();
+      this.calculCaution();      
     }, 2000);
   }
 
@@ -188,7 +187,7 @@ export class FormAssignComponent implements OnInit, OnChanges {
 
   getProprietaires() {
     this.proprietaireService
-      .getProprietaires(this.userMatricule)
+      .getUnusableProprietaires(this.userMatricule, this.contratId)
       .subscribe((data) => {
         this.proprietaires = data;
       });
@@ -230,18 +229,6 @@ export class FormAssignComponent implements OnInit, OnChanges {
     this.help.scrollToTop();
   }
 
-  // To get the contrat and proprietaire in lieux
-  // getTauxImpot() {
-  //   if (this.contrat_id) {
-  //     this.totalPartProprietaires = 0;
-
-  //     // if (this.isUpdate) {
-  //     //   this.totalPartProprietaires =
-  //     //     this.totalPartProprietaires -
-  //     //     this.proprietairesToSelect.part_proprietaire;
-  //     // }
-  //   }
-  // }
   getSelectedProprietaire(contratId: string) {
     this.assignmentProprietaireService
       .getSelectedProprietaire(contratId, this.userMatricule)
@@ -251,6 +238,7 @@ export class FormAssignComponent implements OnInit, OnChanges {
   }
 
   getContrat(id: string) {
+    this.totalPartProprietaires = 0;
     this.contratService.getSelectedContrat(id).subscribe((data: any) => {
       this.contrats = data;
       this.lengthProprietaire = this.contrats.proprietaires.length;
@@ -296,6 +284,7 @@ export class FormAssignComponent implements OnInit, OnChanges {
 
     // condition to control if the total part are > nbrPartContrat the we show an error message and take nbrPartContrat minus the total part and stock the result in the partProprietaire
     if (this.totalPartProprietaires + this.partProprietaire > nbrPartContrat) {
+      
       this.partProprietaire = nbrPartContrat - this.totalPartProprietaires;
       this.openConfirmationModal();
     }

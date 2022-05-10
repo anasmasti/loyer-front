@@ -27,7 +27,8 @@ export interface Contrat {
   foncier: any;
   nombre_part: number;
   is_avenant: boolean;
-  proprietaires: any
+  proprietaires: any;
+  has_avenant: boolean;
   //new
   montant_loyer_ttc: number;
   etat_contrat?: {

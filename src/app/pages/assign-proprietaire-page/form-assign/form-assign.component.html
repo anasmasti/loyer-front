@@ -1,12 +1,12 @@
-<!-- <div *ngFor="let ctr of contrats">
-    <span class="main-txt">{{ ctr?.numero_contrat }}</span> •
-    <span class="info-txt">{{ ctr?.foncier.type_lieu }}</span>
-</div> -->
+<div>
+    <span class="main-txt">{{ contrats?.numero_contrat }}</span> •
+    <span class="info-txt">{{ contrats?.foncier.type_lieu }}</span>
+</div>
 
 <div id="form_section">
     <form [formGroup]="assignProprietaireForm"
-        (ngSubmit)="isUpdate ? updateAssignmentProprietaire() : addAssignmentProprietaire()">
-
+    (ngSubmit)="isUpdate ? updateAssignmentProprietaire() : addAssignmentProprietaire()">
+    
         <div class="w-100 d-flex justify-content-center">
             <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
             <!-- Message de succés de serveur -->
@@ -17,10 +17,10 @@
             <!-- <div *ngIf="checkMontant" class="error-alert p-2 my-2">{{ ErrorMontantLoyer }}</div> -->
         </div>
         <div class="row">
-            <div class="col-lg-3 form-group mt-4">
+            <div *ngIf="!isUpdate" class="col-lg-3 form-group mt-4">
                 <label for="">Propriétaire <span class="danger-txt">*</span></label>
+                <a class="short-link success-txt d-inline-flex" [routerLink]="['/proprietaire/add']">&nbsp;&nbsp;+ Ajouter un proprietaire</a>
                 <ng-container  *ngIf="!proprietaires?.length">
-                    <a class="short-link success-txt d-inline-flex" [routerLink]="['/proprietaire/add']">+ Ajouter un proprietaire</a>
                     <p class="main-muted-text">Aucun proprietaire à sélectionner</p>
                 </ng-container>
                 <select id="proprietaire_select" *ngIf="proprietaires?.length" class="form-select rounded-pill" 
@@ -91,7 +91,7 @@
                 <label for="">Retenue à la source</label>
                 <input type="text" class="form-control rounded-pill" formControlName="retenue_source" [ngClass]="{
                 'is-invalid': checkInputsValidation(retenue_source)
-              }" [value]="retenueSource" readonly />
+              }" [value]="retenueSource | number: '1.2-2'" readonly />
             </div>
 
             <div class="col-lg-3 form-group mt-4">

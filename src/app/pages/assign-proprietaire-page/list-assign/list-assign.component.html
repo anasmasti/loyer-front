@@ -87,10 +87,10 @@
 					<a [routerLink]="['list', assignmentProprietaire._id]" class="btn btn-sm main-btn"><i
 							class="fal fa-eye"></i></a>
 					<!-- *ngIf="!isDC && !isDAJC && (proprietaire.libelle === 'Initié' || proprietaire.statut === 'À ajouter')" -->
-					<a class="btn btn-sm info-btn mx-2" (click)="openModalAndPushProprietaire(assignmentProprietaire)"><i
+					<a *ngIf="!isDC && !isDAJC" class="btn btn-sm info-btn mx-2" (click)="openModalAndPushProprietaire(assignmentProprietaire)"><i
 							class="far fa-user-edit"></i></a>
 					<!-- *ngIf="!isCSLA && !isDC && !isDAJC && proprietaire.libelle === 'Initié'" -->
-					<a class="btn btn-sm danger-btn" (click)="
+					<a *ngIf="!isCSLA && !isDC && !isDAJC" class="btn btn-sm danger-btn" (click)="
                 openDeleteConfirmationModal(); getAssignmentProprietaireId(assignmentProprietaire._id)
               "><i class="far fa-user-minus"></i></a>
 				</td>

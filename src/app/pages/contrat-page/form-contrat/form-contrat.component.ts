@@ -131,7 +131,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
 
   // Proprietaire
   targetProprietaireId!: string;
-  proprietaires: Proprietaire[] = [];
+  proprietaires: any[];
   deletedProprietaires: String[] = [];
 
   // Motif
@@ -156,6 +156,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     private foncierService: FoncierService
   ) {
     super();
+    this.proprietaires = [];
   }
 
   ngOnChanges() {
@@ -267,164 +268,21 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     this.help.scrollToTop();
   }
 
-  checkNewMontant(){
-    let newMontant = this.contratForm.get('etat_contrat_montant_nouveau_loyer')?.value;
-    if(newMontant == this.montantLoyer) this.hasErrorNewMontant = true
-    else this.hasErrorNewMontant = false
-  }
-  // Calculer le montant
-  calculMontant() {
-    let montantLoyerForYear = this.montantLoyer * 12;
-    let tauxImpot: number = 0;
-    let montantApresImpot: number = 0;
-    let result: number = 0;
-    // Date debut de loyer
-    let dateDebutLoyer = this.contratForm.get('date_debut_loyer')?.value;
-    dateDebutLoyer = new Date(dateDebutLoyer);
-    let month = dateDebutLoyer.getMonth() + 1;
-    // Date resilition
-    let dateResiliation = this.contratForm.get(
-      'etat_contrat_date_resiliation'
+  checkNewMontant() {
+    let newMontant = this.contratForm.get(
+      'etat_contrat_montant_nouveau_loyer'
     )?.value;
-    dateResiliation = new Date(dateResiliation);
-    let monthResiliation = dateResiliation.getMonth() + 1;
-
-    // ------First Condition--------
-    if (month === 1 && this.selectedEtatContrat !== 'Résilié') {
-      this.duree = 12;
-      if (this.hasDeclarationOption === 'non') {
-        if (montantLoyerForYear <= 30000) {
-          result = 0;
-          montantApresImpot = montantLoyerForYear;
-          tauxImpot = 0;
-        }
-        if (montantLoyerForYear > 30000 && montantLoyerForYear <= 120000) {
-          result = (montantLoyerForYear * 10) / 100;
-          montantApresImpot = (montantLoyerForYear - result) / 12;
-          tauxImpot = 10;
-        }
-        if (montantLoyerForYear > 120000) {
-          result = (montantLoyerForYear * 15) / 100;
-          montantApresImpot = (montantLoyerForYear - result) / 12;
-          tauxImpot = 15;
-        }
-      }
-      if (this.hasDeclarationOption === 'oui') {
-        result = 0;
-        montantApresImpot = montantLoyerForYear;
-        tauxImpot = 0;
-      }
-
-      this.retenueSource = result;
-      this.montantApresImpot = montantApresImpot;
-      this.tauxImpot = tauxImpot;
-      //calculer retenue a la source par mois
-      this.retunue_source_par_mois = this.retenueSource / this.duree;
-      //total brut loyer
-      this.totalBrutLoyer = this.montantLoyer * this.duree;
-      // total net loyer
-      this.totalNetLoyer = this.montantApresImpot * this.duree;
-    }
-    // ------Seconde Condition--------
-    if (month !== 1 && this.selectedEtatContrat !== 'Résilié') {
-      // nombre des mois louer
-      let nbr_mois_louer = 12 - month + 1;
-      this.duree = nbr_mois_louer;
-
-      if (this.hasDeclarationOption === 'non') {
-        if (this.montantLoyer * nbr_mois_louer <= 30000) {
-          result = 0;
-          montantApresImpot = this.montantLoyer;
-          tauxImpot = 0;
-        }
-        if (
-          this.montantLoyer * nbr_mois_louer > 30000 &&
-          this.montantLoyer * nbr_mois_louer <= 120000
-        ) {
-          result = (this.montantLoyer * nbr_mois_louer * 10) / 100;
-          montantApresImpot =
-            (this.montantLoyer * nbr_mois_louer - result) / nbr_mois_louer;
-          tauxImpot = 10;
-        }
-        if (this.montantLoyer * nbr_mois_louer > 120000) {
-          result = (this.montantLoyer * nbr_mois_louer * 15) / 100;
-          montantApresImpot =
-            (this.montantLoyer * nbr_mois_louer - result) / nbr_mois_louer;
-          tauxImpot = 15;
-        }
-      }
-      if (this.hasDeclarationOption === 'oui') {
-        result = 0;
-        montantApresImpot = this.montantLoyer * nbr_mois_louer;
-        tauxImpot = 0;
-      }
-
-      this.retenueSource = result;
-      this.montantApresImpot = montantApresImpot;
-      this.tauxImpot = tauxImpot;
-      //calculer retenue a la source par mois
-      this.retunue_source_par_mois = this.retenueSource / this.duree;
-      //total brut loyer
-      this.totalBrutLoyer = this.montantLoyer * this.duree;
-      // total net loyer
-      this.totalNetLoyer = this.montantApresImpot * this.duree;
-    }
-
-    // ------Third Condition--------
-    if (this.selectedEtatContrat === 'Résilié') {
-      // nombre des mois louer
-      let nbr_mois_louer = monthResiliation - month + 1;
-      this.duree = nbr_mois_louer;
-
-      if (this.hasDeclarationOption === 'non') {
-        if (this.montantLoyer * nbr_mois_louer <= 30000) {
-          result = 0;
-          montantApresImpot = this.montantLoyer;
-          tauxImpot = 0;
-        }
-        if (
-          this.montantLoyer * nbr_mois_louer > 30000 &&
-          this.montantLoyer * nbr_mois_louer <= 120000
-        ) {
-          result = (this.montantLoyer * nbr_mois_louer * 10) / 100;
-          montantApresImpot =
-            (this.montantLoyer * nbr_mois_louer - result) / nbr_mois_louer;
-          tauxImpot = 10;
-        }
-        if (this.montantLoyer * nbr_mois_louer > 120000) {
-          result = (this.montantLoyer * nbr_mois_louer * 15) / 100;
-          montantApresImpot =
-            (this.montantLoyer * nbr_mois_louer - result) / nbr_mois_louer;
-          tauxImpot = 15;
-        }
-      }
-      if (this.hasDeclarationOption === 'oui') {
-        result = 0;
-        montantApresImpot = this.montantLoyer * nbr_mois_louer;
-        tauxImpot = 0;
-      }
-
-      this.retenueSource = result;
-      this.montantApresImpot = montantApresImpot;
-      this.tauxImpot = tauxImpot;
-      //calculer retenue a la source par mois
-      this.retunue_source_par_mois = this.retenueSource / this.duree;
-      //total brut loyer
-      this.totalBrutLoyer = this.montantLoyer * this.duree;
-      // total net loyer
-      this.totalNetLoyer = this.montantApresImpot * this.duree;
-    }
+    if (newMontant == this.montantLoyer) this.hasErrorNewMontant = true;
+    else this.hasErrorNewMontant = false;
   }
-
+  
   // Calcul effort caution and show error if the outside is a decimal number
   calculEffortCaution() {
-    let montantCaution!: number;
     let dureeCaution: number = this.contratForm.get('duree_caution')?.value;
     this.montantCaution = this.montantLoyer * dureeCaution;
     this.dureeCaution = dureeCaution;
-
     // Change status caution
-    if (montantCaution > 0) this.statutCaution = 'En cours';
+    if (this.montantCaution > 0) this.statutCaution = 'En cours';
     else this.statutCaution = '--';
   }
 
@@ -437,57 +295,11 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
 
   calculCautionDurreeRecuperer() {
     this.durreConsommee = this.contratForm.get('duree_consomme')?.value;
-
-    // this.dureeCaution = this.contrat.duree_caution;
-
     this.durreeRecuperer = this.dureeCaution - this.durreConsommee;
     if (this.durreeRecuperer < 0) {
       this.hasErrordurreeRecuperer = true;
     } else this.hasErrordurreeRecuperer = false;
   }
-
-  // calcul Date fin de l’avance et Date 1er de l'avance
-  // calculDate() {
-  //   let montant_loyer = parseInt(this.contratForm.get('montant_loyer')?.value,10);
-  //   let date = new Date(this.contratForm.get('date_debut_loyer')?.value);
-  //   let month = date.getMonth();
-  //   this.dureeAvance = this.contratForm.get('duree_avance')?.value;
-
-  //   if (this.dureeAvance > 0) {
-  //     switch (this.periodicite) {
-  //       case 'mensuelle':
-  //         month += this.dureeAvance;
-  //         break;
-  //       case 'trimestrielle':
-  //         month += this.dureeAvance * 3;
-  //         break;
-  //       case 'annuelle':
-  //         month += this.dureeAvance * 12;
-  //         break;
-  //       default:
-  //         break;
-  //     }
-  //     // if ((date.getMonth() + 1) === 4) {
-
-  //     //   this.datePremierPaiement = new Date(`${date.getFullYear()}-${month}-${1}`).toISOString().slice(0, 10);
-  //     // }
-  //     // Date fin de l'avance
-  //     date.setMonth(month);
-  //     this.datePremierPaiement = date.toISOString().slice(0, 10);
-
-  //     // Date 1er paiment
-  //     date.setDate(0);
-  //     this.formattedDateFinAvance = date.toISOString().slice(0, 10);
-
-  //     // Montant de l'avance
-  //     this.montantAvance = montant_loyer * this.dureeAvance;
-  //   } else {
-  //     // this.datePremierPaiement = null;
-  //     this.datePremierPaiement = this.date_debut_loyer_;
-  //     this.formattedDateFinAvance = null;
-  //     this.montantAvance = 0;
-  //   }
-  // }
 
   calculDate() {
     let montant_loyer = parseInt(
@@ -553,15 +365,21 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   }
 
   calculDateFinSuspension() {
-    let dateSuspension = this.contratForm.get('etat_contrat_date_suspension')?.value;
-    let durreSuspension = this.contratForm.get('etat_contrat_duree_suspension')?.value;
-    if(dateSuspension == (undefined || null)) this.isValidDate = true
-    else this.isValidDate = false
-    if(durreSuspension == (undefined || null)) {
+    let dateSuspension = this.contratForm.get(
+      'etat_contrat_date_suspension'
+    )?.value;
+    let durreSuspension = this.contratForm.get(
+      'etat_contrat_duree_suspension'
+    )?.value;
+    if (dateSuspension == (undefined || null)) this.isValidDate = true;
+    else this.isValidDate = false;
+    if (durreSuspension == (undefined || null)) {
       this.dateFinSuspension = new Date('2999-01-01');
-      this.dateFinSuspension = this.formatDate(this.dateFinSuspension)
-    }
-    else this.dateFinSuspension = moment(dateSuspension).add(durreSuspension, 'M').format('MM/DD/YYYY');
+      this.dateFinSuspension = this.formatDate(this.dateFinSuspension);
+    } else
+      this.dateFinSuspension = moment(dateSuspension)
+        .add(durreSuspension, 'M')
+        .format('MM/DD/YYYY');
   }
 
   getFoncierById() {
@@ -605,7 +423,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   }
 
   showEtatSection(event: any) {
-    let numeroAvenant = `${this.contrat.numero_contrat}/AV`;
+    let numeroAvenant = `${this.contrat.numero_contrat}`;
     this.contratForm.controls.etat_contrat_n_avenant.setValue(numeroAvenant);
     let selectedEtat = event.target.value;
     this.selectedEtatContrat = selectedEtat;
@@ -846,7 +664,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
         this.contrat.is_avenant
           ? this.contrat.etat_contrat.etat.deleted_proprietaires
           : [];
-      this.proprietaires = this.contrat.foncier.proprietaire;
+      this.proprietaires = this.contrat.proprietaires;
       // this.contrat.numero_contrat
       //   ? (this.foncier_id = this.contrat.lieu._id)
       //   : null;
@@ -883,11 +701,15 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
 
   // Update contrat
   updateContrat() {
-    let dateSuspension = this.contratForm.get('etat_contrat_date_suspension')?.value;
+    let dateSuspension = this.contratForm.get(
+      'etat_contrat_date_suspension'
+    )?.value;
     // let durreSuspension = this.contratForm.get('etat_contrat_duree_suspension')?.value;
     let dateEffetAvenant = this.contratForm.get('date_effet_av')?.value;
     let contratLibelle = this.contratForm.get('etat_contrat_libelle')?.value;
-    let dateActivation = this.contratForm.get('etat_contrat_date_fin_suspension')?.value;
+    let dateActivation = this.contratForm.get(
+      'etat_contrat_date_fin_suspension'
+    )?.value;
 
     if (contratLibelle != 'Initié') {
       if (
@@ -930,8 +752,10 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       }
       if (
         (dateSuspension != null || dateEffetAvenant != (null || '')) &&
-        contratLibelle != (undefined || null) && dateActivation != null
-      ) this.succesUpdate();
+        contratLibelle != (undefined || null) &&
+        dateActivation != null
+      )
+        this.succesUpdate();
     } else this.succesUpdate();
   }
 
@@ -999,7 +823,9 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
             this.formatDate(
               this.contratForm.get('etat_contrat_date_suspension')?.value
             ) || null,
-          date_fin_suspension: this.formatDate(this.dateFinSuspension) || this.contratForm.get('etat_contrat_date_fin_suspension')?.value,
+          date_fin_suspension:
+            this.formatDate(this.dateFinSuspension) ||
+            this.contratForm.get('etat_contrat_date_fin_suspension')?.value,
           duree_suspension:
             this.contratForm.get('etat_contrat_duree_suspension')?.value ||
             null,
