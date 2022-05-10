@@ -576,14 +576,17 @@
                       'danger-txt': !proprietaire?.is_mandataire
                     }"
                   >
+                    <!-- +
+                " (" +
+                proprietaire.has_mandataire.proprietaire.cin +
+                ")"  -->
                     {{
                       checkAndPutText(proprietaire?.is_mandataire) == "Non"
                         ? proprietaire.has_mandataire != null
                           ? proprietaire.has_mandataire.proprietaire
-                              .nom_prenom +
-                            " (" +
-                            proprietaire.has_mandataire.proprietaire.cin +
-                            ")"
+                              .nom_prenom ||
+                            proprietaire.has_mandataire.proprietaire
+                              .raison_social
                           : checkAndPutText(proprietaire?.is_mandataire)
                         : checkAndPutText(proprietaire?.is_mandataire)
                     }}
