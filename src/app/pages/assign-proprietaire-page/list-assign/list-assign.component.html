@@ -3,7 +3,7 @@
 		<div class="d-flex justify-content-between">
 			<h3 class="main-title">Liste des affectation de
 				<span class="main-txt">
-					{{ proprietaire?.nom_prenom || proprietaire?.raison_social }}
+					{{ proprietaire?.nom_prenom || proprietaire?.raison_social }} • {{proprietaire?.cin || proprietaire?.n_registre_commerce}}
 				</span>
 			</h3>
 			<div class="d-none d-lg-block">
@@ -47,6 +47,9 @@
 				<th>Type entité</th>
 				<th>N° de contrat</th>
 				<!-- <th>Intitulé DR</th> -->
+				<th>Part</th>
+				<th>Montant de loyer</th>
+				<th>D.S</th>
 				<th>Mandataire</th>
 				<th>Actions</th>
 			</tr>
@@ -73,9 +76,20 @@
 				<!-- <td>
             {{ proprietaire.intitule_lieu ? proprietaire.intitule_lieu : "--" }}
           </td> -->
+				
+				<td>{{assignmentProprietaire?.part_proprietaire}}</td>
+				<td>{{assignmentProprietaire?.montant_loyer}}</td>
+				<td>
+				  <span [ngClass]="{
+					'success-txt': assignmentProprietaire?.declaration_option == 'oui',
+					'danger-txt': assignmentProprietaire?.declaration_option == 'non'
+				  }">
+					  {{assignmentProprietaire?.declaration_option | titlecase}}
+				  </span>
+				</td>	
 				<td>
 					<div class="d-grid">
-						<span class="p-1" [ngClass]="{
+						<span [ngClass]="{
                   'success-txt': assignmentProprietaire?.is_mandataire,
                   'danger-txt': !assignmentProprietaire?.is_mandataire
                 }">
@@ -84,8 +98,8 @@
 					</div>
 				</td>
 				<td>
-					<a [routerLink]="['list', assignmentProprietaire._id]" class="btn btn-sm main-btn"><i
-							class="fal fa-eye"></i></a>
+					<!-- <a [routerLink]="['list', assignmentProprietaire._id]" class="btn btn-sm main-btn"><i
+							class="fal fa-eye"></i></a> -->
 					<!-- *ngIf="!isDC && !isDAJC && (proprietaire.libelle === 'Initié' || proprietaire.statut === 'À ajouter')" -->
 					<a *ngIf="!isDC && !isDAJC" class="btn btn-sm info-btn mx-2" (click)="openModalAndPushProprietaire(assignmentProprietaire)"><i
 							class="far fa-user-edit"></i></a>
