@@ -249,7 +249,7 @@
   "
   class="main-card p-lg-4 ms-0 mt-4 table-responsive bg-white"
 >
-  <h5 class="main-title mb-4">
+  <!-- <h5 class="main-title mb-4"> -->
     <!-- Etat de contrat:
     <span
       [ngClass]="{
@@ -269,11 +269,11 @@
           : "--"
       }}
     </span> -->
-    Informations de l'avenant
-  </h5>
+    <!-- Informations de l'avenant
+  </h5> -->
 
   <div class="row">
-    <div class="col-lg-3">
+    <!-- <div class="col-lg-3">
       <h5 class="main-txt">N° avenant</h5>
       <p>
         {{
@@ -282,8 +282,8 @@
             : "--"
         }}
       </p>
-    </div>
-    <div class="col-lg-3">
+    </div> -->
+    <div class="col-lg-4">
       <h5 class="main-txt">Motif</h5>
       <p *ngFor="let motif of contrat?.etat_contrat?.etat?.motif">
         {{
@@ -294,7 +294,7 @@
       </p>
     </div>
 
-    <div class="col-lg-3">
+    <!-- <div class="col-lg-3">
       <h5 class="main-txt">Montant nouveau loyer</h5>
       <p>
         {{
@@ -303,9 +303,9 @@
             : "--"
         }}
       </p>
-    </div>
+    </div> -->
 
-    <div class="col-lg-3">
+    <div class="col-lg-4">
       <h5 class="main-txt">Date d'effet</h5>
       <p>
         {{
@@ -326,7 +326,7 @@
         }}
       </p>
     </div> -->
-    <div class="col-lg-3">
+    <div class="col-lg-4">
       <!-- <div class="col-lg-3">
         <h5 class="main-txt">Intitule d'entité</h5>
         <p>
