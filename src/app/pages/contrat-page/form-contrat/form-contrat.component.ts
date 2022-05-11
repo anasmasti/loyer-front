@@ -919,7 +919,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
 
   // Close confirmation modal
   closeConfirmationModal() {
-    this.confirmationModalService.close();
+    this.confirmationModalService.close(this.id);
   }
 
   // Open confirmation modal

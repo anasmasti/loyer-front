@@ -225,7 +225,8 @@
               contrat.etat_contrat?.libelle === 'Résilié',
             'success-txt': contrat.etat_contrat?.libelle === 'Actif',
             'main-txt':
-              contrat.etat_contrat?.libelle === 'En cours de validation'
+              contrat.etat_contrat?.libelle === 'En cours de validation' || 
+              contrat.etat_contrat?.libelle === 'Planifié'
           }"
           *ngIf="contrat.etat_contrat?.libelle !== 'Avenant'"
         >
