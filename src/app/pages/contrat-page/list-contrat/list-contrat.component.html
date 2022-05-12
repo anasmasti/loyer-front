@@ -345,16 +345,12 @@
               aria-expanded="false"
               *ngIf="
                 (userRoles.includes('CDGSP') && !contrat.validation1_DMG) ||
-                (userRoles.includes('DAJC') &&
-                  !contrat.validation2_DAJC &&
-                  contrat.validation1_DMG) ||
-                ((userRoles.includes('CDGSP') || userRoles.includes('DAJC')) &&
-                  contrat.validation2_DAJC &&
-                  contrat.validation1_DMG)
+                (userRoles.includes('DAJC') && !contrat.validation2_DAJC && contrat.validation1_DMG) ||
+                ((userRoles.includes('CDGSP') || userRoles.includes('DAJC') || userRoles.includes('CSLA')) && contrat.validation2_DAJC && contrat.validation1_DMG)
               "
             >
               <!-- [disabled]="userRoles.includes('DAJC') && !contrat.validation1_DMG" -->
-              <ng-container *ngIf="!contrat.validation2_DAJC">
+              <ng-container *ngIf="!contrat.validation2_DAJC && !userRoles.includes('CSLA')">
                 A valider
               </ng-container>
 
@@ -374,6 +370,16 @@
             >
               Validé
             </button>
+            <button
+            id="btnGroupDrop1"
+            class="btn btn-sm second-btn"
+            *ngIf="
+              (userRoles.includes('CSLA')) &&
+              !contrat.validation1_DMG && !contrat.validation2_DAJC"
+            disabled
+          >
+            Soumis
+          </button>
             <button
               id="btnGroupDrop1"
               class="btn btn-sm second-btn"
