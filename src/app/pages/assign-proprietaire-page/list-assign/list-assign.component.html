@@ -81,8 +81,8 @@
 				<td>{{assignmentProprietaire?.montant_loyer}}</td>
 				<td>
 				  <span [ngClass]="{
-					'success-txt': assignmentProprietaire?.declaration_option == 'oui',
-					'danger-txt': assignmentProprietaire?.declaration_option == 'non'
+					'success-txt': assignmentProprietaire?.declaration_option === 'oui',
+					'danger-txt': assignmentProprietaire?.declaration_option === 'non'
 				  }">
 					  {{assignmentProprietaire?.declaration_option | titlecase}}
 				  </span>
@@ -104,7 +104,7 @@
 					<a *ngIf="!isDC && !isDAJC" class="btn btn-sm info-btn mx-2" (click)="openModalAndPushProprietaire(assignmentProprietaire)"><i
 							class="far fa-user-edit"></i></a>
 					<!-- *ngIf="!isCSLA && !isDC && !isDAJC && proprietaire.libelle === 'Initié'" -->
-					<a *ngIf="isCDGSP && assignmentProprietaire?.contrat.etat_contrat.libelle == 'Initié'" class="btn btn-sm danger-btn" (click)="
+					<a *ngIf="isCDGSP && assignmentProprietaire?.contrat.etat_contrat.libelle === 'Initié'" class="btn btn-sm danger-btn" (click)="
                 openDeleteConfirmationModal(); getAssignmentProprietaireId(assignmentProprietaire._id)
               "><i class="far fa-user-minus"></i></a>
 				</td>
