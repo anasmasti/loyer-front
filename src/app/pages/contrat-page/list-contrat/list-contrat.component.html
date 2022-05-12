@@ -287,20 +287,12 @@
             <!-- *ngIf="!userRoles.includes('DAJC')" -->
             <a
               *ngIf="
-                (this.contrat.etat_contrat?.libelle === 'Initié' &&
-                  userRoles.includes('CSLA')) ||
-                (this.contrat.etat_contrat?.libelle === 'Actif' &&
-                  userRoles.includes('CSLA') &&
-                  !contrat.has_avenant) ||
-                (userRoles.includes('CDGSP') &&
-                  this.contrat.etat_contrat?.libelle === 'Initié') ||
-                (userRoles.includes('CDGSP') &&
-                  this.contrat.etat_contrat?.libelle === 'Actif' &&
-                  !contrat.has_avenant) ||
-                (userRoles.includes('DAJC') &&
-                  this.contrat.validation2_DAJC &&
-                  this.contrat.etat_contrat?.libelle !== 'Résilié' &&
-                  !contrat.has_avenant)
+                ((this.contrat.etat_contrat?.libelle === 'Initié' && userRoles.includes('CSLA')) ||
+                (this.contrat.etat_contrat?.libelle === 'Actif' && userRoles.includes('CSLA') && !contrat.has_avenant) ||
+                (userRoles.includes('CDGSP') && this.contrat.etat_contrat?.libelle === 'Initié') ||
+                (userRoles.includes('CDGSP') && this.contrat.etat_contrat?.libelle === 'Actif' && !contrat.has_avenant) ||
+                (userRoles.includes('DAJC') && this.contrat.validation2_DAJC && this.contrat.etat_contrat?.libelle !== 'Résilié' &&
+                  !contrat.has_avenant)) && contrat?.etat_contrat?.libelle !== 'Planifié'
               "
               (click)="openEditModal(contrat)"
               class="btn btn-sm info-btn me-2"
