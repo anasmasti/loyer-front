@@ -573,8 +573,8 @@
                 proprietaire.has_mandataire.proprietaire.cin +
                 ")"  -->
                     {{
-                      checkAndPutText(proprietaire?.is_mandataire) == "Non"
-                        ? proprietaire.has_mandataire != null
+                      checkAndPutText(proprietaire?.is_mandataire) === "Non"
+                        ? proprietaire.has_mandataire !== null
                           ? proprietaire.has_mandataire.proprietaire
                               .nom_prenom ||
                             proprietaire.has_mandataire.proprietaire

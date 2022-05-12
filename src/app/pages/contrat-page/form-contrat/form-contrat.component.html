@@ -1320,7 +1320,7 @@
                 <tbody *ngIf="proprietaires?.length">
                   <tr *ngFor="let proprietaire of proprietaires">
                     <!-- <td>{{ proprietaire._id }}</td> -->
-                    <ng-container *ngIf="proprietaire.statut != 'Décés'">
+                    <ng-container *ngIf="proprietaire.statut !== 'Décés'">
                       <td>
                         {{
                           proprietaire.proprietaire.nom_prenom
