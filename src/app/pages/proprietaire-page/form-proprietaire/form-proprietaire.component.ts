@@ -203,29 +203,30 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       cle_rib: this.proprietaireForm.get('cle_rib')?.value,
       type_proprietaire: this.type_proprietaire
     };
+console.log(proprietaire_data);
 
-    this.proprietaireService
-      .postProprietaire(proprietaire_data, this.userMatricule)
-      .subscribe(
-        (_) => {
-          this.postDone = true;
-          setTimeout(() => {
-            //this.proprietaireForm.reset();
-            this.postDone = false;
-            this.help.toTheUp();
-            this.router.navigate(['/proprietaire/list-global/list']).then(() => {
-              this.help.refrechPage();
-            });
-          }, 3000);
-        },
-        (error) => {
-          this.errors = error.error?.message;
-          setTimeout(() => {
-            this.showErrorMessage();
-          }, 3000);
-          this.hideErrorMessage();
-        }
-      );
+    // this.proprietaireService
+    //   .postProprietaire(proprietaire_data, this.userMatricule)
+    //   .subscribe(
+    //     (_) => {
+    //       this.postDone = true;
+    //       setTimeout(() => {
+    //         //this.proprietaireForm.reset();
+    //         this.postDone = false;
+    //         this.help.toTheUp();
+    //         this.router.navigate(['/proprietaire/list-global/list']).then(() => {
+    //           this.help.refrechPage();
+    //         });
+    //       }, 3000);
+    //     },
+    //     (error) => {
+    //       this.errors = error.error?.message;
+    //       setTimeout(() => {
+    //         this.showErrorMessage();
+    //       }, 3000);
+    //       this.hideErrorMessage();
+    //     }
+    //   );
   }
 
   updateProprietaire() {

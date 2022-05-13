@@ -80,6 +80,7 @@
               [ngClass]="{
                 'is-invalid': checkInputsValidation(nom_prenom)
               }"
+              appUppercaseDirective
             />
             <!-- Error Message  -->
             <div class="" *ngIf="checkInputsValidation(nom_prenom)">
@@ -107,6 +108,7 @@
               [ngClass]="{
                 'is-invalid': checkInputsValidation(cin)
               }"
+              appUppercaseDirective
             />
             <!-- Error Message  -->
             <div class="" *ngIf="checkInputsValidation(cin)">
@@ -131,6 +133,7 @@
               [ngClass]="{
                 'is-invalid': checkInputsValidation(passport)
               }"
+              appUppercaseDirective
             />
             <!-- Error Message  -->
             <div class="" *ngIf="checkInputsValidation(passport)">
@@ -149,6 +152,7 @@
               [ngClass]="{
                 'is-invalid': checkInputsValidation(carte_sejour)
               }"
+              appUppercaseDirective
             />
             <!-- Error Message  -->
             <div class="" *ngIf="checkInputsValidation(carte_sejour)">
@@ -171,6 +175,7 @@
               [ngClass]="{
                 'is-invalid': checkInputsValidation(raison_social)
               }"
+              appUppercaseDirective
             />
 
             <!-- Error Message  -->
@@ -299,6 +304,7 @@
               'is-invalid': checkInputsValidation(banque),
               'is-valid': !banque?.invalid
             }"
+            appUppercaseDirective
           />
 
           <!-- Error Message  -->
@@ -321,6 +327,7 @@
             [ngClass]="{
               'is-invalid': checkInputsValidation(nom_agence_bancaire)
             }"
+            appUppercaseDirective
           />
         </div>
       </div>
@@ -336,6 +343,7 @@
               'is-invalid': checkInputsValidation(adresse),
               'is-valid': !adresse?.invalid
             }"
+            appUppercaseDirective
           ></textarea>
           <!-- Error Message  -->
           <div class="" *ngIf="checkInputsValidation(adresse)">
