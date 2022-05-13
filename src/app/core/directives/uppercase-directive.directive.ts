@@ -6,7 +6,7 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
 export class UppercaseDirectiveDirective {
   value: any = '';
 
-  @HostListener('input', ['$event']) onInputChange($event: any) {
+  @HostListener('keyup', ['$event']) onInputChange($event: any) {
     this.value = $event.target.value.toUpperCase();
     this.displayUpperCaseValue(this.value)
   }

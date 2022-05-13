@@ -11,6 +11,7 @@ import { EditProprietaireComponent } from './edit-proprietaire/edit-proprietaire
 import { FormProprietaireComponent } from './form-proprietaire/form-proprietaire.component';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { DirectivesModule } from 'src/app/core/directives/directives.module';
 
 
 const route: Routes = [
@@ -34,7 +35,8 @@ const route: Routes = [
     MainModalModule,
     ConfirmationModalModule,
     NgxPaginationModule,
-    FormsModule
+    FormsModule,
+    DirectivesModule
   ],
 })
 export class ProprietaireModule { }
