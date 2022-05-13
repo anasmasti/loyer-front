@@ -7,7 +7,7 @@ export class UppercaseDirectiveDirective {
   value: any = '';
 
   @HostListener('keyup', ['$event']) onInputChange($event: any) {
-    this.value = $event.target.value.toUpperCase();
+    this.value = $event.target.value.toUpperCase();    
     this.displayUpperCaseValue(this.value)
   }
   
