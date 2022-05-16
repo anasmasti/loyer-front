@@ -60,7 +60,7 @@
               'is-invalid': checkInputsValidation(intitule_lieu),
               'is-valid': !intitule_lieu?.invalid
             }"
-            appUppercaseDirective />
+            appUppercase />
           <div class="" *ngIf="checkInputsValidation(intitule_lieu)">
             <p class="danger-txt" *ngIf="intitule_lieu?.errors?.required">
               Veuillez remplir ce champ
