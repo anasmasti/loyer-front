@@ -1,9 +1,9 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[appUppercaseDirective]'
+  selector: '[appUppercase]'
 })
-export class UppercaseDirectiveDirective {
+export class UppercaseDirective {
   value: any = '';
 
   @HostListener('keyup', ['$event']) onInputChange($event: any) {
