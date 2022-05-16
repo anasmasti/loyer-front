@@ -87,7 +87,7 @@
           type="text"
           class="form-control rounded-pill"
           formControlName="superficie"
-        />
+          />
       </div>
 
       <div class="col-lg-4 form-group mt-4" *ngIf="!update || (update && !foncier?.contrat[0]?.validation2_DAJC)">
@@ -121,12 +121,14 @@
           type="text"
           class="form-control rounded-pill"
           formControlName="etage"
+          appUppercaseDirective
         />
       </div>
 
       <div class="col-lg-12 form-group mt-4" *ngIf="!update || (update && !foncier?.contrat[0]?.validation2_DAJC)">
         <label for="">Adresse <span class="danger-txt">*</span></label>
         <textarea
+        
           type="text"
           class="form-control"
           formControlName="adresse"
@@ -134,7 +136,7 @@
             'is-invalid': checkInputsValidation(adresse),
             'is-valid': !adresse?.invalid
           }"
-        ></textarea>
+          appUppercaseDirective></textarea>
         <div class="" *ngIf="checkInputsValidation(adresse)">
           <p class="danger-txt" *ngIf="adresse?.errors?.required">
             Veuillez remplir ce champ
@@ -148,7 +150,7 @@
           type="text"
           class="form-control"
           formControlName="desc_lieu_entrer"
-        ></textarea>
+          appUppercaseDirective></textarea>
       </div>
 
       <div class="col-lg-3 form-group mt-4" *ngIf="!update || (update && !foncier?.contrat[0]?.validation2_DAJC)">
@@ -269,6 +271,7 @@
               type="text"
               class="form-control rounded-pill"
               formControlName="numero_facture"
+              appUppercaseDirective
             />
           </div>
           <div class="col-lg-4 form-group mt-4">
@@ -277,6 +280,7 @@
               type="text"
               class="form-control rounded-pill"
               formControlName="numero_bon_commande"
+              appUppercaseDirective
             />
           </div>
 
@@ -289,6 +293,7 @@
               type="text"
               class="form-control rounded-pill"
               formControlName="valeur_nature_chargeProprietaire"
+              appUppercaseDirective
             />
           </div>
 
@@ -301,6 +306,7 @@
               type="text"
               class="form-control rounded-pill"
               formControlName="valeur_nature_chargeFondation"
+              appUppercaseDirective
             />
           </div>
 
@@ -310,6 +316,7 @@
               type="text"
               class="form-control rounded-pill"
               formControlName="fournisseur"
+              appUppercaseDirective
             />
           </div>
 
@@ -369,6 +376,7 @@
                   type="text"
                   class="form-control rounded-pill"
                   formControlName="evaluation_fournisseur"
+                  appUppercaseDirective
                 />
               </div>
 

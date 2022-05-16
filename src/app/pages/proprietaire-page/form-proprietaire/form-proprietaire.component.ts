@@ -203,7 +203,6 @@ export class FormProprietaireComponent implements OnInit, OnChanges {
       cle_rib: this.proprietaireForm.get('cle_rib')?.value,
       type_proprietaire: this.type_proprietaire
     };
-
     this.proprietaireService
       .postProprietaire(proprietaire_data, this.userMatricule)
       .subscribe(

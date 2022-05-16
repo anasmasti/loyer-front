@@ -47,7 +47,7 @@ export class SituationClotureComponent implements OnInit {
     });
   }
 
-  generateSituationCloture() {
+   generateSituationCloture() {
     // Fill date cloture
     let date: dateClotureType = {
       mois: this.dateCloture.mois,
@@ -63,8 +63,8 @@ export class SituationClotureComponent implements OnInit {
           // Close success message after 2s
           setTimeout(() => {
             this.generationDone = false;
-            this.getSituationCloturePath(this.situations);
-          }, 5000);
+             this.getSituationCloturePath(this.situations);
+          }, 8000);
         }
       },
       (error) => {
