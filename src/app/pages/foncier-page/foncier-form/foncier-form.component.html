@@ -121,6 +121,7 @@
           type="text"
           class="form-control rounded-pill"
           formControlName="etage"
+          appUppercase
         />
       </div>
 
@@ -135,7 +136,7 @@
             'is-invalid': checkInputsValidation(adresse),
             'is-valid': !adresse?.invalid
           }"
-          appUppercaseDirective></textarea>
+          appUppercase></textarea>
         <div class="" *ngIf="checkInputsValidation(adresse)">
           <p class="danger-txt" *ngIf="adresse?.errors?.required">
             Veuillez remplir ce champ
@@ -149,7 +150,7 @@
           type="text"
           class="form-control"
           formControlName="desc_lieu_entrer"
-          appUppercaseDirective></textarea>
+          appUppercase></textarea>
       </div>
 
       <div class="col-lg-3 form-group mt-4" *ngIf="!update || (update && !foncier?.contrat[0]?.validation2_DAJC)">
@@ -270,6 +271,7 @@
               type="text"
               class="form-control rounded-pill"
               formControlName="numero_facture"
+              appUppercase
             />
           </div>
           <div class="col-lg-4 form-group mt-4">
@@ -278,6 +280,7 @@
               type="text"
               class="form-control rounded-pill"
               formControlName="numero_bon_commande"
+              appUppercase
             />
           </div>
 
@@ -290,6 +293,7 @@
               type="text"
               class="form-control rounded-pill"
               formControlName="valeur_nature_chargeProprietaire"
+              appUppercase
             />
           </div>
 
@@ -302,6 +306,7 @@
               type="text"
               class="form-control rounded-pill"
               formControlName="valeur_nature_chargeFondation"
+              appUppercase
             />
           </div>
 
@@ -311,6 +316,7 @@
               type="text"
               class="form-control rounded-pill"
               formControlName="fournisseur"
+              appUppercase
             />
           </div>
 
@@ -370,6 +376,7 @@
                   type="text"
                   class="form-control rounded-pill"
                   formControlName="evaluation_fournisseur"
+                  appUppercase
                 />
               </div>
 
