@@ -328,11 +328,11 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
 
       date.setMonth(month);
       // Date 1er paiment
-      this.datePremierPaiement = moment(date).add(0, 'M').format('MM/DD/YYYY');
+      this.datePremierPaiement = moment(date).add(0, 'M').format('YYYY/MM/DD');
       // Date fin de l'avance
       this.formattedDateFinAvance = moment(date)
         .add(-1, 'days')
-        .format('MM/DD/YYYY');
+        .format('YYYY/MM/DD');
 
       // Montant de l'avance
       this.montantAvance = montant_loyer * this.dureeAvance;
@@ -379,7 +379,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     } else
       this.dateFinSuspension = moment(dateSuspension)
         .add(durreSuspension, 'M')
-        .format('MM/DD/YYYY');
+        .format('YYYY/MM/DD');
   }
 
   getFoncierById() {
