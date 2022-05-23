@@ -8,7 +8,6 @@ import * as moment from 'moment';
 import { ConfirmationModalService } from '@services/confirmation-modal-service/confirmation-modal.service';
 import { FoncierService } from '@services/foncier-service/foncier.service';
 import { Motif } from './motif.class';
-import { Proprietaire } from 'src/app/models/Proprietaire';
 
 @Component({
   selector: 'app-form-contrat',
@@ -570,7 +569,6 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
           this.currentLieu = lieu;
         }
       });
-
       // this.etatContrat = this.contrat.etat_contrat.libelle
 
       this.contratForm?.patchValue({
@@ -662,8 +660,6 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
           ? this.contrat.etat_contrat.etat.deleted_proprietaires
           : [];
       this.proprietaires = this.contrat.proprietaires;
-      console.log(this.contrat);
-
       // this.contrat.numero_contrat
       //   ? (this.foncier_id = this.contrat.lieu._id)
       //   : null;
