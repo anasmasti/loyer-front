@@ -275,7 +275,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     if (newMontant == this.montantLoyer) this.hasErrorNewMontant = true;
     else this.hasErrorNewMontant = false;
   }
-  
+
   // Calcul effort caution and show error if the outside is a decimal number
   calculEffortCaution() {
     let dureeCaution: number = this.contratForm.get('duree_caution')?.value;
@@ -328,11 +328,11 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
 
       date.setMonth(month);
       // Date 1er paiment
-      this.datePremierPaiement = moment(date).add(0, 'M').format('MM/DD/YYYY');
+      this.datePremierPaiement = moment(date).add(0, 'M').format('YYYY/MM/DD');
       // Date fin de l'avance
       this.formattedDateFinAvance = moment(date)
         .add(-1, 'days')
-        .format('MM/DD/YYYY');
+        .format('YYYY/MM/DD');
 
       // Montant de l'avance
       this.montantAvance = montant_loyer * this.dureeAvance;
@@ -379,7 +379,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     } else
       this.dateFinSuspension = moment(dateSuspension)
         .add(durreSuspension, 'M')
-        .format('MM/DD/YYYY');
+        .format('YYYY/MM/DD');
   }
 
   getFoncierById() {
@@ -563,10 +563,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     this.proprDecesFormList = false;
     this.proprCessionFormList = false;
     this.montantLoyerForm = false;
-    this.isAV = false;
-    let index = this.contrat?.numero_contrat.indexOf('/AV');
-    let checkAv = this.contrat?.numero_contrat.slice(index);
-    if (checkAv == '/AV') this.isAV = true;
+    this.isAV = this.contrat.is_avenant;
     if (this.contrat) {
       this.contrat.foncier.lieu.forEach((lieu: any) => {
         if (!lieu.deleted) {
@@ -665,6 +662,8 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
           ? this.contrat.etat_contrat.etat.deleted_proprietaires
           : [];
       this.proprietaires = this.contrat.proprietaires;
+      console.log(this.contrat);
+
       // this.contrat.numero_contrat
       //   ? (this.foncier_id = this.contrat.lieu._id)
       //   : null;
