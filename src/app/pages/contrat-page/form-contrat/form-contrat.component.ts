@@ -8,7 +8,6 @@ import * as moment from 'moment';
 import { ConfirmationModalService } from '@services/confirmation-modal-service/confirmation-modal.service';
 import { FoncierService } from '@services/foncier-service/foncier.service';
 import { Motif } from './motif.class';
-import { Proprietaire } from 'src/app/models/Proprietaire';
 
 @Component({
   selector: 'app-form-contrat',
@@ -275,7 +274,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     if (newMontant == this.montantLoyer) this.hasErrorNewMontant = true;
     else this.hasErrorNewMontant = false;
   }
-  
+
   // Calcul effort caution and show error if the outside is a decimal number
   calculEffortCaution() {
     let dureeCaution: number = this.contratForm.get('duree_caution')?.value;
@@ -563,17 +562,13 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
     this.proprDecesFormList = false;
     this.proprCessionFormList = false;
     this.montantLoyerForm = false;
-    this.isAV = false;
-    let index = this.contrat?.numero_contrat.indexOf('/AV');
-    let checkAv = this.contrat?.numero_contrat.slice(index);
-    if (checkAv == '/AV') this.isAV = true;
+    this.isAV = this.contrat.is_avenant;
     if (this.contrat) {
       this.contrat.foncier.lieu.forEach((lieu: any) => {
         if (!lieu.deleted) {
           this.currentLieu = lieu;
         }
       });
-
       // this.etatContrat = this.contrat.etat_contrat.libelle
 
       this.contratForm?.patchValue({
