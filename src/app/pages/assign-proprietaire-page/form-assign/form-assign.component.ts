@@ -56,6 +56,8 @@ export class FormAssignComponent implements OnInit, OnChanges {
   partProprietaire: number = 0;
   hasDeclarationOption: string = 'non';
 
+  isBtnDisabled: boolean = false;
+
   periodicite: any[] = [
     {
       number: 1,
@@ -173,7 +175,7 @@ export class FormAssignComponent implements OnInit, OnChanges {
       // Calcul montants
       this.calculMontant();
       this.calculMontantAvance();
-      this.calculCaution();      
+      this.calculCaution();
     }, 2000);
   }
 
@@ -284,9 +286,9 @@ export class FormAssignComponent implements OnInit, OnChanges {
 
     // condition to control if the total part are > nbrPartContrat the we show an error message and take nbrPartContrat minus the total part and stock the result in the partProprietaire
     if (this.totalPartProprietaires + this.partProprietaire > nbrPartContrat) {
-      
       this.partProprietaire = nbrPartContrat - this.totalPartProprietaires;
       this.openConfirmationModal();
+      this.isBtnDisabled = true;
     }
 
     let namePeriodicite = this.contrats?.periodicite_paiement;
@@ -583,6 +585,7 @@ export class FormAssignComponent implements OnInit, OnChanges {
 
   //if the montant loyer contrat < sum of montant loyer proprietaire then display an error and roolBack to initial data
   roolBack() {
+    this.isBtnDisabled = false;
     // check if it is in update form
     if (this.isUpdate) {
       this.closeModel();

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { shareReplay } from 'rxjs/operators';
 import { AssignmentProprietaire } from 'src/app/models/AssignmentProprietaire';
 import { environment } from 'src/environments/environment';
 
@@ -18,7 +19,7 @@ export class AssignmentProprietaireService {
         `${environment.API_URL_TEST + environment.API_VERSION + this.param_url
         }/ajouter/${id_contrat}/${matricule}`,
         data
-      );
+      ).pipe(shareReplay());
     }
   
     // Update the proprietaire
