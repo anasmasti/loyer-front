@@ -506,6 +506,7 @@ export class FormAssignComponent implements OnInit, OnChanges {
         .subscribe(
           (_) => {
             this.postDone = true;
+            this.isBtnDisabled = true;
             setTimeout(() => {
               this.postDone = false;
               this.help.toTheUp();
@@ -566,6 +567,7 @@ export class FormAssignComponent implements OnInit, OnChanges {
       .subscribe(
         (_) => {
           this.updateDone = true;
+          this.isBtnDisabled = true;
           setTimeout(() => {
             this.mainModalService.close();
             this.updateDone = false;
