@@ -11,17 +11,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent implements OnInit {
+  loginForm!: FormGroup;
+  matricule!: string;
+  hasError!: boolean;
+  errorMessage!: string;
+
+  showPass: boolean;
+
   constructor(
     private mainModalService: MainModalService,
     private authService: AuthService,
     public router: Router,
     private helperService: HelperService
-  ) {}
-
-  loginForm!: FormGroup;
-  matricule!: string;
-  hasError!: boolean;
-  errorMessage!: string;
+  ) {
+    this.showPass = false;
+  }
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -67,9 +71,8 @@ export class LoginPageComponent implements OnInit {
         //     return;
         //   }
         // });
-        
-       this.goTo('');
-     
+
+        this.goTo('');
       },
       (error) => {
         this.hasError = true;
@@ -107,6 +110,10 @@ export class LoginPageComponent implements OnInit {
     localStorage.removeItem('matricule');
     this.loginForm.reset();
     this.matricule = '';
+  }
+
+  showPassword() {
+    this.showPass = !this.showPass;
   }
 
   get Password() {

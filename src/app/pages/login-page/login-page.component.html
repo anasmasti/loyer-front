@@ -1,4 +1,4 @@
-<app-main-modal  [closeBtn]='false' >
+<app-main-modal [closeBtn]='false'>
     <div class="login-content d-flex align-items-center justify-content-center flex-column">
         <div class="w-100 d-flex justify-content-center">
             <div *ngIf="hasError" class="error-alert p-2 my-2">{{ errorMessage }}</div>
@@ -46,10 +46,15 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="">Mot de passe <span class="danger-txt">*</span></label>
-                <input type="password" placeholder="Mot de passe" class="form-control rounded-pill"
-                    formControlName="Password">
+            <div class="form-group mb-2">
+                <label>Mot de passe <span class="danger-txt">*</span></label>
+                <div class="input-group">
+                    <input [type]="!showPass ? 'password' : 'text'" type="password" placeholder="Mot de passe"
+                        class="form-control rounded-pill" formControlName="Password">
+                    <a (click)="showPassword()" class="main-btn p-2 ms-2" aria-label="Voir le mot de passe">
+                        <i [class]="showPass ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+                    </a>
+                </div>
             </div>
             <div class="" *ngIf="checkInputsValidation(Password)">
                 <p class="danger-txt" *ngIf="Password?.errors?.required">
