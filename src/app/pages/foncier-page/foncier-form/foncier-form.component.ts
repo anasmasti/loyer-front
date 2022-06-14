@@ -125,6 +125,9 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
       superficie: new FormControl(''),
       etage: new FormControl(''),
       imgs_lieu_entrer: new FormControl(''),
+      longitude:  new FormControl(""),
+      latitude: new FormControl(''),
+
       // Amenagement
       amenagementForm: new FormArray([]),
     });
@@ -208,6 +211,8 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
       has_amenagements: this.foncier.has_amenagements,
       superficie: this.foncier.superficie,
       etage: this.foncier.etage,
+      longitude:  this.foncier.longitude,
+      latitude: this.foncier.latitude,
     });
 
     // Fetch lieu
@@ -561,6 +566,9 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
       has_amenagements: this.foncierForm.get('has_amenagements')?.value,
       superficie: this.foncierForm.get('superficie')?.value,
       etage: this.foncierForm.get('etage')?.value,
+      longitude: this.foncierForm.get('longitude')?.value,
+      latitude: this.foncierForm.get('latitude')?.value,
+
       // Amenagement
       amenagement: this.foncierForm.get('amenagementForm')?.value,
     };
@@ -623,6 +631,8 @@ export class FoncierFormComponent implements OnInit, OnDestroy, OnChanges {
       contrat: this.foncierForm.get('contrat')?.value,
       superficie: this.foncierForm.get('superficie')?.value,
       etage: this.foncierForm.get('etage')?.value,
+      longitude: this.foncierForm.get('longitude')?.value,
+      latitude: this.foncierForm.get('latitude')?.value,
 
       // Amenagment
       amenagement: this.foncierForm.get('amenagementForm')?.value,

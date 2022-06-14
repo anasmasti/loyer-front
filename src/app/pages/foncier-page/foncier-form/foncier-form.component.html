@@ -1,10 +1,7 @@
 <!--Début de Div qui contient le formulaire form-contrat-->
 <div id="form_section" class="form-box mt-4">
   <!--Début Formulaire form-contrat-->
-  <form
-    [formGroup]="foncierForm"
-    (ngSubmit)="foncier === '' ? addFoncier() : updateFoncier()"
-  >
+  <form [formGroup]="foncierForm" (ngSubmit)="foncier === '' ? addFoncier() : updateFoncier()">
     <div class="w-100 d-flex justify-content-center">
       <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
       <div *ngIf="postDone" class="done-alert p-2 my-2">{{ PostSucces }}</div>
@@ -16,20 +13,13 @@
     <!--Début 1er Row-->
     <div class="row">
       <div class="col-lg-4 form-group mt-4" *ngIf="!update">
-        <label for=""
-          >Type d'entité organisationnelle
-          <span class="danger-txt">*</span></label
-        >
-        <select
-          class="form-select rounded-pill"
-          formControlName="type_lieu"
-          [(ngModel)]="selectedType"
-          (change)="getLieuxByType(selectedType)"
-          [ngClass]="{
+        <label for="">Type d'entité organisationnelle
+          <span class="danger-txt">*</span></label>
+        <select class="form-select rounded-pill" formControlName="type_lieu" [(ngModel)]="selectedType"
+          (change)="getLieuxByType(selectedType)" [ngClass]="{
             'is-invalid': checkInputsValidation(type_lieu),
             'is-valid': !type_lieu?.invalid
-          }"
-        >
+          }">
           <option *ngFor="let type of types" [value]="type.name">
             {{ type.name }}
           </option>
@@ -42,25 +32,18 @@
       </div>
 
       <div class="col-lg-4 form-group mt-4" *ngIf="!update">
-        <label for=""
-          >Code d'entité organisationnelle
-          <span class="danger-txt">*</span></label
-        >
-        <select
-          class="form-select rounded-pill"
-          formControlName="lieu"
-          (change)="getIntitulerLieu()"
-          [(ngModel)]="selectedLieuId"
-          [ngClass]="{
+        <label for="">Code d'entité organisationnelle
+          <span class="danger-txt">*</span></label>
+        <select class="form-select rounded-pill" formControlName="lieu" (change)="getIntitulerLieu()"
+          [(ngModel)]="selectedLieuId" [ngClass]="{
             'is-invalid': checkInputsValidation(lieu),
             'is-valid': !lieu?.invalid
-          }"
-        >
+          }">
           <option [value]="lieu._id" *ngFor="let lieu of lieuxByType">
             {{
-              lieu.type_lieu === "Logement de fonction"
-                ? lieu.attached_DR.code_lieu
-                : lieu.code_lieu
+            lieu.type_lieu === "Logement de fonction"
+            ? lieu.attached_DR.code_lieu
+            : lieu.code_lieu
             }}
           </option>
         </select>
@@ -73,21 +56,12 @@
 
       <div class="col-lg-4 form-group mt-4" *ngIf="!update">
         <label for="">Intitulé d'entité organisationnelle</label>
-        <input
-          type="text"
-          class="form-control rounded-pill"
-          [value]="Intituler_lieu"
-          readonly
-        />
+        <input type="text" class="form-control rounded-pill" [value]="Intituler_lieu" readonly />
       </div>
 
       <div class="col-lg-4 form-group mt-4" *ngIf="!update || (update  && foncier?.contrat.length === 0)">
         <label for="">Superficie</label>
-        <input
-          type="text"
-          class="form-control rounded-pill"
-          formControlName="superficie"
-          />
+        <input type="text" class="form-control rounded-pill" formControlName="superficie" />
       </div>
 
       <div class="col-lg-4 form-group mt-4" *ngIf="!update || (update && !foncier?.contrat[0]?.validation2_DAJC)">
@@ -95,15 +69,10 @@
         <p *ngIf="!cities.length" class="danger-txt">
           Une erreur s'est produite, veuillez réessayer plus tard.
         </p>
-        <select
-          *ngIf="cities.length"
-          class="form-select rounded-pill"
-          formControlName="ville"
-          [ngClass]="{
+        <select *ngIf="cities.length" class="form-select rounded-pill" formControlName="ville" [ngClass]="{
             'is-invalid': checkInputsValidation(ville),
             'is-valid': !ville?.invalid
-          }"
-        >
+          }">
           <option *ngFor="let city of cities" [value]="city.name">
             {{ city.name }}
           </option>
@@ -117,26 +86,25 @@
 
       <div class="col-lg-4 form-group mt-4" *ngIf="!update || (update && !foncier?.contrat[0]?.validation2_DAJC)">
         <label for="">Etage</label>
-        <input
-          type="text"
-          class="form-control rounded-pill"
-          formControlName="etage"
-          appUppercase
-        />
+        <input type="text" class="form-control rounded-pill" formControlName="etage" appUppercase />
+      </div>
+
+      <div class="col-lg-4 form-group mt-4" *ngIf="!update || (update && !foncier?.contrat[0]?.validation2_DAJC)">
+        <label for="">Longitude</label>
+        <input type="text" class="form-control rounded-pill" formControlName="longitude" appUppercase />
+      </div>
+
+      <div class="col-lg-4 form-group mt-4" *ngIf="!update || (update && !foncier?.contrat[0]?.validation2_DAJC)">
+        <label for="">Latitude</label>
+        <input type="text" class="form-control rounded-pill" formControlName="latitude" appUppercase />
       </div>
 
       <div class="col-lg-12 form-group mt-4" *ngIf="!update || (update && !foncier?.contrat[0]?.validation2_DAJC)">
         <label for="">Adresse <span class="danger-txt">*</span></label>
-        <textarea
-        
-          type="text"
-          class="form-control"
-          formControlName="adresse"
-          [ngClass]="{
+        <textarea type="text" class="form-control" formControlName="adresse" [ngClass]="{
             'is-invalid': checkInputsValidation(adresse),
             'is-valid': !adresse?.invalid
-          }"
-          appUppercase></textarea>
+          }" appUppercase></textarea>
         <div class="" *ngIf="checkInputsValidation(adresse)">
           <p class="danger-txt" *ngIf="adresse?.errors?.required">
             Veuillez remplir ce champ
@@ -146,47 +114,23 @@
 
       <div class="col-lg-12 form-group mt-4" *ngIf="!update || (update && !foncier?.contrat[0]?.validation2_DAJC)">
         <label for="">Descriptif du local</label>
-        <textarea
-          type="text"
-          class="form-control"
-          formControlName="desc_lieu_entrer"
-          appUppercase></textarea>
+        <textarea type="text" class="form-control" formControlName="desc_lieu_entrer" appUppercase></textarea>
       </div>
 
       <div class="col-lg-3 form-group mt-4" *ngIf="!update || (update && !foncier?.contrat[0]?.validation2_DAJC)">
         <label for="">Images du local avant aménagement</label>
-        <input
-          type="file"
-          class="form-control btn success-btn"
-          formControlName="imgs_lieu_entrer"
-          accept=".pdf"
-          (change)="onFileSelected($event,'imgs_lieu_entrer')"
-          multiple
-        />
+        <input type="file" class="form-control btn success-btn" formControlName="imgs_lieu_entrer" accept=".pdf"
+          (change)="onFileSelected($event,'imgs_lieu_entrer')" multiple />
       </div>
 
       <div class="mt-4">Aménagement</div>
       <div class="col-lg-3 form-group d-flex mt-2">
         <label for="">Oui</label>
-        <input
-          type="radio"
-          name="has_amenagements"
-          [value]="true"
-          class="form-check-input mx-2"
-          [(ngModel)]="hasAmenagement"
-          formControlName="has_amenagements"
-          (click)="hasAmengmnt('Oui')"
-        />
+        <input type="radio" name="has_amenagements" [value]="true" class="form-check-input mx-2"
+          [(ngModel)]="hasAmenagement" formControlName="has_amenagements" (click)="hasAmengmnt('Oui')" />
         <label for="">Non</label>
-        <input
-          type="radio"
-          name="has_amenagements"
-          [value]="false"
-          class="form-check-input mx-2"
-          [(ngModel)]="hasAmenagement"
-          formControlName="has_amenagements"
-          (click)="hasAmengmnt('Non')"
-        />
+        <input type="radio" name="has_amenagements" [value]="false" class="form-check-input mx-2"
+          [(ngModel)]="hasAmenagement" formControlName="has_amenagements" (click)="hasAmengmnt('Non')" />
       </div>
 
       <!-- Condition pour afficher ou cacher le formulaire de Aménagement -->
@@ -202,127 +146,78 @@
           <div class="margin-main col-lg-12 mt-3">
             <div class="d-flex justify-content-between">
               <h4 class="main-text">Aménagement</h4>
-              <a
-                (click)="addAmenagement('NewAmng', false)"
-                class="btn second-btn"
-                >Ajouter aménagement</a
-              >
+              <a (click)="addAmenagement('NewAmng', false)" class="btn second-btn">Ajouter aménagement</a>
             </div>
           </div>
         </div>
 
         <!--Début de Conteneur Aménagement-->
-        <div
-          formArrayName="amenagementForm"
-          *ngFor="let item of amenagementForm.controls; let i = index"
-        >
-          <div
-            class="main-card mt-4 bg-white p-lg-4"
-            *ngIf="!amenagementForm.controls[i].value.deleted"
-            [formGroupName]="i"
-            id="{{ i }}"
-          >
+        <div formArrayName="amenagementForm" *ngFor="let item of amenagementForm.controls; let i = index">
+          <div class="main-card mt-4 bg-white p-lg-4" *ngIf="!amenagementForm.controls[i].value.deleted"
+            [formGroupName]="i" id="{{ i }}">
             <h6 class="main-title">Aménagement {{ i + 1 }}</h6>
-            <a
-              (click)="removeAmenagement(i)"
-              class="btn btn-sm danger-btn float-end"
-              ><i class="fal fa-trash"></i
-            ></a>
+            <a (click)="removeAmenagement(i)" class="btn btn-sm danger-btn float-end"><i class="fal fa-trash"></i></a>
             <div class="row">
-              <input
-                type="hidden"
-                ngModel="{{
+              <input type="hidden" ngModel="{{
                   update && amenagementForm.controls[i].value.idm.length !== 0
                     ? amenagementForm.controls[i].value.idm
                     : idm + i + imageExtension
-                }}"
-                class="form-control rounded-pill"
-                formControlName="idm"
-              />
+                }}" class="form-control rounded-pill" formControlName="idm" />
 
               <div class="row mt-4">
                 <label for="">Nature des travaux d’aménagement</label>
                 <div class="col-lg-3 form-group d-flex">
                   <div *ngFor="let nature of amenagementForm.controls[i].value.nature_amenagement">
-                    <input type="checkbox" [name]="nature.id + '-' + i" class="btn-check check" [id]="nature.id + '-' + i"
-                      autocomplete="off" [value]="nature.name"
-                      (change)="checkValue(amenagementForm.controls[i], nature.id + '-' + i)" [checked]="nature.checked">
-                   <label class="px-3 py-1 rounded-pill checkbox-list-btns mx-2" [for]="nature.id + '-' + i">
-                    {{ nature.name }}
-                   </label>
+                    <input type="checkbox" [name]="nature.id + '-' + i" class="btn-check check"
+                      [id]="nature.id + '-' + i" autocomplete="off" [value]="nature.name"
+                      (change)="checkValue(amenagementForm.controls[i], nature.id + '-' + i)"
+                      [checked]="nature.checked">
+                    <label class="px-3 py-1 rounded-pill checkbox-list-btns mx-2" [for]="nature.id + '-' + i">
+                      {{ nature.name }}
+                    </label>
                   </div>
                 </div>
               </div>
-              
+
               <!-- && amenagementForm.controls[i].value.idm.length !==== 0  -->
-         <div class="row">
-          <div class="col-lg-4 form-group mt-4">
-            <label for="">Montant des travaux d’aménagement</label>
-            <input
-              type="text"
-              class="form-control rounded-pill"
-              formControlName="montant_amenagement"
-            />
-          </div>
+              <div class="row">
+                <div class="col-lg-4 form-group mt-4">
+                  <label for="">Montant des travaux d’aménagement</label>
+                  <input type="text" class="form-control rounded-pill" formControlName="montant_amenagement" />
+                </div>
 
-          <div class="col-lg-4 form-group mt-4">
-            <label for="">N° de facture</label>
-            <input
-              type="text"
-              class="form-control rounded-pill"
-              formControlName="numero_facture"
-              appUppercase
-            />
-          </div>
-          <div class="col-lg-4 form-group mt-4">
-            <label for="">N° de bon de commande</label>
-            <input
-              type="text"
-              class="form-control rounded-pill"
-              formControlName="numero_bon_commande"
-              appUppercase
-            />
-          </div>
+                <div class="col-lg-4 form-group mt-4">
+                  <label for="">N° de facture</label>
+                  <input type="text" class="form-control rounded-pill" formControlName="numero_facture" appUppercase />
+                </div>
+                <div class="col-lg-4 form-group mt-4">
+                  <label for="">N° de bon de commande</label>
+                  <input type="text" class="form-control rounded-pill" formControlName="numero_bon_commande"
+                    appUppercase />
+                </div>
 
-          <div class="col-lg-4 form-group mt-4">
-            <label for=""
-              >Valeur et nature des travaux à la charge du propriétaire
-              </label
-            >
-            <input
-              type="text"
-              class="form-control rounded-pill"
-              formControlName="valeur_nature_chargeProprietaire"
-              appUppercase
-            />
-          </div>
+                <div class="col-lg-4 form-group mt-4">
+                  <label for="">Valeur et nature des travaux à la charge du propriétaire
+                  </label>
+                  <input type="text" class="form-control rounded-pill"
+                    formControlName="valeur_nature_chargeProprietaire" appUppercase />
+                </div>
 
-          <div class="col-lg-5 form-group mt-4">
-            <label for=""
-              >Valeur et nature des travaux à la charge de la
-              Fondation</label
-            >
-            <input
-              type="text"
-              class="form-control rounded-pill"
-              formControlName="valeur_nature_chargeFondation"
-              appUppercase
-            />
-          </div>
+                <div class="col-lg-5 form-group mt-4">
+                  <label for="">Valeur et nature des travaux à la charge de la
+                    Fondation</label>
+                  <input type="text" class="form-control rounded-pill" formControlName="valeur_nature_chargeFondation"
+                    appUppercase />
+                </div>
 
-          <div class="col-lg-3 form-group mt-4">
-            <label for="">Raison sociale fournisseur</label>
-            <input
-              type="text"
-              class="form-control rounded-pill"
-              formControlName="fournisseur"
-              appUppercase
-            />
-          </div>
+                <div class="col-lg-3 form-group mt-4">
+                  <label for="">Raison sociale fournisseur</label>
+                  <input type="text" class="form-control rounded-pill" formControlName="fournisseur" appUppercase />
+                </div>
 
-         </div>
+              </div>
 
-         <!-- <div class="row"> -->
+              <!-- <div class="row"> -->
 
               <!-- <div class="col-lg-12 form-group my-4">
                 <label for="">Fournisseur</label>
@@ -372,86 +267,44 @@
 
               <div class="col-lg-4 form-group mt-4">
                 <label for="">Evaluation du fournisseur</label>
-                <input
-                  type="text"
-                  class="form-control rounded-pill"
-                  formControlName="evaluation_fournisseur"
-                  appUppercase
-                />
+                <input type="text" class="form-control rounded-pill" formControlName="evaluation_fournisseur"
+                  appUppercase />
               </div>
 
               <div class="col-lg-4 form-group mt-4">
                 <label for="">Date de passation de la commande</label>
-                <input
-                  type="date"
-                  class="form-control rounded-pill"
-                  formControlName="date_passation_commande"
-                />
+                <input type="date" class="form-control rounded-pill" formControlName="date_passation_commande" />
               </div>
 
               <div class="col-lg-4 form-group mt-4">
                 <label for="">Date de fin des travaux</label>
-                <input
-                  type="date"
-                  class="form-control rounded-pill"
-                  formControlName="date_fin_travaux"
-                />
+                <input type="date" class="form-control rounded-pill" formControlName="date_fin_travaux" />
               </div>
 
               <div class="col-lg-4 form-group mt-4">
                 <label for="">Date de livraison du local</label>
-                <input
-                  type="date"
-                  class="form-control rounded-pill"
-                  formControlName="date_livraison_local"
-                />
+                <input type="date" class="form-control rounded-pill" formControlName="date_livraison_local" />
               </div>
 
               <div class="col-lg-4 form-group mt-4">
                 <label for="">Images du local après aménagement</label>
-                <input
-                  type="file"
-                  class="form-control btn success-btn"
-                  accept=".pdf"
-                  formControlName="images_apres_travaux_files"
-                  name="imgs_amenagement"
-                  id="imgs_amenagement"
-                  (change)="onFileSelectedAmenagement($event, 'imgs_amenagement', i)"
-                  multiple
-                  />
-                </div>
-                <!-- (change)="onFileSelectedAmenagement($event, 'imgs_amenagement', i)" -->
-                
-              <input
-                type="hidden"
-                class="form-control rounded-pill"
-                formControlName="images_apres_travaux"
-              />
-              <input
-                type="hidden"
-                class="form-control rounded-pill"
-                formControlName="croquis_travaux"
-              />
+                <input type="file" class="form-control btn success-btn" accept=".pdf"
+                  formControlName="images_apres_travaux_files" name="imgs_amenagement" id="imgs_amenagement"
+                  (change)="onFileSelectedAmenagement($event, 'imgs_amenagement', i)" multiple />
+              </div>
+              <!-- (change)="onFileSelectedAmenagement($event, 'imgs_amenagement', i)" -->
+
+              <input type="hidden" class="form-control rounded-pill" formControlName="images_apres_travaux" />
+              <input type="hidden" class="form-control rounded-pill" formControlName="croquis_travaux" />
 
               <div class="col-lg-4 form-group mt-4">
                 <label for="">Croquis d’aménagement via imagerie</label>
-                <input
-                  type="file"
-                  class="form-control btn success-btn"
-                  (change)="onFileSelectedAmenagement($event, 'imgs_croquis', i)"
-                  accept=".pdf"
-                  name="imgs_croquis"
-                  formControlName="croquis_travaux_files"
-                  id="imgs_croquis"
-                  multiple
-                />
+                <input type="file" class="form-control btn success-btn"
+                  (change)="onFileSelectedAmenagement($event, 'imgs_croquis', i)" accept=".pdf" name="imgs_croquis"
+                  formControlName="croquis_travaux_files" id="imgs_croquis" multiple />
               </div>
             </div>
-            <input
-              type="hidden"
-              id="{{ 'deleted ' + i }}"
-              formControlName="deleted"
-            />
+            <input type="hidden" id="{{ 'deleted ' + i }}" formControlName="deleted" />
           </div>
         </div>
         <!--Fin de Conteneur Aménagement -->
@@ -467,62 +320,37 @@
         <h4 class="main-text">Entité organisationnelle</h4>
       </div>
 
-      <div class="mt-1" *ngIf="currentLieu?.etat_lieu === 'Occupé' || currentLieu?.etat_lieu === 'En cours de transfert'">
+      <div class="mt-1"
+        *ngIf="currentLieu?.etat_lieu === 'Occupé' || currentLieu?.etat_lieu === 'En cours de transfert'">
         <div class="row">
           <div class="col-lg-4 form-group mt-2">
             <label for="">Type d'entité</label>
-            <input
-              type="text"
-              class="form-control rounded-pill"
-              [value]="currentLieu?.lieu?.type_lieu"
-              readonly
-            />
+            <input type="text" class="form-control rounded-pill" [value]="currentLieu?.lieu?.type_lieu" readonly />
           </div>
 
           <div class="col-lg-4 form-group mt-2">
             <label for="">Code d'entité</label>
             <!-- *ngIf="ActiveForm !== 'TransfererForm'" -->
-            <input
-              type="text"
-              class="form-control rounded-pill"
+            <input type="text" class="form-control rounded-pill"
               [value]="currentLieu?.lieu?.type_lieu === 'Logement de fonction' ? currentLieu?.lieu?.attached_DR?.code_lieu : currentLieu?.lieu?.code_lieu"
-              readonly
-            />
+              readonly />
             <!-- [value]="currentLieu.code_lieu" -->
             <!-- [value]="CodeLieu" -->
           </div>
 
           <div class="col-lg-4 form-group mt-2">
             <label for="">Intitule d'entité</label>
-            <input
-              type="text"
-              class="form-control rounded-pill"
-              [value]="currentLieu?.lieu?.intitule_lieu"
-              readonly
-            />
+            <input type="text" class="form-control rounded-pill" [value]="currentLieu?.lieu?.intitule_lieu" readonly />
           </div>
         </div>
-        <div
-          class="form-group my-4 col-lg-5 d-flex"
-          *ngIf="ActiveForm !== 'TransfererForm'"
-        >
+        <div class="form-group my-4 col-lg-5 d-flex" *ngIf="ActiveForm !== 'TransfererForm'">
           <!-- A Transferer & Annuler la Transformation buttons  -->
-          <button
-            *ngIf="currentLieu.etat_lieu !== 'En cours de transfert'"
-            type="button"
-            id="Transferer"
-            class="btn second-btn form-control col-lg-3"
-            (click)="openConfirmationModal('ATransfererModalId')"
-          >
-           Mettre l'entité en cours de transfert
+          <button *ngIf="currentLieu.etat_lieu !== 'En cours de transfert'" type="button" id="Transferer"
+            class="btn second-btn form-control col-lg-3" (click)="openConfirmationModal('ATransfererModalId')">
+            Mettre l'entité en cours de transfert
           </button>
-          <button
-            *ngIf="currentLieu.etat_lieu === 'En cours de transfert'"
-            type="button"
-            id="Transferer"
-            class="btn second-btn form-control col-lg-3"
-            (click)="openConfirmationModal('AnnulerTransféreModalId')"
-          >
+          <button *ngIf="currentLieu.etat_lieu === 'En cours de transfert'" type="button" id="Transferer"
+            class="btn second-btn form-control col-lg-3" (click)="openConfirmationModal('AnnulerTransféreModalId')">
             Annuler le transféret
           </button>
 
@@ -541,17 +369,9 @@
             <h3 class="main-title">Entité organisationnelle</h3>
             <p class="mt-3">Êtes-vous sûr de vouloir transférer définitivement cette entité ?</p>
             <div class="d-inline-flex justify-content-start mt-5">
-              <a
-                class="btn btn-lg px-lg-4 danger-btn me-2"
-                (click)="Transferer()"
-                >Oui</a
-              >
+              <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)="Transferer()">Oui</a>
               <!-- (click)="Transferer(item)" -->
-              <a
-                class="btn btn-lg px-lg-4 main-btn"
-                (click)="closeConfirmationModal('TransfererModalId')"
-                >Non</a
-              >
+              <a class="btn btn-lg px-lg-4 main-btn" (click)="closeConfirmationModal('TransfererModalId')">Non</a>
             </div>
           </app-confirmation-modal>
 
@@ -560,37 +380,18 @@
             <h3 class="main-title">Entité organisationnelle</h3>
             <p class="mt-3">Êtes-vous sûr de vouloir transférer cette entité ?</p>
             <div class="d-inline-flex justify-content-start mt-5">
-              <a
-                class="btn btn-lg px-lg-4 danger-btn me-2"
-                (click)="ATransferer()"
-                >Oui</a
-              >
-              <a
-                class="btn btn-lg px-lg-4 main-btn"
-                (click)="closeConfirmationModal('ATransfererModalId')"
-                >Non</a
-              >
+              <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)="ATransferer()">Oui</a>
+              <a class="btn btn-lg px-lg-4 main-btn" (click)="closeConfirmationModal('ATransfererModalId')">Non</a>
             </div>
           </app-confirmation-modal>
 
           <!-- Annuler la transformation -->
-          <app-confirmation-modal
-            [closeBtn]="true"
-            [id]="AnnulerTransfereModalId"
-          >
+          <app-confirmation-modal [closeBtn]="true" [id]="AnnulerTransfereModalId">
             <h3 class="main-title">Entité organisationnelle</h3>
             <p class="mt-3">Êtes-vous sûr de vouloir annuler ce transfére ?</p>
             <div class="d-inline-flex justify-content-start mt-5">
-              <a
-                class="btn btn-lg px-lg-4 danger-btn me-2"
-                (click)="annulerTransfere()"
-                >Oui</a
-              >
-              <a
-                class="btn btn-lg px-lg-4 main-btn"
-                (click)="closeConfirmationModal('AnnulerTransféreModalId')"
-                >Non</a
-              >
+              <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)="annulerTransfere()">Oui</a>
+              <a class="btn btn-lg px-lg-4 main-btn" (click)="closeConfirmationModal('AnnulerTransféreModalId')">Non</a>
             </div>
           </app-confirmation-modal>
         </div>
@@ -601,12 +402,8 @@
         <div class="row">
           <div class="col-lg-3 form-group mt-2">
             <label for="">Type d'entité organisationnelle</label>
-            <select
-              class="form-select rounded-pill"
-              formControlName="type_lieu"
-              [(ngModel)]="selectedType"
-              (change)="getLieuxByType(selectedType)"
-            >
+            <select class="form-select rounded-pill" formControlName="type_lieu" [(ngModel)]="selectedType"
+              (change)="getLieuxByType(selectedType)">
               <option *ngFor="let type of types" [value]="type.name">
                 {{ type.name }}
               </option>
@@ -615,18 +412,14 @@
 
           <div class="col-lg-3 form-group mt-2">
             <label for="">Code d'entité organisationnelle</label>
-            <select
-              class="form-select rounded-pill"
-              formControlName="lieu"
-              (change)="getIntitulerLieu()"
-              [(ngModel)]="selectedLieuId"
-            >
+            <select class="form-select rounded-pill" formControlName="lieu" (change)="getIntitulerLieu()"
+              [(ngModel)]="selectedLieuId">
               <option value="Default_option" selected>-</option>
               <option [value]="lieu._id" *ngFor="let lieu of lieuxByType">
                 {{
-                  lieu.type_lieu === "Logement de fonction"
-                    ? lieu.attached_DR.code_lieu
-                    : lieu.code_lieu
+                lieu.type_lieu === "Logement de fonction"
+                ? lieu.attached_DR.code_lieu
+                : lieu.code_lieu
                 }}
               </option>
             </select>
@@ -634,22 +427,12 @@
 
           <div class="col-lg-3 form-group mt-2">
             <label for="">Intitule d'entité organisationnelle</label>
-            <input
-              type="text"
-              class="form-control rounded-pill bg-white"
-              [value]="Intituler_lieu"
-              readonly
-            />
+            <input type="text" class="form-control rounded-pill bg-white" [value]="Intituler_lieu" readonly />
           </div>
         </div>
         <div class="form-group my-4 col-lg-4 d-flex">
           <!-- A Transferer & Annuler la Transformation buttons  -->
-          <button
-            type="button"
-            id="Transferer"
-            class="btn second-btn form-control w-100"
-            (click)="addNewLocal()"
-          >
+          <button type="button" id="Transferer" class="btn second-btn form-control w-100" (click)="addNewLocal()">
             Affecter cette entité organisationnelle
           </button>
         </div>
@@ -658,23 +441,12 @@
 
     <!-- Button Ajouter -->
     <div class="form-group col-lg-2 d-flex mt-5">
-      <button
-        *ngIf="foncier === ''"
-        type="submit"
-        id="Ajouter"
-        class="btn second-btn form-control mt-4"
-        [disabled]="foncierForm.invalid"
-        (click)="scrollToTop()"
-      >
+      <button *ngIf="foncier === ''" type="submit" id="Ajouter" class="btn second-btn form-control mt-4"
+        [disabled]="foncierForm.invalid" (click)="scrollToTop()">
         Ajouter
       </button>
-      <button
-        *ngIf="foncier !== ''"
-        type="submit"
-        id="Modifier"
-        class="btn second-btn form-control mt-4"
-        (click)="scrollToTop()"
-      >
+      <button *ngIf="foncier !== ''" type="submit" id="Modifier" class="btn second-btn form-control mt-4"
+        (click)="scrollToTop()">
         Modifier
       </button>
     </div>

@@ -4,7 +4,7 @@ export interface Foncier {
   adresse: string;
   lieu: [
     {
-      lieu?: any
+      lieu?: any;
       // transferer?: boolean,
       etat_lieu: string;
       deleted?: boolean;
@@ -22,6 +22,8 @@ export interface Foncier {
   has_amenagements?: boolean;
   superficie?: string;
   etage?: string;
+  longitude?: string;
+  latitude?: string;
   amenagement: [
     {
       _id?: string;
