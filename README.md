@@ -1,4 +1,4 @@
 # AMF
 #### Gestion des loyers front
  
-> version: 1 beta5
+> version: 1 beta6
