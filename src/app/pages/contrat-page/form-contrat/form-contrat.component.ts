@@ -145,6 +145,8 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   checkMontantLoyer: boolean = false;
   isValidDate: boolean = true;
 
+  isRappelManuel: boolean = false;
+
   constructor(
     private contratService: ContratService,
     private mainModalService: MainModalService,
@@ -240,7 +242,12 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       deleted_proprietaires: new FormControl(),
       date_effet_av: new FormControl('', Validators.required),
       etat_contrat_frais_reamenagement: new FormControl(),
-
+      etat_contrat_rappel_montant_loyer_ea: new FormControl(),
+      etat_contrat_rappel_montant_loyer_ma: new FormControl(),
+      etat_contrat_rappel_montant_taxe_ea: new FormControl(),
+      etat_contrat_rappel_montant_taxe_ma: new FormControl(),
+      is_rappel_manuel: new FormControl(),
+      
       //caution consommé
       etat_caution_consomme: new FormControl(),
       duree_consomme: new FormControl(),
@@ -803,6 +810,8 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       etat_contrat: {
         libelle: this.contratForm.get('etat_contrat_libelle')?.value || null,
         etat: {
+          is_rappel_manuel:  this.contratForm.get('is_rappel_manuel')?.value || '',
+        
           n_avenant:
             this.contratForm.get('etat_contrat_n_avenant')?.value || '',
           motif: this.motif,
@@ -851,6 +860,19 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
           frais_reamenagement:
             this.contratForm.get('etat_contrat_frais_reamenagement')?.value ||
             '',
+          etat_contrat_rappel_montant_loyer_ma:
+            this.contratForm.get('etat_contrat_rappel_montant_loyer_ma')
+              ?.value || 0,
+          etat_contrat_rappel_montant_loyer_ea:
+            this.contratForm.get('etat_contrat_rappel_montant_loyer_ea')
+              ?.value || 0,
+
+          etat_contrat_rappel_montant_taxe_ma:
+            this.contratForm.get('etat_contrat_rappel_montant_taxe_ma')
+              ?.value || 0,
+          etat_contrat_rappel_montant_taxe_ea:
+            this.contratForm.get('etat_contrat_rappel_montant_taxe_ea')
+              ?.value || 0,
         },
       },
       //Validation
@@ -883,6 +905,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
         this.hideErrorMessage();
       }
     );
+    // console.log(ctr_data);
   }
 
   getMotifs() {
@@ -895,6 +918,10 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
           'etat_contrat_montant_nouveau_loyer'
         )?.value,
       });
+  }
+
+  toggleRappelManuel(value: boolean) {
+    this.isRappelManuel = value;
   }
 
   // :::: Proprietaire List ::::

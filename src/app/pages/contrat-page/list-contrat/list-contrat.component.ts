@@ -121,6 +121,7 @@ export class ListContratComponent implements OnInit {
       (data: any) => {
         this.contrats = data;
         this.comparedContrat = data;
+        console.log(data);
       },
       (error: any) => {
         this.accessError = error.error.message;
@@ -397,7 +398,7 @@ export class ListContratComponent implements OnInit {
 
   getProprietaireLength(contrat: Contrat) {
     let count = 0;
-    count = contrat.proprietaires.length
+    count = contrat.proprietaires.length;
     return count;
   }
 
