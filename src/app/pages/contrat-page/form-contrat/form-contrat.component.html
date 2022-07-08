@@ -958,14 +958,16 @@
               </p>
             </div>
 
-            <h4 class="mt-4">Rappel Manuel</h4>
-            <div class="col-lg-3 form-group d-flex">
-              <label for="">Oui</label>
-              <input type="radio" name="is_rappel_manuel" [value]="true" class="form-check-input mx-2"
-                [(ngModel)]="isRappelManuel" formControlName="is_rappel_manuel" (click)="toggleRappelManuel(true)" />
-              <label for="">Non</label>
-              <input type="radio" name="is_rappel_manuel" [value]="false" class="form-check-input mx-2"
-                [(ngModel)]="isRappelManuel" formControlName="is_rappel_manuel" (click)="toggleRappelManuel(false)" />
+            <div *ngIf="!proprDecesFormList && !proprCessionFormList">
+              <h4 class="mt-4">Rappel Manuel</h4>
+              <div class="col-lg-3 form-group d-flex">
+                <label for="">Oui</label>
+                <input type="radio" name="is_rappel_manuel" [value]="true" class="form-check-input mx-2"
+                  [(ngModel)]="isRappelManuel" formControlName="is_rappel_manuel" (click)="toggleRappelManuel(true)" />
+                <label for="">Non</label>
+                <input type="radio" name="is_rappel_manuel" [value]="false" class="form-check-input mx-2"
+                  [(ngModel)]="isRappelManuel" formControlName="is_rappel_manuel" (click)="toggleRappelManuel(false)" />
+              </div>
             </div>
 
             <div *ngIf="isRappelManuel; then rappelManuel">
