@@ -145,6 +145,8 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   checkMontantLoyer: boolean = false;
   isValidDate: boolean = true;
 
+  isRappelManuel: boolean = false;
+
   constructor(
     private contratService: ContratService,
     private mainModalService: MainModalService,
@@ -244,6 +246,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       etat_contrat_rappel_montant_loyer_ma: new FormControl(),
       etat_contrat_rappel_montant_taxe_ea: new FormControl(),
       etat_contrat_rappel_montant_taxe_ma: new FormControl(),
+      is_rappel_manuel: new FormControl(),
 
       //caution consommé
       etat_caution_consomme: new FormControl(),
@@ -807,6 +810,8 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       etat_contrat: {
         libelle: this.contratForm.get('etat_contrat_libelle')?.value || null,
         etat: {
+          is_rappel_manuel: this.contratForm.get('is_rappel_manuel')?.value,
+
           n_avenant:
             this.contratForm.get('etat_contrat_n_avenant')?.value || '',
           motif: this.motif,
@@ -913,6 +918,10 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
           'etat_contrat_montant_nouveau_loyer'
         )?.value,
       });
+  }
+
+  toggleRappelManuel(value: boolean) {
+    this.isRappelManuel = value;
   }
 
   // :::: Proprietaire List ::::
