@@ -15,7 +15,7 @@ export const environment = {
   // Api version
   API_VERSION: 'v1/',
   // Application version
-  APP_VERSION: '1 (Beta 5)',
+  APP_VERSION: '1 (Beta 6.1)',
   // Reporting
   REPORTING: true,
 };
