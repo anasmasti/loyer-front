@@ -30,11 +30,16 @@ export class FilesGenerationComponent implements OnInit {
     'annex1',
   ];
 
+  errorMssage: string;
+  hasError: boolean;
+
   constructor(
     private downloadService: DownloadService,
     private reportingService: ReportingService
   ) {
     this.reporting = environment.REPORTING;
+    this.errorMssage = '';
+    this.hasError = false;
   }
 
   ngOnInit(): void {
@@ -65,13 +70,22 @@ export class FilesGenerationComponent implements OnInit {
     params.forEach((param) => {
       // Path name
       let filename = param + `_${date.mois}-${date.annee}`;
-      this.downloadService
-        .dowloadFiles(filename, date, param)
-        .subscribe((res) => {
+      this.downloadService.dowloadFiles(filename, date, param).subscribe(
+        (res) => {
           if (res) {
             saveAs(res, filename);
           }
-        });
+        },
+        (_) => {
+          this.hasError = true;
+          this.errorMssage =
+            'Aucun fichier a exporter sur cette date, merci de réessayer avec une autre date.';
+          setTimeout(() => {
+            this.hasError = false;
+            this.errorMssage = '';
+          }, 3000);
+        }
+      );
     });
   }
 
