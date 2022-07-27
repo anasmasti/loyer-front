@@ -77,7 +77,6 @@ export class FilesGenerationComponent implements OnInit {
           }
         },
         (error) => {
-          console.log(error);
           if (error.status == 402) {
             this.hasError = true;
             this.errorMssage =
