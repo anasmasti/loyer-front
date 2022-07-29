@@ -115,7 +115,7 @@
 							class="fal fa-eye"></i></a> -->
           <!-- *ngIf="!isDC && !isDAJC && (proprietaire.libelle === 'Initié' || proprietaire.statut === 'À ajouter')" -->
           <a
-            *ngIf="!isDC && !isDAJC"
+            *ngIf="!isDC && !isDAJC && assignmentProprietaire?.contrat.etat_contrat.libelle !== 'Actif'"
             class="btn btn-sm info-btn mx-2"
             (click)="openModalAndPushProprietaire(assignmentProprietaire)"
             ><i class="far fa-user-edit"></i
