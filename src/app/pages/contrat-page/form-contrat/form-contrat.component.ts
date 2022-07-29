@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import { ConfirmationModalService } from '@services/confirmation-modal-service/confirmation-modal.service';
 import { FoncierService } from '@services/foncier-service/foncier.service';
 import { Motif } from './motif.class';
+import { dateGTCurrentDateOfTreatment } from './date-validation.validation';
 
 @Component({
   selector: 'app-form-contrat',
@@ -146,6 +147,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
   isValidDate: boolean = true;
 
   isRappelManuel: boolean = false;
+  dateNextCloture!: string;
 
   constructor(
     private contratService: ContratService,
@@ -192,6 +194,8 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       }
     }
 
+    this.getNextClotureDateAndSetDateSuspensionValidation()
+
     // this.selectedEtatContrat = 'Avenant'
     this.contratForm = new FormGroup({
       numero_contrat: new FormControl(''),
@@ -228,7 +232,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       etat_contrat_montant_nouveau_loyer: new FormControl(),
       etat_contrat_signaletique_successeur: new FormControl(),
       etat_contrat_intitule_lieu: new FormControl(),
-      etat_contrat_date_suspension: new FormControl('', Validators.required),
+      etat_contrat_date_suspension: new FormControl(),
       etat_contrat_date_fin_suspension: new FormControl(),
       etat_contrat_duree_suspension: new FormControl('', Validators.required),
       etat_contrat_motif_suspension: new FormControl(),
@@ -267,6 +271,18 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       montant_avance_tax: new FormControl(),
 
       nombre_part: new FormControl('', Validators.required),
+    });
+  }
+
+  getNextClotureDateAndSetDateSuspensionValidation() {
+    this.help.getNextClotureDate().subscribe((data) => {
+      this.dateNextCloture = `${data.annee}-${data.mois}-01`;
+      this.contratForm
+        .get('etat_contrat_date_suspension')
+        ?.setValidators([
+          Validators.required,
+          dateGTCurrentDateOfTreatment(this.dateNextCloture),
+        ]);
     });
   }
 
