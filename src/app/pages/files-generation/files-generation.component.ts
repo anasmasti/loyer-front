@@ -69,7 +69,12 @@ export class FilesGenerationComponent implements OnInit {
 
     params.forEach((param) => {
       // Path name
-      let filename = param + `_${date.mois}-${date.annee}`;
+      let filename = '';
+      if (param == 'annex1') {
+        filename = 'Declaration_VersementRASRF';
+      } else {
+        filename = param + `_${date.mois}-${date.annee}`;
+      }
       this.downloadService.dowloadFiles(filename, date, param).subscribe(
         (res) => {
           if (res) {

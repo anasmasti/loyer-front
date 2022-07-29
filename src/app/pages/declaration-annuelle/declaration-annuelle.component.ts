@@ -10,7 +10,7 @@ import { DownloadService } from '@services/download-service/download.service';
 export class DeclarationAnnuelleComponent implements OnInit {
   declarationAnnuelleForm!: FormGroup;
   dateSelected: boolean = false;
-  fileParams = ['annex2'];
+  fileParam: string = 'annex2';
 
   constructor(private downloadService: DownloadService) {}
 
@@ -35,14 +35,11 @@ export class DeclarationAnnuelleComponent implements OnInit {
   dowloadExcelAnnex2(fileName: string) {
     let date_gen = this.declarationAnnuelleForm.get('date_gen')?.value;
     this.downloadService
-      .dowloadExcelAnnex2(
-        fileName,
-        date_gen
-      )
+      .dowloadExcelAnnex2(fileName, date_gen)
       .catch(console.error);
   }
 
-  downloadFiles(params: string[]) {
+  downloadFiles(param: string) {
     // let today = new Date()
     let date_gen = new Date(
       this.declarationAnnuelleForm.get('date_gen')?.value
@@ -53,17 +50,15 @@ export class DeclarationAnnuelleComponent implements OnInit {
       annee: date_gen.getFullYear(),
     };
 
-    params.forEach((param) => {
-      // Path name
-      let filename = param + `_${date.mois}-${date.annee}`;
-      this.downloadService
-        .dowloadFiles(filename, date, param)
-        .subscribe((res) => {
-          if (res) {
-            saveAs(res, filename);
-          }
-        });
-    });
+    let filename = 'Declaration_DeclarationRASRF';
+
+    this.downloadService
+      .dowloadFiles(filename, date, param)
+      .subscribe((res) => {
+        if (res) {
+          saveAs(res, filename);
+        }
+      });
   }
 
   get date_gen() {
