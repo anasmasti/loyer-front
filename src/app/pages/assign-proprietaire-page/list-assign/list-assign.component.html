@@ -12,15 +12,11 @@
         <a class="btn btn-sm main-btn" [routerLink]="['/']">
           <i class="fal fa-home"></i> Tableau de board
         </a>
-        <a class="btn btn-sm second-btn mx-3" (click)="refrechPage()"
-          ><i class="far fa-undo-alt"></i>
+        <a class="btn btn-sm second-btn mx-3" (click)="refrechPage()"><i class="far fa-undo-alt"></i>
           Rafraîchir la liste
         </a>
-        <span
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-          title="Ici vous pouvez consulter la list des propriétaires"
-        >
+        <span data-bs-toggle="tooltip" data-bs-placement="top"
+          title="Ici vous pouvez consulter la list des propriétaires">
           <i class="fal fa-info"></i>
         </span>
       </div>
@@ -62,8 +58,7 @@
     </thead>
 
     <tbody *ngIf="assignmentProprietaires?.length">
-      <tr
-        *ngFor="
+      <tr *ngFor="
           let assignmentProprietaire of assignmentProprietaires
             | paginate
               : {
@@ -73,8 +68,7 @@
                   totalItems: count
                 };
           let i = index
-        "
-      >
+        ">
         <!-- <td>{{ proprietaire._id }}</td> -->
 
         <td>
@@ -88,24 +82,20 @@
         <td>{{ assignmentProprietaire?.part_proprietaire }}</td>
         <td>{{ assignmentProprietaire?.montant_loyer | number: "1.1-2" }}</td>
         <td>
-          <span
-            [ngClass]="{
+          <span [ngClass]="{
               'success-txt':
                 assignmentProprietaire?.declaration_option === 'oui',
               'danger-txt': assignmentProprietaire?.declaration_option === 'non'
-            }"
-          >
+            }">
             {{ assignmentProprietaire?.declaration_option | titlecase }}
           </span>
         </td>
         <td>
           <div class="d-grid">
-            <span
-              [ngClass]="{
+            <span [ngClass]="{
                 'success-txt': assignmentProprietaire?.is_mandataire,
                 'danger-txt': !assignmentProprietaire?.is_mandataire
-              }"
-            >
+              }">
               {{ checkAndPutText(assignmentProprietaire.is_mandataire) }}
             </span>
           </div>
@@ -115,37 +105,26 @@
 							class="fal fa-eye"></i></a> -->
           <!-- *ngIf="!isDC && !isDAJC && (proprietaire.libelle === 'Initié' || proprietaire.statut === 'À ajouter')" -->
           <p *ngIf="!isDC && !isDAJC && assignmentProprietaire?.contrat.etat_contrat.libelle === 'Actif'">--</p>
-          <a
-            *ngIf="!isDC && !isDAJC && assignmentProprietaire?.contrat.etat_contrat.libelle === 'Initié'"
-            class="btn btn-sm info-btn mx-2"
-            (click)="openModalAndPushProprietaire(assignmentProprietaire)"
-            ><i class="far fa-user-edit"></i
-          ></a>
+          <a *ngIf="!isDC && !isDAJC && assignmentProprietaire?.contrat.etat_contrat.libelle === 'Initié'"
+            class="btn btn-sm info-btn mx-2" (click)="openModalAndPushProprietaire(assignmentProprietaire)"><i
+              class="far fa-user-edit"></i></a>
           <!-- *ngIf="!isCSLA && !isDC && !isDAJC && proprietaire.libelle === 'Initié'" -->
-          <a
-            *ngIf="
+          <a *ngIf="
               isCDGSP &&
               assignmentProprietaire?.contrat.etat_contrat.libelle === 'Initié'
-            "
-            class="btn btn-sm danger-btn"
-            (click)="
+            " class="btn btn-sm danger-btn" (click)="
               openDeleteConfirmationModal();
               getAssignmentProprietaireId(assignmentProprietaire._id)
-            "
-            ><i class="far fa-user-minus"></i
-          ></a>
+            "><i class="far fa-user-minus"></i></a>
         </td>
       </tr>
 
       <app-main-modal [closeBtn]="true">
-        <app-edit-assignment-proprietaire
-          [assignmentProprietaire]="targetAssignmentProprietaire"
-          [proprietaireInfo]="
+        <app-edit-assignment-proprietaire [assignmentProprietaire]="targetAssignmentProprietaire" [proprietaireInfo]="
             proprietaire?.nom_prenom
               ? proprietaire?.nom_prenom
               : proprietaire?.raison_social
-          "
-        >
+          ">
         </app-edit-assignment-proprietaire>
       </app-main-modal>
 
@@ -158,26 +137,15 @@
           Êtes-vous sûr de vouloir supprimer cette affectation?
         </p>
         <div class="d-inline-flex justify-content-start mt-5">
-          <a
-            class="btn btn-lg px-lg-4 danger-btn me-2"
-            (click)="
+          <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)="
               deleteAssignmentProprietaire(targetAssignmentProprietaireId)
-            "
-            >Oui</a
-          >
-          <a
-            class="btn btn-lg px-lg-4 main-btn"
-            (click)="closeDeleteConfirmationModal()"
-            >Non</a
-          >
+            ">Oui</a>
+          <a class="btn btn-lg px-lg-4 main-btn" (click)="closeDeleteConfirmationModal()">Non</a>
         </div>
       </app-confirmation-modal>
     </tbody>
 
-    <tbody
-      *ngIf="!assignmentProprietaires?.length && !accessError"
-      class="w-100 d-flex align-items-center"
-    >
+    <tbody *ngIf="!assignmentProprietaires?.length && !accessError" class="w-100 d-flex align-items-center">
       <h5 class="main-muted-text my-4">
         Aucune affectation de ce proprietaire à afficher
       </h5>
@@ -190,10 +158,6 @@
       </a>
     </tbody>
   </table>
-  <pagination-controls
-    id="listAssignmentProprietaitePagination"
-    (pageChange)="listAssignmentProprietairePage = $event"
-    previousLabel="Précédent"
-    nextLabel="Suivant"
-  ></pagination-controls>
+  <pagination-controls id="listAssignmentProprietaitePagination" (pageChange)="listAssignmentProprietairePage = $event"
+    previousLabel="Précédent" nextLabel="Suivant"></pagination-controls>
 </div>
