@@ -1256,7 +1256,8 @@
     <!-- Button Ajouter -->
     <div class="form-group mt-5 col-lg-4 d-flex">
       <button *ngIf="!update" type="submit" id="Ajouter" class="btn second-btn form-control"
-        (click)="addNewContrat(); scrollToTop()">
+        (click)="addNewContrat(); scrollToTop()"
+        [disabled]="nombre_part?.invalid || date_debut_loyer?.invalid || montant_loyer?.invalid || periodicite_paiement?.invalid">
         Ajouter
       </button>
       <!-- [disabled]="etat_contrat_duree_suspension?.invalid || etat_contrat_date_suspension?.invalid" -->
