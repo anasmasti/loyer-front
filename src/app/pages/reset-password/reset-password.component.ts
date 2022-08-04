@@ -46,12 +46,17 @@ export class ResetPasswordComponent implements OnInit {
       });
   }
 
-  toggleShowPassword() {
-    this.passwordField = !this.passwordField;
-  }
-
-  toggleShowComfirmPassword() {
-    this.confirmPasswordField = !this.confirmPasswordField;
+  togglePasswordType(name: string) {
+    switch (name) {
+      case 'pass':
+        this.passwordField = !this.passwordField;
+        break;
+      case 'confPass':
+        this.confirmPasswordField = !this.confirmPasswordField;
+        break;
+      default:
+        break;
+    }
   }
 
   get password() {

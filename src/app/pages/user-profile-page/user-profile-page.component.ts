@@ -76,7 +76,7 @@ export class UserProfilePageComponent implements OnInit {
     }
   }
 
-  updateUser(userPassword: string) {
+  updateUser() {
     let userData: User = {
       _id: this.user._id,
       deleted: this.user.deleted,
@@ -85,7 +85,6 @@ export class UserProfilePageComponent implements OnInit {
       prenom: this.userForm.get('prenom')?.value,
       email: this.userForm.get('email')?.value,
       userRoles: this.user.userRoles,
-      password: userPassword,
     };
 
     this.userService
@@ -123,51 +122,5 @@ export class UserProfilePageComponent implements OnInit {
   // hide le message d'erreur de serveur
   hideErrorMessage() {
     $('.error-alert').removeClass('active');
-  }
-
-  // Update password
-  updatePasswordToggel(value: boolean) {
-    this.updatePassword = value;
-  }
-
-  // Check the validation of the old password and the confirmation of the new one
-  confirmationPassword() {
-    let errorMsg = '';
-    if (this.updatePassword) {
-      if (this.userForm.get('password')?.value === this.user.password) {
-        if (
-          this.userForm.get('new_password')?.value ===
-          this.userForm.get('confirmation_password')?.value
-        ) {
-          this.updateUser(this.userForm.get('new_password')?.value);
-        } else errorMsg = 'Confirmation du mot de passe échoué';
-      } else errorMsg = 'Mot de passe incorrect';
-    } else {
-      this.updateUser(this.user.password);
-    }
-
-    if (errorMsg !== '') {
-      this.errors = errorMsg;
-      setTimeout(() => {
-        this.showErrorMessage();
-      }, 3000);
-      this.hideErrorMessage();
-    }
-  }
-
-  togglePasswordType(name: string) {
-    switch (name) {
-      case 'pass':
-        this.showPass = !this.showPass;
-        break;
-      case 'newPass':
-        this.showNewPass = !this.showNewPass;
-        break;
-      case 'confPass':
-        this.showConfPass = !this.showConfPass;
-        break;
-      default:
-        break;
-    }
   }
 }
