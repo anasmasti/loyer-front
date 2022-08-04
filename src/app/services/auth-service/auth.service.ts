@@ -81,5 +81,5 @@ export class AuthService {
   }
 
   updateUserPassword(id: string, data: any): Observable<any> {
-    return this.http.put(environment.API_URL_TEST + environment.API_VERSION + this.param_url + "/reset-password/"+id,data)}
+    return this.http.put(environment.API_URL_TEST + environment.API_VERSION + this.param_url + "/update-password/"+id,data)}
 }

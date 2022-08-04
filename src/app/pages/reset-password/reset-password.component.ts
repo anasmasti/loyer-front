@@ -40,7 +40,6 @@ export class ResetPasswordComponent implements OnInit {
     this.authService
       .updateUserPassword(userId, {
         password: this.resetpasswordForm.get('password')?.value,
-        confirm_password: this.resetpasswordForm.get('confirm_password')?.value,
       })
       .subscribe(() => {
         this.router.navigate(['/login']);
