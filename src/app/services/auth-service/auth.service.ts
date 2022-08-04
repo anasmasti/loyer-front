@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { shareReplay } from 'rxjs/operators';
 import { User } from 'src/app/models/User';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -78,4 +79,7 @@ export class AuthService {
     }
     return false;
   }
+
+  updateUserPassword(id: string, data: any): Observable<any> {
+    return this.http.put(environment.API_URL_TEST + environment.API_VERSION + this.param_url + "/reset-password/"+id,data)}
 }

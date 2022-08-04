@@ -116,6 +116,13 @@ const routes: Routes = [
       )
   },
   {
+    path: 'reset-password',
+    loadChildren: () =>
+      import('./pages/reset-password/reset-password.module').then(
+        (m) => m.ResetPasswordModule
+      )
+  },
+  {
     path: '**',
     loadChildren: () =>
       import('./pages/notfound-page/notfound-page.module').then(
