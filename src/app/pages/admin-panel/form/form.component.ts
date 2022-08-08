@@ -56,7 +56,6 @@ export class FormComponent implements OnInit, OnChanges{
       Roles: new FormArray([], [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
       deleted: new FormControl(''),
-      password: new FormControl(''),
     });
   }
 
@@ -231,7 +230,6 @@ export class FormComponent implements OnInit, OnChanges{
       userRoles: this.adminForm.get('Roles')?.value,
       email: this.adminForm.get('email')?.value,
       deleted: this.adminForm.get('deleted')?.value,
-      password: this.adminForm.get('password')?.value
     };
 
     this.adminService

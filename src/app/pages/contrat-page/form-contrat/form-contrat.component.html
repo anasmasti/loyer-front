@@ -1033,7 +1033,7 @@
                 Veuillez remplir ce champ
               </p>
               <p class="danger-txt" *ngIf="etat_contrat_date_suspension?.errors?.hasIncorrectDate">
-                La date d’effet de la suspension doit être supérieur ou égal la date de traitement.
+                La date d’effet de la suspension doit être supérieure ou égal la date de traitement.
               </p>
             </div>
           </div>
@@ -1262,7 +1262,7 @@
       </button>
       <!-- [disabled]="etat_contrat_duree_suspension?.invalid || etat_contrat_date_suspension?.invalid" -->
       <button *ngIf="update" type="submit" id="Modifier" class="btn second-btn form-control"
-        (click)="openResiliationModel(); scrollToTop()">
+        (click)="openResiliationModel(); scrollToTop()" [disabled]="selectedEtatContrat === 'Suspendu' && etat_contrat_date_suspension?.invalid">
         Modifier
       </button>
     </div>

@@ -93,27 +93,39 @@ const routes: Routes = [
       import('./pages/reportings/reportings.module').then(
         (m) => m.ReportingsModule
       ),
+      canActivate: [AuthGuard],
   },
   {
     path: 'profile',
     loadChildren: () =>
       import('./pages/user-profile-page/user-profile-page.module').then(
         (m) => m.UserProfilePageModule
-      )
+      ),
+      canActivate: [AuthGuard],
   },
   {
     path: 'situation',
     loadChildren: () =>
       import('./pages/situation-cloture/situation-cloture.module').then(
         (m) => m.SituationClotureModule
-      )
+      ),
+      canActivate: [AuthGuard],
   },
   {
     path: 'declaration-annuelle',
     loadChildren: () =>
       import('./pages/declaration-annuelle/declaration-annuelle.module').then(
         (m) => m.DeclarationAnnuelleModule
-      )
+      ),
+      canActivate: [AuthGuard],
+  },
+  {
+    path: 'reset-password',
+    loadChildren: () =>
+      import('./pages/reset-password/reset-password.module').then(
+        (m) => m.ResetPasswordModule
+      ),
+      canActivate: [AuthGuard],
   },
   {
     path: '**',

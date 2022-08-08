@@ -58,7 +58,6 @@ const route: Routes = [
     FormsModule,
     PipesModule,
     DirectivesModule
-    
   ]
 })
 export class LieuxModule { }
