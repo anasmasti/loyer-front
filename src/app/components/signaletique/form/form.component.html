@@ -11,7 +11,7 @@
                 [ngClass]="{
             'is-invalid': checkInputsValidation(raison_sociale),
             'is-valid': !raison_sociale?.invalid
-          }" />
+          }" [value]="signaletique&&signaletique.raison_sociale" />
             <div class="" *ngIf="checkInputsValidation(raison_sociale)">
                 <p class="danger-txt" *ngIf="raison_sociale?.errors?.required">
                     Veuillez remplir ce champ
@@ -21,11 +21,11 @@
         <div class="col-lg-4 form-group mt-2">
             <label for="">IF <span class="danger-txt">*</span></label>
             <input type="text" id="if" class="form-control rounded-pill" formControlName="if" [ngClass]="{
-            'is-invalid': checkInputsValidation(ifv),
-            'is-valid': !ifv?.invalid
-          }" />
-            <div class="" *ngIf="checkInputsValidation(ifv)">
-                <p class="danger-txt" *ngIf="ifv?.errors?.required">
+            'is-invalid': checkInputsValidation(ifControl),
+            'is-valid': !ifControl?.invalid
+          }" [value]="signaletique&&signaletique.if" />
+            <div class="" *ngIf="checkInputsValidation(ifControl)">
+                <p class="danger-txt" *ngIf="ifControl?.errors?.required">
                     Veuillez remplir ce champ
                 </p>
             </div>
@@ -35,7 +35,7 @@
             <input type="text" id="rib" class="form-control rounded-pill" formControlName="rib" [ngClass]="{
             'is-invalid': checkInputsValidation(rib),
             'is-valid': !rib?.invalid
-          }" />
+          }" [value]="signaletique&&signaletique.rib" />
             <div class="" *ngIf="checkInputsValidation(rib)">
                 <p class="danger-txt" *ngIf="rib?.errors?.required">
                     Veuillez remplir ce champ
@@ -47,7 +47,7 @@
             <textarea type="text" id="adresse" class="form-control" formControlName="adresse" [ngClass]="{
             'is-invalid': checkInputsValidation(adresse),
             'is-valid': !adresse?.invalid
-          }"></textarea>
+          }" [value]="signaletique&&signaletique.adresse"></textarea>
             <div class="" *ngIf="checkInputsValidation(adresse)">
                 <p class="danger-txt" *ngIf="adresse?.errors?.required">
                     Veuillez remplir ce champ
@@ -68,7 +68,7 @@
 
     <div class="form-group mt-5 col-lg-3 d-flex">
         <button type="submit" class="btn second-btn form-control" *ngIf="isUpdate"
-            [disabled]="signaletiqueForm.invalid">
+            [disabled]="checkInputsValidation(rib) || checkInputsValidation(ifControl)|| checkInputsValidation(adresse)|| checkInputsValidation(raison_sociale)">
             Modifier la signalétique
         </button>
         <button type="submit" class="btn second-btn form-control" *ngIf="!isUpdate" [disabled]="

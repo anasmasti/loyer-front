@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HelperService } from '@services/helpers/helper.service';
 import { SignaletiqueService } from '@services/signaletique.service';
@@ -9,9 +15,9 @@ import { Signaletique } from 'src/app/models/Signaletique';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
 })
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, OnChanges {
   @Input() isUpdate!: boolean;
-  @Input() signaletique!: any;
+  @Input() signaletique!: Signaletique;
 
   signaletiqueForm: FormGroup;
   userMatricule: any = localStorage.getItem('matricule');
@@ -35,6 +41,10 @@ export class FormComponent implements OnInit {
     });
   }
 
+  ngOnChanges(): void {
+    this.signaletique && this.fetchSignaletique();
+  }
+
   ngOnInit(): void {}
 
   // Check if all inputs has invalid errors
@@ -44,6 +54,17 @@ export class FormComponent implements OnInit {
 
   scrollToTop() {
     this.help.scrollToTop();
+  }
+
+  fetchSignaletique() {
+    this.signaletiqueForm.patchValue({
+      raison_sociale: this.signaletique.raison_sociale,
+      if: this.signaletique.if,
+      rib: this.signaletique.rib,
+      adress: this.signaletique.adresse
+    });
+
+    this.isActive = this.signaletique.active;
   }
 
   addSignaletique() {
@@ -75,7 +96,7 @@ export class FormComponent implements OnInit {
   get active() {
     return this.signaletiqueForm.get('active');
   }
-  get ifv() {
+  get ifControl() {
     return this.signaletiqueForm.get('if');
   }
   get rib() {
