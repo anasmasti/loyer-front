@@ -59,7 +59,8 @@ export class FormComponent implements OnInit {
             this.isDoneMessage = '';
           }, 3000);
         },
-        (error) => {
+        ({ error }) => {
+          this.scrollToTop();
           this.hasErrorMessage = error.message;
           setTimeout(() => {
             this.hasErrorMessage = '';

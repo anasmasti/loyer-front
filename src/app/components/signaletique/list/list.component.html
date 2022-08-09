@@ -1,1 +1,71 @@
-<p>list works!</p>
+<!-- Message succes delete -->
+<div class="w-100 d-flex justify-content-center">
+    <div *ngIf="hasErrorMessage" class="error-alert p-2 my-2">{{ hasErrorMessage }}</div>
+    <div *ngIf="isDoneMessage" class="done-alert p-2 my-2">{{ isDoneMessage }}</div>
+</div>
+
+<div class="main-card bg-white table-responsive-sm p-lg-3 mt-4">
+    <div class="col-lg-4 mb-4">
+        <label for=""><i class="far fa-search"></i> Recherche</label>
+        <input type="text" [(ngModel)]="findSignaletique" (input)='search()' class="form-control rounded-pill"
+            placeholder="Rechercher par RIB, IF, Adresse.." />
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>RIB</th>
+                <th>Raison sociale</th>
+                <th>IF</th>
+                <th>Active</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody *ngIf="signaletiques.length">
+            <tr
+                *ngFor="let signaletique of signaletiques | paginate: { itemsPerPage: tableSize, currentPage: listSignaletiquesPage, id: 'listSignaletiques', totalItems: count }">
+                <td class="text-capitalize">{{ signaletique.rib }}</td>
+                <td class="text-capitalize">{{ signaletique.raison_sociale }}</td>
+                <td class="text-capitalize">{{ signaletique.if }}</td>
+                <td class="text-capitalize">
+                    <div class="d-grid">
+                        <span [ngClass]="{
+                        'success-txt': signaletique?.active,
+                        'danger-txt': !signaletique?.active
+                      }">
+                            {{ checkAndPutText(signaletique.active) }}
+                        </span>
+                    </div>
+                </td>
+                <td>
+                    <a [routerLink]="['details', signaletique._id]" class="btn btn-sm main-btn"><i
+                            class="fal fa-eye"></i></a>
+                    <a class="btn btn-sm info-btn mx-2" (click)="openModalAndPushUser(signaletique)"><i
+                            class="far fa-user-edit"></i></a>
+                    <a class="btn btn-sm danger-btn" (click)="openConfirmationModal(signaletique._id)"><i
+                            class="far fa-user-minus"></i></a>
+                </td>
+            </tr>
+
+            <app-main-modal [closeBtn]="true">
+                <app-edit [signaletique]="targetSignaletique"></app-edit>
+            </app-main-modal>
+
+            <app-confirmation-modal [closeBtn]="true">
+                <h3 class="main-title">
+                    Confirmation de la suppression
+                    <i class="far fa-exclamation-circle"></i>
+                </h3>
+                <p class="mt-3">Êtes-vous sûr de vouloir supprimer cet utilisateur?</p>
+                <div class="d-inline-flex justify-content-start mt-5">
+                    <a class="btn btn-lg px-lg-4 danger-btn me-2" (click)="deleteSignaletique()">Oui</a>
+                    <a class="btn btn-lg px-lg-4 main-btn" (click)="closeConfirmationModal()">Non</a>
+                </div>
+            </app-confirmation-modal>
+        </tbody>
+        <tbody *ngIf="!signaletiques.length" class="w-100 d-flex align-items-center">
+            <h5 class="main-muted-text my-4">Aucune signalétique à afficher</h5>
+        </tbody>
+    </table>
+    <pagination-controls id="listUsersPagination" (pageChange)="listSignaletiquesPage = $event"
+        previousLabel="Précédent" nextLabel="Suivant"></pagination-controls>
+</div>

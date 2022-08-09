@@ -51,7 +51,7 @@ export class SignaletiqueService {
   }
 
   // Delete Signaletique
-  deleteSignaletique(id: String, matricule: any) {
+  deleteSignaletique(id: string, matricule: any) {
     return this.http.put(
       `${
         environment.API_URL_TEST + environment.API_VERSION + this.param_url

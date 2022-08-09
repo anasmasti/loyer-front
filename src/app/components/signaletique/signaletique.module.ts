@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MainModalModule } from 'src/app/shared/modals/main-modal/main-modal.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ConfirmationModalModule } from 'src/app/shared/modals/confirmation-modal/confirmation-modal.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ConfirmationModalModule } from 'src/app/shared/modals/confirmation-moda
     ReactiveFormsModule,
     NgxPaginationModule,
     MainModalModule,
-    FormsModule
+    FormsModule,
+    RouterModule
   ],
   exports: [
     AddComponent,
