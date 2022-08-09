@@ -172,15 +172,14 @@
                     (click)="putActiveLink('-')">
                     <i class="far fa-user-shield"></i>&nbsp;&nbsp;Administration
                 </a>
-                <!-- <ul class="sub-menu list-unstyled" id="admin">
-                    <li>
-                        <a href="#" class="nav-link sub-menu-btn">
-                            List des utilisateurs
-                        </a>
-                    </li>
-                </ul> -->
             </li>
 
+            <li *ngIf="isAdmin" class="nav-item">
+                <a [routerLink]="['/signaletique']" routerLinkActive="router-link-active" class="nav-link main-btn"
+                    (click)="putActiveLink('-')">
+                    <i class="far fa-file-alt"></i>&nbsp;&nbsp;Signalétique AMF
+                </a>
+            </li>
         </ul>
     </div>
 </div>
