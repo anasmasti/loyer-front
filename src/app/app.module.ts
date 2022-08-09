@@ -19,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePipe } from '@angular/common';
 import { ReportingsComponent } from './pages/reportings/reportings.component';
 import { SharedEffects } from './store/shared/shared.effect';
+import { SignaletiquePageComponent } from './pages/signaletique-page/signaletique-page.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { SharedEffects } from './store/shared/shared.effect';
     MainContentComponent,
     FooterComponent,
     ReportingsComponent,
+    SignaletiquePageComponent,
   ],
   imports: [
     BrowserModule,
