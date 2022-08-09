@@ -128,6 +128,14 @@ const routes: Routes = [
       canActivate: [AuthGuard],
   },
   {
+    path: 'signaletique',
+    loadChildren: () =>
+      import('./pages/signaletique-page/signaletique-page.module').then(
+        (m) => m.SignaletiquePageModule
+      ),
+      canActivate: [AuthGuard],
+  },
+  {
     path: '**',
     loadChildren: () =>
       import('./pages/notfound-page/notfound-page.module').then(

@@ -1,0 +1,80 @@
+<div class="w-100 d-flex justify-content-center" id="form_section">
+    <div *ngIf="hasErrorMessage" class="error-alert p-2 my-2">{{ hasErrorMessage }}</div>
+    <div *ngIf="isDoneMessage" class="done-alert p-2 my-2">{{ isDoneMessage }}</div>
+</div>
+
+<form (ngSubmit)="addSignaletique()" [formGroup]="signaletiqueForm">
+    <div class="row mt-2">
+        <div class="col-lg-4 form-group mt-2">
+            <label for="">Raison sociale <span class="danger-txt">*</span></label>
+            <input type="text" id="raison_sociale" class="form-control rounded-pill" formControlName="raison_sociale"
+                [ngClass]="{
+            'is-invalid': checkInputsValidation(raison_sociale),
+            'is-valid': !raison_sociale?.invalid
+          }" />
+            <div class="" *ngIf="checkInputsValidation(raison_sociale)">
+                <p class="danger-txt" *ngIf="raison_sociale?.errors?.required">
+                    Veuillez remplir ce champ
+                </p>
+            </div>
+        </div>
+        <div class="col-lg-4 form-group mt-2">
+            <label for="">IF <span class="danger-txt">*</span></label>
+            <input type="text" id="if" class="form-control rounded-pill" formControlName="if" [ngClass]="{
+            'is-invalid': checkInputsValidation(ifv),
+            'is-valid': !ifv?.invalid
+          }" />
+            <div class="" *ngIf="checkInputsValidation(ifv)">
+                <p class="danger-txt" *ngIf="ifv?.errors?.required">
+                    Veuillez remplir ce champ
+                </p>
+            </div>
+        </div>
+        <div class="col-lg-4 form-group mt-2">
+            <label for="">RIB <span class="danger-txt">*</span></label>
+            <input type="text" id="rib" class="form-control rounded-pill" formControlName="rib" [ngClass]="{
+            'is-invalid': checkInputsValidation(rib),
+            'is-valid': !rib?.invalid
+          }" />
+            <div class="" *ngIf="checkInputsValidation(rib)">
+                <p class="danger-txt" *ngIf="rib?.errors?.required">
+                    Veuillez remplir ce champ
+                </p>
+            </div>
+        </div>
+        <div class="col-lg-12 form-group mt-2">
+            <label for="">Adresse <span class="danger-txt">*</span></label>
+            <textarea type="text" id="adresse" class="form-control" formControlName="adresse" [ngClass]="{
+            'is-invalid': checkInputsValidation(adresse),
+            'is-valid': !adresse?.invalid
+          }"></textarea>
+            <div class="" *ngIf="checkInputsValidation(adresse)">
+                <p class="danger-txt" *ngIf="adresse?.errors?.required">
+                    Veuillez remplir ce champ
+                </p>
+            </div>
+        </div>
+
+        <h5 class="mt-4">Signalétique active </h5>
+        <div class="col-lg-3 form-group d-flex">
+            <label for="">Oui</label>
+            <input type="radio" name="active" [value]="true" class="form-check-input mx-2" [(ngModel)]="isActive"
+                formControlName="active" />
+            <label for="">Non</label>
+            <input type="radio" name="active" [value]="false" class="form-check-input mx-2" [(ngModel)]="isActive"
+                formControlName="active" />
+        </div>
+    </div>
+
+    <div class="form-group mt-5 col-lg-3 d-flex">
+        <button type="submit" class="btn second-btn form-control" *ngIf="isUpdate"
+            [disabled]="signaletiqueForm.invalid">
+            Modifier la signalétique
+        </button>
+        <button type="submit" class="btn second-btn form-control" *ngIf="!isUpdate" [disabled]="
+          signaletiqueForm.invalid
+          ">
+            Ajouter
+        </button>
+    </div>
+</form>

@@ -7,7 +7,7 @@ import { Signaletique } from '../models/Signaletique';
 @Injectable({
   providedIn: 'root',
 })
-export class SignaletiqueServiceService {
+export class SignaletiqueService {
   param_url: string;
   
   constructor(private http: HttpClient) {
