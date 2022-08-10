@@ -86,7 +86,7 @@ export class ListComponent implements OnInit {
       this.signaletiqueService
         .deleteSignaletique(this.signaletiqueIDToDelete, this.userMatricule)
         .subscribe(
-          (data) => {
+          () => {
             this.getSignaletiqueList();
             this.confirmationModalService.close();
             this.isDoneMessage = 'La signalétique est suprimée avec succée';
