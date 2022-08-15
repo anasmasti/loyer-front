@@ -36,7 +36,11 @@ export class FormComponent implements OnInit, OnChanges {
       raison_sociale: new FormControl('', Validators.required),
       if: new FormControl('', Validators.required),
       active: new FormControl(false),
-      rib: new FormControl('', Validators.required),
+      rib: new FormControl('', [
+        Validators.required,
+        Validators.pattern('[0-9]{24}'),
+        Validators.maxLength(24)
+      ]),
       adresse: new FormControl('', Validators.required),
     });
   }
@@ -61,7 +65,7 @@ export class FormComponent implements OnInit, OnChanges {
       raison_sociale: this.signaletique.raison_sociale,
       if: this.signaletique.if,
       rib: this.signaletique.rib,
-      adress: this.signaletique.adresse
+      adress: this.signaletique.adresse,
     });
 
     this.isActive = this.signaletique.active;

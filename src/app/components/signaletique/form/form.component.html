@@ -40,6 +40,9 @@
                 <p class="danger-txt" *ngIf="rib?.errors?.required">
                     Veuillez remplir ce champ
                 </p>
+                <p class="danger-txt" *ngIf="rib?.errors?.pattern">
+                    Vous devez entrer 24 caractères(chiffres)
+                </p>
             </div>
         </div>
         <div class="col-lg-12 form-group mt-2">
