@@ -3,7 +3,7 @@
     <div *ngIf="isDoneMessage" class="done-alert p-2 my-2">{{ isDoneMessage }}</div>
 </div>
 
-<form (ngSubmit)="addSignaletique()" [formGroup]="signaletiqueForm">
+<form (ngSubmit)="isUpdate ? updateSignaletique() : addSignaletique()" [formGroup]="signaletiqueForm">
     <div class="row mt-2">
         <div class="col-lg-4 form-group mt-2">
             <label for="">Raison sociale <span class="danger-txt">*</span></label>

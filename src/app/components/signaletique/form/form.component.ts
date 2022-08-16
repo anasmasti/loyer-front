@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HelperService } from '@services/helpers/helper.service';
+import { MainModalService } from '@services/main-modal/main-modal.service';
 import { SignaletiqueService } from '@services/signaletique.service';
 import { Signaletique } from 'src/app/models/Signaletique';
 
@@ -27,6 +28,7 @@ export class FormComponent implements OnInit, OnChanges {
 
   constructor(
     private signaletiqueService: SignaletiqueService,
+    private mainModalService: MainModalService,
     private help: HelperService
   ) {
     this.isDoneMessage = '';
@@ -39,7 +41,7 @@ export class FormComponent implements OnInit, OnChanges {
       rib: new FormControl('', [
         Validators.required,
         Validators.pattern('[0-9]{24}'),
-        Validators.maxLength(24)
+        Validators.maxLength(24),
       ]),
       adresse: new FormControl('', Validators.required),
     });
@@ -82,6 +84,33 @@ export class FormComponent implements OnInit, OnChanges {
           this.signaletiqueForm.reset();
           setTimeout(() => {
             this.isDoneMessage = '';
+          }, 3000);
+        },
+        ({ error }) => {
+          this.scrollToTop();
+          this.hasErrorMessage = error.message;
+          setTimeout(() => {
+            this.hasErrorMessage = '';
+          }, 3000);
+        }
+      );
+  }
+
+  updateSignaletique() {
+    let signaletique: Signaletique = this.signaletiqueForm.value;
+    this.signaletiqueService
+      .updateSignaletique(
+        signaletique,
+        this.signaletique._id,
+        this.userMatricule
+      )
+      .subscribe(
+        () => {
+          this.scrollToTop();
+          this.isDoneMessage = 'Signalétique modifiée avec succée';
+          setTimeout(() => {
+            this.isDoneMessage = '';
+            this.mainModalService.close();
           }, 3000);
         },
         ({ error }) => {
