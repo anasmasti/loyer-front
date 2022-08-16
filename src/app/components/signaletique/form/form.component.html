@@ -32,7 +32,7 @@
         </div>
         <div class="col-lg-4 form-group mt-2">
             <label for="">RIB <span class="danger-txt">*</span></label>
-            <input type="text" id="rib" class="form-control rounded-pill" formControlName="rib" [ngClass]="{
+            <input type="text" id="rib" maxlength="24" class="form-control rounded-pill" formControlName="rib" [ngClass]="{
             'is-invalid': checkInputsValidation(rib),
             'is-valid': !rib?.invalid
           }" [value]="signaletique&&signaletique.rib" />
