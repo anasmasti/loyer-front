@@ -84,7 +84,7 @@ export class FormComponent implements OnInit, OnChanges {
           this.signaletiqueForm.reset();
           setTimeout(() => {
             this.isDoneMessage = '';
-            this.help.refrechPage()
+            this.help.refrechPage();
           }, 3000);
         },
         ({ error }) => {
@@ -112,6 +112,7 @@ export class FormComponent implements OnInit, OnChanges {
           setTimeout(() => {
             this.isDoneMessage = '';
             this.mainModalService.close();
+            this.help.refrechPage();
           }, 3000);
         },
         ({ error }) => {
