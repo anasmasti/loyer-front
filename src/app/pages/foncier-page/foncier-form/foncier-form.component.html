@@ -347,7 +347,7 @@
           <!-- A Transferer & Annuler la Transformation buttons  -->
           <button *ngIf="currentLieu.etat_lieu !== 'En cours de transfert'" type="button" id="Transferer"
             class="btn second-btn form-control col-lg-3" (click)="openConfirmationModal('ATransfererModalId')">
-            Mettre l'entité en cours de transfert
+            Lancer le transfert
           </button>
           <button *ngIf="currentLieu.etat_lieu === 'En cours de transfert'" type="button" id="Transferer"
             class="btn second-btn form-control col-lg-3" (click)="openConfirmationModal('AnnulerTransféreModalId')">
