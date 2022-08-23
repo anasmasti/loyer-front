@@ -84,6 +84,7 @@ export class FormComponent implements OnInit, OnChanges {
           this.signaletiqueForm.reset();
           setTimeout(() => {
             this.isDoneMessage = '';
+            this.help.refrechPage()
           }, 3000);
         },
         ({ error }) => {
