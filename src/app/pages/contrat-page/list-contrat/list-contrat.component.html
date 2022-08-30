@@ -188,7 +188,7 @@
             'success-txt': contrat.statut_caution === 'En cours'
           }"
         >
-          {{ contrat.statut_caution }}
+          {{ contrat.statut_caution ?  contrat.statut_caution : '--' }}
         </td>
 
         <td
