@@ -37,6 +37,8 @@ export class ClotureComponent implements OnInit {
   // Get the next cloture date from the server and check if has data and throw the check function
   getNextClotureAndCheck() {
     this.help.getNextClotureDate().subscribe((date: dateClotureType) => {
+      console.log(date);
+
       this.dateCloture = date;
       if (this.dateCloture.annee && this.dateCloture.mois)
         this.hasNextCluture = true;
@@ -55,10 +57,9 @@ export class ClotureComponent implements OnInit {
       //   this.dateCloture.annee <= today.getFullYear() &&
       //   this.dateCloture.mois <= today.getMonth() + 1
       // ) {
-      today.setFullYear(this.dateCloture.annee);
-      today.setMonth(this.dateCloture.mois - 1);
-      this.today = today;
-
+      this.today = new Date(
+        `${this.dateCloture.annee}-${this.dateCloture.mois}-01`
+      );
       return [
         this.today,
         (this.isCloture = false),
