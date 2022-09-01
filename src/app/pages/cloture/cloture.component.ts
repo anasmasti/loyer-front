@@ -48,8 +48,6 @@ export class ClotureComponent implements OnInit {
 
   // Check the next cloture
   checkNextCloture() {
-    let today: Date = new Date();
-
     // Check if the next cloture's here
     if (this.hasNextCluture) {
       // Put this month is cloture and show cloture section if next cloture match with today
@@ -84,7 +82,7 @@ export class ClotureComponent implements OnInit {
       mois: this.dateCloture.mois,
       annee: this.dateCloture.annee,
     };
-
+    
     // Throw cloture function from cloture service
     this.clotureService.Cloture(date, this.userMatricule).subscribe(
       (data) => {
