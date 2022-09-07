@@ -85,7 +85,7 @@ export class FilesGenerationComponent implements OnInit {
           if (error.status == 402) {
             this.hasError = true;
             this.errorMssage =
-              'Aucun fichier a exporter sur cette date, merci de réessayer avec une autre date.';
+              'Aucun fichier à exporter sur cette date, merci de réessayer avec une autre date.';
             setTimeout(() => {
               this.hasError = false;
               this.errorMssage = '';
