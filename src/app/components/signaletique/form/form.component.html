@@ -3,11 +3,31 @@
     <div *ngIf="isDoneMessage" class="done-alert p-2 my-2">{{ isDoneMessage }}</div>
 </div>
 
+
+<div *ngIf="isUpdate && signaletique" class="d-flex gap-3 mt-4">
+    <div>
+        <h6 class="main-title">Raison sociale</h6>
+        <p>{{signaletique.raison_sociale}}</p>
+    </div>
+    <div>
+        <h6 class="main-title">IF</h6>
+        <p>{{signaletique.if}}</p>
+    </div>
+    <div>
+        <h6 class="main-title">Rib</h6>
+        <p>{{signaletique.rib}}</p>
+    </div>
+    <div>
+        <h6 class="main-title">Adresse</h6>
+        <p>{{signaletique.adresse}}</p>
+    </div>
+</div>
+
 <form (ngSubmit)="isUpdate ? updateSignaletique() : addSignaletique()" [formGroup]="signaletiqueForm">
     <div class="row mt-2">
-        <div class="col-lg-4 form-group mt-2">
+        <div *ngIf="!isUpdate" class="col-lg-4 form-group mt-2">
             <label for="">Raison sociale <span class="danger-txt">*</span></label>
-            <input [readonly]="isUpdate" type="text" id="raison_sociale" class="form-control rounded-pill" formControlName="raison_sociale"
+            <input type="text" id="raison_sociale" class="form-control rounded-pill" formControlName="raison_sociale"
                 [ngClass]="{
             'is-invalid': checkInputsValidation(raison_sociale),
             'is-valid': !raison_sociale?.invalid
@@ -18,9 +38,9 @@
                 </p>
             </div>
         </div>
-        <div class="col-lg-4 form-group mt-2">
+        <div *ngIf="!isUpdate" class="col-lg-4 form-group mt-2">
             <label for="">IF <span class="danger-txt">*</span></label>
-            <input [readonly]="isUpdate" type="text" id="if" class="form-control rounded-pill" formControlName="if" [ngClass]="{
+            <input type="text" id="if" class="form-control rounded-pill" formControlName="if" [ngClass]="{
             'is-invalid': checkInputsValidation(ifControl),
             'is-valid': !ifControl?.invalid
           }" [value]="signaletique&&signaletique.if" />
@@ -30,9 +50,10 @@
                 </p>
             </div>
         </div>
-        <div class="col-lg-4 form-group mt-2">
+        <div *ngIf="!isUpdate" class="col-lg-4 form-group mt-2">
             <label for="">RIB <span class="danger-txt">*</span></label>
-            <input [readonly]="isUpdate" type="text" id="rib" maxlength="24" class="form-control rounded-pill" formControlName="rib" [ngClass]="{
+            <input type="text" id="rib" maxlength="24" class="form-control rounded-pill" formControlName="rib"
+                [ngClass]="{
             'is-invalid': checkInputsValidation(rib),
             'is-valid': !rib?.invalid
           }" [value]="signaletique&&signaletique.rib" />
@@ -45,9 +66,9 @@
                 </p>
             </div>
         </div>
-        <div class="col-lg-12 form-group mt-2">
+        <div *ngIf="!isUpdate" class="col-lg-12 form-group mt-2">
             <label for="">Adresse <span class="danger-txt">*</span></label>
-            <textarea [readonly]="isUpdate" type="text" id="adresse" class="form-control" formControlName="adresse" [ngClass]="{
+            <textarea type="text" id="adresse" class="form-control" formControlName="adresse" [ngClass]="{
             'is-invalid': checkInputsValidation(adresse),
             'is-valid': !adresse?.invalid
           }" [value]="signaletique&&signaletique.adresse"></textarea>
@@ -69,7 +90,7 @@
         </div>
     </div>
 
-    <div class="form-group mt-5 col-lg-3 d-flex">
+    <div class="form-group mt-5 col-lg-4 d-flex">
         <button type="submit" class="btn second-btn form-control" *ngIf="isUpdate"
             [disabled]="checkInputsValidation(rib) || checkInputsValidation(ifControl)|| checkInputsValidation(adresse)|| checkInputsValidation(raison_sociale)">
             Modifier la signalétique

@@ -63,13 +63,6 @@ export class FormComponent implements OnInit, OnChanges {
   }
 
   fetchSignaletique() {
-    this.signaletiqueForm.patchValue({
-      raison_sociale: this.signaletique.raison_sociale,
-      if: this.signaletique.if,
-      rib: this.signaletique.rib,
-      adress: this.signaletique.adresse,
-    });
-
     this.isActive = this.signaletique.active;
   }
 
