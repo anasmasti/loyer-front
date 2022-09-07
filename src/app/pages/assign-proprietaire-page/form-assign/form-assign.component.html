@@ -4,12 +4,9 @@
 </div>
 
 <div id="form_section">
-  <form
-    [formGroup]="assignProprietaireForm"
-    (ngSubmit)="
+  <form [formGroup]="assignProprietaireForm" (ngSubmit)="
       isUpdate ? updateAssignmentProprietaire() : addAssignmentProprietaire()
-    "
-  >
+    ">
     <div class="w-100 d-flex justify-content-center">
       <div *ngIf="errors" class="error-alert p-2 my-2">{{ errors }}</div>
       <!-- Message de succés de serveur -->
@@ -22,29 +19,18 @@
     <div class="row">
       <div *ngIf="!isUpdate" class="col-lg-3 form-group mt-4">
         <label for="">Propriétaire <span class="danger-txt">*</span></label>
-        <a
-          class="short-link success-txt d-inline-flex"
-          [routerLink]="['/proprietaire/add']"
-          >&nbsp;&nbsp;+ Ajouter un proprietaire</a
-        >
+        <a class="short-link success-txt d-inline-flex" [routerLink]="['/proprietaire/add']">&nbsp;&nbsp;+ Ajouter un
+          proprietaire</a>
         <ng-container *ngIf="!proprietaires?.length">
           <p class="main-muted-text">Aucun proprietaire à sélectionner</p>
         </ng-container>
-        <select
-          id="proprietaire_select"
-          *ngIf="proprietaires?.length"
-          class="form-select rounded-pill"
-          formControlName="proprietaire"
-          (change)="checkPersonMoralOrPhysique()"
-          [ngClass]="{
+        <select id="proprietaire_select" *ngIf="proprietaires?.length" class="form-select rounded-pill"
+          formControlName="proprietaire" (change)="checkPersonMoralOrPhysique()" [ngClass]="{
             'is-invalid': checkInputsValidation(proprietaire)
-          }"
-        >
-          <option
-            *ngFor="let proprietaire of proprietaires"
-            [value]="proprietaire._id"
-          >
-            {{ proprietaire.cin || proprietaire.n_registre_commerce }} •
+          }">
+          <option *ngFor="let proprietaire of proprietaires" [value]="proprietaire._id">
+            {{ proprietaire.cin || proprietaire.n_registre_commerce || proprietaire.passport ||
+            proprietaire.carte_sejour}} •
             {{ proprietaire.nom_prenom || proprietaire.raison_social }}
           </option>
         </select>
@@ -59,31 +45,19 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Paiement spontané de TSR </label>
-        <select
-          class="form-select rounded-pill"
-          [(ngModel)]="hasDeclarationOption"
-          formControlName="declaration_option"
-          (change)="calculMontant(); calculMontantAvance(); calculCaution()"
-        >
+        <select class="form-select rounded-pill" [(ngModel)]="hasDeclarationOption" formControlName="declaration_option"
+          (change)="calculMontant(); calculMontantAvance(); calculCaution()">
           <option value="oui">Oui</option>
           <option value="non">Non</option>
         </select>
       </div>
 
       <div class="col-lg-3 form-group mt-4">
-        <label for=""
-          >Part du propriétaire <span class="danger-txt">*</span></label
-        >
-        <input
-          type="number"
-          min="0"
-          class="form-control rounded-pill"
-          formControlName="part_proprietaire"
-          (keyup)="calculMontant(); calculMontantAvance(); calculCaution()"
-          [ngClass]="{
+        <label for="">Part du propriétaire <span class="danger-txt">*</span></label>
+        <input type="number" min="0" class="form-control rounded-pill" formControlName="part_proprietaire"
+          (keyup)="calculMontant(); calculMontantAvance(); calculCaution()" [ngClass]="{
             'is-invalid': checkInputsValidation(part_proprietaire)
-          }"
-        />
+          }" />
         <!-- Error Message  -->
         <div class="" *ngIf="checkInputsValidation(part_proprietaire)">
           <p class="danger-txt" *ngIf="part_proprietaire?.errors?.required">
@@ -94,16 +68,9 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Montant de loyer</label>
-        <input
-          type="text"
-          class="form-control rounded-pill"
-          formControlName="montant_loyer"
-          [ngClass]="{
+        <input type="text" class="form-control rounded-pill" formControlName="montant_loyer" [ngClass]="{
             'is-invalid': checkInputsValidation(montant_loyer)
-          }"
-          [value]="montantLoyer | number: '1.2-2'"
-          readonly
-        />
+          }" [value]="montantLoyer | number: '1.2-2'" readonly />
         <!-- Error Message  -->
         <div class="" *ngIf="checkInputsValidation(montant_loyer)">
           <p class="danger-txt" *ngIf="montant_loyer?.errors?.pattern">
@@ -114,102 +81,52 @@
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Taux de l’impôt</label>
-        <input
-          type="text"
-          class="form-control rounded-pill"
-          formControlName="taux_impot"
-          [ngClass]="{
+        <input type="text" class="form-control rounded-pill" formControlName="taux_impot" [ngClass]="{
             'is-invalid': checkInputsValidation(taux_impot)
-          }"
-          [value]="(tauxImpot && tauxImpot) + '%'"
-          readonly
-        />
+          }" [value]="(tauxImpot && tauxImpot) + '%'" readonly />
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Retenue à la source</label>
-        <input
-          type="text"
-          class="form-control rounded-pill"
-          formControlName="retenue_source"
-          [ngClass]="{
+        <input type="text" class="form-control rounded-pill" formControlName="retenue_source" [ngClass]="{
             'is-invalid': checkInputsValidation(retenue_source)
-          }"
-          [value]="retenueSource | number: '1.2-2'"
-          readonly
-        />
+          }" [value]="retenueSource | number: '1.2-2'" readonly />
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Montant après impôt</label>
-        <input
-          type="text"
-          class="form-control rounded-pill"
-          formControlName="montant_apres_impot"
-          [ngClass]="{
+        <input type="text" class="form-control rounded-pill" formControlName="montant_apres_impot" [ngClass]="{
             'is-invalid': checkInputsValidation(montant_apres_impot)
-          }"
-          [value]="montantApresImpot | number: '1.2-2'"
-          readonly
-        />
+          }" [value]="montantApresImpot | number: '1.2-2'" readonly />
       </div>
 
       <!-- Montant Avance Taxe -->
       <div class="col-lg-3 form-group mt-4">
         <label for="">Montant d'avance</label>
-        <input
-          type="text"
-          class="form-control rounded-pill"
-          [value]="montantAvance | number: '1.2-2'"
-          formControlName="montant_avance_proprietaire"
-          readonly
-        />
+        <input type="text" class="form-control rounded-pill" [value]="montantAvance | number: '1.2-2'"
+          formControlName="montant_avance_proprietaire" readonly />
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Taxe d'avance propriétaire</label>
-        <input
-          type="text"
-          class="form-control rounded-pill"
-          [value]="taxAvance | number: '1.2-2'"
-          formControlName="tax_avance_proprietaire"
-          readonly
-        />
+        <input type="text" class="form-control rounded-pill" [value]="taxAvance | number: '1.2-2'"
+          formControlName="tax_avance_proprietaire" readonly />
       </div>
 
       <div class="col-lg-3 form-group mt-4">
         <label for="">Caution par propriétaire</label>
-        <input
-          type="text"
-          class="form-control rounded-pill"
-          [value]="montantCautionProprietaire | number: '1.2-2'"
-          formControlName="caution_par_proprietaire"
-          readonly
-        />
+        <input type="text" class="form-control rounded-pill" [value]="montantCautionProprietaire | number: '1.2-2'"
+          formControlName="caution_par_proprietaire" readonly />
       </div>
 
       <h4 class="mt-4">Mandataire</h4>
       <div class="col-lg-3 form-group d-flex">
         <label for="">Oui</label>
-        <input
-          type="radio"
-          name="is_mandataire"
-          [value]="true"
-          class="form-check-input mx-2"
-          [(ngModel)]="isMand"
-          formControlName="is_mandataire"
-          (click)="CheckMandataire(true)"
-        />
+        <input type="radio" name="is_mandataire" [value]="true" class="form-check-input mx-2" [(ngModel)]="isMand"
+          formControlName="is_mandataire" (click)="CheckMandataire(true)" />
         <label for="">Non</label>
-        <input
-          type="radio"
-          name="is_mandataire"
-          [value]="false"
-          class="form-check-input mx-2"
-          [(ngModel)]="isMand"
-          formControlName="is_mandataire"
-          (click)="CheckMandataire(false)"
-        />
+        <input type="radio" name="is_mandataire" [value]="false" class="form-check-input mx-2" [(ngModel)]="isMand"
+          formControlName="is_mandataire" (click)="CheckMandataire(false)" />
       </div>
       <!-- If isMand true show list of proprietaire to checked -->
       <div *ngIf="isMand && isUpdate; then coProprietaireUpdate"></div>
@@ -218,35 +135,21 @@
       <!-- Show the proprietaire list if the lengthProprietaire === 0 if not show an error message -->
       <ng-template #coProprietaireUpdate>
         <h6 class="mt-4">Propriétaires sélectionnés</h6>
-        <div
-          *ngIf="lengthProprietaire"
-          class="d-flex justify-content-start align-items-center flex-wrap gap-2"
-        >
+        <div *ngIf="lengthProprietaire" class="d-flex justify-content-start align-items-center flex-wrap gap-2">
           <div *ngFor="let prop of proprietaireList">
-            <input
-              type="checkbox"
-              [name]="prop?._id"
-              class="btn-check check"
-              [id]="prop?._id"
-              autocomplete="off"
-              [value]="prop?._id"
-              (click)="selectProp(prop)"
-              checked
-            />
-            <label
-              class="px-3 py-1 rounded-pill checkbox-list-btns"
-              [for]="prop?._id"
-            >
+            <input type="checkbox" [name]="prop?._id" class="btn-check check" [id]="prop?._id" autocomplete="off"
+              [value]="prop?._id" (click)="selectProp(prop)" checked />
+            <label class="px-3 py-1 rounded-pill checkbox-list-btns" [for]="prop?._id">
               {{
-                prop?.proprietaire.cin
-                  ? prop?.proprietaire.cin
-                  : prop?.proprietaire.n_registre_commerce
+              prop?.proprietaire.cin
+              ? prop?.proprietaire.cin
+              : prop?.proprietaire.n_registre_commerce
               }}
               •
               {{
-                prop?.proprietaire.nom_prenom
-                  ? prop?.proprietaire.nom_prenom
-                  : prop?.proprietaire.raison_social
+              prop?.proprietaire.nom_prenom
+              ? prop?.proprietaire.nom_prenom
+              : prop?.proprietaire.raison_social
               }}
             </label>
           </div>
@@ -258,34 +161,21 @@
         </div>
 
         <h6 class="mt-3">Propriétaires à sélectionner</h6>
-        <div
-          *ngIf="lengthProprietaire"
-          class="d-flex justify-content-start align-items-center flex-wrap gap-2"
-        >
+        <div *ngIf="lengthProprietaire" class="d-flex justify-content-start align-items-center flex-wrap gap-2">
           <div *ngFor="let proprietaire of proprietairesToSelect">
-            <input
-              type="checkbox"
-              [name]="proprietaire._id"
-              class="btn-check check"
-              [id]="proprietaire._id"
-              autocomplete="off"
-              [value]="proprietaire._id"
-              (click)="selectProp(proprietaire)"
-            />
-            <label
-              class="px-3 py-1 rounded-pill checkbox-list-btns"
-              [for]="proprietaire._id"
-            >
+            <input type="checkbox" [name]="proprietaire._id" class="btn-check check" [id]="proprietaire._id"
+              autocomplete="off" [value]="proprietaire._id" (click)="selectProp(proprietaire)" />
+            <label class="px-3 py-1 rounded-pill checkbox-list-btns" [for]="proprietaire._id">
               {{
-                proprietaire.proprietaire.cin
-                  ? proprietaire.proprietaire.cin
-                  : proprietaire.proprietaire.n_registre_commerce
+              proprietaire.proprietaire.cin
+              ? proprietaire.proprietaire.cin
+              : proprietaire.proprietaire.n_registre_commerce
               }}
               •
               {{
-                proprietaire.proprietaire.nom_prenom
-                  ? proprietaire.proprietaire.nom_prenom
-                  : proprietaire.proprietaire.raison_social
+              proprietaire.proprietaire.nom_prenom
+              ? proprietaire.proprietaire.nom_prenom
+              : proprietaire.proprietaire.raison_social
               }}
             </label>
           </div>
@@ -299,35 +189,22 @@
 
       <ng-template #coProprietaireAdd>
         <h6 class="mt-4">Propriétaires à sélectionner</h6>
-        <div
-          *ngIf="lengthProprietaire"
-          class="d-flex justify-content-start align-items-center gap-2"
-        >
+        <div *ngIf="lengthProprietaire" class="d-flex justify-content-start align-items-center gap-2">
           <div *ngFor="let proprietaire of proprietairesToSelect">
-            <input
-              type="checkbox"
-              [name]="proprietaire._id"
-              class="btn-check check"
-              [id]="proprietaire._id"
-              autocomplete="off"
-              [value]="proprietaire._id"
-              (click)="selectProp(proprietaire)"
-              formControlName="proprietaire_list"
-            />
-            <label
-              class="px-3 py-1 rounded-pill checkbox-list-btns"
-              [for]="proprietaire._id"
-            >
+            <input type="checkbox" [name]="proprietaire._id" class="btn-check check" [id]="proprietaire._id"
+              autocomplete="off" [value]="proprietaire._id" (click)="selectProp(proprietaire)"
+              formControlName="proprietaire_list" />
+            <label class="px-3 py-1 rounded-pill checkbox-list-btns" [for]="proprietaire._id">
               {{
-                proprietaire.proprietaire.cin
-                  ? proprietaire.proprietaire.cin
-                  : proprietaire.proprietaire.n_registre_commerce
+              proprietaire.proprietaire.cin
+              ? proprietaire.proprietaire.cin
+              : proprietaire.proprietaire.n_registre_commerce
               }}
               •
               {{
-                proprietaire.proprietaire.nom_prenom
-                  ? proprietaire.proprietaire.nom_prenom
-                  : proprietaire.proprietaire.raison_social
+              proprietaire.proprietaire.nom_prenom
+              ? proprietaire.proprietaire.nom_prenom
+              : proprietaire.proprietaire.raison_social
               }}
             </label>
           </div>
@@ -345,7 +222,7 @@
       </h3>
       <blockquote class="blockquote mt-2 text-dark">
         <p>Attention, vous avez dépassé le montant total du loyer !</p>
-        
+
       </blockquote>
       <!-- <figcaption  class="blockquote-footer">Il vous reste seulement {{ pourcentageProprietaire }}% du montant total du loyer.</figcaption> -->
       <div class="mt-3">
@@ -355,25 +232,14 @@
 
     <!-- Button Modifier & Ajouter -->
     <div class="form-group mt-5 col-lg-3 d-flex">
-      <button
-        type="submit"
-        class="btn second-btn form-control"
-        (click)="scrollToTop()"
-        *ngIf="isUpdate"
-        [disabled]="isBtnDisabled"
-      >
+      <button type="submit" class="btn second-btn form-control" (click)="scrollToTop()" *ngIf="isUpdate"
+        [disabled]="isBtnDisabled">
         <!-- [disabled]="proprietaireForm.invalid" -->
         Modifier l'affectation
       </button>
-      <button
-        type="submit"
-        class="btn second-btn form-control"
-        (click)="scrollToTop()"
-        *ngIf="!isUpdate"
-        [disabled]="
+      <button type="submit" class="btn second-btn form-control" (click)="scrollToTop()" *ngIf="!isUpdate" [disabled]="
           assignProprietaireForm.status === 'INVALID' || isBtnDisabled
-        "
-      >
+        ">
         Affecter
       </button>
     </div>
