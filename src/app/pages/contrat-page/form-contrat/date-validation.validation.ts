@@ -7,7 +7,8 @@ export function dateGTCurrentDateOfTreatment(
     let inputDate: string = `${new Date(control.value).getFullYear()}-${
       new Date(control.value).getMonth() + 1
     }-01`;
-    if (inputDate < dateOfTreatment) {
+    
+    if (new Date(inputDate) <= new Date(dateOfTreatment)) {
       return { hasIncorrectDate: true };
     } else {
       return null;
