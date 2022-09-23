@@ -8,7 +8,7 @@ export function dateGTCurrentDateOfTreatment(
       new Date(control.value).getMonth() + 1
     }-01`;
     
-    if (new Date(inputDate) <= new Date(dateOfTreatment)) {
+    if (new Date(inputDate) < new Date(dateOfTreatment)) {
       return { hasIncorrectDate: true };
     } else {
       return null;
