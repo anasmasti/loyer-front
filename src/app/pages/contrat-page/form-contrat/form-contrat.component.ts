@@ -801,7 +801,7 @@ export class FormContratComponent extends Motif implements OnInit, OnChanges {
       taux_impot: this.tauxImpot,
       retenue_source: this.retenueSource,
       montant_apres_impot: this.montantApresImpot,
-      montant_caution: this.contratForm.get('montant_caution')?.value || '',
+      montant_caution: this.contratForm.get('montant_caution')?.value || 0,
       duree_caution: this.dureeCaution,
       date_reprise_caution:
         this.contratForm.get('date_reprise_caution')?.value || '',
